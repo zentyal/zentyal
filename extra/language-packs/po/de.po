@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2014-12-06 23:30+0200\n"
-"Last-Translator: marcusm <mmueller98@me.com>\n"
+"PO-Revision-Date: 2015-02-21 14:10+0200\n"
+"Last-Translator: didi <d.weiss@web.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -2716,7 +2716,7 @@ msgid ""
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
 "Die Eingabe enthält ungültige Zeichen. Nur die ASCII-Buchstaben A-Z und a-z, "
-"die Ziffern 0-9, die Sonderzeichen \".?&+:\\@\" und Leerzeichen sind erlaubt."
+"die Ziffern 0-9, die Sonderzeichen .?&+:\\@ und Leerzeichen sind erlaubt."
 
 #: ../../main/ca/src/EBox/CA.pm:2470
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
@@ -2761,7 +2761,7 @@ msgid "Subject alternative type"
 msgstr "Subjekt Alternativetyp"
 
 #: ../../main/ca/src/EBox/CA.pm:2588
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
 msgstr ""
 "Ausschließlich {dns}, {ip} und {email} sind gültige alternative Namenstypen"
@@ -2774,13 +2774,12 @@ msgstr "Die OpenSSL Kommandozeile konnte nicht gestartet werden. ({errval})"
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:69
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:76
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:86
-#, fuzzy
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
 "Die Eingabe enthält ungültige Zeichen. Nur die Buchstaben A-Z und a-z, die "
-"Ziffern 0-9, die Sonderzeichen \".?&+:\\@\" und Leerzeichen sind erlaubt"
+"Ziffern 0-9, die Sonderzeichen .?&+:\\@ und Leerzeichen sind erlaubt"
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:75
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:478
@@ -2805,7 +2804,6 @@ msgid "Action"
 msgstr "Aktion"
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:86
-#, fuzzy
 msgid "Only revoke, renew and reissue actions are performed"
 msgstr "Nur die Aktionen \"Widerrufen\" und \"Erneuern\" werden durchgeführt"
 
@@ -2856,7 +2854,7 @@ msgstr "Das Zertifikat der Zertifizierungsstelle wurde erneuert"
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:136
 #, perl-brace-format
 msgid "Error creating archive file for  certificates: {err}"
-msgstr ""
+msgstr "Fehler beim Erzeugen der Archivdatei für Zertifikate: {err}"
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:67
 msgid "The certificate has NOT been revoked."
@@ -2895,6 +2893,8 @@ msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
+"Der alternative Name des Betreffs muss folgendem Muster entsprechen: "
+"Typ:Wert, Typ:Wert"
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:191
 msgid "The certificate has been issued."
@@ -7502,7 +7502,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices.pm:78
 msgid "Enterprise"
-msgstr "Enterprise"
+msgstr "Geschäftlich"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:79
 #: ../../main/core/src/EBox/RemoteServices.pm:1324
@@ -8220,9 +8220,8 @@ msgid "The ActiveSync gateway, standard protocol for several mobile devices."
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:105
-#, fuzzy
 msgid "The required packages are not installed."
-msgstr "Die folgenden Pakete werden installiert"
+msgstr "Die erforderlichen Pakete sind nicht installiert."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:110
 #, perl-brace-format
@@ -8232,10 +8231,13 @@ msgid ""
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:117
+#, fuzzy
 msgid ""
 "You need to enable HTTPS webmail at any mail virtual domain to activate "
 "ActiveSync option"
 msgstr ""
+"Sie müssen HTTPS Webmail für jede virtuelle E-Mail-Domäne einschalten, um "
+"die ActiveSync-Option zu aktivieren."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:72
 #, fuzzy
@@ -8257,19 +8259,16 @@ msgid "Domain user belonging to the Schema Admins group"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:102
-#, fuzzy
 msgid "Password of the administrator user"
-msgstr "Passwort ändern"
+msgstr "Passwort des admninistrativen Benutzers"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:114
-#, fuzzy
 msgid "Unconfigure"
-msgstr "Nicht konfigurieren"
+msgstr "Konfiguration entfernen"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:116
-#, fuzzy
 msgid "Database unconfigured"
-msgstr "Nicht konfigurieren"
+msgstr "Die Datenbank ist nicht konfiguriert."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:122
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:134
@@ -8277,9 +8276,8 @@ msgid "Setup"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:124
-#, fuzzy
 msgid "Database configured"
-msgstr "Nicht konfigurieren"
+msgstr "Die Datenbank ist konfiguriert."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:135
 msgid "OpenChange Server Provision"
@@ -8338,10 +8336,13 @@ msgid "Missing user and/or password for provision"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:380
+#, fuzzy
 msgid ""
 "The PDC server either has been already provisioned or has Exchange Server "
 "installed"
 msgstr ""
+"Der primäre Domaincontroller wurde bereits eingerichtet oder der Exchange "
+"Server wurde installiert."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:382
 #, fuzzy
@@ -8422,9 +8423,8 @@ msgid "To configure sogo daemon"
 msgstr "Um den clamd-Dienst zu konfigurieren"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:313
-#, fuzzy
 msgid "To configure sogo parameters"
-msgstr "Um postfix zu konfigurieren"
+msgstr "Um die Parameter von SoGo zu konfigurieren"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:318
 #, fuzzy
@@ -8628,7 +8628,7 @@ msgstr "Softwareverwaltungseinstellungen"
 #: ../../main/software/src/EBox/Software/CGI/Welcome.pm:29
 #: ../../main/software/src/templates/welcome.mas:7
 msgid "Initial Setup"
-msgstr ""
+msgstr "Ersteinrichtung"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:661
 msgid "Firewall failed to add rules for the following modules: "
@@ -8878,7 +8878,7 @@ msgstr "Network Address Translation (NAT)"
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:156
 #: ../../main/firewall/src/EBox/Firewall.pm:627
 msgid "SNAT"
-msgstr ""
+msgstr "SNAT"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:165
 msgid "SNAT rule"
@@ -9453,13 +9453,18 @@ msgid ""
 "The required domain '{d}' could not be found in the dns module.<br/>You can "
 "add it in the {ohref}DNS domains page{chref}"
 msgstr ""
+"The erforderliche Domäne '{d}' wurde im DNS-Modul nicht gefunden.<br/>Sie "
+"können sie auf der {ohref}Seite DNS Domänen{chref} hinzufügen."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:165
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/"
 ">You can add it in the {ohref}host names page for domain {d}{chref}."
 msgstr ""
+"Der erforderliche Host-Eintrag '{h}' wurde in der Domäne '{d}' nicht "
+"gefunden.<br/>Sie können sie auf der Seite {ohref}Hostnamen für die Domäne "
+"{d}{chref} hinzufügen."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:201
 #, perl-brace-format
@@ -9469,6 +9474,11 @@ msgid ""
 "this IP has to be assigned to the domain {dom} and to the hostname {host}."
 "<br/>You can add it in the {ohref}IP addresses page for {host}{chref}"
 msgstr ""
+"Samba kann nicht zur Verfügung gestellt werden, solange keine IP-Adressen "
+"für den Host {host} festgelegt wurden.<br/>Sichern Sie zuerst, dass der "
+"Schnittstelle eine IP-Adresse zugewiesen wurde und diese IP nicht der Domäne "
+"{dom} und dem Host {host} zugeweisen wurde.<br/>Sie können die IP auf der "
+"Seite {ohref}IP-Adressen für Host {host}{chref} hinzufügen."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:251
 #, perl-brace-format
@@ -9478,31 +9488,42 @@ msgid ""
 "this IP has to be assigned to the domain {dom} and to the local hostname.<br/"
 ">You can assign it in the {ohref}IP addresses page for {dom}{chref}"
 msgstr ""
+"Samba kann nicht zur Verfügung gestellt werden, solange keine IP-Adressen "
+"für die Domain {dom} festgelegt wurden.<br/>Sichern Sie zuerst, dass der "
+"Schnittstelle eine IP-Adresse zugewiesen wurde und diese IP nicht der Domäne "
+"{dom} und dem lokalen Host {host} zugeweisen wurde.<br/>Sie können die IP "
+"auf der Seite {ohref}IP-Adressen für Domäne {dom}{chref} hinzufügen."
 
+# Besseres deutsches Wort für Slave?
 #: ../../main/samba/src/EBox/Samba/Provision.pm:325
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "Cannot enable Samba because this server is synchronizing its users as slave "
 "of other Zentyal.<br/>You can change this state at {ohref}synchronization "
 "options{chref}"
 msgstr ""
+"Samba kann nicht aktiviert werden, da dieser Server seine Benutzer als Slave "
+"eines anderen Zentyal-Servers synchronisiert.<br/>Sie können das in den "
+"{ohref}Synchronisierungsoptionen{chref} ändern."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:396
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The mode {mode} is not supported"
-msgstr "Benutzer {u} existiert nicht"
+msgstr "Der Modus {mode} wird nicht unterstützt."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:448
 #: ../../main/samba/src/EBox/Samba/Provision.pm:472
 #: ../../main/samba/src/EBox/Samba/Provision.pm:501
 #, perl-brace-format
 msgid "Unexpected number of entries. Got {x}, expected 1."
-msgstr ""
+msgstr "Unerwartete Anzahl von Einträgen. Eingetragen: {x}, erwartet: 1."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:646
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr ""
+"Die Domände des angegebenen Active-Directory-Servers {x} kann nicht "
+"festgestellt werden."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:666
 #, perl-brace-format
@@ -9524,22 +9545,29 @@ msgid ""
 "Please, move the zones to the \"DomainDnsZones\" or \"ForestDnsZones\" and "
 "try again. Check {link} for help on how to do that."
 msgstr ""
+"Der Beitritt zur Domäne ist nicht möglich Die folgenden DNS-Zonen sind in "
+"der Haupt-Domänen-Partition {zones} gespeichert. Dies tritt normalerweise "
+"dann auf, wenn der Server Windows Server 2000 aktualisiert wurde und Samba4 "
+"nicht in der lage ist, diese Zonen zu lesen. Bitte verschieben Sie die Zonen "
+"in die \"DomainDnsZones\" oder \"ForestDnsZones\" und versuchen Sie es erneut. "
+"Klicken sie {link}, um Hilfe zu dieser Vorgehensweise zu erhalten."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:774
-#, fuzzy
 msgid "Could not retrieve the domain information."
-msgstr "Die Domäne muss ohne das \"www.\" Präfix eingegeben werden"
+msgstr "Der Abruf der Informationen zur Domäne ist nicht möglich."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:783
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr ""
+"die Active-Directory-Struktur beinhaltet mehr als eine Domäne Samba "
+"unterstützt nur eine Domäne je Struktur."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:803
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
-msgstr ""
+msgstr "Der angegebene Domänen-Controller {x} ist nicht erreichbar."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:822
 #, perl-brace-format
@@ -9550,6 +9578,8 @@ msgstr ""
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
+"Die lokale Domäne {x} muss mit der Domäne des Active-Directory-Servers {y} "
+"übereinstimmen."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:866
 #, perl-brace-format
@@ -9557,6 +9587,8 @@ msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr ""
+"Der Domänen-Controller {x} kann mit dieser IP nicht aufgelöst werde. Bitte "
+"prüfen Sie den angegebenen Servernamen und den DNS-Server."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:892
 #, perl-brace-format
@@ -9564,12 +9596,18 @@ msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr ""
+"Der angegebene Active-directory-Server ist im lokalen DNS als {x} "
+"registriert. Dies entspricht dem lokalen Hostnamen."
 
+# Funktionsstufe?
 #: ../../main/samba/src/EBox/Samba/Provision.pm:913
+#, fuzzy
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr ""
+"Die Funktionsstufe der Struktur muss \"Windows Server 2003\" oder höher "
+"lauten. Bitte erhöhen sie die Funktiosstufe."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:919
 msgid ""
@@ -9586,17 +9624,21 @@ msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
+"Das Schema der Domäne entspricht nicht der RFC 2307. Sie müssen auf die "
+"Version \"Windows Server 2003 R2\" oder höher aktualisiern."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:980
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
+"Die Domäne, der sie versuchen beizutreten, hat Vertrauensbeziehungen "
+"definiert. Dies wird von Samba gegenwärtig nicht unterstützt."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1013
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
-msgstr "Die Domäne muss ohne das \"www.\" Präfix eingegeben werden"
+msgstr "Die Abfrage der Zeit vom AD-Server {x} über NTP war nicht möglich."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1026
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:629
@@ -9607,9 +9649,9 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1065
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
-msgstr "Das Zertifikat {cn} gibt es nicht"
+msgstr "Die angegebene Seite {x} existiert auf dieser Domäne nicht."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1077
 msgid "Could not determine the site of the specified server"
@@ -9617,30 +9659,32 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1111
 msgid "Could not determine the netbios domain name."
-msgstr ""
+msgstr "Die Bestimmung des Netbios-Domänennamens ist nicht möglich."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1115
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr ""
+"Der NetBIOS-Name {x} konnte nicht gefunden werden. Bitte prüfen Sie den "
+"angegebenen Wert."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1469
 msgid "Error on group container LDAP entry creation:"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/User.pm:393
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "User name with {x} full name already exists in the same container"
-msgstr "Benutzername existiert bereits auf dem System"
+msgstr "Ein Benutzername mit {x} existiert bereits auf dem System."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:397
 msgid "There was an error modifying the RDN:"
-msgstr ""
+msgstr "Es trat ein Fehler bei der Änderung des RDN auf:"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:461
 msgid "Username already exists on the system"
-msgstr "Benutzername existiert bereits auf dem System"
+msgstr "Der Benutzername existiert bereits auf dem System"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:502
 #, perl-brace-format
@@ -9648,15 +9692,17 @@ msgid ""
 "Please note that the maximum number of users for your edition is {max} and "
 "you currently have {nUsers}"
 msgstr ""
+"Bitte beachten Sie, dass die maximale Anzahl an Benutzern Ihrer Edition "
+"{max} ist und Sie aktuell {nUsers} Benutzer haben."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:604
 msgid "Windows user names cannot be only spaces and dots."
 msgstr ""
+"Windows Benutzernamen dürfen nicht nur aus Leerzeichen und Punkten bestehen."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:610
-#, fuzzy
 msgid "Windows user names cannot contain the \"@\" character."
-msgstr "Der NetBIOS-Name darf nicht länger als 15 Zeichen sein"
+msgstr "Windows Benutzernamen dürfen kein \"@\" enthalten."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:621
 #, perl-brace-format
@@ -9687,6 +9733,8 @@ msgstr "Benutzerdefinierte Größenbeschränkung "
 #: ../../main/samba/src/EBox/Samba/User.pm:774
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
+"Die Angabe der benutzerdefinierten Größenbeschränkung muss eine Zahl sein. "
+"Um die Beschränkung aufzuheben, geben Sie 0 (Null) ein."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:874
 #, fuzzy
@@ -9698,7 +9746,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/User.pm:883
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
-msgstr ""
+msgstr "Der Maximalwert ist {max} MB"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:902
 #, perl-brace-format
@@ -9706,10 +9754,13 @@ msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
 "not support quota?"
 msgstr ""
+"Kann die benutzerdefinierte Größenbeschränkung für die uid {uid} auf "
+"{userQuota} nicht setzen. Möglicherweise unterstützt das Dateisystem keine "
+"Größenbeschränkungen?"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:1053
 msgid "Maximum number of system users reached"
-msgstr "Maximale Anzahl der Benutzer für dieses System ist erreicht"
+msgstr "Die maximale Anzahl der Benutzer für dieses System ist erreicht"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:1058
 #, fuzzy
@@ -9732,12 +9783,10 @@ msgstr ""
 "{max}"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:45
-#, fuzzy
 msgid "Script type"
-msgstr "Art der Grafik"
+msgstr "Art des Scrpts"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:51
-#, fuzzy
 msgid "Parameters"
 msgstr "Parameter"
 
@@ -9749,23 +9798,21 @@ msgid "File"
 msgstr "Datei"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:84
-#, fuzzy
 msgid "Scripts"
-msgstr "Abonnement"
+msgstr "Scripts"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:85
-#, fuzzy
 msgid "script"
-msgstr "Beschreibung"
+msgstr "Script"
 
+# Hier fehlt mir der Kontext!
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:101
 msgid "Batch"
-msgstr ""
+msgstr "Stapel"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:102
-#, fuzzy
 msgid "PowerShell"
-msgstr "Standardmässig sicher"
+msgstr "PowerShell"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:154
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:267
@@ -9782,9 +9829,8 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:281
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:272
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:134
-#, fuzzy
 msgid "The domain has not been created yet."
-msgstr "Das Zertifikat wurde erneuert"
+msgstr "Die Domäne wurde noch nicht erzeugt."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:161
 msgid ""
@@ -9817,7 +9863,6 @@ msgid "Share path"
 msgstr "Freigabepfad"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:104
-#, fuzzy
 msgid "Directory under Zentyal"
 msgstr "Verzeichnis in Zentyal"
 
@@ -9836,11 +9881,13 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:129
 msgid "ACL changes replace all permissions on subfolders of this share."
 msgstr ""
+"Die Änderungen der ACLs entfenen alle Berechtigungen in den Unterordnern "
+"dieser Freigabe."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:145
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:221
 msgid "Shares"
-msgstr "Freigabe"
+msgstr "Freigaben"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:152
 #: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:121
@@ -9850,16 +9897,16 @@ msgstr "Freigabe"
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:271
 #, perl-brace-format
 msgid "Zentyal could not access to directory '{x}': {y}"
-msgstr ""
+msgstr "Zentyal kann auf das Verzeichnis '{x}': {y} nicht zugreifen"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:286
 msgid "Samba share absolute path"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:289
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Path {p} is not a directory"
-msgstr "Datei existiert bereits und ist kein Verzeichnis"
+msgstr "Der Pfad {p} ist kein Verzeichnis"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:296
 msgid "Samba share directory"
@@ -9878,16 +9925,16 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:456
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
 "directory in {sharesPath} {br}{openit}File system path{closeit} will allow "
 "you to share an existing directory within your file system"
 msgstr ""
 "{openit}Verzeichnis in Zentyal{closeit} wird automatisch das Freigabe-"
-"Verzeichnis in /home/samba/shares erstellen{br}{openit}"
-"Dateisystempfad{closeit} erlaubt Ihnen ein bestehendes Verzeichnis in Ihrem "
-"Dateisystem freizugeben."
+"Verzeichnis in {sharesPath} erstellen{br}{openit}Dateisystempfad{closeit} "
+"erlaubt Ihnen ein bereits bestehendes Verzeichnis in Ihrem Dateisystem "
+"freizugeben."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:470
 #, fuzzy
@@ -9908,7 +9955,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:519
 #, perl-brace-format
 msgid "Filesystem format '{x}' does not support storing ACLs."
-msgstr ""
+msgstr "Das Dateisystem-Format '{x}' unterstützt keine ACLs."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:532
 #, perl-brace-format
@@ -9962,9 +10009,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:180
-#, fuzzy
 msgid "Disabled Users"
-msgstr "deaktiviert"
+msgstr "Deaktivierte Benutzer"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:182
 #, fuzzy
@@ -9977,18 +10023,16 @@ msgid "Distribution Groups"
 msgstr "Gruppen-Liste"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:185
-#, fuzzy
 msgid "Computers"
-msgstr "Fertiggestellt"
+msgstr "Computer"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:222
-#, fuzzy
 msgid ""
 "You need to enable Domain Controller and File Sharing module in the module "
 "status section and save changes in order to use it."
 msgstr ""
-"Sie müssen das Modul Benutzer im Bereich Modul Status aktivieren um es "
-"benutzen zu können."
+"Sie müssen das Modul \"Domain Controller und Dateifreigaben\" im Modulstatus-"
+"Bereich aktivieren und die Änderungen speichern, um es benutzen zu können."
 
 # I think this doesn't make sense to translate
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:54
@@ -9997,9 +10041,8 @@ msgstr "Slave"
 
 # I think this doesn't make sense to translate
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:67
-#, fuzzy
 msgid "Slaves"
-msgstr "Slave"
+msgstr "Slaves"
 
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:71
 msgid "List of slave servers for users and groups synchronization."
@@ -10138,9 +10181,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:143
-#, fuzzy
 msgid "Server mode"
-msgstr "Servername"
+msgstr "Servermodus"
 
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:149
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:249
@@ -10170,9 +10212,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:191
-#, fuzzy
 msgid "Zentyal Users"
-msgstr "Zentyal Benutzer Modus"
+msgstr "Zentyal Benutzer"
 
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:274
 #: ../../main/samba/src/templates/wizard/users.mas:19
@@ -10190,11 +10231,11 @@ msgstr "Pfad"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:40
 msgid "Logon Scripts"
-msgstr ""
+msgstr "Anmelde-Scripts"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:41
 msgid "logon script"
-msgstr ""
+msgstr "Anmelde-Scripts"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:175
 #, perl-brace-format
@@ -10267,16 +10308,14 @@ msgid "Mb"
 msgstr "MB"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:72
-#, fuzzy
 msgid "Default account settings"
-msgstr "Einstellungen des E-Mail Konto"
+msgstr "Standard-Kontoeinstellungen"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:77
-#, fuzzy
 msgid "On this page you can configure the default settings for user accounts"
 msgstr ""
-"Auf dieser Seite werden verschiedene allgemeine Einstellungen für Samba "
-"festelegt"
+"Auf dieser Seite können Sie die Standardeinstellungen der Benutzerkonten "
+"festlegen"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:94
 msgid "Setting default quota to zero is equivalent to disable it"
@@ -10284,21 +10323,21 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:39
 msgid "Logoff Scripts"
-msgstr ""
+msgstr "Abmelde-Scripts"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:40
 msgid "logoff script"
-msgstr ""
+msgstr "Abmelde-Scripts"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:174
 #, perl-brace-format
 msgid "Logoff script {x} added"
-msgstr ""
+msgstr "Das Abmelde-Script {x} wurde hinzugefügt."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:216
 #, perl-brace-format
 msgid "Logoff script {x} removed"
-msgstr ""
+msgstr "Das Abmelde-Script {x} wurde entfernt."
 
 #: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:48
 #, fuzzy
@@ -10311,11 +10350,11 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:39
 msgid "Startup Scripts"
-msgstr ""
+msgstr "Start-Scripte"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:40
 msgid "startup script"
-msgstr ""
+msgstr "Start-Script"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:174
 #, perl-brace-format
@@ -10325,7 +10364,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:216
 #, perl-brace-format
 msgid "Startup script {x} removed"
-msgstr ""
+msgstr "Das Start-Script {x} wurde entfernt"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:60
 msgid "GPO Editor"
@@ -10367,19 +10406,19 @@ msgid "This is a system critical object and cannot be removed."
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:188
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {gpo} removed"
-msgstr "OU {ou} gelöscht"
+msgstr "Gruppenrichtlinienobjekt {gpo} entfernt"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:198
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {dn} not found"
-msgstr "Die Seite wurde nicht gefunden"
+msgstr "Gruppenrichtlinienobjekt {dn} nicht gefunden"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:217
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {gpo} updated"
-msgstr "{row} aktualisiert"
+msgstr "Gruppenrichtlinienobjekt {gpo} aktualisiert"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:50
 #, fuzzy
@@ -10388,12 +10427,11 @@ msgstr "Aktiviere Papierkorb"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:58
 msgid "Recycle Bin default settings"
-msgstr "Allgemeine Einstellungen für Papierkorb"
+msgstr "Standardeinstellungen für Papierkorb"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:84
-#, fuzzy
 msgid "All domain users"
-msgstr "Benutzer hinzufügen"
+msgstr "Alle Domänen-Benutzer"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:101
 msgid "Read only"
@@ -10468,7 +10506,7 @@ msgstr "Master Host"
 
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:116
 msgid "Master port for Zentyal Administration (default: 443)"
-msgstr ""
+msgstr "Master Port für die Zentyal-Administration (Standard: 443)"
 
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:120
 #, fuzzy
@@ -10539,9 +10577,8 @@ msgid "Source MSI package path"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:61
-#, fuzzy
 msgid "Software Installation"
-msgstr "Installation"
+msgstr "Softwareinstallation"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:64
 #, fuzzy
@@ -10549,25 +10586,26 @@ msgid "software package"
 msgstr "Softwareaktualisierungen aufgrund des QA (Quality Assurance) Prozesses"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:137
-#, fuzzy
 msgid "No shares"
-msgstr "Freigabe"
+msgstr "keine Freigaben"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:82
 msgid "NetBIOS computer name and NetBIOS domain name must be different"
 msgstr ""
+"Der NetBIOS-Name des Computers muss verschieden zum NetBIOS-Namen der Domäne "
+"sein"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:93
 msgid "NetBIOS name field is empty"
-msgstr ""
+msgstr "Das Feld NetBIOS-Name ist leer"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:96
 msgid "NetBIOS name is too long"
-msgstr ""
+msgstr "Der NetBIOS-Name ist zu lang"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:99
 msgid "NetBIOS names cannot contain dots"
-msgstr ""
+msgstr "NetBIOS-Namen dürfen keine Punkte enthalten"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:108
 msgid "Description string is empty"
@@ -10578,9 +10616,8 @@ msgid "Description string is too long"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:123
-#, fuzzy
 msgid "Server Role"
-msgstr "Port des Servers"
+msgstr "Server-Rolle"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:129
 msgid "Realm"
@@ -10591,9 +10628,8 @@ msgid "Site"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:177
-#, fuzzy
 msgid "Server description"
-msgstr "Server Abonnement"
+msgstr "Server-Beschreibung"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:183
 msgid "Enable roaming profiles"
@@ -10622,6 +10658,8 @@ msgid ""
 "Joining a domain will delete all your users and groups from Zentyal and "
 "import the domain ones."
 msgstr ""
+"Der Beitritt zum Domäne löscht alle Ihre Benutzer und Gruppen aus Zentyal "
+"und importiert die Benutzer und Gruppen aus der Domäne."
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:272
 #, fuzzy
@@ -10636,15 +10674,8 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:273
 #: ../../main/samba/src/templates/wizard/users.mas:22
-#, fuzzy
 msgid "Additional domain controller"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Name der Domäne\n"
-"#-#-#-#-#  de.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Domänenname\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Name der Domäne"
+msgstr "zusätzlicher Domänen-Controller"
 
 #: ../../main/samba/src/EBox/Samba/GPO.pm:280
 #, perl-brace-format
@@ -10753,6 +10784,7 @@ msgstr ""
 #, perl-brace-format
 msgid "The server domain '{x}' does not match DC domain '{y}'."
 msgstr ""
+"Die Server-Domäne '{x}' stimmt nicht mit der Domäne des DC '{y}' überein."
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:456
 #, perl-brace-format
@@ -10818,7 +10850,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:306
 msgid "Error on LDAP entry update:"
-msgstr ""
+msgstr "Fehler beim aktualisieren des LDAP-Eintrags:"
 
 #: ../../main/samba/src/EBox/UsersSync/Master.pm:84
 #, perl-brace-format
@@ -10840,13 +10872,14 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/UsersSync/Master.pm:235
-#, fuzzy
 msgid "Invalid password"
-msgstr "Passwort bestätigen"
+msgstr "Ungültiges Passwort"
 
 #: ../../main/samba/src/EBox/UsersSync/Master.pm:238
 msgid "Connection failed, check host, port and firewall settings"
 msgstr ""
+"Verbindung fehlgeschlagen, prüfen Sie Host (Rechner), Port und Firewall-"
+"Einstellungen"
 
 #: ../../main/samba/src/EBox/UsersSync/Master.pm:240
 msgid "Couldn't configure Zentyal as slave"
@@ -10855,7 +10888,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba.pm:181
 #, fuzzy
 msgid "Domain Controller and File Sharing"
-msgstr "Dateifreigabe-Protokoll (Samba)"
+msgstr "Domain-Controller und Dateifreigaben"
 
 #: ../../main/samba/src/EBox/Samba.pm:313
 #, fuzzy
@@ -10964,16 +10997,19 @@ msgstr ""
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr ""
+"Es wurden {count} Ergebnisse für den Benutzer '{uid}' gefunden, erwartet "
+"wurde nur eines."
 
 #: ../../main/samba/src/EBox/Samba.pm:1935
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
+"Es wurden {count} Ergebnisse für die Gruppe '{name}' gefunden, erwartet "
+"wurde nur eines."
 
 #: ../../main/samba/src/EBox/Samba.pm:2354
-#, fuzzy
 msgid "Manage"
-msgstr "Nur Lesen"
+msgstr "Verwalten"
 
 #: ../../main/samba/src/EBox/Samba.pm:2363
 msgid "Synchronization"
@@ -10990,6 +11026,8 @@ msgid ""
 "Cannot restore users module because is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
 msgstr ""
+"Das Modul \"Benutzer\" konnte nicht wiederhergestellt werden, da es zurzeit im "
+"Modus {mode} läuft und die Sicherung im Modus {bpMode} erfolgte"
 
 #: ../../main/samba/src/EBox/Samba.pm:2699
 #, perl-brace-format
@@ -10997,6 +11035,9 @@ msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
+"Um dieses Backup wiederherzustellen sollte der Hostname zuerst auf {hn} "
+"eingestellt werden. Ansonsten können die Samba-Daten nicht wiederhergestellt "
+"werden."
 
 #: ../../main/samba/src/EBox/Samba.pm:2715
 #, perl-brace-format
@@ -11004,6 +11045,9 @@ msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
+"Wiederherstellung nicht möglich, da der LDAP-Benutzer {user} bereits als "
+"Benutzer in /etc/passwd existiert. Löschen Sie diesen oder benennen Sie ihn "
+"um und versuchen Sie es erneut"
 
 #: ../../main/samba/src/EBox/Samba.pm:2732
 #, perl-brace-format
@@ -11024,6 +11068,8 @@ msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
+"Hostname und Domäne können nicht geändet werden, wenn Zentyal als "
+"zusätzlicher Domänen-Controller konfiguriert wurde."
 
 #: ../../main/samba/src/EBox/Samba.pm:3129
 #, fuzzy
@@ -11031,9 +11077,9 @@ msgid "Users data and Filesystem shares"
 msgstr "Dateisystem-Auslastung"
 
 #: ../../main/samba/src/EBox/Samba.pm:3272
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
-msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
+msgstr "Die Adresse {addr} wird bereits von {type} {name} verwendet"
 
 #: ../../main/samba/src/EBox/Samba.pm:3882
 #: ../../main/samba/src/EBox/Samba.pm:3902
@@ -11047,7 +11093,7 @@ msgstr "Verbinden"
 
 #: ../../main/samba/src/EBox/Samba.pm:3890
 msgid "Access to directory"
-msgstr "Zugriff zu Verzeichnis"
+msgstr "Zugriff auf das Verzeichnis"
 
 #: ../../main/samba/src/EBox/Samba.pm:3891
 msgid "Read file"
@@ -11064,19 +11110,8 @@ msgstr "Trennung"
 #: ../../main/samba/src/EBox/Samba.pm:3894
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
-#, fuzzy
 msgid "Remove"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Entfernen\n"
-"#-#-#-#-#  de.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Entfernen\n"
-"#-#-#-#-#  de.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Löschen\n"
-"#-#-#-#-#  de.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Entfernen\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Löschen"
+msgstr "Entfernen"
 
 #: ../../main/samba/src/EBox/Samba.pm:3895
 msgid "Create directory"
@@ -11170,23 +11205,23 @@ msgstr "Inhaltsfilter Liste für ausgenommene Seiten"
 
 #: ../../main/squid/src/EBox/Squid.pm:226
 msgid "Content filter grey site list"
-msgstr "Inhaltsfilter Liste für graue Seiten"
+msgstr "Graue Liste (Greylist) des Inhaltsfilters"
 
 #: ../../main/squid/src/EBox/Squid.pm:231
 msgid "Content filter banned site list"
-msgstr "Inhaltsfilter Liste für verbannte Seiten"
+msgstr "Liste der gebannte Seiten im Inhaltsfilter"
 
 #: ../../main/squid/src/EBox/Squid.pm:236
 msgid "Content filter exception URL list"
-msgstr "Inhaltsfilter Liste für ausgenommen URLs"
+msgstr "Liste der ausgenommen URLs im Inhaltsfilter"
 
 #: ../../main/squid/src/EBox/Squid.pm:241
 msgid "Content filter grey URL list"
-msgstr "Inhaltsfilter Liste für graue URLs"
+msgstr "Graue Liste (Greylist) von URLs im Inhaltsfilter"
 
 #: ../../main/squid/src/EBox/Squid.pm:246
 msgid "Content filter banned URL list"
-msgstr "Inhaltsfilter Liste für verbannte URLs"
+msgstr "Liste der gebannte URLs im Inhaltsfilter"
 
 #: ../../main/squid/src/EBox/Squid.pm:251
 msgid "Forbidden phrases list"
@@ -11222,7 +11257,7 @@ msgstr "Setzen des Pfades zur Kerberos keytab Datei"
 
 #: ../../main/squid/src/EBox/Squid.pm:291
 msgid "Extract the service principal key"
-msgstr ""
+msgstr "Entpacken des service principal keys (SPN)"
 
 #: ../../main/squid/src/EBox/Squid.pm:304
 msgid "Overwrite blocked page templates"
@@ -11249,6 +11284,8 @@ msgid ""
 "To enable the HTTP proxy module, you need to have a least one external "
 "network interface"
 msgstr ""
+"Um das Modul \"HTTP-Proxy\" zu aktivieren, benötigen Sie mindestens eine "
+"externe Netzwerk-Schnittstelle"
 
 #: ../../main/squid/src/EBox/Squid.pm:342
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
@@ -11268,6 +11305,9 @@ msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
 "Editions{ch} for automatic security updates."
 msgstr ""
+"Dies ist eine Community Edition. Um automatische Sicherheitsupdates zu "
+"erhalten, müssen Sie eine der vollständig unterstützen {oh}Commercial "
+"Editions{ch} erwerben."
 
 #: ../../main/squid/src/EBox/Squid.pm:1087
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:85
@@ -11325,11 +11365,13 @@ msgid ""
 "Commercial Editions{ch} that will keep your Content Filtering rules always "
 "up-to-date."
 msgstr ""
+"Wollen Sie Bedrohungen, wie Malware, Phishing und Bots vermeiden? Erwerben "
+"Sie eine der {oh}Commercial Editions{ch}. Diese halten Ihre Content-Filter-"
+"Regeln stets aktuell."
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
-#, fuzzy
 msgid "Supplied file is not an archive file"
-msgstr "Nicht vorhandende Archiv-Datei"
+msgstr "Die gelieferte Datei ist keine Archiv-Datei"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:78
 msgid "Supplied archive file has not correct list structure"
