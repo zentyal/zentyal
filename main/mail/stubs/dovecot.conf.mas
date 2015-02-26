@@ -154,15 +154,6 @@ namespace inbox {
     subscriptions = yes
 }
 
-namespace {
-    type = shared
-    separator = /
-    prefix = shared/%%u/
-    location = maildir:/var/vmail/%%d/%%n/Maildir:INDEXPVT=~/Maildir/shared/%%u
-    subscriptions = yes
-    list = children
-}
-
 ##
 ## Mail processes
 ##
@@ -228,7 +219,7 @@ protocol lda {
 % if ($openchangePlugin->{enabled}) {
 %   $ldaPlugins = "notify openchange " . $ldaPlugins;
 % }
-  mail_plugins = <% $ldaPlugins %> acl
+  mail_plugins = <% $ldaPlugins %>
 }
 
 ##
@@ -295,18 +286,9 @@ service imap {
 }
 
 protocol imap {
-  mail_plugins = <% "@imapPlugins" %> acl imap_acl
+  mail_plugins = <% "@imapPlugins" %>
   mail_max_userip_connections = 20
 }
-
-plugin {
-    acl = vfile
-}
-
-plugin {
-    acl_shared_dict = file:/var/vmail/%d/shared-mailboxes.db
-}
-
 </%def>
 
 
