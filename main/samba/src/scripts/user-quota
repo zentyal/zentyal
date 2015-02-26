@@ -30,8 +30,9 @@
 # uidNumber: user uidNumber
 # quota: quota size in KB
 use Quota;
-
-sub currentQuota
+use EBox::Config;
+use constant SAMBA_CONF_FILE => EBox::Config::etc() . 'samba.conf';
+use constant SAMBA_MOUNTPOINTS => 'quota_mountpoints ';
 {
     my ($uidNumber) = @_;
 
@@ -46,13 +47,23 @@ sub currentQuota
 sub setCurrentQuota
 {
     my ($uidNumber, $quota) = @_;
-
-    my $ok = Quota::setqlim(Quota::getqcarg('/home'),
-                   $uidNumber, $quota, $quota, 0, 0);
+    my $extra_fs_string = EBox::Config::configkeyFromFile(SAMBA_MOUNTPOINTS,SAMBA_CONF_FILE);
+    my @extra_fs= split(/,/,$extra_fs_string);
+    my $ok = Quota::setqlim(Quota::getqcarg('/home'), $uidNumber, $quota, $quota, 0, 0);
+   
     if (not defined $ok) {
         my $err = Quota::strerr();
         die $err;
     }
+    if (@extra_fs) {
+        foreach my $fs (@extra_fs) {
+            my $ok = Quota::setqlim(Quota::getqcarg($fs), $uidNumber, $quota, $quota, 0, 0);
+            if (not defined $ok) {
+                my $err = Quota::strerr();
+                die $err;
+            }
+        }
+    }    
 }
 
 sub usage
