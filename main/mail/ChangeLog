@@ -1,4 +1,5 @@
 HEAD
+	+ Revert acls changes in dovecot
 	+ Enable LDAP mailquota (contribution by googley)
 4.0.3
 	+ Change separator in dovecot to make work shared folders in SOGo
