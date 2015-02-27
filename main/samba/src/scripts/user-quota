@@ -33,6 +33,8 @@ use Quota;
 use EBox::Config;
 use constant SAMBA_CONF_FILE => EBox::Config::etc() . 'samba.conf';
 use constant SAMBA_MOUNTPOINTS => 'quota_mountpoints';
+
+sub currentQuota
 {
     my ($uidNumber) = @_;
 
