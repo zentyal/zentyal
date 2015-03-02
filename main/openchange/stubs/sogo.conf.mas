@@ -89,6 +89,7 @@
             bindDN = "<% $sambaBindDN %>";
             bindPassword = "<% $sambaBindPwd %>";
             bindFields = (sAMAccountName, mail);
+            filter = "(mail='*')";
         },
         {
             id = sambaShared;
