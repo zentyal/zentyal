@@ -1,3 +1,7 @@
+HEAD
+	+ Removed support for SSLv2 & SSLv3. Using recommended ciphers from:
+	  https://wiki.mozilla.org/Security/Server_Side_TLS
+	  (contribution by theodorerambert)
 4.0.6
 	+ Fix remoteservices username/email migration when upgrading from 3.2
 4.0.5
