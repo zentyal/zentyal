@@ -1,4 +1,5 @@
 HEAD
+	+ Fix Stop/Start module without FirewallHelper
 	+ Better way to set MySQL password for all the root accounts
 	+ Use sharedscripts in zentyal-core logrotate to avoid triggering
 	  in every log file
