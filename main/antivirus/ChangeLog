@@ -1,3 +1,5 @@
+HEAD
+	+ Fix start of clamd that could take up to one hour to start working
 4.0.1
 	+ Force samba conf rewrite and restart in purge-module if AV is enabled
 4.0
