@@ -960,7 +960,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1479
 #: ../../main/printers/src/EBox/Printers.pm:396
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:62
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:417
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:432
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:476
 #: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
@@ -982,7 +982,7 @@ msgstr "Дата"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1480
 #: ../../main/printers/src/EBox/Printers.pm:397
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:419
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:434
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:479
 #: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:981
 #: ../../main/core/src/EBox/AuditLogging.pm:116
@@ -2897,8 +2897,8 @@ msgstr "Обновления на антивирусната база данни
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:73
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:77
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:383
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:388
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:398
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:403
 #: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:59
 msgid "Antivirus"
 msgstr "Антивирусна система"
@@ -2962,7 +2962,7 @@ msgstr ""
 msgid "Disable {app} profile for {bin} binary"
 msgstr ""
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:418
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:433
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:94
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:297
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
@@ -2980,16 +2980,16 @@ msgstr ""
 "#-#-#-#-#  bg.po (ebox 0.12)  #-#-#-#-#\n"
 "Услуга"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:423
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:438
 msgid "Success"
 msgstr ""
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:423
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:438
 #, fuzzy
 msgid "Failure"
 msgstr "неуспех"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:426
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:441
 #, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Антивирусна система"

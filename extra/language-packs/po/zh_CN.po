@@ -951,7 +951,7 @@ msgstr "OpenVPN 守护进程"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1479
 #: ../../main/printers/src/EBox/Printers.pm:396
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:62
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:417
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:432
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:476
 #: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
@@ -973,7 +973,7 @@ msgstr "日期"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1480
 #: ../../main/printers/src/EBox/Printers.pm:397
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:419
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:434
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:479
 #: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:981
 #: ../../main/core/src/EBox/AuditLogging.pm:116
@@ -2806,8 +2806,8 @@ msgstr "数据库更新状态"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:73
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:77
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:383
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:388
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:398
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:403
 #: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:59
 msgid "Antivirus"
 msgstr "防病毒"
@@ -2869,7 +2869,7 @@ msgstr "为二进制 {bin} 定制 {app} 配置文件"
 msgid "Disable {app} profile for {bin} binary"
 msgstr "禁用二进制 {bin} 的 {app} 配置文件"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:418
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:433
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:94
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:297
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
@@ -2880,15 +2880,15 @@ msgstr "禁用二进制 {bin} 的 {app} 配置文件"
 msgid "Source"
 msgstr "源"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:423
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:438
 msgid "Success"
 msgstr "成功"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:423
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:438
 msgid "Failure"
 msgstr "失败"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:426
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:441
 msgid "Antivirus DB updates"
 msgstr "防病毒数据库更新"
 
