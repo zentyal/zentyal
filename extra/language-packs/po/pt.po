@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-11-30 21:57+0200\n"
-"Last-Translator: APNS <ns.sp.br@gmail.com>\n"
+"PO-Revision-Date: 2015-02-25 18:37+0200\n"
+"Last-Translator: AbelTavares <axon18@hotmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -4840,7 +4840,7 @@ msgstr "DNS dinâmico"
 
 #: ../../main/network/src/EBox/Network.pm:4557
 msgid "Tools"
-msgstr ""
+msgstr "Ferramentas"
 
 #: ../../main/objects/src/EBox/Objects.pm:39
 #: ../../main/objects/src/EBox/Objects/Model/ObjectTable.pm:85
@@ -4848,9 +4848,8 @@ msgid "Objects"
 msgstr "Objectos"
 
 #: ../../main/objects/src/EBox/Objects.pm:118
-#, fuzzy
 msgid "network object"
-msgstr "Objecto de rede"
+msgstr "objeto de rede"
 
 #: ../../main/objects/src/EBox/Objects.pm:178
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:156
@@ -4905,6 +4904,9 @@ msgid ""
 "the first and last addresses of a range that will also include all the IP "
 "addresses between them."
 msgstr ""
+"Para os endereços IP poderá utilizar a notação CIDR (endereço/máscara de "
+"rede) ou especificar o primeiro e último endereço do conjunto incluído todos "
+"os endereços de IP entre eles."
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:99
 msgid "member"
@@ -4912,16 +4914,15 @@ msgstr "membro"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:125
 msgid "Only network addresses can end with a zero"
-msgstr ""
+msgstr "Apenas endereços de rede podem terminar com zero"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:130
 msgid "You can only use MAC addresses with hosts"
 msgstr "Só pode usar endereços MAC com hospedeiros"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:138
-#, fuzzy
 msgid "You cannot use MAC addresses with IP ranges"
-msgstr "Só pode usar endereços MAC com hospedeiros"
+msgstr "Não pode usar MAC adresses com conjuntos de IP"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:147
 #, perl-brace-format
@@ -4959,7 +4960,6 @@ msgid "Interface Rates"
 msgstr "Taxas do Interface"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:451
-#, fuzzy
 msgid "filterType"
 msgstr "Tipo de filtro"
 
@@ -5068,15 +5068,16 @@ msgstr ""
 "incrementar o tráfego máximo permitido"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/ExternalRules.pm:50
-#, fuzzy
 msgid "Rules for external interfaces (upload)"
-msgstr "Todos os interfaces externos"
+msgstr "Regras para interfaces externas (upload)"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:124
 msgid ""
 "Changing rules interface is not supported. Remove the rule and add another "
 "for the desired interface"
 msgstr ""
+"Não é possível alterar as regras da interface. Remova a regra e crie outra "
+"com a interface desejada"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:130
 msgid "Guaranteed rate"
@@ -5106,12 +5107,15 @@ msgid ""
 "There is already an existing 'priorization of small packets' rule for "
 "'{iface}'"
 msgstr ""
+"Já existe uma regra de \"prioridade para os pacotes pequenos\" para '{iface}'"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:206
 msgid ""
 "There is already an existing 'priorization of small packets' for all "
 "interfaces"
 msgstr ""
+"Já existe uma regra de \"prioridade para os pacotes pequenos\" para todas as "
+"interfaces"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:274
 #: ../../main/mail/src/EBox/Mail.pm:1766 ../../main/mail/src/EBox/Mail.pm:1773
@@ -5123,6 +5127,8 @@ msgid ""
 "Priorization of small control packages will affect small ACK, SYN, FIN and "
 "RST control packages"
 msgstr ""
+"A prioridade dos pacotes pequenos irá afetar os pacotes de controlo ACK, "
+"SYN, FIN e RST"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:356
 msgid "Lowest priotiry: 7 Highest priority: 0"
@@ -5195,7 +5201,7 @@ msgstr "Baseado em Firewall"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:555
 msgid "Prioritize small control packets"
-msgstr ""
+msgstr "Prioridade pequena para pacotes de controlo"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:570
 msgid "All"
