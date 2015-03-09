@@ -1,4 +1,5 @@
 HEAD
+	+ Now groups can be provisioned for OpenChange
 	+ Disable SOGo login for user accounts without mail enabled
 	+ Enable password change from the SOGo webmail
 	+ Configure automatic refresh of SOGo webmail to 5 min
