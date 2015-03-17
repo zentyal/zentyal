@@ -673,8 +673,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
-"Non ci sono certificati disponibili per questo client. Prego, "
-"{ohref}procedere con la creazione di un certificato{chref}"
+"Non ci sono certificati disponibili per questo client. Prego, {ohref}"
+"procedere con la creazione di un certificato{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -860,8 +860,7 @@ msgstr "Lista delle reti partecipanti al tunnel "
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
 msgstr ""
-"Le route partecipate per i client di una  interfaccia TUN non sono "
-"supportate"
+"Le route partecipate per i client di una  interfaccia TUN non sono supportate"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
 msgid "Advertised Network"
