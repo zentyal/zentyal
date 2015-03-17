@@ -70,7 +70,7 @@
     SOGoSMTPServer = <% $smtpServer %>;
 
     /* Sieve configuration */
-    SOGoVacationEnabled = YES;
+    SOGoVacationEnabled = NO;
     SOGoSieveScriptsEnabled = YES;
     SOGoForwardEnabled = YES;
 
