@@ -20,12 +20,6 @@ models:
     - Slaves
     - Master
     - SlavePassword
-    - GPOs
-    - GPOScriptsStartup
-    - GPOScriptsShutdown
-    - GPOScriptsLogin
-    - GPOScriptsLogoff
-    - GPOLinks
     - SambaShares
     - SyncShares
     - SambaSharePermissions
@@ -37,9 +31,6 @@ composites:
     Settings: [LdapInfo, PAM]
     Sync: [Master, SlavePassword, Slaves]
     UserTemplate: []
-    GPOComputerConfiguration: [GPOScriptsStartup, GPOScriptsShutdown]
-    GPOUserConfiguration: [GPOScriptsLogin, GPOScriptsLogoff]
-    GPO: [GPOComputerConfiguration, GPOUserConfiguration]
     RecycleBin: [RecycleDefault, RecycleExceptions]
     FileSharing: [SambaShares, RecycleBin]
 
@@ -48,7 +39,6 @@ modeldepends:
         samba/SambaShares: [share]
 
 foreign:
-    GPOs: [GPO]
     SambaShares: [SambaSharePermissions]
 
 # NOTE: UserTemplate composite components are dynamic in componentNames()

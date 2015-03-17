@@ -49,7 +49,6 @@ use EBox::Samba::Computer;
 use EBox::Samba::Contact;
 use EBox::Samba::Container;
 use EBox::Samba::DMD;
-use EBox::Samba::GPO;
 use EBox::Samba::Group;
 use EBox::Samba::LdapObject;
 use EBox::Samba::NamingContext;
@@ -2298,14 +2297,6 @@ sub menu
         $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/DomainSettings',
                                                 text  => __('Settings'),
                                                 order => 10));
-
-        $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
-                                                text  => __('Group Policy Objects'),
-                                                order => 20));
-        $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/Tree/GPOLinks',
-                                                text  => __('Group Policy Links'),
-                                                order => 30));
-
         $root->add($domainFolder);
     }
 
@@ -3556,34 +3547,6 @@ sub dMD
 
     my $dn = "CN=Schema,CN=Configuration," . $self->ldap()->dn();
     return new EBox::Samba::DMD(dn => $dn);
-}
-
-# Method: gpos
-#
-#   Returns the Domain GPOs
-#
-# Returns:
-#
-#   Array ref containing instances of EBox::Samba::GPO
-#
-sub gpos
-{
-    my ($self) = @_;
-
-    my $gpos = [];
-    my $defaultNC = $self->ldap->dn();
-    my $params = {
-        base => "CN=Policies,CN=System,$defaultNC",
-        scope => 'one',
-        filter => '(objectClass=GroupPolicyContainer)',
-        attrs => ['*']
-    };
-    my $result = $self->ldap->search($params);
-    foreach my $entry ($result->entries()) {
-        push (@{$gpos}, new EBox::Samba::GPO(entry => $entry));
-    }
-
-    return $gpos;
 }
 
 # Method: shares
