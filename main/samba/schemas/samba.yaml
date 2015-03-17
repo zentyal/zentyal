@@ -30,8 +30,6 @@ models:
     - SyncShares
     - SambaSharePermissions
     - SambaDeletedShares
-    - AntivirusDefault
-    - AntivirusExceptions
     - RecycleDefault
     - RecycleExceptions
 
@@ -43,12 +41,9 @@ composites:
     GPOUserConfiguration: [GPOScriptsLogin, GPOScriptsLogoff]
     GPO: [GPOComputerConfiguration, GPOUserConfiguration]
     RecycleBin: [RecycleDefault, RecycleExceptions]
-    Antivirus: [AntivirusDefault, AntivirusExceptions]
-    FileSharing: [SambaShares, RecycleBin, Antivirus]
+    FileSharing: [SambaShares, RecycleBin]
 
 modeldepends:
-    AntivirusExceptions:
-        samba/SambaShares: [share]
     RecycleExceptions:
         samba/SambaShares: [share]
 

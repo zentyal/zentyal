@@ -44,26 +44,4 @@ sub _description
     return $description;
 }
 
-# Method: componentNames
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::componentNames>
-#
-sub componentNames
-{
-    my ($self) = @_;
-
-    my @components = qw(SambaShares RecycleBin Antivirus);
-
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        if ($rs->filesSyncAvailable()) {
-            push (@components, 'SyncShares');
-        }
-    }
-
-    return \@components;
-}
-
 1;
