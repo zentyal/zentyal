@@ -7,7 +7,6 @@ models:
     - StaticRoute
     - DNSResolver
     - SearchDomain
-    - DynDNS
     - WANFailoverOptions
     - WANFailoverRules
     - Proxy

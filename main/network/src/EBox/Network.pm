@@ -28,8 +28,6 @@ use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
 use constant IGNOREIFACES => qw(sit tun tap lo irda ppp virbr vboxnet vnet);
 use constant IFNAMSIZ => 16; #Max length name for interfaces
 use constant INTERFACES_FILE => '/etc/network/interfaces';
-use constant DDCLIENT_FILE => '/etc/ddclient.conf';
-use constant DEFAULT_DDCLIENT_FILE => '/etc/default/ddclient';
 use constant RESOLV_FILE => '/etc/resolv.conf';
 use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
@@ -68,7 +66,6 @@ use EBox::Dashboard::GraphRow;
 use EBox::Dashboard::Value;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
-use EBox::Network::Model::DynDNS;
 use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Common::Model::EnableForm;
@@ -191,16 +188,6 @@ sub usedFiles
     {
         'file' => DHCLIENTCONF_FILE,
         'reason' => __('Zentyal will set your DHCP client configuration'),
-        'module' => 'network'
-    },
-    {
-        'file' => DEFAULT_DDCLIENT_FILE,
-        'reason' => __('Zentyal will set your ddclient configuration'),
-        'module' => 'network'
-    },
-    {
-        'file' => DDCLIENT_FILE,
-        'reason' => __('Zentyal will set your ddclient configuration'),
         'module' => 'network'
     },
     {
@@ -3248,72 +3235,6 @@ sub proxySettings
     }
 }
 
-# Method: isDDNSEnabled
-#
-#    Check if the Dynamic DNS service is enabled or not
-#
-# Returns:
-#
-#    Boolean - indicating if the service is enabled or not
-#
-sub isDDNSEnabled
-{
-    my ($self) = @_;
-    my $ddnsModel = $self->model('DynDNS');
-    return $ddnsModel->enableDDNSValue();
-}
-
-# Method: DDNSUsingCloud
-#
-#    Check if the Dynamic DNS service is using Zentyal Cloud or not
-#
-# Returns:
-#
-#    Boolean - indicating if the service is enabled or not
-#
-sub DDNSUsingCloud
-{
-    my ($self) = @_;
-
-    my $ddnsModel = $self->model('DynDNS');
-    return ($ddnsModel->serviceValue() eq 'cloud');
-
-}
-
-# Generate the '/etc/ddclient.conf' configuration file for DynDNS
-sub _generateDDClient
-{
-    my ($self) = @_;
-
-    my $enabled = $self->isDDNSEnabled();
-
-    my $ddnsModel = $self->model('DynDNS');
-    my $row = $ddnsModel->row();
-    my $serviceData = $EBox::Network::Model::DynDNS::SERVICES{$row->valueByName('service')};
-    my $server = $serviceData->{server};
-    my $hostname = $row->valueByName('hostname');
-    my $login = $row->valueByName('username');
-    my $password = $row->valueByName('password');
-    my $cmd = EBox::Config::share() . 'zentyal-network/external-ip.pl';
-    my @gws = ();
-
-    $self->writeConfFile(DEFAULT_DDCLIENT_FILE,
-                         'network/ddclient.mas',
-                         [ enabled => $enabled ]);
-
-    if ( $enabled ) {
-        $self->writeConfFile(DDCLIENT_FILE,
-                             'network/ddclient.conf.mas',
-                             [ serviceData => $serviceData,
-                               login       => $login,
-                               password    => $password,
-                               hostname    => $hostname,
-                               server      => $server,
-                               cmd         => $cmd,
-                               gws         => \@gws ]);
-    }
-}
-
 sub _generatePPPConfig
 {
     my ($self) = @_;
@@ -3751,29 +3672,11 @@ sub _postServiceHook
     $self->SUPER::_postServiceHook($enabled);
 }
 
-sub _daemons
-{
-    return [
-        {
-            'name' => 'zentyal.ddclient',
-            'type' => 'upstart',
-            'pidfiles' => ['/var/run/ddclient.pid'],
-            'precondition' => \&isDDNSEnabled
-        }
-    ];
-}
-
-sub _daemonsToDisable
-{
-    return [ { 'name' => 'ddclient', 'type' => 'init.d' } ];
-}
-
 sub _setConf
 {
     my ($self) = @_;
     $self->generateInterfaces();
     $self->_generatePPPConfig();
-    $self->_generateDDClient();
     $self->_generateProxyConfig();
     $self->_writeFailoverCron();
 }
@@ -4548,10 +4451,6 @@ sub menu
     $folder->add(new EBox::Menu::Item('url' => 'Network/View/StaticRoute',
                                       'text' => __('Static Routes'),
                                       'order' => 60));
-
-    $folder->add(new EBox::Menu::Item('url' => 'Network/View/DynDNS',
-                                      'text' => __('Dynamic DNS'),
-                                      'order' => 70));
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/Diag',
                                       'text' => __('Tools'),
