@@ -85,15 +85,8 @@ sub syncRows
             $dynamicGws{$iface} = $gw;
         }
     }
-    foreach my $iface (@{$network->pppIfaces()}) {
-        my $addr = $state->{interfaces}->{$iface}->{ppp_addr};
-        my $ppp_iface = $state->{interfaces}->{$iface}->{ppp_iface};
-        if ($addr and $ppp_iface) {
-            $dynamicGws{$iface} = "$ppp_iface/$addr";
-        }
-    }
 
-    my %currentIfaces = map { 
+    my %currentIfaces = map {
         my $rowId = $_;
         my $row = $self->row($rowId);
         if ($row) {
@@ -509,7 +502,7 @@ sub gatewaysWithMac
 
     my @gateways = @{$self->allGateways()};
     foreach my $gw (@gateways) {
-        # Skip mac detection for auto-added gateways (dhcp and pppoe)
+        # Skip mac detection for dhcp gateways
         if ($gw->{'auto'}) {
             $gw->{'mac'} = undef;
         } else {

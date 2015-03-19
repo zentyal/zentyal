@@ -52,7 +52,6 @@ if ($method eq 'trunk' and ($iface =~ /^bond/)) {
 }
 # check if we should ignore the interface
 if (($method ne 'static') and
-    ($method ne 'ppp') and
     ($method ne 'dhcp') and
      (not $bridgedVlan) and
      (not $bondSlave) and
@@ -63,10 +62,6 @@ if (($method ne 'static') and
 my $mtu = EBox::Config::configkey("mtu_$iface");
 my $name = $iface;
 </%init>
-% if ($method eq 'ppp') {
-%   $name = "zentyal-ppp-$iface";
-auto <% $name %>
-% }
 iface <% "$name inet $method" %>
 % if ($iface =~ /^vlan/) {
 %    my $vlan = $networkMod->vlan($iface);
@@ -76,10 +71,6 @@ vlan-raw-device <% $vlan->{interface} %>
       address <% $networkMod->ifaceAddress($iface) %>
       netmask <% $networkMod->ifaceNetmask($iface) %>
       broadcast <% $networkMod->ifaceBroadcast($iface) %>
-% } elsif ($method eq 'ppp') {
-      pre-up /sbin/ifconfig <% $iface %> up
-      post-down /sbin/ifconfig <% $iface %> down
-      provider <% $name %>
 % }
 % if ( $networkMod->ifaceIsBridge($iface)) {
 %     my @bridgePorts = @{ $networkMod->bridgeIfaces($iface)};

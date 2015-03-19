@@ -89,14 +89,6 @@ use EBox::NetWrappers qw(:all);
                 <option value='dhcp'>DHCP</option>
 % }
 
-% unless ($iface->{'name'} =~ /^(br|bond)/) {
-%   if ($iface->{'method'} eq 'ppp') {
-                <option selected value='ppp'>PPPoE</option>
-%   } else {
-                <option value='ppp'>PPPoE</option>
-%   }
-% }
-
 % unless ($iface->{'name'} =~ /^(vlan|br)/) {
 %   if ($iface->{'method'} eq 'trunk') {
                 <option selected value='trunk'><%__('Trunk (802.1q)')%></option>
@@ -207,16 +199,6 @@ use EBox::NetWrappers qw(:all);
         </select>
     </div>
 % }
-    <div id="ppp_user">
-            <label><% __('User name') %></label>
-            <input class='inputText' type='text' size='16' name='if_ppp_user'
-                   alt='if_ppp_user' value='<% $iface->{'ppp_user'} %>' />
-    </div>
-    <div id="ppp_pass">
-            <label><% __('Password') %></label>
-            <input class='inputText' type='password' size='16' name='if_ppp_pass'
-                   alt='if_ppp_pass' value='<% $iface->{'ppp_pass'} %>' />
-    </div>
     <div>
         <input class='inputButton' type='submit'
                 name='accept' value="<% __('Change') %>" />
@@ -376,7 +358,7 @@ $('#method').change(function(event) {
     var selected = $(event.target).val();
 
     if (selected === 'static' || selected === 'dhcp' ||
-        selected === 'ppp' || selected === 'bridged' || selected === 'bundled') {
+        selected === 'bridged' || selected === 'bundled') {
         $('#external').show();
     } else {
         $('#external').hide();
@@ -391,8 +373,5 @@ $('#method').change(function(event) {
     $('#bridged').toggle(selected === 'bridged');
 
     $('#bundled').toggle(selected === 'bundled');
-
-    $('#ppp_user').toggle(selected === 'ppp');
-    $('#ppp_pass').toggle(selected === 'ppp');
  }).change();
 </script>

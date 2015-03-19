@@ -1,4 +1,5 @@
 HEAD
+	+ Remove support for PPPoE interfaces
 	+ Remove no longer maintained ddclient integration
 4.0
 	+ Drop Zentyal-provided Dynamic DNS
