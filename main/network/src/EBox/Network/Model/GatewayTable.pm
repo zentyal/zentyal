@@ -186,17 +186,6 @@ sub _table
                     'optional' => 1,
                     'help' => __('Interface connected to this gateway')
                 ),
-        new EBox::Types::Select(
-                    'fieldName' => 'weight',
-                    'printableName' => __('Weight'),
-                    'defaultValue' => 1,
-                    'size' => '2',
-                    'populate' => \&weights,
-                    'editable' => 1,
-                    'help' => __('This field is only useful if you have ' .
-                                 'more than one router and  the balance ' .
-                                 'traffic feature is enabled.')
-                ),
         new EBox::Types::Boolean(
                     'fieldName' => 'default',
                     'printableName' => __('Default'),
@@ -451,7 +440,7 @@ sub marksForRouters
     return $marks;
 }
 
-# Returns only enabled gateways
+# Returns only enabled default gateway
 sub gateways
 {
     my ($self) = @_;
@@ -473,24 +462,22 @@ sub _gateways
 
     my @gateways;
 
-    my $balanceModel = $self->parentModule()->model('BalanceGateways');
-    my %balanceEnabled =
-        map { $balanceModel->row($_)->valueByName('name') => 1 } @{$balanceModel->enabledRows()};
-
     foreach my $id (@{$all ? $self->ids() : $self->enabledRows()}) {
         my $gw = $self->row($id);
         my $name = $gw->valueByName('name');
-        push (@gateways, {
-                            id => $id,
-                            auto => $gw->valueByName('auto'),
-                            name => $name,
-                            ip => $gw->valueByName('ip'),
-                            weight => $gw->valueByName('weight'),
-                            default => $gw->valueByName('default'),
-                            interface => $gw->valueByName('interface'),
-                            enabled => $gw->valueByName('enabled'),
-                            balance => $balanceEnabled{$name},
-                         });
+	my $default = $gw->valueByName('default');
+        my $gateway = {
+            id => $id,
+            auto => $gw->valueByName('auto'),
+            name => $name,
+            ip => $gw->valueByName('ip'),
+            weight => $gw->valueByName('weight'),
+            default => $default,
+            interface => $gw->valueByName('interface'),
+            enabled => $gw->valueByName('enabled'),
+        });
+	return [ $gateway ] if ($default and not $all);
+        push (@gateways, $gateway);
     }
 
     return \@gateways;

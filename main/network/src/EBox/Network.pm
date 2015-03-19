@@ -37,7 +37,6 @@ use constant RESOLVCONF_INTERFACE_ORDER => '/etc/resolvconf/interface-order';
 use constant RESOLVCONF_BASE => '/etc/resolvconf/resolv.conf.d/base';
 use constant RESOLVCONF_HEAD => '/etc/resolvconf/resolv.conf.d/head';
 use constant RESOLVCONF_TAIL => '/etc/resolvconf/resolv.conf.d/tail';
-use constant FAILOVER_CRON_FILE => '/etc/cron.d/zentyal-network';
 
 use Net::IP;
 use IO::Interface::Simple;
@@ -72,7 +71,6 @@ use EBox::DBEngineFactory;
 use File::Basename;
 use File::Slurp;
 
-use constant FAILOVER_CHAIN => 'FAILOVER-TEST';
 use constant CHECKIP_CHAIN => 'CHECKIP-TEST';
 
 # Group: Public methods
@@ -238,10 +236,6 @@ sub initialSetup
         } catch {
             EBox::warn('Network configuration import failed');
         }
-    }
-
-    if (defined ($version) and (EBox::Util::Version::compare($version, '4.0') < 0)) {
-        $self->_migrateTo40();
     }
 }
 
@@ -3218,7 +3212,7 @@ sub _multigwRoutes
     }
 
     # send unmarked packets through default router
-    if ((not $self->balanceTraffic()) and $defaultRouterMark) {
+    if ($defaultRouterMark) {
         push(@cmds, "/sbin/iptables -t mangle -A PREROUTING  -m mark --mark 0/0xff " .
                     "-j  MARK --set-mark $defaultRouterMark");
         push(@cmds, "/sbin/iptables -t mangle -A OUTPUT -m mark --mark 0/0xff " .
@@ -3233,7 +3227,7 @@ sub _multigwRoutes
         push(@fcmds, '/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --save-mark');
         push(@fcmds, '/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --save-mark');
 
-        foreach my $chain (FAILOVER_CHAIN, CHECKIP_CHAIN) {
+        foreach my $chain (CHECKIP_CHAIN) {
             push(@fcmds, "/sbin/iptables -t mangle -N $chain");
             push(@fcmds, "/sbin/iptables -t mangle -A OUTPUT -j $chain");
         }
@@ -3360,7 +3354,6 @@ sub _setConf
     my ($self) = @_;
     $self->generateInterfaces();
     $self->_generateProxyConfig();
-    $self->_writeFailoverCron();
 }
 
 # Method: _enforceServiceState
@@ -3419,7 +3412,7 @@ sub _enforceServiceState
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
                            '/sbin/ip route del default');
 
-    my $cmd = $self->_multipathCommand();
+    my $cmd = $self->_defaultGatewayCommand();
     if ($cmd) {
         try {
             EBox::Sudo::root($cmd);
@@ -4084,7 +4077,7 @@ sub menu
                                       'text' => __('Interfaces'),
                                       'order' => 10));
 
-    $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/GatewaysGeneral',
+    $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/Gateway',
                                       'text' => __('Gateways'),
                                       'order' => 20));
 
@@ -4168,7 +4161,6 @@ sub gatewaysWithMac
     my $gatewayModel = $self->model('GatewayTable');
 
     return $gatewayModel->gatewaysWithMac();
-
 }
 
 sub marksForRouters
@@ -4176,24 +4168,6 @@ sub marksForRouters
     my ($self) = @_;
 
     my $marks = $self->model('GatewayTable')->marksForRouters();
-}
-
-# Method: balanceTraffic
-#
-#   Return if the traffic balancing is enabled or not
-#
-# Returns:
-#
-#   bool - true if enabled, otherwise false
-#
-sub balanceTraffic
-{
-    my ($self) = @_;
-
-    my $multiGwOptions = $self->model('MultiGwRulesOptions');
-    my $balanceTraffic =  $multiGwOptions->balanceTrafficValue();
-
-    return ($balanceTraffic and (@{$self->gateways} > 1));
 }
 
 # Method: regenGateways
@@ -4229,7 +4203,7 @@ sub regenGateways
     $self->saveConfig();
     my @commands;
     push (@commands, '/sbin/ip route del table default || true');
-    my $cmd = $self->_multipathCommand();
+    my $cmd = $self->_defaultGatewayCommand();
     if ($cmd) {
         push (@commands, $cmd);
     }
@@ -4296,59 +4270,29 @@ sub unsetFlagIfUp
 
 # Group: Other methods
 
-sub _multipathCommand
+sub _defaultGatewayCommand
 {
     my ($self) = @_;
 
-    my @gateways = @{$self->gateways()};
-
-    if (scalar(@gateways) == 0) {
-        # If WAN failover is enabled we put the default one
-        if ($self->_failoverEnabled()) {
-            my $row = $self->model('GatewayTable')->findValue(default => 1);
-            unless ($row) {
-                return undef;
-            }
-            my $ip = $row->valueByName('ip');
-            my $iface = $row->valueByName('interface');
-            my $weight = $row->valueByName('weight');
-            push (@gateways, {ip => $ip, interface => $iface, weight => $weight});
-        } else {
-            return undef;
-        }
-    }
-
-    my $numGWs = 0;
-
-    my $cmd = 'ip route add table default default';
-    for my $gw (@gateways) {
-
-        # Skip gateways with unassigned address
-        my $ip = $gw->{'ip'};
-        next unless $ip;
-
-        # Skip gateways with traffic balance disabled
-        # except if we just have one gateway
-        next unless ($gw->{'balance'} or (@gateways == 1));
-
-        my $iface = $gw->{'interface'};
-        my $method = $self->ifaceMethod($iface);
-
-        my $if = new IO::Interface::Simple($iface);
-        next unless $if->address;
-
-        my $route = "via $ip dev $iface";
-
-        $cmd .= " nexthop $route weight $gw->{'weight'}";
-
-        $numGWs++;
-    }
-
-    if ($numGWs) {
-        return $cmd;
-    } else {
+    my $row = $self->model('GatewayTable')->findValue(default => 1);
+    unless ($row) {
         return undef;
     }
+    my $ip = $row->valueByName('ip');
+    my $iface = $row->valueByName('interface');
+    my $gw = {ip => $ip, interface => $iface};
+
+    # Skip gateway with unassigned address
+    my $ip = $gw->{'ip'};
+    return undef unless $ip;
+
+    my $iface = $gw->{'interface'};
+    my $method = $self->ifaceMethod($iface);
+
+    my $if = new IO::Interface::Simple($iface);
+    return undef unless $if->address;
+
+    return "ip route add table default default via $ip dev $iface";
 }
 
 # Method: _notifyChangedIface
@@ -4641,47 +4585,6 @@ sub _vlanSearchMatch
     }
 
     return \@matches;
-}
-
-sub _failoverEnabled
-{
-    my ($self) = @_;
-
-    my $rules = $self->model('WANFailoverRules');
-    return (@{$rules->enabledRows()} > 0);
-}
-
-sub _writeFailoverCron
-{
-    my ($self) = @_;
-
-    my $cronFile = FAILOVER_CRON_FILE;
-
-    if ($self->_failoverEnabled()) {
-        my $failoverOptions = $self->model('WANFailoverOptions');
-        my $minutes = $failoverOptions->value('period');
-        EBox::Module::Base::writeConfFileNoCheck($cronFile, 'network/failover-checker.cron.mas',
-                                                 [ minutes => $minutes ],
-                                                 {
-                                                  uid  => 'root',
-                                                  gid  => 'root',
-                                                  mode =>  '0644'
-                                                 });
-    } else {
-        EBox::Sudo::root("rm -f $cronFile");
-    }
-}
-
-sub _migrateTo40
-{
-    my ($self) = @_;
-
-    # Migrate failover from seconds to minutes
-    my $failoverOptions = $self->model('WANFailoverOptions');
-    my $period = $failoverOptions->value('period');
-    $period = ($period < 60) ? 1 : int($period / 60);
-    $failoverOptions->setValue('period', $period);
-    $self->saveConfig();
 }
 
 1;

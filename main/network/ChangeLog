@@ -1,4 +1,5 @@
 HEAD
+	+ Remove multi-gateway functionality (balancing, failover, etc)
 	+ Remove support for PPPoE interfaces
 	+ Remove no longer maintained ddclient integration
 4.0
