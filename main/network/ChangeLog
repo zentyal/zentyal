@@ -1,6 +1,6 @@
 HEAD
 	+ Remove multi-gateway functionality (balancing, failover, etc)
-	+ Remove support for PPPoE interfaces
+	+ Remove support for PPPoE, bridged and bundled interfaces
 	+ Remove no longer maintained ddclient integration
 4.0
 	+ Drop Zentyal-provided Dynamic DNS

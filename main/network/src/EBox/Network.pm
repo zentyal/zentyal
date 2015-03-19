@@ -450,22 +450,6 @@ sub ifaceIsExternal # (interface)
         my @aux = $self->_viface2array($iface);
         $iface = $aux[0];
     }
-    if ($self->ifaceIsBridge($iface)) {
-        # Bridges are external if any of their interfaces is external
-        my $ifaces = $self->bridgeIfaces($iface);
-        foreach my $bridged ( @{$ifaces} ) {
-            return 1 if ($self->ifaceIsExternal($bridged));
-        }
-        return 0;
-    }
-    if ($self->ifaceIsBond($iface)) {
-        # Bonds are external if any of their interfaces is external
-        my $ifaces = $self->bondIfaces($iface);
-        foreach my $bundled ( @{$ifaces} ) {
-            return 1 if ($self->ifaceIsExternal($bundled));
-        }
-        return 0;
-    }
     return $self->get_hash('interfaces')->{$iface}->{external} ? 1 : 0;
 }
 
@@ -661,76 +645,6 @@ sub _cleanupVlanIfaces
     EBox::Sudo::root(@cmds);
 }
 
-# given a list of network interfaces appends to it any existing bridged interface
-# not already in the list and removes from it any bridged interface which has been
-# deleted from the configuration.
-sub _bridgedIfaceFilter # (\array)
-{
-    my ($self, $ifaces) = @_;
-    my @array = ();
-
-    foreach my $if (@{$ifaces}) {
-        unless ($if =~ /^br/) {
-            push(@array, $if);
-        }
-    }
-
-    my $bridges = $self->bridges();
-    foreach my $id (@{$bridges}) {
-        push(@array, "br$id");
-    }
-    return \@array;
-}
-
-# given a list of network interfaces appends to it any existing bonded interface
-# not already in the list and removes from it any bonded interface which has been
-# deleted from the configuration.
-sub _bundledIfaceFilter # (\array)
-{
-    my ($self, $ifaces) = @_;
-    my @array = ();
-
-    foreach my $if (@{$ifaces}) {
-        unless ($if =~ /^bond/) {
-            push(@array, $if);
-        }
-    }
-
-    my $bonds = $self->bonds();
-    foreach my $id (@{$bonds}) {
-        push(@array, "bond$id");
-    }
-    return \@array;
-}
-
-# given a list of network interfaces appends to it any existing bridge interface
-# not already in the list
-sub _bridgedIfaceFilterWithRemoved # (\array)
-{
-    my ($self, $ifaces) = @_;
-    my $bridges = $self->bridges();
-    foreach my $id (@{$bridges}) {
-        unless (grep(/^br$id$/, @{$ifaces})) {
-            push(@{$ifaces}, "br$id");
-        }
-    }
-    return $ifaces;
-}
-
-# given a list of network interfaces appends to it any existing bond interface
-# not already in the list
-sub _bundledIfaceFilterWithRemoved # (\array)
-{
-    my ($self, $ifaces) = @_;
-    my $bonds = $self->bonds();
-    foreach my $id (@{$bonds}) {
-        unless (grep(/^bond$id$/, @{$ifaces})) {
-            push(@{$ifaces}, "bond$id");
-        }
-    }
-    return $ifaces;
-}
-
 sub _ifaces
 {
     my $self = shift;
@@ -755,8 +669,6 @@ sub ifaces
     my $self = shift;
     my $ifaces = $self->_ifaces();
     $ifaces = $self->_vlanIfaceFilter($ifaces);
-    $ifaces = $self->_bridgedIfaceFilter($ifaces);
-    $ifaces = $self->_bundledIfaceFilter($ifaces);
     return $ifaces;
 }
 
@@ -773,8 +685,6 @@ sub ifacesWithRemoved
     my $self = shift;
     my $ifaces = $self->_ifaces();
     $ifaces = $self->_vlanIfaceFilterWithRemoved($ifaces);
-    $ifaces = $self->_bridgedIfaceFilterWithRemoved($ifaces);
-    $ifaces = $self->_bundledIfaceFilterWithRemoved($ifaces);
     return $ifaces;
 }
 
@@ -818,16 +728,6 @@ sub ifaceAddresses
         if ($addr) {
             push(@array, {address => $addr, netmask => $mask});
         }
-    } elsif ($self->ifaceMethod($iface) eq 'bridged') {
-        my $bridge = $self->ifaceBridge($iface);
-        if ($self->ifaceExists("br$bridge")) {
-            return $self->ifaceAddresses("br$bridge");
-        }
-    #} elsif ($self->ifaceMethod($iface) eq 'bundled') {
-    #    my $bond = $self->ifaceBond($iface);
-    #    if ($self->ifaceExists("bond$bond")) {
-    #        return $self->ifaceAddresses("bond$bond");
-    #    }
     }
     return \@array;
 }
@@ -1322,14 +1222,12 @@ sub ifaceAlias # (iface)
 #
 # Returns:
 #
-#   string - dhcp|static|notset|trunk|bridged|bundled
+#   string - dhcp|static|notset|trunk
 #           dhcp -> the interface is configured via dhcp
 #           static -> the interface is configured with a static ip
 #           notset -> the interface exists but has not been
 #                 configured yet
 #           trunk -> vlan aware interface
-#           bridged -> bridged to other interfaces
-#           bundled -> bundled with other interfaces
 #
 sub ifaceMethod
 {
@@ -1375,10 +1273,6 @@ sub setIfaceDHCP
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
-    } elsif ($oldm eq 'bridged') {
-        $self->BridgedCleanUp($name);
-    } elsif ($oldm eq 'bundled') {
-        $self->BundledCleanUp($name);
     }
 
     my $global = EBox::Global->getInstance();
@@ -1497,10 +1391,6 @@ sub setIfaceStatic
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name, $address, $netmask);
-    } elsif ($oldm eq 'bridged') {
-        $self->BridgedCleanUp($name);
-    } elsif ($oldm eq 'bundled') {
-        $self->BundledCleanUp($name);
     }
 
     # Calling observers
@@ -1608,20 +1498,6 @@ sub _checkStaticIP
             next;
         }
 
-        # don't check against other ifaces in this bridge
-        if ($self->ifaceIsBridge($iface)) {
-            my $brIfaces = $self->bridgeIfaces($iface);
-            if ($if eq any(@{$brIfaces})) {
-                next;
-            }
-        }
-        if ($self->ifaceIsBond($iface)) {
-            my $bondIfaces = $self->bondIfaces($iface);
-            if ($if eq any(@{$bondIfaces})) {
-                next;
-            }
-        }
-
         foreach my $addr_r (@{ $self->ifaceAddresses($if)} ) {
             my $ifNetwork =  EBox::NetWrappers::ip_network($addr_r->{address},
                                                             $addr_r->{netmask});
@@ -1671,10 +1547,6 @@ sub setIfaceTrunk # (iface, force)
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
-    } elsif ($oldm eq 'bridged') {
-        $self->BridgedCleanUp($name);
-    } elsif ($oldm eq 'bundled') {
-        $self->BundledCleanUp($name);
     }
 
     if ($oldm ne 'notset') {
@@ -1734,222 +1606,6 @@ sub _removeTrunkIfaceVlanes
     foreach my $vlan (@{$vlans}) {
         defined($vlan) or next;
         $self->removeVlan($vlan->{id});
-    }
-}
-
-# Method: setIfaceBridged
-#
-#   configures an interface in bridged mode attached to a new or
-#   defined bridge
-#
-# Parameters:
-#
-#   interface - the name of a network interface
-#   external - boolean to indicate if it's  a external interface
-#   bridge - bridge id number or -1 to create new one
-#   force - boolean to indicate if an exception should be raised when
-#   method is changed or it should be forced
-#
-sub setIfaceBridged
-{
-    my ($self, $name, $ext, $bridge, $force) = @_;
-    defined $ext or $ext = 0;
-    $self->ifaceExists($name) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $name);
-
-    # check if bridge exists
-    if ( $bridge >= 0 ) {
-        $self->ifaceExists("br$bridge") or
-            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                                                 value => "br$bridge");
-    }
-
-    my $oldm = $self->ifaceMethod($name);
-    if ($oldm eq 'dhcp') {
-        $self->DHCPCleanUp($name);
-    } elsif ($oldm eq 'trunk') {
-        $self->_trunkIfaceIsUsed($name);
-    } elsif ($oldm eq 'static') {
-        $self->_routersReachableIfChange($name);
-        $self->_checkStatic($name, $force);
-    } elsif ($oldm eq 'bridged' and $self->ifaceBridge($name) ne $bridge) {
-        $self->BridgedCleanUp($name);
-    }
-
-    my $global = EBox::Global->getInstance();
-    my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
-
-    if ($ext != $self->ifaceIsExternal($name) ) {
-      # Tell observers the interface way has changed
-      foreach my $obs (@observers) {
-        if ($obs->ifaceExternalChanged($name, $ext)) {
-          if ($force) {
-            $obs->changeIfaceExternalProperty($name, $ext);
-          }
-          else {
-            throw EBox::Exceptions::DataInUse();
-          }
-        }
-      }
-    }
-    if ($oldm ne 'bridged') {
-        $self->_notifyChangedIface(
-            name => $name,
-            oldMethod => $oldm,
-            newMethod => 'bridged',
-            action => 'prechange',
-            force  => $force,
-        );
-    } else {
-        my $oldm = $self->ifaceIsExternal($name);
-        my $oldbr = $self->ifaceBridge($name);
-
-        if (defined($oldm) and defined($ext) and ($oldm == $ext) and
-            defined($oldbr) and defined($bridge) and ($oldbr eq $bridge)) {
-            return;
-        }
-    }
-
-    if ($oldm eq 'trunk') {
-        $self->_removeTrunkIfaceVlanes($name);
-    }
-    # new bridge
-    if ($bridge < 0) {
-        my @bridges = @{$self->bridges()};
-        my $last = int(pop(@bridges));
-        $bridge = $last+1;
-        $self->_createBridge($bridge);
-    }
-
-    my $ifaces = $self->get_hash('interfaces');
-    $ifaces->{$name}->{external} = $ext;
-    delete $ifaces->{$name}->{address};
-    delete $ifaces->{$name}->{netmask};
-    $ifaces->{$name}->{method} = 'bridged';
-    $ifaces->{$name}->{changed} = 1;
-    $ifaces->{$name}->{bridge_id} = $bridge;
-    $ifaces->{$name}->{name} = $name;
-    $self->set('interfaces', $ifaces);
-
-    # mark bridge as changed
-    $self->_setChanged("br$bridge");
-
-    if ($oldm ne 'bridged') {
-        $self->_notifyChangedIface(
-            name => $name,
-            oldMethod => $oldm,
-            newMethod => 'bridged',
-            action => 'postchange'
-        );
-    }
-}
-
-# Method: setIfaceBonded
-#
-#   configures an interface in bundled mode attached to a new or
-#   defined bond
-#
-# Parameters:
-#
-#   interface - the name of a network interface
-#   external - boolean to indicate if it's  a external interface
-#   bond - bond id number or -1 to create new one
-#   force - boolean to indicate if an exception should be raised when
-#   method is changed or it should be forced
-#
-sub setIfaceBonded
-{
-    my ($self, $name, $ext, $bond, $force) = @_;
-    defined $ext or $ext = 0;
-    $self->ifaceExists($name) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $name);
-
-    # check if bond exists
-    if ( $bond >= 0 ) {
-        $self->ifaceExists("bond$bond") or
-            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                                                 value => "bond$bond");
-    }
-
-    my $oldm = $self->ifaceMethod($name);
-    if ($oldm eq 'dhcp') {
-        $self->DHCPCleanUp($name);
-    } elsif ($oldm eq 'trunk') {
-        $self->_trunkIfaceIsUsed($name);
-    } elsif ($oldm eq 'static') {
-        $self->_routersReachableIfChange($name);
-        $self->_checkStatic($name, $force);
-    } elsif ($oldm eq 'bundled' and $self->ifaceBond($name) ne $bond) {
-        $self->BundledCleanUp($name);
-    }
-
-    my $global = EBox::Global->getInstance();
-    my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
-
-    if ($ext != $self->ifaceIsExternal($name) ) {
-      # Tell observers the interface way has changed
-      foreach my $obs (@observers) {
-        if ($obs->ifaceExternalChanged($name, $ext)) {
-          if ($force) {
-            $obs->changeIfaceExternalProperty($name, $ext);
-          }
-          else {
-            throw EBox::Exceptions::DataInUse();
-          }
-        }
-      }
-    }
-    if ($oldm ne 'bundled') {
-        $self->_notifyChangedIface(
-            name => $name,
-            oldMethod => $oldm,
-            newMethod => 'bundled',
-            action => 'prechange',
-            force  => $force,
-        );
-    } else {
-        my $oldm = $self->ifaceIsExternal($name);
-        my $oldbr = $self->ifaceBond($name);
-
-        if (defined($oldm) and defined($ext) and ($oldm == $ext) and
-            defined($oldbr) and defined($bond) and ($oldbr eq $bond)) {
-            return;
-        }
-    }
-
-    if ($oldm eq 'trunk') {
-        $self->_removeTrunkIfaceVlanes($name);
-    }
-    # new bond
-    if ($bond < 0) {
-        my @bonds = @{$self->bonds()};
-        my $last = int(pop(@bonds));
-        $bond = $last;
-        $self->_createBond($bond);
-    }
-
-    my $ifaces = $self->get_hash('interfaces');
-    $ifaces->{$name}->{external} = $ext;
-    delete $ifaces->{$name}->{address};
-    delete $ifaces->{$name}->{netmask};
-    $ifaces->{$name}->{method} = 'bundled';
-    $ifaces->{$name}->{changed} = 1;
-    $ifaces->{$name}->{bond_id} = $bond;
-    $ifaces->{$name}->{name} = $name;
-    $self->set('interfaces', $ifaces);
-
-    # mark bond as changed
-    $self->_setChanged("bond$bond");
-
-    if ($oldm ne 'bundled') {
-        $self->_notifyChangedIface(
-            name => $name,
-            oldMethod => $oldm,
-            newMethod => 'bundled',
-            action => 'postchange'
-        );
     }
 }
 
@@ -2087,226 +1743,6 @@ sub vlan
     }
     $vlans->{$vlan}->{id} = $vlan;
     return $vlans->{$vlan};
-}
-
-# Method: _createBridge
-#
-#   creates a new bridge interface.
-#
-# Parameters:
-#
-#   id - bridge identifier
-#
-sub _createBridge
-{
-    my ($self, $id) = @_;
-
-    my $bridge = "br$id";
-    my $interfaces = $self->get_hash('interfaces');
-    if (exists $interfaces->{$bridge}) {
-        throw EBox::Exceptions::DataExists('data' => 'bridge',
-                                           'value' => $id);
-    }
-
-    $self->setIfaceAlias($bridge, $bridge);
-}
-
-# Method: _removeBridge
-#
-#   Removes a bridge
-#
-# Parameters:
-#
-#   id - bridge identifier
-#
-sub _removeBridge # (id)
-{
-    my ($self, $id, $force) = @_;
-    $self->_removeIface("br$id");
-}
-
-# Method: _removeEmptyBridges
-#
-# Removes bridges which has no bridged interfaces
-sub _removeEmptyBridges
-{
-    my ($self) = @_;
-    my %seen;
-
-    for my $if ( @{$self->ifaces()} ) {
-        if ( $self->ifaceMethod($if) eq 'bridged' ) {
-            $seen{$self->ifaceBridge($if)}++;
-        }
-    }
-
-    # remove unseen bridges
-    for my $bridge ( @{$self->bridges()} ) {
-        next if ( $seen{$bridge} );
-        $self->_removeBridge($bridge);
-    }
-}
-
-# Method: bridges
-#
-#   Returns a reference to a sorted array with existing bridges ID's
-#
-# Returns:
-#
-#   an array ref - holding the bridges ID's
-sub bridges
-{
-    my $self = shift;
-    my @bridges;
-
-    for my $iface (keys %{$self->get_hash('interfaces')}) {
-        if ($iface =~ /^br/) {
-            $iface =~ s/^br//;
-            push(@bridges, $iface);
-        }
-    }
-    @bridges = sort @bridges;
-    return \@bridges;
-}
-
-# Method: bridgeIfaces
-#
-#   Returns a reference to an array of ifaces bridged to
-#   the given bridge ifname
-#
-# Parameters:
-#
-#   bridge - Bridge ifname
-#
-# Returns:
-#
-#   an array ref - holding the iface names
-sub bridgeIfaces
-{
-    my ($self, $bridge) = @_;
-
-    # get the bridge's id
-    $bridge =~ s/^br//;
-
-    my @ifaces = ();
-    for my $iface (@{$self->ifaces}) {
-        if ($self->ifaceMethod($iface) eq 'bridged') {
-            if ($self->ifaceBridge($iface) eq $bridge) {
-               push(@ifaces, $iface);
-            }
-        }
-    }
-
-    return \@ifaces;
-}
-
-# Method: _createBond
-#
-#   creates a new bond interface.
-#
-# Parameters:
-#
-#   id - bond identifier
-#
-sub _createBond
-{
-    my ($self, $id) = @_;
-
-    my $bond = "bond$id";
-    my $interfaces = $self->get_hash('interfaces');
-    if (exists $interfaces->{$bond}) {
-        throw EBox::Exceptions::DataExists('data' => 'bond',
-                                           'value' => $id);
-    }
-
-    $self->setIfaceAlias($bond, $bond);
-}
-
-# Method: _removeBond
-#
-#   Removes a bond
-#
-# Parameters:
-#
-#   id - bond identifier
-#
-sub _removeBond # (id)
-{
-    my ($self, $id, $force) = @_;
-    $self->_removeIface("bond$id");
-}
-
-# Method: _removeEmptyBonds
-#
-# Removes bonds which has no bundled interfaces
-sub _removeEmptyBonds
-{
-    my ($self) = @_;
-    my %seen;
-
-    for my $if ( @{$self->ifaces()} ) {
-        if ( $self->ifaceMethod($if) eq 'bundled' ) {
-            $seen{$self->ifaceBond($if)}++;
-        }
-    }
-
-    # remove unseen bonds
-    for my $bond ( @{$self->bonds()} ) {
-        next if ( $seen{$bond} );
-        $self->_removeBond($bond);
-    }
-}
-
-# Method: bonds
-#
-#   Returns a reference to a sorted array with existing bonds ID's
-#
-# Returns:
-#
-#   an array ref - holding the bonds ID's
-sub bonds
-{
-    my $self = shift;
-    my @bonds;
-
-    for my $iface (keys %{$self->get_hash('interfaces')}) {
-        if ($iface =~ /^bond/) {
-            $iface =~ s/^bond//;
-            push(@bonds, $iface);
-        }
-    }
-    @bonds = sort @bonds;
-    return \@bonds;
-}
-
-# Method: bondIfaces
-#
-#   Returns a reference to an array of ifaces bundled to
-#   the given bond ifname
-#
-# Parameters:
-#
-#   bond - Bond ifname
-#
-# Returns:
-#
-#   an array ref - holding the iface names
-sub bondIfaces
-{
-    my ($self, $bond) = @_;
-
-    # get the bond's id
-    $bond =~ s/^bond//;
-
-    my @ifaces = ();
-    for my $iface (@{$self->ifaces}) {
-        if ($self->ifaceMethod($iface) eq 'bundled') {
-            if ($self->ifaceBond($iface) eq $bond) {
-               push(@ifaces, $iface);
-            }
-        }
-    }
-
-    return \@ifaces;
 }
 
 # Method: unsetIface
