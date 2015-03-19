@@ -11,7 +11,7 @@ $confirmationMsg .= __x('{op}A hostname change will create a new certificate for
 </%init>
 <h3><% __('Users and Groups') %></h3>
 <img src="/data/software/images/users.png" />
-<form method="post" action="./Samba/Wizard/Users" class="formDiv" 
+<form method="post" action="./Samba/Wizard/Users" class="formDiv"
       id="ad_wizard_form"
       data-host-domain="<% $hostDomain %>" >
         <fieldset>
@@ -33,7 +33,6 @@ $confirmationMsg .= __x('{op}A hostname change will create a new certificate for
         </fieldset>
         <& .standaloneSection, hostDomain => $hostDomain &>
         <& .joinSection, hostDomain => $hostDomain, workgroup => $workgroup &>
-        <& .externalADSection &>
 </form>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script>
@@ -42,22 +41,19 @@ $(function() {
    $('#standaloneRadio').on('click', function (event) {
       $('#standaloneSection').show();
       $('#joinSection').hide();
-      $('#externalADSection').hide();
    });
    $('#joinRadio').on('click', function (event) {
       $('#standaloneSection').hide();
       $('#joinSection').show();
-      $('#externalADSection').hide();
    });
    $('#adRadio').on('click', function (event) {
       $('#standaloneSection').hide();
       $('#joinSection').hide();
-      $('#externalADSection').show();
    });
 
    $('#wizard-next2').removeAttr('onclick').on('click', function(event) {
       event.preventDefault();
-   
+
       var new_domain, host_domain;
       var ad_wizard = $('#ad_wizard_form');
       var in_ad_wizard = ad_wizard.filter(':visible').length > 0;
@@ -65,7 +61,7 @@ $(function() {
           Zentyal.Wizard.Software.nextStep();
           return false;
       }
-   
+
       host_domain = ad_wizard.attr('data-host-domain');
       if ($('#standaloneRadio').val()) {
           new_domain = $('#domain', ad_wizard).val();
@@ -75,21 +71,21 @@ $(function() {
           Zentyal.Wizard.Software.nextStep();
           return false;
       }
-   
+
       if (new_domain == host_domain) {
           Zentyal.Wizard.Software.nextStep();
           return false;
       }
-   
+
       var confirmParams = {
           title  : '<% $confirmationTitle %>',
           message: '<% $confirmationMsg %>'
       };
-      var acceptMethod = function () { 
+      var acceptMethod = function () {
           Zentyal.Wizard.Software.nextStep();
        };
       Zentyal.TableHelper.showConfirmationDialog(confirmParams, acceptMethod);
-   
+
       return false;
    });
 });
@@ -156,38 +152,6 @@ $workgroup
         <div>
               <label for="netbiosName"><% __('NetBIOS computer name') %></label>
               <input type="text" name="netbiosName" id="netbiosName"/>
-        </div>
-    </fieldset>
-</%def>
-
-<%def .externalADSection>
-    <fieldset id='externalADSection' style="display: none">
-        <legend>
-            <% __('Enter your active directory settings') %>
-        </legend>
-        <div>
-              <label for="dcHostname"><% __('Active Directory hostname') %>
-                <span class="field_help">
-                    <% __('Both the Active Directory hostname and the own Zentyal server hostname should be DNS resolvable') %>
-                </span>
-              </label>
-              <input type="text" name="dcHostname" id="dcHostname"/>
-        </div>
-        <div>
-              <label for="dcUser"><% __('Administrative user') %>
-                <span class="field_help">
-                  <% __('The administrative user has to have enough permissions to create a computer account in the domain') %>
-                </span>
-              </label>
-              <input type="text" name="dcUser" id="dcUser"/>
-        </div>
-        <div>
-              <label for="dcPassword"><% __('User password') %></label>
-              <input type="password" name="dcPassword" id="dcPassword"/>
-        </div>
-        <div>
-              <label for="dcPassword"><% __('Confirm user password') %></label>
-              <input type="password" name="dcPassword2" id="dcPassword2"/>
         </div>
     </fieldset>
 </%def>

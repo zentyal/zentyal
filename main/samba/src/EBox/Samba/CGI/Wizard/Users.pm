@@ -44,8 +44,6 @@ sub _processWizard
         $self->_processStandalone();
     } elsif ($mode eq 'join') {
         $self->_processJoinADC();
-    } elsif ($mode eq 'external') {
-        $self->_processExternalAD();
     }
 }
 
@@ -141,32 +139,6 @@ sub _processJoinADC
         password => $password,
         workgroup => $workgroup,
         netbiosName => $netbiosName
-    );
-}
-
-sub _processExternalAD
-{
-    my ($self) = @_;
-
-    $self->_requireParam('dcHostname', __('Active Directory hostname'));
-    $self->_requireParam('dcUser', __('Administrative user'));
-    $self->_requireParam('dcPassword', __('User password'));
-    $self->_requireParam('dcPassword2', __('Confirm user password'));
-    my $dcPassword = $self->unsafeParam('dcPassword');
-    my $dcPassword2 = $self->unsafeParam('dcPassword2');
-    if ($dcPassword ne $dcPassword2) {
-        throw EBox::Exceptions::External(__('User password and confirm user password does not match'));
-    }
-
-    my $users = EBox::Global->modInstance('samba');
-    my $mode = $users->model('Mode');
-    $mode->setRow(
-        0, # no force mode
-        mode       => $users->EXTERNAL_AD_MODE(),
-        dcHostname => $self->param('dcHostname'),
-        dcUser => $self->param('dcUser'),
-        dcPassword => $dcPassword,
-        dcPassword2 => $dcPassword2
     );
 }
 

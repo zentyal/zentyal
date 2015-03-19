@@ -121,13 +121,6 @@ sub childNodes
 
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
             $printableName = $child->name();
-        } elsif ($child->isa('EBox::Samba::Container::ExternalAD')) {
-            #^ container class only used in ExternalAD mode
-            # for now we are only interested in the user containers
-            $child->usersContainer() or
-                next;
-            $type = 'container';
-            $printableName = $child->name();
         } else {
             EBox::warn("Unknown object type for DN: " . $child->dn());
             next;

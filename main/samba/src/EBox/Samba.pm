@@ -20,7 +20,6 @@ package EBox::Samba;
 
 use base qw(EBox::Module::LDAP
             EBox::SysInfo::Observer
-            EBox::NetworkObserver
             EBox::FirewallObserver
             EBox::LogObserver
             EBox::SyncFolders::Provider
@@ -37,7 +36,6 @@ use EBox::FileSystem;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
-use EBox::LDAP::ExternalAD;
 use EBox::LdapUserImplementation;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
@@ -190,27 +188,13 @@ sub _create
 sub _setupForMode
 {
     my ($self) = @_;
-    my $mode = $self->mode();
-    if ($mode ne EXTERNAL_AD_MODE) {
-        $self->{ldapClass} = 'EBox::Ldap';
-        $self->{ouClass} = 'EBox::Samba::OU';
-        $self->{userClass} = 'EBox::Samba::User';
-        $self->{contactClass} = 'EBox::Samba::Contact';
-        $self->{groupClass} = 'EBox::Samba::Group';
-        $self->{containerClass} = 'EBox::Samba::Container';
-    } else {
-        $self->{ldapClass} = 'EBox::LDAP::ExternalAD';
-        $self->{ouClass} = 'EBox::Samba::OU::ExternalAD';
-        $self->{userClass} = 'EBox::Samba::User::ExternalAD';
-        $self->{contactClass} = 'EBox::Samba::Contact::ExternalAD';
-        $self->{groupClass} = 'EBox::Samba::Group::ExternalAD';
-        $self->{containerClass} = 'EBox::Samba::Container::ExternalAD';
-        # load this classes only when needed
-        foreach my $pkg ($self->{ldapClass}, $self->{ouClass}, $self->{userClass}, $self->{contactClass}, $self->{groupClass}, $self->{containerClass}) {
-            eval "use $pkg";
-            $@ and throw EBox::Exceptions::Internal("When loading $pkg: $@");
-        }
-    }
+
+    $self->{ldapClass} = 'EBox::Ldap';
+    $self->{ouClass} = 'EBox::Samba::OU';
+    $self->{userClass} = 'EBox::Samba::User';
+    $self->{contactClass} = 'EBox::Samba::Contact';
+    $self->{groupClass} = 'EBox::Samba::Group';
+    $self->{containerClass} = 'EBox::Samba::Container';
 }
 
 # Method: ldapClass
@@ -652,15 +636,7 @@ sub enableActions
 
     $self->_setAppArmorProfiles();
 
-    my $mode = $self->mode();
-    $self->_setupForMode();
-    if ($mode eq STANDALONE_MODE) {
-        $self->_internalServerEnableActions();
-    } elsif ($mode eq EXTERNAL_AD_MODE) {
-        $self->_externalADEnableActions();
-    } else {
-        throw EBox::Exceptions::Internal("Unknown mode $mode");
-    }
+    $self->_internalServerEnableActions();
 }
 
 sub _internalServerEnableActions
@@ -678,16 +654,6 @@ sub _internalServerEnableActions
     # mark webAdmin as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
     EBox::Global->modInstance('webadmin')->setAsChanged();
-}
-
-sub _externalADEnableActions
-{
-    my ($self) = @_;
-    my $global = $self->global();
-    # we need to restart network to force the regeneration of DNS resolvers
-    $global->modInstance('network')->setAsChanged();
-    # we need to webadmin to clear DNs cache daa
-    $global->modInstance('webadmin')->setAsChanged();
 }
 
 sub enableService
@@ -891,10 +857,8 @@ sub _regenConfig
     # default EBox::Module::LDAP behavior of adding schemas
     # first and then regenConfig
     $self->EBox::Module::Service::_regenConfig(@_);
-    if ($self->mode() eq STANDALONE_MODE) {
-        if ($self->isProvisioned() and $self->isEnabled()) {
-            $self->_performSetup();
-        }
+    if ($self->isProvisioned() and $self->isEnabled()) {
+        $self->_performSetup();
     }
 }
 
@@ -910,28 +874,12 @@ sub _setConf
     my ($self, $noSlaveSetup) = @_;
     $self->_setupForMode();
 
-    if ($self->mode() eq EXTERNAL_AD_MODE) {
-        $self->_setConfExternalAD();
-    } else {
-        $self->_setConfInternal($noSlaveSetup);
+    $self->_setConfInternal($noSlaveSetup);
 
-        # Remove shares
-        $self->model('SambaDeletedShares')->removeDirs();
-        # Create shares
-        $self->model('SambaShares')->createDirs();
-    }
-}
-
-sub _setConfExternalAD
-{
-    my ($self) = @_;
-    # setup kerberos,
-    $self->getProvision()->setupKerberos(1);
-    # Install cron file to update the squid keytab in the case keys change
-    $self->writeConfFile(CRONFILE_EXTERNAL_AD_MODE, "samba/zentyal-users-external-ad.cron.mas", []);
-    EBox::Sudo::root('chmod a+x ' . CRONFILE_EXTERNAL_AD_MODE);
-    # Reset LDAP connection
-    $self->clearLdapConn();
+    # Remove shares
+    $self->model('SambaDeletedShares')->removeDirs();
+    # Create shares
+    $self->model('SambaShares')->createDirs();
 }
 
 sub _setConfInternal
@@ -2823,16 +2771,6 @@ sub listSchemas
     return \@schemas;
 }
 
-sub mode
-{
-    my ($self) = @_;
-    my $mode = $self->model('Mode')->value('mode');
-    if (not $mode) {
-        return STANDALONE_MODE;
-    }
-    return $mode;
-}
-
 # Method: dcMode
 #
 #   Returns the configured server mode
@@ -2853,12 +2791,6 @@ sub dcMode
 sub newLDAP
 {
     my ($self) = @_;
-    my $mode = $self->mode();
-    if ($mode eq EXTERNAL_AD_MODE) {
-        return EBox::LDAP::ExternalAD->instance(
-            @{ $self->model('Mode')->adModeOptions() }
-           );
-    }
 
     return  EBox::Ldap->instance();
 }
@@ -3881,52 +3813,6 @@ sub _cleanModulesForReprovision
         $mod->set_state($state);
         $mod->setAsChanged(1);
     }
-}
-
-#
-# EBox::NetworkObserver implementation
-#
-
-# Method: nameserverAdded
-#
-#   Overrided to clear LDAP connection if nameserver is added
-#
-# Overrides:
-#
-#   EBox::NetworkObserver::nameserverAdded
-#
-sub nameserverAdded
-{
-    my ($self, $ns, $iface) = @_;
-
-    my $mode = $self->mode();
-    if ($mode eq EXTERNAL_AD_MODE) {
-        $self->clearLdapConn();
-        $self->setAsChanged();
-    }
-
-    return 0;
-}
-
-# Method: nameserverDelete
-#
-#   Overrided to clear LDAP connection if nameserver is deleted
-#
-# Overrides:
-#
-#   EBox::NetworkObserver::nameserverDelete
-#
-sub nameserverDelete
-{
-    my ($self, $ns, $iface) = @_;
-
-    my $mode = $self->mode();
-    if ($mode eq EXTERNAL_AD_MODE) {
-        $self->clearLdapConn();
-        $self->setAsChanged();
-    }
-
-    return 0;
 }
 
 1;

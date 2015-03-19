@@ -1,4 +1,5 @@
 HEAD
+	+ Remove no longer used External AD mode
 	+ Remove the limited GPO support from the Zentyal UI
 	+ Remove no longer supported antivirus integration
 	+ Added support for quotas on extra FS
