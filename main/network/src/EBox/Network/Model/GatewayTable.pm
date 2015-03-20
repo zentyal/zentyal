@@ -475,7 +475,7 @@ sub _gateways
             default => $default,
             interface => $gw->valueByName('interface'),
             enabled => $gw->valueByName('enabled'),
-        });
+        };
 	return [ $gateway ] if ($default and not $all);
         push (@gateways, $gateway);
     }

@@ -186,16 +186,6 @@ sub usedFiles
         'module' => 'network'
     },
     {
-        'file' => CHAP_SECRETS_FILE,
-        'reason' => __('Zentyal will store your PPPoE passwords'),
-        'module' => 'network'
-    },
-    {
-        'file' => PAP_SECRETS_FILE,
-        'reason' => __('Zentyal will store your PPPoE passwords'),
-        'module' => 'network'
-    },
-    {
         'file' => SYSCTL_FILE,
         'reason' => __('Zentyal will disable IPV6 on this system'),
         'module' => 'network'
