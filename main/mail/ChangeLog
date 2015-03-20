@@ -1,4 +1,5 @@
 HEAD
+	+ Remove external AD integration
 	+ Use always external mailfilter if configured instead of no longer
 	  maintained Zentyal mailfilter module
 4.0.4

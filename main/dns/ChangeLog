@@ -1,3 +1,5 @@
+HEAD
+	+ Remove external AD integration
 4.0.2
 	+ Escape TXT records in nsupdate commands
 	+ Update managed domain ip addresses on static interfaces change

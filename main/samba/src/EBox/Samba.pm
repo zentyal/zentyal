@@ -289,27 +289,25 @@ sub actions
 
     my @actions;
 
-    if ($self->mode() eq STANDALONE_MODE) {
-        push (@actions, {
-            'action' => __('Your LDAP database will be populated with some basic organizational units'),
-            'reason' => __('Zentyal needs this organizational units to add users and groups into them.'),
-            'module' => 'samba'
-        });
-        push (@actions, {
-            'action' => __('Create Samba home directory for shares and groups'),
-            'reason' => __('Zentyal will create the directories for Samba ' .
-                           'shares and groups under /home/samba.'),
-            'module' => 'samba',
-        });
+    push (@actions, {
+        'action' => __('Your LDAP database will be populated with some basic organizational units'),
+        'reason' => __('Zentyal needs this organizational units to add users and groups into them.'),
+        'module' => 'samba'
+    });
+    push (@actions, {
+        'action' => __('Create Samba home directory for shares and groups'),
+        'reason' => __('Zentyal will create the directories for Samba ' .
+                       'shares and groups under /home/samba.'),
+        'module' => 'samba',
+    });
 
-        # FIXME: This probably won't work if PAM is enabled after enabling the module
-        if ($self->model('PAM')->enable_pamValue()) {
-            push @actions, {
-                    'action' => __('Configure PAM.'),
-                    'reason' => __('Zentyal will give LDAP samba system account.'),
-                    'module' => 'samba'
-                };
-        }
+    # FIXME: This probably won't work if PAM is enabled after enabling the module
+    if ($self->model('PAM')->enable_pamValue()) {
+        push @actions, {
+                'action' => __('Configure PAM.'),
+                'reason' => __('Zentyal will give LDAP samba system account.'),
+                'module' => 'samba'
+            };
     }
 
     return \@actions;
@@ -329,32 +327,30 @@ sub usedFiles
             'module' => 'samba'
         };
 
-    if ($self->mode() eq STANDALONE_MODE) {
-        push @files, (
-            {
-                'file' => '/etc/nsswitch.conf',
-                'reason' => __('To make NSS use LDAP resolution for user and '.
-                               'group accounts. Needed for Samba PDC configuration.'),
-                'module' => 'samba'
-            },
-            {
-                'file' => '/etc/fstab',
-                'reason' => __('To add quota support to /home partition.'),
-                'module' => 'samba'
-            },
-            {
-                'file' => SSSD_CONF_FILE,
-                'reason' => __('To configure System Security Services Daemon to manage remote'
-                               . ' authentication mechanisms'),
-                'module' => 'samba'
-            },
-            {
-                'file'   => FSTAB_FILE,
-                'reason' => __('To enable extended attributes and acls.'),
-                'module' => 'samba',
-            },
-        );
-    }
+    push @files, (
+        {
+            'file' => '/etc/nsswitch.conf',
+            'reason' => __('To make NSS use LDAP resolution for user and '.
+                           'group accounts. Needed for Samba PDC configuration.'),
+            'module' => 'samba'
+        },
+        {
+            'file' => '/etc/fstab',
+            'reason' => __('To add quota support to /home partition.'),
+            'module' => 'samba'
+        },
+        {
+            'file' => SSSD_CONF_FILE,
+            'reason' => __('To configure System Security Services Daemon to manage remote'
+                           . ' authentication mechanisms'),
+            'module' => 'samba'
+        },
+        {
+            'file'   => FSTAB_FILE,
+            'reason' => __('To enable extended attributes and acls.'),
+            'module' => 'samba',
+        },
+    );
 
     return \@files;
 }
@@ -405,15 +401,6 @@ sub initialSetup
 sub _migrateTo35
 {
     my ($self) = @_;
-
-    # Migrate external AD mode if set in the old users module
-    my $redis = $self->redis();
-    my $mode = $redis->get('users/conf/Mode/keys/form');
-    if ($mode and exists $mode->{mode} and ($mode->{mode} eq 'external-ad')) {
-        $redis->set('samba/conf/Mode/keys/form', $mode);
-        $self->saveConfig();
-        return;
-    }
 
     return unless ($self->configured());
 
@@ -659,7 +646,6 @@ sub _internalServerEnableActions
 sub enableService
 {
     my ($self, $status) = @_;
-    my $mode = $self->mode();
 
     if ($status) {
         my $throwException = 1;
@@ -667,17 +653,13 @@ sub enableService
             $throwException = 0;
         }
 
-        if ($mode eq STANDALONE_MODE) {
-            $self->getProvision->checkEnvironment($throwException);
-        }
+        $self->getProvision->checkEnvironment($throwException);
     }
 
     $self->SUPER::enableService($status);
 
-    if ($mode eq STANDALONE_MODE) {
-        my $dns = EBox::Global->modInstance('dns');
-        $dns->setAsChanged();
-    }
+    my $dns = EBox::Global->modInstance('dns');
+    $dns->setAsChanged();
 }
 
 sub _startDaemon
@@ -1002,16 +984,6 @@ sub _postServiceHook
 
     return unless $enabled;
 
-    if ($self->mode() eq EXTERNAL_AD_MODE) {
-        # Update services keytabs
-        my $ldap = $self->ldap();
-        my @principals = @{ $ldap->externalServicesPrincipals() };
-        if (scalar @principals) {
-            $ldap->initKeyTabs();
-        }
-        return;
-    }
-
     return unless $self->isProvisioned();
 
     # Fix permissions on samba dirs. Zentyal user needs access because
@@ -1320,9 +1292,6 @@ sub _setupSSSd
 sub editableMode
 {
     my ($self) = @_;
-    if ($self->mode() ne STANDALONE_MODE) {
-        return 0;
-    }
 
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
@@ -1347,18 +1316,12 @@ sub _daemons
 {
     my ($self) = @_;
 
-    my $usingInternalServer = sub {
-        return ($self->mode() eq STANDALONE_MODE);
-    };
-
     return [
         {
             name => 'samba-ad-dc',
-            precondition => $usingInternalServer
         },
         {
             name => 'sssd',
-            precondition => $usingInternalServer
         },
         {
             name => 'zentyal.sysvol-sync',
@@ -1434,19 +1397,17 @@ sub _startService
 
     $self->SUPER::_startService();
 
-    if ($self->mode() eq STANDALONE_MODE) {
-        # Wait for sss to open the NSS pipe
-        my $tries = 300;
-        my $sleep = 0.1;
-        my $socket = undef;
-        while (not defined $socket and $tries > 0) {
-            $socket = new IO::Socket::UNIX(
-                Type => SOCK_STREAM,
-                Peer => '/var/lib/sss/pipes/nss');
-            last if $socket;
-            $tries--;
-            Time::HiRes::sleep($sleep);
-        }
+    # Wait for sss to open the NSS pipe
+    my $tries = 300;
+    my $sleep = 0.1;
+    my $socket = undef;
+    while (not defined $socket and $tries > 0) {
+        $socket = new IO::Socket::UNIX(
+            Type => SOCK_STREAM,
+            Peer => '/var/lib/sss/pipes/nss');
+        last if $socket;
+        $tries--;
+        Time::HiRes::sleep($sleep);
     }
 }
 
@@ -2263,11 +2224,9 @@ sub menu
             $folder->add(new EBox::Menu::Item(
                 'url'  => 'Samba/Composite/UserTemplate',
                 'text' => __('User Template'), order => 30));
-            if ($self->mode() eq STANDALONE_MODE) {
-                $folder->add(new EBox::Menu::Item(
-                    'url'  => 'Samba/View/Master',
-                    'text' => __('Synchronization'), order => 40));
-            }
+            $folder->add(new EBox::Menu::Item(
+                'url'  => 'Samba/View/Master',
+                'text' => __('Synchronization'), order => 40));
         }
 
         $folder->add(new EBox::Menu::Item(
@@ -2288,64 +2247,6 @@ sub menu
                                         icon      => 'sharing',
                                         tag       => 'main',
                                         order     => 3));
-    }
-}
-
-# Method: enableModDepends
-#
-# Overriden to remove dns from dependencies when on standalone mode
-sub enableModDepends
-{
-    my ($self) = @_;
-    my $depends = $self->SUPER::enableModDepends();
-    return $self->_filterDependsByMode($depends);
-}
-
-# Method: bootDepends
-#
-# Overriden to remove dns from dependencies when on standalone mode
-sub bootDepends
-{
-    my ($self)= @_;
-    my $depends = $self->SUPER::bootDepends();
-    return $self->_filterDependsByMode($depends);
-}
-
-# Method: depends
-#
-#     Samba depends on printers only if it exists and in standalone mode
-#
-# Overrides:
-#
-#     <EBox::Module::Base::depends>
-#
-sub depends
-{
-    my ($self) = @_;
-
-    my @deps = @{$self->SUPER::depends()};
-
-    if ($self->global()->modExists('printers')) {
-        push (@deps, 'printers');
-    }
-
-    return $self->_filterDependsByMode(\@deps);
-}
-
-sub _filterDependsByMode
-{
-    my ($self, $depends) = @_;
-    my $mode = $self->mode();
-    if ($mode eq STANDALONE_MODE) {
-        return $depends;
-    } elsif ($mode eq EXTERNAL_AD_MODE) {
-        my @depends = grep {
-            ($_ ne 'dns') and ($_ ne 'printers')
-        } @{ $depends };
-
-        return \@depends;
-    } else {
-        throw EBox::Exceptions::Internal("Unknown users mode '$mode'");
     }
 }
 
@@ -2455,13 +2356,6 @@ sub dumpConfig
 
     return unless $self->isProvisioned();
 
-    my $mode = $self->mode();
-    File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
-    if ($mode ne STANDALONE_MODE) {
-        # the dump of the LDAP is only availabe in standalone server mode
-        return;
-    }
-
     my @cmds;
 
     my $hostname  =  `hostname --fqdn`;
@@ -2552,10 +2446,8 @@ sub _usersInEtcPasswd
 sub restoreDependencies
 {
     my ($self) = @_;
-    if ($self->mode() eq STANDALONE_MODE) {
-            return ['dns'];
-    }
-    return [];
+
+    return ['dns'];
 }
 
 # Method: restoreBackupPreCheck
@@ -2566,31 +2458,6 @@ sub restoreDependencies
 sub restoreBackupPreCheck
 {
     my ($self, $dir) = @_;
-    my $mode = $self->mode();
-    my $backupModeFile = $dir . '/' . BACKUP_MODE_FILE;
-    my $backupMode;
-    if (-r $backupModeFile) {
-        $backupMode =  File::Slurp::read_file($backupModeFile);
-    } else {
-        # standalone mode by default
-        $backupMode = STANDALONE_MODE;
-    }
-
-
-    if ($mode ne $backupMode) {
-        my $modeModel = $self->model('Mode');
-        throw EBox::Exceptions::External(
-            __x('Cannot restore users module because is running in mode {mode} and the backup was made in mode {bpMode}',
-                mode => $modeModel->modePrintableName($mode),
-                bpMode => $modeModel->modePrintableName($backupMode),
-               )
-           );
-    }
-
-    if ($mode ne STANDALONE_MODE) {
-        # nothing more to check
-        return;
-    }
 
     my $oldHostname;
     my $hostnameFile = "$dir/oldhostname";
@@ -2639,14 +2506,6 @@ sub restoreConfig
                            ex => $exError);
             throw EBox::Exceptions::External($error);
         }
-    }
-
-    my $mode = $self->mode();
-    File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
-    if ($mode ne STANDALONE_MODE) {
-        # only standalone mode needs to do this operations to restore the LDAP
-        # directory
-        return;
     }
 
     my $modeDC = $self->dcMode();

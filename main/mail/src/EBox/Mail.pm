@@ -513,7 +513,6 @@ sub _kerberosKeytab
 sub enableActions
 {
     my ($self) = @_;
-    $self->checkUsersMode();
 
     try {
         my $cmd = 'cp /usr/share/zentyal-mail/dovecot-pam /etc/pam.d/dovecot';

@@ -330,8 +330,6 @@ sub _regenConfig
     if ($samba->isProvisioned() and $samba->isEnabled()) {
         $self->_performSetup();
         $self->SUPER::_regenConfig(@_);
-    } elsif ($samba->mode() eq $samba->EXTERNAL_AD_MODE) {
-        $self->SUPER::_regenConfig(@_);
     }
 }
 
@@ -420,23 +418,6 @@ sub usersModesAllowed
     my ($self) = @_;
     my $users = $self->global()->modInstance('samba');
     return [$users->STANDALONE_MODE()];
-}
-
-sub checkUsersMode
-{
-    my ($self) = @_;
-    my $users = $self->global()->modInstance('samba');
-    my $mode = $users->mode();
-    my $allowedMode = grep {
-        $mode eq $_
-    } @{ $self->usersModesAllowed() };
-    if (not $allowedMode) {
-        throw EBox::Exceptions::External(__x(
-            'Module {mod} is uncompatible with the current users operation mode ({mode})',
-            mod => $self->printableName(),
-            mode => $users->model('Mode')->modePrintableName,
-        ));
-    }
 }
 
 1;

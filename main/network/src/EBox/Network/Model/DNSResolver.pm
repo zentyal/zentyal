@@ -245,15 +245,6 @@ sub precondition
     if ($self->global->modExists('dns')) {
         my $dnsModule = $self->global->modInstance('dns');
         if ($dnsModule->configured() and $dnsModule->isEnabled()) {
-            # Do not disable if users module is external AD, Zentyal must use
-            # the AD server as primary resolver
-            if ($self->global->modExists('samba')) {
-                my $usersModule = EBox::Global->modInstance('samba');
-                my $mode = $usersModule->mode();
-                if ($mode eq EBox::Samba::EXTERNAL_AD_MODE()) {
-                    return 1;
-                }
-            }
             $self->{preconditionFail} = 'dnsModuleEnabled';
             return undef;
         }

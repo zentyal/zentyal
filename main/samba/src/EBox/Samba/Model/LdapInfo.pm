@@ -95,23 +95,14 @@ sub _content
     my %info;
 
     my $users = $self->parentModule();
-    my $mode = $users->mode();
     my $ldap = $users->ldap();
 
     %info = (
         dn => $ldap->dn(),
     );
 
-    if ($mode ne $users->EXTERNAL_AD_MODE) {
-        $info{usersDn}   = $users->userClass()->defaultContainer()->dn();
-        $info{groupsDn}  = $users->groupClass()->defaultContainer()->dn();
-    } elsif ($mode eq $users->EXTERNAL_AD_MODE) {
-        my $modeModel = $users->model('Mode');
-        my $dcHostname = $modeModel->value('dcHostname');
-        my $dcUser     = $modeModel->value('dcUser');
-        $info{dcHostname} = $dcHostname;
-        $info{dcUser}     = $dcUser;
-    }
+    $info{usersDn}   = $users->userClass()->defaultContainer()->dn();
+    $info{groupsDn}  = $users->groupClass()->defaultContainer()->dn();
 
     return \%info;
 }
