@@ -3706,13 +3706,10 @@ sub _defaultGatewayCommand
     }
     my $ip = $row->valueByName('ip');
     my $iface = $row->valueByName('interface');
-    my $gw = {ip => $ip, interface => $iface};
 
     # Skip gateway with unassigned address
-    my $ip = $gw->{'ip'};
     return undef unless $ip;
 
-    my $iface = $gw->{'interface'};
     my $method = $self->ifaceMethod($iface);
 
     my $if = new IO::Interface::Simple($iface);
