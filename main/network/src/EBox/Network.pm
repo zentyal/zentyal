@@ -3767,7 +3767,6 @@ sub importInterfacesFile
 
     my $DEFAULT_IFACE = 'eth0';
     my $DEFAULT_GW_NAME = 'default';
-    my $DEFAULT_WEIGHT = 1;
 
     my @interfaces = @{$self->_readInterfaces()};
     foreach my $iface (@interfaces) {
@@ -3792,7 +3791,6 @@ sub importInterfacesFile
                     $gwModel->add(name      => $DEFAULT_GW_NAME,
                                   ip        => $iface->{'gateway'},
                                   interface => $iface->{'name'},
-                                  weight    => $DEFAULT_WEIGHT,
                                   default   => 1);
                 }
             }

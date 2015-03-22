@@ -54,16 +54,6 @@ sub new
     return $self;
 }
 
-sub weights
-{
-    my @options;
-    for my $weight (1..15) {
-        push @options, { 'value' => $weight,
-                 'printableValue' => $weight};
-    }
-    return \@options;
-}
-
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
@@ -471,7 +461,6 @@ sub _gateways
             auto => $gw->valueByName('auto'),
             name => $name,
             ip => $gw->valueByName('ip'),
-            weight => $gw->valueByName('weight'),
             default => $default,
             interface => $gw->valueByName('interface'),
             enabled => $gw->valueByName('enabled'),
