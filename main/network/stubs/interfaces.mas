@@ -12,7 +12,7 @@ push @autoIfaces, grep {
    } @iflist;
 push @autoIfaces, grep {
         my $ifMethod = $networkMod->ifaceMethod($_);
-        ($ifMethod eq 'static') or ($ifMethod eq 'dhcp'))
+        (($ifMethod eq 'static') or ($ifMethod eq 'dhcp'))
    } @iflist;
 </%init>
 auto <% "@autoIfaces" %>
