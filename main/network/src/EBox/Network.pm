@@ -2633,10 +2633,6 @@ sub _multigwRoutes
                   . "-j MARK --set-mark $mark");
     }
 
-    for my $rule (@{$self->model('MultiGwRulesDataTable')->iptablesRules()}) {
-        push(@cmds, "/sbin/iptables $rule");
-    }
-
     # send unmarked packets through default router
     if ($defaultRouterMark) {
         push(@cmds, "/sbin/iptables -t mangle -A PREROUTING  -m mark --mark 0/0xff " .
