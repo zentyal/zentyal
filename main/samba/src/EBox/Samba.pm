@@ -2194,20 +2194,16 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $standalone = ($self->mode eq STANDALONE_MODE);
+    my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
+                                              text => __('Domain'),
+                                              icon => 'domain',
+                                              tag => 'main',
+                                              order => 2);
 
-    if ($standalone) {
-        my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
-                                                  text => __('Domain'),
-                                                  icon => 'domain',
-                                                  tag => 'main',
-                                                  order => 2);
-
-        $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/DomainSettings',
-                                                text  => __('Settings'),
-                                                order => 10));
-        $root->add($domainFolder);
-    }
+    $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/DomainSettings',
+                                            text  => __('Settings'),
+                                            order => 10));
+    $root->add($domainFolder);
 
 
     my $folder = new EBox::Menu::Folder(name => 'Users',
@@ -2220,14 +2216,12 @@ sub menu
             'url'  => 'Samba/Tree/Manage',
             'text' => __('Manage'), order => 10));
 
-        if ($standalone) {
-            $folder->add(new EBox::Menu::Item(
-                'url'  => 'Samba/Composite/UserTemplate',
-                'text' => __('User Template'), order => 30));
-            $folder->add(new EBox::Menu::Item(
-                'url'  => 'Samba/View/Master',
-                'text' => __('Synchronization'), order => 40));
-        }
+        $folder->add(new EBox::Menu::Item(
+            'url'  => 'Samba/Composite/UserTemplate',
+            'text' => __('User Template'), order => 30));
+        $folder->add(new EBox::Menu::Item(
+            'url'  => 'Samba/View/Master',
+            'text' => __('Synchronization'), order => 40));
 
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Samba/Composite/Settings',
@@ -2241,13 +2235,11 @@ sub menu
     }
     $root->add($folder);
 
-    if ($standalone) {
-        $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
-                                        url       => 'Samba/Composite/FileSharing',
-                                        icon      => 'sharing',
-                                        tag       => 'main',
-                                        order     => 3));
-    }
+    $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
+                                    url       => 'Samba/Composite/FileSharing',
+                                    icon      => 'sharing',
+                                    tag       => 'main',
+                                    order     => 3));
 }
 
 # Method: syncJournalDir
