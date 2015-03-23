@@ -176,18 +176,6 @@ sub _create
                                       printableName => __('Domain Controller and File Sharing'),
                                       @_);
     bless($self, $class);
-    $self->_setupForMode();
-
-    return $self;
-}
-
-# Method: _setupForMode
-#
-#   setup the internal attributes need for active authentication mode
-#
-sub _setupForMode
-{
-    my ($self) = @_;
 
     $self->{ldapClass} = 'EBox::Ldap';
     $self->{ouClass} = 'EBox::Samba::OU';
@@ -195,6 +183,8 @@ sub _setupForMode
     $self->{contactClass} = 'EBox::Samba::Contact';
     $self->{groupClass} = 'EBox::Samba::Group';
     $self->{containerClass} = 'EBox::Samba::Container';
+
+    return $self;
 }
 
 # Method: ldapClass
@@ -854,7 +844,6 @@ sub _regenConfig
 sub _setConf
 {
     my ($self, $noSlaveSetup) = @_;
-    $self->_setupForMode();
 
     $self->_setConfInternal($noSlaveSetup);
 
@@ -2750,12 +2739,6 @@ sub hostDomainChanged
 sub hostDomainChangedDone
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
-
-    unless ($self->configured()) {
-        my $mode = $self->model('Mode');
-        my $newDN = $mode->getDnFromDomainName($newDomainName);
-        $mode->setValue('dn', $newDN);
-    }
 
     my $settings = $self->global()->modInstance('samba')->model('DomainSettings');
     $settings->setValue('realm', uc ($newDomainName));

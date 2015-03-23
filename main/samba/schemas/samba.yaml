@@ -13,7 +13,6 @@ bootdepends:
 models:
     - DomainSettings
     - Manage
-    - Mode
     - LdapInfo
     - PAM
     - AccountSettings
