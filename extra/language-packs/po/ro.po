@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-12-11 09:27+0200\n"
-"Last-Translator: dorinelu <alukilogram@gmail.com>\n"
+"PO-Revision-Date: 2015-03-18 13:02+0200\n"
+"Last-Translator: adriann <adriann@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -15880,20 +15880,19 @@ msgstr ""
 
 #: ../../main/mail/src/templates/alias.mas:184
 msgid "Default quota"
-msgstr ""
+msgstr "Cotă implicită"
 
 #: ../../main/mail/src/templates/alias.mas:185
 msgid "Custom quota"
-msgstr ""
+msgstr "Cotă personalizată"
 
 #: ../../main/mail/src/templates/alias.mas:193
-#, fuzzy
 msgid "Quota type"
-msgstr "Tip obiect"
+msgstr "Tip cotă"
 
 #: ../../main/mail/src/templates/alias.mas:202
 msgid "Maximum mailbox size"
-msgstr ""
+msgstr "Marime maximă casuță email"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:10
 #: ../../main/mail/src/templates/warnvdmdsize.mas:14
@@ -15924,11 +15923,11 @@ msgstr ""
 
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Sender"
-msgstr ""
+msgstr "Expeditor"
 
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Recipients"
-msgstr ""
+msgstr "Destinatari"
 
 #: ../../main/mail/src/templates/qmanager.mas:33
 msgid "Requeue"
@@ -15936,7 +15935,7 @@ msgstr ""
 
 #: ../../main/mail/src/templates/qmanager.mas:35
 msgid "Show Info"
-msgstr ""
+msgstr "Arata informații"
 
 #: ../../main/mail/src/templates/qmanager.mas:48
 msgid "Hide Info"
@@ -15948,16 +15947,15 @@ msgstr ""
 
 #: ../../main/mail/src/templates/qmanager.mas:60
 msgid "Remove all messages"
-msgstr ""
+msgstr "Șterge toate mesajele"
 
 #: ../../main/mail/src/templates/qmanager.mas:82
 msgid "There are no messages in queue or the service is stopped"
-msgstr ""
+msgstr "Nu sunt mesaje in coadă sau serviciul este oprit"
 
 #: ../../main/mail/src/templates/createaccount.mas:42
-#, fuzzy
 msgid "Maildir size"
-msgstr "Marime pagina"
+msgstr "Marime Maildir"
 
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
 msgid ""
@@ -15967,7 +15965,7 @@ msgstr ""
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:6
 msgid "Virtual mail domain"
-msgstr ""
+msgstr "Domeniu email virtual "
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:9
 msgid "Set up the default virtual mail domain"

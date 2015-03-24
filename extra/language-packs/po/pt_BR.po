@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2014-12-23 19:14+0200\n"
-"Last-Translator: fabiohsouza <fabiohsouza@gmail.com>\n"
+"PO-Revision-Date: 2015-03-23 22:03+0200\n"
+"Last-Translator: misteregis <misteregis@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -2572,6 +2572,9 @@ msgid ""
 "domain certificate by OpenChange. You can issue it from the {oh}OpenChange "
 "virtual domains interface.{ch}"
 msgstr ""
+"Você não pode emitir um certificado com CN {cn} porque esse CN está "
+"reservada a certificado de domínio por {oh}OpenChange. Você pode emitir-lo "
+"do OpenChange interface de domínios virtuais.{ch}"
 
 #: ../../main/ca/src/EBox/CA.pm:924 ../../main/ca/src/EBox/CA.pm:1267
 #: ../../main/ca/src/EBox/CA.pm:1337 ../../main/ca/src/EBox/CA.pm:1431
@@ -2927,6 +2930,9 @@ msgid ""
 "The CN {cn} is reserved by OpenChange and cannot be generated automatically. "
 "You can issue it from the {oh}OpenChange virtual domains interface.{ch}"
 msgstr ""
+"O CN {cn} está reservada por OpenChange e não pode ser gerado "
+"automaticamente. Você pode emitir-lo do {oh}OpenChange interface de domínios "
+"virtuais.{ch}"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
 msgid "Signatures"
@@ -3653,9 +3659,8 @@ msgid "Filter Policies"
 msgstr "Políticas de Filtragem"
 
 #: ../../main/l2tp/src/EBox/L2TP/LDAPUser.pm:39
-#, fuzzy
 msgid "L2TP connections"
-msgstr "Conexão IPsec"
+msgstr "Conexões L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:55
 msgid ""
@@ -3682,9 +3687,8 @@ msgstr ""
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:71
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:189
-#, fuzzy
 msgid "Connections"
-msgstr "Conexões IPsec"
+msgstr "Conexões"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:179
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:338
@@ -3738,11 +3742,9 @@ msgid "The Tunnel IP {localIP} is not part of any local network"
 msgstr "O Túnel IP {localIP} não é parte de nenhuma rede local"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:283
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes the selected tunnel IP address: {localIP}"
-msgstr ""
-"Faixa {from}-{to} ({name}) inclui o endereço IP do túnel selecionado: "
-"{localIP}"
+msgstr "Faixa {from}-{to} inclui o endereço IP do túnel selecionado: {localIP}"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:297
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:128
@@ -3785,14 +3787,12 @@ msgid "Pre-shared key for the IPsec connection."
 msgstr "Chave pré-compartilhada para a conexão de IPsec."
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:361
-#, fuzzy
 msgid "Range start"
-msgstr "Reiniciar"
+msgstr "Iniciar faixa"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:367
-#, fuzzy
 msgid "Range end"
-msgstr "Faixa"
+msgstr "Finalizar faixa"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:379
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:354
@@ -3844,9 +3844,9 @@ msgstr ""
 "servidor WINS para clientes L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:524
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configuration no complete, {field} not set"
-msgstr "Configuração de backup não completa"
+msgstr "Configuração incompleta, {field} vazio"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:169
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:70
@@ -3861,23 +3861,21 @@ msgstr "Comentário"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:188
 msgid "L2TP"
-msgstr ""
+msgstr "L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:190
-#, fuzzy
 msgid "L2TP connection"
-msgstr "Conexão IPsec"
+msgstr "Conexão L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:197
-#, fuzzy
 msgid ""
 "L2TP connections allow to deploy secure tunnels between different "
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
 "with other security devices."
 msgstr ""
-"Conexões IPsec permitem a criação de túneis seguros com diferentes subredes. "
-"Este protocolo é independente e compatível com vários fabricantes de "
-"equipamentos de segurança."
+"Conexões L2TP permite implantar túneis seguros entre diferentes sub-redes. "
+"Este protocolo é fornecedor independente e irá conectar Zentyal com outros "
+"dispositivos de segurança."
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:217
 msgid "Enabled flag"
@@ -3901,20 +3899,22 @@ msgid "Blank characters are not allowed"
 msgstr "Caracteres em branco não são permitidos"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:251
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "L2TP can only be configured on interfaces tagged as 'external' Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"IPsec pode ser configurado somente em interfaces marcadas como \"externo\". "
-"Verifique se sua configuração de interface  está correta em {openhref}Rede-"
-">Interfaces{closehref}"
+"L2TP só pode ser configurado em interfaces com tag como 'externo' Verifique "
+"sua configuração de interface para corresponder, em "
+"{openhref}Rede->Interfaces{closehref}"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:263
 #, perl-brace-format
 msgid ""
 "{mod} module is not provisioned. To provision it, enable it and save changes"
 msgstr ""
+"{mod} módulo não está provisionado. Para provisionar ele, habilite-o e salve "
+"as alterações"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:68
 msgid "To configure OpenSwan IPsec."
@@ -15491,9 +15491,8 @@ msgid "Retype password"
 msgstr "Confirme a senha"
 
 #: ../../main/samba/src/templates/edituser.mas:72
-#, fuzzy
 msgid "Disabled account"
-msgstr "Conta do Jabber"
+msgstr "Conta desabilitada"
 
 #: ../../main/samba/src/templates/edituser.mas:83
 msgid "User groups"
@@ -15506,12 +15505,11 @@ msgstr "Criar conta de e-mail"
 
 #: ../../main/samba/src/templates/edituser.mas:145
 msgid "This action removes the mail account and its associated data."
-msgstr ""
+msgstr "Esta ação remove a conta de e-mail e seus dados associados."
 
 #: ../../main/samba/src/templates/edituser.mas:148
-#, fuzzy
 msgid "Replace mail account"
-msgstr "Criar conta de e-mail"
+msgstr "Substitua conta de e-mail"
 
 #: ../../main/samba/src/templates/edituser.mas:148
 msgid "Replacing the mail account removes all its current data."
@@ -15531,12 +15529,12 @@ msgstr "Adicionar Grupo"
 
 #: ../../main/samba/src/templates/wizard/users.mas:8
 msgid "Change server local domain?"
-msgstr ""
+msgstr "Alterar servidor de domínio local?"
 
 #: ../../main/samba/src/templates/wizard/users.mas:9
 #, perl-brace-format
 msgid "{op}This action will trigger the change of the actual host name.{cp}"
-msgstr ""
+msgstr "{op}Esta ação irá desencadear a mudança do nome do host atual.{cp}"
 
 #: ../../main/samba/src/templates/wizard/users.mas:10
 #, perl-brace-format
@@ -15626,7 +15624,7 @@ msgstr "Adicionar contato"
 #: ../../main/samba/src/templates/delgroup.mas:11
 #: ../../main/samba/src/templates/delgroup.mas:32
 msgid "Delete group"
-msgstr "Apagar grupo"
+msgstr "Excluir grupo"
 
 #: ../../main/samba/src/templates/delgroup.mas:15
 msgid "You cannot delete a group in a slave."
@@ -15696,13 +15694,15 @@ msgstr "Alias de e-mail"
 
 #: ../../main/mail/src/templates/groupalias.mas:68
 msgid "Group aliases cannot be created for a group without mail account"
-msgstr ""
+msgstr "Grupo Aliases não pode ser criado por um grupo sem uma conta de E-Mail"
 
 #: ../../main/mail/src/templates/groupalias.mas:69
 msgid ""
 "Group aliases cannot be created for a group without a mail account belonging "
 "to a mail domain managed by Zentyal"
 msgstr ""
+"Grupo Aliases não pode ser criado por um grupo sem uma conta de E-Mail "
+"pertencente a um domínio de E-Mail gerênciada por Zentyal"
 
 #: ../../main/mail/src/templates/warnvd.mas:12
 msgid "Deleting virtual domain"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-08-07 10:11+0200\n"
+"PO-Revision-Date: 2015-03-19 13:24+0200\n"
 "Last-Translator: Timo <timbe1000@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fi\n"
@@ -14633,20 +14633,20 @@ msgstr ""
 
 #: ../../main/squid/stubs/template.html.mas:13
 msgid "Access Denied"
-msgstr ""
+msgstr "Pääsy kielletty"
 
 #: ../../main/squid/stubs/template.html.mas:134
 msgid "Access has been Denied"
-msgstr ""
+msgstr "Pääsy on estetty"
 
 #: ../../main/squid/stubs/template.html.mas:134
 #, perl-brace-format
 msgid "Access to the page: {page} has been denied for the following reason"
-msgstr ""
+msgstr "Pääsy sivulle: {page} on evätty seuraavasta syystä"
 
 #: ../../main/squid/stubs/template.html.mas:141
 msgid "Categories"
-msgstr ""
+msgstr "Katekoriat"
 
 #: ../../main/squid/stubs/template.html.mas:142
 msgid ""
@@ -14796,16 +14796,15 @@ msgstr ""
 
 #: ../../main/mail/src/templates/qmanager.mas:60
 msgid "Remove all messages"
-msgstr ""
+msgstr "Poista kaikki viestit"
 
 #: ../../main/mail/src/templates/qmanager.mas:82
 msgid "There are no messages in queue or the service is stopped"
-msgstr ""
+msgstr "Veistejä ei ole jonossa tai palvelu on pysähtynyt"
 
 #: ../../main/mail/src/templates/createaccount.mas:42
-#, fuzzy
 msgid "Maildir size"
-msgstr "Sähköpostin lähettäjä"
+msgstr "Postihakemiston koko"
 
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
 msgid ""
