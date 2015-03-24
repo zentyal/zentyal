@@ -1530,7 +1530,8 @@ msgstr "dominio"
 
 #: ../../main/dns/src/EBox/DNS.pm:495
 msgid "Zentyal will set the required environment variables for bind9 daemon"
-msgstr "Zentyal imposterà le variabili d'ambiente richieste per il demone bind9"
+msgstr ""
+"Zentyal imposterà le variabili d'ambiente richieste per il demone bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:500
 msgid "main bind9 configuration file"
@@ -2168,8 +2169,7 @@ msgstr "Connetti alla rete globale Jabber"
 msgid ""
 "Users on this server will be able to chat with users in external servers."
 msgstr ""
-"Gli utenti di questo server potranno conversare con utenti di server "
-"esterni."
+"Gli utenti di questo server potranno conversare con utenti di server esterni."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:144
 msgid "Enable MUC (Multi User Chat) service"
@@ -2196,8 +2196,7 @@ msgstr "Attiva servizio proxy SOCKS5"
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:159
 msgid "SOCKS5 proxy service helps file transfers between clients behind NAT."
 msgstr ""
-"Il servizio proxy SOCKS5 aiuta i trasferimenti di file fra client dietro "
-"NAT."
+"Il servizio proxy SOCKS5 aiuta i trasferimenti di file fra client dietro NAT."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:165
 msgid "Enable VCard information"
@@ -2647,7 +2646,8 @@ msgstr "Il certificato da rinnovare NON esiste"
 #: ../../main/ca/src/EBox/CA.pm:1495
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
-msgstr "Il certificato con il seguente nome comune {cn} NON esiste in questa CA"
+msgstr ""
+"Il certificato con il seguente nome comune {cn} NON esiste in questa CA"
 
 #: ../../main/ca/src/EBox/CA.pm:1776
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
@@ -2937,7 +2937,8 @@ msgstr ""
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:341
 msgid "This service does not allow to change the certificate common name"
-msgstr "Questo servizio non permette di cambiare il nome comune del certificato"
+msgstr ""
+"Questo servizio non permette di cambiare il nome comune del certificato"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:374
 #, perl-brace-format
@@ -3724,8 +3725,7 @@ msgstr "non definito"
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:181
 msgid "Must be the external IP to connect but it's not defined"
 msgstr ""
-"Deve essere l'indirizzo IP esterno per la connessione ma non è stato "
-"definito"
+"Deve essere l'indirizzo IP esterno per la connessione ma non è stato definito"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:198
 #, perl-brace-format
@@ -3932,8 +3932,8 @@ msgid ""
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
 "L2TP può essere configurato solo su interfacce esterne. Verificare che la "
-"configurazione dell'interfaccia corrisponda ad \"esterna\" da "
-"{oh}Rete->Interfacce{ch}"
+"configurazione dell'interfaccia corrisponda ad \"esterna\" da {oh}Rete-"
+">Interfacce{ch}"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:263
 #, perl-brace-format
@@ -4031,8 +4031,8 @@ msgid ""
 "plus these non alphanumeric chars: /.?!&+:-_\\@$%=* and spaces are allowed."
 msgstr ""
 "La password PPPoE contiene caratteri non validi. Sono ammessi tutti i "
-"caratteri alfanumerici, gli spazi e i seguenti caratteri non alfanumerici: "
-"/?&+:-@."
+"caratteri alfanumerici, gli spazi e i seguenti caratteri non alfanumerici: /?"
+"&+:-@."
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:31
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:42
@@ -4511,8 +4511,7 @@ msgstr ""
 "server DNS locale verrà utilizzato per risolvere le query. Le query per cui "
 "questo server non è autoritativo e/o non ha una risposta nella sua cache, "
 "verranno inizialmente inviate ai {ohref}forwarder configurati{chref}, "
-"quindi, in caso di mancata risposta, verranno utilizzati i server DNS "
-"radice."
+"quindi, in caso di mancata risposta, verranno utilizzati i server DNS radice."
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:90
 msgid "Proxy server"
@@ -4758,8 +4757,8 @@ msgid ""
 "Cannot set an alias with the character \":\". This character is reserved for "
 "virtual interfaces"
 msgstr ""
-"Non è possibile impostare un alias con il carattere \":\". Questo carattere è "
-"riservato per le interfacce virtuali"
+"Non è possibile impostare un alias con il carattere \":\". Questo carattere "
+"è riservato per le interfacce virtuali"
 
 #: ../../main/network/src/EBox/Network.pm:1536
 #, perl-brace-format
@@ -4955,7 +4954,8 @@ msgstr "Puoi usare solo indirizzi MAC con host"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:138
 msgid "You cannot use MAC addresses with IP ranges"
-msgstr "Non è possibile utilizzare indirizzi MAC con intervalli di indirizzi IP"
+msgstr ""
+"Non è possibile utilizzare indirizzi MAC con intervalli di indirizzi IP"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:147
 #, perl-brace-format
@@ -5284,8 +5284,8 @@ msgid ""
 msgstr ""
 "Il traffic shaping viene applicato quando Zentyal funziona come gateway. Per "
 "poterlo ottenere devi avere almeno un'interfaccia interna ed una esterna. "
-"Verificare che la configurazione delle interfacce corrisponda, su "
-"{openhref}Rete -> Interfacce{closehref}"
+"Verificare che la configurazione delle interfacce corrisponda, su {openhref}"
+"Rete -> Interfacce{closehref}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InternalRules.pm:51
 msgid "Rules for internal interfaces (download)"

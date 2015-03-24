@@ -3905,8 +3905,8 @@ msgid ""
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
 "L2TP só pode ser configurado em interfaces com tag como 'externo' Verifique "
-"sua configuração de interface para corresponder, em "
-"{openhref}Rede->Interfaces{closehref}"
+"sua configuração de interface para corresponder, em {openhref}Rede-"
+">Interfaces{closehref}"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:263
 #, perl-brace-format
