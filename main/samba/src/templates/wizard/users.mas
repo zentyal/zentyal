@@ -25,10 +25,6 @@ $confirmationMsg .= __x('{op}A hostname change will create a new certificate for
               <input type="radio" name="mode" id="joinRadio" value="join"/>
               <% __('Additional domain controller') %>
             </label>
-            <label>
-              <input type="radio" name="mode" id="adRadio" value="external"/>
-              <% __('Connect with external Active Directory server') %>
-            </label>
           </div>
         </fieldset>
         <& .standaloneSection, hostDomain => $hostDomain &>
