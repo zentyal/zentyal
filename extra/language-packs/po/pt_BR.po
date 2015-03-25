@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2015-03-23 22:03+0200\n"
+"PO-Revision-Date: 2015-03-25 16:45+0200\n"
 "Last-Translator: misteregis <misteregis@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
@@ -1889,7 +1889,7 @@ msgstr "Preferência"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:220
 msgid "Mail exchangers"
-msgstr "Servidores de email"
+msgstr "Trocadores de e-mail"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:226
 #, perl-brace-format
@@ -1899,14 +1899,14 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
-"A preferência mais baixa tem maior prioridade  e é o primeiro servidor a ser "
-"buscado quando um cliente remoto (tipicamente outro servidor de email) "
-"realiza uma busca pelos MX de um domínio. Intervalo permitido = ({min}, "
-"{max})"
+"O menor número de preferência tem a prioridade mais alta e é o primeiro "
+"servidor a ser experimentado quando um cliente remoto (tipicamente outro "
+"servidor de e-mail) faz uma pesquisa de MX para o nome de domínio. "
+"Preferência de número de intervalo permitida = ({min}, {max})"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:232
 msgid "Mail exchanger record"
-msgstr "Registro do servidor de email"
+msgstr "Registro do servidor trocador de e-mail"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:541
 #, perl-brace-format
@@ -3925,9 +3925,8 @@ msgid "To configure OpenSwan IPsec passwords."
 msgstr "Para configurar senhas OpenSwan IPsec."
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:176
-#, fuzzy
 msgid "L2TP based VPN"
-msgstr "VPN IPsec"
+msgstr "VPN baseado em L2PT"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:376
 msgid "Stopping completed"
@@ -4462,14 +4461,14 @@ msgstr ""
 "alteradas se tiver alguma interface configurada por DHCP</p>"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:194
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "This action is incompatible with the module {mod} configuration"
-msgstr "O proxy transparente é incompatível com a autenticação Kerberos"
+msgstr "Esta ação é incompatível com a configuração do módulo {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:223
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The nameserver '{name}' is being used by {mod}"
-msgstr "O gateway '{name}' está sendo usado por {mod}"
+msgstr "O servidor de nomes '{name}' está sendo usado por {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:279
 #, perl-brace-format
@@ -5073,6 +5072,8 @@ msgid ""
 "Changing rules interface is not supported. Remove the rule and add another "
 "for the desired interface"
 msgstr ""
+"A alteração das regras de interface não é suportado. Remova a regra e "
+"adicionar outra para a interface desejada"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:130
 msgid "Guaranteed rate"
@@ -5332,6 +5333,8 @@ msgid ""
 "Mising interface parameter. Please, navigate again to this page starting "
 "from the DHCP main page"
 msgstr ""
+"Faltando parâmetro interface. Por favor, navegue novamente para esta página "
+"começando a partir da página principal DHCP"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/AdvancedOptions.pm:66
 msgid "Advanced options"
@@ -5410,9 +5413,9 @@ msgstr ""
 "{fixedIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:160
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
-msgstr "Faixa {from}-{to} inclui o endereço IP do túnel: {localIP}"
+msgstr "Faixa {from}-{to} inclui o HA IP flutuante: \"{name}\" - {IP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/mail/src/EBox/Mail.pm:1868
@@ -5554,18 +5557,21 @@ msgstr ""
 "branco."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:87
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The object contains the IP address {ip} which is also the address of the "
 "interface"
-msgstr "O gateway endereço {ip} já é um endereço da interface local {iface}"
+msgstr ""
+"O objeto contém o endereço de IP {ip} que é também o endereço da interface"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:97
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The object contains an IP address {ip} which also is in the range '{range}': "
 "{from}-{to}"
-msgstr "O endereço IP {ip} está na faixa '{range}': {from}-{to}"
+msgstr ""
+"O objeto contém um endereço IP {ip} que também está na faixa '{range}': "
+"{from}-{to}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:171
 msgid "Fixed addresses"
@@ -5769,7 +5775,6 @@ msgstr "Endereços IP não são permitidos"
 
 #: ../../main/core/src/EBox/Types/InverseMatchSelect.pm:50
 #: ../../main/core/src/EBox/Types/InverseMatchUnion.pm:50
-#, fuzzy
 msgid "Not"
 msgstr "Não"
 
@@ -5778,11 +5783,13 @@ msgstr "Não"
 msgid ""
 "{name} empty. You can add and select a new {name} with the 'add new' button"
 msgstr ""
+"{name} vazio. Você pode adicionar e selecionar um novo {name} com o botão "
+"'adicionar novo'"
 
 #: ../../main/core/src/EBox/Types/Select.pm:355
 #, perl-brace-format
 msgid "{name} has not selectable values"
-msgstr ""
+msgstr "{name} tem valores não selecionáveis"
 
 #: ../../main/core/src/EBox/Types/Select.pm:367
 #, perl-brace-format
@@ -5791,26 +5798,23 @@ msgstr "Escolha um valor dentro do intervalo estabelecido: {set}"
 
 #: ../../main/core/src/EBox/Types/Time.pm:221
 msgid "Must be in the form HH:MM::SS"
-msgstr ""
+msgstr "Deve ser na forma HH:MM::SS"
 
 #: ../../main/core/src/EBox/Types/Time.pm:230
 msgid "No digit character in time component"
-msgstr ""
+msgstr "Nenhum dígito caráter no componente de tempo"
 
 #: ../../main/core/src/EBox/Types/Time.pm:240
-#, fuzzy
 msgid "Invalid hours value"
-msgstr "Valor anterior"
+msgstr "Valor horas inválido"
 
 #: ../../main/core/src/EBox/Types/Time.pm:247
-#, fuzzy
 msgid "Invalid minutes value"
-msgstr "Valor de minutos inválido: {mi}"
+msgstr "Valor minutos inválido"
 
 #: ../../main/core/src/EBox/Types/Time.pm:254
-#, fuzzy
 msgid "Invalid seconds value"
-msgstr "Valor inválido para {data}: {value}."
+msgstr "Valor segundos inválido"
 
 #: ../../main/core/src/EBox/Types/HTML.pm:97
 msgid "It must be a valid HTML string"
@@ -5822,28 +5826,25 @@ msgstr "Digite um número real (float)"
 
 #: ../../main/core/src/EBox/Types/TimeZone.pm:56
 #: ../../main/core/src/EBox/SysInfo/Model/TimeZone.pm:58
-#, fuzzy
 msgid "Time zone"
 msgstr "Fuso horário"
 
 #: ../../main/core/src/EBox/Types/TimeZone.pm:235
-#, fuzzy
 msgid "This city does not exist."
-msgstr "O cliente {c} não existe"
+msgstr "Esta cidade não existe."
 
 #: ../../main/core/src/EBox/Types/TimeZone.pm:241
-#, fuzzy
 msgid "This continent does not exist."
-msgstr "Essa conta não existe"
+msgstr "Este continente não existe."
 
 #: ../../main/core/src/EBox/Types/URI.pm:117
 msgid "URI usually follows the format scheme://authority/path"
-msgstr ""
+msgstr "URI geralmente segue o formato de esquema://authority/path"
 
 #: ../../main/core/src/EBox/Types/URI.pm:124
 #, perl-brace-format
 msgid "Scheme should be one of: {schemes}, not {scheme}"
-msgstr ""
+msgstr "Esquema deve ser um dos seguintes: {schemes}, não {scheme}"
 
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:145
 msgid "Configuration backup upload corrupted"
@@ -5866,23 +5867,22 @@ msgstr "Configuração de backup"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:47
 #: ../../main/core/src/EBox/RemoteServices/CGI/SetSubscriptionSlot.pm:51
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Missing parameter: {par}"
-msgstr "Faltando argumento: {data}"
+msgstr "Parâmetro ausente: {par}"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:66
-#, fuzzy
 msgid "Invalid credentials"
-msgstr "Argumento inválido: {data}"
+msgstr "Credenciais inválidas"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:78
 msgid "No subscriptions available for your account"
-msgstr ""
+msgstr "Sem assinaturas disponíveis para a sua conta"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:94
 #, perl-brace-format
 msgid "Subscribing server as name {name}"
-msgstr ""
+msgstr "Assinar servidor como nome {name}"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Index.pm:39
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/Register.pm:40
@@ -5995,67 +5995,67 @@ msgstr "Backup deletado"
 #: ../../main/core/src/EBox/RemoteServices/CGI/UnsubscribeServer.pm:52
 msgid "Server unregistered. Save changes to remove all the subscription files"
 msgstr ""
+"Servidor não registrado. Salve as alterações para remover todos os arquivos "
+"de assinatura"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/NoSubscription.pm:28
-#, fuzzy
 msgid "Server unregistered"
-msgstr "Registro de Servidor"
+msgstr "Servidor não registrado"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/NoSubscription.pm:45
 msgid "You server is not registered. Check that you have a valid subscription"
 msgstr ""
+"Seu servidor não está registrado. Verifique se você tem uma assinatura "
+"válida"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SetSubscriptionSlot.pm:67
 msgid "You must save changes to enable your subscription"
-msgstr ""
+msgstr "Você deve salvar as alterações para ativar a sua assinatura"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:51
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:38
-#, fuzzy
 msgid "Missing registration mail address"
-msgstr "Endereço de E-mail de Registro "
+msgstr "Faltando registro endereço de email"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:54
-#, fuzzy
 msgid "Missing confirmation of mail address"
-msgstr "Endereço de E-mail de Registro "
+msgstr "Faltando confirmação de endereço de email"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:57
 msgid "Registation mail address does not match with its confirmation"
-msgstr ""
+msgstr "Registro endereço de email não corresponde com a sua confirmação"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:63
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:50
-#, fuzzy
 msgid "Missing server name"
-msgstr "Nome do servidor externo"
+msgstr "Faltando nome do servidor"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:68
-#, fuzzy
 msgid "You must accept the privacy policy to register your server"
-msgstr "Você precisa concordar com as políticas de privacidade para continuar"
+msgstr ""
+"Você deve aceitar a política de privacidade para registrar o seu servidor"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:85
 msgid ""
 "This email is already registered, please use your password to add this "
 "server to your account"
 msgstr ""
+"Este e-mail já está registrado, por favor use sua senha para adicionar este "
+"servidor para a sua conta"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:102
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:64
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "You can now use backups for server {name}"
-msgstr "Escolha a data para restaurar o backup do servidor {cn}"
+msgstr "Agora você pode usar backups para o servidor {name}"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:44
-#, fuzzy
 msgid "Missing registration password"
-msgstr "Senha do administrador"
+msgstr "Faltando senha de registro"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/UnRegister.pm:37
-#, fuzzy
 msgid "The server has been disassociated"
-msgstr "O certificado foi assinado"
+msgstr "O servidor foi desassociado"
 
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Check.pm:156
 #, perl-brace-format
@@ -6080,14 +6080,12 @@ msgid "It cannot be greater than {n} characters"
 msgstr "Não pode ser maior que {n} caracteres"
 
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Validate.pm:70
-#, fuzzy
 msgid "It must be a valid domain name"
-msgstr "Deve ser uma string HTML válida"
+msgstr "Deve ser um nome de domínio válido"
 
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Validate.pm:74
-#, fuzzy
 msgid "server name"
-msgstr "Nome do Servidor"
+msgstr "Nome do servidor"
 
 #: ../../main/core/src/EBox/RemoteServices/Exceptions/NotCapable.pm:31
 msgid "This server is not able to do this action."
@@ -6100,9 +6098,8 @@ msgid "Automatic software updates"
 msgstr "Atualização automática de software"
 
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:60
-#, fuzzy
 msgid "Latest automatic software update"
-msgstr "Atualização automática de software"
+msgstr "Última atualização automática de software"
 
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:94
 #, perl-brace-format
@@ -6118,7 +6115,6 @@ msgid "Software module is not installed"
 msgstr "O módulo software não está instalado"
 
 #: ../../main/core/src/EBox/Wizard/CGI/SoftwareSetupFinish.pm:28
-#, fuzzy
 msgid "Installation finished"
 msgstr "Instalação finalizada"
 
@@ -6127,18 +6123,17 @@ msgid "Initial configuration wizard"
 msgstr "Assistente de configuração inicial"
 
 #: ../../main/core/src/EBox/CGI/Base.pm:256
-#, fuzzy
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: ={},/.?&+:-@ and spaces are allowed."
 msgstr ""
-"A entrada contém caracteres inválidos. Todos caracteres alfanuméricos, mais "
-"estes não-alfanuméricos: /.?&+:-@ e espaços são aceitos."
+"A entrada contém caracteres inválidos. Todos os caracteres alfanuméricos, "
+"além desses caracteres não alfanuméricos: ={},/.?&+:-@ e espaços são "
+"permitidos."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:681
-#, fuzzy
 msgid "No trace available for this error"
-msgstr "Nenhum dos pacotes disponíveis é válido para este servidor"
+msgstr "Nenhum traço disponível para este erro"
 
 #: ../../main/core/src/EBox/CGI/Base.pm:695
 msgid ""
@@ -6216,7 +6211,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:32
 msgid "Upgrade to Zentyal 4.0"
-msgstr ""
+msgstr "Atualizar para Zentyal 4.0"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:29
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
@@ -6226,14 +6221,13 @@ msgid "Search"
 msgstr "Pesquisar"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:46
-#, fuzzy
 msgid "No search term"
-msgstr "Procurar domínio"
+msgstr "Sem termo de pesquisa"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:57
-#, fuzzy
 msgid "The search term should have a lenght of at least 3 characters"
-msgstr "A senha precisa ter no minimo {minLength} caracteres"
+msgstr ""
+"O termo de pesquisa deve ter um comprimento de pelo menos três caracteres"
 
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:167
 msgid ""
@@ -6318,29 +6312,30 @@ msgid ""
 "certificate itself can be invalid, expired or has not yet come into effect. "
 "Also check the hour of your system to avoid false expirations"
 msgstr ""
+"A verificação do certificado de servidor {server} falhou. O certificado em "
+"si pode ser inválido, expirou ou ainda não entrou em vigor. Além disso, "
+"verifique a hora do seu sistema para evitar falsas expirações"
 
 #: ../../main/core/src/EBox/RESTClient.pm:438
-#, fuzzy
 msgid "User and password do not match."
-msgstr "A nova senha não confere."
+msgstr "Usuário e senha não correspondem."
 
 #: ../../main/core/src/EBox/WebAdmin.pm:66
-#, fuzzy
 msgid "Zentyal Webadmin"
-msgstr "Domínio Zentyal"
+msgstr "Zentyal Administrador Web"
 
 #: ../../main/core/src/EBox/WebAdmin.pm:684
 msgid "Zentyal Administration Web Server"
 msgstr "Servidor Web de Administração do Zentyal"
 
 #: ../../main/core/src/EBox/WebAdmin.pm:849
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
 "another port or free it and retry."
 msgstr ""
 "Zentyal já está configurado para usar a porta {p} para outro serviço. "
-"Escolha outra porta ou libere-á e tente novamente."
+"Escolha outra porta ou libere e tente novamente."
 
 #: ../../main/core/src/EBox/WebAdmin.pm:862
 #, perl-brace-format
@@ -6381,6 +6376,9 @@ msgid ""
 "Cannot create software packages cache. Make sure that your sources and "
 "preferences files in /etc/apt are readable and retry"
 msgstr ""
+"Não é possível criar cache de pacotes de software. Certifique-se de que suas "
+"fontes e preferências de arquivos em /etc/apt são legíveis e tente "
+"novamente"
 
 #: ../../main/core/src/EBox/GlobalImpl.pm:583
 #, perl-brace-format
@@ -6421,7 +6419,7 @@ msgstr "Data/Hora"
 #: ../../main/core/src/EBox/SysInfo.pm:128
 #: ../../main/core/src/EBox/SysInfo/Model/Debug.pm:45
 msgid "Debug"
-msgstr ""
+msgstr "Depurar"
 
 #: ../../main/core/src/EBox/SysInfo.pm:133
 msgid "Halt/Reboot"
@@ -6458,7 +6456,7 @@ msgstr "Programa"
 
 #: ../../main/core/src/EBox/SysInfo.pm:325
 msgid "Checking updates..."
-msgstr ""
+msgstr "Verificando atualizações..."
 
 #: ../../main/core/src/EBox/SysInfo.pm:326
 msgid "System load"
@@ -6533,7 +6531,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:68
 msgid "Your session was not valid anymore"
-msgstr ""
+msgstr "Sua sessão expirou"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:70
 msgid "Incorrect password"
@@ -6548,9 +6546,9 @@ msgid "You have been logged out because a new session has been opened"
 msgstr "Você foi desconectado porque outra sessão foi aberta."
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:76
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Unknown error: '{error}'"
-msgstr "Modo desconhecido de restauração: {mode}"
+msgstr "Erro desconhecido: '{error}'"
 
 #: ../../main/core/src/EBox/Module/Service.pm:442
 #, perl-brace-format
@@ -6564,12 +6562,12 @@ msgstr ""
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:69
 #, perl-brace-format
 msgid "Failed to enable {mod}: {err}"
-msgstr ""
+msgstr "Falha ao ativar {mod}: {err}"
 
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:81
 #, perl-brace-format
 msgid "Failed to enable: {err}"
-msgstr ""
+msgstr "Falha ao ativar: {err}"
 
 #: ../../main/core/src/EBox/ServiceModule/CGI/StatusView.pm:34
 msgid "Module Status Configuration"
@@ -6604,9 +6602,10 @@ msgid "Please contact support."
 msgstr "Favor contate o Suporte Técnico"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:114
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following software packages are not correctly installed: {pack}"
-msgstr "Os seguintes pacotes serão instalados"
+msgstr ""
+"Os seguintes pacotes de software não estão instalados corretamente: {pack}"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:119
 #: ../../main/core/src/EBox/View/StackTrace.pm:129
@@ -6614,14 +6613,15 @@ msgid "Show technical details"
 msgstr "Mostrar detalhes técnicos"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:121
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There are some software packages which are not correctly installed: {pack}."
-msgstr "Os seguintes pacotes serão instalados"
+msgstr ""
+"Há alguns pacotes de software que não foram instalados corretamente: {pack}."
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:123
 msgid "You should reinstall them and retry your operation."
-msgstr ""
+msgstr "Você deve reinstalá-los e repetir a operação."
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:130
 msgid "Report the problem"
@@ -6651,9 +6651,8 @@ msgid "Email (you will receive updates on the report)"
 msgstr "E-mail (você receberá atualizações sobre o relatório)"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:133
-#, fuzzy
 msgid "Describe in English what you were doing"
-msgstr "Descrever em inglês o que você está fazendo"
+msgstr "Descreva em Inglês o que você estava fazendo"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:135
 msgid "Couldn't send the report"
@@ -6672,9 +6671,8 @@ msgid "To do a manual report, please follow these instructions:"
 msgstr "Para fazer um relatório manual, por favor, siga estas instruções:"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:141
-#, fuzzy
 msgid "Create a new ticket in the Zentyal bug tracker by clicking "
-msgstr "Criar um novo ticket no trac Zentyal clicando"
+msgstr "Criar um novo bilhete no Zentyal bug tracker clicando"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:143
 #: ../../main/core/src/EBox/View/StackTrace.pm:147
@@ -6696,6 +6694,7 @@ msgstr ""
 #: ../../main/core/src/EBox/View/StackTrace.pm:146
 msgid "Write a valid email address to be notified of ticket updates"
 msgstr ""
+"Escrever um e-mail válido para ser notificado das atualizações de bilhetes"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:147
 msgid "Download the log file with additional information by clicking"
@@ -6748,21 +6747,24 @@ msgid ""
 "The language pack for {l} is missing, you can install it by running the "
 "following command: {c}"
 msgstr ""
+"O pacote de idiomas para {l} está faltando, você pode instalá-lo executando "
+"o seguinte comando: {c}"
 
 #: ../../main/core/src/EBox/WebAdmin/Model/Language.pm:78
-#, fuzzy
 msgid "Language selection"
-msgstr "Seleção de linguagem"
+msgstr "Seleção de idioma"
 
 #: ../../main/core/src/EBox/WebAdmin/Model/Language.pm:82
 msgid "New language selected, save changes to commit"
-msgstr ""
+msgstr "Nova idioma selecionado, salve as alterações para aplicar"
 
 #: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:73
 msgid ""
 "Take into account you have to manually change the URL once the save changes "
 "process is started to see web administration again."
 msgstr ""
+"Leve em conta que você tem que alterar manualmente a URL uma vez que iniciou "
+"o processo de salvar as alterações para ver a administração web novamente."
 
 #: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:98
 msgid "Administration interface TCP port"
@@ -6775,7 +6777,7 @@ msgstr "Atualizando"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:47
 msgid "You have broken packages installed, fix them before upgrading"
-msgstr ""
+msgstr "Você tem pacotes corrompidos instalado, corrigi-los antes de atualizar"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:61
 msgid "No updates"
@@ -6784,6 +6786,7 @@ msgstr "Sem atualizações"
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:65
 msgid "Nevertheless some packages require a reboot to be applied"
 msgstr ""
+"No entanto, alguns pacotes requerem uma reinicialização para ser aplicados"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:91
 #, perl-brace-format
@@ -6796,13 +6799,15 @@ msgid "{n} system updates"
 msgstr "{n} atualizações do sistema"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:102
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "({n} security)"
-msgstr "{n} atualizações de segurança"
+msgstr "({n} segurança)"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:107
 msgid "Moreover, some upgraded packages require a reboot to take effect"
 msgstr ""
+"Além disso, alguns pacotes atualizados requerem uma reinicialização para "
+"entrar em vigor"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:121
 msgid ""
@@ -6811,6 +6816,10 @@ msgid ""
 "Premium Editions: commercial Zentyal Server editions fully supported by "
 "Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
+"Aviso: Estas são as atualizações da comunidade não testadas que podem "
+"prejudicar o seu sistema. Em ambientes de produção, recomendamos utilizar o "
+"profissional, Edições Negócios ou Prêmio: Servidor Zentyal comercial, "
+"edições totalmente suportado por Zentyal S.L. e Canonical/Ubuntu."
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:126
 #: ../../main/software/src/templates/updateNote.mas:11
@@ -6818,11 +6827,13 @@ msgid ""
 "Your commercial server edition guarantees that these are quality assured "
 "software updates and will be automatically applied to your system."
 msgstr ""
+"Sua edição de servidor comercial garante que estas são as atualizações de "
+"software de qualidade garantida e será aplicada automaticamente para o seu "
+"sistema."
 
 #: ../../main/core/src/EBox/SysInfo/CGI/ComponentNotFound.pm:30
-#, fuzzy
 msgid "Element not found"
-msgstr "Servidor não encontrado"
+msgstr "Elemento não encontrado"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/RestartService.pm:45
 msgid "module name"
@@ -6895,9 +6906,8 @@ msgid "Bug-report configuration dump"
 msgstr "Configuração de despejo do bug-report"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/CreateReport.pm:39
-#, fuzzy
 msgid "Invalid email address"
-msgstr "endereço de e-mail"
+msgstr "Endereço de e-mail inválido"
 
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:58
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:59
@@ -6905,13 +6915,12 @@ msgid "General configuration"
 msgstr "Configuração geral"
 
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:61
-#, fuzzy
 msgid "On this page you can set different general system settings"
-msgstr "Nesta página você pode alterar as configurações gerais do Samba"
+msgstr ""
+"Nesta página você pode definir diferentes configurações gerais do sistema"
 
 #: ../../main/core/src/EBox/SysInfo/Composite/DateAndTime.pm:40
 #: ../../main/core/src/EBox/SysInfo/Composite/DateAndTime.pm:41
-#, fuzzy
 msgid "Date and Time"
 msgstr "Data e Hora"
 
@@ -6922,7 +6931,6 @@ msgid "User name"
 msgstr "Nome de usuário"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:49
-#, fuzzy
 msgid "Confirm Password"
 msgstr "Confirmar Senha"
 
@@ -6931,29 +6939,28 @@ msgid "Your password must be at least 6 characters long."
 msgstr "Sua senha precisa ter ao menos 6 caracteres."
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:63
-#, fuzzy
 msgid "Administrator Accounts"
-msgstr "Conta do Administrador"
+msgstr "Contas de Administrador"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:64
-#, fuzzy
 msgid "administrator"
-msgstr "Administrador"
+msgstr "administrador"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:144
 #, perl-brace-format
 msgid "User \"{user}\" created and granted Zentyal administrative permissions"
-msgstr ""
+msgstr "Usuário \"{user}\" criado e concedido permissões administrativas Zentyal"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:147
 #, perl-brace-format
 msgid "User \"{user}\" granted Zentyal administrative permissions"
-msgstr ""
+msgstr "Usuário \"{user}\" concedido permissões administrativas Zentyal"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:211
 #, perl-brace-format
 msgid "User \"{user}\" has its Zentyal administration permissions revoked"
 msgstr ""
+"Usuário \"{user}\" tem as suas permissões de administração Zentyal revogadas"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:228
 msgid "The password must be at least 6 characters long"
@@ -6968,14 +6975,12 @@ msgstr ""
 "aplicar a alteração do hostname."
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:61
-#, fuzzy
 msgid "Hostname and Domain"
-msgstr "Mesmo que Domínio Dinâmico"
+msgstr "Nome do Host e Domínio"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:77
-#, fuzzy
 msgid "Change hostname"
-msgstr "Alterar Hostname"
+msgstr "Alterar nome do host"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:78
 #, perl-brace-format
@@ -6985,15 +6990,20 @@ msgid ""
 "certificate in your browser. Try to reload the page if automatic redirection "
 "does not work after the save changes process finishes.{cp}"
 msgstr ""
+"{op}A mudança de nome de host irá criar um novo certificado para as conexões "
+"de administração web. Isso significa que você vai ter que aceitar o novo "
+"certificado no seu navegador. Tente recarregar a página, se o "
+"redirecionamento automático não funcionar depois do processo salvar as "
+"alterações terminar.{cp}"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:79
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{op}You may need to restart all the services or reboot the system to enforce "
 "the change{cp}"
 msgstr ""
-"Você precisará reiniciar todos os serviços ou reiniciar o sistema para "
-"aplicar a alteração do hostname."
+"{op}Você precisará reiniciar todos os serviços ou reiniciar o sistema para "
+"aplicar a alteração{cp}"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:83
 #, perl-brace-format
