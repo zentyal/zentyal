@@ -50,7 +50,6 @@ sub _process
     my $editable = $users->editableMode();
 
     push(@args, 'contact' => $contact);
-    push(@args, 'slave' => not $editable);
 
     if ($self->param('cancel')) {
         $self->{redirect} = 'Samba/Tree/Manage';

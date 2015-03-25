@@ -79,7 +79,7 @@ sub save
         if ($hasCoreChanges) {
 
             my $usersMod = $self->_usersMod();
-            $usersMod->notifyModsLdapUserBase('modifyContact', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('modifyContact', $self, $self->{ignoreMods});
         }
     }
 }
@@ -94,7 +94,7 @@ sub deleteObject
 
     # Notify contact deletion to modules
     my $usersMod = $self->_usersMod();
-    $usersMod->notifyModsLdapUserBase('delContact', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+    $usersMod->notifyModsLdapUserBase('delContact', $self, $self->{ignoreMods});
 
     # Call super implementation
     shift @_;

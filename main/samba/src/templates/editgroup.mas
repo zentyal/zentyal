@@ -4,13 +4,11 @@
     @remainusers => ()
     @components => ()
     $usersWithMail => 0
-    $slave => 1
 </%args>
 <%init>
 use EBox::Gettext;
 my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
-my $optionalTag = $slave ? '' :  __('Optional');
-my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
+my $optionalTag = __('Optional');
 </%init>
 <script type="text/javascript" src="/data/js/form.js" />
 
@@ -24,18 +22,11 @@ my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
 </div>
 % }
 <div class="form-block half-block">
-<form class="formDiv" action='/Samba/EditGroup' method='POST' id='editGroupForm'  <% $formOnSubmit %> >
+<form class="formDiv" action='/Samba/EditGroup' method='POST' id='editGroupForm'>
     <input type="hidden" name="dn" value="<% $group->dn() %>">
     <input type="hidden" name="edit" value="edit">
 
           <label> <% __('Type') %> </label>
-% if ($slave) {
-%    if ($group->isSecurityGroup()) {
-            <% __('Security Group') %>
-%    } else {
-            <% __('Distribution Group') %>
-%    }
-% } else {
             <div class="radio-group">
               <label>
                 <input type="radio" name="type" value="security" id="security" <% $group->isSecurityGroup() ? 'checked' : '' %>>
@@ -45,34 +36,27 @@ my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
                 <input type="radio" name="type" value="distribution" id="distribution" <% $group->isSecurityGroup() ? '' : 'checked' %>>
               <% __('Distribution Group') %></label>
             </div>
-% }
         <div>
           <label><% __('Description') %><span class="optional_field"><% $optionalTag %></span></label>
-          <& .slaveAttr, name => 'description', value => ($group->description() or ''), slave => $slave &>
+          <& .attr, name => 'description', value => ($group->description() or '') &>
         </div>
         <div>
           <label><% __('E-Mail') %><span class="optional_field"><% $optionalTag %></span></label>
-          <& .slaveAttr, name => 'mail', value => ($group->mail() or ''), slave => $slave &>
+          <& .attr, name => 'mail', value => ($group->mail() or '') &>
         </div>
-%   unless ($slave) {
     <div class="form-buttons"><input class='btn btn-submit' id='submitEditGroupForm' type='submit' name='user'
                        value="<% __('Change') %>"
                        alt="<% __('Change') %>">
     </div>
-%   }
 </form>
 </div>
 <div id="group_users" class="form-block half-block">
 <h4><% __("Users") %></h4>
-% if ($slave) {
-<& .usersRO, groupusers => \@groupusers &>
-% } else {
 <& .usersRW, group => $group,
              groupusers => \@groupusers,
              remainusers => \@remainusers,
              usersWithMail => $usersWithMail
 &>
-% }
 </div>
 
 % if (@components) {
@@ -240,15 +224,10 @@ $group
 </ul>
 </%def>
 
-<%def .slaveAttr>
+<%def .attr>
 <%args>
 $name
 $value
-$slave
 </%args>
-% if ($slave) {
-<% $value %>
-% } else {
  <input type='text' class='inputText' name="<% $name %>" value="<% $value %>" />
-%}
 </%def>

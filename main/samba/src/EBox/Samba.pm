@@ -21,9 +21,7 @@ package EBox::Samba;
 use base qw(EBox::Module::LDAP
             EBox::SysInfo::Observer
             EBox::FirewallObserver
-            EBox::LogObserver
-            EBox::SyncFolders::Provider
-            EBox::Samba::SyncProvider);
+            EBox::LogObserver);
 
 use EBox::Config;
 use EBox::Exceptions::External;
@@ -53,15 +51,11 @@ use EBox::Samba::NamingContext;
 use EBox::Samba::OU;
 use EBox::Samba::Provision;
 use EBox::Samba::SecurityPrincipal;
-use EBox::Samba::Slave;
 use EBox::Samba::SmbClient;
 use EBox::Samba::User;
-use EBox::UsersSync::Master;
-use EBox::UsersSync::Slave;
 use EBox::Util::Random qw( generate );
 use EBox::Util::Random;
 use EBox::Util::Version;
-use EBox::CloudSync::Slave;
 
 use Digest::SHA;
 use Digest::MD5;
@@ -143,8 +137,6 @@ use constant BACKUP_USERS_FILE    => 'userlist.bak';
 
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-zentyal';
-use constant CRONFILE       => '/etc/cron.d/zentyal-users';
-use constant CRONFILE_EXTERNAL_AD_MODE => '/etc/cron.daily/zentyal-users-external-ad';
 
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
@@ -456,8 +448,6 @@ sub setupDNS
     $service->{protocol} = 'udp';
     $dnsMod->addService($ownDomain, $service);
 
-    ## TODO Check if the server is a master or slave and adjust the target
-    ##      to the master server
     $service = { service => 'kerberos-master',
                  protocol => 'tcp',
                  port => KERBEROS_PORT,
@@ -718,24 +708,9 @@ sub _regenConfig
 #
 #       Override EBox::Module::Service::_setConf
 #
-#  Parameters:
-#    noSlaveSetup - don't setup slaves in standalone serve mode
-#
 sub _setConf
 {
-    my ($self, $noSlaveSetup) = @_;
-
-    $self->_setConfInternal($noSlaveSetup);
-
-    # Remove shares
-    $self->model('SambaDeletedShares')->removeDirs();
-    # Create shares
-    $self->model('SambaShares')->createDirs();
-}
-
-sub _setConfInternal
-{
-    my ($self, $noSlaveSetup) = @_;
+    my ($self) = @_;
 
     return unless $self->configured() and $self->isEnabled();
 
@@ -765,33 +740,10 @@ sub _setConfInternal
 
     $self->_setupNSSPAM();
 
-    # Slaves cron
-    my @params;
-    push(@params, 'slave_time' => EBox::Config::configkey('slave_time'));
-    if ($self->master() eq 'cloud') {
-        my $rs = new EBox::Global->modInstance('remoteservices');
-        my $rest = $rs->REST();
-        my $res = $rest->GET("/v1/users/realm/")->data();
-        my $realm = $res->{realm};
-
-        # Initial sync, set the realm (definitive) and upload current users
-        if (not $realm) {
-            $rest->PUT("/v1/users/realm/", query => { realm => $self->kerberosRealm() });
-
-            # Send current users and groups
-            $self->initialSlaveSync(new EBox::CloudSync::Slave(), 1);
-        }
-
-        push(@params, 'cloudsync_enabled' => 1);
-    }
-
-    $self->writeConfFile(CRONFILE, "samba/zentyal-users.cron.mas", \@params);
-
-    # Configure as slave if enabled
-    $self->masterConf->setupSlave() unless ($noSlaveSetup);
-
-    # commit slaves removal
-    EBox::Samba::Slave->commitRemovals($self->global());
+    # Remove shares
+    $self->model('SambaDeletedShares')->removeDirs();
+    # Create shares
+    $self->model('SambaShares')->createDirs();
 }
 
 sub _createDirectories
@@ -1091,15 +1043,6 @@ sub _postServiceHook
     return $self->SUPER::_postServiceHook($enabled);
 }
 
-
-# overriden to revoke slave removals
-sub revokeConfig
-{
-   my ($self) = @_;
-   $self->SUPER::revokeConfig();
-   EBox::Samba::Slave->revokeRemovals($self->global());
-}
-
 sub kerberosRealm
 {
     my ($self) = @_;
@@ -1161,18 +1104,6 @@ sub _setupSSSd
 sub editableMode
 {
     my ($self) = @_;
-
-    my $global = EBox::Global->modInstance('global');
-    my @names = @{$global->modNames};
-
-    my @modules;
-    foreach my $name (@names) {
-        my $mod = EBox::Global->modInstance($name);
-
-        if ($mod->isa('EBox::Samba::SyncProvider')) {
-            return 0 unless ($mod->allowUserChanges());
-        }
-    }
 
     return 1;
 }
@@ -1420,44 +1351,6 @@ sub ous
     }
 
     return $list;
-}
-
-# Method: userByUID
-#
-#   Return the instance of EBox::Samba::User object which represents a given
-#   uid or undef if it's not found. Used by cloud-sync.
-#
-# Parameters:
-#
-#   uid
-#
-sub userByUID
-{
-    my ($self, $uid) = @_;
-
-    return undef unless ($self->isEnabled());
-
-    my $args = {
-        base => $self->ldap->dn(),
-        filter => "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))(samAccountName=$uid))",
-        scope => 'sub',
-        attrs => ['*'],
-    };
-
-    my $result = $self->ldap->search($args);
-    my $count = $result->count();
-    if ($count > 1) {
-        throw EBox::Exceptions::Internal(
-            __x('Found {count} results for \'{uid}\' user, expected only one.',
-                count => $count,
-                name  => $uid
-            )
-        );
-    } elsif ($count == 0) {
-        return undef;
-    } else {
-        return new EBox::Samba::User(entry => $result->entry(0));
-    }
 }
 
 # Method: users
@@ -1791,29 +1684,6 @@ sub _modsLdapUserBase
     return \@modules;
 }
 
-# Method: allSlaves
-#
-# Returns all slaves from LDAP Sync Provider
-#
-sub allSlaves
-{
-    my ($self) = @_;
-
-    my $global = EBox::Global->modInstance('global');
-    my @names = @{$global->modNames};
-
-    my @modules;
-    foreach my $name (@names) {
-        my $mod = EBox::Global->modInstance($name);
-
-        if ($mod->isa('EBox::Samba::SyncProvider')) {
-            push (@modules, @{$mod->slaves()});
-        }
-    }
-
-    return \@modules;
-}
-
 # Method: notifyModsPreLdapUserBase
 #
 #   Notify all modules implementing LDAP user base interface about
@@ -1852,11 +1722,10 @@ sub notifyModsPreLdapUserBase
 #   signal - Signal name to notify the modules (addUser, delUser, modifyGroup, ...)
 #   args - single value or array ref containing signal parameters
 #   ignored_modules - array ref of modnames to ignore (won't be notified)
-#   ignored_slaves -
 #
 sub notifyModsLdapUserBase
 {
-    my ($self, $signal, $args, $ignored_modules, $ignored_slaves) = @_;
+    my ($self, $signal, $args, $ignored_modules) = @_;
 
     # convert signal to method name
     my $method = '_' . $signal;
@@ -1876,48 +1745,6 @@ sub notifyModsLdapUserBase
         # to implement full transaction support and rollback if a notified
         # module throws an exception
         $mod->$method(@{$args});
-    }
-
-    # Notify slaves
-    $ignored_slaves or $ignored_slaves = [];
-    foreach my $slave (@{$self->allSlaves}) {
-        my $name = $slave->name();
-        next if ($name eq any @{$ignored_slaves});
-
-        $slave->sync($signal, $args);
-    }
-}
-
-# Method: initialSlaveSync
-#
-#   This method will send a sync signal for each
-#   stored user and group.
-#   It should be called on a slave registering
-#
-#   If sync parameter is given, the operation will
-#   be sent instantly, if not, it will be saved for
-#   slave-sync daemon
-#
-sub initialSlaveSync
-{
-    my ($self, $slave, $sync) = @_;
-
-    foreach my $user (@{$self->realUsers()}) {
-        if ($sync) {
-            $slave->sync('addUser', [ $user ]);
-        } else {
-            $slave->savePendingSync('addUser', [ $user ]);
-        }
-    }
-
-    foreach my $group (@{$self->groups()}) {
-        if ($sync) {
-            $slave->sync('addGroup', [ $group ]);
-            $slave->sync('modifyGroup', [ $group ]);
-        } else {
-            $slave->savePendingSync('addGroup', [ $group ]);
-            $slave->savePendingSync('modifyGroup', [ $group ]);
-        }
     }
 }
 
@@ -2111,104 +1938,10 @@ sub menu
                                     order     => 3));
 }
 
-# Method: syncJournalDir
-#
-#   Returns the path holding sync pending actions for
-#   the given slave.
-#   If the directory does not exists, it will be created;
-#
-sub syncJournalDir
-{
-    my ($self, $slave, $notCreate) = @_;
-
-    my $dir = JOURNAL_DIR . $slave->name();
-    my $journalsDir = JOURNAL_DIR;
-
-    unless ($notCreate) {
-        # Create if the dir does not exists
-        unless (-d $dir) {
-            EBox::Sudo::root(
-                "mkdir -p $dir",
-                "chown -R ebox:ebox $journalsDir",
-                "chmod 0700 $journalsDir",
-               );
-        }
-    }
-
-    return $dir;
-}
-
 # LdapModule implementation
 sub _ldapModImplementation
 {
     return new EBox::LdapUserImplementation();
-}
-
-# SyncProvider implementation
-
-# Method: slaves
-#
-#    Get the slaves for this server
-#
-# Returns:
-#
-#    array ref - containing the slaves for this server. Zentyal server slaves are
-#                <EBox::UsersSync::Slave> instances and Zentyal Cloud slave is
-#                a <EBox::CloudSync::Slave> instance.
-#
-sub slaves
-{
-    my ($self) = @_;
-
-    my $model = $self->model('Slaves');
-
-    my @slaves;
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $host = $row->valueByName('host');
-        my $port = $row->valueByName('port');
-
-        push (@slaves, new EBox::UsersSync::Slave($host, $port, $id));
-    }
-
-    my $g = EBox::Global->getInstance(1);
-    my $u = $g->modInstance('samba');
-    if ($u->master() eq 'cloud') {
-        push (@slaves, new EBox::CloudSync::Slave());
-    }
-
-    return \@slaves;
-}
-
-# Method: master
-#
-#   Return configured master as string, undef in none
-#
-#   Options: 'zentyal', 'cloud' or None
-#
-sub master
-{
-    my ($self) = @_;
-    return $self->model('Master')->master();
-}
-
-# SyncProvider implementation
-sub allowUserChanges
-{
-    my ($self) = @_;
-
-    return (not $self->masterConf->isSlave());
-}
-
-# Master-Slave UsersSync object
-sub masterConf
-{
-    my ($self) = @_;
-
-    unless ($self->{ms}) {
-        $self->{ms} = new EBox::UsersSync::Master();
-    }
-    return $self->{ms};
 }
 
 sub dumpConfig

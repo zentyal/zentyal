@@ -58,7 +58,6 @@ sub _process
         my $users = EBox::Global->getInstance()->modInstance('samba');
         push (@args, 'group' => $group);
         my $editable = $users->editableMode();
-        push (@args, 'slave' => not $editable);
         my $warns = $users->allWarnings('group', $group);
         push (@args, warns => $warns);
         $self->{params} = \@args;

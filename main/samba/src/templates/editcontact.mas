@@ -2,14 +2,11 @@
     $contact
     @contactgroups
     @remaingroups => ()
-    $slave => 1
 </%args>
 <%init>
 use EBox::Gettext;
 use JSON::XS;
-my $optionalTag = $slave ? '' :  __('Optional');
-my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
-
+my $optionalTag = __('Optional');
 my $givenName   = $contact->givenName();
 my $surname     = $contact->surname();
 my $displayName = $contact->displayName();
@@ -27,32 +24,25 @@ my $mail        = $contact->mail();
         <input type="hidden" name="dn" value="<% $contact->dn() %>">
         <input type="hidden" name="edit" value="edit">
         <label><% __('First name') %></label>
-            <& masterSlaveUserAttr, name => 'firstname', value => $givenName, slave => $slave &>
+            <& userAttr, name => 'firstname', value => $givenName &>
         <label><% __('Last name') %></label>
-            <& masterSlaveUserAttr, name => 'surname', value => $surname, slave => $slave &>
+            <& userAttr, name => 'surname', value => $surname &>
         <label><% __('Display name') %><span class="optional_field"><% $optionalTag %></span></label>
-            <& masterSlaveUserAttr, name => 'displayname', value => $displayName, slave => $slave &>
+            <& userAttr, name => 'displayname', value => $displayName &>
         <label><% __('Description') %><span class="optional_field"><% $optionalTag %></span></label>
-            <& masterSlaveUserAttr, name => 'description', value => $description, slave => $slave &>
+            <& userAttr, name => 'description', value => $description &>
         <label><% __('E-Mail') %><span class="optional_field"><% $optionalTag %></span></label>
-            <& masterSlaveUserAttr, name => 'mail', value => $mail, slave => $slave &>
+            <& userAttr, name => 'mail', value => $mail &>
 
-%   unless ($slave) {
         <input class='inputButton' id='submitEditContactForm' type='submit' name='contact'
                            value="<% __('Change') %>"
                            alt="<% __('Change') %>">
-%   }
-
     </form>
 </div>
 
 <div id="contact_groups" class="form-block half-block">
   <h4> <% __('Contact groups') %></h4>
-% unless ($slave) {
 <& .groupsRW, contact => $contact, contactgroups => \@contactgroups, remaingroups => \@remaingroups &>
-% } else {
-<& .groupsRO, contactgroups => \@contactgroups &>
-% }
 </div>
 
 <%def .groupsRW>
@@ -179,45 +169,11 @@ $contact
 </form>
 </%def>
 
-<%def .groupsRO>
-<%args>
-@contactgroups
-</%args>
-<%init>
-my $groupStr;
-if (@contactgroups) {
-    my $firstGroup = shift @contactgroups;
-    $groupStr =  $firstGroup->name();
-} else {
-   $groupStr =  __('No member of any group');
-}
-</%init>
-<ul name='contactGroups' id='contactGroups' class='labels-list' size='8'>
-% foreach my $group (@contactgroups) {
-      <li>
-         <% $group->name() %>
-      </li>
-% }
-</ul>
-</%def>
-
-<%def masterSlaveUserAttr>
+<%def userAttr>
 <%args>
 $name
 $value
-$slave
 $id => undef
 </%args>
-% if ($slave) {
-<% $value %>
- <input type='hidden' name='<% $name %>' value='<% $value %>' <% $id ? "id='$id'" : "" %>  />
-% } else {
  <input type='text' class='inputText' name='<% $name %>' value='<% $value %>' <% $id ? "id='$id'" : "" %> />
-%}
 </%def>
-
-
-
-
-
-

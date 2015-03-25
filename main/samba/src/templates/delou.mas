@@ -1,17 +1,11 @@
 <%args>
     $dn
-    $slave => 1
     $forbid => 0
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
 
-% if ($slave) {
-<div class='warning'>
-    <% __('You cannot delete a OU in a slave.') %>
-</div>
-% } else {
 <h3><% __("Delete Organizational Unit") %></h3>
 % if ($forbid) {
 <div class='warning'><% __x('This organizational unit cannot be deleted') %></div>
@@ -29,7 +23,7 @@ use EBox::Gettext;
                 <input class='inputButton' type='submit' name='delou'
                        value="<% __('Delete Organizational Unit') %>"
                        alt="<% __('Delete Organizational Unit') %>" />
-% }
+
                 <& /input/dialogCancel.mas &>
 </form>
 

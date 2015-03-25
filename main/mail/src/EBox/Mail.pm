@@ -1791,17 +1791,6 @@ sub recoveryDomainName
     return __('Mailboxes');
 }
 
-sub preSlaveSetup
-{
-    my ($self, $master) = @_;
-    if ($master ne 'zentyal') {
-        return;
-    }
-
-    # remove vdomains
-    $self->model('VDomains')->removeAll(1);
-}
-
 # Method: reprovisionLDAP
 #
 # Overrides:
@@ -1814,23 +1803,6 @@ sub reprovisionLDAP
 
     # regenerate mail ldap tree
 #    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
-}
-
-sub slaveSetupWarning
-{
-    my ($self, $master) = @_;
-    if (not $self->configured()) {
-        return undef;
-    }
-    if ($master ne 'zentyal') {
-        return undef;
-    }
-    my $vdomainsModel = $self->model('VDomains');
-    if ($vdomainsModel->size() == 0) {
-        return undef;
-    }
-
-    return __('The mail domains and its accounts will be removed when the slave setup is complete');
 }
 
 sub openchangeProvisioned

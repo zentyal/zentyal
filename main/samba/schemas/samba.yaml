@@ -16,11 +16,7 @@ models:
     - LdapInfo
     - PAM
     - AccountSettings
-    - Slaves
-    - Master
-    - SlavePassword
     - SambaShares
-    - SyncShares
     - SambaSharePermissions
     - SambaDeletedShares
     - RecycleDefault
@@ -28,7 +24,6 @@ models:
 
 composites:
     Settings: [LdapInfo, PAM]
-    Sync: [Master, SlavePassword, Slaves]
     UserTemplate: []
     RecycleBin: [RecycleDefault, RecycleExceptions]
     FileSharing: [SambaShares, RecycleBin]
