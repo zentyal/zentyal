@@ -394,6 +394,9 @@ sub provision
         throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
     }
 
+    # Disable expiration on administrator account
+    EBox::Sudo::root('samba-tool user setexpiry administrator --noexpiry');
+
     # dns needs to be restarted after save changes to write proper bind conf with the DLZ
     $global->addModuleToPostSave('dns');
 }
