@@ -58,7 +58,11 @@ sub componentNames
 {
     my $users = EBox::Global->modInstance('samba');
 
-    return $users->defaultUserModels()
+    my @models = ('AccountSettings');
+
+    push (@models, @{$users->defaultUserModels()});
+
+    return \@models;
 }
 
 sub pageTitle
