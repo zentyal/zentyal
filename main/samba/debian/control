@@ -34,11 +34,3 @@ Description: Zentyal - Domain Controller and File Sharing
  .
  This module adds a LDAP server to your Zentyal installation, allowing you
  to add users and groups to be used by other Zentyal modules.
-
-Package: zentyal-users
-Depends: zentyal-samba, ${misc:Depends}
-Architecture: all
-Section: oldlibs
-Description: transitional dummy package
-  This is a transitional dummy package. It can safely be removed.
-
