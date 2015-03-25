@@ -897,7 +897,7 @@ sub summary
     my $localAddress;
     try {
         $localAddress = $self->localAddress();
-        defined $localAddress or $localAddress = __('All external interfaces');
+        defined $localAddress or $localAddress = __('All network interfaces');
     } catch (EBox::Exceptions::External $e) {
         $localAddress = __('Not found');
     }
