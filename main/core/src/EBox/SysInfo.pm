@@ -71,11 +71,6 @@ sub initialSetup
         $state->{closedMessages} = {};
         $self->set_state($state);
     }
-
-    # Migrate from 3.3
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-        $self->_migrateConfKeys();
-    }
 }
 
 # Method: menu
@@ -489,23 +484,6 @@ sub dashboardStatusStrings
      };
 
     return $_dashboardStatusStrings;
-}
-
-# Migrate conf keys
-#   - rs_verify_servers => rest_verify_servers
-sub _migrateConfKeys
-{
-    my ($self) = @_;
-
-    my $rsConfFile = EBox::Config::etc() . 'remoteservices.conf';
-    if (-e $rsConfFile) {
-        my $output = EBox::Sudo::command("grep 'rs_verify_servers' $rsConfFile | cut -f2 -d'=' | sed 's/ //g'");
-        chomp($output->[0]);
-        EBox::info('Migrating rs_verify_servers = ' . $output->[0]);
-        my $verifyServers = $output->[0];
-        my $coreConfFile = EBox::Config::etc() . 'core.conf';
-        EBox::Sudo::root("sed -i 's/rest_verify_servers.*\$/rest_verify_servers = $verifyServers/' $coreConfFile");
-    }
 }
 
 1;

@@ -394,22 +394,6 @@ sub initialSetup
     unless (-d P12DIR) {
         mkdir (P12DIR, PRIVATEDIRMODE)
     }
-
-    # Migrate from 3.5 to 4.0 (old reference to haproxy)
-    if (defined ($version) and (EBox::Util::Version::compare($version, '4.0') < 0)) {
-        my $certs = $self->model('Certificates');
-        foreach my $row (@{$certs->_rows()}) {
-            if ($row->valueByName('module') eq 'haproxy') {
-                $row->elementByName('module')->setValue('webadmin');
-                $row->store();
-            }
-            if ($row->valueByName('serviceId') eq 'zentyal_webadmin') {
-                $row->elementByName('serviceId')->setValue('Zentyal Administration Web Server');
-                $row->store();
-            }
-        }
-        $self->saveConfig();
-    }
 }
 
 # Method: passwordRequired
