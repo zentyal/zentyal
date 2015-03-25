@@ -54,16 +54,6 @@ sub new
     return $self;
 }
 
-sub weights
-{
-    my @options;
-    for my $weight (1..15) {
-        push @options, { 'value' => $weight,
-                 'printableValue' => $weight};
-    }
-    return \@options;
-}
-
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
@@ -85,15 +75,8 @@ sub syncRows
             $dynamicGws{$iface} = $gw;
         }
     }
-    foreach my $iface (@{$network->pppIfaces()}) {
-        my $addr = $state->{interfaces}->{$iface}->{ppp_addr};
-        my $ppp_iface = $state->{interfaces}->{$iface}->{ppp_iface};
-        if ($addr and $ppp_iface) {
-            $dynamicGws{$iface} = "$ppp_iface/$addr";
-        }
-    }
 
-    my %currentIfaces = map { 
+    my %currentIfaces = map {
         my $rowId = $_;
         my $row = $self->row($rowId);
         if ($row) {
@@ -192,17 +175,6 @@ sub _table
                     'hiddenOnSetter' => 1,
                     'optional' => 1,
                     'help' => __('Interface connected to this gateway')
-                ),
-        new EBox::Types::Select(
-                    'fieldName' => 'weight',
-                    'printableName' => __('Weight'),
-                    'defaultValue' => 1,
-                    'size' => '2',
-                    'populate' => \&weights,
-                    'editable' => 1,
-                    'help' => __('This field is only useful if you have ' .
-                                 'more than one router and  the balance ' .
-                                 'traffic feature is enabled.')
                 ),
         new EBox::Types::Boolean(
                     'fieldName' => 'default',
@@ -458,7 +430,7 @@ sub marksForRouters
     return $marks;
 }
 
-# Returns only enabled gateways
+# Returns only enabled default gateway
 sub gateways
 {
     my ($self) = @_;
@@ -480,24 +452,21 @@ sub _gateways
 
     my @gateways;
 
-    my $balanceModel = $self->parentModule()->model('BalanceGateways');
-    my %balanceEnabled =
-        map { $balanceModel->row($_)->valueByName('name') => 1 } @{$balanceModel->enabledRows()};
-
     foreach my $id (@{$all ? $self->ids() : $self->enabledRows()}) {
         my $gw = $self->row($id);
         my $name = $gw->valueByName('name');
-        push (@gateways, {
-                            id => $id,
-                            auto => $gw->valueByName('auto'),
-                            name => $name,
-                            ip => $gw->valueByName('ip'),
-                            weight => $gw->valueByName('weight'),
-                            default => $gw->valueByName('default'),
-                            interface => $gw->valueByName('interface'),
-                            enabled => $gw->valueByName('enabled'),
-                            balance => $balanceEnabled{$name},
-                         });
+	my $default = $gw->valueByName('default');
+        my $gateway = {
+            id => $id,
+            auto => $gw->valueByName('auto'),
+            name => $name,
+            ip => $gw->valueByName('ip'),
+            default => $default,
+            interface => $gw->valueByName('interface'),
+            enabled => $gw->valueByName('enabled'),
+        };
+	return [ $gateway ] if ($default and not $all);
+        push (@gateways, $gateway);
     }
 
     return \@gateways;
@@ -509,7 +478,7 @@ sub gatewaysWithMac
 
     my @gateways = @{$self->allGateways()};
     foreach my $gw (@gateways) {
-        # Skip mac detection for auto-added gateways (dhcp and pppoe)
+        # Skip mac detection for dhcp gateways
         if ($gw->{'auto'}) {
             $gw->{'mac'} = undef;
         } else {

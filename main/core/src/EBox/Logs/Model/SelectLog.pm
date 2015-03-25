@@ -150,12 +150,6 @@ sub _table
                                editable      => 0,
                                optional      => 1,
                               ),
-         new EBox::Types::Link(
-                               fieldName => 'summary',
-                               printableName => __('Summarized report'),
-                               editable      => 0,
-                               optional      => 1,
-                              ),
 
         );
 

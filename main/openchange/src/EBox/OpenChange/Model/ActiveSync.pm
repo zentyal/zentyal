@@ -73,8 +73,8 @@ sub precondition
 {
     my ($self) = @_;
 
-    # Check if packages are installed
-    unless ($self->_packagesInstalled()) {
+    # Check if package is installed
+    unless (EBox::GlobalImpl::_packageInstalled('sogo-activesync')) {
         $self->{preconditionFail} = 'nopackages';
         return 0;
     }
@@ -126,17 +126,6 @@ sub formSubmitted
 
     # Set module as changed to ensure apache restart
     $self->parentModule()->setAsChanged(1);
-}
-
-sub _packagesInstalled
-{
-    my ($self) = @_;
-
-    foreach my $pkg (qw(z-push sogo-activesync)) {
-        return 1 if (EBox::GlobalImpl::_packageInstalled($pkg));
-    }
-
-    return 0;
 }
 
 1;

@@ -1,4 +1,7 @@
 HEAD
+	+ Increase uwsgi read timeout from 60 (default) to 180 seconds
+	+ Update version to 4.1
+	+ Remove deprecated Summarized report column in Logs page
 	+ Removed support for SSLv2 & SSLv3. Using recommended ciphers from:
 	  https://wiki.mozilla.org/Security/Server_Side_TLS
 	  (contribution by theodorerambert)

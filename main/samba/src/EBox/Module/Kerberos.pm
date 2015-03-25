@@ -373,8 +373,6 @@ sub _regenConfig
     if ($samba->isProvisioned()) {
         $self->_kerberosSetup();
         $self->SUPER::_regenConfig(@_);
-    } elsif ($samba->mode() eq $samba->EXTERNAL_AD_MODE) {
-        $self->SUPER::_regenConfig(@_);
     }
 }
 
@@ -398,7 +396,7 @@ sub _dumpPasswordFile
     return "$dir/kerberosServicePassword";
 }
 
-sub _dumpServiceAccountPassword 
+sub _dumpServiceAccountPassword
 {
     my ($self, $dir) = @_;
     my $pwdFile  = $self->_kerberosServicePasswordFile();
@@ -414,7 +412,7 @@ sub _dumpServiceAccountPassword
     }
 }
 
-sub _restoreServiceAccountPassword 
+sub _restoreServiceAccountPassword
 {
     my ($self, $dir) = @_;
     my $dumpFile = $self->_dumpPasswordFile($dir);

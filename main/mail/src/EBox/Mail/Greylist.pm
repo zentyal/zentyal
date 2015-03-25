@@ -110,8 +110,8 @@ sub _confAttr
     my ($self, $attr) = @_;
 
     if (not $self->{configuration}) {
-        my $mailfilter = EBox::Global->modInstance('mail');
-        $self->{configuration}     = $mailfilter->model('GreylistConfiguration');
+        my $mail = EBox::Global->modInstance('mail');
+        $self->{configuration} = $mail->model('GreylistConfiguration');
     }
 
     my $row = $self->{configuration}->row();
@@ -199,27 +199,7 @@ sub _antispamWhitelist
 {
     my ($self) = @_;
 
-    # TODO: use a interface when we have more than one module with spam ACL
-    my $global = EBox::Global->getInstance();
-
-    if (not $global->modExists('mailfilter')) {
-        return [];
-    }
-
-    my $mailfilter = $global->modInstance('mailfilter');
-    if (not $mailfilter->isEnabled()) {
-        return [];
-    }
-
-    my @wl = @{ $mailfilter->antispam()->whitelist() };
-    # the format for domains is @domain_name, however postgrey uses domainname
-    # format
-    @wl = map {
-        $_ =~ s/^@//;
-        $_
-    } @wl;
-
-    return \@wl;
+    return [];
 }
 
 sub port

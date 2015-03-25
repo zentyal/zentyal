@@ -636,10 +636,6 @@ sub _preSetConf
     my $runResolvConf = 1;
     if ($self->global->modExists('samba')) {
         my $usersModule = $self->global->modInstance('samba');
-        my $mode = $usersModule->mode();
-        if ($mode eq EBox::Samba::EXTERNAL_AD_MODE()) {
-            $runResolvConf = 0;
-        }
     }
     my $array = [];
     push (@{$array}, runResolvConf => $runResolvConf);
@@ -929,15 +925,6 @@ sub _postServiceHook
                 unlink ($filename) if -f $filename;
             }
             delete $self->{nsupdateCmds};
-        }
-
-        if (EBox::Global->modExists('samba')) {
-            my $usersModule = EBox::Global->modInstance('samba');
-            my $mode = $usersModule->mode();
-            if ($mode eq EBox::Samba::EXTERNAL_AD_MODE() and
-                EBox::Sudo::fileTest('-f', '/var/run/resolvconf/interface/lo.named')) {
-                EBox::Sudo::root('resolvconf -d lo.named');
-            }
         }
     }
 

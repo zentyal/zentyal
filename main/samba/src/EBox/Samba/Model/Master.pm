@@ -136,13 +136,6 @@ sub _table
     return $dataForm;
 }
 
-sub precondition
-{
-    my ($self) = @_;
-    my $usersMod = $self->parentModule();
-    return ($usersMod->mode() eq $usersMod->STANDALONE_MODE());
-}
-
 # Method: viewCustomizer
 #
 #    Hide/show master options if Zentyal as master is configured

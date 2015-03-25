@@ -185,9 +185,6 @@ sub local
     # redis does not store undef values, with a undef key it returns ''
     if ($iface eq  '_ALL') {
         $iface = undef;
-    } else {
-        my $network = EBox::Global->modInstance('network');
-        $iface = $network->realIface($iface);
     }
 
     return $iface;
@@ -900,7 +897,7 @@ sub summary
     my $localAddress;
     try {
         $localAddress = $self->localAddress();
-        defined $localAddress or $localAddress = __('All external interfaces');
+        defined $localAddress or $localAddress = __('All network interfaces');
     } catch (EBox::Exceptions::External $e) {
         $localAddress = __('Not found');
     }

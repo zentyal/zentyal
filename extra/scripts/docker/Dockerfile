@@ -23,28 +23,21 @@ ADD main/common/extra/eboxlog.conf /tmp/main/common/extra/eboxlog.conf
 
 #ADD control files to check the dependencies
 ADD  main/firewall/debian/control /tmp/main/firewall/debian/control
-ADD  main/mailfilter/debian/control /tmp/main/mailfilter/debian/control
 ADD  main/services/debian/control /tmp/main/services/debian/control
-ADD  main/antivirus/debian/control /tmp/main/antivirus/debian/control
 ADD  main/ntp/debian/control /tmp/main/ntp/debian/control
-ADD  main/l2tp/debian/control /tmp/main/l2tp/debian/control
 ADD  main/dhcp/debian/control /tmp/main/dhcp/debian/control
 ADD  main/software/debian/control /tmp/main/software/debian/control
 ADD  main/objects/debian/control /tmp/main/objects/debian/control
-ADD  main/jabber/debian/control /tmp/main/jabber/debian/control
 ADD  main/mail/debian/control /tmp/main/mail/debian/control
-ADD  main/trafficshaping/debian/control /tmp/main/trafficshaping/debian/control
 ADD  main/openchange/debian/control /tmp/main/openchange/debian/control
 ADD  main/core/debian/control /tmp/main/core/debian/control
 ADD  main/openvpn/debian/control /tmp/main/openvpn/debian/control
-ADD  main/squid/debian/control /tmp/main/squid/debian/control
 ADD  main/samba/debian/control /tmp/main/samba/debian/control
 ADD  main/dns/debian/control /tmp/main/dns/debian/control
 ADD  main/ca/debian/control /tmp/main/ca/debian/control
 ADD  main/printers/debian/control /tmp/main/printers/debian/control
 ADD  main/common/debian/control /tmp/main/common/debian/control
 ADD  main/network/debian/control /tmp/main/network/debian/control
-ADD  main/ha/debian/control /tmp/main/ha/debian/control
 
 #Install the zentyal deps
 RUN apt-get update -y

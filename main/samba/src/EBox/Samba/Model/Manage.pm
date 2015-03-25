@@ -87,13 +87,6 @@ sub childNodes
         } elsif ($child->isa('EBox::Samba::User')) {
             next if ($child->isInternal());
 
-            if ($dn =~ m/^CN=krbtgt/i) {
-                if ($usersMod->mode() ne $usersMod->STANDALONE_MODE) {
-                    # hide this user
-                    next;
-                }
-            }
-
             if ($child->isDisabled()) {
                 $type = 'duser';
             } else {
@@ -120,13 +113,6 @@ sub childNodes
             next if ($child->isInternal());
 
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
-            $printableName = $child->name();
-        } elsif ($child->isa('EBox::Samba::Container::ExternalAD')) {
-            #^ container class only used in ExternalAD mode
-            # for now we are only interested in the user containers
-            $child->usersContainer() or
-                next;
-            $type = 'container';
             $printableName = $child->name();
         } else {
             EBox::warn("Unknown object type for DN: " . $child->dn());
@@ -170,7 +156,7 @@ sub nodeTypes
 {
     my ($self) = @_;
     my $usersMod = $self->parentModule();
-    my $rw = $usersMod->mode() eq $usersMod->STANDALONE_MODE;
+    my $rw = 1;
 
     return {
         domain => { actions => { filter => 0, add => $rw }, actionObjects => { add => 'OU' } },
@@ -200,11 +186,7 @@ sub precondition
     my ($self) = @_;
 
     my $samba = $self->parentModule();
-    if ($samba->mode() eq $samba->STANDALONE_MODE()) {
-        return ($samba->isProvisioned() and $samba->isEnabled());
-    } else {
-        return $samba->isEnabled();
-    }
+    return ($samba->isProvisioned() and $samba->isEnabled());
 }
 
 # Method: preconditionFailMsg

@@ -20,7 +20,6 @@ package EBox::Samba;
 
 use base qw(EBox::Module::LDAP
             EBox::SysInfo::Observer
-            EBox::NetworkObserver
             EBox::FirewallObserver
             EBox::LogObserver
             EBox::SyncFolders::Provider
@@ -37,7 +36,6 @@ use EBox::FileSystem;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
-use EBox::LDAP::ExternalAD;
 use EBox::LdapUserImplementation;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
@@ -49,7 +47,6 @@ use EBox::Samba::Computer;
 use EBox::Samba::Contact;
 use EBox::Samba::Container;
 use EBox::Samba::DMD;
-use EBox::Samba::GPO;
 use EBox::Samba::Group;
 use EBox::Samba::LdapObject;
 use EBox::Samba::NamingContext;
@@ -134,7 +131,6 @@ use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
-use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
 use constant COMPUTERSDN    => 'ou=Computers';
@@ -156,7 +152,6 @@ use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 
 use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
-use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
@@ -181,39 +176,15 @@ sub _create
                                       printableName => __('Domain Controller and File Sharing'),
                                       @_);
     bless($self, $class);
-    $self->_setupForMode();
+
+    $self->{ldapClass} = 'EBox::Ldap';
+    $self->{ouClass} = 'EBox::Samba::OU';
+    $self->{userClass} = 'EBox::Samba::User';
+    $self->{contactClass} = 'EBox::Samba::Contact';
+    $self->{groupClass} = 'EBox::Samba::Group';
+    $self->{containerClass} = 'EBox::Samba::Container';
 
     return $self;
-}
-
-# Method: _setupForMode
-#
-#   setup the internal attributes need for active authentication mode
-#
-sub _setupForMode
-{
-    my ($self) = @_;
-    my $mode = $self->mode();
-    if ($mode ne EXTERNAL_AD_MODE) {
-        $self->{ldapClass} = 'EBox::Ldap';
-        $self->{ouClass} = 'EBox::Samba::OU';
-        $self->{userClass} = 'EBox::Samba::User';
-        $self->{contactClass} = 'EBox::Samba::Contact';
-        $self->{groupClass} = 'EBox::Samba::Group';
-        $self->{containerClass} = 'EBox::Samba::Container';
-    } else {
-        $self->{ldapClass} = 'EBox::LDAP::ExternalAD';
-        $self->{ouClass} = 'EBox::Samba::OU::ExternalAD';
-        $self->{userClass} = 'EBox::Samba::User::ExternalAD';
-        $self->{contactClass} = 'EBox::Samba::Contact::ExternalAD';
-        $self->{groupClass} = 'EBox::Samba::Group::ExternalAD';
-        $self->{containerClass} = 'EBox::Samba::Container::ExternalAD';
-        # load this classes only when needed
-        foreach my $pkg ($self->{ldapClass}, $self->{ouClass}, $self->{userClass}, $self->{contactClass}, $self->{groupClass}, $self->{containerClass}) {
-            eval "use $pkg";
-            $@ and throw EBox::Exceptions::Internal("When loading $pkg: $@");
-        }
-    }
 }
 
 # Method: ldapClass
@@ -308,27 +279,25 @@ sub actions
 
     my @actions;
 
-    if ($self->mode() eq STANDALONE_MODE) {
-        push (@actions, {
-            'action' => __('Your LDAP database will be populated with some basic organizational units'),
-            'reason' => __('Zentyal needs this organizational units to add users and groups into them.'),
-            'module' => 'samba'
-        });
-        push (@actions, {
-            'action' => __('Create Samba home directory for shares and groups'),
-            'reason' => __('Zentyal will create the directories for Samba ' .
-                           'shares and groups under /home/samba.'),
-            'module' => 'samba',
-        });
+    push (@actions, {
+        'action' => __('Your LDAP database will be populated with some basic organizational units'),
+        'reason' => __('Zentyal needs this organizational units to add users and groups into them.'),
+        'module' => 'samba'
+    });
+    push (@actions, {
+        'action' => __('Create Samba home directory for shares and groups'),
+        'reason' => __('Zentyal will create the directories for Samba ' .
+                       'shares and groups under /home/samba.'),
+        'module' => 'samba',
+    });
 
-        # FIXME: This probably won't work if PAM is enabled after enabling the module
-        if ($self->model('PAM')->enable_pamValue()) {
-            push @actions, {
-                    'action' => __('Configure PAM.'),
-                    'reason' => __('Zentyal will give LDAP samba system account.'),
-                    'module' => 'samba'
-                };
-        }
+    # FIXME: This probably won't work if PAM is enabled after enabling the module
+    if ($self->model('PAM')->enable_pamValue()) {
+        push @actions, {
+                'action' => __('Configure PAM.'),
+                'reason' => __('Zentyal will give LDAP samba system account.'),
+                'module' => 'samba'
+            };
     }
 
     return \@actions;
@@ -348,32 +317,30 @@ sub usedFiles
             'module' => 'samba'
         };
 
-    if ($self->mode() eq STANDALONE_MODE) {
-        push @files, (
-            {
-                'file' => '/etc/nsswitch.conf',
-                'reason' => __('To make NSS use LDAP resolution for user and '.
-                               'group accounts. Needed for Samba PDC configuration.'),
-                'module' => 'samba'
-            },
-            {
-                'file' => '/etc/fstab',
-                'reason' => __('To add quota support to /home partition.'),
-                'module' => 'samba'
-            },
-            {
-                'file' => SSSD_CONF_FILE,
-                'reason' => __('To configure System Security Services Daemon to manage remote'
-                               . ' authentication mechanisms'),
-                'module' => 'samba'
-            },
-            {
-                'file'   => FSTAB_FILE,
-                'reason' => __('To enable extended attributes and acls.'),
-                'module' => 'samba',
-            },
-        );
-    }
+    push @files, (
+        {
+            'file' => '/etc/nsswitch.conf',
+            'reason' => __('To make NSS use LDAP resolution for user and '.
+                           'group accounts. Needed for Samba PDC configuration.'),
+            'module' => 'samba'
+        },
+        {
+            'file' => '/etc/fstab',
+            'reason' => __('To add quota support to /home partition.'),
+            'module' => 'samba'
+        },
+        {
+            'file' => SSSD_CONF_FILE,
+            'reason' => __('To configure System Security Services Daemon to manage remote'
+                           . ' authentication mechanisms'),
+            'module' => 'samba'
+        },
+        {
+            'file'   => FSTAB_FILE,
+            'reason' => __('To enable extended attributes and acls.'),
+            'module' => 'samba',
+        },
+    );
 
     return \@files;
 }
@@ -424,15 +391,6 @@ sub initialSetup
 sub _migrateTo35
 {
     my ($self) = @_;
-
-    # Migrate external AD mode if set in the old users module
-    my $redis = $self->redis();
-    my $mode = $redis->get('users/conf/Mode/keys/form');
-    if ($mode and exists $mode->{mode} and ($mode->{mode} eq 'external-ad')) {
-        $redis->set('samba/conf/Mode/keys/form', $mode);
-        $self->saveConfig();
-        return;
-    }
 
     return unless ($self->configured());
 
@@ -655,15 +613,7 @@ sub enableActions
 
     $self->_setAppArmorProfiles();
 
-    my $mode = $self->mode();
-    $self->_setupForMode();
-    if ($mode eq STANDALONE_MODE) {
-        $self->_internalServerEnableActions();
-    } elsif ($mode eq EXTERNAL_AD_MODE) {
-        $self->_externalADEnableActions();
-    } else {
-        throw EBox::Exceptions::Internal("Unknown mode $mode");
-    }
+    $self->_internalServerEnableActions();
 }
 
 sub _internalServerEnableActions
@@ -683,20 +633,9 @@ sub _internalServerEnableActions
     EBox::Global->modInstance('webadmin')->setAsChanged();
 }
 
-sub _externalADEnableActions
-{
-    my ($self) = @_;
-    my $global = $self->global();
-    # we need to restart network to force the regeneration of DNS resolvers
-    $global->modInstance('network')->setAsChanged();
-    # we need to webadmin to clear DNs cache daa
-    $global->modInstance('webadmin')->setAsChanged();
-}
-
 sub enableService
 {
     my ($self, $status) = @_;
-    my $mode = $self->mode();
 
     if ($status) {
         my $throwException = 1;
@@ -704,17 +643,13 @@ sub enableService
             $throwException = 0;
         }
 
-        if ($mode eq STANDALONE_MODE) {
-            $self->getProvision->checkEnvironment($throwException);
-        }
+        $self->getProvision->checkEnvironment($throwException);
     }
 
     $self->SUPER::enableService($status);
 
-    if ($mode eq STANDALONE_MODE) {
-        my $dns = EBox::Global->modInstance('dns');
-        $dns->setAsChanged();
-    }
+    my $dns = EBox::Global->modInstance('dns');
+    $dns->setAsChanged();
 }
 
 sub _startDaemon
@@ -894,10 +829,8 @@ sub _regenConfig
     # default EBox::Module::LDAP behavior of adding schemas
     # first and then regenConfig
     $self->EBox::Module::Service::_regenConfig(@_);
-    if ($self->mode() eq STANDALONE_MODE) {
-        if ($self->isProvisioned() and $self->isEnabled()) {
-            $self->_performSetup();
-        }
+    if ($self->isProvisioned() and $self->isEnabled()) {
+        $self->_performSetup();
     }
 }
 
@@ -911,30 +844,13 @@ sub _regenConfig
 sub _setConf
 {
     my ($self, $noSlaveSetup) = @_;
-    $self->_setupForMode();
 
-    if ($self->mode() eq EXTERNAL_AD_MODE) {
-        $self->_setConfExternalAD();
-    } else {
-        $self->_setConfInternal($noSlaveSetup);
+    $self->_setConfInternal($noSlaveSetup);
 
-        # Remove shares
-        $self->model('SambaDeletedShares')->removeDirs();
-        # Create shares
-        $self->model('SambaShares')->createDirs();
-    }
-}
-
-sub _setConfExternalAD
-{
-    my ($self) = @_;
-    # setup kerberos,
-    $self->getProvision()->setupKerberos(1);
-    # Install cron file to update the squid keytab in the case keys change
-    $self->writeConfFile(CRONFILE_EXTERNAL_AD_MODE, "samba/zentyal-users-external-ad.cron.mas", []);
-    EBox::Sudo::root('chmod a+x ' . CRONFILE_EXTERNAL_AD_MODE);
-    # Reset LDAP connection
-    $self->clearLdapConn();
+    # Remove shares
+    $self->model('SambaDeletedShares')->removeDirs();
+    # Create shares
+    $self->model('SambaShares')->createDirs();
 }
 
 sub _setConfInternal
@@ -1009,8 +925,6 @@ sub _createDirectories
     my $gidNumber = $group->gidNumber();
     my $guest = $self->ldap->domainGuestUser();
     my $nobodyUidNumber = $guest->uidNumber();
-    my $avModel = $self->model('AntivirusDefault');
-    my $quarantine = $avModel->QUARANTINE_DIR();
 
     my @cmds;
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
@@ -1035,10 +949,6 @@ sub _createDirectories
     push (@cmds, "setfacl -m u:$nobodyUidNumber:rx " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
 
-    push (@cmds, "mkdir -p '$quarantine'");
-    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
-    push (@cmds, "chmod 770 '$quarantine'");
-
     EBox::Sudo::root(@cmds);
 }
 
@@ -1057,42 +967,17 @@ sub _sysvolSyncCond
     return ($self->isEnabled() and $self->getProvision->isProvisioned() and $self->_adcMode());
 }
 
-sub _antivirusEnabled
-{
-    my ($self) = @_;
-
-    my $avModule = EBox::Global->modInstance('antivirus');
-    unless (defined ($avModule) and $avModule->isEnabled()) {
-        return 0;
-    }
-
-    my $avModel = $self->model('AntivirusDefault');
-    my $enabled = $avModel->value('scan');
-
-    return $enabled;
-}
-
-
 sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
     return unless $enabled;
 
-    if ($self->mode() eq EXTERNAL_AD_MODE) {
-        # Update services keytabs
-        my $ldap = $self->ldap();
-        my @principals = @{ $ldap->externalServicesPrincipals() };
-        if (scalar @principals) {
-            $ldap->initKeyTabs();
-        }
-        return;
-    }
-
     return unless $self->isProvisioned();
 
     # Fix permissions on samba dirs. Zentyal user needs access because
     # the antivirus daemon runs as 'ebox'
+    # FIXME: not sure if this is really needed now that there are no antivirus dirs
     $self->_createDirectories();
 
     my $ldap = $self->ldap();
@@ -1309,12 +1194,6 @@ sub _postServiceHook
             $self->set_state($state);
         }
 
-        # Change group ownership of quarantine_dir to __USERS__
-        EBox::info("Fixing quarantine_dir permissions...");
-        if ($self->defaultAntivirusSettings()) {
-            $self->_setupQuarantineDirectory();
-        }
-
         # Write DNS update list
         EBox::info("Writing DNS update list...");
         $self->_writeDnsUpdateList();
@@ -1402,9 +1281,6 @@ sub _setupSSSd
 sub editableMode
 {
     my ($self) = @_;
-    if ($self->mode() ne STANDALONE_MODE) {
-        return 0;
-    }
 
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
@@ -1429,26 +1305,16 @@ sub _daemons
 {
     my ($self) = @_;
 
-    my $usingInternalServer = sub {
-        return ($self->mode() eq STANDALONE_MODE);
-    };
-
     return [
         {
             name => 'samba-ad-dc',
-            precondition => $usingInternalServer
         },
         {
             name => 'sssd',
-            precondition => $usingInternalServer
         },
         {
             name => 'zentyal.sysvol-sync',
             precondition => \&_sysvolSyncCond,
-        },
-        {
-            name => 'zentyal.zavsd',
-            precondition => \&_antivirusEnabled,
         },
         {
             name => 'zentyal.set-uid-gid-numbers',
@@ -1520,19 +1386,17 @@ sub _startService
 
     $self->SUPER::_startService();
 
-    if ($self->mode() eq STANDALONE_MODE) {
-        # Wait for sss to open the NSS pipe
-        my $tries = 300;
-        my $sleep = 0.1;
-        my $socket = undef;
-        while (not defined $socket and $tries > 0) {
-            $socket = new IO::Socket::UNIX(
-                Type => SOCK_STREAM,
-                Peer => '/var/lib/sss/pipes/nss');
-            last if $socket;
-            $tries--;
-            Time::HiRes::sleep($sleep);
-        }
+    # Wait for sss to open the NSS pipe
+    my $tries = 300;
+    my $sleep = 0.1;
+    my $socket = undef;
+    while (not defined $socket and $tries > 0) {
+        $socket = new IO::Socket::UNIX(
+            Type => SOCK_STREAM,
+            Peer => '/var/lib/sss/pipes/nss');
+        last if $socket;
+        $tries--;
+        Time::HiRes::sleep($sleep);
     }
 }
 
@@ -2319,28 +2183,16 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $standalone = ($self->mode eq STANDALONE_MODE);
+    my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
+                                              text => __('Domain'),
+                                              icon => 'domain',
+                                              tag => 'main',
+                                              order => 2);
 
-    if ($standalone) {
-        my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
-                                                  text => __('Domain'),
-                                                  icon => 'domain',
-                                                  tag => 'main',
-                                                  order => 2);
-
-        $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/DomainSettings',
-                                                text  => __('Settings'),
-                                                order => 10));
-
-        $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
-                                                text  => __('Group Policy Objects'),
-                                                order => 20));
-        $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/Tree/GPOLinks',
-                                                text  => __('Group Policy Links'),
-                                                order => 30));
-
-        $root->add($domainFolder);
-    }
+    $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/DomainSettings',
+                                            text  => __('Settings'),
+                                            order => 10));
+    $root->add($domainFolder);
 
 
     my $folder = new EBox::Menu::Folder(name => 'Users',
@@ -2353,16 +2205,12 @@ sub menu
             'url'  => 'Samba/Tree/Manage',
             'text' => __('Manage'), order => 10));
 
-        if ($standalone) {
-            $folder->add(new EBox::Menu::Item(
-                'url'  => 'Samba/Composite/UserTemplate',
-                'text' => __('User Template'), order => 30));
-            if ($self->mode() eq STANDALONE_MODE) {
-                $folder->add(new EBox::Menu::Item(
-                    'url'  => 'Samba/View/Master',
-                    'text' => __('Synchronization'), order => 40));
-            }
-        }
+        $folder->add(new EBox::Menu::Item(
+            'url'  => 'Samba/Composite/UserTemplate',
+            'text' => __('User Template'), order => 30));
+        $folder->add(new EBox::Menu::Item(
+            'url'  => 'Samba/View/Master',
+            'text' => __('Synchronization'), order => 40));
 
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Samba/Composite/Settings',
@@ -2376,71 +2224,11 @@ sub menu
     }
     $root->add($folder);
 
-    if ($standalone) {
-        $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
-                                        url       => 'Samba/Composite/FileSharing',
-                                        icon      => 'sharing',
-                                        tag       => 'main',
-                                        order     => 3));
-    }
-}
-
-# Method: enableModDepends
-#
-# Overriden to remove dns from dependencies when on standalone mode
-sub enableModDepends
-{
-    my ($self) = @_;
-    my $depends = $self->SUPER::enableModDepends();
-    return $self->_filterDependsByMode($depends);
-}
-
-# Method: bootDepends
-#
-# Overriden to remove dns from dependencies when on standalone mode
-sub bootDepends
-{
-    my ($self)= @_;
-    my $depends = $self->SUPER::bootDepends();
-    return $self->_filterDependsByMode($depends);
-}
-
-# Method: depends
-#
-#     Samba depends on printers only if it exists and in standalone mode
-#
-# Overrides:
-#
-#     <EBox::Module::Base::depends>
-#
-sub depends
-{
-    my ($self) = @_;
-
-    my @deps = @{$self->SUPER::depends()};
-
-    if ($self->global()->modExists('printers')) {
-        push (@deps, 'printers');
-    }
-
-    return $self->_filterDependsByMode(\@deps);
-}
-
-sub _filterDependsByMode
-{
-    my ($self, $depends) = @_;
-    my $mode = $self->mode();
-    if ($mode eq STANDALONE_MODE) {
-        return $depends;
-    } elsif ($mode eq EXTERNAL_AD_MODE) {
-        my @depends = grep {
-            ($_ ne 'dns') and ($_ ne 'printers')
-        } @{ $depends };
-
-        return \@depends;
-    } else {
-        throw EBox::Exceptions::Internal("Unknown users mode '$mode'");
-    }
+    $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
+                                    url       => 'Samba/Composite/FileSharing',
+                                    icon      => 'sharing',
+                                    tag       => 'main',
+                                    order     => 3));
 }
 
 # Method: syncJournalDir
@@ -2549,13 +2337,6 @@ sub dumpConfig
 
     return unless $self->isProvisioned();
 
-    my $mode = $self->mode();
-    File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
-    if ($mode ne STANDALONE_MODE) {
-        # the dump of the LDAP is only availabe in standalone server mode
-        return;
-    }
-
     my @cmds;
 
     my $hostname  =  `hostname --fqdn`;
@@ -2646,10 +2427,8 @@ sub _usersInEtcPasswd
 sub restoreDependencies
 {
     my ($self) = @_;
-    if ($self->mode() eq STANDALONE_MODE) {
-            return ['dns'];
-    }
-    return [];
+
+    return ['dns'];
 }
 
 # Method: restoreBackupPreCheck
@@ -2660,31 +2439,6 @@ sub restoreDependencies
 sub restoreBackupPreCheck
 {
     my ($self, $dir) = @_;
-    my $mode = $self->mode();
-    my $backupModeFile = $dir . '/' . BACKUP_MODE_FILE;
-    my $backupMode;
-    if (-r $backupModeFile) {
-        $backupMode =  File::Slurp::read_file($backupModeFile);
-    } else {
-        # standalone mode by default
-        $backupMode = STANDALONE_MODE;
-    }
-
-
-    if ($mode ne $backupMode) {
-        my $modeModel = $self->model('Mode');
-        throw EBox::Exceptions::External(
-            __x('Cannot restore users module because is running in mode {mode} and the backup was made in mode {bpMode}',
-                mode => $modeModel->modePrintableName($mode),
-                bpMode => $modeModel->modePrintableName($backupMode),
-               )
-           );
-    }
-
-    if ($mode ne STANDALONE_MODE) {
-        # nothing more to check
-        return;
-    }
 
     my $oldHostname;
     my $hostnameFile = "$dir/oldhostname";
@@ -2733,14 +2487,6 @@ sub restoreConfig
                            ex => $exError);
             throw EBox::Exceptions::External($error);
         }
-    }
-
-    my $mode = $self->mode();
-    File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
-    if ($mode ne STANDALONE_MODE) {
-        # only standalone mode needs to do this operations to restore the LDAP
-        # directory
-        return;
     }
 
     my $modeDC = $self->dcMode();
@@ -2865,16 +2611,6 @@ sub listSchemas
     return \@schemas;
 }
 
-sub mode
-{
-    my ($self) = @_;
-    my $mode = $self->model('Mode')->value('mode');
-    if (not $mode) {
-        return STANDALONE_MODE;
-    }
-    return $mode;
-}
-
 # Method: dcMode
 #
 #   Returns the configured server mode
@@ -2895,12 +2631,6 @@ sub dcMode
 sub newLDAP
 {
     my ($self) = @_;
-    my $mode = $self->mode();
-    if ($mode eq EXTERNAL_AD_MODE) {
-        return EBox::LDAP::ExternalAD->instance(
-            @{ $self->model('Mode')->adModeOptions() }
-           );
-    }
 
     return  EBox::Ldap->instance();
 }
@@ -3009,12 +2739,6 @@ sub hostDomainChanged
 sub hostDomainChangedDone
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
-
-    unless ($self->configured()) {
-        my $mode = $self->model('Mode');
-        my $newDN = $mode->getDnFromDomainName($newDomainName);
-        $mode->setValue('dn', $newDN);
-    }
 
     my $settings = $self->global()->modInstance('samba')->model('DomainSettings');
     $settings->setValue('realm', uc ($newDomainName));
@@ -3503,14 +3227,9 @@ sub writeSambaConfig
     push (@array, 'unmanagedAcls' => EBox::Config::boolean('unmanaged_acls'));
     push (@array, 'shares' => $self->shares());
 
-    push (@array, 'antivirus' => $self->defaultAntivirusSettings());
-    push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
-    push (@array, 'antivirus_config' => $self->antivirusConfig());
     push (@array, 'recycle' => $self->defaultRecycleSettings());
     push (@array, 'recycle_exceptions' => $self->recycleExceptions());
     push (@array, 'recycle_config' => $self->recycleConfig());
-
-    $self->_writeAntivirusConfig();
 
     $self->writeConfFile(SHARESCONFFILE, 'samba/shares.conf.mas', \@array,
                          { 'uid' => 'root', 'gid' => 'root', mode => '644' });
@@ -3596,34 +3315,6 @@ sub dMD
     return new EBox::Samba::DMD(dn => $dn);
 }
 
-# Method: gpos
-#
-#   Returns the Domain GPOs
-#
-# Returns:
-#
-#   Array ref containing instances of EBox::Samba::GPO
-#
-sub gpos
-{
-    my ($self) = @_;
-
-    my $gpos = [];
-    my $defaultNC = $self->ldap->dn();
-    my $params = {
-        base => "CN=Policies,CN=System,$defaultNC",
-        scope => 'one',
-        filter => '(objectClass=GroupPolicyContainer)',
-        attrs => ['*']
-    };
-    my $result = $self->ldap->search($params);
-    foreach my $entry ($result->entries()) {
-        push (@{$gpos}, new EBox::Samba::GPO(entry => $entry));
-    }
-
-    return $gpos;
-}
-
 # Method: shares
 #
 #   It returns the custom shares
@@ -3701,66 +3392,6 @@ sub shares
     return \@shares;
 }
 
-sub defaultAntivirusSettings
-{
-    my ($self) = @_;
-
-    my $antivirus = $self->model('AntivirusDefault');
-    return $antivirus->value('scan');
-}
-
-sub antivirusExceptions
-{
-    my ($self) = @_;
-
-    my $model = $self->model('AntivirusExceptions');
-    my $exceptions = {
-        'share' => {},
-        'group' => {},
-    };
-
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $element = $row->elementByName('user_group_share');
-        my $type = $element->selectedType();
-        if ($type eq 'users') {
-            $exceptions->{'users'} = 1;
-        } else {
-            my $value = $element->printableValue();
-            $exceptions->{$type}->{$value} = 1;
-        }
-    }
-
-    return $exceptions;
-}
-
-sub antivirusConfig
-{
-    my ($self) = @_;
-
-    # Provide a default config and override with the conf file if exists
-    my $avModel = $self->model('AntivirusDefault');
-    my $conf = {
-        show_special_files       => 'True',
-        rm_hidden_files_on_rmdir => 'True',
-        recheck_time_open        => '50',
-        recheck_tries_open       => '100',
-        allow_nonscanned_files   => 'False',
-    };
-
-    foreach my $key (keys %{$conf}) {
-        my $value = EBox::Config::configkey($key);
-        $conf->{$key} = $value if $value;
-    }
-
-    # Hard coded settings
-    $conf->{quarantine_dir} = $avModel->QUARANTINE_DIR();
-    $conf->{domain_socket}  = 'True';
-    $conf->{socketname}     = $avModel->ZAVS_SOCKET();
-
-    return $conf;
-}
-
 sub defaultRecycleSettings
 {
     my ($self) = @_;
@@ -3823,55 +3454,6 @@ sub _writeDnsUpdateList
                          { 'uid' => '0', 'gid' => '0', mode => '644' });
 }
 
-sub _writeAntivirusConfig
-{
-    my ($self) = @_;
-
-    return unless EBox::Global->modExists('antivirus');
-
-    my $avModule = EBox::Global->modInstance('antivirus');
-    my $avModel = $self->model('AntivirusDefault');
-
-    my $conf = {};
-    $conf->{clamavSocket} = $avModule->CLAMD_SOCKET();
-    $conf->{quarantineDir} = $avModel->QUARANTINE_DIR();
-    $conf->{zavsSocket}  = $avModel->ZAVS_SOCKET();
-    $conf->{nThreadsConf} = EBox::Config::configkey('scanning_threads');
-
-    write_file(ANTIVIRUS_CONF, encode_json($conf));
-}
-
-sub _setupQuarantineDirectory
-{
-    my ($self) = @_;
-
-    my $zentyalUser = EBox::Config::user();
-    my $guest       = $self->ldap->domainGuestUser();
-    my $guestUidNumber = $guest->uidNumber();
-    my $avModel     = $self->model('AntivirusDefault');
-    my $quarantine  = $avModel->QUARANTINE_DIR();
-    my @cmds;
-    push (@cmds, "mkdir -p '$quarantine'");
-    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
-    push (@cmds, "chmod 770 '$quarantine'");
-    push (@cmds, "setfacl -R -m u:$guestUidNumber:rwx g:adm:rwx '$quarantine'");
-
-    # Grant access to domain admins
-    my $domainAdminsSid = $self->ldap->domainSID() . '-512';
-    my $domainAdminsGroup = new EBox::Samba::Group(sid => $domainAdminsSid);
-    if ($domainAdminsGroup->exists()) {
-        my @domainAdmins = $domainAdminsGroup->get('member');
-        foreach my $memberDN (@domainAdmins) {
-            my $user = new EBox::Samba::User(dn => $memberDN);
-            if ($user->exists()) {
-                my $uid = $user->get('samAccountName');
-                push (@cmds, "setfacl -m u:$uid:rwx '$quarantine'");
-            }
-        }
-    }
-    EBox::Sudo::silentRoot(@cmds);
-}
-
 # Implement LogHelper interface
 sub tableInfo
 {
@@ -3897,28 +3479,6 @@ sub tableInfo
         'rename' => __('Rename'),
     };
 
-    my $virus_titles = {
-        'timestamp' => __('Date'),
-        'client' => __('Client address'),
-        'username' => __('User'),
-        'filename' => __('File name'),
-        'virus' => __('Virus'),
-        'event' => __('Type'),
-    };
-    my @virus_order = qw(timestamp client username filename virus event);;
-    my $virus_events = { 'virus' => __('Virus') };
-
-    my $quarantine_titles = {
-        'timestamp' => __('Date'),
-        'client' => __('Client address'),
-        'username' => __('User'),
-        'filename' => __('File name'),
-        'qfilename' => __('Quarantined file name'),
-        'event' => __('Quarantine'),
-    };
-    my @quarantine_order = qw(timestamp client username filename qfilename event);
-    my $quarantine_events = { 'quarantine' => __('Quarantine') };
-
     return [{
         'name' => __('Samba access'),
         'tablename' => 'samba_access',
@@ -3928,28 +3488,6 @@ sub tableInfo
         'filter' => ['client', 'username', 'resource'],
         'types' => { 'client' => 'IPAddr' },
         'events' => $access_events,
-        'eventcol' => 'event'
-    },
-    {
-        'name' => __('Samba virus'),
-        'tablename' => 'samba_virus',
-        'titles' => $virus_titles,
-        'order' => \@virus_order,
-        'timecol' => 'timestamp',
-        'filter' => ['client', 'filename', 'virus'],
-        'types' => { 'client' => 'IPAddr' },
-        'events' => $virus_events,
-        'eventcol' => 'event'
-    },
-    {
-        'name' => __('Samba quarantine'),
-        'tablename' => 'samba_quarantine',
-        'titles' => $quarantine_titles,
-        'order' => \@quarantine_order,
-        'timecol' => 'timestamp',
-        'filter' => ['filename'],
-        'types' => { 'client' => 'IPAddr' },
-        'events' => $quarantine_events,
         'eventcol' => 'event'
     }];
 }
@@ -4109,52 +3647,6 @@ sub _cleanModulesForReprovision
         $mod->set_state($state);
         $mod->setAsChanged(1);
     }
-}
-
-#
-# EBox::NetworkObserver implementation
-#
-
-# Method: nameserverAdded
-#
-#   Overrided to clear LDAP connection if nameserver is added
-#
-# Overrides:
-#
-#   EBox::NetworkObserver::nameserverAdded
-#
-sub nameserverAdded
-{
-    my ($self, $ns, $iface) = @_;
-
-    my $mode = $self->mode();
-    if ($mode eq EXTERNAL_AD_MODE) {
-        $self->clearLdapConn();
-        $self->setAsChanged();
-    }
-
-    return 0;
-}
-
-# Method: nameserverDelete
-#
-#   Overrided to clear LDAP connection if nameserver is deleted
-#
-# Overrides:
-#
-#   EBox::NetworkObserver::nameserverDelete
-#
-sub nameserverDelete
-{
-    my ($self, $ns, $iface) = @_;
-
-    my $mode = $self->mode();
-    if ($mode eq EXTERNAL_AD_MODE) {
-        $self->clearLdapConn();
-        $self->setAsChanged();
-    }
-
-    return 0;
 }
 
 1;

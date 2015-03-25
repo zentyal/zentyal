@@ -58,10 +58,7 @@ sub componentNames
 {
     my $users = EBox::Global->modInstance('samba');
 
-    my @models;
-    if ($users->mode() eq 'master') {
-        push (@models, 'AccountSettings');
-    }
+    my @models = ('AccountSettings');
 
     push (@models, @{$users->defaultUserModels()});
 

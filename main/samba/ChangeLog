@@ -1,5 +1,8 @@
 HEAD
-	+ Added support for quotas on extra FS 
+	+ Remove no longer used External AD mode
+	+ Remove the limited GPO support from the Zentyal UI
+	+ Remove no longer supported antivirus integration
+	+ Added support for quotas on extra FS
 4.0.8
 	+ Create roaming profile directory correctly when the
 	  samAccountName has any space

@@ -96,7 +96,6 @@ sub _processWizard
                     my $defaultGw = $gwModel->size() == 0;
                     $gwModel->add(name      => $name,
                                   ip        => $gw,
-                                  weight    => 1,
                                   default   => $defaultGw);
                 } catch ($e) {
                     EBox::warn("Could not add gateway $gw: $e");

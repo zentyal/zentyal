@@ -13,25 +13,16 @@ bootdepends:
 models:
     - DomainSettings
     - Manage
-    - Mode
     - LdapInfo
     - PAM
     - AccountSettings
     - Slaves
     - Master
     - SlavePassword
-    - GPOs
-    - GPOScriptsStartup
-    - GPOScriptsShutdown
-    - GPOScriptsLogin
-    - GPOScriptsLogoff
-    - GPOLinks
     - SambaShares
     - SyncShares
     - SambaSharePermissions
     - SambaDeletedShares
-    - AntivirusDefault
-    - AntivirusExceptions
     - RecycleDefault
     - RecycleExceptions
 
@@ -39,21 +30,14 @@ composites:
     Settings: [LdapInfo, PAM]
     Sync: [Master, SlavePassword, Slaves]
     UserTemplate: []
-    GPOComputerConfiguration: [GPOScriptsStartup, GPOScriptsShutdown]
-    GPOUserConfiguration: [GPOScriptsLogin, GPOScriptsLogoff]
-    GPO: [GPOComputerConfiguration, GPOUserConfiguration]
     RecycleBin: [RecycleDefault, RecycleExceptions]
-    Antivirus: [AntivirusDefault, AntivirusExceptions]
-    FileSharing: [SambaShares, RecycleBin, Antivirus]
+    FileSharing: [SambaShares, RecycleBin]
 
 modeldepends:
-    AntivirusExceptions:
-        samba/SambaShares: [share]
     RecycleExceptions:
         samba/SambaShares: [share]
 
 foreign:
-    GPOs: [GPO]
     SambaShares: [SambaSharePermissions]
 
 # NOTE: UserTemplate composite components are dynamic in componentNames()

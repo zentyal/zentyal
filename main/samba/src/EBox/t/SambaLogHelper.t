@@ -23,7 +23,7 @@ use base 'Test::Class';
 use Test::Differences;
 use Test::Exception;
 use Test::MockObject;
-use Test::More tests => 7;
+use Test::More tests => 5;
 
 sub setUpDBEngine : Test(startup)
 {
@@ -60,7 +60,6 @@ sub setUpLogHelper : Test(setup)
 
     $self->{logHelper}  = new EBox::SambaLogHelper();
     $self->{syslogFile} = '/var/log/syslog';
-    $self->{avFile}     = '/var/log/zentyal/samba-antivirus.log';
 }
 
 sub test_no_insertions_access : Test(4)
@@ -79,20 +78,6 @@ sub test_no_insertions_access : Test(4)
        );
 
     $self->_testCases($self->{syslogFile}, 'samba_access', \@cases);
-}
-
-sub test_no_insertions_av : Test(2)
-{
-    my ($self) = @_;
-
-    my @cases = (
-        {
-            name => 'AV not running',
-            line => '03/07/2013 12:26:24 WARN> clamAV daemon not responding, will try again in 10 seconds...',
-        },
-       );
-
-    $self->_testCases($self->{avFile}, 'samba_antivirus', \@cases);
 }
 
 sub _testCases

@@ -3,8 +3,6 @@
     @ifaces
     $iface
     @vlans => ()
-    @bridges => ()
-    @bonds => ()
     $externalWarning
 </%args>
 <%init>
@@ -30,50 +28,13 @@ use EBox::NetWrappers qw(:all);
 % }
 <form action='Iface' method='post' class="formDiv">
     <input type="hidden" name="ifname" value="<% $iface->{"name"} %>"/>
-%   if (iface_exists($iface->{'name'}) or $iface->{'name'} =~ /^br/) {
+%   if (iface_exists($iface->{'name'})) {
     <div>
         <label class="ftitle"><%__('Name')%></label>
             <input type='text' name='ifalias' value='<% $iface->{'alias'} %>'/>
     </div>
 %   }
 
-% if ($iface->{'name'} =~ /^bond/) {
-    <div id="bond_mode">
-            <label><% __('Bonding Mode') %>:</label>
-            <select name='bond_mode'>
-% if ($iface->{'bond_mode'} eq 'balance-rr') {
-                <option value='balance-rr' selected="true"><% __('Static') %> (<% __('default') %>)</option>
-% } else {
-                <option value='balance-rr'><% __('Static') %> (<% __('default') %>)</option>
-% }
-% if ($iface->{'bond_mode'} eq '802.3ad') {
-                <option value='802.3ad' selected="true">LACP/802.3ad</option>
-% } else {
-                <option value='802.3ad'>LACP/802.3ad</option>
-% }
-% if ($iface->{'bond_mode'} eq 'balance-alb') {
-                <option value='balance-alb' selected="true">Balance (alb)</option>
-% } else {
-                <option value='balance-alb'>Balance (alb)</option>
-% }
-% if ($iface->{'bond_mode'} eq 'balance-tlb') {
-                <option value='balance-tlb' selected="true">Balance (tlb)</option>
-% } else {
-                <option value='balance-tlb'>Balance (tlb)</option>
-% }
-% if ($iface->{'bond_mode'} eq 'active-backup') {
-                <option value='active-backup' selected="true"><% __('Backup') %></option>
-% } else {
-                <option value='active-backup'><% __('Backup') %></option>
-% }
-% if ($iface->{'bond_mode'} eq 'broadcast') {
-                <option value='broadcast' selected="true"><% __('Broadcast') %></option>
-% } else {
-                <option value='broadcast'><% __('Broadcast') %></option>
-% }
-            </select>
-    </div>
-% }
     <div>
             <label><%__('Method')%></label>
             <select name='method' id='method'>
@@ -89,35 +50,11 @@ use EBox::NetWrappers qw(:all);
                 <option value='dhcp'>DHCP</option>
 % }
 
-% unless ($iface->{'name'} =~ /^(br|bond)/) {
-%   if ($iface->{'method'} eq 'ppp') {
-                <option selected value='ppp'>PPPoE</option>
-%   } else {
-                <option value='ppp'>PPPoE</option>
-%   }
-% }
-
-% unless ($iface->{'name'} =~ /^(vlan|br)/) {
+% unless ($iface->{'name'} =~ /^(vlan)/) {
 %   if ($iface->{'method'} eq 'trunk') {
                 <option selected value='trunk'><%__('Trunk (802.1q)')%></option>
 %   } else {
                 <option value='trunk'><%__('Trunk (802.1q)')%></option>
-%   }
-% }
-
-% unless ($iface->{'name'} =~ /^br/) {
-%   if ($iface->{'method'} eq 'bridged') {
-                <option selected value='bridged'><% __('Bridged') %></option>
-%   } else {
-                <option value='bridged'><% __('Bridged') %></option>
-%   }
-% }
-
-% unless ($iface->{'name'} =~ /^(vlan|br|bond)/) {
-%   if ($iface->{'method'} eq 'bundled') {
-                <option selected value='bundled'><% __('Bundled') %></option>
-%   } else {
-                <option value='bundled'><% __('Bundled') %></option>
 %   }
 % }
 
@@ -128,7 +65,6 @@ use EBox::NetWrappers qw(:all);
 % }
             </select>
     </div>
-% unless ($iface->{'name'} =~ /^br/) {
     <div id="external">
         <label>
             <input type='checkbox'
@@ -144,7 +80,6 @@ use EBox::NetWrappers qw(:all);
 
 
     </div>
-% }
     <div id="ipaddr" class="inline-field">
         <label><% __('IP address') %></label>
         <input class='inputText' type='text' size='16' name='if_address'
@@ -178,45 +113,7 @@ use EBox::NetWrappers qw(:all);
                 <option value='255.0.0.0'>255.0.0.0</option>
             </select>
     </div>
-    <div id="bridged">
-        <label><% __('Bridge') %></label>
-        <select name="bridge">
-%   foreach my $bridge ( @bridges ) {
-%       if ( $bridge->{id} == $iface->{bridge} ) {
-                <option value='<% $bridge->{id} %>' selected="true"><% $bridge->{alias} %></option>
-%       } else {
-                <option value='<% $bridge->{id} %>'><% $bridge->{alias} %></option>
-%       }
-%   }
-                <option value='-1'>New bridge</option>
-        </select>
-    </div>
 
-% unless ($iface->{'name'} =~ /^vlan/) {
-    <div id="bundled">
-        <label><% __('Bonding') %>:</label>
-        <select name="bond">
-%   foreach my $bond ( @bonds ) {
-%       if ( $bond->{id} == $iface->{$bond} ) {
-                <option value='<% $bond->{id} %>' selected="true"><% $bond->{alias} %></option>
-%       } else {
-                <option value='<% $bond->{id} %>'><% $bond->{alias} %></option>
-%       }
-%   }
-                <option value='-1'>New bonding device</option>
-        </select>
-    </div>
-% }
-    <div id="ppp_user">
-            <label><% __('User name') %></label>
-            <input class='inputText' type='text' size='16' name='if_ppp_user'
-                   alt='if_ppp_user' value='<% $iface->{'ppp_user'} %>' />
-    </div>
-    <div id="ppp_pass">
-            <label><% __('Password') %></label>
-            <input class='inputText' type='password' size='16' name='if_ppp_pass'
-                   alt='if_ppp_pass' value='<% $iface->{'ppp_pass'} %>' />
-    </div>
     <div>
         <input class='inputButton' type='submit'
                 name='accept' value="<% __('Change') %>" />
@@ -375,8 +272,7 @@ use EBox::NetWrappers qw(:all);
 $('#method').change(function(event) {
     var selected = $(event.target).val();
 
-    if (selected === 'static' || selected === 'dhcp' ||
-        selected === 'ppp' || selected === 'bridged' || selected === 'bundled') {
+    if (selected === 'static' || selected === 'dhcp') {
         $('#external').show();
     } else {
         $('#external').hide();
@@ -387,12 +283,5 @@ $('#method').change(function(event) {
     $('#virtual').toggle(selected === 'static');
 
     $('#trunk').toggle(selected === 'trunk');
-
-    $('#bridged').toggle(selected === 'bridged');
-
-    $('#bundled').toggle(selected === 'bundled');
-
-    $('#ppp_user').toggle(selected === 'ppp');
-    $('#ppp_pass').toggle(selected === 'ppp');
  }).change();
 </script>

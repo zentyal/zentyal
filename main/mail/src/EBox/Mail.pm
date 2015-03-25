@@ -513,7 +513,6 @@ sub _kerberosKeytab
 sub enableActions
 {
     my ($self) = @_;
-    $self->checkUsersMode();
 
     try {
         my $cmd = 'cp /usr/share/zentyal-mail/dovecot-pam /etc/pam.d/dovecot';
@@ -604,19 +603,6 @@ sub _addConfigurationContainers
                ]});
         }
     }
-}
-
-sub depends
-{
-    my ($self) = @_;
-    my @depends = @{ $self->SUPER::depends() };
-
-    my $mailfilter =  $self->global->modInstance('mailfilter');
-    if ($mailfilter and $mailfilter->configured()) {
-        push @depends, 'mailfilter';
-    }
-
-    return \@depends;
 }
 
 # Method: _getIfacesForAddress
@@ -1292,10 +1278,6 @@ sub _postfixIsRunning
 sub externalFilter
 {
     my ($self) = @_;
-    my $mailfilter = EBox::Global->modInstance('mailfilter');
-    if ($mailfilter and $mailfilter->isEnabled()) {
-        return 'zentyal-mailfilter';
-    }
 
     my $filterModel = $self->model('ExternalFilter');
     return $filterModel->row()->valueByName('externalFilter');
@@ -1307,36 +1289,6 @@ sub customFilterInUse
     return $self->externalFilter() eq 'custom';
 }
 
-sub _zentyalMailfilterAttr
-{
-    my ($self, $attr) = @_;
-    my $mailfilter = EBox::Global->modInstance('mailfilter');
-    $mailfilter or
-        throw EBox::Exceptions::Internal('Mailfilter not installed');
-
-    my ($name, $attrs) = $mailfilter->mailFilter();
-    exists $attrs->{$attr}
-      or throw EBox::Exceptions::Internal("Attribute $attr does not exist");
-    return $attrs->{$attr};
-}
-
-# returns wether we must use the filter attr instead of the stored in the
-# module's cponfgiuration
-sub _useFilterAttr
-{
-    my ($self) = @_;
-
-    if (not $self->service('filter')) {
-        return 0;
-    }
-
-    if ($self->externalFilter() eq 'custom') {
-        return 0;
-    }
-
-    return 1;
-}
-
 # Method: ipfilter
 #
 #  This method returns the ip of the external filter
@@ -1344,10 +1296,6 @@ sub _useFilterAttr
 sub ipfilter
 {
     my ($self) = @_;
-
-    if ($self->_useFilterAttr) {
-        return $self->_zentyalMailfilterAttr('address');
-    }
 
     my $filterModel = $self->model('ExternalFilter');
     return $filterModel->ipfilter();
@@ -1361,10 +1309,6 @@ sub portfilter
 {
     my ($self) = @_;
 
-    if ($self->_useFilterAttr) {
-        return $self->_zentyalMailfilterAttr('port');
-    }
-
     my $filterModel = $self->model('ExternalFilter');
     return $filterModel->portfilter();
 }
@@ -1376,10 +1320,6 @@ sub portfilter
 sub fwport
 {
     my ($self) = @_;
-
-    if ($self->_useFilterAttr) {
-        return $self->_zentyalMailfilterAttr('forwardPort');
-    }
 
     my $filterModel = $self->model('ExternalFilter');
     return $filterModel->fwport();
@@ -1719,9 +1659,6 @@ sub mailServicesWidget
     $section->add($imaps);
     $section->add($greylist);
     $section->add($fetchmailWidget);
-
-    my $filterSection = $self->_filterDashboardSection();
-    $widget->add($filterSection);
 }
 
 #
@@ -1740,49 +1677,6 @@ sub widgets
             'default' => 1
         }
     };
-}
-
-sub _filterDashboardSection
-{
-    my ($self) = @_;
-
-    my $section = new EBox::Dashboard::Section('mailfilter', 'Mail filter');
-
-    my $service     = $self->service('filter');
-    my $statusValue =  $service ? __('enabled') : __('disabled');
-
-    $section->add( new EBox::Dashboard::Value( __('Status'), $statusValue));
-
-    $section->add(
-            new EBox::Dashboard::Value(__(q{Mail server's filter}),
-                $statusValue)
-            );
-
-    $service or return $section;
-
-    my $filter = $self->externalFilter();
-
-    if ($filter eq 'custom') {
-        $section->add(new EBox::Dashboard::Value(__('Filter type') =>
-            __('Custom')));
-        my $address = $self->ipfilter() . ':' . $self->portfilter();
-        $section->add(new EBox::Dashboard::Value(__('Address') => $address));
-    }else {
-        $section->add(
-                new EBox::Dashboard::Value(
-                    __('Filter type') => $self->_zentyalMailfilterAttr('prettyName')
-                    )
-                );
-
-# FIXME: this crashes, and maybe it's not needed
-#        my $global = EBox::Global->getInstance(1);
-#        my ($filterInstance) =
-#          grep {$_->mailFilterName eq $filter}
-#          @{  $global->modInstancesOfType('EBox::Mail::FilterProvider')  };
-#        $filterInstance->mailFilterDashboard($section);
-    }
-
-    return $section;
 }
 
 sub menu

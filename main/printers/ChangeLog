@@ -1,3 +1,5 @@
+HEAD
+	+ Set version to 4.1
 4.0
 	+ Fix cups daemon remaining stopped after log rotation
 	+ Fix printers.conf file permissions (600 -> 644)

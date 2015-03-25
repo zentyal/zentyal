@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Samba::Model::Mode
+# Class: EBox::Samba::Model::LdapInfo
 #
 # This class contains the options needed to enable the usersandgroups module.
 
@@ -95,23 +95,14 @@ sub _content
     my %info;
 
     my $users = $self->parentModule();
-    my $mode = $users->mode();
     my $ldap = $users->ldap();
 
     %info = (
         dn => $ldap->dn(),
     );
 
-    if ($mode ne $users->EXTERNAL_AD_MODE) {
-        $info{usersDn}   = $users->userClass()->defaultContainer()->dn();
-        $info{groupsDn}  = $users->groupClass()->defaultContainer()->dn();
-    } elsif ($mode eq $users->EXTERNAL_AD_MODE) {
-        my $modeModel = $users->model('Mode');
-        my $dcHostname = $modeModel->value('dcHostname');
-        my $dcUser     = $modeModel->value('dcUser');
-        $info{dcHostname} = $dcHostname;
-        $info{dcUser}     = $dcUser;
-    }
+    $info{usersDn}   = $users->userClass()->defaultContainer()->dn();
+    $info{groupsDn}  = $users->groupClass()->defaultContainer()->dn();
 
     return \%info;
 }

@@ -296,20 +296,18 @@ sub setupDNS
 #
 sub setupKerberos
 {
-    my ($self, $externalADMode) = @_;
+    my ($self) = @_;
     EBox::info("Setting up kerberos");
     my $systemFile = EBox::Samba::SYSTEM_WIDE_KRB5_CONF_FILE();
     my $systemKeytab = EBox::Samba::SYSTEM_WIDE_KRB5_KEYTAB();
     my $provisionGeneratedKeytab = EBox::Samba::SECRETS_KEYTAB();
-    if ($externalADMode or $self->isProvisioned()) {
+    if ($self->isProvisioned()) {
         if (EBox::Sudo::fileTest('-f', $systemKeytab)) {
             EBox::Sudo::root("mv '$systemKeytab' '$systemKeytab.bak'");
         }
         my $samba = EBox::Global->modInstance('samba');
         my $realm = $samba->kerberosRealm();
-        my @params = ('externalADMode' => $externalADMode,
-                      'realm'          => $realm
-                      );
+        my @params = ('realm' => $realm);
         $samba->writeConfFile($systemFile, 'samba/krb5.conf.mas', \@params);
         EBox::Sudo::root("ln -sf '$provisionGeneratedKeytab' '$systemKeytab'");
     }
@@ -566,7 +564,7 @@ sub provisionDC
         $self->setupKerberos();
         $self->setupDNS();
         $e->throw();
-    } 
+    }
 
     try {
         # Disable password policy

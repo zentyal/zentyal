@@ -329,7 +329,6 @@ sub _setDHCP
 {
     my ($self, $interface) = @_;
 
-    $interface = $self->{net}->realIface($interface);
     return [ pf("-A ointernal $statenew -o $interface -p udp --dport 67 -j oaccept") ];
 }
 
@@ -391,8 +390,6 @@ sub _setRemoteServices
 sub _nospoof # (interface, \@addresses)
 {
     my ($self, $iface, $addresses) = @_;
-
-    $iface = $self->{net}->realIface($iface);
 
     my @commands;
     foreach (@{$addresses}) {
@@ -500,7 +497,6 @@ sub start
     @ifaces = @{$self->{net}->ExternalIfaces()};
     foreach my $if (@ifaces) {
         my $method = $self->{net}->ifaceMethod($if);
-        $if = $self->{net}->realIface($if);
 
         my $input = $self->_inputIface($if);
         my $output = $self->_outputIface($if);
@@ -752,7 +748,6 @@ sub _iexternalCheckInit
 
     my @internalIfaces = @{$self->{net}->InternalIfaces()};
     foreach my $if (@internalIfaces) {
-        $if = $self->{net}->realIface($if);
         my $input = $self->_inputIface($if);
 
         push(@commands,
@@ -852,7 +847,6 @@ sub _ffwdrules
 
     my @internalIfaces = @{$self->{net}->InternalIfaces()};
     foreach my $if (@internalIfaces) {
-        $if = $self->{net}->realIface($if);
         my $input = $self->_inputIface($if);
 
         push(@commands, pf("-A ffwdrules $input -j RETURN"));
