@@ -1034,11 +1034,18 @@ sub _dhcpLeases
         $self->{'leases'} = {};
 
         my $leases;
+        # Workaround to avoid statement not recognized parse errors
+        my @lines = read_file(LEASEFILE);
+        @lines = grep (not /set ddns-/) @lines;
+        my ($fh, $tmpfile) = tempfile(DIR => EBox::Config::tmp);
+        print $fh @lines;
+        close ($fh);
         try {
-            $leases = Text::DHCPLeases->new(file => LEASEFILE);
+            $leases = Text::DHCPLeases->new(file => $tmpfile);
         } catch ($e) {
            EBox::error('Error parsing DHCP leases file (' . LEASEFILE . "): $e");
         }
+        unlink ($tmpfile);
 
         if (not $leases) {
             return $self->{'leases'};
