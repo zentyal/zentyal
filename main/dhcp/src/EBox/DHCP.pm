@@ -1038,7 +1038,7 @@ sub _dhcpLeases
         my $leases;
         # Workaround to avoid statement not recognized parse errors
         my @lines = read_file(LEASEFILE);
-        @lines = grep (not /set ddns-/) @lines;
+        @lines = grep (not /set ddns-/, @lines);
         my ($fh, $tmpfile) = tempfile(DIR => EBox::Config::tmp);
         print $fh @lines;
         close ($fh);
