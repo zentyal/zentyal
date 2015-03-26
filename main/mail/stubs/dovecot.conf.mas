@@ -11,7 +11,6 @@
     $postmasterAddress
 
     $antispamPlugin
-    $openchangePlugin
 
     $keytabPath
     $gssapiHostname
@@ -216,9 +215,6 @@ protocol lda {
   # Enabling Sieve plugin for server-side mail filtering and quota for quota
   # support
 % my $ldaPlugins = "sieve quota";
-% if ($openchangePlugin->{enabled}) {
-%   $ldaPlugins = "notify openchange " . $ldaPlugins;
-% }
   mail_plugins = <% $ldaPlugins %>
 }
 
@@ -246,9 +242,6 @@ plugin {
   <& .antispamPlugin, %{ $antispamPlugin } &>
 % }
 
-% if ($openchangePlugin->{enabled} ) {
-  <& .openchangePlugin, %{ $openchangePlugin } &>
-% }
 }
 
 !include_try /etc/dovecot/extra.conf
@@ -356,24 +349,3 @@ service managesieve {
 protocol sieve {
 }
 </%def>
-
-<%def .openchangePlugin>
-<%args>
-$enabled
-$host
-$port
-$user
-$pass
-$vhost
-$exchange
-$routing
-</%args>
-  openchange_broker_host = "<% $host %>"
-  openchange_broker_port = "<% $port %>"
-  openchange_broker_user = "<% $user %>"
-  openchange_broker_pass = "<% $pass %>"
-  openchange_broker_vhost = "<% $vhost %>"
-  openchange_broker_exchange = "<% $exchange %>"
-  openchange_broker_routing_key = "<% $routing %>"
-</%def>
-
