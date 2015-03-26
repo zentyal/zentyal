@@ -510,12 +510,11 @@ sub provision
         my $users = $usersModule->users();
         foreach my $ldbUser (@{$users}) {
             try {
-                my $samAccountName = $ldbUser->get('samAccountName');
-                my $mail = $ldbUser->get('mail');
-
                 next if ($ldbUser->isCritical());
 
                 # Skip users with already defined mailbox
+                my $samAccountName = $ldbUser->get('samAccountName');
+                my $mail = $ldbUser->get('mail');
                 my $mailbox = $ldbUser->get('mailbox');
                 unless (defined $mailbox and length $mailbox) {
                     EBox::info("Creating user '$samAccountName' mailbox");
@@ -539,6 +538,32 @@ sub provision
             } catch ($error) {
                 EBox::error("Error enabling user " . $ldbUser->name() . ": $error");
                 # Try next user
+            }
+        }
+
+        # now enable groups
+        my $groups = $usersModule->groups();
+        foreach my $group (@{$groups}) {
+            try {
+                next if $group->isCritical();
+
+                my $mail = $group->get('mail');
+                next if not $mail;
+
+                # Skip already enabled users
+                my $exchangeDN = $group->get('legacyExchangeDN');
+                if ($exchangeDN) {
+                    next;
+                }
+
+                my $samAccountName = $group->get('samAccountName');
+                my $cmd = "openchange_group --create '$samAccountName'";
+                my $output = EBox::Sudo::root($cmd);
+                $output = join('', @{$output});
+                EBox::info("Enabling group '$samAccountName':\n$output");
+            } catch ($error) {
+                EBox::error("Error enabling group " . $group->name() . ": $error");
+                # We will try next group
             }
         }
     }
