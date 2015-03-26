@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-02-17 14:04+0200\n"
-"Last-Translator: sixstone <ejhernandez@zentyal.com>\n"
+"PO-Revision-Date: 2015-03-26 11:53+0200\n"
+"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -4850,17 +4850,18 @@ msgstr "administrador"
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:144
 #, perl-brace-format
 msgid "User \"{user}\" created and granted Zentyal administrative permissions"
-msgstr ""
+msgstr "Usuario \"{user}\" creado con permisos de administración de Zentyal"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:147
 #, perl-brace-format
 msgid "User \"{user}\" granted Zentyal administrative permissions"
 msgstr ""
+"Se han concedido permisos de administración de Zentyal al usuario \"{user}\""
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:211
 #, perl-brace-format
 msgid "User \"{user}\" has its Zentyal administration permissions revoked"
-msgstr ""
+msgstr "Revocados permisos de administración de Zentyal al usuario \"{user}\""
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:228
 msgid "The password must be at least 6 characters long"
@@ -5855,11 +5856,12 @@ msgid "Outlook Anywhere (no SSL)"
 msgstr "Outlook Anywhere (sin SSL)"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:92
-#, fuzzy
 msgid ""
 "RPC over HTTP access. MAPI/RPC over HTTP, non-SSL version. By default, HTTP "
 "protocol is blocked by Zentyal firewall."
-msgstr "Acceso RPC sobre HTTP. Version no-SSL de MAPI/RPC sobre HTTP."
+msgstr ""
+"Acceso RPC sobre HTTP. Version no-SSL de MAPI/RPC sobre HTTP. Por defecto el "
+"protocolo HTTP está bloqueado por el firewall Zentyal."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:98
 msgid "Outlook Anywhere (SSL)"
@@ -5879,11 +5881,12 @@ msgid "Webmail"
 msgstr "Webmail"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:113
-#, fuzzy
 msgid ""
 "Webmail and groupware platform. Non-SSL version. By default HTTP protocol is "
 "blocked by Zentyal firewall."
-msgstr "Plataforma de webmail y groupware. Versión no-SSL."
+msgstr ""
+"Plataforma de webmail y groupware. Versión no-SSL. Por defecto el Protocolo "
+"HTTP está bloqueado por el firewall Zentyal"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:119
 msgid "HTTPS webmail enabled"
@@ -5991,7 +5994,6 @@ msgstr ""
 "de correo para activar ActiveSync"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:72
-#, fuzzy
 msgid "Organization name"
 msgstr "Nombre de Organización"
 
@@ -6000,18 +6002,17 @@ msgid "Enable OpenChange account for all existing users"
 msgstr "Cuenta de OpenChange para todos los usuarios existentes"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:94
-#, fuzzy
 msgid "Administrator user"
-msgstr "Usuario administrativo"
+msgstr "Usuario administrador"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:96
 msgid "Domain user belonging to the Schema Admins group"
 msgstr ""
+"Usuario del dominio perteneciente al grupo de Administradores de Esquema"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:102
-#, fuzzy
 msgid "Password of the administrator user"
-msgstr "Contraseña para el usuario mencionado arriba"
+msgstr "Contraseña del usuario administrador"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:114
 msgid "Unconfigure"
@@ -6088,23 +6089,24 @@ msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
 msgid "Missing user and/or password for provision"
-msgstr ""
+msgstr "Falta usuario o contraseña para la provisión"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:380
 msgid ""
 "The PDC server either has been already provisioned or has Exchange Server "
 "installed"
 msgstr ""
+"El controlador de dominio ha sido ya provisionado o tiene Exchange Server "
+"instalado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:382
-#, fuzzy
 msgid "The PDC server has been already provisioned"
-msgstr "El servidor ha sido desasociado"
+msgstr "El controlador de dominio ha sido ya provisionado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:385
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Server cannot be provisioned: {err}"
-msgstr "Expresión regular incorrecta: {err}"
+msgstr "Falló la provisión del servidor: {err}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:398
 #, perl-brace-format
@@ -6116,14 +6118,13 @@ msgstr ""
 "correo virtual{oc}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:495
-#, fuzzy
 msgid "Invalid administrator user name or password"
-msgstr "Cambiar contraseña del administrador"
+msgstr "Nombre de usuario administrador o contraseña inválidos"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:497
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error provisioning: {error}"
-msgstr "Expresión regular incorrecta: {err}"
+msgstr "Error en la provisión: {err}"
 
 # Is a product. Same name.
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:613
@@ -7653,13 +7654,13 @@ msgid "Computers"
 msgstr "Equipos"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:204
-#, fuzzy
 msgid ""
 "You need to enable Domain Controller and File Sharing module in the module "
 "status section and save changes in order to use it."
 msgstr ""
-"Debes activar el módulo de Usuarios en la sección de estado de los módulos "
-"para poder usarlo."
+"Debes activar el módulo de Controlador de Dominio y Compartición de Archvios "
+"en la sección de estado de los módulos y grabar los cambios para para poder "
+"usarlo."
 
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:54
 msgid "Slave"
@@ -8279,6 +8280,9 @@ msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
+"Para habilitar y restaurar este backup, el nombre del sistema debe cambiarse "
+"primero a {hn}. De lo contrario, los datos de Samba no podrán ser "
+"restaurados."
 
 #: ../../main/samba/src/EBox/Samba.pm:2469
 #, perl-brace-format
@@ -8296,6 +8300,9 @@ msgid ""
 "we get this error:\n"
 "{ex}"
 msgstr ""
+"No se puede reproducir la provisión de samba a partir del backup debido a "
+"este error:\n"
+"{ex}"
 
 #: ../../main/samba/src/EBox/Samba.pm:2496
 msgid ""
@@ -10607,6 +10614,8 @@ msgid ""
 "User mail messages are neither backed up or restored. If you want to back up "
 "them manually they reside under '/var/vmail'"
 msgstr ""
+"Los mensajes de correo de usaurios no se guardan ni restauran. Si necesitas "
+"hacerlo manualmente, se ubican bajo '/var/vmail'"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:70
 msgid "Remote Backup: "

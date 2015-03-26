@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2015-03-25 16:45+0200\n"
+"PO-Revision-Date: 2015-03-25 18:51+0200\n"
 "Last-Translator: misteregis <misteregis@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
@@ -4066,8 +4066,7 @@ msgstr "Sem termo de pesquisa"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:57
 msgid "The search term should have a lenght of at least 3 characters"
-msgstr ""
-"O termo de pesquisa deve ter um comprimento de pelo menos três caracteres"
+msgstr "O termo de pesquisa deve ter um comprimento de pelo menos 3 caracteres"
 
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:167
 msgid ""
@@ -4866,6 +4865,8 @@ msgid ""
 "{op}As the Users module is already installed and configured, if you change "
 "the hostname you will LOSE ALL YOUR USERS DATA.{cp}"
 msgstr ""
+"{op}Como o módulo Usuários já está instalado e configurado, se você alterar "
+"o nome do host você vai PERDER TODOS OS SEUS DADOS DE USUÁRIOS.{cp}"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:87
 #, perl-brace-format
@@ -4873,28 +4874,32 @@ msgid ""
 "{op}Additionally, using a domain ending in '.local' can conflict with other "
 "protocols like zeroconf and is, in general, discouraged.{cp}"
 msgstr ""
+"{op}Além disso, usando um domínio que terminam em '.local' pode entrar em "
+"conflito com outros protocolos como zeroconf e é, em geral, "
+"desencorajado.{cp}"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:90
 #, perl-brace-format
 msgid "{op}Are you sure you want to change the hostname to {new}?.{cp}"
-msgstr ""
+msgstr "{op}Tem certeza de que quer mudar o nome do host para {new}?.{cp}"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:169
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:182
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The length must be between {min} and {max} characters"
-msgstr "Um número entre {min} e {max}"
+msgstr "O comprimento tem que ter entre {min} e {max} caracteres"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:180
-#, fuzzy
 msgid "Host domain"
-msgstr "Nome do servidor de e-mail"
+msgstr "Domínio do host"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:210
 msgid ""
 "DNS names can contain only alphabetical characters (a-z), numeric characters "
 "(0-9) and the minus sign (-)"
 msgstr ""
+"Nomes de DNS pode conter apenas caracteres alfabéticos (a-z), caracteres "
+"numéricos (0-9) e o sinal de menos (-)"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Halt.pm:48
 msgid "Halt"
@@ -4922,9 +4927,8 @@ msgstr ""
 "Você pode perder a sua conexão à Internet se esta máquina foir desligada."
 
 #: ../../main/core/src/EBox/SysInfo/Model/Debug.pm:38
-#, fuzzy
 msgid "Enable bug report for daemon crashes"
-msgstr "Permite suporte FTP SSL para usuários autenticados."
+msgstr "Ativar relatório de bug para acidentes do daemon"
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:63
 #: ../../main/core/src/EBox/Model/DataTable.pm:4125
@@ -4943,14 +4947,12 @@ msgid "Change"
 msgstr "Alterar"
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:67
-#, fuzzy
 msgid "The date and time was changed successfully."
-msgstr "A senha foi alterada com sucesso."
+msgstr "A data e hora foi alterada com sucesso."
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:72
-#, fuzzy
 msgid "Date and time"
-msgstr "Data e Hora"
+msgstr "Data e hora"
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:86
 msgid ""
@@ -4970,6 +4972,8 @@ msgstr ""
 msgid ""
 "You will probably have to restart some services after changing the time zone."
 msgstr ""
+"Você provavelmente terá que reiniciar alguns serviços após a alteração do "
+"fuso horário."
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:203
 #, perl-brace-format
@@ -4980,6 +4984,11 @@ msgid ""
 "do not contain any sensible information. {oc}{obs}Submit crash report{cb} "
 "{obd}Discard{cb}{cc}"
 msgstr ""
+"Relatório de acidente encontrado! Clique no botão se você quiser enviar os "
+"seguintes arquivos anonimamente para ajudar a corrigir o problema: {p}. "
+"Embora Zentyal irá fazer um bom uso desta informação, por favor, revise os "
+"arquivos se você quer ter certeza de que eles não contêm qualquer informação "
+"sensível. {oc}{obs}Enviar relatório de acidente{cb} {obd}Descartar{cb}{cc}"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:208
 #: ../../main/core/src/templates/formTable.mas:75
@@ -4997,9 +5006,8 @@ msgid "Optional"
 msgstr "Opcional"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:209
-#, fuzzy
 msgid "Email address"
-msgstr "endereço de e-mail"
+msgstr "Endereço de e-mail"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:210
 #, perl-brace-format
@@ -5008,6 +5016,9 @@ msgid ""
 "notified about its status, enter your email: {form}{obs}Submit crash "
 "report{cb}"
 msgstr ""
+"Obrigado por se dispôr a enviar o seu relatório de acidente. Se você deseja "
+"ser notificado sobre o seu estado, digite seu e-mail: {form}{obs}Enviar "
+"relatório de acidente{cb}"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:234
 #, perl-brace-format
@@ -5015,6 +5026,8 @@ msgid ""
 "Do you want a remote configuration backup of your Zentyal Server? Set it up "
 "{oh}here{ch} for FREE!"
 msgstr ""
+"Você quer fazer um backup de configuração remota de seu servidor Zentyal? "
+"Então clique {oh}aqui{ch} é GRÁTIS!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:239
 #, perl-brace-format
@@ -5022,6 +5035,8 @@ msgid ""
 "Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a "
 "FREE 30-day Trial!"
 msgstr ""
+"Você quer fazer um backup de configuração remota de seu Zentyal Server? "
+"Então clique {oh}aqui{ch} é GRÁTIS!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:244
 #, perl-brace-format
@@ -5029,6 +5044,8 @@ msgid ""
 "Are you a happy Zentyal Server user? Do you want to help the project? Get "
 "involved in the {oh}Community{ch}!"
 msgstr ""
+"Você está interessado em uma edição comercial do Zentyal Server? "
+"{oh}Faça{ch} um Teste GRÁTIS por 30 dias!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/ConfigureWidgets.pm:30
 msgid "Configure Widgets"
@@ -5128,7 +5145,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:259
 msgid ", "
-msgstr ""
+msgstr "'"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:274
 msgid "never purge"
@@ -5176,7 +5193,7 @@ msgstr "Negócio"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:77
 msgid "Trial"
-msgstr ""
+msgstr "Teste"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:78
 msgid "Enterprise"
@@ -5202,9 +5219,8 @@ msgid "This is a Zentyal Server {edition} edition."
 msgstr "Este é um Zentyal Server edição {edition}."
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1219
-#, fuzzy
 msgid "Server Edition"
-msgstr "Edição servidor"
+msgstr "Edição Servidor"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1236
 msgid "Not subscribed"
@@ -5215,9 +5231,8 @@ msgid "Subscribed"
 msgstr "Inscrito"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1288
-#, fuzzy
 msgid "Server Information"
-msgstr "Informações Gerais"
+msgstr "Informações do Servidor"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1308
 #, perl-brace-format
@@ -5225,19 +5240,16 @@ msgid "Disabled - {oh}Enable{ch}"
 msgstr "Desabilitado - {oh}Habilitar{ch}"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1321
-#, fuzzy
 msgid "Standard 2 days"
-msgstr "Padrão"
+msgstr "Padrão 2 dias"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1322
-#, fuzzy
 msgid "Standard 1 day"
-msgstr "Padrão"
+msgstr "Padrão 1 dia"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1323
-#, fuzzy
 msgid "Standard 4 hours"
-msgstr "Padrão"
+msgstr "Padrão 4 horas"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1327
 msgid "Configuration backup enabled"
@@ -5260,7 +5272,7 @@ msgstr "- Último backup da configuração: {date}"
 #: ../../main/core/src/EBox/RemoteServices.pm:1339
 #, perl-brace-format
 msgid "{oh}Register to store your backups in the cloud{ch}"
-msgstr ""
+msgstr "{oh}Registre-se para armazenar seus backups na nuvem{ch}"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1344
 #: ../../main/core/src/templates/remoteservices/index.mas:35
@@ -5514,9 +5526,8 @@ msgid "Must be a valid regular expression"
 msgstr "excluir expressão regular do caminho"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4593
-#, fuzzy
 msgid "Page 1"
-msgstr "Página"
+msgstr "Página 1"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4595
 #, perl-brace-format
@@ -5997,13 +6008,13 @@ msgstr ""
 "Você deve habilitar o módulo na seção estado dos módulos para usar isto."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:219
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
 "Domains page{chref}."
 msgstr ""
-"O domínio requerido '{d}' não pôde ser encontrado no módulo dns.<br/>Você "
-"pode adicionar isto no {ohref}DNS domains page{chref}"
+"O domínio virtual {x} não está definido. Você pode adicioná-lo na página "
+"{ohref}Domínios Virtuais{chref}."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:232
 #, fuzzy
@@ -6112,9 +6123,8 @@ msgstr ""
 "Para fazer mudança na abertura Webmail ser acessível a http://ip/SOGo/."
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:304
-#, fuzzy
 msgid "To configure sogo daemon"
-msgstr " Para configurar o daemon Clamd"
+msgstr "Para configurar o sogo daemon"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:309
 #, fuzzy
@@ -7051,9 +7061,9 @@ msgid "contact"
 msgstr "Total de marcas"
 
 #: ../../main/samba/src/EBox/Samba/Contact.pm:149
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Username '{x}' already exists on the same container"
-msgstr "Nome de Usuário já existe no sistema"
+msgstr "Nome de Usuário '{x}' já existe no mesmo recipiente"
 
 #: ../../main/samba/src/EBox/Samba/Contact.pm:173
 #: ../../main/samba/src/EBox/Samba/User.pm:538
@@ -7318,9 +7328,8 @@ msgid "Windows user names cannot be only spaces and dots."
 msgstr "Endereços de rede só podem terminar com um zero"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:610
-#, fuzzy
 msgid "Windows user names cannot contain the \"@\" character."
-msgstr "Endereços de rede só podem terminar com um zero"
+msgstr "Nomes de usuário do Windows não podem conter o caractere \"@\"."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:621
 #, perl-brace-format
@@ -8082,13 +8091,12 @@ msgid "Create Samba home directory for shares and groups"
 msgstr "Criar o diretório home do Samba para usuários e grupos"
 
 #: ../../main/samba/src/EBox/Samba.pm:289
-#, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
-"Zentyal irá criar os diretórios para compartilhamentos de samba e grupos em /"
-"home/ebox/samba."
+"Zentyal irá criar os diretórios para compartilhamentos Samba e grupos sob "
+"/home/samba."
 
 #: ../../main/samba/src/EBox/Samba.pm:297
 msgid "Configure PAM."
@@ -9698,9 +9706,9 @@ msgid ""
 "confirm you are very sure to revoke the whole certification authority from "
 "{on} and leave the service(s) unstable or disabled"
 msgstr ""
-"Esta revogação pode afetar a funcionalidade de outros módulos, favor "
-"confirmar se você quer realmente revogar toda a autoridade certificadora "
-"{on} e deixar os serviços instáveis ou desabilitados"
+"Esta revogação pode afetar a funcionalidade de outros módulos, por favor, "
+"confirme que você está muito certo de revogar toda a autoridade de "
+"certificação a partir de {on} e deixar o serviço (s) instável ou inválido"
 
 #: ../../main/ca/src/templates/forceRevoke.mas:24
 #, perl-brace-format
@@ -9709,9 +9717,9 @@ msgid ""
 "by some module, please confirm you are sure to revoke and leave the "
 "service(s) unstable or disabled"
 msgstr ""
-"O certificado cujo o nome comum é {cn} que você tentou revogar esta sendo "
-"utilizado por algum módulo, favor confirmar se você quer realmente revogá-lo "
-"e deixar os serviços instáveis ou desabilitados"
+"O certificado cujo nome comum é {cn} que você tentou revogar está sendo "
+"usado por algum módulo, por favor, confirme que você tem certeza de revogar "
+"e deixar o serviço(s) instável ou inválido"
 
 #: ../../main/ca/src/templates/formReissue.mas:32
 msgid "Reissue a certificate"
@@ -9732,9 +9740,9 @@ msgid ""
 "you are very sure to renew the whole certification authority from {on} and "
 "leave the service(s) unstable or disabled"
 msgstr ""
-"Esta renovação pode afetar a funcionalidade de outros módulos, favor "
-"confirmar se você quer realmente renovar toda a autoridade certificadora "
-"{on} e deixar os serviços instáveis ou desabilitados"
+"Essa renovação pode afetar a funcionalidade de outros módulos, por favor, "
+"confirme que você está muito certo de renovar toda a autoridade de "
+"certificação a partir de {on} e deixar o serviço (s) instável ou inválido"
 
 #: ../../main/ca/src/templates/forceRenew.mas:52
 #, perl-brace-format
@@ -9743,9 +9751,9 @@ msgid ""
 "by some module, please confirm you are sure to renew and leave the "
 "service(s) unstable or disabled"
 msgstr ""
-"O certificado cujo o nome comum é {cn} que você tentou renovar esta sendo "
-"utilizado por algum módulo, favor confimar se você quer renová-lo e deixar "
-"os serviços instáveis ou desabilitados"
+"O certificado, cujo nome comum é {cn} você tentou renovar está sendo usado "
+"por algum módulo, por favor, confirme que você tem certeza de renovar e "
+"deixar o serviço (s) instável ou inválido"
 
 #: ../../main/ca/src/templates/formRevoke.mas:11
 msgid "Revoke a Certificate"
@@ -10118,9 +10126,8 @@ msgstr ""
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:35
 #: ../../main/core/src/templates/dashboard/links-widget.mas:45
-#, fuzzy
 msgid "\"Zentyal for Network Administrators\" book in English and Spanish."
-msgstr "Documentação oficial em Inglês e Espanhol."
+msgstr "\"Zentyal for Network Administrators\" livros em Inglês e Espanhol."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:35
 #: ../../main/core/src/templates/dashboard/links-widget.mas:45
@@ -10602,7 +10609,7 @@ msgstr "download"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
 msgid "Configuration backups' list"
-msgstr "Lista de configuração de backup"
+msgstr "Lista das cópias' de segurança da configuração"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:188
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:59
@@ -10786,7 +10793,7 @@ msgstr "Tipo desconhecido"
 
 #: ../../main/core/src/templates/backup.mas:147
 msgid "Backups' list"
-msgstr "Lista de backups"
+msgstr "Lista das cópias' de segurança"
 
 #: ../../main/core/src/templates/backup.mas:209
 msgid "Configuration Report"
@@ -11183,9 +11190,8 @@ msgid "Total calendar"
 msgstr ""
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:85
-#, fuzzy
 msgid "Estimate time (100mb/s)"
-msgstr "Tempo estimado para conclusão : {time}"
+msgstr "Tempo estimado: {time}"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:90
 #, fuzzy
