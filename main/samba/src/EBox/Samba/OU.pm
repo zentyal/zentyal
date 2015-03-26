@@ -100,7 +100,6 @@ sub create
     my $name = $args{name};
     my $parent = $args{parent};
     my $ignoreMods   = $args{ignoreMods};
-    my $ignoreSlaves = $args{ignoreSlaves};
 
     my @attrs = (
             'objectclass' => ['organizationalUnit'],
@@ -115,7 +114,7 @@ sub create
         # add or delete attributes.
         $entry = new Net::LDAP::Entry($dn, @attrs);
         $usersMod->notifyModsPreLdapUserBase(
-            'preAddOU', [$entry, $parent], $ignoreMods, $ignoreSlaves);
+            'preAddOU', [$entry, $parent], $ignoreMods);
         my $changetype =  $entry->changetype();
         my $changes = [$entry->changes()];
         my $result = $entry->update($class->_ldap->{ldap});
@@ -133,7 +132,7 @@ sub create
 
         $ou = EBox::Samba::OU->new(dn => $dn);
         # Call modules initialization
-        $usersMod->notifyModsLdapUserBase('addOU', $ou, $ignoreMods, $ignoreSlaves);
+        $usersMod->notifyModsLdapUserBase('addOU', $ou, $ignoreMods);
     } catch ($error) {
         EBox::error($error);
 
@@ -143,11 +142,11 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if ($ou and $ou->exists()) {
-            $usersMod->notifyModsLdapUserBase('addOUFailed', [ $ou ], $ignoreMods, $ignoreSlaves);
+            $usersMod->notifyModsLdapUserBase('addOUFailed', [ $ou ], $ignoreMods);
             $ou->SUPER::deleteObject(@_);
         } else {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddOUFailed', [$entry, $parent], $ignoreMods, $ignoreSlaves);
+                'preAddOUFailed', [$entry, $parent], $ignoreMods);
             throw EBox::Exceptions::DataExists('data' => __('Organizational Unit'),
                                                'value' => $name);
         }
@@ -193,7 +192,7 @@ sub deleteObject
 
     # Notify group deletion to modules
     my $usersMod = $self->_usersMod();
-    $usersMod->notifyModsLdapUserBase('delOU', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+    $usersMod->notifyModsLdapUserBase('delOU', $self, $self->{ignoreMods});
     if (not $params{recursive}) {
         $self->_deleteObjectAndContents();
     } else {

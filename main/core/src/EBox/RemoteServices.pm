@@ -1461,49 +1461,4 @@ sub _downgrade
     }
 }
 
-# Method: initialSetup
-#
-# Overrides:
-#   EBox::Module::Base::initialSetup
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    # Migrate from 3.2
-    if (defined ($version) and (EBox::Util::Version::compare($version, '4.0') < 0)) {
-        $self->_migrateTo40();
-    }
-}
-
-sub _migrateTo40
-{
-    my ($self) = @_;
-
-    my ($jsonFile) = glob ('/var/lib/zentyal/conf/remoteservices/subscription/*/server-info.json');
-
-    return unless ($jsonFile);
-
-    my $json = decode_json(read_file($jsonFile));
-
-    my $state = $self->get_state();
-    my $userFile = '/var/lib/zentyal/conf/remoteservices/username';
-    if (-f $userFile) {
-        my $username = read_file($userFile);
-        chomp ($username);
-        $state->{username} = $username;
-    }
-
-    my $server_uuid = $json->{uuid};
-    $server_uuid =~ s/-//g;
-
-    $state->{subscription_credentials} = {
-        password => $json->{password},
-        name => $json->{name},
-        server_uuid => $server_uuid,
-    };
-
-    $self->set_state($state);
-}
-
 1;

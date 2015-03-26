@@ -83,13 +83,6 @@ sub _table
     my ($self) = @_;
 
     my $tableDesc = [
-        new EBox::Types::Boolean(
-            fieldName     => 'sync',
-            printableName => __('Sync with Zentyal Cloud'),
-            editable      => 1,
-            defaultValue  => 0,
-            help          => __('Files will be synchronized with Zentyal Cloud.'),
-            hidden        => \&_hideSyncOption),
         new EBox::Types::Text(
             fieldName     => 'share',
             printableName => __('Share name'),
@@ -218,10 +211,6 @@ sub addedRowNotify
 
     # Tag this share as needing a reset of rights.
     $self->tagShareRightsReset($row);
-
-    if ($row->valueByName('sync')) {
-        $self->_notifySync();
-    }
 }
 
 # Method: updatedRowNotify
@@ -238,10 +227,6 @@ sub updatedRowNotify
     if ($row->isEqualTo($oldRow)) {
         # no need to notify changes
         return;
-    }
-
-    if ($row->valueByName('sync') xor $oldRow->valueByName('sync')) {
-        $self->_notifySync();
     }
 
     # Tag this share as needing a reset of rights.
@@ -337,10 +322,6 @@ sub deletedRowNotify
 
     my $path = $row->elementByName('path');
 
-    if ($row->valueByName('sync')) {
-        $self->_notifySync();
-    }
-
     # We are only interested in shares created under /home/samba/shares
     return unless ($path->selectedType() eq 'zentyal');
 
@@ -431,22 +412,6 @@ sub _guestAccountEnabled
     my $domainGuestSid = "$domainSid-501";
     my $user = new EBox::Samba::User(sid => $domainGuestSid);
     return $user->isAccountEnabled();
-}
-
-sub _hideSyncOption
-{
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        return (not $rs->filesSyncAvailable() or _syncAllShares());
-    }
-
-    return 1;
-}
-
-sub _syncAllShares
-{
-    my $samba = EBox::Global->modInstance('samba');
-    return $samba->model('SyncShares')->syncValue();
 }
 
 sub _pathHelp
@@ -545,18 +510,6 @@ sub _checkSystemShareMountOptions
                 "work properly.", mountPoint => $mountPoint));
     }
     return 1;
-}
-
-# Notify when we are synching with ZC to related modules
-sub _notifySync
-{
-    my ($self) = @_;
-
-    my $global = $self->parentModule()->global()->getInstance();
-    if ( $global->modExists('cloud-prof') ) {
-        $global->modChange('cloud-prof');
-    }
-
 }
 
 1;

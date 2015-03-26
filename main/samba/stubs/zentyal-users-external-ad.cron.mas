@@ -1,4 +1,0 @@
-<%args>
-</%args>
-# update kerberos keytabs
-perl /usr/share/zentyal-samba/update-ad-keytabs

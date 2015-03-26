@@ -96,7 +96,6 @@ sub checkEnvironment
     unless (defined $throwException) {
         throw EBox::Exceptions::MissingArgument('throwException');
     }
-    $self->_checkUsersState();
 
     # Get the own domain
     my $sysinfo    = EBox::Global->modInstance('sysinfo');
@@ -310,22 +309,6 @@ sub setupKerberos
         my @params = ('realm' => $realm);
         $samba->writeConfFile($systemFile, 'samba/krb5.conf.mas', \@params);
         EBox::Sudo::root("ln -sf '$provisionGeneratedKeytab' '$systemKeytab'");
-    }
-}
-
-sub _checkUsersState
-{
-    my ($self) = @_;
-
-    my $users = EBox::Global->modInstance('samba');
-    if ($users->master() eq 'zentyal') {
-        throw EBox::Exceptions::External(
-            __x('Cannot enable Samba because this server is synchronizing its users as slave of other Zentyal.' .
-                '<br/>You can change this state at {ohref}synchronization options{chref}',
-                ohref => q{<a href='/Samba/Composite/Sync'>},
-                chref => '</a>'
-               )
-           );
     }
 }
 

@@ -52,7 +52,6 @@ sub _process
         my @args = ();
         push(@args, 'user' => $user);
         my $editable = $usersandgroups->editableMode();
-        push(@args, 'slave' => not $editable);
         my $warns = $usersandgroups->allWarnings('user', $user);
         push(@args, warns => $warns);
         $self->{params} = \@args;

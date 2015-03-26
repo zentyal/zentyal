@@ -57,7 +57,6 @@ sub _process
     push(@args, 'contact' => $contact);
     push(@args, 'contactgroups' => $contactgroups);
     push(@args, 'remaingroups' => $remaingroups);
-    push(@args, 'slave' => not $editable);
 
     $self->{params} = \@args;
 

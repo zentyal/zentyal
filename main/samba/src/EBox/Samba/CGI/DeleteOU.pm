@@ -55,7 +55,6 @@ sub _process
     }
 
     push (@args, 'dn' => $dn);
-    push (@args, 'slave' => not $editable);
 
     my $delou;
 

@@ -1,5 +1,6 @@
 HEAD
 	+ Disable administrator account expiration on provision
+	+ Remove no longer supported cloud synchronization
 	+ Remove no longer used External AD mode
 	+ Remove the limited GPO support from the Zentyal UI
 	+ Remove no longer supported antivirus integration

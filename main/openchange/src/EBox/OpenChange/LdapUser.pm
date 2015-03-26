@@ -71,14 +71,7 @@ sub enabled
 {
     my ($self, $user) = @_;
 
-    my $samAccountName = $user->get('samAccountName');
-    my $ldbUser = new EBox::Samba::User(samAccountName => $samAccountName);
-    unless ($ldbUser->exists()) {
-        throw EBox::Exceptions::Internal(
-            "LDB user '$samAccountName' does not exists");
-    }
-
-    my $msExchUserAccountControl = $ldbUser->get('msExchUserAccountControl');
+    my $msExchUserAccountControl = $user->get('msExchUserAccountControl');
     return 0 unless defined $msExchUserAccountControl;
 
     if (defined $msExchUserAccountControl and $msExchUserAccountControl == 2) {
@@ -96,16 +89,10 @@ sub enabled
 
 sub setAccountEnabled
 {
-    my ($self, $ldapUser, $enabled) = @_;
-
-    my $ldbUser = new EBox::Samba::User(samAccountName => $ldapUser->get('samAccountName'));
-    unless (defined $ldbUser and $ldbUser->exists()) {
-        throw EBox::Exceptions::Internal("Cannot LDB instantiate user");
-    }
-
-    my $samAccountName = $ldbUser->get('samAccountName');
-    my $msExchUserAccountControl = $ldbUser->get('msExchUserAccountControl');
-    my $mail = $ldbUser->get('mail');
+    my ($self, $user, $enabled) = @_;
+    my $samAccountName = $user->get('samAccountName');
+    my $msExchUserAccountControl = $user->get('msExchUserAccountControl');
+    my $mail = $user->get('mail');
 
     my $cmd = 'openchange_newuser ';
     $cmd .= ' --create ' unless (defined $msExchUserAccountControl);
@@ -178,6 +165,86 @@ sub _delUser
 sub defaultUserModel
 {
     return 'openchange/OpenChangeUser';
+}
+
+sub _groupAddOns
+{
+    my ($self, $group) = @_;
+
+    unless ($self->{openchange}->configured() and
+            $self->{openchange}->isProvisioned()) {
+        return;
+    }
+
+    my $active = $self->groupEnabled($group) ? 1 : 0;
+    my $args = {
+        group     => $group,
+        hasMail  => $group->get('mail') ? 1 : 0,
+        active   => $active,
+    };
+
+    return {
+        title =>  __('OpenChange Account'),
+        path => '/openchange/openchange_group.mas',
+        params => $args
+    };
+}
+
+sub groupEnabled
+{
+    my ($self, $group) = @_;
+    my $legacyExchangeDN=  $group->get('legacyExchangeDN');
+    return $legacyExchangeDN ? 1 : 0;
+}
+
+sub setGroupAccountEnabled
+{
+    my ($self, $group, $enabled) = @_;
+    my $samAccountName = $group->get('samAccountName');
+    my $mail = $group->get('mail');
+
+    my $cmd = 'openchange_group ';
+    if ($enabled) {
+        $cmd .= ' --create ';
+    } else {
+        $cmd .= ' --delete ';
+    }
+    if (defined $mail and length $mail) {
+        $cmd .= " --mail $mail ";
+    }
+    $cmd .= " '$samAccountName' ";
+    EBox::Sudo::root($cmd);
+
+    return 0;
+}
+
+sub _modifyGroup
+{
+    my ($self, $group) = @_;
+
+    return unless (EBox::Global->modInstance('mail')->configured());
+
+    if (not $self->groupEnabled($group)) {
+        return;
+    }
+
+    my $samAccountName = $group->get('samAccountName');
+    my $cmd = "openchange_group --update '$samAccountName'";
+    EBox::Sudo::root($cmd);
+}
+
+sub _delGroupWarning
+{
+    my ($self, $group) = @_;
+
+    return unless ($self->{openchange}->configured());
+
+    if (not $self->groupEnabled($group)) {
+        return;
+    }
+
+    my $txt = __('This group has a openchange account.');
+    return $txt;
 }
 
 1;

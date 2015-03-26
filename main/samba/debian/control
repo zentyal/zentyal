@@ -11,7 +11,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-samba
 Architecture: all
-Depends: zentyal-core (>= 4.0.3), zentyal-core (<< 4.1),
+Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2),
          zentyal-firewall, zentyal-dns, zentyal-ntp,
          libsamba-perl (>= 0.11~1), libxs-object-magic-perl,
          libparse-recdescent-perl,
@@ -34,11 +34,3 @@ Description: Zentyal - Domain Controller and File Sharing
  .
  This module adds a LDAP server to your Zentyal installation, allowing you
  to add users and groups to be used by other Zentyal modules.
-
-Package: zentyal-users
-Depends: zentyal-samba, ${misc:Depends}
-Architecture: all
-Section: oldlibs
-Description: transitional dummy package
-  This is a transitional dummy package. It can safely be removed.
-

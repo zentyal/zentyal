@@ -81,12 +81,7 @@ sub initialSetup
                        };
     EBox::Module::Base::writeFile($file, $pass, $permissions);
 
-    if ($version) {
-        # migrate accounts to new 3.5.5 encrypted format
-        if (EBox::Util::Version::compare($version, '3.5.5') >= 0) {
-            return;
-        }
-    }
+    return if ($version);
 
     my $samba = $self->{mailMod}->global()->modInstance('samba');
     if (not $samba->isProvisioned()) {
@@ -682,7 +677,7 @@ sub restoreConfig
     }
     if (-r $dst) {
         my $oldFile =  $self->_oldMasterPasswdFile();
-        system "cp '$dst' '$oldFile'" 
+        system "cp '$dst' '$oldFile'"
     }
 
     system "cp -b '$src' '$dst'";

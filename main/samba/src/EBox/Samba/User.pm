@@ -240,7 +240,7 @@ sub deleteObject
 
     # Notify users deletion to modules
     my $usersMod = $self->_usersMod();
-    $usersMod->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+    $usersMod->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods});
 
     # Remove the roaming profile directory
     my $samAccountName = $self->get('samAccountName');
@@ -426,7 +426,6 @@ sub setFullName
 #       kerberosKeys - Set of kerberos keys
 #       isSystemUser - boolean: if true it adds the user as system user, otherwise as normal user
 #       uidNumber - user UID number
-#       ignoreSlaves - Array ref with the LDAP slaves to ignore while notifying
 #
 # Returns:
 #
@@ -489,11 +488,7 @@ sub create
     my $max_users = 0;
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
-        if ($usersMod->master() eq 'cloud') {
-            $max_users = $rs->maxCloudUsers();
-        } else {
-            $max_users = $rs->maxUsers();
-        }
+        $max_users = $rs->maxUsers();
     }
 
     if ($max_users) {
@@ -544,20 +539,12 @@ sub create
 
         $res = new EBox::Samba::User(dn => $dn);
 
-        # Set the password with no notifying the slaves as addUser will do
-        my @allSlavesNames = map { $_->name() } @{$usersMod->allSlaves()};
-        $res->{ignoreSlaves} = \@allSlavesNames;
         if (defined $args{password}) {
             $res->changePassword($args{password});
             $res->setAccountEnabled(1);
         } elsif (defined $args{kerberosKeys}) {
             $res->setCredentials($args{kerberosKeys});
             $res->setAccountEnabled(1);
-        }
-        $res->{ignoreSlaves} = undef;
-
-        if ($args{ignoreSlaves}) {
-            $res->{ignoreSlaves} = $args{ignoreSlaves};
         }
 
         $res->setupUidMapping($uidNumber);
@@ -569,7 +556,7 @@ sub create
                 $usersMod->initUser($res);
 
                 # Call modules initialization
-                $usersMod->notifyModsLdapUserBase('addUser', [ $res ], $res->{ignoreMods}, $res->{ignoreSlaves});
+                $usersMod->notifyModsLdapUserBase('addUser', [ $res ], $res->{ignoreMods});
             }
         } else {
             $usersMod->initUser($res);
@@ -577,7 +564,7 @@ sub create
 
             # Call modules initialization
             $usersMod->notifyModsLdapUserBase(
-                'addUser', [ $res ], $res->{ignoreMods}, $res->{ignoreSlaves});
+                'addUser', [ $res ], $res->{ignoreMods});
         }
     } catch ($error) {
         EBox::error($error);
@@ -799,7 +786,7 @@ sub save
     if ($changetype ne 'delete') {
         if ($hasCoreChanges or defined $passwd) {
             my $usersMod = $self->_usersMod();
-            $usersMod->notifyModsLdapUserBase('preModifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('preModifyUser', [ $self, $passwd ], $self->{ignoreMods});
         }
     }
 
@@ -818,7 +805,7 @@ sub save
             delete $self->{core_changed};
 
             my $usersMod = $self->_usersMod();
-            $usersMod->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods});
         }
     }
 }

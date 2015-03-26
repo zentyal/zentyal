@@ -163,7 +163,7 @@ sub create
 
     # Call modules initialization
     my $usersMod = EBox::Global->modInstance('samba');
-    $usersMod->notifyModsLdapUserBase('addGroup', $createdGroup, $createdGroup->{ignoreMods}, $createdGroup->{ignoreSlaves});
+    $usersMod->notifyModsLdapUserBase('addGroup', $createdGroup, $createdGroup->{ignoreMods});
 
     return $createdGroup;
 }
@@ -549,7 +549,7 @@ sub deleteObject
 
     # Notify group deletion to modules
     my $usersMod = $self->_usersMod();
-    $usersMod->notifyModsLdapUserBase('delGroup', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+    $usersMod->notifyModsLdapUserBase('delGroup', $self, $self->{ignoreMods});
 
     # Call super implementation
     shift @_;
@@ -567,7 +567,7 @@ sub save
         delete $self->{core_changed};
 
         my $usersMod = $self->_usersMod();
-        $usersMod->notifyModsLdapUserBase('modifyGroup', [$self], $self->{ignoreMods}, $self->{ignoreSlaves});
+        $usersMod->notifyModsLdapUserBase('modifyGroup', [$self], $self->{ignoreMods});
     }
 }
 

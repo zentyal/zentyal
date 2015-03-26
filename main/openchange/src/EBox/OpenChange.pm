@@ -103,86 +103,8 @@ sub initialSetup
         $firewall->saveConfigRecursive();
     }
 
-    if (defined($version) and  (EBox::Util::Version::compare($version, '3.5') < 0)) {
-        $self->_migrateFormKeys();
-    }
-
-    if (defined($version) and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
-        $self->_migrateOutgoingDomain();
-    }
-
-    if (defined($version) and  (EBox::Util::Version::compare($version, '3.5.3') < 0)) {
-        EBox::debug("Migrating from $version");
-        $self->_migrateCerts();
-    }
-
-    # Migration from 3.5 to 4.0
-    if (defined($version) and  (EBox::Util::Version::compare($version, '4.0') < 0)) {
-        EBox::Sudo::silentRoot('/usr/share/zentyal-openchange/migrate-sogo-db');
-
-        EBox::Sudo::silentRoot('a2disconf sogo');
-        EBox::Sudo::silentRoot('a2enmod proxy');
-        EBox::Sudo::silentRoot('a2enmod proxy_http');
-        EBox::Sudo::silentRoot('a2enmod headers');
-        EBox::Sudo::silentRoot('a2enmod ssl');
-        EBox::Sudo::silentRoot('service apache2 reload');
-        EBox::Sudo::root('rm -f /etc/apache2/conf-available/sogo.conf');
-
-        my $firewall = $self->global()->modInstance('firewall');
-        $firewall->setInternalService('HTTPS', 'accept');
-        $firewall->saveConfigRecursive();
-    }
-
     if ($self->changed()) {
         $self->saveConfigRecursive();
-    }
-}
-
-# Migration of form keys after extracting the rewrite rule for outgoing domain
-# from the provision form.
-#
-sub _migrateOutgoingDomain
-{
-  my ($self) = @_;
-
-  my $oldKeyValue = $self->get('Provision/keys/form');
-  $self->set('Configuration/keys/form', $oldKeyValue);
-}
-
-# Migration of form keys to better names (between development versions)
-#
-# * Migrate redis keys from firstorganization to organizationname and firstorganizationunit to administrativegroup
-#
-sub _migrateFormKeys
-{
-    my ($self) = @_;
-    my $modelName = 'Provision';
-    my @keys = ("openchange/conf/$modelName/keys/form", "openchange/ro/$modelName/keys/form");
-
-    my $state = $self->get_state();
-    my $keyField = 'organizationname';
-    my $redis = $self->redis();
-    foreach my $key (@keys) {
-        my $value = $redis->get($key);
-        if (defined $value->{firstorganization}) {
-            $state->{$modelName}->{$keyField} = $value->{firstorganization};
-            delete $value->{firstorganization};
-        }
-        if (defined $value->{organizationname}) {
-            $state->{$modelName}->{$keyField} = $value->{organizationname};
-            delete $value->{organizationname};
-        }
-        if (defined $value->{firstorganizationunit}) {
-            delete $value->{firstorganizationunit};
-        }
-        if (defined $value->{administrativegroup}) {
-            delete $value->{administrativegroup};
-        }
-        $redis->set($key, $value);
-    }
-    if ($self->isProvisioned()) {
-        # The organization name is only useful if the server is already provisioned.
-        $self->set_state($state);
     }
 }
 
