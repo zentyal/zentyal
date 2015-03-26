@@ -46,6 +46,8 @@ use Net::IP;
 use TryCatch::Lite;
 use Perl6::Junction qw(any);
 use Text::DHCPLeases;
+use File::Slurp;
+use File::Temp qw(tempfile);
 
 # Module local conf stuff
 # FIXME: extract this from somewhere to support multi-distro?
