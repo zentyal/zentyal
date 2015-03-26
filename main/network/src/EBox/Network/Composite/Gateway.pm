@@ -23,21 +23,6 @@ use base 'EBox::Model::Composite';
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#     Constructor for the Gateway composite.
-#
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -50,7 +35,7 @@ sub _description
 {
     my $description = {
         layout          => 'top-bottom',
-        printableName   => __('Gateways and Proxy'),
+        pageTitle       => __('Gateways Configuration'),
         headTitle       => undef,
         compositeDomain => 'Network',
         name            => 'Gateway',
