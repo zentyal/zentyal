@@ -57,8 +57,6 @@ sub _setQAUpdates
     # Set the QA Updates if the subscription level is greater than basic
     if ($subscriptionLevel < 1) {
         return;
-    } elsif (not _isCommercialVersion()) {
-        return;
     }
 
     _setQASources($global);
@@ -136,14 +134,6 @@ sub _ubuntuVersion
 sub _zentyalVersion
 {
     return substr(EBox::Config::version(),0,3);
-}
-
-# Is it a commercial version?
-sub _isCommercialVersion
-{
-    my $zv = _zentyalVersion();
-    # Zentyal Release Policy applies here
-    return (substr($zv, -1) eq '0');
 }
 
 # Get the QA archive to look
