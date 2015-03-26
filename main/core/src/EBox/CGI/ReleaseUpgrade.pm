@@ -29,7 +29,7 @@ my $LOGFILE = '/var/log/zentyal/upgrade.log';
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => __('Upgrade to Zentyal 4.0'),
+    my $self = $class->SUPER::new('title' => __('Upgrade to Zentyal 4.1'),
                                   'template' => '/upgrade.mas', @_);
     bless($self, $class);
     return $self;
@@ -53,7 +53,7 @@ sub _process
         $self->{json} = { output => $output, finished => $finished };
     } else {
         my @removedModules;
-        foreach my $module (qw(ips nut ebackup monitor radius webserver webmail ipsec)) {
+        foreach my $module (qw(antivirus ha jabber l2tp mailfilter squid trafficshaping)) {
             if (EBox::GlobalImpl::_packageInstalled("zentyal-$module")) {
                 push (@removedModules, $module);
             }
