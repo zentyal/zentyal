@@ -1,0 +1,67 @@
+<%args>
+    $params
+</%args>
+<%init>
+    use EBox::Gettext;
+</%init>
+  <div id='OpenChangeGroupOptions_ready' class='group_email_observer' <% $params->{hasMail} ? '' : "style='display:none'"%> >
+    <div id='note_OpenChangeGroupOptions' class='note' style='display:none'></div>
+    <div id='error_OpenChangeGroupOptions' class='error' style='display:none'></div>
+
+    <form id='OpenChangeGroupOptions' action="/OpenChange/OpenChangeGroupOptions" method="post" class="formDiv">
+        <input type="hidden" name="group" value="<% $params->{group}->dn() %>">
+        <div>
+            <label><% __('Account status') %></label>
+            <select name="active" id='OpenChangeGroupOptions_active' enabled>
+% if ($params->{'active'}) {
+                <option value="no" ><% __('Disabled') %></option>
+                <option selected value="yes" ><% __('Enabled') %></option>
+% } else {
+                <option selected value="no" ><% __('Disabled') %></option>
+                <option value="yes" ><% __('Enabled') %></option>
+% }
+            </select>
+        </div>
+        <div class="form-buttons">
+            <input
+                class="inputButton"
+                type="submit"
+                name="change"
+                id="OpenChangeGroupOptions_submit"
+                value="<% __('Change') %>"
+                alt="<% __('Change') %>" />
+        </div>
+    </form>
+  </div>
+  <div id='OpenChangeGroupOptions_not_ready' class='group_email_observer warning' <% $params->{hasMail} ? "style='display:none'" : ''%> >
+     <% __x('{oc} account could not enabled until the group has an email account', oc => 'OpenChange') %>
+  </div>
+<script>
+$(function() {
+   Zentyal.Form.setupAjaxSubmit('#OpenChangeGroupOptions', {
+        noteDiv: '#note_OpenChangeGroupOptions',
+        errorDiv: '#error_OpenChangeGroupOptions',
+        submitButton: '#OpenChangeGroupOptions_submit',
+        success: function(response) {
+        }
+    });
+
+    $('#OpenChangeGroupOptions_ready').on('group_email_change', function(ev) {
+       if (ev.mail) {
+          $('#OpenChangeGroupOptions_active').val(ev.ocEnabled ? 'yes' : 'no');
+          $(this).show();
+       } else {
+          $('#note_OpenChangeGroupOptions, #error_OpenChangeGroupOptions').html('').hide();
+          $(this).hide();
+      }
+    });
+
+    $('#OpenChangeGroupOptions_not_ready').on('group_email_change', function(ev) {
+       if (ev.mail) {
+          $(this).hide();
+       } else {
+          $(this).show();
+      }
+    });
+});
+</script>
