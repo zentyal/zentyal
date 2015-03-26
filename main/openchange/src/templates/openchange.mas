@@ -34,7 +34,7 @@
     </form>
   </div>
   <div id='OpenChangeUserOptions_not_ready' class='user_email_observer warning' <% $params->{hasMail} ? "style='display:none'" : ''%> >
-     <% __x('{oc} account could not enabled until the user has an email account', oc => 'OpenChange') %>
+     <% __x('{oc} account could not be enabled until the user has an email account', oc => 'OpenChange') %>
   </div>
 <script>
 $(function() {

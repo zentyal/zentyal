@@ -9,7 +9,7 @@ Package: zentyal-openchange
 Architecture: all
 Pre-Depends: zentyal-core
 Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2),
-         zentyal-samba, zentyal-mail,
+         zentyal-samba (>= 4.1.4), zentyal-mail,
          zentyal-ca, zentyal-dns,
          openchangeserver (>= 3:2.3-zentyal7),
          openchange-rpcproxy, libstring-random-perl,

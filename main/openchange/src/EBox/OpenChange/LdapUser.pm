@@ -71,14 +71,7 @@ sub enabled
 {
     my ($self, $user) = @_;
 
-    my $samAccountName = $user->get('samAccountName');
-    my $ldbUser = new EBox::Samba::User(samAccountName => $samAccountName);
-    unless ($ldbUser->exists()) {
-        throw EBox::Exceptions::Internal(
-            "LDB user '$samAccountName' does not exists");
-    }
-
-    my $msExchUserAccountControl = $ldbUser->get('msExchUserAccountControl');
+    my $msExchUserAccountControl = $user->get('msExchUserAccountControl');
     return 0 unless defined $msExchUserAccountControl;
 
     if (defined $msExchUserAccountControl and $msExchUserAccountControl == 2) {
@@ -96,16 +89,10 @@ sub enabled
 
 sub setAccountEnabled
 {
-    my ($self, $ldapUser, $enabled) = @_;
-
-    my $ldbUser = new EBox::Samba::User(samAccountName => $ldapUser->get('samAccountName'));
-    unless (defined $ldbUser and $ldbUser->exists()) {
-        throw EBox::Exceptions::Internal("Cannot LDB instantiate user");
-    }
-
-    my $samAccountName = $ldbUser->get('samAccountName');
-    my $msExchUserAccountControl = $ldbUser->get('msExchUserAccountControl');
-    my $mail = $ldbUser->get('mail');
+    my ($self, $user, $enabled) = @_;
+    my $samAccountName = $user->get('samAccountName');
+    my $msExchUserAccountControl = $user->get('msExchUserAccountControl');
+    my $mail = $user->get('mail');
 
     my $cmd = 'openchange_newuser ';
     $cmd .= ' --create ' unless (defined $msExchUserAccountControl);
@@ -125,7 +112,7 @@ sub setAccountEnabled
 
 sub _addUser
 {
-    my ($self, $user, $password) = @_;
+    my ($self, $user) = @_;
 
     unless ($self->{openchange}->configured() and
             $self->{openchange}->isProvisioned()) {
@@ -178,6 +165,141 @@ sub _delUser
 sub defaultUserModel
 {
     return 'openchange/OpenChangeUser';
+}
+
+sub _groupInDefaultOU
+{
+    my ($self, $group) = @_;
+    my $defaultOUDN = 'CN=Groups,' . $group->_ldap->dn();
+    return $defaultOUDN eq $group->baseDn();
+}
+
+sub _groupAddOns
+{
+    my ($self, $group) = @_;
+
+    unless ($self->{openchange}->configured() and
+            $self->{openchange}->isProvisioned()) {
+        return;
+    }
+
+    my $title = __('OpenChange Account');
+
+    if (not $self->_groupInDefaultOU($group)) {
+        my $msg = __(q|The OpenChange account is only available to groups in the default 'Groups' container|);
+        return $self->standardNoMultipleOUSupportComponent($title, $msg);
+    }
+
+    my $active = $self->groupEnabled($group) ? 1 : 0;
+    my $args = {
+        group     => $group,
+        hasMail  => $group->get('mail') ? 1 : 0,
+        active   => $active,
+    };
+
+    return {
+        title =>  $title,
+        path => '/openchange/openchange_group.mas',
+        params => $args
+    };
+}
+
+sub groupEnabled
+{
+    my ($self, $group) = @_;
+    my $legacyExchangeDN=  $group->get('legacyExchangeDN');
+    return $legacyExchangeDN ? 1 : 0;
+}
+
+sub setGroupAccountEnabled
+{
+    my ($self, $group, $enabled) = @_;
+    my $samAccountName = $group->get('samAccountName');
+    my $mail = $group->get('mail');
+
+    my $cmd = 'openchange_group ';
+    if ($enabled) {
+        $cmd .= ' --create ';
+    } else {
+        $cmd .= ' --delete ';
+    }
+    if (defined $mail and length $mail) {
+        $cmd .= " --mail $mail ";
+    }
+    $cmd .= " '$samAccountName' ";
+    EBox::Sudo::root($cmd);
+
+    return 0;
+}
+
+sub _addGroup
+{
+    my ($self, $group) = @_;
+    # if the group has not mail assigned we should do nothing
+    my $mail = $group->mail();
+    if (not $mail) {
+        return;
+    }
+
+    unless ($self->{openchange}->configured() and
+            $self->{openchange}->isProvisioned()) {
+        return;
+    }
+
+    # check the user template, in this case we can use the RW version
+    #  and is better for coherence with other user templates
+    my $model = $self->{openchange}->model('OpenChangeUser');
+    return unless ($model->enabledValue());
+
+    # check that the mail accound is in on a managed domain
+    # we need to use a RO mail instance bz we depends on a domain that is already
+    #   provisioned
+    my ($unused, $domain) = split '@', $mail, 2;
+    my $mailMod  = EBox::Global->getInstance(1)->modInstance('mail');
+    my $vdomains = $mailMod->model('VDomains');
+    if (not $vdomains->existsVDomain($domain)) {
+        return;
+    }
+
+    $self->setGroupAccountEnabled($group, $mail);
+}
+
+sub _modifyGroup
+{
+    my ($self, $group) = @_;
+
+    return unless (EBox::Global->modInstance('mail')->configured());
+
+    if (not $self->groupEnabled($group)) {
+        return;
+    }
+
+    my $samAccountName = $group->get('samAccountName');
+    my $cmd = "openchange_group --update '$samAccountName'";
+    EBox::Sudo::root($cmd);
+}
+
+sub _delGroupWarning
+{
+    my ($self, $group) = @_;
+
+    return unless ($self->{openchange}->configured());
+
+    if (not $self->groupEnabled($group)) {
+        return;
+    }
+
+    my $txt = __('This group has a openchange account.');
+    return $txt;
+}
+
+sub objectInDefaultContainer
+{
+    my ($self, $object) = @_;
+    if ($object->isa('EBox::Samba::Group')) {
+        return $self->_groupInDefaultOU($object);
+    }
+    return $self->SUPER::objectInDefaultContainer($object);
 }
 
 1;
