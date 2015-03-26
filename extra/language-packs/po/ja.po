@@ -160,7 +160,7 @@ msgstr "有効"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:891
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
-#: ../../main/core/src/EBox/SysInfo.pm:485
+#: ../../main/core/src/EBox/SysInfo.pm:480
 #: ../../main/core/src/EBox/RemoteServices.pm:1306
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
@@ -168,7 +168,7 @@ msgstr "有効"
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
-#: ../../main/samba/src/templates/edituser.mas:305
+#: ../../main/samba/src/templates/edituser.mas:279
 msgid "Disabled"
 msgstr "無効"
 
@@ -182,13 +182,13 @@ msgstr "サービス"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
-#: ../../main/core/src/EBox/SysInfo.pm:470
+#: ../../main/core/src/EBox/SysInfo.pm:465
 msgid "Running"
 msgstr "動作中"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
-#: ../../main/core/src/EBox/SysInfo.pm:475
+#: ../../main/core/src/EBox/SysInfo.pm:470
 msgid "Stopped"
 msgstr "停止"
 
@@ -282,7 +282,6 @@ msgstr "ローカルアドレス"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:909
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:305
-#: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:59
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:43
 #: ../../main/mail/src/templates/externalAccounts.mas:16
 msgid "Port"
@@ -980,8 +979,8 @@ msgstr "OpenVPNデーモン"
 #: ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3463
-#: ../../main/mail/src/EBox/Mail.pm:1760
+#: ../../main/samba/src/EBox/Samba.pm:3076
+#: ../../main/mail/src/EBox/Mail.pm:1597
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
@@ -997,7 +996,7 @@ msgstr "日付"
 #: ../../main/dhcp/src/EBox/DHCP.pm:981
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/mail/src/EBox/Mail.pm:1770
+#: ../../main/mail/src/EBox/Mail.pm:1607
 msgid "Event"
 msgstr "イベント"
 
@@ -1007,7 +1006,7 @@ msgstr "イベント"
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
 #: ../../main/samba/src/templates/addgroup.mas:10
-#: ../../main/samba/src/templates/editgroup.mas:27
+#: ../../main/samba/src/templates/editgroup.mas:26
 msgid "Type"
 msgstr "種類"
 
@@ -1122,7 +1121,7 @@ msgstr "ホスト名"
 
 #: ../../main/dns/src/EBox/DNS.pm:1694
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2985
+#: ../../main/samba/src/EBox/Samba.pm:2598
 msgid "alias"
 msgstr "エイリアス"
 
@@ -1216,7 +1215,7 @@ msgstr "透明なDNSキャッシュを有効にする"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:2193
+#: ../../main/samba/src/EBox/Samba.pm:1900
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
@@ -1477,7 +1476,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:2187
+#: ../../main/samba/src/EBox/Samba.pm:1894
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "ドメイン"
@@ -1663,11 +1662,11 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3465
+#: ../../main/samba/src/EBox/Samba.pm:3078
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
-#: ../../main/samba/src/templates/edituser.mas:19
+#: ../../main/samba/src/templates/edituser.mas:16
 msgid "User"
 msgstr "ユーザ"
 
@@ -1744,7 +1743,7 @@ msgstr "プリンタ名"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:337
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:178
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:139
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:69
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:68
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:55
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:132
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -1753,12 +1752,12 @@ msgstr "プリンタ名"
 #: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:48
 #: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/ebox.mas:100
+#: ../../main/software/src/templates/ebox.mas:101
 #: ../../main/samba/src/templates/addgroup.mas:15
-#: ../../main/samba/src/templates/editgroup.mas:39
-#: ../../main/samba/src/templates/edituser.mas:45
+#: ../../main/samba/src/templates/editgroup.mas:32
+#: ../../main/samba/src/templates/edituser.mas:40
 #: ../../main/samba/src/templates/adduser.mas:25
-#: ../../main/samba/src/templates/editcontact.mas:30
+#: ../../main/samba/src/templates/editcontact.mas:27
 #: ../../main/samba/src/templates/addcontact.mas:23
 msgid "Description"
 msgstr "内容"
@@ -1768,7 +1767,7 @@ msgid "Location"
 msgstr "位置"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:73
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:113
 msgid "Guest access"
 msgstr "ゲストアクセス"
 
@@ -1777,7 +1776,7 @@ msgid "This printer will not require authentication."
 msgstr "このプリンタは、認証を必要としません。"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:80
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:125
 msgid "Access control"
 msgstr "アクセスコントロール"
 
@@ -1883,7 +1882,7 @@ msgstr "キャンセル"
 msgid "Certification Authority"
 msgstr "認証局"
 
-#: ../../main/ca/src/EBox/CA.pm:215 ../../main/ca/src/EBox/CA.pm:528
+#: ../../main/ca/src/EBox/CA.pm:215 ../../main/ca/src/EBox/CA.pm:512
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:109
 #: ../../main/ca/src/EBox/CA/TestStub.pm:158
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
@@ -1910,8 +1909,8 @@ msgstr "国コード"
 msgid "The country code must be the 2-characters ISO code"
 msgstr "国コードは、2文字のISOコードでなければなりません"
 
-#: ../../main/ca/src/EBox/CA.pm:267 ../../main/ca/src/EBox/CA.pm:774
-#: ../../main/ca/src/EBox/CA.pm:1410
+#: ../../main/ca/src/EBox/CA.pm:267 ../../main/ca/src/EBox/CA.pm:758
+#: ../../main/ca/src/EBox/CA.pm:1394
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "日数に許容最大値が設定されました {days}: 2038年バグ"
@@ -1920,7 +1919,7 @@ msgstr "日数に許容最大値が設定されました {days}: 2038年バグ"
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "削除できません。理由:"
 
-#: ../../main/ca/src/EBox/CA.pm:543 ../../main/ca/src/EBox/CA/TestStub.pm:263
+#: ../../main/ca/src/EBox/CA.pm:527 ../../main/ca/src/EBox/CA/TestStub.pm:263
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -1928,7 +1927,7 @@ msgstr ""
 "新しい証明書を作る前にCA証明書は無効化されているか期限切れになっている必要が"
 "あります"
 
-#: ../../main/ca/src/EBox/CA.pm:752
+#: ../../main/ca/src/EBox/CA.pm:736
 #, perl-brace-format
 msgid ""
 "You cannot issue a certificate with CN {cn} because that CN is reserved to "
@@ -1936,8 +1935,8 @@ msgid ""
 "virtual domains interface.{ch}"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:924 ../../main/ca/src/EBox/CA.pm:1267
-#: ../../main/ca/src/EBox/CA.pm:1337 ../../main/ca/src/EBox/CA.pm:1431
+#: ../../main/ca/src/EBox/CA.pm:908 ../../main/ca/src/EBox/CA.pm:1251
+#: ../../main/ca/src/EBox/CA.pm:1321 ../../main/ca/src/EBox/CA.pm:1415
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:65
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:72
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:66
@@ -1954,75 +1953,75 @@ msgstr ""
 msgid "Common Name"
 msgstr "共通名"
 
-#: ../../main/ca/src/EBox/CA.pm:937 ../../main/ca/src/EBox/CA.pm:1278
+#: ../../main/ca/src/EBox/CA.pm:921 ../../main/ca/src/EBox/CA.pm:1262
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "共通名 {cn} を持つ証明書が存在しません"
 
-#: ../../main/ca/src/EBox/CA.pm:941
+#: ../../main/ca/src/EBox/CA.pm:925
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr "理由 {reason} は無効です。オプション:"
 
-#: ../../main/ca/src/EBox/CA.pm:1090
+#: ../../main/ca/src/EBox/CA.pm:1074
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr "認証局インフラストラクチャが利用できない、最初にそれを作成"
 
-#: ../../main/ca/src/EBox/CA.pm:1187
+#: ../../main/ca/src/EBox/CA.pm:1171
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "共通名、識別名、あるいはシリアルナンバーのいずれかが渡されました"
 
-#: ../../main/ca/src/EBox/CA.pm:1432
+#: ../../main/ca/src/EBox/CA.pm:1416
 msgid "or"
 msgstr "または"
 
-#: ../../main/ca/src/EBox/CA.pm:1433
+#: ../../main/ca/src/EBox/CA.pm:1417
 msgid "Certificate file"
 msgstr "証明書ファイル"
 
-#: ../../main/ca/src/EBox/CA.pm:1455
+#: ../../main/ca/src/EBox/CA.pm:1439
 msgid "The certificate to renew does NOT exist"
 msgstr "更新する証明書が存在しません"
 
-#: ../../main/ca/src/EBox/CA.pm:1495
+#: ../../main/ca/src/EBox/CA.pm:1479
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "このCAには共通名 {cn} を持つ証明書が存在しません"
 
-#: ../../main/ca/src/EBox/CA.pm:1776 ../../main/core/src/EBox/SysInfo.pm:115
-#: ../../main/mail/src/EBox/Mail.pm:1697
+#: ../../main/ca/src/EBox/CA.pm:1760 ../../main/core/src/EBox/SysInfo.pm:110
+#: ../../main/mail/src/EBox/Mail.pm:1534
 msgid "General"
 msgstr "一般"
 
-#: ../../main/ca/src/EBox/CA.pm:1779
+#: ../../main/ca/src/EBox/CA.pm:1763
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
 msgid "Services Certificates"
 msgstr "サービス証明書"
 
-#: ../../main/ca/src/EBox/CA.pm:1892
+#: ../../main/ca/src/EBox/CA.pm:1876
 msgid "Not created"
 msgstr "作成されていません"
 
-#: ../../main/ca/src/EBox/CA.pm:1894
+#: ../../main/ca/src/EBox/CA.pm:1878
 msgid "Available"
 msgstr "使用可能"
 
-#: ../../main/ca/src/EBox/CA.pm:1896
+#: ../../main/ca/src/EBox/CA.pm:1880
 msgid "Created but not available"
 msgstr "作成されますが、利用できません"
 
-#: ../../main/ca/src/EBox/CA.pm:1922
+#: ../../main/ca/src/EBox/CA.pm:1906
 msgid "The field cannot contain only blank characters"
 msgstr "フィールドは、空白文字を含めることはできません"
 
-#: ../../main/ca/src/EBox/CA.pm:1945
+#: ../../main/ca/src/EBox/CA.pm:1929
 msgid "String"
 msgstr "文字列"
 
-#: ../../main/ca/src/EBox/CA.pm:1950
+#: ../../main/ca/src/EBox/CA.pm:1934
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -2030,51 +2029,51 @@ msgstr ""
 "入力に無効な文字が含まれています。全てのASCII英数字、プラス英数字以外：.?&+:-"
 "@*と空白が許可されています。"
 
-#: ../../main/ca/src/EBox/CA.pm:2470
+#: ../../main/ca/src/EBox/CA.pm:2454
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "署名できません。CAパスフレーズが誤っているか、プライベート鍵をなくしていませ"
 "んか？"
 
-#: ../../main/ca/src/EBox/CA.pm:2472
+#: ../../main/ca/src/EBox/CA.pm:2456
 msgid "Database corruption"
 msgstr "データベース破損"
 
-#: ../../main/ca/src/EBox/CA.pm:2474
+#: ../../main/ca/src/EBox/CA.pm:2458
 msgid "Identifier duplicated in Database"
 msgstr "データベースで識別子が重複しています"
 
-#: ../../main/ca/src/EBox/CA.pm:2476
+#: ../../main/ca/src/EBox/CA.pm:2460
 msgid "Certificate already revoked"
 msgstr "証明書はすでに無効化されています"
 
-#: ../../main/ca/src/EBox/CA.pm:2479
+#: ../../main/ca/src/EBox/CA.pm:2463
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1フィールドが長すぎます。最大値:"
 
-#: ../../main/ca/src/EBox/CA.pm:2481
+#: ../../main/ca/src/EBox/CA.pm:2465
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "不明なエラーです。OpenSSLの出力:"
 
-#: ../../main/ca/src/EBox/CA.pm:2548 ../../main/ca/src/EBox/CA/TestStub.pm:732
+#: ../../main/ca/src/EBox/CA.pm:2532 ../../main/ca/src/EBox/CA/TestStub.pm:732
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "CA証明書期限よりも後に有効期限が設定されています"
 
-#: ../../main/ca/src/EBox/CA.pm:2569
+#: ../../main/ca/src/EBox/CA.pm:2553
 #, perl-brace-format
 msgid "Value for subject alternative of type {type}"
 msgstr "タイプ{type}のサブジェクト代替のための値"
 
-#: ../../main/ca/src/EBox/CA.pm:2586
+#: ../../main/ca/src/EBox/CA.pm:2570
 msgid "Subject alternative type"
 msgstr "サブジェクト代替タイプ"
 
-#: ../../main/ca/src/EBox/CA.pm:2588
+#: ../../main/ca/src/EBox/CA.pm:2572
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
 msgstr "{dns}、{ip}と{email}のみが有効なサブジェクトの代替名タイプです"
 
-#: ../../main/ca/src/EBox/CA.pm:2632
+#: ../../main/ca/src/EBox/CA.pm:2616
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "OpenSSLシェルを開始できません。({errval})"
@@ -2096,7 +2095,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3466
+#: ../../main/samba/src/EBox/Samba.pm:3079
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -2379,9 +2378,9 @@ msgstr "VLAN ID"
 msgid "Domain Name Server Resolver"
 msgstr "ドメインネームサーバリゾルバ"
 
-#: ../../main/network/src/EBox/Network/Composite/Gateway.pm:53
-msgid "Gateways and Proxy"
-msgstr "ゲートウェイとプロキシ"
+#: ../../main/network/src/EBox/Network/Composite/Gateway.pm:38
+msgid "Gateways Configuration"
+msgstr "ゲートウェイの設定"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:153
 msgid "Auto"
@@ -2550,14 +2549,13 @@ msgstr "ユーザ名"
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:224
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:100
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
-#: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:55
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
 #: ../../main/core/src/templates/login/index.mas:52
 #: ../../main/core/src/templates/remoteservices/index.mas:31
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:106
-#: ../../main/samba/src/templates/edituser.mas:64
+#: ../../main/samba/src/templates/edituser.mas:56
 #: ../../main/samba/src/templates/adduser.mas:30
 #: ../../main/mail/src/templates/externalAccounts.mas:14
 msgid "Password"
@@ -2879,7 +2877,7 @@ msgid "no link"
 msgstr "リンクなし"
 
 #: ../../main/network/src/EBox/Network.pm:3428
-#: ../../main/mail/src/EBox/Mail.pm:1769
+#: ../../main/mail/src/EBox/Mail.pm:1606
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:64
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -3171,13 +3169,13 @@ msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
 msgstr "範囲 {from}-{to} はHAのfloating IP：\"{name}\" - {IP}を含んでいます"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/mail/src/EBox/Mail.pm:1762
+#: ../../main/mail/src/EBox/Mail.pm:1599
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
 msgstr "From"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/mail/src/EBox/Mail.pm:1763
+#: ../../main/mail/src/EBox/Mail.pm:1600
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 msgid "To"
 msgstr "To"
@@ -3255,7 +3253,6 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:421
 #: ../../main/core/src/EBox/CGI/Search.pm:48
 #: ../../main/core/src/EBox/RemoteServices.pm:1306
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:76
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
 msgstr "なし"
@@ -3703,7 +3700,7 @@ msgstr "名前{name}としての予約しているサーバ"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Index.pm:39
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/Register.pm:40
-#: ../../main/core/src/EBox/SysInfo.pm:123
+#: ../../main/core/src/EBox/SysInfo.pm:118
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:37
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:32
 msgid "Configuration Backup"
@@ -3771,7 +3768,7 @@ msgstr "あなたは、以下のリモートバックアップを削除するこ
 #: ../../main/core/src/templates/ajax/tableBody.mas:465
 #: ../../main/core/src/templates/ajax/row.mas:98
 #: ../../main/core/src/templates/dataInUse.mas:36
-#: ../../main/software/src/templates/ebox.mas:189
+#: ../../main/software/src/templates/ebox.mas:190
 #: ../../main/samba/src/templates/samba.mas:30
 #: ../../main/mail/src/templates/groupalias.mas:54
 #: ../../main/mail/src/templates/warnvd.mas:25
@@ -4041,7 +4038,7 @@ msgstr "Zentyal 3.4へのアップグレード"
 #: ../../main/core/src/EBox/CGI/Search.pm:29
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
 #: ../../main/core/src/templates/ajax/treeView.mas:39
-#: ../../main/software/src/templates/ebox.mas:318
+#: ../../main/software/src/templates/ebox.mas:319
 msgid "Search"
 msgstr "検索"
 
@@ -4223,118 +4220,118 @@ msgstr "{scriptName}スクリプトを実行"
 msgid "System Information"
 msgstr "システム情報"
 
-#: ../../main/core/src/EBox/SysInfo.pm:98
+#: ../../main/core/src/EBox/SysInfo.pm:93
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:37
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
-#: ../../main/core/src/EBox/SysInfo.pm:103
-#: ../../main/core/src/EBox/SysInfo.pm:234
+#: ../../main/core/src/EBox/SysInfo.pm:98
+#: ../../main/core/src/EBox/SysInfo.pm:229
 msgid "Module Status"
 msgstr "モジュール状態"
 
-#: ../../main/core/src/EBox/SysInfo.pm:110
+#: ../../main/core/src/EBox/SysInfo.pm:105
 #: ../../main/core/src/EBox/RemoteServices.pm:1214
 msgid "System"
 msgstr "システム"
 
-#: ../../main/core/src/EBox/SysInfo.pm:119
+#: ../../main/core/src/EBox/SysInfo.pm:114
 #: ../../main/core/src/EBox/AuditLogging.pm:112
 #: ../../main/core/src/EBox/AuditLogging.pm:142
 msgid "Date/Time"
 msgstr "日/時"
 
-#: ../../main/core/src/EBox/SysInfo.pm:128
+#: ../../main/core/src/EBox/SysInfo.pm:123
 #: ../../main/core/src/EBox/SysInfo/Model/Debug.pm:45
 msgid "Debug"
 msgstr "デバッグ"
 
-#: ../../main/core/src/EBox/SysInfo.pm:133
+#: ../../main/core/src/EBox/SysInfo.pm:128
 msgid "Halt/Reboot"
 msgstr "停止/再起動"
 
-#: ../../main/core/src/EBox/SysInfo.pm:240
+#: ../../main/core/src/EBox/SysInfo.pm:235
 msgid "General Information"
 msgstr "一般的な情報"
 
-#: ../../main/core/src/EBox/SysInfo.pm:246
+#: ../../main/core/src/EBox/SysInfo.pm:241
 msgid "Process List"
 msgstr "プロセス一覧"
 
-#: ../../main/core/src/EBox/SysInfo.pm:253
+#: ../../main/core/src/EBox/SysInfo.pm:248
 msgid "Resources"
 msgstr "リソース"
 
-#: ../../main/core/src/EBox/SysInfo.pm:312
+#: ../../main/core/src/EBox/SysInfo.pm:307
 msgid "available"
 msgstr "使用可能"
 
-#: ../../main/core/src/EBox/SysInfo.pm:322
+#: ../../main/core/src/EBox/SysInfo.pm:317
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:56
 msgid "Time"
 msgstr "時間"
 
-#: ../../main/core/src/EBox/SysInfo.pm:323
+#: ../../main/core/src/EBox/SysInfo.pm:318
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:48
 msgid "Hostname"
 msgstr "ホスト名"
 
-#: ../../main/core/src/EBox/SysInfo.pm:324
+#: ../../main/core/src/EBox/SysInfo.pm:319
 msgid "Core version"
 msgstr "コアバージョン"
 
-#: ../../main/core/src/EBox/SysInfo.pm:325
+#: ../../main/core/src/EBox/SysInfo.pm:320
 msgid "Software"
 msgstr "ソフトウェア"
 
-#: ../../main/core/src/EBox/SysInfo.pm:325
+#: ../../main/core/src/EBox/SysInfo.pm:320
 msgid "Checking updates..."
 msgstr "更新を確認しています..."
 
-#: ../../main/core/src/EBox/SysInfo.pm:326
+#: ../../main/core/src/EBox/SysInfo.pm:321
 msgid "System load"
 msgstr "システム負荷"
 
-#: ../../main/core/src/EBox/SysInfo.pm:327
+#: ../../main/core/src/EBox/SysInfo.pm:322
 msgid "Uptime"
 msgstr "稼働時間"
 
-#: ../../main/core/src/EBox/SysInfo.pm:328
+#: ../../main/core/src/EBox/SysInfo.pm:323
 #: ../../main/samba/src/EBox/Samba/CGI/DeleteUser.pm:37
 #: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:44
 #: ../../main/samba/src/EBox/Samba/CGI/DeleteOU.pm:42
 #: ../../main/samba/src/EBox/Samba/CGI/DeleteContact.pm:41
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:165
-#: ../../main/samba/src/templates/editgroup.mas:51
+#: ../../main/samba/src/templates/editgroup.mas:42
 msgid "Users"
 msgstr "ユーザ"
 
-#: ../../main/core/src/EBox/SysInfo.pm:467
+#: ../../main/core/src/EBox/SysInfo.pm:462
 msgid "Start"
 msgstr "起動"
 
-#: ../../main/core/src/EBox/SysInfo.pm:468
+#: ../../main/core/src/EBox/SysInfo.pm:463
 #: ../../main/core/src/templates/dashboard/status.mas:13
 msgid "Restart"
 msgstr "再起動"
 
-#: ../../main/core/src/EBox/SysInfo.pm:471
+#: ../../main/core/src/EBox/SysInfo.pm:466
 msgid "The service is enabled and running"
 msgstr "サービスが有効になっており、実行されている"
 
-#: ../../main/core/src/EBox/SysInfo.pm:476
+#: ../../main/core/src/EBox/SysInfo.pm:471
 msgid "The service is enabled, but not running"
 msgstr "サービスが有効になっていますが、実行されていない"
 
-#: ../../main/core/src/EBox/SysInfo.pm:480
+#: ../../main/core/src/EBox/SysInfo.pm:475
 msgid "Running unmanaged"
 msgstr "管理対象外の実行"
 
-#: ../../main/core/src/EBox/SysInfo.pm:481
+#: ../../main/core/src/EBox/SysInfo.pm:476
 msgid "The service is running, but not enabled in Zentyal"
 msgstr "サービスが実行されているが、Zentyalで有効になっていません"
 
-#: ../../main/core/src/EBox/SysInfo.pm:486
+#: ../../main/core/src/EBox/SysInfo.pm:481
 msgid "The service is not enabled in Zentyal"
 msgstr "サービスがZentyalで有効になっていません"
 
@@ -4908,10 +4905,10 @@ msgstr "デーモンがクラッシュした際のバグレポートを有効に
 #: ../../main/core/src/templates/dataInUse.mas:33
 #: ../../main/core/src/templates/dataInUse.mas:38
 #: ../../main/openchange/src/templates/openchange.mas:24
-#: ../../main/samba/src/templates/editgroup.mas:46
+#: ../../main/samba/src/templates/editgroup.mas:38
 #: ../../main/samba/src/templates/samba.mas:29
-#: ../../main/samba/src/templates/edituser.mas:78
-#: ../../main/samba/src/templates/editcontact.mas:35
+#: ../../main/samba/src/templates/edituser.mas:69
+#: ../../main/samba/src/templates/editcontact.mas:31
 #: ../../main/mail/src/templates/warnusermdsize.mas:21
 #: ../../main/mail/src/templates/warnvdmdsize.mas:30
 msgid "Change"
@@ -4966,10 +4963,10 @@ msgstr ""
 #: ../../main/core/src/templates/ajax/typeRowLayout.mas:40
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:12
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:27
-#: ../../main/samba/src/templates/editgroup.mas:12
-#: ../../main/samba/src/templates/edituser.mas:15
+#: ../../main/samba/src/templates/editgroup.mas:11
+#: ../../main/samba/src/templates/edituser.mas:13
 #: ../../main/samba/src/templates/adduser.mas:25
-#: ../../main/samba/src/templates/editcontact.mas:10
+#: ../../main/samba/src/templates/editcontact.mas:9
 #: ../../main/samba/src/templates/addcontact.mas:24
 msgid "Optional"
 msgstr "オプション"
@@ -5603,8 +5600,8 @@ msgid "Cannot get the CA certificate as it is not available"
 msgstr "それが利用できないように、CA証明書を取得できません"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeUserOptions.pm:45
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:137
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:146
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:136
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:145
 #: ../../main/samba/src/EBox/Samba/User.pm:110
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:44
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:54
@@ -6065,41 +6062,41 @@ msgstr "プロビジョニング解除後の保存の変更"
 msgid "Enable OpenChange account"
 msgstr "OpenChangeアカウントを有効にする"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:201
+#: ../../main/openchange/src/EBox/OpenChange.pm:123
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
 msgstr "プロキシ、proxy_httpとヘッダのApache 2のモジュールを有効にします。"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:202
+#: ../../main/openchange/src/EBox/OpenChange.pm:124
 msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr "OpenChange Webメールにhttpでアクセスするには：http://ip/SOGo/です。"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:304
+#: ../../main/openchange/src/EBox/OpenChange.pm:226
 msgid "To configure sogo daemon"
 msgstr "sogoデーモンを設定する"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:309
+#: ../../main/openchange/src/EBox/OpenChange.pm:231
 msgid "To configure sogo parameters"
 msgstr "sogoパラメタを設定する"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:314
+#: ../../main/openchange/src/EBox/OpenChange.pm:236
 msgid "To configure autodiscovery service"
 msgstr "自動検出サービスを設定する"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:319
+#: ../../main/openchange/src/EBox/OpenChange.pm:241
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr "干渉を避けるために、RPCプロキシストックファイルを削除します"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:324
+#: ../../main/openchange/src/EBox/OpenChange.pm:246
 msgid "To make SOGo webmail available"
 msgstr "SOGoウェブメールを使用できるようにする"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:329
+#: ../../main/openchange/src/EBox/OpenChange.pm:251
 msgid "To make autodiscovery service available"
 msgstr "自動検出サービスを設定する"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:743
-#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1674
-#: ../../main/mail/src/EBox/Mail.pm:1795
+#: ../../main/openchange/src/EBox/OpenChange.pm:665
+#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1511
+#: ../../main/mail/src/EBox/Mail.pm:1632
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "メール"
@@ -6216,7 +6213,7 @@ msgstr "インストール中"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:242
 #: ../../main/software/src/templates/del.mas:30
-#: ../../main/software/src/templates/ebox.mas:48
+#: ../../main/software/src/templates/ebox.mas:49
 msgid "Installing packages"
 msgstr "パッケージをインストールしています"
 
@@ -6258,7 +6255,7 @@ msgstr ""
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:279
 #: ../../main/software/src/templates/del.mas:32
-#: ../../main/software/src/templates/ebox.mas:49
+#: ../../main/software/src/templates/ebox.mas:50
 msgid "Removing packages"
 msgstr "パッケージを削除"
 
@@ -6683,44 +6680,44 @@ msgstr "NetBIOSコンピュータ名"
 msgid "Contacts"
 msgstr "連絡先"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:68
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:86
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:67
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:85
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:50
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:53
 msgid "first name"
 msgstr "名前"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:69
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:87
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:68
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:86
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:51
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:54
 msgid "last name"
 msgstr "名前"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:70
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:88
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:69
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:87
 msgid "display name"
 msgstr "表示名"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:71
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:89
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:70
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:88
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:52
 msgid "description"
 msgstr "説明"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:72
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:71
 #: ../../main/samba/src/templates/addgroup.mas:19
 msgid "E-mail"
 msgstr "Eメール"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:107
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:106
 msgid "Contact updated"
 msgstr "お問い合わせを更新"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:111
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:123
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:193
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:205
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:110
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:122
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:192
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:204
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:43
 #: ../../main/samba/src/EBox/Samba/Group.pm:225
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:42
@@ -6736,30 +6733,30 @@ msgstr "グループ名"
 msgid "group type"
 msgstr "グループ種別"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:90
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:70
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:89
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:69
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:56
-#: ../../main/samba/src/templates/editgroup.mas:42
-#: ../../main/samba/src/templates/edituser.mas:52
-#: ../../main/samba/src/templates/editcontact.mas:31
+#: ../../main/samba/src/templates/editgroup.mas:35
+#: ../../main/samba/src/templates/edituser.mas:46
+#: ../../main/samba/src/templates/editcontact.mas:28
 #: ../../main/samba/src/templates/addcontact.mas:30
 msgid "E-Mail"
 msgstr "Eメール"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:91
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:90
 msgid "password"
 msgstr "パスワード"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:92
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:91
 msgid "confirm password"
 msgstr "パスワード(確認)"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:168
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:167
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:74
 msgid "Passwords do not match."
 msgstr "パスワードがマッチしません"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:178
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:177
 msgid "User updated"
 msgstr "ユーザの更新"
 
@@ -6767,11 +6764,11 @@ msgstr "ユーザの更新"
 msgid "Edit group"
 msgstr "グループを編集"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:71
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:70
 msgid "type"
 msgstr "タイプ"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:134
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:133
 msgid "Group updated"
 msgstr "グループの更新"
 
@@ -6816,21 +6813,9 @@ msgid "OU name"
 msgstr "OU名"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:2217
+#: ../../main/samba/src/EBox/Samba.pm:1924
 msgid "LDAP Settings"
 msgstr "LDAP設定"
-
-#: ../../main/samba/src/EBox/Samba/Composite/Sync.pm:52
-msgid "Users synchronization"
-msgstr "ユーザの同期"
-
-#: ../../main/samba/src/EBox/Samba/Composite/Sync.pm:89
-msgid ""
-"You must enable the module Users in the module status section in order to "
-"use it."
-msgstr ""
-"使用するためにはモジュール状態セクションからユーザモジュールを有効にする必要"
-"があります。"
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:44
 msgid ""
@@ -6839,7 +6824,7 @@ msgstr ""
 "新しいユーザアカウントが作成されるときにこれらの設定オプションが使用される。"
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:2210
+#: ../../main/samba/src/EBox/Samba.pm:1917
 msgid "User Template"
 msgstr "ユーザのテンプレート"
 
@@ -6848,7 +6833,7 @@ msgid "Recycle Bin"
 msgstr "ごみ箱"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:2227
+#: ../../main/samba/src/EBox/Samba.pm:1934
 msgid "File Sharing"
 msgstr "ファイル共有"
 
@@ -6857,7 +6842,7 @@ msgid "File sharing options"
 msgstr "ファイル共有オプション"
 
 #: ../../main/samba/src/EBox/Samba/OrganizationalPerson.pm:230
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:413
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:398
 #: ../../main/samba/src/EBox/Samba/User.pm:237
 #, perl-brace-format
 msgid "The object {x} is a system critical object."
@@ -6874,8 +6859,8 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:177
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:203
-#: ../../main/samba/src/EBox/Samba/User.pm:602
-#: ../../main/samba/src/EBox/Samba/User.pm:608
+#: ../../main/samba/src/EBox/Samba/User.pm:589
+#: ../../main/samba/src/EBox/Samba/User.pm:595
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:46
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:49
 msgid "account name"
@@ -6913,25 +6898,25 @@ msgstr ""
 "{gid}は誤ったGIDです。システムグループのGIDは{max}より小さい値に設定する必要"
 "があります"
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:451
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:436
 msgid "There was an error updating LDAP:"
 msgstr "LDAPを更新中にエラーが発生しまし："
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:521
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:506
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:109
-#: ../../main/samba/src/EBox/Samba/User.pm:657
+#: ../../main/samba/src/EBox/Samba/User.pm:644
 #, perl-brace-format
 msgid "Found {count} results for, expected only one."
 msgstr "一つだけを期待し、{count}の検索結果"
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:883
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:868
 #, perl-brace-format
 msgid ""
 "There is already an object of type {type} with CN={cn} in this container"
 msgstr ""
 "CN = {cn}とタイプ{type}のオブジェクトは、このコンテナ内に既に存在します"
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:897
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:882
 msgid "Group E-mail"
 msgstr "グループEメール"
 
@@ -6939,16 +6924,16 @@ msgstr "グループEメール"
 msgid "Organization Unit"
 msgstr "担当部署名"
 
-#: ../../main/samba/src/EBox/Samba/OU.pm:127
+#: ../../main/samba/src/EBox/Samba/OU.pm:126
 msgid "Error on group LDAP entry creation:"
 msgstr "グループのLDAPエントリ作成上のエラー："
 
-#: ../../main/samba/src/EBox/Samba/OU.pm:151
+#: ../../main/samba/src/EBox/Samba/OU.pm:150
 #: ../../main/samba/src/templates/addobject.mas:10
 msgid "Organizational Unit"
 msgstr "組織単位"
 
-#: ../../main/samba/src/EBox/Samba/OU.pm:180
+#: ../../main/samba/src/EBox/Samba/OU.pm:179
 msgid ""
 "Creation of OUs inside either Users, Groups or Computer default OUs is not "
 "supported"
@@ -6992,16 +6977,16 @@ msgid "Username '{x}' already exists on the same container"
 msgstr "ユーザ名{x}は既に同じコンテナに存在します。"
 
 #: ../../main/samba/src/EBox/Samba/Contact.pm:173
-#: ../../main/samba/src/EBox/Samba/User.pm:538
+#: ../../main/samba/src/EBox/Samba/User.pm:533
 msgid "Error on person LDAP entry creation:"
 msgstr "人のLDAPエントリ作成上のエラー："
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:113
+#: ../../main/samba/src/EBox/Samba/Provision.pm:112
 #, perl-brace-format
 msgid "The host domain '{d}' has to be the same than the kerberos realm '{r}'"
 msgstr "ホストドメイン '{d}'はKerberosレルム '{r}' と同じである必要があります"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:128
+#: ../../main/samba/src/EBox/Samba/Provision.pm:127
 #, perl-brace-format
 msgid ""
 "The host netbios name '{x}' has to be the different than the domain netbios "
@@ -7009,7 +6994,7 @@ msgid ""
 msgstr ""
 "ホストのNetBIOS名 '{x}'は、ドメインNetBIOS名'{y}'とは異なることがあります"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:144
+#: ../../main/samba/src/EBox/Samba/Provision.pm:143
 #, perl-brace-format
 msgid ""
 "The required domain '{d}' could not be found in the dns module.<br/>You can "
@@ -7018,7 +7003,7 @@ msgstr ""
 "必要なドメイン '{d}'はDNSモジュール内に見つかりませんでした。<br/>{ohref} DNS"
 "ドメインページ{chref}に追加することができます"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:165
+#: ../../main/samba/src/EBox/Samba/Provision.pm:164
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/"
@@ -7027,7 +7012,7 @@ msgstr ""
 "必要なホストレコード '{h}'は '{d}'ドメイン内に見つかりませんでした。<br/"
 ">{chref}ドメイン{d}のためホスト名ページ{ohref}に追加することができます。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:201
+#: ../../main/samba/src/EBox/Samba/Provision.pm:200
 #, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no IP addresses are set for host {host}.<br/"
@@ -7041,7 +7026,7 @@ msgstr ""
 "てください。<br/>ホスト名{ホスト}へ。あなたは、{ohref}{host}のIPアドレスペー"
 "ジ{chref}に追加することができます"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:251
+#: ../../main/samba/src/EBox/Samba/Provision.pm:250
 #, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no IP addresses are set for domain {dom}.<br/"
@@ -7055,40 +7040,29 @@ msgstr ""
 "ることを確認してください。<br​​/>あなたは{dom}のため{ohref} IPアドレスページ "
 "{chref}でそれを割り当てることができます"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:323
-#, perl-brace-format
-msgid ""
-"Cannot enable Samba because this server is synchronizing its users as slave "
-"of other Zentyal.<br/>You can change this state at {ohref}synchronization "
-"options{chref}"
-msgstr ""
-"このサーバが他のZentyalをスレーブとしてユーザを同期されるため、Sambaを有効に"
-"できません。{ohref} 同期オプション{chref} 時にこの状態を変化させることができ"
-"る"
-
-#: ../../main/samba/src/EBox/Samba/Provision.pm:394
+#: ../../main/samba/src/EBox/Samba/Provision.pm:377
 #, perl-brace-format
 msgid "The mode {mode} is not supported"
 msgstr "モード{mode}がサポートされていません"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:446
-#: ../../main/samba/src/EBox/Samba/Provision.pm:470
-#: ../../main/samba/src/EBox/Samba/Provision.pm:499
+#: ../../main/samba/src/EBox/Samba/Provision.pm:429
+#: ../../main/samba/src/EBox/Samba/Provision.pm:453
+#: ../../main/samba/src/EBox/Samba/Provision.pm:482
 #, perl-brace-format
 msgid "Unexpected number of entries. Got {x}, expected 1."
 msgstr "エントリーの予期しない数。ガットは、{x}は、1を期待した。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:644
+#: ../../main/samba/src/EBox/Samba/Provision.pm:627
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr "指定されたADサーバ{x}のドメインを判別できませんでした。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:664
+#: ../../main/samba/src/EBox/Samba/Provision.pm:647
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr "指定されたADサーバ{x}の領域を判断できませんでした。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:685
+#: ../../main/samba/src/EBox/Samba/Provision.pm:668
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
@@ -7096,7 +7070,7 @@ msgstr ""
 "AD LDAPサーバにバインドできませんでした（{x}）。提供された資格情報を確認して"
 "ください。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:734
+#: ../../main/samba/src/EBox/Samba/Provision.pm:717
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -7112,11 +7086,11 @@ msgstr ""
 "やり直してください。それを行う方法についてのヘルプは{link}を確認してくださ"
 "い。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:772
+#: ../../main/samba/src/EBox/Samba/Provision.pm:755
 msgid "Could not retrieve the domain information."
 msgstr "ドメイン情報を取得できませんでした。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:781
+#: ../../main/samba/src/EBox/Samba/Provision.pm:764
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
@@ -7124,25 +7098,25 @@ msgstr ""
 "ADフォレストに複数のドメインが含まれています。 Sambaは唯一、フォレストごとに1"
 "つのドメインをサポートしています。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:801
+#: ../../main/samba/src/EBox/Samba/Provision.pm:784
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr "指定されたドメインコントローラ{x}は到達できません。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:820
+#: ../../main/samba/src/EBox/Samba/Provision.pm:803
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
 "ローカルKerberosレルムには、{x}は、ADサーバレルム{y}を一致させる必要がありま"
 "す。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:829
+#: ../../main/samba/src/EBox/Samba/Provision.pm:812
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
 "ローカルドメイン{x}は、ADサーバのドメイン{y}を一致させる必要があります。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:864
+#: ../../main/samba/src/EBox/Samba/Provision.pm:847
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
@@ -7151,7 +7125,7 @@ msgstr ""
 "DC {x}は、そのIPアドレスに解決できませんでした。指定されたサーバ名とDNSサーバ"
 "を確認してください"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:890
+#: ../../main/samba/src/EBox/Samba/Provision.pm:873
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
@@ -7160,7 +7134,7 @@ msgstr ""
 "指定されたADサーバがローカルホスト名と一致する{x}のようにローカルDNSに登録さ"
 "れています。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:911
+#: ../../main/samba/src/EBox/Samba/Provision.pm:894
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
@@ -7168,7 +7142,7 @@ msgstr ""
 "フォレストの機能レベルは、Windows Server 2003以上である必要があります。フォレ"
 "ストの機能レベルを上げるください。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:917
+#: ../../main/samba/src/EBox/Samba/Provision.pm:900
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
@@ -7176,11 +7150,11 @@ msgstr ""
 "ドメインの機能レベルは、Windows Server 2003以上である必要があります。あなたの"
 "ドメインの機能レベルを上げてください。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:944
+#: ../../main/samba/src/EBox/Samba/Provision.pm:927
 msgid "Error querying AD schema:"
 msgstr "ADスキーマを照会エラー："
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:951
+#: ../../main/samba/src/EBox/Samba/Provision.pm:934
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
@@ -7188,7 +7162,7 @@ msgstr ""
 "ドメインスキーマを使用すると、Windows Server 2003 R2の以上にアップグレードす"
 "る必要があります、RFC 2307に適合していません。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:978
+#: ../../main/samba/src/EBox/Samba/Provision.pm:961
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
@@ -7196,12 +7170,12 @@ msgstr ""
 "参加しようとしているドメインが信頼関係を持って定義されています。現時点では"
 "Sambaでサポートされていません。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1011
+#: ../../main/samba/src/EBox/Samba/Provision.pm:994
 #, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "NTP経由でADサーバ{x}から時刻を取得できませんでした。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1024
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1007
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
 "problems with kerberos authentication, please sync both clocks with an "
@@ -7211,26 +7185,26 @@ msgstr ""
 "する可能性があり、外部NTPソースとの両方のクロックを同期して、もう一度お試しく"
 "ださい。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1063
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1046
 #, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "指定されたサイト{x}は、ドメイン上に存在しません"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1075
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1058
 msgid "Could not determine the site of the specified server"
 msgstr "指定されたサーバのサイトを判別できませんでした"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1109
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1092
 msgid "Could not determine the netbios domain name."
 msgstr "NetBIOSドメイン名を確認できませんでした。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1113
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1096
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr "NETBIOS名{x}は見つかりませんでした。指定された値を確認してください。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1467
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1450
 msgid "Error on group container LDAP entry creation:"
 msgstr "グループコンテナのLDAPエントリ作成上のエラー："
 
@@ -7244,11 +7218,11 @@ msgstr "ユーザ名{x}は既に同じコンテナに存在します。"
 msgid "There was an error modifying the RDN:"
 msgstr "LDAPを更新中にエラーが発生しまし："
 
-#: ../../main/samba/src/EBox/Samba/User.pm:461
+#: ../../main/samba/src/EBox/Samba/User.pm:460
 msgid "Username already exists on the system"
 msgstr "ユーザ名は、既にシステムに存在する"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:502
+#: ../../main/samba/src/EBox/Samba/User.pm:497
 #, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for your edition is {max} and "
@@ -7257,63 +7231,63 @@ msgstr ""
 "お使いのエディションのユーザの最大数は、{max}であり、現在{nUsers}を持っている"
 "ことに注意してください"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:604
+#: ../../main/samba/src/EBox/Samba/User.pm:591
 msgid "Windows user names cannot be only spaces and dots."
 msgstr "Windowsのユーザ名は、スペースとドットだけにすることはできません。"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:610
+#: ../../main/samba/src/EBox/Samba/User.pm:597
 msgid "Windows user names cannot contain the \"@\" character."
 msgstr "Windowsのユーザ名が文字 \"@\"を含めることはできません。"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:621
+#: ../../main/samba/src/EBox/Samba/User.pm:608
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "パスワードは {maxPwdLength} 文字を超えてはなりません"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:633
+#: ../../main/samba/src/EBox/Samba/User.pm:620
 #, perl-brace-format
 msgid "User name {x} already exists in the same container."
 msgstr "ユーザ名{x}は既に同じコンテナに存在します。"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:705
+#: ../../main/samba/src/EBox/Samba/User.pm:692
 #, perl-brace-format
 msgid "The user {x} has not uidNumber set. Get method returned '{y}'."
 msgstr ""
 "ユーザ{x}はuidNumberが設定されたいません。メソッドは '{y}'を返るのを取得しま"
 "す。"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:726
+#: ../../main/samba/src/EBox/Samba/User.pm:713
 #, perl-brace-format
 msgid "The user {x} has not gidNumber set. Get method returned '{y}'."
 msgstr ""
 "ユーザ{x}のgidNumberが設定されていません。メソッドは '{y}'が返えるのを取得し"
 "ます。"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:772
-#: ../../main/samba/src/EBox/Samba/User.pm:871
-#: ../../main/samba/src/EBox/Samba/User.pm:881
+#: ../../main/samba/src/EBox/Samba/User.pm:759
+#: ../../main/samba/src/EBox/Samba/User.pm:858
+#: ../../main/samba/src/EBox/Samba/User.pm:868
 msgid "user quota"
 msgstr "ユーザクオーター"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:774
+#: ../../main/samba/src/EBox/Samba/User.pm:761
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 "ユーザクォータは、整数でなければなりません。無制限のクォータを設定するには、0"
 "を入力する。"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:874
+#: ../../main/samba/src/EBox/Samba/User.pm:861
 msgid ""
 "User quota must be a positive integer. To set an unlimited quota, enter zero."
 msgstr ""
 "ユーザクォータは、正の整数でなければなりません。無制限のクォータを設定するに"
 "は、0を入力する。"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:883
+#: ../../main/samba/src/EBox/Samba/User.pm:870
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
 msgstr "最大値は{max} MBです"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:902
+#: ../../main/samba/src/EBox/Samba/User.pm:889
 #, perl-brace-format
 msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
@@ -7322,101 +7296,93 @@ msgstr ""
 "{userQuota}へのuid {uid}のクォータを設定することはできません。たぶんファイル"
 "システムは、クォータをサポートしていません？"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1053
+#: ../../main/samba/src/EBox/Samba/User.pm:1040
 msgid "Maximum number of system users reached"
 msgstr "システムが扱える最大ユーザ数に達しました"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1058
+#: ../../main/samba/src/EBox/Samba/User.pm:1045
 msgid "Maximum number of users reached"
 msgstr "ユーザの最大数に達しました"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1075
+#: ../../main/samba/src/EBox/Samba/User.pm:1062
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr "{uid}は誤ったUIDです。ユーザのUIDは{min}以上に設定する必要があります"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1085
+#: ../../main/samba/src/EBox/Samba/User.pm:1072
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "{uid}は誤ったUIDです。システムユーザのUIDは{max}以上に設定する必要があります"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:88
-msgid "Sync with Zentyal Cloud"
-msgstr "Zentyalクラウドと同期"
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:91
-msgid "Files will be synchronized with Zentyal Cloud."
-msgstr "ファイルはZentyalクラウドと同期されます。"
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:95
 msgid "Share name"
 msgstr "共有名"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:100
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:93
 msgid "Share path"
 msgstr "共有パス"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:104
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:97
 msgid "Directory under Zentyal"
 msgstr "Zentyal下のディレクトリ"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:109
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:102
 msgid "File system path"
 msgstr "ファイルシステムパス"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:109
 #: ../../main/core/src/templates/configurationFiles.mas:24
 msgid "Comment"
 msgstr "コメント"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:123
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
 msgid "This share will not require authentication."
 msgstr "この共有は、認証を必要としません。"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:126
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:119
 msgid "Apply ACLs recursively"
 msgstr "再帰的にACLを適用します"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:129
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:122
 msgid "ACL changes replace all permissions on subfolders of this share."
 msgstr "ACLの変更は、この共有のサブフォルダにすべての権限を交換してください。"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:145
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:138
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:221
 msgid "Shares"
 msgstr "共有"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:152
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:145
 #: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:121
 msgid "share"
 msgstr "共有"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:271
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:256
 #, perl-brace-format
 msgid "Zentyal could not access to directory '{x}': {y}"
 msgstr "Zentyalディレクトリにアクセスできませんでした '{x}'：{y}"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:286
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:271
 msgid "Samba share absolute path"
 msgstr "Samba共有の絶対パス"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:289
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:274
 #, perl-brace-format
 msgid "Path {p} is not a directory"
 msgstr "パス{p}はディレクトリではありません"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:296
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:281
 msgid "Samba share directory"
 msgstr "Samba共有ディレクトリ"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:322
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:307
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr ""
 "ディレクトリが空ではありません。あなたはそれを削除してもよろしいですか？"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:412
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:393
 #, perl-brace-format
 msgid ""
 "Domain guest account should be enabled for guest access to shares. You can "
@@ -7426,7 +7392,7 @@ msgstr ""
 "あなたは、{oh}ユーザおよびグループマネージャ{ch}でそれを有効にすることができ"
 "ます。"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:456
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:421
 #, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
@@ -7437,7 +7403,7 @@ msgstr ""
 "ファイルシステムパス{closeit}でshare.directoryを作成し、あなたのファイルシス"
 "テム内の既存のディレクトリを共有することができます"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:470
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:435
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let Zentyal create it for "
@@ -7447,23 +7413,23 @@ msgstr ""
 "ディレクトリを使用するか、名前を選び、Zentyalはあなたのためにそれを作成させる"
 "ことができます。"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:514
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:479
 #, perl-brace-format
 msgid "Error getting filesystem format in {m}"
 msgstr "{m}内のファイルシステムフォーマットを取得エラー"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:519
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:484
 #, perl-brace-format
 msgid "Filesystem format '{x}' does not support storing ACLs."
 msgstr ""
 "ファイルシステムのフォーマットは、 '{x}'はACLの保存をサポートしていません。"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:532
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:497
 #, perl-brace-format
 msgid "Error reading mount options in {m}"
 msgstr "{m}内のマウントオプション読み込みエラー"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:537
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:502
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'acl' option. This is "
@@ -7472,7 +7438,7 @@ msgstr ""
 "マウントポイント '{mountPoint}' は’acl’オプションでマウントする必要がありま"
 "す。パーミッションが正しく動作するために必要です。"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:543
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:508
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'user_xattr' option. "
@@ -7481,24 +7447,8 @@ msgstr ""
 "マウントポイント '{mountPoint}'は、'user_xattr'のオプションでマウントする必要"
 "があります。パーミッションが正しく動作するために必要です。"
 
-#: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:71
-msgid "Sync all with Zentyal Cloud"
-msgstr "Zentyalクラウドと同期すべて"
-
-#: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:74
-msgid "All shares and user homes will be synchronized using Zentyal Cloud."
-msgstr "全ての共有とユーザホームはZentyalクラウドを使用して同期されます。"
-
-#: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:80
-msgid "Cloud Sync"
-msgstr "クラウド同期"
-
-#: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:99
-msgid "Zentyal Cloud Files not available"
-msgstr "Zentyalクラウドファイルは使用できません"
-
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:2200
+#: ../../main/samba/src/EBox/Samba.pm:1907
 msgid "Users and Computers"
 msgstr "ユーザとコンピュータ"
 
@@ -7538,22 +7488,6 @@ msgid ""
 msgstr ""
 "使用するためにはモジュール状態セクションのユーザモジュールを有効にし、変更内"
 "容を保存する必要があります。"
-
-#: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:54
-msgid "Slave"
-msgstr "スレーブ"
-
-#: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:67
-msgid "Slaves"
-msgstr "スレーブ"
-
-#: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:71
-msgid "List of slave servers for users and groups synchronization."
-msgstr "ユーザとグループの同期のためのスレーブサーバの一覧。"
-
-#: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:72
-msgid "slave"
-msgstr "スレーブ"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
 msgid "User/Group/Share"
@@ -7644,7 +7578,7 @@ msgid "Default user quota"
 msgstr "デフォルトのユーザクォータ"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:56
-#: ../../main/samba/src/templates/edituser.mas:304
+#: ../../main/samba/src/templates/edituser.mas:278
 msgid "Limited to"
 msgstr "限定する"
 
@@ -7664,15 +7598,6 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:94
 msgid "Setting default quota to zero is equivalent to disable it"
 msgstr "ゼロに既定のクォータを設定すると、それを無効にすることと等価である"
-
-#: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:48
-msgid "Slave connection password"
-msgstr "スレーブ接続パスワード"
-
-#: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:58
-msgid "Use this password when connecting a new slave to this server."
-msgstr ""
-"このサーバに新しいスレーブを接続するときに、このパスワードを使用します。"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:50
 msgid "Enable recycle bin"
@@ -7741,74 +7666,6 @@ msgstr "ユーザ: {u}"
 #, perl-brace-format
 msgid "Group: {g}"
 msgstr "グループ： {g}"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:85
-msgid "Zentyal Cloud"
-msgstr "Zentyalクラウド"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:100
-msgid "Sync users from"
-msgstr "からの同期のユーザ"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:102
-msgid "Sync users from the chosen source"
-msgstr "選択したソースからの同期のユーザ"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:107
-msgid "Master host"
-msgstr "マスターホスト"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:109
-msgid "Hostname or IP of the master"
-msgstr "マスターのホスト名またはIP"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:113
-msgid "Master port"
-msgstr "マスターポート"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:116
-msgid "Master port for Zentyal Administration (default: 443)"
-msgstr "Zentyal管理用のマスターポート（デフォルト：443）"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:120
-msgid "Slave password"
-msgstr "スレーブパスワード"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:123
-msgid "Password for new slave connection"
-msgstr "新しいスレーブ接続のパスワード"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:129
-msgid "Sync users from a master server"
-msgstr "マスターサーバからの同期のユーザ"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:133
-msgid "Configure this parameters to synchronize users from a master server"
-msgstr ""
-"マスターサーバからユーザを同期させるために、このパラメータを設定します。"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:217
-#, perl-brace-format
-msgid ""
-"Master server has a different REALM, check hostnames. Master is {master} and "
-"this server {slave}."
-msgstr ""
-"マスタサーバが別のレルムを持つ、ホスト名を確認してください。マスターは、"
-"{master}と、サーバ{slave}です。"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:228
-#, perl-brace-format
-msgid ""
-"Your Zentyal Cloud allows a maximum of {max} users. Currently there are "
-"{current} users created."
-msgstr ""
-"あなたのZentyalクラウドは、最大{max}ユーザを可能にします。現在、作成した"
-"{current}ユーザが存在します。"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:242
-msgid "CAUTION: this will delete all defined users and import master ones."
-msgstr ""
-"注意：これは、全ての定義されたユーザと、インポートマスターも削除します。"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:82
 msgid "NetBIOS computer name and NetBIOS domain name must be different"
@@ -7944,12 +7801,12 @@ msgid "Error binding to schama master LDAP:"
 msgstr "schamaマスターLDAPにバインドエラー："
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:237
-#: ../../main/mail/src/EBox/Mail.pm:575
+#: ../../main/mail/src/EBox/Mail.pm:412
 msgid "Error on LDAP entry creation:"
 msgstr "LDAPエントリ作成時のエラー："
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:294
-#: ../../main/mail/src/EBox/Mail.pm:550
+#: ../../main/mail/src/EBox/Mail.pm:387
 #, perl-brace-format
 msgid ""
 "Unexpected number of LDAP entries found searching for {dn}: Expected one, "
@@ -7961,81 +7818,45 @@ msgstr ""
 msgid "Error on LDAP entry update:"
 msgstr "LDAPエントリの更新時にエラー："
 
-#: ../../main/samba/src/EBox/UsersSync/Master.pm:84
-#, perl-brace-format
-msgid ""
-"Master {addr} is invalid because it is the address of the loopback interface"
-msgstr ""
-"マスター{addr}は、ループバックインターフェイスのアドレスであるため無効です"
-
-#: ../../main/samba/src/EBox/UsersSync/Master.pm:97
-#, perl-brace-format
-msgid ""
-"Master {addr} is invalid because it is the address of the interface {if}"
-msgstr ""
-"それはインターフェイス{if}のアドレスであるため、マスター{addr}が無効です。"
-
-#: ../../main/samba/src/EBox/UsersSync/Master.pm:195
-#, perl-brace-format
-msgid ""
-"Master server has a different REALM, check hostnames. Master is {master} and "
-"slave {slave}."
-msgstr ""
-"マスタサーバが別のレルムを持つ、ホスト名を確認してください。マスタ{master}と"
-"スレーブ{slave}です。"
-
-#: ../../main/samba/src/EBox/UsersSync/Master.pm:235
-msgid "Invalid password"
-msgstr "無効なパスワード"
-
-#: ../../main/samba/src/EBox/UsersSync/Master.pm:238
-msgid "Connection failed, check host, port and firewall settings"
-msgstr ""
-"接続は、ホスト、ポート、およびファイアウォールの設定を確認して、失敗した"
-
-#: ../../main/samba/src/EBox/UsersSync/Master.pm:240
-msgid "Couldn't configure Zentyal as slave"
-msgstr "スレーブとしてZentyalを設定できませんでした"
-
-#: ../../main/samba/src/EBox/Samba.pm:176
+#: ../../main/samba/src/EBox/Samba.pm:168
 msgid "Domain Controller and File Sharing"
 msgstr "ドメインコントローラとファイル共有"
 
-#: ../../main/samba/src/EBox/Samba.pm:283
+#: ../../main/samba/src/EBox/Samba.pm:275
 msgid ""
 "Your LDAP database will be populated with some basic organizational units"
 msgstr "LDAPデータベースは、いくつかの基本的な組織単位が入力されます"
 
-#: ../../main/samba/src/EBox/Samba.pm:284
+#: ../../main/samba/src/EBox/Samba.pm:276
 msgid ""
 "Zentyal needs this organizational units to add users and groups into them."
 msgstr ""
 "Zentyalはそ​​れらにユーザとグループを追加するには、この組織単位を必要とします。"
 
-#: ../../main/samba/src/EBox/Samba.pm:288
+#: ../../main/samba/src/EBox/Samba.pm:280
 msgid "Create Samba home directory for shares and groups"
 msgstr "共有およびグループのSambaホームディレクトリを作成"
 
-#: ../../main/samba/src/EBox/Samba.pm:289
+#: ../../main/samba/src/EBox/Samba.pm:281
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
 "Zentyal は/home/samba以下にsamba共有とグループ用ディレクトリを作成します。"
 
-#: ../../main/samba/src/EBox/Samba.pm:297
+#: ../../main/samba/src/EBox/Samba.pm:289
 msgid "Configure PAM."
 msgstr "PAMを設定します。"
 
-#: ../../main/samba/src/EBox/Samba.pm:298
+#: ../../main/samba/src/EBox/Samba.pm:290
 msgid "Zentyal will give LDAP samba system account."
 msgstr "Zentyalは、LDAP Sambaシステムアカウントを提供します。"
 
-#: ../../main/samba/src/EBox/Samba.pm:316
+#: ../../main/samba/src/EBox/Samba.pm:308
 msgid "To set up kerberos authentication"
 msgstr "Kerberos認証を設定する"
 
-#: ../../main/samba/src/EBox/Samba.pm:323
+#: ../../main/samba/src/EBox/Samba.pm:315
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
@@ -8043,11 +7864,11 @@ msgstr ""
 "NSSはユーザアカウントとグループアカウントの解決にLDAPを使用するようにする。 "
 "SambaのPDCの構成に必要です。"
 
-#: ../../main/samba/src/EBox/Samba.pm:329
+#: ../../main/samba/src/EBox/Samba.pm:321
 msgid "To add quota support to /home partition."
 msgstr "/homeパーティションにクォータサポートを追加します。"
 
-#: ../../main/samba/src/EBox/Samba.pm:334
+#: ../../main/samba/src/EBox/Samba.pm:326
 msgid ""
 "To configure System Security Services Daemon to manage remote authentication "
 "mechanisms"
@@ -8055,15 +7876,15 @@ msgstr ""
 "リモート認証機構を管理するために、システムセキュリティサービスデーモンを設定"
 "する"
 
-#: ../../main/samba/src/EBox/Samba.pm:340
+#: ../../main/samba/src/EBox/Samba.pm:332
 msgid "To enable extended attributes and acls."
 msgstr "拡張属性とACLを有効にする。"
 
-#: ../../main/samba/src/EBox/Samba.pm:368
+#: ../../main/samba/src/EBox/Samba.pm:360
 msgid "Domain and File sharing protocols"
 msgstr "ドメインとファイル共有プロトコル"
 
-#: ../../main/samba/src/EBox/Samba.pm:520
+#: ../../main/samba/src/EBox/Samba.pm:392
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8077,7 +7898,7 @@ msgstr ""
 "モジュールがちょうど構成されている場合、変更を保存するか、リース待っているこ"
 "とは、このような状況を解決することができます"
 
-#: ../../main/samba/src/EBox/Samba.pm:524
+#: ../../main/samba/src/EBox/Samba.pm:396
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8088,17 +7909,17 @@ msgstr ""
 "ジュールを有効にすることはできません。{oh}ネットワークインターフェイスを設定"
 "{ch}し、変更を保存すると、この状況を解決することができます"
 
-#: ../../main/samba/src/EBox/Samba.pm:1165
+#: ../../main/samba/src/EBox/Samba.pm:997
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr "共有にセキュリティ記述子の設定でエラー '{x}'：{y}"
 
-#: ../../main/samba/src/EBox/Samba.pm:1187
+#: ../../main/samba/src/EBox/Samba.pm:1019
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr "ファイルのセキュリティ記述子の設定でエラー{x} {y}：{z}"
 
-#: ../../main/samba/src/EBox/Samba.pm:1204
+#: ../../main/samba/src/EBox/Samba.pm:1036
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
@@ -8106,36 +7927,31 @@ msgstr ""
 "Sambaの共有でACLの設定でエラーが発生しました。詳細はzentyalログをチェックして"
 "ください。"
 
-#: ../../main/samba/src/EBox/Samba.pm:1571
-#, perl-brace-format
-msgid "Found {count} results for '{uid}' user, expected only one."
-msgstr "一つだけを期待したが'{uid}'のユーザで{count}の結果を見つけた。"
-
-#: ../../main/samba/src/EBox/Samba.pm:1799
+#: ../../main/samba/src/EBox/Samba.pm:1572
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr "一つだけを期待し'{name}'のグループで{count}の検索結果"
 
-#: ../../main/samba/src/EBox/Samba.pm:2206
+#: ../../main/samba/src/EBox/Samba.pm:1913
 msgid "Manage"
 msgstr "管理"
 
-#: ../../main/samba/src/EBox/Samba.pm:2213
+#: ../../main/samba/src/EBox/Samba.pm:1920
 msgid "Synchronization"
 msgstr "設定のバックアップ"
 
-#: ../../main/samba/src/EBox/Samba.pm:2221
+#: ../../main/samba/src/EBox/Samba.pm:1928
 msgid "Configure mode"
 msgstr "モード設定"
 
-#: ../../main/samba/src/EBox/Samba.pm:2453
+#: ../../main/samba/src/EBox/Samba.pm:2066
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2469
+#: ../../main/samba/src/EBox/Samba.pm:2082
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -8144,7 +7960,7 @@ msgstr ""
 "LDAPユーザ{user}が既に/etc/passwdにユーザとして存在しているため、復元すること"
 "はできません。削除するか、このユーザの名前を変更して、再試行してください"
 
-#: ../../main/samba/src/EBox/Samba.pm:2486
+#: ../../main/samba/src/EBox/Samba.pm:2099
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8152,7 +7968,7 @@ msgid ""
 "{ex}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2496
+#: ../../main/samba/src/EBox/Samba.pm:2109
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
@@ -8160,7 +7976,7 @@ msgstr ""
 "復元サーバは、フォレストの一意のドメインコントローラである場合にのみ可能であ"
 "る"
 
-#: ../../main/samba/src/EBox/Samba.pm:2760
+#: ../../main/samba/src/EBox/Samba.pm:2373
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
@@ -8168,62 +7984,62 @@ msgstr ""
 "Zentyalが追加のドメインコントローラとして構成されている場合、ホスト名またはド"
 "メインを変更することはできません。"
 
-#: ../../main/samba/src/EBox/Samba.pm:2853
+#: ../../main/samba/src/EBox/Samba.pm:2466
 msgid "Users data and Filesystem shares"
 msgstr "ユーザデータとファイルシステムを共有"
 
-#: ../../main/samba/src/EBox/Samba.pm:2996
+#: ../../main/samba/src/EBox/Samba.pm:2609
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "アドレス {addr} は、{type} {name}により既に使われています"
 
-#: ../../main/samba/src/EBox/Samba.pm:3464
+#: ../../main/samba/src/EBox/Samba.pm:3077
 msgid "Client address"
 msgstr "クライアントアドレス"
 
-#: ../../main/samba/src/EBox/Samba.pm:3467
+#: ../../main/samba/src/EBox/Samba.pm:3080
 msgid "Resource"
 msgstr "リソース"
 
-#: ../../main/samba/src/EBox/Samba.pm:3471
+#: ../../main/samba/src/EBox/Samba.pm:3084
 msgid "Connect"
 msgstr "接続"
 
-#: ../../main/samba/src/EBox/Samba.pm:3472
+#: ../../main/samba/src/EBox/Samba.pm:3085
 msgid "Access to directory"
 msgstr "ディレクトリへのアクセス"
 
-#: ../../main/samba/src/EBox/Samba.pm:3473
+#: ../../main/samba/src/EBox/Samba.pm:3086
 msgid "Read file"
 msgstr "ファイルを読む"
 
-#: ../../main/samba/src/EBox/Samba.pm:3474
+#: ../../main/samba/src/EBox/Samba.pm:3087
 msgid "Write file"
 msgstr "ファイルを書く"
 
-#: ../../main/samba/src/EBox/Samba.pm:3475
+#: ../../main/samba/src/EBox/Samba.pm:3088
 msgid "Disconnect"
 msgstr "切断"
 
-#: ../../main/samba/src/EBox/Samba.pm:3476
+#: ../../main/samba/src/EBox/Samba.pm:3089
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "削除"
 
-#: ../../main/samba/src/EBox/Samba.pm:3477
+#: ../../main/samba/src/EBox/Samba.pm:3090
 msgid "Create directory"
 msgstr "ディレクトリを作成"
 
-#: ../../main/samba/src/EBox/Samba.pm:3478
+#: ../../main/samba/src/EBox/Samba.pm:3091
 msgid "Remove directory"
 msgstr "ディレクトリを削除"
 
-#: ../../main/samba/src/EBox/Samba.pm:3479
+#: ../../main/samba/src/EBox/Samba.pm:3092
 msgid "Rename"
 msgstr "名前の変更"
 
-#: ../../main/samba/src/EBox/Samba.pm:3483
+#: ../../main/samba/src/EBox/Samba.pm:3096
 msgid "Samba access"
 msgstr "Sambaのアクセス"
 
@@ -8305,27 +8121,27 @@ msgstr "メール転送を設定する"
 msgid "To let dovecot authenticate users using PAM"
 msgstr "PAMを使用したdovecotのユーザ認証をできるようにする"
 
-#: ../../main/mail/src/EBox/Mail.pm:464
+#: ../../main/mail/src/EBox/Mail.pm:301
 msgid "Outgoing Mail (SMTP protocol)."
 msgstr "送信メール（SMTPプロトコル）。"
 
-#: ../../main/mail/src/EBox/Mail.pm:473
+#: ../../main/mail/src/EBox/Mail.pm:310
 msgid "Incoming Mail"
 msgstr "受信メール"
 
-#: ../../main/mail/src/EBox/Mail.pm:474
+#: ../../main/mail/src/EBox/Mail.pm:311
 msgid "POP, IMAP and SIEVE protocols"
 msgstr "POP、IMAP、およびSIEVEプロトコル"
 
-#: ../../main/mail/src/EBox/Mail.pm:483
+#: ../../main/mail/src/EBox/Mail.pm:320
 msgid "Mail Submission"
 msgstr "メール発信"
 
-#: ../../main/mail/src/EBox/Mail.pm:484
+#: ../../main/mail/src/EBox/Mail.pm:321
 msgid "Outgoing Mail (Submission protocol)."
 msgstr "送信メール（提出プロトコル）。"
 
-#: ../../main/mail/src/EBox/Mail.pm:1078
+#: ../../main/mail/src/EBox/Mail.pm:915
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -8333,146 +8149,140 @@ msgstr ""
 "それが完全修飾名ではないため、メール名としてホスト名を使用することはできませ"
 "ん。 、カスタムサーバメール名を定義してください"
 
-#: ../../main/mail/src/EBox/Mail.pm:1083
+#: ../../main/mail/src/EBox/Mail.pm:920
 msgid "The mail name must be a fully qualified name"
 msgstr "メール名は、完全修飾名でなければなりません"
 
-#: ../../main/mail/src/EBox/Mail.pm:1087 ../../main/mail/src/EBox/Mail.pm:1098
-#: ../../main/mail/src/EBox/Mail.pm:1106
+#: ../../main/mail/src/EBox/Mail.pm:924 ../../main/mail/src/EBox/Mail.pm:935
+#: ../../main/mail/src/EBox/Mail.pm:943
 msgid "Host mail name"
 msgstr "ホストメール名"
 
-#: ../../main/mail/src/EBox/Mail.pm:1101
+#: ../../main/mail/src/EBox/Mail.pm:938
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "メール名と仮想メールドメイン名が等しい"
 
-#: ../../main/mail/src/EBox/Mail.pm:1623
+#: ../../main/mail/src/EBox/Mail.pm:1460
 msgid "SMTP service"
 msgstr "SMTPサービス"
 
-#: ../../main/mail/src/EBox/Mail.pm:1630
+#: ../../main/mail/src/EBox/Mail.pm:1467
 msgid "POP3 service"
 msgstr "POP3サービス"
 
-#: ../../main/mail/src/EBox/Mail.pm:1636
+#: ../../main/mail/src/EBox/Mail.pm:1473
 msgid "POP3S service"
 msgstr "POP3Sサービス"
 
-#: ../../main/mail/src/EBox/Mail.pm:1642
+#: ../../main/mail/src/EBox/Mail.pm:1479
 msgid "IMAP service"
 msgstr "IMAPサービス"
 
-#: ../../main/mail/src/EBox/Mail.pm:1648
+#: ../../main/mail/src/EBox/Mail.pm:1485
 msgid "IMAPS service"
 msgstr "IMAPSサービス"
 
-#: ../../main/mail/src/EBox/Mail.pm:1705
+#: ../../main/mail/src/EBox/Mail.pm:1542
 msgid "Virtual Mail Domains"
 msgstr "仮想メールドメイン"
 
-#: ../../main/mail/src/EBox/Mail.pm:1712
+#: ../../main/mail/src/EBox/Mail.pm:1549
 msgid "Greylist"
 msgstr "グレイリスト"
 
-#: ../../main/mail/src/EBox/Mail.pm:1719
+#: ../../main/mail/src/EBox/Mail.pm:1556
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "キュー管理"
 
-#: ../../main/mail/src/EBox/Mail.pm:1746
+#: ../../main/mail/src/EBox/Mail.pm:1583
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "外部アカウントからのメールの取得"
 
-#: ../../main/mail/src/EBox/Mail.pm:1761
+#: ../../main/mail/src/EBox/Mail.pm:1598
 msgid "Message ID"
 msgstr "メッセージID"
 
-#: ../../main/mail/src/EBox/Mail.pm:1764
+#: ../../main/mail/src/EBox/Mail.pm:1601
 msgid "From hostname"
 msgstr "ホスト名から"
 
-#: ../../main/mail/src/EBox/Mail.pm:1765
+#: ../../main/mail/src/EBox/Mail.pm:1602
 msgid "From host ip"
 msgstr "ホストIPから"
 
-#: ../../main/mail/src/EBox/Mail.pm:1766
+#: ../../main/mail/src/EBox/Mail.pm:1603
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "サイズ (bytes)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1767
+#: ../../main/mail/src/EBox/Mail.pm:1604
 msgid "Relay"
 msgstr "リレー"
 
-#: ../../main/mail/src/EBox/Mail.pm:1768
+#: ../../main/mail/src/EBox/Mail.pm:1605
 msgid "Message type"
 msgstr "メッセージ種別"
 
-#: ../../main/mail/src/EBox/Mail.pm:1771
+#: ../../main/mail/src/EBox/Mail.pm:1608
 msgid "Additional Info"
 msgstr "追加情報"
 
-#: ../../main/mail/src/EBox/Mail.pm:1782
+#: ../../main/mail/src/EBox/Mail.pm:1619
 msgid "Successful messages"
 msgstr "メッセージ"
 
-#: ../../main/mail/src/EBox/Mail.pm:1783
+#: ../../main/mail/src/EBox/Mail.pm:1620
 msgid "Maximum message size exceeded"
 msgstr "メッセージサイズ最大値を超えています"
 
-#: ../../main/mail/src/EBox/Mail.pm:1784
+#: ../../main/mail/src/EBox/Mail.pm:1621
 msgid "User quota exceeded"
 msgstr "ユーザクォータを超えました"
 
-#: ../../main/mail/src/EBox/Mail.pm:1785
+#: ../../main/mail/src/EBox/Mail.pm:1622
 msgid "Relay access denied"
 msgstr "リレーアクセスが拒否されました"
 
-#: ../../main/mail/src/EBox/Mail.pm:1786
+#: ../../main/mail/src/EBox/Mail.pm:1623
 msgid "Account does not exist"
 msgstr "アカウントが存在しません"
 
-#: ../../main/mail/src/EBox/Mail.pm:1787
+#: ../../main/mail/src/EBox/Mail.pm:1624
 msgid "Host unreachable"
 msgstr "ホストに到達できません"
 
-#: ../../main/mail/src/EBox/Mail.pm:1788
+#: ../../main/mail/src/EBox/Mail.pm:1625
 msgid "Authentication error"
 msgstr "認証エラー"
 
-#: ../../main/mail/src/EBox/Mail.pm:1789
+#: ../../main/mail/src/EBox/Mail.pm:1626
 msgid "Greylisted"
 msgstr "グレイリスト"
 
-#: ../../main/mail/src/EBox/Mail.pm:1790
+#: ../../main/mail/src/EBox/Mail.pm:1627
 msgid "Relay rejected by the smarthost"
 msgstr "スマートホストで拒否されたリレーは"
 
-#: ../../main/mail/src/EBox/Mail.pm:1791
+#: ../../main/mail/src/EBox/Mail.pm:1628
 msgid "Other events"
 msgstr "その他のイベント"
 
-#: ../../main/mail/src/EBox/Mail.pm:1869
+#: ../../main/mail/src/EBox/Mail.pm:1706
 msgid "Mail SMTP server"
 msgstr "メールSMTPサーバ"
 
-#: ../../main/mail/src/EBox/Mail.pm:1877
+#: ../../main/mail/src/EBox/Mail.pm:1714
 msgid "Mail POP/IMAP server"
 msgstr "メール POP/IMAP サーバ"
 
-#: ../../main/mail/src/EBox/Mail.pm:1954
+#: ../../main/mail/src/EBox/Mail.pm:1791
 msgid "Mailboxes"
 msgstr "メールボックス"
 
-#: ../../main/mail/src/EBox/Mail.pm:1996
-msgid ""
-"The mail domains and its accounts will be removed when the slave setup is "
-"complete"
-msgstr "スレーブ設定が完了すると、メールドメインとそのアカウントは削除されます"
-
-#: ../../main/mail/src/EBox/Mail.pm:2031
+#: ../../main/mail/src/EBox/Mail.pm:1840
 #, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "アドレス {addr} は、外部エイリアスとして使われています"
@@ -8503,7 +8313,7 @@ msgid "Queue ID"
 msgstr "キューID"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:39
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:563
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:558
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:121
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:69
 #: ../../main/mail/src/templates/externalAccounts.mas:13
@@ -8582,38 +8392,38 @@ msgstr "外部メールアカウント"
 msgid "External account {acc} removed"
 msgstr "外部アカウント{acc}を削除しました"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:252
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:247
 msgid "Local email account"
 msgstr "ローカルEメールアカウント"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:256
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:251
 #: ../../main/mail/src/EBox/Mail/Composite/General.pm:48
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:135
 msgid "Mail server"
 msgstr "メールサーバ"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:257
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:252
 msgid "Mail server port"
 msgstr "メールサーバポート"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:498
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:493
 msgid "External retrieval service"
 msgstr "外部からの取得サービス"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:569
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:576
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:564
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:571
 msgid "External account username"
 msgstr "外部アカウントユーザ名"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:571
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:566
 msgid "No spaces allowed"
 msgstr "スペースは使用できません"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:587
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:582
 msgid "Character \"'\" is forbidden for external"
 msgstr "文字\"'\"は外部のために禁止されています"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:597
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:592
 #, perl-brace-format
 msgid "Unknown mail protocol: {proto}"
 msgstr "不明なメールプロトコル：{proto}"
@@ -10382,7 +10192,7 @@ msgstr "フリー"
 
 #: ../../main/core/src/templates/remoteservices/subscriptionSlotsTbody.mas:43
 #: ../../main/software/src/templates/welcome.mas:10
-#: ../../main/software/src/templates/ebox.mas:326
+#: ../../main/software/src/templates/ebox.mas:327
 msgid "Select"
 msgstr "選択"
 
@@ -11230,9 +11040,9 @@ msgid ""
 msgstr ""
 
 #: ../../main/software/src/templates/welcome.mas:10
-#: ../../main/software/src/templates/ebox.mas:70
-#: ../../main/software/src/templates/ebox.mas:166
-#: ../../main/software/src/templates/ebox.mas:177
+#: ../../main/software/src/templates/ebox.mas:71
+#: ../../main/software/src/templates/ebox.mas:167
+#: ../../main/software/src/templates/ebox.mas:178
 msgid "Install"
 msgstr "インストール"
 
@@ -11279,12 +11089,12 @@ msgstr ""
 "自動的にインストールされます"
 
 #: ../../main/software/src/templates/updates.mas:77
-#: ../../main/software/src/templates/ebox.mas:358
+#: ../../main/software/src/templates/ebox.mas:359
 msgid "Package list updated successfully"
 msgstr "パッケージ一覧の更新に成功"
 
 #: ../../main/software/src/templates/updates.mas:80
-#: ../../main/software/src/templates/ebox.mas:365
+#: ../../main/software/src/templates/ebox.mas:366
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
@@ -11301,21 +11111,21 @@ msgid "Community updates are available for the following system components"
 msgstr "コミュニティの更新は、次のシステムコンポーネントで使用できます"
 
 #: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/ebox.mas:42
-#: ../../main/software/src/templates/ebox.mas:63
-#: ../../main/software/src/templates/ebox.mas:100
+#: ../../main/software/src/templates/ebox.mas:43
+#: ../../main/software/src/templates/ebox.mas:64
+#: ../../main/software/src/templates/ebox.mas:101
 msgid "Component"
 msgstr "コンポーネント"
 
 #: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/ebox.mas:100
+#: ../../main/software/src/templates/ebox.mas:101
 msgid "Version"
 msgstr "バージョン"
 
 #: ../../main/software/src/templates/updates.mas:93
 #: ../../main/software/src/templates/updates.mas:141
-#: ../../main/software/src/templates/ebox.mas:65
-#: ../../main/software/src/templates/ebox.mas:183
+#: ../../main/software/src/templates/ebox.mas:66
+#: ../../main/software/src/templates/ebox.mas:184
 msgid "Update"
 msgstr "アップデート"
 
@@ -11345,26 +11155,26 @@ msgid "Upgrading system packages"
 msgstr "システムパッケージをアップグレードしています"
 
 #: ../../main/software/src/templates/updates.mas:142
-#: ../../main/software/src/templates/ebox.mas:296
+#: ../../main/software/src/templates/ebox.mas:297
 msgid "Update list"
 msgstr "アップデート一覧"
 
-#: ../../main/software/src/templates/ebox.mas:43
-#: ../../main/software/src/templates/ebox.mas:69
-#: ../../main/software/src/templates/ebox.mas:72
+#: ../../main/software/src/templates/ebox.mas:44
+#: ../../main/software/src/templates/ebox.mas:70
+#: ../../main/software/src/templates/ebox.mas:73
 msgid "Installed Version"
 msgstr "インストールされたバージョン"
 
-#: ../../main/software/src/templates/ebox.mas:44
-#: ../../main/software/src/templates/ebox.mas:73
+#: ../../main/software/src/templates/ebox.mas:45
+#: ../../main/software/src/templates/ebox.mas:74
 msgid "Latest Version"
 msgstr "最新バージョン"
 
-#: ../../main/software/src/templates/ebox.mas:50
+#: ../../main/software/src/templates/ebox.mas:51
 msgid "Upgrading packages"
 msgstr "パッケージをアップグレードしています"
 
-#: ../../main/software/src/templates/ebox.mas:94
+#: ../../main/software/src/templates/ebox.mas:95
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
@@ -11373,14 +11183,14 @@ msgstr ""
 "か、新しいモジュールをインストールしようとする前にこれを修正する必要がありま"
 "す。"
 
-#: ../../main/software/src/templates/ebox.mas:110
+#: ../../main/software/src/templates/ebox.mas:111
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
 msgstr ""
 "この状況を解決するには、コンソールで次のコマンドを実行してみてください："
 
-#: ../../main/software/src/templates/ebox.mas:115
+#: ../../main/software/src/templates/ebox.mas:116
 #, perl-brace-format
 msgid ""
 "After the above command is finished you can reload this page. If the problem "
@@ -11391,27 +11201,27 @@ msgstr ""
 "決しない場合は、{ofhref} コミュニティフォーラム{chref}に助けを求めるか、"
 "{othref} Zentyal trac{chref} にチケットを提出することができます。"
 
-#: ../../main/software/src/templates/ebox.mas:124
+#: ../../main/software/src/templates/ebox.mas:125
 msgid "View advanced mode"
 msgstr "アドバンストモードを表示"
 
-#: ../../main/software/src/templates/ebox.mas:127
+#: ../../main/software/src/templates/ebox.mas:128
 msgid "Server roles"
 msgstr "サーバの役割"
 
-#: ../../main/software/src/templates/ebox.mas:143
+#: ../../main/software/src/templates/ebox.mas:144
 msgid "Additional services"
 msgstr "サービス追加"
 
-#: ../../main/software/src/templates/ebox.mas:165
+#: ../../main/software/src/templates/ebox.mas:166
 msgid "Skip install"
 msgstr "インストールをスッキプ"
 
-#: ../../main/software/src/templates/ebox.mas:174
+#: ../../main/software/src/templates/ebox.mas:175
 msgid "View basic mode"
 msgstr "基本モードを表示"
 
-#: ../../main/software/src/templates/ebox.mas:363
+#: ../../main/software/src/templates/ebox.mas:364
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
 msgstr "パッケージ一覧の更新エラーが発生しました。<p> {msg} </p>"
@@ -11493,16 +11303,12 @@ msgstr "これらのルールは、自動的にZentyalサービスによって�
 msgid "Home Directories"
 msgstr "ホームディレクトリ"
 
-#: ../../main/samba/src/templates/deluser.mas:12
-#: ../../main/samba/src/templates/deluser.mas:29
+#: ../../main/samba/src/templates/deluser.mas:11
+#: ../../main/samba/src/templates/deluser.mas:24
 msgid "Delete user"
 msgstr "ユーザを削除"
 
-#: ../../main/samba/src/templates/deluser.mas:16
-msgid "You cannot delete a user in a slave."
-msgstr "あなたは、スレーブでユーザを削除することはできません。"
-
-#: ../../main/samba/src/templates/deluser.mas:19
+#: ../../main/samba/src/templates/deluser.mas:14
 msgid ""
 "This operation will cause the removal of the user and all its dependent data"
 msgstr "この操作を行うと、ユーザとその関連するデータとともに削除されます。"
@@ -11512,14 +11318,12 @@ msgid "Add Group"
 msgstr "グループを追加"
 
 #: ../../main/samba/src/templates/addgroup.mas:10
-#: ../../main/samba/src/templates/editgroup.mas:29
-#: ../../main/samba/src/templates/editgroup.mas:34
+#: ../../main/samba/src/templates/editgroup.mas:28
 msgid "Security Group"
 msgstr "セキュリティグループ"
 
 #: ../../main/samba/src/templates/addgroup.mas:10
 #: ../../main/samba/src/templates/editgroup.mas:30
-#: ../../main/samba/src/templates/editgroup.mas:36
 msgid "Distribution Group"
 msgstr "配布グループ"
 
@@ -11532,11 +11336,11 @@ msgstr "グループ名"
 msgid "Optional value"
 msgstr "オプション"
 
-#: ../../main/samba/src/templates/editgroup.mas:18
+#: ../../main/samba/src/templates/editgroup.mas:16
 msgid "Group "
 msgstr "グループ"
 
-#: ../../main/samba/src/templates/editgroup.mas:22
+#: ../../main/samba/src/templates/editgroup.mas:20
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly."
@@ -11544,16 +11348,16 @@ msgstr ""
 "現在ユーザが存在しません。このグループを管理するには最低でも1人のユーザが必要"
 "です"
 
-#: ../../main/samba/src/templates/editgroup.mas:64
-#: ../../main/samba/src/templates/edituser.mas:92
+#: ../../main/samba/src/templates/editgroup.mas:51
+#: ../../main/samba/src/templates/edituser.mas:79
 msgid "Modules configuration"
 msgstr "モジュール構成"
 
-#: ../../main/samba/src/templates/editgroup.mas:134
+#: ../../main/samba/src/templates/editgroup.mas:121
 msgid "This group does not have members"
 msgstr "このグループは、メンバーを持っていません"
 
-#: ../../main/samba/src/templates/editgroup.mas:202
+#: ../../main/samba/src/templates/editgroup.mas:189
 msgid "Add user"
 msgstr "ユーザ追加"
 
@@ -11561,20 +11365,16 @@ msgstr "ユーザ追加"
 msgid "Contact"
 msgstr "お問い合わせ"
 
-#: ../../main/samba/src/templates/delou.mas:12
-msgid "You cannot delete a OU in a slave."
-msgstr "あなたは奴隷でOUを削除することはできません。"
-
-#: ../../main/samba/src/templates/delou.mas:14
-#: ../../main/samba/src/templates/delou.mas:25
+#: ../../main/samba/src/templates/delou.mas:9
+#: ../../main/samba/src/templates/delou.mas:20
 msgid "Delete Organizational Unit"
 msgstr "組織単位を削除"
 
-#: ../../main/samba/src/templates/delou.mas:15
+#: ../../main/samba/src/templates/delou.mas:10
 msgid "This organizational unit cannot be deleted"
 msgstr "この組織単位を削除することはできません"
 
-#: ../../main/samba/src/templates/delou.mas:18
+#: ../../main/samba/src/templates/delou.mas:13
 msgid ""
 "This operation will cause the removal of the OU and all objects inside it, "
 "including users, groups, etc."
@@ -11609,16 +11409,12 @@ msgstr "ファイル共有モジュール"
 msgid "The following settings will take effect only when the {mod} is enabled"
 msgstr "{mod}が有効になっているときのみ、以下の設定が有効になります"
 
-#: ../../main/samba/src/templates/delcontact.mas:9
-#: ../../main/samba/src/templates/delcontact.mas:20
+#: ../../main/samba/src/templates/delcontact.mas:8
+#: ../../main/samba/src/templates/delcontact.mas:15
 msgid "Delete contact"
 msgstr "連絡先を削除"
 
-#: ../../main/samba/src/templates/delcontact.mas:13
-msgid "You cannot delete a contact in a slave."
-msgstr "あなたは奴隷で連絡先を削除することはできません。"
-
-#: ../../main/samba/src/templates/delcontact.mas:16
+#: ../../main/samba/src/templates/delcontact.mas:11
 msgid ""
 "This operation will cause the removal of the contact and any dependent "
 "configuration."
@@ -11628,67 +11424,67 @@ msgstr "この操作を行うと、連絡先に関連する構成とともに削
 msgid "Add Organizational Unit"
 msgstr "組織単位を追加"
 
-#: ../../main/samba/src/templates/edituser.mas:25
+#: ../../main/samba/src/templates/edituser.mas:23
 #: ../../main/samba/src/templates/adduser.mas:18
-#: ../../main/samba/src/templates/editcontact.mas:27
+#: ../../main/samba/src/templates/editcontact.mas:24
 #: ../../main/samba/src/templates/addcontact.mas:12
 msgid "First name"
 msgstr "名前"
 
-#: ../../main/samba/src/templates/edituser.mas:31
+#: ../../main/samba/src/templates/edituser.mas:28
 #: ../../main/samba/src/templates/adduser.mas:21
-#: ../../main/samba/src/templates/editcontact.mas:28
+#: ../../main/samba/src/templates/editcontact.mas:25
 #: ../../main/samba/src/templates/addcontact.mas:17
 msgid "Last name"
 msgstr "苗字"
 
-#: ../../main/samba/src/templates/edituser.mas:38
-#: ../../main/samba/src/templates/editcontact.mas:29
+#: ../../main/samba/src/templates/edituser.mas:34
+#: ../../main/samba/src/templates/editcontact.mas:26
 msgid "Display name"
 msgstr "表示名"
 
-#: ../../main/samba/src/templates/edituser.mas:59
+#: ../../main/samba/src/templates/edituser.mas:52
 msgid "User quota"
 msgstr "ユーザクォータ"
 
-#: ../../main/samba/src/templates/edituser.mas:67
+#: ../../main/samba/src/templates/edituser.mas:59
 #: ../../main/samba/src/templates/adduser.mas:33
 msgid "Retype password"
 msgstr "パスワードを再度入力してください"
 
-#: ../../main/samba/src/templates/edituser.mas:72
+#: ../../main/samba/src/templates/edituser.mas:64
 msgid "Disabled account"
 msgstr "アカウントを無効"
 
-#: ../../main/samba/src/templates/edituser.mas:83
+#: ../../main/samba/src/templates/edituser.mas:74
 msgid "User groups"
 msgstr "ユーザグループ"
 
-#: ../../main/samba/src/templates/edituser.mas:145
+#: ../../main/samba/src/templates/edituser.mas:128
 #, fuzzy
 msgid "Remove mail account"
 msgstr "メールアカウントを作成"
 
-#: ../../main/samba/src/templates/edituser.mas:145
+#: ../../main/samba/src/templates/edituser.mas:128
 msgid "This action removes the mail account and its associated data."
 msgstr ""
 
-#: ../../main/samba/src/templates/edituser.mas:148
+#: ../../main/samba/src/templates/edituser.mas:131
 #, fuzzy
 msgid "Replace mail account"
 msgstr "メールアカウントを作成"
 
-#: ../../main/samba/src/templates/edituser.mas:148
+#: ../../main/samba/src/templates/edituser.mas:131
 msgid "Replacing the mail account removes all its current data."
 msgstr ""
 
-#: ../../main/samba/src/templates/edituser.mas:202
-#: ../../main/samba/src/templates/edituser.mas:286
+#: ../../main/samba/src/templates/edituser.mas:185
+#: ../../main/samba/src/templates/edituser.mas:269
 msgid "This user is not a member of any group"
 msgstr "このユーザは、任意のグループのメンバーではありません"
 
-#: ../../main/samba/src/templates/edituser.mas:271
-#: ../../main/samba/src/templates/editcontact.mas:162
+#: ../../main/samba/src/templates/edituser.mas:254
+#: ../../main/samba/src/templates/editcontact.mas:152
 msgid "Add group"
 msgstr "グループを追加"
 
@@ -11746,40 +11542,32 @@ msgstr ""
 msgid "Add User"
 msgstr "ユーザを追加"
 
-#: ../../main/samba/src/templates/editcontact.mas:22
+#: ../../main/samba/src/templates/editcontact.mas:19
 msgid "Administration of contact "
 msgstr "連絡先の管理"
 
-#: ../../main/samba/src/templates/editcontact.mas:41
+#: ../../main/samba/src/templates/editcontact.mas:35
 msgid "Contact groups"
 msgstr "連絡先グループ"
 
-#: ../../main/samba/src/templates/editcontact.mas:100
+#: ../../main/samba/src/templates/editcontact.mas:90
 msgid "This contact is not member of any group"
 msgstr "この連絡先は、任意のグループのメンバーではありません"
-
-#: ../../main/samba/src/templates/editcontact.mas:176
-msgid "No member of any group"
-msgstr "グループに含まれないメンバー"
 
 #: ../../main/samba/src/templates/addcontact.mas:7
 msgid "Add Contact"
 msgstr "連絡先を追加"
 
-#: ../../main/samba/src/templates/delgroup.mas:11
-#: ../../main/samba/src/templates/delgroup.mas:32
+#: ../../main/samba/src/templates/delgroup.mas:10
+#: ../../main/samba/src/templates/delgroup.mas:27
 msgid "Delete group"
 msgstr "グループを削除"
 
-#: ../../main/samba/src/templates/delgroup.mas:15
-msgid "You cannot delete a group in a slave."
-msgstr "あなたは奴隷でグループを削除することはできません。"
-
-#: ../../main/samba/src/templates/delgroup.mas:18
+#: ../../main/samba/src/templates/delgroup.mas:13
 msgid "This group cannot be deleted"
 msgstr "このグループは削除できません"
 
-#: ../../main/samba/src/templates/delgroup.mas:20
+#: ../../main/samba/src/templates/delgroup.mas:15
 msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
@@ -11957,6 +11745,169 @@ msgstr "メールアカウントのドメインになります"
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr "メールモジュール有効のときのみ以下の設定が適用されます"
+
+#~ msgid "Gateways and Proxy"
+#~ msgstr "ゲートウェイとプロキシ"
+
+#~ msgid "Users synchronization"
+#~ msgstr "ユーザの同期"
+
+#~ msgid ""
+#~ "You must enable the module Users in the module status section in order to "
+#~ "use it."
+#~ msgstr ""
+#~ "使用するためにはモジュール状態セクションからユーザモジュールを有効にする必"
+#~ "要があります。"
+
+#~ msgid ""
+#~ "Cannot enable Samba because this server is synchronizing its users as "
+#~ "slave of other Zentyal.<br/>You can change this state at {ohref}"
+#~ "synchronization options{chref}"
+#~ msgstr ""
+#~ "このサーバが他のZentyalをスレーブとしてユーザを同期されるため、Sambaを有効"
+#~ "にできません。{ohref} 同期オプション{chref} 時にこの状態を変化させることが"
+#~ "できる"
+
+#~ msgid "Sync with Zentyal Cloud"
+#~ msgstr "Zentyalクラウドと同期"
+
+#~ msgid "Files will be synchronized with Zentyal Cloud."
+#~ msgstr "ファイルはZentyalクラウドと同期されます。"
+
+#~ msgid "Sync all with Zentyal Cloud"
+#~ msgstr "Zentyalクラウドと同期すべて"
+
+#~ msgid "All shares and user homes will be synchronized using Zentyal Cloud."
+#~ msgstr "全ての共有とユーザホームはZentyalクラウドを使用して同期されます。"
+
+#~ msgid "Cloud Sync"
+#~ msgstr "クラウド同期"
+
+#~ msgid "Zentyal Cloud Files not available"
+#~ msgstr "Zentyalクラウドファイルは使用できません"
+
+#~ msgid "Slave"
+#~ msgstr "スレーブ"
+
+#~ msgid "Slaves"
+#~ msgstr "スレーブ"
+
+#~ msgid "List of slave servers for users and groups synchronization."
+#~ msgstr "ユーザとグループの同期のためのスレーブサーバの一覧。"
+
+#~ msgid "slave"
+#~ msgstr "スレーブ"
+
+#~ msgid "Slave connection password"
+#~ msgstr "スレーブ接続パスワード"
+
+#~ msgid "Use this password when connecting a new slave to this server."
+#~ msgstr ""
+#~ "このサーバに新しいスレーブを接続するときに、このパスワードを使用します。"
+
+#~ msgid "Zentyal Cloud"
+#~ msgstr "Zentyalクラウド"
+
+#~ msgid "Sync users from"
+#~ msgstr "からの同期のユーザ"
+
+#~ msgid "Sync users from the chosen source"
+#~ msgstr "選択したソースからの同期のユーザ"
+
+#~ msgid "Master host"
+#~ msgstr "マスターホスト"
+
+#~ msgid "Hostname or IP of the master"
+#~ msgstr "マスターのホスト名またはIP"
+
+#~ msgid "Master port"
+#~ msgstr "マスターポート"
+
+#~ msgid "Master port for Zentyal Administration (default: 443)"
+#~ msgstr "Zentyal管理用のマスターポート（デフォルト：443）"
+
+#~ msgid "Slave password"
+#~ msgstr "スレーブパスワード"
+
+#~ msgid "Password for new slave connection"
+#~ msgstr "新しいスレーブ接続のパスワード"
+
+#~ msgid "Sync users from a master server"
+#~ msgstr "マスターサーバからの同期のユーザ"
+
+#~ msgid "Configure this parameters to synchronize users from a master server"
+#~ msgstr ""
+#~ "マスターサーバからユーザを同期させるために、このパラメータを設定します。"
+
+#~ msgid ""
+#~ "Master server has a different REALM, check hostnames. Master is {master} "
+#~ "and this server {slave}."
+#~ msgstr ""
+#~ "マスタサーバが別のレルムを持つ、ホスト名を確認してください。マスターは、"
+#~ "{master}と、サーバ{slave}です。"
+
+#~ msgid ""
+#~ "Your Zentyal Cloud allows a maximum of {max} users. Currently there are "
+#~ "{current} users created."
+#~ msgstr ""
+#~ "あなたのZentyalクラウドは、最大{max}ユーザを可能にします。現在、作成した"
+#~ "{current}ユーザが存在します。"
+
+#~ msgid "CAUTION: this will delete all defined users and import master ones."
+#~ msgstr ""
+#~ "注意：これは、全ての定義されたユーザと、インポートマスターも削除します。"
+
+#~ msgid ""
+#~ "Master {addr} is invalid because it is the address of the loopback "
+#~ "interface"
+#~ msgstr ""
+#~ "マスター{addr}は、ループバックインターフェイスのアドレスであるため無効です"
+
+#~ msgid ""
+#~ "Master {addr} is invalid because it is the address of the interface {if}"
+#~ msgstr ""
+#~ "それはインターフェイス{if}のアドレスであるため、マスター{addr}が無効です。"
+
+#~ msgid ""
+#~ "Master server has a different REALM, check hostnames. Master is {master} "
+#~ "and slave {slave}."
+#~ msgstr ""
+#~ "マスタサーバが別のレルムを持つ、ホスト名を確認してください。マスタ{master}"
+#~ "とスレーブ{slave}です。"
+
+#~ msgid "Invalid password"
+#~ msgstr "無効なパスワード"
+
+#~ msgid "Connection failed, check host, port and firewall settings"
+#~ msgstr ""
+#~ "接続は、ホスト、ポート、およびファイアウォールの設定を確認して、失敗した"
+
+#~ msgid "Couldn't configure Zentyal as slave"
+#~ msgstr "スレーブとしてZentyalを設定できませんでした"
+
+#~ msgid "Found {count} results for '{uid}' user, expected only one."
+#~ msgstr "一つだけを期待したが'{uid}'のユーザで{count}の結果を見つけた。"
+
+#~ msgid ""
+#~ "The mail domains and its accounts will be removed when the slave setup is "
+#~ "complete"
+#~ msgstr ""
+#~ "スレーブ設定が完了すると、メールドメインとそのアカウントは削除されます"
+
+#~ msgid "You cannot delete a user in a slave."
+#~ msgstr "あなたは、スレーブでユーザを削除することはできません。"
+
+#~ msgid "You cannot delete a OU in a slave."
+#~ msgstr "あなたは奴隷でOUを削除することはできません。"
+
+#~ msgid "You cannot delete a contact in a slave."
+#~ msgstr "あなたは奴隷で連絡先を削除することはできません。"
+
+#~ msgid "No member of any group"
+#~ msgstr "グループに含まれないメンバー"
+
+#~ msgid "You cannot delete a group in a slave."
+#~ msgstr "あなたは奴隷でグループを削除することはできません。"
 
 #~ msgid "All external interfaces"
 #~ msgstr "全ての外部インターフェイス"
@@ -12979,9 +12930,6 @@ msgstr "メールモジュール有効のときのみ以下の設定が適用さ
 
 #~ msgid "WAN Failover"
 #~ msgstr "WANフェイルオーバー"
-
-#~ msgid "Gateways Configuration"
-#~ msgstr "ゲートウェイの設定"
 
 #~ msgid ""
 #~ "Here you can configure all the settings related to the way Zentyal "

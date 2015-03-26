@@ -161,7 +161,7 @@ msgstr "Bekapcsolva"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:891
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
-#: ../../main/core/src/EBox/SysInfo.pm:485
+#: ../../main/core/src/EBox/SysInfo.pm:480
 #: ../../main/core/src/EBox/RemoteServices.pm:1306
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
@@ -169,7 +169,7 @@ msgstr "Bekapcsolva"
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
-#: ../../main/samba/src/templates/edituser.mas:305
+#: ../../main/samba/src/templates/edituser.mas:279
 msgid "Disabled"
 msgstr "Kikapcsolva"
 
@@ -183,13 +183,13 @@ msgstr "Szolgáltatás"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
-#: ../../main/core/src/EBox/SysInfo.pm:470
+#: ../../main/core/src/EBox/SysInfo.pm:465
 msgid "Running"
 msgstr "Fut"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
-#: ../../main/core/src/EBox/SysInfo.pm:475
+#: ../../main/core/src/EBox/SysInfo.pm:470
 msgid "Stopped"
 msgstr "Leállítva"
 
@@ -285,7 +285,6 @@ msgstr "Helyi cím"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:909
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:305
-#: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:59
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:43
 #: ../../main/mail/src/templates/externalAccounts.mas:16
 msgid "Port"
@@ -979,8 +978,8 @@ msgstr "OpenVPN démonok"
 #: ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3463
-#: ../../main/mail/src/EBox/Mail.pm:1760
+#: ../../main/samba/src/EBox/Samba.pm:3076
+#: ../../main/mail/src/EBox/Mail.pm:1597
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
@@ -996,7 +995,7 @@ msgstr "Dátum"
 #: ../../main/dhcp/src/EBox/DHCP.pm:981
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/mail/src/EBox/Mail.pm:1770
+#: ../../main/mail/src/EBox/Mail.pm:1607
 msgid "Event"
 msgstr "Esemény"
 
@@ -1006,7 +1005,7 @@ msgstr "Esemény"
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
 #: ../../main/samba/src/templates/addgroup.mas:10
-#: ../../main/samba/src/templates/editgroup.mas:27
+#: ../../main/samba/src/templates/editgroup.mas:26
 msgid "Type"
 msgstr "Típus"
 
@@ -1122,7 +1121,7 @@ msgstr "gépnév"
 
 #: ../../main/dns/src/EBox/DNS.pm:1694
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2985
+#: ../../main/samba/src/EBox/Samba.pm:2598
 msgid "alias"
 msgstr "álnév"
 
@@ -1215,7 +1214,7 @@ msgstr "Transzparens DNS gyorsítótár engedélyezése"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:2193
+#: ../../main/samba/src/EBox/Samba.pm:1900
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
@@ -1479,7 +1478,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:2187
+#: ../../main/samba/src/EBox/Samba.pm:1894
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "Tartomány"
@@ -1667,11 +1666,11 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3465
+#: ../../main/samba/src/EBox/Samba.pm:3078
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
-#: ../../main/samba/src/templates/edituser.mas:19
+#: ../../main/samba/src/templates/edituser.mas:16
 msgid "User"
 msgstr "Felhasználó"
 
@@ -1748,7 +1747,7 @@ msgstr "Nyomtató neve"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:337
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:178
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:139
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:69
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:68
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:55
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:132
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -1757,12 +1756,12 @@ msgstr "Nyomtató neve"
 #: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:48
 #: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/ebox.mas:100
+#: ../../main/software/src/templates/ebox.mas:101
 #: ../../main/samba/src/templates/addgroup.mas:15
-#: ../../main/samba/src/templates/editgroup.mas:39
-#: ../../main/samba/src/templates/edituser.mas:45
+#: ../../main/samba/src/templates/editgroup.mas:32
+#: ../../main/samba/src/templates/edituser.mas:40
 #: ../../main/samba/src/templates/adduser.mas:25
-#: ../../main/samba/src/templates/editcontact.mas:30
+#: ../../main/samba/src/templates/editcontact.mas:27
 #: ../../main/samba/src/templates/addcontact.mas:23
 msgid "Description"
 msgstr "Leírás"
@@ -1772,7 +1771,7 @@ msgid "Location"
 msgstr "Hely"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:73
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:113
 msgid "Guest access"
 msgstr "Vendég hozzáférés"
 
@@ -1781,7 +1780,7 @@ msgid "This printer will not require authentication."
 msgstr "Ez a nyomtató nem igényel hitelesítést."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:80
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:125
 msgid "Access control"
 msgstr "Hozzáférés-felület"
 
@@ -1888,7 +1887,7 @@ msgstr "Megszakítva"
 msgid "Certification Authority"
 msgstr "Hitelesítésszolgáltató"
 
-#: ../../main/ca/src/EBox/CA.pm:215 ../../main/ca/src/EBox/CA.pm:528
+#: ../../main/ca/src/EBox/CA.pm:215 ../../main/ca/src/EBox/CA.pm:512
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:109
 #: ../../main/ca/src/EBox/CA/TestStub.pm:158
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
@@ -1915,8 +1914,8 @@ msgstr "Országkód"
 msgid "The country code must be the 2-characters ISO code"
 msgstr "Az országkódnak a 2 karakteres ISO kódnak kell lennie"
 
-#: ../../main/ca/src/EBox/CA.pm:267 ../../main/ca/src/EBox/CA.pm:774
-#: ../../main/ca/src/EBox/CA.pm:1410
+#: ../../main/ca/src/EBox/CA.pm:267 ../../main/ca/src/EBox/CA.pm:758
+#: ../../main/ca/src/EBox/CA.pm:1394
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr ""
@@ -1926,7 +1925,7 @@ msgstr ""
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Az eltávolítás művelet nem fejezhető be a következő ok miatt: "
 
-#: ../../main/ca/src/EBox/CA.pm:543 ../../main/ca/src/EBox/CA/TestStub.pm:263
+#: ../../main/ca/src/EBox/CA.pm:527 ../../main/ca/src/EBox/CA/TestStub.pm:263
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -1934,7 +1933,7 @@ msgstr ""
 "A CA tanúsítványokat vissza kell vonni, vagy lejárt az új tanúsítvány "
 "kiállítása előtt"
 
-#: ../../main/ca/src/EBox/CA.pm:752
+#: ../../main/ca/src/EBox/CA.pm:736
 #, perl-brace-format
 msgid ""
 "You cannot issue a certificate with CN {cn} because that CN is reserved to "
@@ -1942,8 +1941,8 @@ msgid ""
 "virtual domains interface.{ch}"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:924 ../../main/ca/src/EBox/CA.pm:1267
-#: ../../main/ca/src/EBox/CA.pm:1337 ../../main/ca/src/EBox/CA.pm:1431
+#: ../../main/ca/src/EBox/CA.pm:908 ../../main/ca/src/EBox/CA.pm:1251
+#: ../../main/ca/src/EBox/CA.pm:1321 ../../main/ca/src/EBox/CA.pm:1415
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:65
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:72
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:66
@@ -1960,12 +1959,12 @@ msgstr ""
 msgid "Common Name"
 msgstr "Általános név"
 
-#: ../../main/ca/src/EBox/CA.pm:937 ../../main/ca/src/EBox/CA.pm:1278
+#: ../../main/ca/src/EBox/CA.pm:921 ../../main/ca/src/EBox/CA.pm:1262
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "NEM létezik {cn} általános nevű tanúsítvány"
 
-#: ../../main/ca/src/EBox/CA.pm:941
+#: ../../main/ca/src/EBox/CA.pm:925
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -1974,65 +1973,65 @@ msgstr ""
 "A(z) {reason} ok NEM fogadható el.\n"
 "Lehetőségek:"
 
-#: ../../main/ca/src/EBox/CA.pm:1090
+#: ../../main/ca/src/EBox/CA.pm:1074
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 "A hitelesítésszolgáltató infrastruktúra nem érhető el, előbb hozza létre"
 
-#: ../../main/ca/src/EBox/CA.pm:1187
+#: ../../main/ca/src/EBox/CA.pm:1171
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr ""
 "Az általános név, megkülönböztető név vagy a sorozatszám került átadásra"
 
-#: ../../main/ca/src/EBox/CA.pm:1432
+#: ../../main/ca/src/EBox/CA.pm:1416
 msgid "or"
 msgstr "vagy"
 
-#: ../../main/ca/src/EBox/CA.pm:1433
+#: ../../main/ca/src/EBox/CA.pm:1417
 msgid "Certificate file"
 msgstr "Tanúsítványfájl"
 
-#: ../../main/ca/src/EBox/CA.pm:1455
+#: ../../main/ca/src/EBox/CA.pm:1439
 msgid "The certificate to renew does NOT exist"
 msgstr "A megújítandó tanúsítvány NEM létezik"
 
-#: ../../main/ca/src/EBox/CA.pm:1495
+#: ../../main/ca/src/EBox/CA.pm:1479
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "A(z) {cn} általános nevű tanúsítvány NEM létezik ebben a CA-ban"
 
-#: ../../main/ca/src/EBox/CA.pm:1776 ../../main/core/src/EBox/SysInfo.pm:115
-#: ../../main/mail/src/EBox/Mail.pm:1697
+#: ../../main/ca/src/EBox/CA.pm:1760 ../../main/core/src/EBox/SysInfo.pm:110
+#: ../../main/mail/src/EBox/Mail.pm:1534
 msgid "General"
 msgstr "Általános"
 
-#: ../../main/ca/src/EBox/CA.pm:1779
+#: ../../main/ca/src/EBox/CA.pm:1763
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
 msgid "Services Certificates"
 msgstr "Szolgáltatások tanúsítványai"
 
-#: ../../main/ca/src/EBox/CA.pm:1892
+#: ../../main/ca/src/EBox/CA.pm:1876
 msgid "Not created"
 msgstr "Nem lett létrehozva"
 
-#: ../../main/ca/src/EBox/CA.pm:1894
+#: ../../main/ca/src/EBox/CA.pm:1878
 msgid "Available"
 msgstr "Elérhető"
 
-#: ../../main/ca/src/EBox/CA.pm:1896
+#: ../../main/ca/src/EBox/CA.pm:1880
 msgid "Created but not available"
 msgstr "Létrehozva, de nem érhető el"
 
-#: ../../main/ca/src/EBox/CA.pm:1922
+#: ../../main/ca/src/EBox/CA.pm:1906
 msgid "The field cannot contain only blank characters"
 msgstr "A mező nem tartalmazhat csak üreshely karaktereket"
 
-#: ../../main/ca/src/EBox/CA.pm:1945
+#: ../../main/ca/src/EBox/CA.pm:1929
 msgid "String"
 msgstr "Karakterlánc"
 
-#: ../../main/ca/src/EBox/CA.pm:1950
+#: ../../main/ca/src/EBox/CA.pm:1934
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -2040,51 +2039,51 @@ msgstr ""
 "A mező érvénytelen karaktereket tartalmaz. Minden ASCII alfanumerikus, és a "
 "következő nem alfanumerikus karakterek engedélyezettek: .?&+:-@* és a szóköz."
 
-#: ../../main/ca/src/EBox/CA.pm:2470
+#: ../../main/ca/src/EBox/CA.pm:2454
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Nem lehet aláírni. A CA jelmondat hibás lehet, vagy a CA privát kulcsa "
 "eltűnt."
 
-#: ../../main/ca/src/EBox/CA.pm:2472
+#: ../../main/ca/src/EBox/CA.pm:2456
 msgid "Database corruption"
 msgstr "Adatbázis-sérülés"
 
-#: ../../main/ca/src/EBox/CA.pm:2474
+#: ../../main/ca/src/EBox/CA.pm:2458
 msgid "Identifier duplicated in Database"
 msgstr "Az azonosító többször fordul elő az adatbázisban"
 
-#: ../../main/ca/src/EBox/CA.pm:2476
+#: ../../main/ca/src/EBox/CA.pm:2460
 msgid "Certificate already revoked"
 msgstr "A tanúsítványt már visszavonták"
 
-#: ../../main/ca/src/EBox/CA.pm:2479
+#: ../../main/ca/src/EBox/CA.pm:2463
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "Az ASN1 mező túl hosszú. A maximális hossz:"
 
-#: ../../main/ca/src/EBox/CA.pm:2481
+#: ../../main/ca/src/EBox/CA.pm:2465
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Ismeretlen hiba. Az OpenSSL kimenete:"
 
-#: ../../main/ca/src/EBox/CA.pm:2548 ../../main/ca/src/EBox/CA/TestStub.pm:732
+#: ../../main/ca/src/EBox/CA.pm:2532 ../../main/ca/src/EBox/CA/TestStub.pm:732
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "A lejárati dátum későbbi, mint a CA tanúsítvány lejárati dátuma"
 
-#: ../../main/ca/src/EBox/CA.pm:2569
+#: ../../main/ca/src/EBox/CA.pm:2553
 #, perl-brace-format
 msgid "Value for subject alternative of type {type}"
 msgstr "A(z) {type} típusú alanyalternatíva értéke"
 
-#: ../../main/ca/src/EBox/CA.pm:2586
+#: ../../main/ca/src/EBox/CA.pm:2570
 msgid "Subject alternative type"
 msgstr "Alany alternatív típusa"
 
-#: ../../main/ca/src/EBox/CA.pm:2588
+#: ../../main/ca/src/EBox/CA.pm:2572
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
 msgstr "Csak {dns}, {ip} és {email} érvényes alternatív tárgynévként"
 
-#: ../../main/ca/src/EBox/CA.pm:2632
+#: ../../main/ca/src/EBox/CA.pm:2616
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Nem lehet elindítani az OpenSSL parancsértelmezőt. ({errval})"
@@ -2107,7 +2106,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3466
+#: ../../main/samba/src/EBox/Samba.pm:3079
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -2394,9 +2393,9 @@ msgstr "VLAN azonosító"
 msgid "Domain Name Server Resolver"
 msgstr "DNS névszerver feloldó"
 
-#: ../../main/network/src/EBox/Network/Composite/Gateway.pm:53
-msgid "Gateways and Proxy"
-msgstr "Átjárók és proxy"
+#: ../../main/network/src/EBox/Network/Composite/Gateway.pm:38
+msgid "Gateways Configuration"
+msgstr "Átjárók beállításai"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:153
 msgid "Auto"
@@ -2560,14 +2559,13 @@ msgstr "Felhasználónév"
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:224
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:100
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
-#: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:55
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
 #: ../../main/core/src/templates/login/index.mas:52
 #: ../../main/core/src/templates/remoteservices/index.mas:31
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:106
-#: ../../main/samba/src/templates/edituser.mas:64
+#: ../../main/samba/src/templates/edituser.mas:56
 #: ../../main/samba/src/templates/adduser.mas:30
 #: ../../main/mail/src/templates/externalAccounts.mas:14
 msgid "Password"
@@ -2888,7 +2886,7 @@ msgid "no link"
 msgstr "nincs kapcsolat"
 
 #: ../../main/network/src/EBox/Network.pm:3428
-#: ../../main/mail/src/EBox/Mail.pm:1769
+#: ../../main/mail/src/EBox/Mail.pm:1606
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:64
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -3179,13 +3177,13 @@ msgstr ""
 "A(z) {from}-{to} tartomány tartalmazza a HA lebegő IP-címét: „{name}” – {IP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/mail/src/EBox/Mail.pm:1762
+#: ../../main/mail/src/EBox/Mail.pm:1599
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
 msgstr "Ettől:"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/mail/src/EBox/Mail.pm:1763
+#: ../../main/mail/src/EBox/Mail.pm:1600
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 msgid "To"
 msgstr "Eddig:"
@@ -3263,7 +3261,6 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:421
 #: ../../main/core/src/EBox/CGI/Search.pm:48
 #: ../../main/core/src/EBox/RemoteServices.pm:1306
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:76
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
 msgstr "Nincs"
@@ -3707,7 +3704,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Index.pm:39
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/Register.pm:40
-#: ../../main/core/src/EBox/SysInfo.pm:123
+#: ../../main/core/src/EBox/SysInfo.pm:118
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:37
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:32
 msgid "Configuration Backup"
@@ -3776,7 +3773,7 @@ msgstr "Biztosan törölni szeretné a következő távoli mentést:"
 #: ../../main/core/src/templates/ajax/tableBody.mas:465
 #: ../../main/core/src/templates/ajax/row.mas:98
 #: ../../main/core/src/templates/dataInUse.mas:36
-#: ../../main/software/src/templates/ebox.mas:189
+#: ../../main/software/src/templates/ebox.mas:190
 #: ../../main/samba/src/templates/samba.mas:30
 #: ../../main/mail/src/templates/groupalias.mas:54
 #: ../../main/mail/src/templates/warnvd.mas:25
@@ -4051,7 +4048,7 @@ msgstr "Frissítés a Zentyal 3.4-re"
 #: ../../main/core/src/EBox/CGI/Search.pm:29
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
 #: ../../main/core/src/templates/ajax/treeView.mas:39
-#: ../../main/software/src/templates/ebox.mas:318
+#: ../../main/software/src/templates/ebox.mas:319
 msgid "Search"
 msgstr "Keresés"
 
@@ -4231,118 +4228,118 @@ msgstr "{scriptName} szkript futtatása"
 msgid "System Information"
 msgstr "Rendszer-információk"
 
-#: ../../main/core/src/EBox/SysInfo.pm:98
+#: ../../main/core/src/EBox/SysInfo.pm:93
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:37
 msgid "Dashboard"
 msgstr "Vezérlőpult"
 
-#: ../../main/core/src/EBox/SysInfo.pm:103
-#: ../../main/core/src/EBox/SysInfo.pm:234
+#: ../../main/core/src/EBox/SysInfo.pm:98
+#: ../../main/core/src/EBox/SysInfo.pm:229
 msgid "Module Status"
 msgstr "Modulállapot"
 
-#: ../../main/core/src/EBox/SysInfo.pm:110
+#: ../../main/core/src/EBox/SysInfo.pm:105
 #: ../../main/core/src/EBox/RemoteServices.pm:1214
 msgid "System"
 msgstr "Rendszer"
 
-#: ../../main/core/src/EBox/SysInfo.pm:119
+#: ../../main/core/src/EBox/SysInfo.pm:114
 #: ../../main/core/src/EBox/AuditLogging.pm:112
 #: ../../main/core/src/EBox/AuditLogging.pm:142
 msgid "Date/Time"
 msgstr "Dátum/idő"
 
-#: ../../main/core/src/EBox/SysInfo.pm:128
+#: ../../main/core/src/EBox/SysInfo.pm:123
 #: ../../main/core/src/EBox/SysInfo/Model/Debug.pm:45
 msgid "Debug"
 msgstr "Hibakeresés"
 
-#: ../../main/core/src/EBox/SysInfo.pm:133
+#: ../../main/core/src/EBox/SysInfo.pm:128
 msgid "Halt/Reboot"
 msgstr "Leállítás/újraindítás"
 
-#: ../../main/core/src/EBox/SysInfo.pm:240
+#: ../../main/core/src/EBox/SysInfo.pm:235
 msgid "General Information"
 msgstr "Általános információk"
 
-#: ../../main/core/src/EBox/SysInfo.pm:246
+#: ../../main/core/src/EBox/SysInfo.pm:241
 msgid "Process List"
 msgstr "Folyamatlista"
 
-#: ../../main/core/src/EBox/SysInfo.pm:253
+#: ../../main/core/src/EBox/SysInfo.pm:248
 msgid "Resources"
 msgstr "Erőforrások"
 
-#: ../../main/core/src/EBox/SysInfo.pm:312
+#: ../../main/core/src/EBox/SysInfo.pm:307
 msgid "available"
 msgstr "elérhető"
 
-#: ../../main/core/src/EBox/SysInfo.pm:322
+#: ../../main/core/src/EBox/SysInfo.pm:317
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:56
 msgid "Time"
 msgstr "Idő"
 
-#: ../../main/core/src/EBox/SysInfo.pm:323
+#: ../../main/core/src/EBox/SysInfo.pm:318
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:48
 msgid "Hostname"
 msgstr "Gépnév"
 
-#: ../../main/core/src/EBox/SysInfo.pm:324
+#: ../../main/core/src/EBox/SysInfo.pm:319
 msgid "Core version"
 msgstr "Alapverzió"
 
-#: ../../main/core/src/EBox/SysInfo.pm:325
+#: ../../main/core/src/EBox/SysInfo.pm:320
 msgid "Software"
 msgstr "Szoftver"
 
-#: ../../main/core/src/EBox/SysInfo.pm:325
+#: ../../main/core/src/EBox/SysInfo.pm:320
 msgid "Checking updates..."
 msgstr "Frissítések keresése…"
 
-#: ../../main/core/src/EBox/SysInfo.pm:326
+#: ../../main/core/src/EBox/SysInfo.pm:321
 msgid "System load"
 msgstr "Rendszerterhelés"
 
-#: ../../main/core/src/EBox/SysInfo.pm:327
+#: ../../main/core/src/EBox/SysInfo.pm:322
 msgid "Uptime"
 msgstr "Rendszeridő"
 
-#: ../../main/core/src/EBox/SysInfo.pm:328
+#: ../../main/core/src/EBox/SysInfo.pm:323
 #: ../../main/samba/src/EBox/Samba/CGI/DeleteUser.pm:37
 #: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:44
 #: ../../main/samba/src/EBox/Samba/CGI/DeleteOU.pm:42
 #: ../../main/samba/src/EBox/Samba/CGI/DeleteContact.pm:41
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:165
-#: ../../main/samba/src/templates/editgroup.mas:51
+#: ../../main/samba/src/templates/editgroup.mas:42
 msgid "Users"
 msgstr "Felhasználók"
 
-#: ../../main/core/src/EBox/SysInfo.pm:467
+#: ../../main/core/src/EBox/SysInfo.pm:462
 msgid "Start"
 msgstr "Indítás"
 
-#: ../../main/core/src/EBox/SysInfo.pm:468
+#: ../../main/core/src/EBox/SysInfo.pm:463
 #: ../../main/core/src/templates/dashboard/status.mas:13
 msgid "Restart"
 msgstr "Újraindítás"
 
-#: ../../main/core/src/EBox/SysInfo.pm:471
+#: ../../main/core/src/EBox/SysInfo.pm:466
 msgid "The service is enabled and running"
 msgstr "A szolgáltatás be van kapcsolva, és fut"
 
-#: ../../main/core/src/EBox/SysInfo.pm:476
+#: ../../main/core/src/EBox/SysInfo.pm:471
 msgid "The service is enabled, but not running"
 msgstr "A szolgáltatás be van kapcsolva, de nem fut"
 
-#: ../../main/core/src/EBox/SysInfo.pm:480
+#: ../../main/core/src/EBox/SysInfo.pm:475
 msgid "Running unmanaged"
 msgstr "Felügyeletlenül fut"
 
-#: ../../main/core/src/EBox/SysInfo.pm:481
+#: ../../main/core/src/EBox/SysInfo.pm:476
 msgid "The service is running, but not enabled in Zentyal"
 msgstr "A szolgáltatás fut, de nincs bekapcsolva a Zentyalban"
 
-#: ../../main/core/src/EBox/SysInfo.pm:486
+#: ../../main/core/src/EBox/SysInfo.pm:481
 msgid "The service is not enabled in Zentyal"
 msgstr "A szolgáltatás jelenleg nincs bekapcsolva a Zentyalban"
 
@@ -4918,10 +4915,10 @@ msgstr "Hibajelentés engedélyezése a démonok összeomlásakor"
 #: ../../main/core/src/templates/dataInUse.mas:33
 #: ../../main/core/src/templates/dataInUse.mas:38
 #: ../../main/openchange/src/templates/openchange.mas:24
-#: ../../main/samba/src/templates/editgroup.mas:46
+#: ../../main/samba/src/templates/editgroup.mas:38
 #: ../../main/samba/src/templates/samba.mas:29
-#: ../../main/samba/src/templates/edituser.mas:78
-#: ../../main/samba/src/templates/editcontact.mas:35
+#: ../../main/samba/src/templates/edituser.mas:69
+#: ../../main/samba/src/templates/editcontact.mas:31
 #: ../../main/mail/src/templates/warnusermdsize.mas:21
 #: ../../main/mail/src/templates/warnvdmdsize.mas:30
 msgid "Change"
@@ -4979,10 +4976,10 @@ msgstr ""
 #: ../../main/core/src/templates/ajax/typeRowLayout.mas:40
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:12
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:27
-#: ../../main/samba/src/templates/editgroup.mas:12
-#: ../../main/samba/src/templates/edituser.mas:15
+#: ../../main/samba/src/templates/editgroup.mas:11
+#: ../../main/samba/src/templates/edituser.mas:13
 #: ../../main/samba/src/templates/adduser.mas:25
-#: ../../main/samba/src/templates/editcontact.mas:10
+#: ../../main/samba/src/templates/editcontact.mas:9
 #: ../../main/samba/src/templates/addcontact.mas:24
 msgid "Optional"
 msgstr "Elhagyható"
@@ -5621,8 +5618,8 @@ msgid "Cannot get the CA certificate as it is not available"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeUserOptions.pm:45
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:137
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:146
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:136
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:145
 #: ../../main/samba/src/EBox/Samba/User.pm:110
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:44
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:54
@@ -6087,45 +6084,45 @@ msgstr "Változtatások mentése a modulokban"
 msgid "Enable OpenChange account"
 msgstr "OpenChange fiók bekapcsolása"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:201
+#: ../../main/openchange/src/EBox/OpenChange.pm:123
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:202
+#: ../../main/openchange/src/EBox/OpenChange.pm:124
 #, fuzzy
 msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr "A webmail a http://ip/webmail/ címen lesz elérhető."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:304
+#: ../../main/openchange/src/EBox/OpenChange.pm:226
 msgid "To configure sogo daemon"
 msgstr "Sogo démon beállítása"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:309
+#: ../../main/openchange/src/EBox/OpenChange.pm:231
 msgid "To configure sogo parameters"
 msgstr "A Sogo paramétereinek beállítása"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:314
+#: ../../main/openchange/src/EBox/OpenChange.pm:236
 msgid "To configure autodiscovery service"
 msgstr "Az automatikus feltérképezési szolgáltatás beállítása"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:319
+#: ../../main/openchange/src/EBox/OpenChange.pm:241
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 "Távolítsa el az RPC proxy alapértelmezett fájlját az interferencia "
 "elkerüléséhez"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:324
+#: ../../main/openchange/src/EBox/OpenChange.pm:246
 msgid "To make SOGo webmail available"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:329
+#: ../../main/openchange/src/EBox/OpenChange.pm:251
 #, fuzzy
 msgid "To make autodiscovery service available"
 msgstr "Az automatikus feltérképezési szolgáltatás beállítása"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:743
-#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1674
-#: ../../main/mail/src/EBox/Mail.pm:1795
+#: ../../main/openchange/src/EBox/OpenChange.pm:665
+#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1511
+#: ../../main/mail/src/EBox/Mail.pm:1632
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "Levelezés"
@@ -6243,7 +6240,7 @@ msgstr "Telepítés"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:242
 #: ../../main/software/src/templates/del.mas:30
-#: ../../main/software/src/templates/ebox.mas:48
+#: ../../main/software/src/templates/ebox.mas:49
 msgid "Installing packages"
 msgstr "Csomagok telepítése"
 
@@ -6286,7 +6283,7 @@ msgstr ""
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:279
 #: ../../main/software/src/templates/del.mas:32
-#: ../../main/software/src/templates/ebox.mas:49
+#: ../../main/software/src/templates/ebox.mas:50
 msgid "Removing packages"
 msgstr "Csomagok eltávolítása"
 
@@ -6715,44 +6712,44 @@ msgstr "NetBIOS számítógépnév"
 msgid "Contacts"
 msgstr "Névjegyek"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:68
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:86
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:67
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:85
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:50
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:53
 msgid "first name"
 msgstr "utónév"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:69
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:87
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:68
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:86
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:51
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:54
 msgid "last name"
 msgstr "vezetéknév"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:70
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:88
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:69
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:87
 msgid "display name"
 msgstr "megjelenő név"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:71
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:89
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:70
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:88
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:52
 msgid "description"
 msgstr "leírás"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:72
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:71
 #: ../../main/samba/src/templates/addgroup.mas:19
 msgid "E-mail"
 msgstr "E-mail"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:107
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:106
 msgid "Contact updated"
 msgstr "Névjegy frissítve"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:111
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:123
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:193
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:205
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:110
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:122
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:192
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:204
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:43
 #: ../../main/samba/src/EBox/Samba/Group.pm:225
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:42
@@ -6768,30 +6765,30 @@ msgstr "csoportnév"
 msgid "group type"
 msgstr "csoport típusa"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:90
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:70
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:89
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:69
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:56
-#: ../../main/samba/src/templates/editgroup.mas:42
-#: ../../main/samba/src/templates/edituser.mas:52
-#: ../../main/samba/src/templates/editcontact.mas:31
+#: ../../main/samba/src/templates/editgroup.mas:35
+#: ../../main/samba/src/templates/edituser.mas:46
+#: ../../main/samba/src/templates/editcontact.mas:28
 #: ../../main/samba/src/templates/addcontact.mas:30
 msgid "E-Mail"
 msgstr "E-mail"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:91
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:90
 msgid "password"
 msgstr "jelszó"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:92
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:91
 msgid "confirm password"
 msgstr "jelszó megerősítése"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:168
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:167
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:74
 msgid "Passwords do not match."
 msgstr "Nem egyeznek a jelszavak."
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:178
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:177
 msgid "User updated"
 msgstr "Felhasználó frissítve"
 
@@ -6799,11 +6796,11 @@ msgstr "Felhasználó frissítve"
 msgid "Edit group"
 msgstr "Csoport szerkesztése"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:71
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:70
 msgid "type"
 msgstr "Típus"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:134
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:133
 msgid "Group updated"
 msgstr "Csoport frissítve"
 
@@ -6849,21 +6846,9 @@ msgid "OU name"
 msgstr "Szervezeti egység neve"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:2217
+#: ../../main/samba/src/EBox/Samba.pm:1924
 msgid "LDAP Settings"
 msgstr "LDAP beállítások"
-
-#: ../../main/samba/src/EBox/Samba/Composite/Sync.pm:52
-msgid "Users synchronization"
-msgstr "Felhasználószinkronizálás"
-
-#: ../../main/samba/src/EBox/Samba/Composite/Sync.pm:89
-msgid ""
-"You must enable the module Users in the module status section in order to "
-"use it."
-msgstr ""
-"A Felhasználók modult be kell kapcsolni a Modulállapot oldalon a "
-"használathoz."
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:44
 msgid ""
@@ -6872,7 +6857,7 @@ msgstr ""
 "Ezek a beállítások új felhasználói fiókok létrehozásakor lesznek alkalmazva."
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:2210
+#: ../../main/samba/src/EBox/Samba.pm:1917
 msgid "User Template"
 msgstr "Felhasználói sablon"
 
@@ -6881,7 +6866,7 @@ msgid "Recycle Bin"
 msgstr "Kuka"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:2227
+#: ../../main/samba/src/EBox/Samba.pm:1934
 msgid "File Sharing"
 msgstr "Fájlmegosztás"
 
@@ -6890,7 +6875,7 @@ msgid "File sharing options"
 msgstr "Fájlmegosztási beállítások"
 
 #: ../../main/samba/src/EBox/Samba/OrganizationalPerson.pm:230
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:413
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:398
 #: ../../main/samba/src/EBox/Samba/User.pm:237
 #, perl-brace-format
 msgid "The object {x} is a system critical object."
@@ -6907,8 +6892,8 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:177
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:203
-#: ../../main/samba/src/EBox/Samba/User.pm:602
-#: ../../main/samba/src/EBox/Samba/User.pm:608
+#: ../../main/samba/src/EBox/Samba/User.pm:589
+#: ../../main/samba/src/EBox/Samba/User.pm:595
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:46
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:49
 msgid "account name"
@@ -6948,24 +6933,24 @@ msgstr ""
 "Érvénytelen rendszercsoport GID: {gid}. Ennek kisebbnek kell lennie, mint "
 "{max}."
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:451
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:436
 msgid "There was an error updating LDAP:"
 msgstr "Hiba történt az LDAP frissítése során: "
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:521
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:506
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:109
-#: ../../main/samba/src/EBox/Samba/User.pm:657
+#: ../../main/samba/src/EBox/Samba/User.pm:644
 #, perl-brace-format
 msgid "Found {count} results for, expected only one."
 msgstr "{count} találat, de csak egynek kellene lennie."
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:883
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:868
 #, perl-brace-format
 msgid ""
 "There is already an object of type {type} with CN={cn} in this container"
 msgstr "Már van {type} típusú objektum CN={cn} értékkel ebben a konténerben"
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:897
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:882
 msgid "Group E-mail"
 msgstr "Csoport e-mail"
 
@@ -6973,16 +6958,16 @@ msgstr "Csoport e-mail"
 msgid "Organization Unit"
 msgstr "Szervezeti egység"
 
-#: ../../main/samba/src/EBox/Samba/OU.pm:127
+#: ../../main/samba/src/EBox/Samba/OU.pm:126
 msgid "Error on group LDAP entry creation:"
 msgstr "Hiba a csoport LDAP bejegyzésének létrehozásakor:"
 
-#: ../../main/samba/src/EBox/Samba/OU.pm:151
+#: ../../main/samba/src/EBox/Samba/OU.pm:150
 #: ../../main/samba/src/templates/addobject.mas:10
 msgid "Organizational Unit"
 msgstr "Szervezeti egység"
 
-#: ../../main/samba/src/EBox/Samba/OU.pm:180
+#: ../../main/samba/src/EBox/Samba/OU.pm:179
 msgid ""
 "Creation of OUs inside either Users, Groups or Computer default OUs is not "
 "supported"
@@ -7026,23 +7011,23 @@ msgid "Username '{x}' already exists on the same container"
 msgstr "A felhasználónév ({x}) már létezik ugyanabban a konténerben"
 
 #: ../../main/samba/src/EBox/Samba/Contact.pm:173
-#: ../../main/samba/src/EBox/Samba/User.pm:538
+#: ../../main/samba/src/EBox/Samba/User.pm:533
 msgid "Error on person LDAP entry creation:"
 msgstr "Hiba a személy LDAP bejegyzésének létrehozásakor:"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:113
+#: ../../main/samba/src/EBox/Samba/Provision.pm:112
 #, perl-brace-format
 msgid "The host domain '{d}' has to be the same than the kerberos realm '{r}'"
 msgstr "A gép „{d}” tartományának egyeznie kell a(z) „{r}” Kerberos zónával"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:128
+#: ../../main/samba/src/EBox/Samba/Provision.pm:127
 #, fuzzy, perl-brace-format
 msgid ""
 "The host netbios name '{x}' has to be the different than the domain netbios "
 "name '{y}'"
 msgstr "A gép „{d}” tartományának egyeznie kell a(z) „{r}” Kerberos zónával"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:144
+#: ../../main/samba/src/EBox/Samba/Provision.pm:143
 #, perl-brace-format
 msgid ""
 "The required domain '{d}' could not be found in the dns module.<br/>You can "
@@ -7051,7 +7036,7 @@ msgstr ""
 "A szükséges „{d}” tartomány nem található a DNS modulban.<br/>Ezt a {ohref}"
 "DNS tartományok oldalon{chref} veheti fel"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:165
+#: ../../main/samba/src/EBox/Samba/Provision.pm:164
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/"
@@ -7060,7 +7045,7 @@ msgstr ""
 "A szükséges „{h}” géprekord nem található a(z) „{d}” tartományban.<br/>Ezt "
 "a(z) {ohref}{d}tartomány gépnevei oldalon{chref} veheti fel."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:201
+#: ../../main/samba/src/EBox/Samba/Provision.pm:200
 #, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no IP addresses are set for host {host}.<br/"
@@ -7073,7 +7058,7 @@ msgstr ""
 "IP-t a(z) {dom} tartományhoz és {host} gépnévhez kell rendelni.<br/>Ezt a(z) "
 "{ohref}{host} IP-címei oldalon{chref} veheti fel"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:251
+#: ../../main/samba/src/EBox/Samba/Provision.pm:250
 #, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no IP addresses are set for domain {dom}.<br/"
@@ -7086,40 +7071,29 @@ msgstr ""
 "csatolóhoz, és ezt az IP-t a(z) {dom} tartományhoz és a helyi gépnévhez kell "
 "rendelni<br/>Ezt a(z) {ohref}{dom} IP-címei oldalon{chref} veheti fel"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:323
-#, perl-brace-format
-msgid ""
-"Cannot enable Samba because this server is synchronizing its users as slave "
-"of other Zentyal.<br/>You can change this state at {ohref}synchronization "
-"options{chref}"
-msgstr ""
-"Nem kapcsolható be a Samba, mert ez a kiszolgáló a felhasználóit egy másik "
-"Zentyal alárendeltjeként szinkronizálja.<br/>Ezt az állapotot a {ohref}"
-"szinkronizálás beállításai{chref} között módosíthatja"
-
-#: ../../main/samba/src/EBox/Samba/Provision.pm:394
+#: ../../main/samba/src/EBox/Samba/Provision.pm:377
 #, perl-brace-format
 msgid "The mode {mode} is not supported"
 msgstr "A(z) {mode} mód nem támogatott"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:446
-#: ../../main/samba/src/EBox/Samba/Provision.pm:470
-#: ../../main/samba/src/EBox/Samba/Provision.pm:499
+#: ../../main/samba/src/EBox/Samba/Provision.pm:429
+#: ../../main/samba/src/EBox/Samba/Provision.pm:453
+#: ../../main/samba/src/EBox/Samba/Provision.pm:482
 #, perl-brace-format
 msgid "Unexpected number of entries. Got {x}, expected 1."
 msgstr "Váratlan számú bejegyzés. A várt 1 helyett {x} található."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:644
+#: ../../main/samba/src/EBox/Samba/Provision.pm:627
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr "Nem határozható meg a megadott {x} AD szerver tartománya."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:664
+#: ../../main/samba/src/EBox/Samba/Provision.pm:647
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr "Nem határozható meg a megadott {x} AD szerver zónája."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:685
+#: ../../main/samba/src/EBox/Samba/Provision.pm:668
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
@@ -7127,7 +7101,7 @@ msgstr ""
 "Nem lehet kapcsolódni az AD LDAP szerverhez ({x}). Ellenőrizze a megadott "
 "hitelesítési adatokat."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:734
+#: ../../main/samba/src/EBox/Samba/Provision.pm:717
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -7142,11 +7116,11 @@ msgstr ""
 "olvasni. Mozgassa a zónákat a „DomainDnsZones” vagy „ForestDnsZones” alá, és "
 "próbálja újra. Ezzel kapcsolatos segítségért lásd: {link}."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:772
+#: ../../main/samba/src/EBox/Samba/Provision.pm:755
 msgid "Could not retrieve the domain information."
 msgstr "A tartományinformációk nem kérhetők le."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:781
+#: ../../main/samba/src/EBox/Samba/Provision.pm:764
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
@@ -7154,24 +7128,24 @@ msgstr ""
 "Az AD erdő több tartományt tartalmaz. A Samba csak egy tartományt támogat "
 "erdőnként."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:801
+#: ../../main/samba/src/EBox/Samba/Provision.pm:784
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr "A megadott {x} tartományvezérlő nem érhető el."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:820
+#: ../../main/samba/src/EBox/Samba/Provision.pm:803
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
 "A helyi {x} Kerberos zónának meg kell egyeznie az AD szerver {y} zónájával."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:829
+#: ../../main/samba/src/EBox/Samba/Provision.pm:812
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
 "A helyi tartománynak ({x}) meg kell egyeznie az AD szerver {y} tartományával."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:864
+#: ../../main/samba/src/EBox/Samba/Provision.pm:847
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
@@ -7180,7 +7154,7 @@ msgstr ""
 "A DC ({x}) nem oldható fel az IP-címére. Ellenőrizze a megadott szervernevet "
 "és DNS-szervert."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:890
+#: ../../main/samba/src/EBox/Samba/Provision.pm:873
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
@@ -7189,7 +7163,7 @@ msgstr ""
 "A megadott AD szerver a helyi DNS-en {x}-ként van regisztrálva, ami "
 "megegyezik a helyi gépnévvel."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:911
+#: ../../main/samba/src/EBox/Samba/Provision.pm:894
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
@@ -7197,7 +7171,7 @@ msgstr ""
 "Az erdő funkcionális szintnek Windows Server 2003-nak vagy újabbnak kell "
 "lennie. Emelje meg az erdő funkcionális szintjét."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:917
+#: ../../main/samba/src/EBox/Samba/Provision.pm:900
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
@@ -7205,18 +7179,18 @@ msgstr ""
 "A tartomány funkcionális szintnek Windows Server 2003-nak vagy újabbnak kell "
 "lennie. Emelje meg a tartomány funkcionális szintjét."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:944
+#: ../../main/samba/src/EBox/Samba/Provision.pm:927
 #, fuzzy
 msgid "Error querying AD schema:"
 msgstr "Hiba a sémafrissítés küldésekor:"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:951
+#: ../../main/samba/src/EBox/Samba/Provision.pm:934
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:978
+#: ../../main/samba/src/EBox/Samba/Provision.pm:961
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
@@ -7224,12 +7198,12 @@ msgstr ""
 "A tartományhoz, amelyhez csatlakozni próbál, megbízhatósági kapcsolatok "
 "vannak definiálva. Jelenleg a Samba ezt nem támogatja."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1011
+#: ../../main/samba/src/EBox/Samba/Provision.pm:994
 #, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "Az idő nem kérhető le az AD szerverről ({x}) NTP-vel."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1024
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1007
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
 "problems with kerberos authentication, please sync both clocks with an "
@@ -7239,26 +7213,26 @@ msgstr ""
 "okozhat a Kerberos hitelesítéssel, szinkronizálja mindkét órát egy külső NTP "
 "forrással, és próbálja újra."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1063
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1046
 #, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "A megadott oldal ({x}) nem létezik a tartományban."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1075
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1058
 msgid "Could not determine the site of the specified server"
 msgstr "Nem határozható meg a megadott szerver webhelye"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1109
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1092
 msgid "Could not determine the netbios domain name."
 msgstr "Nem lehet megállapítani a netbios tartomány nevét."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1113
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1096
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr "A netBIOS név ({x}) nem található. Ellenőrizze a megadott értéket."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1467
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1450
 msgid "Error on group container LDAP entry creation:"
 msgstr "Hiba a csoportkonténer LDAP bejegyzésének létrehozásakor:"
 
@@ -7272,11 +7246,11 @@ msgstr "A felhasználónév ({x}) már létezik ugyanabban a konténerben"
 msgid "There was an error modifying the RDN:"
 msgstr "Hiba történt az LDAP frissítése során: "
 
-#: ../../main/samba/src/EBox/Samba/User.pm:461
+#: ../../main/samba/src/EBox/Samba/User.pm:460
 msgid "Username already exists on the system"
 msgstr "A felhasználónév már létezik a rendszerben"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:502
+#: ../../main/samba/src/EBox/Samba/User.pm:497
 #, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for your edition is {max} and "
@@ -7285,60 +7259,60 @@ msgstr ""
 "Ne feledje, hogy ebben a változatban a felhasználók maximális száma {max}, "
 "jelenleg {nUsers} van"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:604
+#: ../../main/samba/src/EBox/Samba/User.pm:591
 msgid "Windows user names cannot be only spaces and dots."
 msgstr ""
 "A Windows felhasználónevek nem állhatnak csak szóközökből és pontokból."
 
-#: ../../main/samba/src/EBox/Samba/User.pm:610
+#: ../../main/samba/src/EBox/Samba/User.pm:597
 msgid "Windows user names cannot contain the \"@\" character."
 msgstr "A Windows felhasználónevek nem tartalmazhatják a „@” karaktert."
 
-#: ../../main/samba/src/EBox/Samba/User.pm:621
+#: ../../main/samba/src/EBox/Samba/User.pm:608
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "A jelszó nem lehet hosszabb {maxPwdLength} karakternél"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:633
+#: ../../main/samba/src/EBox/Samba/User.pm:620
 #, perl-brace-format
 msgid "User name {x} already exists in the same container."
 msgstr "A felhasználónév ({x}) már létezik ugyanabban a konténerben"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:705
+#: ../../main/samba/src/EBox/Samba/User.pm:692
 #, perl-brace-format
 msgid "The user {x} has not uidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:726
+#: ../../main/samba/src/EBox/Samba/User.pm:713
 #, perl-brace-format
 msgid "The user {x} has not gidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:772
-#: ../../main/samba/src/EBox/Samba/User.pm:871
-#: ../../main/samba/src/EBox/Samba/User.pm:881
+#: ../../main/samba/src/EBox/Samba/User.pm:759
+#: ../../main/samba/src/EBox/Samba/User.pm:858
+#: ../../main/samba/src/EBox/Samba/User.pm:868
 msgid "user quota"
 msgstr "felhasználói kvóta"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:774
+#: ../../main/samba/src/EBox/Samba/User.pm:761
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 "A felhasználói kvótának egész számnak kell lennie. Korlátlan kvótához nullát "
 "adjon meg."
 
-#: ../../main/samba/src/EBox/Samba/User.pm:874
+#: ../../main/samba/src/EBox/Samba/User.pm:861
 msgid ""
 "User quota must be a positive integer. To set an unlimited quota, enter zero."
 msgstr ""
 "A felhasználói kvótának pozitív egész számnak kell lennie. Korlátlan "
 "kvótához nullát adjon meg."
 
-#: ../../main/samba/src/EBox/Samba/User.pm:883
+#: ../../main/samba/src/EBox/Samba/User.pm:870
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
 msgstr "A maximális érték: {max} MB"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:902
+#: ../../main/samba/src/EBox/Samba/User.pm:889
 #, perl-brace-format
 msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
@@ -7347,15 +7321,15 @@ msgstr ""
 "Nem állítható be {uid} azonosító kvótája erre: {userQuota}. Lehet, hogy a "
 "fájlrendszer nem támogatja a kvóta használatát."
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1053
+#: ../../main/samba/src/EBox/Samba/User.pm:1040
 msgid "Maximum number of system users reached"
 msgstr "A rendszerfelhasználók maximális száma elérve"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1058
+#: ../../main/samba/src/EBox/Samba/User.pm:1045
 msgid "Maximum number of users reached"
 msgstr "A felhasználók maximális száma elérve"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1075
+#: ../../main/samba/src/EBox/Samba/User.pm:1062
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -7363,7 +7337,7 @@ msgstr ""
 "Érvénytelen felhasználói UID: {uid}. Ennek nagyobbnak vagy egyenlőnek kell "
 "lennie, mint {min}"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1085
+#: ../../main/samba/src/EBox/Samba/User.pm:1072
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
@@ -7371,81 +7345,73 @@ msgstr ""
 "{max}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:88
-msgid "Sync with Zentyal Cloud"
-msgstr "Szinkronizálás a Zentyal Clouddal"
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:91
-msgid "Files will be synchronized with Zentyal Cloud."
-msgstr "A fájlok szinkronizálásra kerülnek a Zentyal Clouddal."
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:95
 msgid "Share name"
 msgstr "Megosztás neve"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:100
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:93
 msgid "Share path"
 msgstr "Megosztás útvonala"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:104
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:97
 msgid "Directory under Zentyal"
 msgstr "Könyvtár a Zentyal alatt"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:109
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:102
 msgid "File system path"
 msgstr "Fájlrendszer-útvonal"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:109
 #: ../../main/core/src/templates/configurationFiles.mas:24
 msgid "Comment"
 msgstr "Megjegyzés"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:123
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
 msgid "This share will not require authentication."
 msgstr "Ez a megosztás nem igényel hitelesítést."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:126
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:119
 msgid "Apply ACLs recursively"
 msgstr "ACL-ek rekurzív alkalmazása"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:129
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:122
 msgid "ACL changes replace all permissions on subfolders of this share."
 msgstr ""
 "Az ACL módosítások lecserélik az összes jogosultságot a megosztás "
 "almappáiban."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:145
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:138
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:221
 msgid "Shares"
 msgstr "Megosztások"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:152
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:145
 #: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:121
 msgid "share"
 msgstr "megosztás"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:271
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:256
 #, perl-brace-format
 msgid "Zentyal could not access to directory '{x}': {y}"
 msgstr "A Zentyal nem fér hozzá a(z) „{x}”: {y} könyvtárhoz."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:286
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:271
 msgid "Samba share absolute path"
 msgstr "Samba-megosztás abszolút útvonala"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:289
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:274
 #, perl-brace-format
 msgid "Path {p} is not a directory"
 msgstr "Az útvonal ({p}) nem könyvtár"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:296
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:281
 msgid "Samba share directory"
 msgstr "Samba-megosztás könyvtára"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:322
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:307
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "A könyvtár nem üres. Biztos, hogy törölni akarja?"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:412
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:393
 #, perl-brace-format
 msgid ""
 "Domain guest account should be enabled for guest access to shares. You can "
@@ -7455,7 +7421,7 @@ msgstr ""
 "eléréséhez. Ezt a {oh}felhasználók és csoportok kezelése{ch} oldalon teheti "
 "meg."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:456
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:421
 #, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
@@ -7466,7 +7432,7 @@ msgstr ""
 "directory könyvtár a {sharesPath} mappán belül. {br}A {openit}Fájlrendszer-"
 "útvonal{closeit} lehetővé teszi egy már létező könyvtár megosztását."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:470
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:435
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let Zentyal create it for "
@@ -7476,22 +7442,22 @@ msgstr ""
 "jogosultságokkal. Megoszthat egy már létező könyvtárat, vagy adja meg a "
 "nevét, és a Zentyal létrehozza azt."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:514
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:479
 #, perl-brace-format
 msgid "Error getting filesystem format in {m}"
 msgstr "Hiba a fájlrendszer formátumának lekérésekor ebben: {m}"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:519
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:484
 #, perl-brace-format
 msgid "Filesystem format '{x}' does not support storing ACLs."
 msgstr "A fájlrendszer-formátum ({x}) nem támogatja az ACL-ek tárolását."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:532
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:497
 #, perl-brace-format
 msgid "Error reading mount options in {m}"
 msgstr "Hiba a csatolási beállítások olvasásakor: {m}"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:537
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:502
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'acl' option. This is "
@@ -7500,7 +7466,7 @@ msgstr ""
 "A csatolási pontot ({mountPoint}) az „acl” beállítással kell csatolni. Ez a "
 "jogosultságok megfelelő működéséhez szükséges."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:543
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:508
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'user_xattr' option. "
@@ -7509,26 +7475,8 @@ msgstr ""
 "A csatolási pontot ({mountPoint}) a „user_xattr” beállítással kell csatolni. "
 "Ez a jogosultságok megfelelő működéséhez szükséges."
 
-#: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:71
-msgid "Sync all with Zentyal Cloud"
-msgstr "Minden szinkronizálása a Zentyal Clouddal"
-
-#: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:74
-msgid "All shares and user homes will be synchronized using Zentyal Cloud."
-msgstr ""
-"Minden megosztás és felhasználói könyvtár szinkronizálásra kerül a Zentyal "
-"Cloud használatával."
-
-#: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:80
-msgid "Cloud Sync"
-msgstr "Cloud szinkronizálás"
-
-#: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:99
-msgid "Zentyal Cloud Files not available"
-msgstr "A Zentyal Cloud Files nem érhető el"
-
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:2200
+#: ../../main/samba/src/EBox/Samba.pm:1907
 msgid "Users and Computers"
 msgstr "Felhasználók és számítógépek"
 
@@ -7569,23 +7517,6 @@ msgid ""
 msgstr ""
 "A Felhasználók modult be kell kapcsolni a Modulállapot oldalon, és mentenie "
 "kell a beállításait a használathoz."
-
-#: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:54
-msgid "Slave"
-msgstr "Alárendelt"
-
-#: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:67
-msgid "Slaves"
-msgstr "Alárendeltek"
-
-#: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:71
-msgid "List of slave servers for users and groups synchronization."
-msgstr ""
-"Alárendelt szerverek listája a felhasználók és csoportok szinkronizálásához."
-
-#: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:72
-msgid "slave"
-msgstr "alárendelt"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
 msgid "User/Group/Share"
@@ -7678,7 +7609,7 @@ msgid "Default user quota"
 msgstr "Alapértelmezett felhasználói kvóta"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:56
-#: ../../main/samba/src/templates/edituser.mas:304
+#: ../../main/samba/src/templates/edituser.mas:278
 msgid "Limited to"
 msgstr "Korlát:"
 
@@ -7699,16 +7630,6 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:94
 msgid "Setting default quota to zero is equivalent to disable it"
 msgstr "Az alapértelmezett kvóta nullára állítása egyenlő a kikapcsolással"
-
-#: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:48
-msgid "Slave connection password"
-msgstr "Alárendelt kapcsolat jelszava"
-
-#: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:58
-msgid "Use this password when connecting a new slave to this server."
-msgstr ""
-"Ezen jelszó használata új alárendelt rendszer csatlakoztatásakor ehhez a "
-"szerverhez."
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:50
 msgid "Enable recycle bin"
@@ -7777,76 +7698,6 @@ msgstr "Felhasználó: {u}"
 #, perl-brace-format
 msgid "Group: {g}"
 msgstr "Csoport: {g}"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:85
-msgid "Zentyal Cloud"
-msgstr "Zentyal Cloud"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:100
-msgid "Sync users from"
-msgstr "Felhasználók szinkronizálása innen"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:102
-msgid "Sync users from the chosen source"
-msgstr "Felhasználók szinkronizálása a kiválasztott forrásból"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:107
-msgid "Master host"
-msgstr "Elsődleges szerver"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:109
-msgid "Hostname or IP of the master"
-msgstr "Az elsődleges szerver neve vagy IP-címe"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:113
-msgid "Master port"
-msgstr "Elsődleges port"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:116
-msgid "Master port for Zentyal Administration (default: 443)"
-msgstr "A Zentyal adminisztráció elsődleges portja (alapértelmezett: 443)"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:120
-msgid "Slave password"
-msgstr "Alárendelt jelszó"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:123
-msgid "Password for new slave connection"
-msgstr "Az új alárendelt kapcsolat jelszava"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:129
-msgid "Sync users from a master server"
-msgstr "Felhasználók szinkronizálása elsődleges szerverről"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:133
-msgid "Configure this parameters to synchronize users from a master server"
-msgstr ""
-"Ezen paraméterek megadásával a felhasználók egy elsődleges szerverről "
-"szinkronizálhatók"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:217
-#, perl-brace-format
-msgid ""
-"Master server has a different REALM, check hostnames. Master is {master} and "
-"this server {slave}."
-msgstr ""
-"Az elsődleges szerver ZÓNÁJA eltér, ellenőrizze a gépneveket. Az elsődleges: "
-"{master}, ez a szerver: {slave}."
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:228
-#, perl-brace-format
-msgid ""
-"Your Zentyal Cloud allows a maximum of {max} users. Currently there are "
-"{current} users created."
-msgstr ""
-"A Zentyal Cloudja legfeljebb {max} felhasználót engedélyez. Jelenleg "
-"{current} felhasználó van létrehozva."
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:242
-msgid "CAUTION: this will delete all defined users and import master ones."
-msgstr ""
-"FIGYELEM: Ez az összes definiált felhasználót törli, és importálja az "
-"elsődlegeseket."
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:82
 msgid "NetBIOS computer name and NetBIOS domain name must be different"
@@ -7983,13 +7834,13 @@ msgid "Error binding to schama master LDAP:"
 msgstr "Hiba a sémamester LDAP-hoz kapcsolódáskor:"
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:237
-#: ../../main/mail/src/EBox/Mail.pm:575
+#: ../../main/mail/src/EBox/Mail.pm:412
 #, fuzzy
 msgid "Error on LDAP entry creation:"
 msgstr "Hiba a felhasználó LDAP bejegyzésének létrehozásakor:"
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:294
-#: ../../main/mail/src/EBox/Mail.pm:550
+#: ../../main/mail/src/EBox/Mail.pm:387
 #, fuzzy, perl-brace-format
 msgid ""
 "Unexpected number of LDAP entries found searching for {dn}: Expected one, "
@@ -8001,63 +7852,28 @@ msgstr "Váratlan számú bejegyzés. A várt 1 helyett {x} található."
 msgid "Error on LDAP entry update:"
 msgstr "Hiba a felhasználó LDAP bejegyzésének létrehozásakor:"
 
-#: ../../main/samba/src/EBox/UsersSync/Master.pm:84
-#, perl-brace-format
-msgid ""
-"Master {addr} is invalid because it is the address of the loopback interface"
-msgstr ""
-"A(z) {addr} elsődleges érvénytelen, mert ez a visszacsatolási felület címe"
-
-#: ../../main/samba/src/EBox/UsersSync/Master.pm:97
-#, perl-brace-format
-msgid ""
-"Master {addr} is invalid because it is the address of the interface {if}"
-msgstr "A(z) {addr} elsődleges érvénytelen, mert ez a(z) {if} felület címe"
-
-#: ../../main/samba/src/EBox/UsersSync/Master.pm:195
-#, perl-brace-format
-msgid ""
-"Master server has a different REALM, check hostnames. Master is {master} and "
-"slave {slave}."
-msgstr ""
-"Az elsődleges szerver ZÓNÁJA eltér, ellenőrizze a gépneveket. Az elsődleges: "
-"{master}, az alárendelt: {slave}."
-
-#: ../../main/samba/src/EBox/UsersSync/Master.pm:235
-msgid "Invalid password"
-msgstr "Érvénytelen jelszó"
-
-#: ../../main/samba/src/EBox/UsersSync/Master.pm:238
-msgid "Connection failed, check host, port and firewall settings"
-msgstr ""
-"A csatlakozás sikertelen, ellenőrizze a gép, port és tűzfal beállításait"
-
-#: ../../main/samba/src/EBox/UsersSync/Master.pm:240
-msgid "Couldn't configure Zentyal as slave"
-msgstr "Nem állítható be a Zentyal alárendeltként"
-
-#: ../../main/samba/src/EBox/Samba.pm:176
+#: ../../main/samba/src/EBox/Samba.pm:168
 #, fuzzy
 msgid "Domain Controller and File Sharing"
 msgstr "Felhasználók, számítógépek és fájlmegosztás"
 
-#: ../../main/samba/src/EBox/Samba.pm:283
+#: ../../main/samba/src/EBox/Samba.pm:275
 msgid ""
 "Your LDAP database will be populated with some basic organizational units"
 msgstr "Az LDAP adatbázisa fel lesz töltve néhány alap szervezeti egységgel"
 
-#: ../../main/samba/src/EBox/Samba.pm:284
+#: ../../main/samba/src/EBox/Samba.pm:276
 msgid ""
 "Zentyal needs this organizational units to add users and groups into them."
 msgstr ""
 "A Zentyalnak a felhasználók és csoportok hozzáadásához van szüksége ezekre a "
 "szervezeti egységekre."
 
-#: ../../main/samba/src/EBox/Samba.pm:288
+#: ../../main/samba/src/EBox/Samba.pm:280
 msgid "Create Samba home directory for shares and groups"
 msgstr "Samba saját könyvtár létrehozása megosztások és csoportok számára"
 
-#: ../../main/samba/src/EBox/Samba.pm:289
+#: ../../main/samba/src/EBox/Samba.pm:281
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
@@ -8065,19 +7881,19 @@ msgstr ""
 "A Zentyal létrehozza a home könyvtárat a Samba megosztásoknak és "
 "csoportoknak a /home/samba alatt."
 
-#: ../../main/samba/src/EBox/Samba.pm:297
+#: ../../main/samba/src/EBox/Samba.pm:289
 msgid "Configure PAM."
 msgstr "PAM beállítása."
 
-#: ../../main/samba/src/EBox/Samba.pm:298
+#: ../../main/samba/src/EBox/Samba.pm:290
 msgid "Zentyal will give LDAP samba system account."
 msgstr "A Zentyal az LDAP felhasználóknak Samba rendszerfiókot fog adni."
 
-#: ../../main/samba/src/EBox/Samba.pm:316
+#: ../../main/samba/src/EBox/Samba.pm:308
 msgid "To set up kerberos authentication"
 msgstr "Kerberos hitelesítés beállítása"
 
-#: ../../main/samba/src/EBox/Samba.pm:323
+#: ../../main/samba/src/EBox/Samba.pm:315
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
@@ -8085,11 +7901,11 @@ msgstr ""
 "Az NSS használjon LDAP feloldást a felhasználói- és csoportfiókokhoz. Ez a "
 "Samba PDC beállításához szükséges."
 
-#: ../../main/samba/src/EBox/Samba.pm:329
+#: ../../main/samba/src/EBox/Samba.pm:321
 msgid "To add quota support to /home partition."
 msgstr "Kvótatámogatás hozzáadása a /home partícióhoz."
 
-#: ../../main/samba/src/EBox/Samba.pm:334
+#: ../../main/samba/src/EBox/Samba.pm:326
 msgid ""
 "To configure System Security Services Daemon to manage remote authentication "
 "mechanisms"
@@ -8097,15 +7913,15 @@ msgstr ""
 "A Rendszerbiztonsági szolgáltatások démon (SSSD) beállításával a távoli "
 "hitelesítési mechanizmusok kezelhetők"
 
-#: ../../main/samba/src/EBox/Samba.pm:340
+#: ../../main/samba/src/EBox/Samba.pm:332
 msgid "To enable extended attributes and acls."
 msgstr "Kiterjesztett attribútumok és ACL-ek engedélyezése."
 
-#: ../../main/samba/src/EBox/Samba.pm:368
+#: ../../main/samba/src/EBox/Samba.pm:360
 msgid "Domain and File sharing protocols"
 msgstr "Tartomány- és fájlmegosztó protokollok"
 
-#: ../../main/samba/src/EBox/Samba.pm:520
+#: ../../main/samba/src/EBox/Samba.pm:392
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8119,7 +7935,7 @@ msgstr ""
 "most került beállításra), vagy egy kölcsönzésre várakozás megoldhatja ezt a "
 "helyzetet."
 
-#: ../../main/samba/src/EBox/Samba.pm:524
+#: ../../main/samba/src/EBox/Samba.pm:396
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8130,52 +7946,47 @@ msgstr ""
 "nem érhetők el IP-címek. {oh}A hálózati csatolók beállítása{ch} és a "
 "módosítások mentése megoldhatja ezt a helyzetet."
 
-#: ../../main/samba/src/EBox/Samba.pm:1165
+#: ../../main/samba/src/EBox/Samba.pm:997
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1187
+#: ../../main/samba/src/EBox/Samba.pm:1019
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1204
+#: ../../main/samba/src/EBox/Samba.pm:1036
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1571
-#, perl-brace-format
-msgid "Found {count} results for '{uid}' user, expected only one."
-msgstr "{count} találat „{uid}” felhasználóhoz, de csak egynek kellene lennie."
-
-#: ../../main/samba/src/EBox/Samba.pm:1799
+#: ../../main/samba/src/EBox/Samba.pm:1572
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr "{count} találat „{name}” csoporthoz, de csak egynek kellene lennie."
 
-#: ../../main/samba/src/EBox/Samba.pm:2206
+#: ../../main/samba/src/EBox/Samba.pm:1913
 msgid "Manage"
 msgstr "Kezelés"
 
-#: ../../main/samba/src/EBox/Samba.pm:2213
+#: ../../main/samba/src/EBox/Samba.pm:1920
 msgid "Synchronization"
 msgstr "Szinkronizálás"
 
-#: ../../main/samba/src/EBox/Samba.pm:2221
+#: ../../main/samba/src/EBox/Samba.pm:1928
 msgid "Configure mode"
 msgstr "Mód beállítása"
 
-#: ../../main/samba/src/EBox/Samba.pm:2453
+#: ../../main/samba/src/EBox/Samba.pm:2066
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2469
+#: ../../main/samba/src/EBox/Samba.pm:2082
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -8185,7 +7996,7 @@ msgstr ""
 "rendszerfelhasználóként. Törölje vagy nevezze át ezt a felhasználót, majd "
 "próbálja újra."
 
-#: ../../main/samba/src/EBox/Samba.pm:2486
+#: ../../main/samba/src/EBox/Samba.pm:2099
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8193,7 +8004,7 @@ msgid ""
 "{ex}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2496
+#: ../../main/samba/src/EBox/Samba.pm:2109
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
@@ -8201,7 +8012,7 @@ msgstr ""
 "A visszaállítás csak akkor lehetséges, ha a szerver az erdő egyedi "
 "tartományvezérlője"
 
-#: ../../main/samba/src/EBox/Samba.pm:2760
+#: ../../main/samba/src/EBox/Samba.pm:2373
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
@@ -8209,62 +8020,62 @@ msgstr ""
 "A gépnév vagy tartomány nem változtatható meg, ha a Zentyal kiegészítő "
 "tartományvezérlőként van beállítva."
 
-#: ../../main/samba/src/EBox/Samba.pm:2853
+#: ../../main/samba/src/EBox/Samba.pm:2466
 msgid "Users data and Filesystem shares"
 msgstr "Felhasználói adatok és fájlrendszer-megosztások"
 
-#: ../../main/samba/src/EBox/Samba.pm:2996
+#: ../../main/samba/src/EBox/Samba.pm:2609
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "A címet ({addr}) már használja a(z) {type} {name}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3464
+#: ../../main/samba/src/EBox/Samba.pm:3077
 msgid "Client address"
 msgstr "Kliens címe"
 
-#: ../../main/samba/src/EBox/Samba.pm:3467
+#: ../../main/samba/src/EBox/Samba.pm:3080
 msgid "Resource"
 msgstr "Erőforrás"
 
-#: ../../main/samba/src/EBox/Samba.pm:3471
+#: ../../main/samba/src/EBox/Samba.pm:3084
 msgid "Connect"
 msgstr "Kapcsolat"
 
-#: ../../main/samba/src/EBox/Samba.pm:3472
+#: ../../main/samba/src/EBox/Samba.pm:3085
 msgid "Access to directory"
 msgstr "Könyvtárhoz való hozzáférés"
 
-#: ../../main/samba/src/EBox/Samba.pm:3473
+#: ../../main/samba/src/EBox/Samba.pm:3086
 msgid "Read file"
 msgstr "Fájl olvasás"
 
-#: ../../main/samba/src/EBox/Samba.pm:3474
+#: ../../main/samba/src/EBox/Samba.pm:3087
 msgid "Write file"
 msgstr "Fájl írás"
 
-#: ../../main/samba/src/EBox/Samba.pm:3475
+#: ../../main/samba/src/EBox/Samba.pm:3088
 msgid "Disconnect"
 msgstr "Bontás"
 
-#: ../../main/samba/src/EBox/Samba.pm:3476
+#: ../../main/samba/src/EBox/Samba.pm:3089
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Eltávolítás"
 
-#: ../../main/samba/src/EBox/Samba.pm:3477
+#: ../../main/samba/src/EBox/Samba.pm:3090
 msgid "Create directory"
 msgstr "Könyvtár létrehozása"
 
-#: ../../main/samba/src/EBox/Samba.pm:3478
+#: ../../main/samba/src/EBox/Samba.pm:3091
 msgid "Remove directory"
 msgstr "Könyvtár eltávolítása"
 
-#: ../../main/samba/src/EBox/Samba.pm:3479
+#: ../../main/samba/src/EBox/Samba.pm:3092
 msgid "Rename"
 msgstr "Átnevezés"
 
-#: ../../main/samba/src/EBox/Samba.pm:3483
+#: ../../main/samba/src/EBox/Samba.pm:3096
 msgid "Samba access"
 msgstr "Samba hozzáférés"
 
@@ -8346,27 +8157,27 @@ msgstr "A levéltovábbítás beállítása"
 msgid "To let dovecot authenticate users using PAM"
 msgstr "A Dovecot beállítása a felhasználók hitelesítésére PAM használatával"
 
-#: ../../main/mail/src/EBox/Mail.pm:464
+#: ../../main/mail/src/EBox/Mail.pm:301
 msgid "Outgoing Mail (SMTP protocol)."
 msgstr "Kimenő levelek (SMTP protokoll)."
 
-#: ../../main/mail/src/EBox/Mail.pm:473
+#: ../../main/mail/src/EBox/Mail.pm:310
 msgid "Incoming Mail"
 msgstr "Bejövő levelek"
 
-#: ../../main/mail/src/EBox/Mail.pm:474
+#: ../../main/mail/src/EBox/Mail.pm:311
 msgid "POP, IMAP and SIEVE protocols"
 msgstr "OP, IMAP és SIEVE protokollok"
 
-#: ../../main/mail/src/EBox/Mail.pm:483
+#: ../../main/mail/src/EBox/Mail.pm:320
 msgid "Mail Submission"
 msgstr "Levélküldés"
 
-#: ../../main/mail/src/EBox/Mail.pm:484
+#: ../../main/mail/src/EBox/Mail.pm:321
 msgid "Outgoing Mail (Submission protocol)."
 msgstr "Kimenő levelek (Küldési protokoll)."
 
-#: ../../main/mail/src/EBox/Mail.pm:1078
+#: ../../main/mail/src/EBox/Mail.pm:915
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -8374,148 +8185,140 @@ msgstr ""
 "Nem használhatja a gépnevet levelezőnévként, mert nem egy teljes képzésű "
 "tartománynév. Adjon megy másik egyéni levelezőnevet"
 
-#: ../../main/mail/src/EBox/Mail.pm:1083
+#: ../../main/mail/src/EBox/Mail.pm:920
 msgid "The mail name must be a fully qualified name"
 msgstr "A levelezőnév teljes képzésű tartománynév kell legyen"
 
-#: ../../main/mail/src/EBox/Mail.pm:1087 ../../main/mail/src/EBox/Mail.pm:1098
-#: ../../main/mail/src/EBox/Mail.pm:1106
+#: ../../main/mail/src/EBox/Mail.pm:924 ../../main/mail/src/EBox/Mail.pm:935
+#: ../../main/mail/src/EBox/Mail.pm:943
 msgid "Host mail name"
 msgstr "Gép levelezőneve"
 
-#: ../../main/mail/src/EBox/Mail.pm:1101
+#: ../../main/mail/src/EBox/Mail.pm:938
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "A levelezőnév és a virtuális levelező tartománynév azonosak"
 
-#: ../../main/mail/src/EBox/Mail.pm:1623
+#: ../../main/mail/src/EBox/Mail.pm:1460
 msgid "SMTP service"
 msgstr "SMTP szolgáltatás"
 
-#: ../../main/mail/src/EBox/Mail.pm:1630
+#: ../../main/mail/src/EBox/Mail.pm:1467
 msgid "POP3 service"
 msgstr "POP3 szolgáltatás"
 
-#: ../../main/mail/src/EBox/Mail.pm:1636
+#: ../../main/mail/src/EBox/Mail.pm:1473
 msgid "POP3S service"
 msgstr "POP3S szolgáltatás"
 
-#: ../../main/mail/src/EBox/Mail.pm:1642
+#: ../../main/mail/src/EBox/Mail.pm:1479
 msgid "IMAP service"
 msgstr "IMAP szolgáltatás"
 
-#: ../../main/mail/src/EBox/Mail.pm:1648
+#: ../../main/mail/src/EBox/Mail.pm:1485
 msgid "IMAPS service"
 msgstr "IMAPS szolgáltatás"
 
-#: ../../main/mail/src/EBox/Mail.pm:1705
+#: ../../main/mail/src/EBox/Mail.pm:1542
 msgid "Virtual Mail Domains"
 msgstr "Virtuális levelezőtartományok"
 
-#: ../../main/mail/src/EBox/Mail.pm:1712
+#: ../../main/mail/src/EBox/Mail.pm:1549
 msgid "Greylist"
 msgstr "Szürkelista"
 
-#: ../../main/mail/src/EBox/Mail.pm:1719
+#: ../../main/mail/src/EBox/Mail.pm:1556
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Sorkezelés"
 
-#: ../../main/mail/src/EBox/Mail.pm:1746
+#: ../../main/mail/src/EBox/Mail.pm:1583
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "Levél letöltése külső fiókból"
 
-#: ../../main/mail/src/EBox/Mail.pm:1761
+#: ../../main/mail/src/EBox/Mail.pm:1598
 msgid "Message ID"
 msgstr "Üzenetazonosító"
 
-#: ../../main/mail/src/EBox/Mail.pm:1764
+#: ../../main/mail/src/EBox/Mail.pm:1601
 msgid "From hostname"
 msgstr "Feladó gépnév"
 
-#: ../../main/mail/src/EBox/Mail.pm:1765
+#: ../../main/mail/src/EBox/Mail.pm:1602
 msgid "From host ip"
 msgstr "Feladó IP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1766
+#: ../../main/mail/src/EBox/Mail.pm:1603
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Méret (bájt)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1767
+#: ../../main/mail/src/EBox/Mail.pm:1604
 msgid "Relay"
 msgstr "Levéltovábbítás"
 
-#: ../../main/mail/src/EBox/Mail.pm:1768
+#: ../../main/mail/src/EBox/Mail.pm:1605
 msgid "Message type"
 msgstr "Üzenet típusa"
 
-#: ../../main/mail/src/EBox/Mail.pm:1771
+#: ../../main/mail/src/EBox/Mail.pm:1608
 msgid "Additional Info"
 msgstr "További információk"
 
-#: ../../main/mail/src/EBox/Mail.pm:1782
+#: ../../main/mail/src/EBox/Mail.pm:1619
 msgid "Successful messages"
 msgstr "Elküldött levelek"
 
-#: ../../main/mail/src/EBox/Mail.pm:1783
+#: ../../main/mail/src/EBox/Mail.pm:1620
 msgid "Maximum message size exceeded"
 msgstr "Túllépte a megengedett levélméretet"
 
-#: ../../main/mail/src/EBox/Mail.pm:1784
+#: ../../main/mail/src/EBox/Mail.pm:1621
 msgid "User quota exceeded"
 msgstr "Túllépte a felhasználói kvótát"
 
-#: ../../main/mail/src/EBox/Mail.pm:1785
+#: ../../main/mail/src/EBox/Mail.pm:1622
 msgid "Relay access denied"
 msgstr "Levéltovábbítás elérése megtiltva"
 
-#: ../../main/mail/src/EBox/Mail.pm:1786
+#: ../../main/mail/src/EBox/Mail.pm:1623
 msgid "Account does not exist"
 msgstr "A postafiók nem létezik"
 
-#: ../../main/mail/src/EBox/Mail.pm:1787
+#: ../../main/mail/src/EBox/Mail.pm:1624
 msgid "Host unreachable"
 msgstr "A gép nem érhető el"
 
-#: ../../main/mail/src/EBox/Mail.pm:1788
+#: ../../main/mail/src/EBox/Mail.pm:1625
 msgid "Authentication error"
 msgstr "Hitelesítési hiba"
 
-#: ../../main/mail/src/EBox/Mail.pm:1789
+#: ../../main/mail/src/EBox/Mail.pm:1626
 msgid "Greylisted"
 msgstr "Szürkelistára téve"
 
-#: ../../main/mail/src/EBox/Mail.pm:1790
+#: ../../main/mail/src/EBox/Mail.pm:1627
 msgid "Relay rejected by the smarthost"
 msgstr "A továbbítást visszautasította a levéltovábbító"
 
-#: ../../main/mail/src/EBox/Mail.pm:1791
+#: ../../main/mail/src/EBox/Mail.pm:1628
 msgid "Other events"
 msgstr "Más események"
 
-#: ../../main/mail/src/EBox/Mail.pm:1869
+#: ../../main/mail/src/EBox/Mail.pm:1706
 msgid "Mail SMTP server"
 msgstr "Levelező SMTP szerver"
 
-#: ../../main/mail/src/EBox/Mail.pm:1877
+#: ../../main/mail/src/EBox/Mail.pm:1714
 msgid "Mail POP/IMAP server"
 msgstr "Levelező POP/IMAP szerver"
 
-#: ../../main/mail/src/EBox/Mail.pm:1954
+#: ../../main/mail/src/EBox/Mail.pm:1791
 msgid "Mailboxes"
 msgstr "Postafiókok"
 
-#: ../../main/mail/src/EBox/Mail.pm:1996
-msgid ""
-"The mail domains and its accounts will be removed when the slave setup is "
-"complete"
-msgstr ""
-"A levelezőtartományok és fiókjaik eltávolításra kerülnek az alárendelt "
-"beállítás befejezésekor"
-
-#: ../../main/mail/src/EBox/Mail.pm:2031
+#: ../../main/mail/src/EBox/Mail.pm:1840
 #, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "A címet ({addr}) már használatban van külső álnévként"
@@ -8546,7 +8349,7 @@ msgid "Queue ID"
 msgstr "Sorazonosító"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:39
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:563
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:558
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:121
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:69
 #: ../../main/mail/src/templates/externalAccounts.mas:13
@@ -8623,38 +8426,38 @@ msgstr "Külső postafiók"
 msgid "External account {acc} removed"
 msgstr "A(z) {acc} külső postafiók eltávolítva"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:252
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:247
 msgid "Local email account"
 msgstr "Helyi postafiók"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:256
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:251
 #: ../../main/mail/src/EBox/Mail/Composite/General.pm:48
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:135
 msgid "Mail server"
 msgstr "Levelezőszerver"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:257
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:252
 msgid "Mail server port"
 msgstr "Levelezőszerver portja"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:498
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:493
 msgid "External retrieval service"
 msgstr "Külső levélletöltő szolgáltatás"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:569
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:576
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:564
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:571
 msgid "External account username"
 msgstr "Külső fiók felhasználóneve"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:571
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:566
 msgid "No spaces allowed"
 msgstr "A szóköz nem engedélyezett"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:587
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:582
 msgid "Character \"'\" is forbidden for external"
 msgstr "A „'” karakter tiltott külső szolgáltatásokhoz"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:597
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:592
 #, perl-brace-format
 msgid "Unknown mail protocol: {proto}"
 msgstr "Ismeretlen levelezőprotokoll: {proto}"
@@ -10436,7 +10239,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/remoteservices/subscriptionSlotsTbody.mas:43
 #: ../../main/software/src/templates/welcome.mas:10
-#: ../../main/software/src/templates/ebox.mas:326
+#: ../../main/software/src/templates/ebox.mas:327
 msgid "Select"
 msgstr "Kijelölés"
 
@@ -11283,9 +11086,9 @@ msgid ""
 msgstr ""
 
 #: ../../main/software/src/templates/welcome.mas:10
-#: ../../main/software/src/templates/ebox.mas:70
-#: ../../main/software/src/templates/ebox.mas:166
-#: ../../main/software/src/templates/ebox.mas:177
+#: ../../main/software/src/templates/ebox.mas:71
+#: ../../main/software/src/templates/ebox.mas:167
+#: ../../main/software/src/templates/ebox.mas:178
 msgid "Install"
 msgstr "Telepítés"
 
@@ -11332,12 +11135,12 @@ msgstr ""
 "automatikusan kerülnek telepítésre."
 
 #: ../../main/software/src/templates/updates.mas:77
-#: ../../main/software/src/templates/ebox.mas:358
+#: ../../main/software/src/templates/ebox.mas:359
 msgid "Package list updated successfully"
 msgstr "A csomaglista sikeresen frissítve"
 
 #: ../../main/software/src/templates/updates.mas:80
-#: ../../main/software/src/templates/ebox.mas:365
+#: ../../main/software/src/templates/ebox.mas:366
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
@@ -11354,21 +11157,21 @@ msgid "Community updates are available for the following system components"
 msgstr "A következő rendszerkomponensekhez érhetők el közösségi frissítések"
 
 #: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/ebox.mas:42
-#: ../../main/software/src/templates/ebox.mas:63
-#: ../../main/software/src/templates/ebox.mas:100
+#: ../../main/software/src/templates/ebox.mas:43
+#: ../../main/software/src/templates/ebox.mas:64
+#: ../../main/software/src/templates/ebox.mas:101
 msgid "Component"
 msgstr "Komponens"
 
 #: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/ebox.mas:100
+#: ../../main/software/src/templates/ebox.mas:101
 msgid "Version"
 msgstr "Verzió"
 
 #: ../../main/software/src/templates/updates.mas:93
 #: ../../main/software/src/templates/updates.mas:141
-#: ../../main/software/src/templates/ebox.mas:65
-#: ../../main/software/src/templates/ebox.mas:183
+#: ../../main/software/src/templates/ebox.mas:66
+#: ../../main/software/src/templates/ebox.mas:184
 msgid "Update"
 msgstr "Frissítés"
 
@@ -11398,26 +11201,26 @@ msgid "Upgrading system packages"
 msgstr "Rendszercsomagok frissítése"
 
 #: ../../main/software/src/templates/updates.mas:142
-#: ../../main/software/src/templates/ebox.mas:296
+#: ../../main/software/src/templates/ebox.mas:297
 msgid "Update list"
 msgstr "Lista frissítése"
 
-#: ../../main/software/src/templates/ebox.mas:43
-#: ../../main/software/src/templates/ebox.mas:69
-#: ../../main/software/src/templates/ebox.mas:72
+#: ../../main/software/src/templates/ebox.mas:44
+#: ../../main/software/src/templates/ebox.mas:70
+#: ../../main/software/src/templates/ebox.mas:73
 msgid "Installed Version"
 msgstr "Telepített verzió"
 
-#: ../../main/software/src/templates/ebox.mas:44
-#: ../../main/software/src/templates/ebox.mas:73
+#: ../../main/software/src/templates/ebox.mas:45
+#: ../../main/software/src/templates/ebox.mas:74
 msgid "Latest Version"
 msgstr "Legújabb verzió"
 
-#: ../../main/software/src/templates/ebox.mas:50
+#: ../../main/software/src/templates/ebox.mas:51
 msgid "Upgrading packages"
 msgstr "Csomagok frissítése"
 
-#: ../../main/software/src/templates/ebox.mas:94
+#: ../../main/software/src/templates/ebox.mas:95
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
@@ -11425,14 +11228,14 @@ msgstr ""
 "A következő csomagok nincsenek megfelelően telepítve. Ezt meg kell oldania, "
 "mielőtt használná ezeket, vagy új modulokat telepítene."
 
-#: ../../main/software/src/templates/ebox.mas:110
+#: ../../main/software/src/templates/ebox.mas:111
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
 msgstr ""
 "A probléma megoldása érdekében futtassa a következő parancsot a konzolban:"
 
-#: ../../main/software/src/templates/ebox.mas:115
+#: ../../main/software/src/templates/ebox.mas:116
 #, perl-brace-format
 msgid ""
 "After the above command is finished you can reload this page. If the problem "
@@ -11443,28 +11246,28 @@ msgstr ""
 "továbbra is fennáll, akkor segítséget kérhet a {ofhref}közösségi "
 "fórumban{chref}, vagy beküldhet hibajegyet a {othref}Zentyal tracba{chref}."
 
-#: ../../main/software/src/templates/ebox.mas:124
+#: ../../main/software/src/templates/ebox.mas:125
 msgid "View advanced mode"
 msgstr "Speciális mód használata"
 
-#: ../../main/software/src/templates/ebox.mas:127
+#: ../../main/software/src/templates/ebox.mas:128
 msgid "Server roles"
 msgstr "Szerver szerepei"
 
-#: ../../main/software/src/templates/ebox.mas:143
+#: ../../main/software/src/templates/ebox.mas:144
 #, fuzzy
 msgid "Additional services"
 msgstr "Szolgáltatások listája"
 
-#: ../../main/software/src/templates/ebox.mas:165
+#: ../../main/software/src/templates/ebox.mas:166
 msgid "Skip install"
 msgstr "Telepítés kihagyása"
 
-#: ../../main/software/src/templates/ebox.mas:174
+#: ../../main/software/src/templates/ebox.mas:175
 msgid "View basic mode"
 msgstr "Egyszerű mód használata"
 
-#: ../../main/software/src/templates/ebox.mas:363
+#: ../../main/software/src/templates/ebox.mas:364
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
 msgstr "Hiba történt a csomaglista frissítése közben. <p>{msg}</p>"
@@ -11550,16 +11353,12 @@ msgstr ""
 msgid "Home Directories"
 msgstr "Saját könyvtárak"
 
-#: ../../main/samba/src/templates/deluser.mas:12
-#: ../../main/samba/src/templates/deluser.mas:29
+#: ../../main/samba/src/templates/deluser.mas:11
+#: ../../main/samba/src/templates/deluser.mas:24
 msgid "Delete user"
 msgstr "Felhasználó törlése"
 
-#: ../../main/samba/src/templates/deluser.mas:16
-msgid "You cannot delete a user in a slave."
-msgstr "Nem törölhet felhasználót alárendelt rendszeren."
-
-#: ../../main/samba/src/templates/deluser.mas:19
+#: ../../main/samba/src/templates/deluser.mas:14
 msgid ""
 "This operation will cause the removal of the user and all its dependent data"
 msgstr ""
@@ -11570,14 +11369,12 @@ msgid "Add Group"
 msgstr "Csoport hozzáadása"
 
 #: ../../main/samba/src/templates/addgroup.mas:10
-#: ../../main/samba/src/templates/editgroup.mas:29
-#: ../../main/samba/src/templates/editgroup.mas:34
+#: ../../main/samba/src/templates/editgroup.mas:28
 msgid "Security Group"
 msgstr "Biztonsági csoport"
 
 #: ../../main/samba/src/templates/addgroup.mas:10
 #: ../../main/samba/src/templates/editgroup.mas:30
-#: ../../main/samba/src/templates/editgroup.mas:36
 msgid "Distribution Group"
 msgstr "Terjesztési csoport"
 
@@ -11590,11 +11387,11 @@ msgstr "Csoport neve"
 msgid "Optional value"
 msgstr "Opcionális érték"
 
-#: ../../main/samba/src/templates/editgroup.mas:18
+#: ../../main/samba/src/templates/editgroup.mas:16
 msgid "Group "
 msgstr "Csoport"
 
-#: ../../main/samba/src/templates/editgroup.mas:22
+#: ../../main/samba/src/templates/editgroup.mas:20
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly."
@@ -11602,17 +11399,17 @@ msgstr ""
 "Jelenleg nincsenek felhasználók. Legalább egyre szükség van a csoport "
 "felügyeletéhez."
 
-#: ../../main/samba/src/templates/editgroup.mas:64
-#: ../../main/samba/src/templates/edituser.mas:92
+#: ../../main/samba/src/templates/editgroup.mas:51
+#: ../../main/samba/src/templates/edituser.mas:79
 msgid "Modules configuration"
 msgstr "Modulkonfiguráció"
 
-#: ../../main/samba/src/templates/editgroup.mas:134
+#: ../../main/samba/src/templates/editgroup.mas:121
 #, fuzzy
 msgid "This group does not have members"
 msgstr "A csoportnak nincs tagja"
 
-#: ../../main/samba/src/templates/editgroup.mas:202
+#: ../../main/samba/src/templates/editgroup.mas:189
 msgid "Add user"
 msgstr "Felhasználó hozzáadása"
 
@@ -11620,20 +11417,16 @@ msgstr "Felhasználó hozzáadása"
 msgid "Contact"
 msgstr "Névjegy"
 
-#: ../../main/samba/src/templates/delou.mas:12
-msgid "You cannot delete a OU in a slave."
-msgstr "Nem törölhet szervezeti egységet alárendelt rendszeren."
-
-#: ../../main/samba/src/templates/delou.mas:14
-#: ../../main/samba/src/templates/delou.mas:25
+#: ../../main/samba/src/templates/delou.mas:9
+#: ../../main/samba/src/templates/delou.mas:20
 msgid "Delete Organizational Unit"
 msgstr "Szervezeti egység törlése"
 
-#: ../../main/samba/src/templates/delou.mas:15
+#: ../../main/samba/src/templates/delou.mas:10
 msgid "This organizational unit cannot be deleted"
 msgstr "Ez a szervezeti egység nem törölhető"
 
-#: ../../main/samba/src/templates/delou.mas:18
+#: ../../main/samba/src/templates/delou.mas:13
 msgid ""
 "This operation will cause the removal of the OU and all objects inside it, "
 "including users, groups, etc."
@@ -11670,16 +11463,12 @@ msgstr ""
 "Ezek a beállítások csak akkor lépnek életbe, ha a(z) {mod} modul be van "
 "kapcsolva"
 
-#: ../../main/samba/src/templates/delcontact.mas:9
-#: ../../main/samba/src/templates/delcontact.mas:20
+#: ../../main/samba/src/templates/delcontact.mas:8
+#: ../../main/samba/src/templates/delcontact.mas:15
 msgid "Delete contact"
 msgstr "Névjegy törlése"
 
-#: ../../main/samba/src/templates/delcontact.mas:13
-msgid "You cannot delete a contact in a slave."
-msgstr "Nem törölhet névjegyet alárendelt rendszeren."
-
-#: ../../main/samba/src/templates/delcontact.mas:16
+#: ../../main/samba/src/templates/delcontact.mas:11
 msgid ""
 "This operation will cause the removal of the contact and any dependent "
 "configuration."
@@ -11689,67 +11478,67 @@ msgstr "Ez a művelet törli a névjegyet és minden vele összefüggő beállí
 msgid "Add Organizational Unit"
 msgstr "Szervezeti egység hozzáadása"
 
-#: ../../main/samba/src/templates/edituser.mas:25
+#: ../../main/samba/src/templates/edituser.mas:23
 #: ../../main/samba/src/templates/adduser.mas:18
-#: ../../main/samba/src/templates/editcontact.mas:27
+#: ../../main/samba/src/templates/editcontact.mas:24
 #: ../../main/samba/src/templates/addcontact.mas:12
 msgid "First name"
 msgstr "Utónév"
 
-#: ../../main/samba/src/templates/edituser.mas:31
+#: ../../main/samba/src/templates/edituser.mas:28
 #: ../../main/samba/src/templates/adduser.mas:21
-#: ../../main/samba/src/templates/editcontact.mas:28
+#: ../../main/samba/src/templates/editcontact.mas:25
 #: ../../main/samba/src/templates/addcontact.mas:17
 msgid "Last name"
 msgstr "Családnév"
 
-#: ../../main/samba/src/templates/edituser.mas:38
-#: ../../main/samba/src/templates/editcontact.mas:29
+#: ../../main/samba/src/templates/edituser.mas:34
+#: ../../main/samba/src/templates/editcontact.mas:26
 msgid "Display name"
 msgstr "Megjelenő név"
 
-#: ../../main/samba/src/templates/edituser.mas:59
+#: ../../main/samba/src/templates/edituser.mas:52
 msgid "User quota"
 msgstr "Felhasználói kvóta"
 
-#: ../../main/samba/src/templates/edituser.mas:67
+#: ../../main/samba/src/templates/edituser.mas:59
 #: ../../main/samba/src/templates/adduser.mas:33
 msgid "Retype password"
 msgstr "Jelszó megerősítése"
 
-#: ../../main/samba/src/templates/edituser.mas:72
+#: ../../main/samba/src/templates/edituser.mas:64
 msgid "Disabled account"
 msgstr "Kikapcsolt fiók"
 
-#: ../../main/samba/src/templates/edituser.mas:83
+#: ../../main/samba/src/templates/edituser.mas:74
 msgid "User groups"
 msgstr "Felhasználói csoportok"
 
-#: ../../main/samba/src/templates/edituser.mas:145
+#: ../../main/samba/src/templates/edituser.mas:128
 #, fuzzy
 msgid "Remove mail account"
 msgstr "Postafiók létrehozása"
 
-#: ../../main/samba/src/templates/edituser.mas:145
+#: ../../main/samba/src/templates/edituser.mas:128
 msgid "This action removes the mail account and its associated data."
 msgstr ""
 
-#: ../../main/samba/src/templates/edituser.mas:148
+#: ../../main/samba/src/templates/edituser.mas:131
 #, fuzzy
 msgid "Replace mail account"
 msgstr "Postafiók létrehozása"
 
-#: ../../main/samba/src/templates/edituser.mas:148
+#: ../../main/samba/src/templates/edituser.mas:131
 msgid "Replacing the mail account removes all its current data."
 msgstr ""
 
-#: ../../main/samba/src/templates/edituser.mas:202
-#: ../../main/samba/src/templates/edituser.mas:286
+#: ../../main/samba/src/templates/edituser.mas:185
+#: ../../main/samba/src/templates/edituser.mas:269
 msgid "This user is not a member of any group"
 msgstr "Ez a felhasználó nem tagja egy csoportnak sem"
 
-#: ../../main/samba/src/templates/edituser.mas:271
-#: ../../main/samba/src/templates/editcontact.mas:162
+#: ../../main/samba/src/templates/edituser.mas:254
+#: ../../main/samba/src/templates/editcontact.mas:152
 msgid "Add group"
 msgstr "Csoport hozzáadása"
 
@@ -11807,40 +11596,32 @@ msgstr ""
 msgid "Add User"
 msgstr "Felhasználó hozzáadása"
 
-#: ../../main/samba/src/templates/editcontact.mas:22
+#: ../../main/samba/src/templates/editcontact.mas:19
 msgid "Administration of contact "
 msgstr "Névjegy adminisztrációja "
 
-#: ../../main/samba/src/templates/editcontact.mas:41
+#: ../../main/samba/src/templates/editcontact.mas:35
 msgid "Contact groups"
 msgstr "Névjegycsoportok"
 
-#: ../../main/samba/src/templates/editcontact.mas:100
+#: ../../main/samba/src/templates/editcontact.mas:90
 msgid "This contact is not member of any group"
 msgstr "A névjegy nem tagja egy csoportnak sem"
-
-#: ../../main/samba/src/templates/editcontact.mas:176
-msgid "No member of any group"
-msgstr "Nem tagja egy csoportnak sem"
 
 #: ../../main/samba/src/templates/addcontact.mas:7
 msgid "Add Contact"
 msgstr "Névjegy hozzáadása"
 
-#: ../../main/samba/src/templates/delgroup.mas:11
-#: ../../main/samba/src/templates/delgroup.mas:32
+#: ../../main/samba/src/templates/delgroup.mas:10
+#: ../../main/samba/src/templates/delgroup.mas:27
 msgid "Delete group"
 msgstr "Csoport törlése"
 
-#: ../../main/samba/src/templates/delgroup.mas:15
-msgid "You cannot delete a group in a slave."
-msgstr "Nem törölhet csoportot alárendelt rendszeren."
-
-#: ../../main/samba/src/templates/delgroup.mas:18
+#: ../../main/samba/src/templates/delgroup.mas:13
 msgid "This group cannot be deleted"
 msgstr "A csoport nem törölhető"
 
-#: ../../main/samba/src/templates/delgroup.mas:20
+#: ../../main/samba/src/templates/delgroup.mas:15
 msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
@@ -12016,6 +11797,177 @@ msgid ""
 msgstr ""
 "Ezek a beállítások csak akkor lesznek alkalmazva, ha bekapcsolja a Levelezés "
 "modult"
+
+#~ msgid "Gateways and Proxy"
+#~ msgstr "Átjárók és proxy"
+
+#~ msgid "Users synchronization"
+#~ msgstr "Felhasználószinkronizálás"
+
+#~ msgid ""
+#~ "You must enable the module Users in the module status section in order to "
+#~ "use it."
+#~ msgstr ""
+#~ "A Felhasználók modult be kell kapcsolni a Modulállapot oldalon a "
+#~ "használathoz."
+
+#~ msgid ""
+#~ "Cannot enable Samba because this server is synchronizing its users as "
+#~ "slave of other Zentyal.<br/>You can change this state at {ohref}"
+#~ "synchronization options{chref}"
+#~ msgstr ""
+#~ "Nem kapcsolható be a Samba, mert ez a kiszolgáló a felhasználóit egy "
+#~ "másik Zentyal alárendeltjeként szinkronizálja.<br/>Ezt az állapotot a "
+#~ "{ohref}szinkronizálás beállításai{chref} között módosíthatja"
+
+#~ msgid "Sync with Zentyal Cloud"
+#~ msgstr "Szinkronizálás a Zentyal Clouddal"
+
+#~ msgid "Files will be synchronized with Zentyal Cloud."
+#~ msgstr "A fájlok szinkronizálásra kerülnek a Zentyal Clouddal."
+
+#~ msgid "Sync all with Zentyal Cloud"
+#~ msgstr "Minden szinkronizálása a Zentyal Clouddal"
+
+#~ msgid "All shares and user homes will be synchronized using Zentyal Cloud."
+#~ msgstr ""
+#~ "Minden megosztás és felhasználói könyvtár szinkronizálásra kerül a "
+#~ "Zentyal Cloud használatával."
+
+#~ msgid "Cloud Sync"
+#~ msgstr "Cloud szinkronizálás"
+
+#~ msgid "Zentyal Cloud Files not available"
+#~ msgstr "A Zentyal Cloud Files nem érhető el"
+
+#~ msgid "Slave"
+#~ msgstr "Alárendelt"
+
+#~ msgid "Slaves"
+#~ msgstr "Alárendeltek"
+
+#~ msgid "List of slave servers for users and groups synchronization."
+#~ msgstr ""
+#~ "Alárendelt szerverek listája a felhasználók és csoportok "
+#~ "szinkronizálásához."
+
+#~ msgid "slave"
+#~ msgstr "alárendelt"
+
+#~ msgid "Slave connection password"
+#~ msgstr "Alárendelt kapcsolat jelszava"
+
+#~ msgid "Use this password when connecting a new slave to this server."
+#~ msgstr ""
+#~ "Ezen jelszó használata új alárendelt rendszer csatlakoztatásakor ehhez a "
+#~ "szerverhez."
+
+#~ msgid "Zentyal Cloud"
+#~ msgstr "Zentyal Cloud"
+
+#~ msgid "Sync users from"
+#~ msgstr "Felhasználók szinkronizálása innen"
+
+#~ msgid "Sync users from the chosen source"
+#~ msgstr "Felhasználók szinkronizálása a kiválasztott forrásból"
+
+#~ msgid "Master host"
+#~ msgstr "Elsődleges szerver"
+
+#~ msgid "Hostname or IP of the master"
+#~ msgstr "Az elsődleges szerver neve vagy IP-címe"
+
+#~ msgid "Master port"
+#~ msgstr "Elsődleges port"
+
+#~ msgid "Master port for Zentyal Administration (default: 443)"
+#~ msgstr "A Zentyal adminisztráció elsődleges portja (alapértelmezett: 443)"
+
+#~ msgid "Slave password"
+#~ msgstr "Alárendelt jelszó"
+
+#~ msgid "Password for new slave connection"
+#~ msgstr "Az új alárendelt kapcsolat jelszava"
+
+#~ msgid "Sync users from a master server"
+#~ msgstr "Felhasználók szinkronizálása elsődleges szerverről"
+
+#~ msgid "Configure this parameters to synchronize users from a master server"
+#~ msgstr ""
+#~ "Ezen paraméterek megadásával a felhasználók egy elsődleges szerverről "
+#~ "szinkronizálhatók"
+
+#~ msgid ""
+#~ "Master server has a different REALM, check hostnames. Master is {master} "
+#~ "and this server {slave}."
+#~ msgstr ""
+#~ "Az elsődleges szerver ZÓNÁJA eltér, ellenőrizze a gépneveket. Az "
+#~ "elsődleges: {master}, ez a szerver: {slave}."
+
+#~ msgid ""
+#~ "Your Zentyal Cloud allows a maximum of {max} users. Currently there are "
+#~ "{current} users created."
+#~ msgstr ""
+#~ "A Zentyal Cloudja legfeljebb {max} felhasználót engedélyez. Jelenleg "
+#~ "{current} felhasználó van létrehozva."
+
+#~ msgid "CAUTION: this will delete all defined users and import master ones."
+#~ msgstr ""
+#~ "FIGYELEM: Ez az összes definiált felhasználót törli, és importálja az "
+#~ "elsődlegeseket."
+
+#~ msgid ""
+#~ "Master {addr} is invalid because it is the address of the loopback "
+#~ "interface"
+#~ msgstr ""
+#~ "A(z) {addr} elsődleges érvénytelen, mert ez a visszacsatolási felület címe"
+
+#~ msgid ""
+#~ "Master {addr} is invalid because it is the address of the interface {if}"
+#~ msgstr "A(z) {addr} elsődleges érvénytelen, mert ez a(z) {if} felület címe"
+
+#~ msgid ""
+#~ "Master server has a different REALM, check hostnames. Master is {master} "
+#~ "and slave {slave}."
+#~ msgstr ""
+#~ "Az elsődleges szerver ZÓNÁJA eltér, ellenőrizze a gépneveket. Az "
+#~ "elsődleges: {master}, az alárendelt: {slave}."
+
+#~ msgid "Invalid password"
+#~ msgstr "Érvénytelen jelszó"
+
+#~ msgid "Connection failed, check host, port and firewall settings"
+#~ msgstr ""
+#~ "A csatlakozás sikertelen, ellenőrizze a gép, port és tűzfal beállításait"
+
+#~ msgid "Couldn't configure Zentyal as slave"
+#~ msgstr "Nem állítható be a Zentyal alárendeltként"
+
+#~ msgid "Found {count} results for '{uid}' user, expected only one."
+#~ msgstr ""
+#~ "{count} találat „{uid}” felhasználóhoz, de csak egynek kellene lennie."
+
+#~ msgid ""
+#~ "The mail domains and its accounts will be removed when the slave setup is "
+#~ "complete"
+#~ msgstr ""
+#~ "A levelezőtartományok és fiókjaik eltávolításra kerülnek az alárendelt "
+#~ "beállítás befejezésekor"
+
+#~ msgid "You cannot delete a user in a slave."
+#~ msgstr "Nem törölhet felhasználót alárendelt rendszeren."
+
+#~ msgid "You cannot delete a OU in a slave."
+#~ msgstr "Nem törölhet szervezeti egységet alárendelt rendszeren."
+
+#~ msgid "You cannot delete a contact in a slave."
+#~ msgstr "Nem törölhet névjegyet alárendelt rendszeren."
+
+#~ msgid "No member of any group"
+#~ msgstr "Nem tagja egy csoportnak sem"
+
+#~ msgid "You cannot delete a group in a slave."
+#~ msgstr "Nem törölhet csoportot alárendelt rendszeren."
 
 #~ msgid "All external interfaces"
 #~ msgstr "Összes külső csatoló"
@@ -13056,9 +13008,6 @@ msgstr ""
 
 #~ msgid "WAN Failover"
 #~ msgstr "WAN feladatátvétel"
-
-#~ msgid "Gateways Configuration"
-#~ msgstr "Átjárók beállításai"
 
 #~ msgid ""
 #~ "Here you can configure all the settings related to the way Zentyal "
