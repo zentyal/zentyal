@@ -1,100 +1,94 @@
 [
   {
-    "title": "&iexcl;Gracias por elegir el Servidor Zentyal!",
+    "title": "&iexcl;Gracias por elegir Zentyal Server!",
     "paragraphs": [
-              "Zentyal es un servidor Linux f&aacute;cil de usar para pymes. &iquest;Tienes el tiempo y conocimientos para mantenerlo? &iexcl;Zentyal Community Edition es para ti! Y si no, elige una de las ediciones comerciales.",
-              "Para soporte de comunidad, echa un vistazo a la documentaci&oacute;n oficial y el Foro Oficial de Zentyal!"
-             ],
-    "links": [ "http://doc.zentyal.org/", "http://forum.zentyal.org" ]
+      "Zentyal Server implementa los protocolos de Microsoft® Exchange y Active Directory® en Linux de manera nativa. ¿Buscas una versi&oacute;n experimental para probar el producto? ¡Zentyal Server Development Edition es para ti! Si buscas una versi&oacute;n para tu entorno de produci&oacute;n, elige una de las ediciones comerciales.",
+      "Para obtener ayuda de comunidad, echa un vistazo a la documentaci&oacute;n oficial y el Foro Oficial de Zentyal!"
+    ],
+    "links": [
+      "http://wiki.zentyal.org/",
+      "http://forum.zentyal.org"
+    ]
   },
-
   {
     "title": "Ediciones Comerciales de Zentyal",
-    "paragraphs": [ "&iexcl;Infraestructura TIC h&iacute;brida con soporte completo!" ],
+    "paragraphs": [
+      "&iexcl;Listas para usar en un entorno de produci&oacute;n!"
+    ],
     "items": [
-              "Todas las funcionalidades, completamente testeado y estable",
-              "Actualizaciones comerciales",
-              "Soporte oficial ilimitado",
-              "Servicios oficiales de nube integrados",
-              "Soportadas durante 4 años"
-             ],
-    "endText": "&iexcl;Pide un trial gratuito en www.zentyal.com!"
+      "Soporte oficial ilimitado",
+      "Completamente testeado y estable",
+      "Verificación de calidad sobre las actualizaciones",
+      "Soportadas durante 4.5 años"
+    ],
+    "endText": "&iexcl;Pide tu trial gratuito en www.zentyal.com/es/zentyal-server!"
   },
-
+  {
+    "title": "Compatibilidad nativa con protocolos Microsoft® Exchange Server",
+    "paragraphs": [
+      "&iexcl;Integración transparente en entornos Microsoft Outlook®!"
+    ],
+    "items": [
+      "Soporte para Microsoft Outlook® 2007, 2010, 2013",
+      "&iexcl;No es necesario instalar plug-ins o conectores en los clientes de correo!",
+      "Configuraci&oacute;n automática del servidor con el servicio Autodiscover",
+      "Soporte para migraci&oacute;n de buzones de Microsoft Outlook® (Importaci&oacute;n de archivos PST)"
+    ],
+    "endText": "&iexcl;Aprende m&aacute;s en wiki.zentyal.org!"
+  },
   {
     "title": "Compatibilidad nativa con Microsoft Active Directory®",
-    "paragraphs": [ "&iexcl;Integraci&oacute;n transparente en entornos de Windows Server®!" ],
+    "paragraphs": [
+      "&iexcl;Integraci&oacute;n transparente en entornos de Windows Server®! (LDAP, DNS, Kerberos)"
+    ],
     "items": [
-              "Une tus clientes Windows al dominio e inicia sesi&oacute;n con usuarios de dominio",
-              "Autenticaci&oacute;n Single Sign-On (SSO) en todo el dominio",
-              "Compartici&oacute;n de ficheros en entornos Windows® (CIFS)",
-              "Gestiona y/o importa Objetos de Directiva de Grupo (GPOs)"
-             ],
-    "endText": "&iexcl;Aprende m&aacute;s en doc.zentyal.org!"
+      "Une tus clientes Windows al dominio e inicia sesi&oacute;n con usuarios de dominio",
+      "Autenticaci&oacute;n Single Sign-On (SSO) en todo el dominio",
+      "Compartición de ficheros en entornos Windows® (CIFS)",
+      "Gesti&oacute;n avanzada del dominio mediante herramientas RSAT"
+    ],
+    "endText": "&iexcl;Aprende m&aacute;s en wiki.zentyal.org!"
   },
-
   {
-    "title": "Compatibilidad nativa con Microsoft® Exchange Server",
-    "paragraphs": [ "&iexcl;Integraci&oacute;n transparente en entornos de Microsoft Exchange Server!" ],
+    "title": "Formaci&oacute;n Certificada en Zentyal Server",
+    "paragraphs": [
+      "&iexcl;Aprende c&oacute;mo gestionar Zentyal Server!"
+    ],
     "items": [
-              "Soporte para Microsoft Outlook® 2003, 2007, 2010, 2013",
-              "&iexcl;No es necesario instalar un plug-in en el cliente de correo!",
-              "Configuraci&oacute;n de Zentyal como principal y/o adicional Servidor Microsoft® Exchange",
-              "Soporte para migraci&oacute;n de buzones de Microsoft Outlook® (Importaci&oacute;n de archivos PST)"
-             ],
-    "endText": "&iexcl;Aprende m&aacute;s en doc.zentyal.org!"
+      "Cursos on-line oficiales",
+      "Por profesores certificados",
+      "Muchos ejercicios y escenarios reales"
+    ],
+    "endText": "&iexcl;Obt&eacute;n m&aacute;s informaci&oacute;n en www.zentyal.com/es/training/!"
   },
-
   {
-    "title": "Formaci&oacute;n Certificada en Zentyal",
-    "paragraphs": [ "&iexcl;Aprende c&oacute;mo gestionar el Servidor Zentyal!" ],
+    "title": "Distribuidores de Zentyal",
+    "paragraphs": [
+      "&iquest;Interesado en ofrecer soluciones basadas en Zentyal? Obt&eacute;n acceso a:"
+    ],
     "items": [
-              "Cursos on-line oficiales",
-              "Por profesores certificados",
-              "Muchos ejercicios y escenarios reales",
-              "Ex&aacute;menes de certificaci&oacute;n para validar tus conocimientos"
-             ],
-    "endText": "&iexcl;Obt&eacute;n m&aacute;s informaci&oacute;n en www.zentyal.com!"
+      "Plataforma de soporte",
+      "Formaci&oacute;n y certificaci&oacute;n t&eacute;cnica y comercial",
+      "Portafolio de servicios gestionados",
+      "Materiales de venta",
+      "Generaci&oacute;n de oportunidades de venta",
+      "Descuentos"
+    ],
+    "endText": "&iexcl;Obt&eacute;n m&aacute;s informaci&oacute;n en www.zentyal.com/es/zentyal-server/resellers!"
   },
-
-  {
-    "title": "Gu&iacute;a Oficial de Zentyal",
-    "paragraphs": [ "&iexcl;Aprende c&oacute;mo configurar y administrar el Servidor Zentyal!" ],
-    "items": [
-              "Cubre todos los aspectos m&aacute;s relevantes",
-              "Buenas pr&aacute;cticas para mantenimiento efectivo y seguro",
-              "Gran n&uacute;mero de ejercicios pr&aacute;cticos",
-              "Disponible en ingl&eacute;s y en espa&ntilde;ol, impreso y como eBook",
-              "&iexcl;Se donan todos los beneficios!"
-             ],
-    "endText": "&iexcl;Descarga un cap&iacute;tulo de ejemplo en zentyal.com/book"
-  },
-
-  {
-    "title": "Partners de Zentyal",
-    "paragraphs": [ "&iquest;Interesado en ofrece soluciones basadas en Zentyal? Obt&eacute;n acceso a:" ],
-    "items": [
-              "Plataforma de soporte",
-              "Formaci&oacute;n y certificaci&oacute;n t&eacute;cnica y comercial",
-              "Portafolio de servicios gestionados",
-              "Materiales de venta",
-              "Generaci&oacute;n de oportunidades de venta",
-              "Descuentos"
-             ],
-    "endText": "&iexcl;Obt&eacute;n m&aacute;s informaci&oacute;n en www.zentyal.com!"
-  },
-
   {
     "title": "&iquest;C&oacute;mo puedo contribuir?",
-    "paragraphs": [ "&iquest;Quieres apoyar el desarrollo de Zentyal? Colabora con el proyecto:" ],
+    "paragraphs": [
+      "&iquest;Quieres apoyar el desarrollo de Zentyal Server? Colabora con el proyecto:"
+    ],
     "items": [
-              "&iexcl;Haz correr la voz sobre Zentyal!",
-              "Escribe how-tos y tutoriales",
-              "Traduce Zentyal a tu idioma",
-              "Ayuda a otros usuarios a trav&eacute;s del Foro",
-              "Prueba las &uacute;ltimas versiones y reporta bugs",
-              "Desarrolla tus propios m&oacute;dulos de Zentyal"
-             ],
+      "&iexcl;Haz correr la voz sobre Zentyal!",
+      "Escribe how-tos y tutoriales",
+      "Traduce Zentyal Server a tu idioma",
+      "Ayuda a otros usuarios a trav&eacute;s del Foro",
+      "Prueba las &uacute;ltimas versiones y reporta bugs",
+      "Desarrolla tus propios m&oacute;dulos de Zentyal Server"
+    ],
     "endText": "&iexcl;Obt&eacute;n m&aacute;s informaci&oacute;n en www.zentyal.org!"
   }
 ]

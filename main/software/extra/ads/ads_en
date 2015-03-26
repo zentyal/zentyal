@@ -2,76 +2,61 @@
   {
     "title": "Thank you for choosing Zentyal Server!",
     "paragraphs": [
-              "Zentyal is an easy-to-use Linux server for small and medium businesses. Do you have the time and the skills to maintain it? The Community Edition is for you! And if not, choose one of the commercial editions.",
-              "For community support, check out the official documentation and the Zentyal Forum!"
+              "Zentyal Server offers native Microsoft® Exchange protocols implementation and Active Directory interoperability on Linux. Are you looking for a version to experiment with? The Development Edition is for you! Are you looking for the production version? Choose one of the commercial editions.",
+              "For community help on the development edition, check out the official documentation and the Zentyal Forum!"
              ],
-    "links": [ "http://doc.zentyal.org/", "http://forum.zentyal.org" ]
+    "links": [ "http://wiki.zentyal.org/", "http://forum.zentyal.org" ]
   },
 
   {
     "title": "Commercial Zentyal Editions",
-    "paragraphs": [ "Fully supported hybrid IT infrastructure!" ],
+    "paragraphs": [ "Ready for the production environment!" ],
     "items": [
-              "All features, fully tested and stable",
-              "Commercial updates and upgrades",
               "Official unlimited commercial support",
-              "Official Cloud services integrated",
-              "Supported for 4 years"
+              "Fully tested and stable",
+              "Quality assured updates",
+              "Supported for 4.5 years"
              ],
-    "endText": "Ask for a free trial at www.zentyal.com!"
+    "endText": "Get your free trial at www.zentyal.com/zentyal-server!"
+  },
+
+  {
+    "title": "Native compatibility with Microsoft® Exchange Server protocols",
+    "paragraphs": [ "Transparent integration in Microsoft Outlook® environments" ],
+    "items": [
+              "Support for Microsoft Outlook® 2007, 2010, 2013",
+              "No need to install plug-ins or connectors on mail clients!",
+              "Automatic configuration of server settings (Autodiscover service)",
+              "Support for Microsoft Outlook® mailbox migration (PST-file import)"
+             ],
+    "endText": "Learn more at wiki.zentyal.org!"
   },
 
   {
     "title": "Native compatibility with Microsoft Active Directory®",
-    "paragraphs": [ "Transparent integration in Windows Server® environments (LDAP, DNS, Kerberos & GPOs sync)" ],
+    "paragraphs": [ "Transparent integration in Windows Server® environments (LDAP, DNS, Kerberos)" ],
     "items": [
               "Join your Windows® clients to the domain and login with domain users",
               "Single Sign-On (SSO) authentication across all domain",
               "File sharing in Windows® environments (CIFS)",
-              "Manage and/or import Group Policy Objects (GPOs)"
+              "Advanced domain management through the RSAT tools"
              ],
-    "endText": "Learn more at doc.zentyal.org!"
+    "endText": "Learn more at wiki.zentyal.org!"
   },
 
   {
-    "title": "Native compatibility with Microsoft® Exchange Server",
-    "paragraphs": [ "Transparent integration in Microsoft® Exchange environments" ],
-    "items": [
-              "Support for Microsoft Outlook® 2003, 2007, 2010, 2013",
-              "No need to install plug-in on the mail client!",
-              "Provisioning of Zentyal as first and/or additional Microsoft® Exchange Server",
-              "Support for Microsoft Outlook® mailbox migration (PST-file import)"
-             ],
-    "endText": "Learn more at doc.zentyal.org!"
-  },
-
-  {
-    "title": "Certified Zentyal Training",
+    "title": "Certified Zentyal Server Training",
     "paragraphs": [ "Learn easy and practical Linux server management!" ],
     "items": [
               "Official on-line courses",
               "By certified, in-house instructors",
-              "Plenty exercises and real world scenarios",
-              "Certification exams to validate your knowledge"
+              "Plenty exercises and real world scenarios"
              ],
-    "endText": "Learn more at www.zentyal.com!"
+    "endText": "Learn more at www.zentyal.com/training!"
   },
 
   {
-    "title": "Official Zentyal Guide",
-    "paragraphs": [ "Learn how to configure and manage a Zentyal Server!" ],
-    "items": [
-              "Covers all the relevant aspects",
-              "Best practices for safe and effective maintenance",
-              "Large number of practical exercises",
-              "Available in English and Spanish, printed and eBook",
-              "All benefits donated!"
-            ],
-    "endText": "Download a sample chapter at zentyal.com/book"
-  },
-
-  {
-    "title": "Zentyal Partners",
+    "title": "Zentyal Server Resellers",
     "paragraphs": [ "Interested in delivering Zentyal-based solutions! Gain access to:" ],
     "items": [
               "Support platform",
@@ -81,19 +66,19 @@
               "Lead generation program",
               "Discounts"
              ],
-    "endText": "Learn more at www.zentyal.com!"
+    "endText": "Learn more at www.zentyal.com/zentyal-server/resellers!"
   },
 
   {
     "title": "How can you contribute?",
-    "paragraphs": [ "Are you a happy Zentyal user? Give back to the project:" ],
+    "paragraphs": [ "Are you a happy Zentyal Server user? Give back to the project:" ],
     "items": [
               "Spread the word about Zentyal!",
-              "Write Zentyal how-tos and tutorials",
-              "Translate Zentyal to your language",
-              "Help other users through Zentyal Forum",
+              "Write Zentyal Server how-tos and tutorials",
+              "Translate Zentyal Server to your language",
+              "Help other users through Zentyal Server Forum",
               "Test latest versions and report bugs",
-              "Develop your own Zentyal modules"
+              "Develop your own Zentyal Server modules"
              ],
     "endText": "Learn more at www.zentyal.org!"
   }
