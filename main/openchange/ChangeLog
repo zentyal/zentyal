@@ -1,4 +1,4 @@
-HEAD
+4.1
 	+ Remove deprecated notification service deps and daemon
 	+ Disable Vacations feature from SOGo webmail
 	+ Remove z-push support in favor of sogo-activesync

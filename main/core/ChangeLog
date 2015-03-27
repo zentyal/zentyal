@@ -1,4 +1,4 @@
-HEAD
+4.1
 	+ Increase uwsgi read timeout from 60 (default) to 180 seconds
 	+ Update version to 4.1
 	+ Remove deprecated Summarized report column in Logs page

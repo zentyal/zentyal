@@ -1,4 +1,4 @@
-HEAD
+4.1
 	+ Remove deprecated OpenChange notifications plugin in dovecot.conf
 	+ Remove external AD integration
 	+ Use always external mailfilter if configured instead of no longer
