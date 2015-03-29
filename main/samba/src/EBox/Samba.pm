@@ -1915,9 +1915,6 @@ sub menu
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Samba/Composite/UserTemplate',
             'text' => __('User Template'), order => 30));
-        $folder->add(new EBox::Menu::Item(
-            'url'  => 'Samba/View/Master',
-            'text' => __('Synchronization'), order => 40));
 
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Samba/Composite/Settings',
