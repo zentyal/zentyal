@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2015-02-21 14:10+0200\n"
-"Last-Translator: didi <d.weiss@web.de>\n"
+"PO-Revision-Date: 2015-03-29 10:51+0200\n"
+"Last-Translator: max <ggdi@gmx-topmail.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -128,7 +128,7 @@ msgid ""
 "is a address of the localhost itsef"
 msgstr ""
 "VPN Client sollte nicht konfiguriert sein, um zur Adresse {addr} zu "
-"verbinden, da es eine Adresse des lokalen Hosts selbst ist."
+"verbinden, da es eine Adresse des lokalen Hosts selbst ist"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:337
 #, perl-brace-format
@@ -172,7 +172,7 @@ msgstr "Aktiviert"
 #: ../../main/openchange/src/templates/openchange.mas:15
 #: ../../main/samba/src/templates/edituser.mas:279
 msgid "Disabled"
-msgstr "deaktiviert"
+msgstr "Deaktiviert"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:555
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:892
@@ -212,7 +212,7 @@ msgstr "VPN-Netzwerkadresse"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:918
 msgid "No active"
-msgstr "keine aktiv"
+msgstr "Nicht aktiv"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:137
 #, perl-brace-format
@@ -269,7 +269,7 @@ msgstr "Nicht unterstützter Client-Typ: {ct}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:889
 #, perl-brace-format
 msgid "Server {name}"
-msgstr "Server {name}"
+msgstr "Server- {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:900
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:246
@@ -278,7 +278,7 @@ msgstr "Alle Netzwerkschnittstellen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
 msgid "Not found"
-msgstr "nicht gefunden"
+msgstr "Nicht gefunden"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:904
 msgid "Local address"
@@ -289,7 +289,7 @@ msgstr "Lokale Adresse"
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:43
 #: ../../main/mail/src/templates/externalAccounts.mas:16
 msgid "Port"
-msgstr "Port"
+msgstr "Port-"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:912
 msgid "VPN subnet"
@@ -372,7 +372,7 @@ msgstr "VPN-Server"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:189
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:57
 msgid "server"
-msgstr "Server"
+msgstr "Server "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:160
 #, perl-brace-format
@@ -426,15 +426,15 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 msgid "revoked"
-msgstr "Widerrufen"
+msgstr "widerrufen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
 msgid "expired"
-msgstr "Abgelaufen"
+msgstr "abgelaufen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
 msgid "invalid"
-msgstr "Ungültig"
+msgstr "ungültig"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:349
 #, perl-brace-format
@@ -443,9 +443,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
-"Kann den Server mit Namen \"{name}\" nicht erstellen, da bereits ein "
-"Zertifikat \"{certName}\" mit Status \"{state}\" existiert. Wählen Sie einen "
-"anderen Namen oder erneuern Sie das Zertifikat \"{certName}\"."
+"Kann den Server {name} nicht erstellen, weil es bereits ein Zertifikat mit "
+"dem Namen {certName} und dem Status {state} existiert.<br/>Wählen sie einen "
+"anderen Namen oder erneuern Sie das Zertifikat {certName}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -571,7 +571,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:87
 msgid "Additional server address (optional)"
-msgstr "zusätzliche Serveradresse (optional)"
+msgstr "Zusätzliche Serveradresse (optional)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
 msgid "Second additional server address (optional)"
@@ -1893,7 +1893,7 @@ msgstr "Netzwerkdrucker"
 
 #: ../../main/printers/src/EBox/Printers.pm:116
 msgid "Internet Printing Protocol (CUPS)"
-msgstr "Internet Printing Protocol (CUPS)"
+msgstr "Internet Druck Protocol (CUPS)"
 
 #: ../../main/printers/src/EBox/Printers.pm:393
 msgid "Job ID"
@@ -2011,7 +2011,7 @@ msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
-"{reason} ist KEIN Grund, der hier angewendet werden kann.\n"
+"Das Ereignis {reason} ist NICHT anwendbar.\n"
 "Optionen:"
 
 #: ../../main/ca/src/EBox/CA.pm:1074
@@ -2081,7 +2081,7 @@ msgid ""
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
 "Die Eingabe enthält ungültige Zeichen. Nur die ASCII-Buchstaben A-Z und a-z, "
-"die Ziffern 0-9, die Sonderzeichen .?&+:\\@ und Leerzeichen sind erlaubt."
+"die Ziffern 0-9, die Sonderzeichen .?&+:-@* und Leerzeichen sind erlaubt."
 
 #: ../../main/ca/src/EBox/CA.pm:2454
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
@@ -2094,7 +2094,6 @@ msgid "Database corruption"
 msgstr "Datenbankfehler"
 
 #: ../../main/ca/src/EBox/CA.pm:2458
-#, fuzzy
 msgid "Identifier duplicated in Database"
 msgstr "Doppelte Identität in der Datenbank"
 
@@ -2328,11 +2327,12 @@ msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by Zentyal"
 msgstr ""
+"Hier kann man Zertifikate von dieser Zertifizierungsstelle wählen, für diese "
+"sicheren Dienste verwaltet durch Zentyal"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:341
-#, fuzzy
 msgid "This service does not allow to change the certificate common name"
-msgstr "Dem Server {name} ist kein Zertifikat zugewiesen"
+msgstr "Dieser Dienst erlaubt keine Änderung des Standard Certificat Namen."
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:374
 #, perl-brace-format
@@ -2356,6 +2356,9 @@ msgid ""
 "You are connecting to Zentyal through the {i} interface. If you set it as "
 "external the firewall will lock you out during the installation."
 msgstr ""
+"Sie verbinden sich mit Zentyal über die {i} Schnittstelle. Wenn Sie diese "
+"Schnittstelle als extern konfigurieren, werden Sie während der Installation "
+"durch die Firewall blokiert."
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:41
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:57
@@ -2379,7 +2382,7 @@ msgstr "Netzmaske"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:110
 msgid "bridge"
-msgstr ""
+msgstr "Brücke"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:116
 msgid "bond"
@@ -2405,9 +2408,8 @@ msgstr "Host"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:90
 #: ../../main/network/src/templates/diag.mas:31
-#, fuzzy
 msgid "Broadcast address"
-msgstr "Lokale Adresse"
+msgstr "Broadcast Adresse"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:95
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:103
@@ -2445,7 +2447,6 @@ msgid "Domain Name Server Resolver"
 msgstr "Domänen-Namen-Server Auflösung"
 
 #: ../../main/network/src/EBox/Network/Composite/Gateway.pm:38
-#, fuzzy
 msgid "Gateways Configuration"
 msgstr "Allgemeine Einstellungen"
 
@@ -2462,9 +2463,8 @@ msgid "Default"
 msgstr "Standard"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:191
-#, fuzzy
 msgid "Gateways List"
-msgstr "Liste der Gateways"
+msgstr "Gateway Liste"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:207
 msgid ""
@@ -2482,10 +2482,12 @@ msgid "gateway"
 msgstr "Gateway"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:247
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway address {ip} is already the address of the local interface {iface}"
-msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
+msgstr ""
+"Die Gateway Adresse {ip} ist bereits die Adresse des lokalen Interface "
+"{iface}"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:272
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
@@ -2494,52 +2496,55 @@ msgstr ""
 "hinzufügen"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:274
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway {gw} must be in the same network that a static interface. Currently "
 "it belongs to the network of {iface} which is not static"
 msgstr ""
-"Der Gateway {gw} muss über eine statische Netzwerkkarte erreichbar sein. Die "
-"Netzwerkkarte {iface} erreicht zwar den Gateway, ist aber dynamisch "
-"konfiguriert"
+"Gateway {gw} muss im selben Netzwerk wie eine statische Schnittstelle sein. "
+"Derzeit gehört es zum Netzwerk von {iface}, welches nicht statisch ist."
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:285
 msgid "Since you have not gateways you should add the first one as default"
 msgstr ""
+"Wenn Sie noch keinen Gateway haben, sollten Sie den ertsen Gateway als "
+"Standard hinzufügen."
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:306
 msgid ""
 "You cannot remove the default attribute, if you want to change it assign it "
 "to another gaterway"
 msgstr ""
+"Sie können das Standardattribut nicht entfernen. Wenn Sie es ändern wollen, "
+"weisen Sie es mit einem anderen Gateway zu."
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:314
 msgid "Automatically added gateways can not be manually deleted"
 msgstr "Automatisch hinzugefügte Gateways können nicht manuell entfernt werden"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:529
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The gateway '{name}' is being used by {mod}"
-msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
+msgstr "Das Gateway {port} wird bereits von {mod} verwendet"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:547
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:556
-#, fuzzy
 msgid "Gateway name"
-msgstr "Gateway"
+msgstr "Gateway Name"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:549
 msgid "Gateways names cannot begin or end with '-'"
-msgstr ""
+msgstr "Gateway Namen dürfen nicht mit einem '-' beginnen oder enden."
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:558
 msgid ""
 "Gateways names can only be composed of lowercase ASCII english letters, "
 "digits and '-'"
 msgstr ""
+"Gateway-Namen dürfen nur aus Kleinbuchstaben (keine Umlaute), Zahlen und '-' "
+"bestehen."
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:99
-#, fuzzy
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
 msgstr ""
 "IP-Adresse des DNS-Servers, den Zentyal zur Auflösung von Namen verwenden "
@@ -2550,40 +2555,37 @@ msgstr ""
 #: ../../main/network/src/templates/wizard/network.mas:72
 #: ../../main/network/src/templates/wizard/network.mas:74
 msgid "Domain Name Server"
-msgstr "Domänen-Namen-Server"
+msgstr "Domain Name Server (DNS)"
 
 # there's no german expression for 'name server' and 'resolver'
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:118
 msgid "Domain Name Server Resolver List"
-msgstr "DNS Auflösungs-Liste"
+msgstr "DNS Namensauflösungs-Liste"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:124
 msgid "name server"
 msgstr "Name-Server"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:142
-#, fuzzy
 msgid ""
 "<p>Here you can add the name server resolvers that Zentyal will use.</"
 "p><p>Note that these settings may be overriden if you have any network "
 "interface configured via DHCP</p>"
 msgstr ""
-"<p>Hier können Sie den Name-Server Resolver, welchen Zentyal verwenden wird, "
-"angeben.</p><p>Beachten Sie, dass diese Einstellungen unter Umständen nicht "
-"berücksichtigt werden, falls eine Netzwerkschnittstelle via DHCP "
-"konfiguriert wird</p>"
+"<p>Hier können Sie den Name-Server Auslöser, welchen Zentyal verwenden wird, "
+"hinzufügen.</p><p>Beachten Sie, dass diese Einstellungen unter Umständen "
+"überschrieben werden, falls Sie eine Netzwerkschnittstelle via DHCP "
+"konfigurieren</p>"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:194
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "This action is incompatible with the module {mod} configuration"
-msgstr ""
-"Die Auswahl des transparenten Proxy ist nicht kompatibel mit Berechtigungs-"
-"Regeln."
+msgstr "Diese Aktion ist inkompatibel mit der Modulkonfiguration {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:223
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The nameserver '{name}' is being used by {mod}"
-msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
+msgstr "Der Namensserver {port} wird bereits vom Modul {mod} verwendet"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:268
 #: ../../main/core/src/EBox/RemoteServices.pm:72
@@ -2603,17 +2605,18 @@ msgid ""
 "be sent to the {ohref}configured forwarders{chref} in first place, and if "
 "they does not answer the query root DNS servers will be used."
 msgstr ""
+"Das Zentyal DNS Modul ist installiert und aktiviert, so dass nur der DNS "
+"Server verwendet wird um Anfragen zu verarbeiten. Die Anfragen für die "
+"dieser Server nicht amtlich ist und nicht die Antwort im Zwischenspeicher "
+"hat wird die Anfrage gesendet an {ohref}konfigurierte Weiterleitungen{chref} "
+"an erster Stelle, und wenn diese auf die Anfrage nicht antworten wird der "
+"root DNS Server verwendet."
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:75
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:220
 #: ../../main/core/src/templates/login/index.mas:48
-#, fuzzy
 msgid "Username"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Benutzer\n"
-"#-#-#-#-#  de.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Benutzername"
+msgstr "Benutzername"
 
 # #-#-#-#-#  de.po (ebox-network 0.12)  #-#-#-#-#
 # P
@@ -2664,19 +2667,20 @@ msgstr ""
 #, perl-brace-format
 msgid "Proxy {addr} is invalid because it is the address of the interface {if}"
 msgstr ""
+"Die Proxy-Adresse {addr} ist ungültig, da es sich um die Adresse der "
+"Schnittstelle {if} handelt."
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:158
-#, fuzzy
 msgid ""
 "The username input contains invalid characters. All alphanumeric characters, "
 "plus these non alphanumeric chars: \\/.?&+:-@ and spaces are allowed."
 msgstr ""
-"Die Eingabe enthält ungültige Zeichen. Alle Buchstaben (A-Z, a-z), die "
-"Zahlen (0-9) und diese Zeichen (/.?&+:-@) sowie Leerzeichen sind erlaubt"
+"Die Eingabe enthält ungültige Zeichen. Alle Buchstaben A-Z, a-z, die Zahlen "
+"0-9 und diese Zeichen \\/.?&+:-@ sowie Leerzeichen sind erlaubt."
 
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:84
 msgid "Search Domain"
-msgstr "Domänen-Suchreihenfolge"
+msgstr "Domänen-Suche"
 
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:88
 msgid ""
@@ -2692,18 +2696,24 @@ msgid ""
 "Gateway {gw} is already defined in the gateway table. Use a multi gateway "
 "rule instead"
 msgstr ""
+"Der Gateway {gw} ist bereits in der Gateway-Tabelle definiert. Benutzen Sie "
+"stattdessen eine Multi-Gateway-Regel."
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:97
 #, perl-brace-format
 msgid ""
 "Network {addr} is invalid because it is the address of the interface {if}"
 msgstr ""
+"Das Netzwerk {addr} ist ungültig, da es sich um die Addresse der Netzwerk-"
+"Schnittstelle {if} handelt"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:104
 #, perl-brace-format
 msgid ""
 "Gateway {addr} is invalid because it is the address of the interface {if}"
 msgstr ""
+"Das Gateway {addr} ist ungültig, da es sich um die Addresse der Netzwerk-"
+"Schnittstelle {if} handelt"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:115
 #, perl-brace-format
@@ -2711,6 +2721,8 @@ msgid ""
 "Not needed to add a route to {ip} because is reacheable directly by "
 "interface {if}"
 msgstr ""
+"Es ist nicht erforderlich, eine Route zu {ip} hinzuzufügen, da diese direkt "
+"durch die Schnittstelle {if} erreichbar ist"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:187
 #: ../../main/network/src/EBox/Network.pm:110
@@ -2767,7 +2779,6 @@ msgstr ""
 
 # what is a dhcp hook? or what is that doing. maybe then it's possible to translate.
 #: ../../main/network/src/EBox/Network.pm:134
-#, fuzzy
 msgid "Enable Zentyal DHCP hook"
 msgstr "Zentyal DHCP-Hook aktivieren"
 
@@ -2789,46 +2800,42 @@ msgid ""
 "Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
 "can cause problems on some services"
 msgstr ""
+"Zentyal unterstützt IPv6 noch nicht, IPv6-Adressen einer Schnittstelle "
+"zuordnen kann zu Problemen bei einzelnen Diensten führen."
 
 #: ../../main/network/src/EBox/Network.pm:160
-#, fuzzy
 msgid "Zentyal will set your network configuration"
 msgstr "Zentyal wird Ihre Netzwerk-Konfiguration durchführen"
 
 #: ../../main/network/src/EBox/Network.pm:165
-#, fuzzy
 msgid "Zentyal will set the order of systems resolvers"
-msgstr "Zentyal wird ihre PPPoE Passwörter speichern"
+msgstr "Zentyal wird die Reihenfolge der System Namensauflöser setzen"
 
 #: ../../main/network/src/EBox/Network.pm:170
 #: ../../main/network/src/EBox/Network.pm:175
 #: ../../main/network/src/EBox/Network.pm:180
-#, fuzzy
 msgid "Zentyal will set the resolvconf configuration"
-msgstr "Zentyal wird Ihre Netzwerk-Konfiguration durchführen"
+msgstr "Zentyal wird Ihre Auflösungs-Konfiguration durchführen"
 
 #: ../../main/network/src/EBox/Network.pm:185
-#, fuzzy
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "Zentyal wird Ihre DHCP-Client-Konfiguration durchführen"
 
 #: ../../main/network/src/EBox/Network.pm:190
-#, fuzzy
 msgid "Zentyal will disable IPV6 on this system"
-msgstr "Zentyal wird LDAP Benutzern ein System-Benutzerkonto geben."
+msgstr "Zentyal wird IPv6 auf diesem System deaktivieren"
 
 #: ../../main/network/src/EBox/Network.pm:198
 msgid "Zentyal will set HTTP proxy for all users"
-msgstr ""
+msgstr "Zentyal wird den HTTP Proxy-Server für alle Benutzer setzen"
 
 #: ../../main/network/src/EBox/Network.pm:201
 msgid "Zentyal will set HTTP proxy for APT"
-msgstr ""
+msgstr "Zentyal wird den HTTP Proxy für APT setzen"
 
 #: ../../main/network/src/EBox/Network.pm:740
-#, fuzzy
 msgid "Argument must be a IP address"
-msgstr "IP-Adresse der Netzwerkkarte"
+msgstr "Argument muss eine IP-Adresse sein"
 
 #: ../../main/network/src/EBox/Network.pm:971
 #: ../../main/network/src/EBox/Network.pm:975
@@ -2845,9 +2852,9 @@ msgid "Netmask"
 msgstr "Netzmaske"
 
 #: ../../main/network/src/EBox/Network.pm:980
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Address {ip} is already in use by interface {iface}"
-msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
+msgstr "Die Adresse {ip} wird bereits von der Schnittstelle {iface} verwendet"
 
 #: ../../main/network/src/EBox/Network.pm:1146
 #, perl-brace-format
@@ -2864,20 +2871,22 @@ msgid ""
 "Cannot set an alias with the character \":\". This character is reserved for "
 "virtual interfaces"
 msgstr ""
+"Kann den Alias mit dem Zeichen \":\" nicht setzen. Dieses Zeichen wird für "
+"virtuelle Schnittstellen reserviert"
 
 #: ../../main/network/src/EBox/Network.pm:1370
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP {ip} is already assigned to interface {iface}"
-msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
+msgstr "Die IP-Adresse {ip} ist bereits der Schnittstelle {iface} zugeordnet"
 
 #: ../../main/network/src/EBox/Network.pm:1496
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot use the address {addr} because interface {if} has already an address "
 "in the same network"
 msgstr ""
-"Konnte den Namen {n} nicht verwenden, da schon ein Client mit diesem Namen "
-"existiert"
+"Kann die Adresse {addr} nicht verwenden, da die Schnittstelle {if} schon "
+"eine Adresse im gleichen Netzwerk besitzt"
 
 #: ../../main/network/src/EBox/Network.pm:1527
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
@@ -2901,7 +2910,6 @@ msgstr ""
 "können"
 
 #: ../../main/network/src/EBox/Network.pm:2939
-#, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways or static "
 "routes to become unreachable. Please remove it first if you really want to "
@@ -2909,36 +2917,32 @@ msgid ""
 msgstr ""
 "Die gewünschte Operation wird einen der konfigurierten Gateways unerreichbar "
 "machen. Bitte entfernen Sie den Gateway zuerst, falls Sie diese Änderung "
-"wirklich durchführen möchten"
+"wirklich durchführen möchten."
 
 #: ../../main/network/src/EBox/Network.pm:3004
 #, perl-brace-format
 msgid "Gateway {gw} must be in the same network that a static interface"
 msgstr ""
+"Gateway {gw} muss im selben Netzwerk wie eine statische Schnittstelle sein"
 
 #: ../../main/network/src/EBox/Network.pm:3007
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway {gw} must be in the same network that static interface. Currently it "
 "belongs to the network of {iface} which is not static"
 msgstr ""
 "Der Gateway {gw} muss über eine statische Netzwerkkarte erreichbar sein. Die "
-"Netzwerkkarte {iface} erreicht zwar den Gateway, ist aber dynamisch "
+"Netzwerkkarte {iface} erreicht zwar den Gateway, ist aber nicht statisch "
 "konfiguriert"
 
 #: ../../main/network/src/EBox/Network.pm:3399
 msgid "down"
-msgstr "aus"
+msgstr "deaktiv"
 
 #: ../../main/network/src/EBox/Network.pm:3404
 #: ../../main/core/src/templates/report/raid.mas:228
-#, fuzzy
 msgid "up"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-network 0.12)  #-#-#-#-#\n"
-"ein\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Läuft"
+msgstr "aktiv"
 
 #: ../../main/network/src/EBox/Network.pm:3409
 msgid "external"
@@ -2946,15 +2950,15 @@ msgstr "Extern"
 
 #: ../../main/network/src/EBox/Network.pm:3411
 msgid "internal"
-msgstr "Intern"
+msgstr "intern"
 
 #: ../../main/network/src/EBox/Network.pm:3417
 msgid "link ok"
-msgstr "Verbindung OK"
+msgstr "verbindung OK"
 
 #: ../../main/network/src/EBox/Network.pm:3419
 msgid "no link"
-msgstr "Keine Verbindung"
+msgstr "keine Verbindung"
 
 #: ../../main/network/src/EBox/Network.pm:3428
 #: ../../main/mail/src/EBox/Mail.pm:1606
@@ -2981,19 +2985,18 @@ msgstr "Schnittstellen"
 
 #: ../../main/network/src/EBox/Network.pm:3503
 msgid "Gateways"
-msgstr "Gateways"
+msgstr "Gateway"
 
 #: ../../main/network/src/EBox/Network.pm:3515
 msgid "Tools"
-msgstr ""
+msgstr "Werkzeuge"
 
 #: ../../main/objects/src/EBox/Objects.pm:39
 #: ../../main/objects/src/EBox/Objects/Model/ObjectTable.pm:85
 msgid "Objects"
-msgstr "Computergruppen"
+msgstr "Objekte"
 
 #: ../../main/objects/src/EBox/Objects.pm:118
-#, fuzzy
 msgid "network object"
 msgstr "Netzwerkobjekt"
 
@@ -3041,9 +3044,8 @@ msgstr ""
 "werden kann, um Konfusionen zu vermeiden"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:73
-#, fuzzy
 msgid "Range"
-msgstr "Bereiche"
+msgstr "Bereich"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:98
 msgid ""
@@ -3060,7 +3062,7 @@ msgstr "Mitglied"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:125
 msgid "Only network addresses can end with a zero"
-msgstr ""
+msgstr "Nur Netzwerkadressen können mit einer Null enden"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:130
 msgid "You can only use MAC addresses with hosts"
@@ -3076,14 +3078,14 @@ msgid "{ip} overlaps with the address or another object's member"
 msgstr "{ip} überlappt mit Adresse eines anderen Objektmitglieds"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:99
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{server} configuration file"
 msgstr "{server} Konfigurationsdatei"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:104
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "AppArmor profile for {server} daemon"
-msgstr "Apparmor-Profil wird deaktiviert"
+msgstr "AppArmor Profil für {server} Hintergrund-Dienst"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:129
 msgid "Trivial File Transfer Protocol"
@@ -3100,7 +3102,7 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP.pm:195
 #, perl-brace-format
 msgid "Disable {server} init script"
-msgstr ""
+msgstr "Deaktiviere {server} initializations Script"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:353 ../../main/dhcp/src/EBox/DHCP.pm:389
 #: ../../main/dhcp/src/EBox/DHCP.pm:439 ../../main/dhcp/src/EBox/DHCP.pm:485
@@ -3142,9 +3144,8 @@ msgstr ""
 "{openhref}Netzwerk-Modul{closehref} konfigurieren"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:45
-#, fuzzy
 msgid "DHCP Configuration"
-msgstr "Konfiguration"
+msgstr "DHCP Konfiguration"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:47
 msgid ""
@@ -3159,12 +3160,16 @@ msgid ""
 "This interface is not enabled. DHCP server will not serve addresses in this "
 "interface"
 msgstr ""
+"Diese Schnittstelle ist nicht aktiviert. Der DHCP-Server wird keine Adressen "
+"in dieser Schnittstelle verwalten."
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:135
 msgid ""
 "Mising interface parameter. Please, navigate again to this page starting "
 "from the DHCP main page"
 msgstr ""
+"Fehlende Schnittstellenparameter. Bitte navigieren Sie wieder zu dieser "
+"Seite beginnend von der DHCP-Hauptseite"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/AdvancedOptions.pm:66
 msgid "Advanced options"
@@ -3242,19 +3247,20 @@ msgstr ""
 "\"{range}\": {oldFrom}-{oldTo}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:140
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Range {from}-{to} includes fixed address from the object member \"{name}\": "
 "{fixedIP}"
 msgstr ""
-"Der Bereich {from}-{to} beinhaltet die fixe IP Adresse \"{name}\": {fixedIP}"
+"Der Bereich {from}-{to} beinhaltet feste Adresse aus dem Objekt Mitglied "
+"\"{name}\": {fixedIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:160
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
 msgstr ""
-"Der Bereich {from}-{to} beinhaltet die IP-Adresse einer Netzwerkkarte: "
-"{ifaceIP}"
+"Der Bereich {from}-{to} beinhaltet die HA (Hochverfügbare) floating IP: "
+"\"{name}\" - {IP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/mail/src/EBox/Mail.pm:1599
@@ -3265,19 +3271,8 @@ msgstr "Von"
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
 #: ../../main/mail/src/EBox/Mail.pm:1600
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
-#, fuzzy
 msgid "To"
-msgstr ""
-"#-#-#-#-#  de.po (libebox 0.12.1)  #-#-#-#-#\n"
-"An\n"
-"#-#-#-#-#  de.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Bis\n"
-"#-#-#-#-#  de.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Bis\n"
-"#-#-#-#-#  de.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"An\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"An"
+msgstr "Um"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:212
 msgid "Ranges"
@@ -3293,21 +3288,19 @@ msgstr "Nächster Server"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:156
 msgid "Thin Client server as seen by the clients."
-msgstr ""
+msgstr "Thin Client Server wie vom Client gesehen"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:162
-#, fuzzy
 msgid "File path"
-msgstr "Pfad einbeziehen"
+msgstr "Dateipfad"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:165
-#, fuzzy
 msgid "Thin client file path"
-msgstr "Thin Client"
+msgstr "Dateipfad des Thin Clients"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:171
 msgid "Thin client / External TFTP-Server"
-msgstr ""
+msgstr "Thin Client / Externer TFTP-Server"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:176
 #, perl-brace-format
@@ -3359,9 +3352,8 @@ msgid "None"
 msgstr "Keine"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:345
-#, fuzzy
 msgid "Zentyal domain"
-msgstr "Statische Domain"
+msgstr "Zentyal Domain"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:354
 msgid "local Zentyal DNS"
@@ -3408,12 +3400,12 @@ msgid "Primary nameserver"
 msgstr "Erster Nameserver"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:448
-#, fuzzy
 msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
-"Wenn \"Zentyal DNS\" aktiviert ist, arbeitet der Zentyal-Server als DNS-Cache"
+"Wenn \"Zentyal DNS\" vorhanden und ausgewählt ist, arbeitet der Zentyal-Server "
+"als DNS-Cache-Server"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:453
 msgid "Secondary nameserver"
@@ -3460,11 +3452,13 @@ msgstr ""
 "können sie leer lassen"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:87
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The object contains the IP address {ip} which is also the address of the "
 "interface"
-msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
+msgstr ""
+"Das Objekt beinhaltet die IP Adresse {ip} welche auch die Adresse der "
+"Schnittstelle ist."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:97
 #, perl-brace-format
@@ -3472,6 +3466,8 @@ msgid ""
 "The object contains an IP address {ip} which also is in the range '{range}': "
 "{from}-{to}"
 msgstr ""
+"Das Objekt enthält eine IP-Adresse {ip} die auch in folgenden Bereich ist "
+"'{range}': {from}-{to}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:171
 msgid "Fixed addresses"
@@ -3483,7 +3479,7 @@ msgstr "Feste Adresse"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:203
 msgid "Not object added for fixed addresses"
-msgstr ""
+msgstr "Kein Objekt für feste Adressen hinzugefügt "
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:206
 msgid ""
@@ -3491,12 +3487,17 @@ msgid ""
 "IP address is not used by the available range and whose name is unique as "
 "fixed address will be used"
 msgstr ""
+"Nur diejenigen Objekt Mitglieder, deren IP-Adresse ein Host ist (/32) , eine "
+"gültige MAC, dessen Name einzigartig ist, und die IP-Adresse nicht durch "
+"den verfügbaren Bereich verwendet wird, ist akzeptiert."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:209
 msgid ""
 "Members whose name is not a valid hostname will be modified to become a "
 "valid domain name."
 msgstr ""
+"Mitglieder, deren Name kein gültiger Hostname ist, werden verändert um ein "
+"gültiger Domänenname zu werden."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeInfo.pm:82
 msgid "Interface IP address"
@@ -3652,22 +3653,12 @@ msgid "Not a leap year."
 msgstr ""
 
 #: ../../main/core/src/EBox/Types/Date.pm:255
-#, fuzzy
 msgid "This month does not have 31 days."
-msgstr "Dieses Protokoll verwendet keine Ports"
+msgstr "Dieses Monat hat nicht 31 Tage."
 
 #: ../../main/core/src/EBox/Types/PortRange.pm:141
-#, fuzzy
 msgid "any"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Alle\n"
-"#-#-#-#-#  de.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Alle\n"
-"#-#-#-#-#  de.po (EBox-monitor 0.1)  #-#-#-#-#\n"
-"jede\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"alle"
+msgstr "beliebig"
 
 #: ../../main/core/src/EBox/Types/PortRange.pm:293
 msgid "Single port"
@@ -3834,25 +3825,13 @@ msgstr "Module werden gesichert"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:78
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:242
-#, fuzzy
 msgid "Operation"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Aktion\n"
-"#-#-#-#-#  de.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Operation\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Operation"
+msgstr "Aktion"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:79
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:243
-#, fuzzy
 msgid "operations left to finish backup"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Aufgaben verbleibend bis zum Ende des Backups\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Operationen verbleiben bis zum Ende des Backups"
+msgstr "Aufgaben verbleibend bis zum Ende des Backups"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:80
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:244
@@ -4178,22 +4157,16 @@ msgid "No search term"
 msgstr "Suche in Domäne"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:57
-#, fuzzy
 msgid "The search term should have a lenght of at least 3 characters"
-msgstr "Das Passwort muss mindestens {minLength} Zeichen lang sein"
+msgstr "Das Suchtext muss mindestens 3 Zeichen lang sein"
 
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:167
-#, fuzzy
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
-"#-#-#-#-#  de.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Ein interner Fehler betreffend einer Vorlage ist aufgetreten. Dies ist ein "
-"Programmierfehler, mehr Informationen finden Sie in den Logs\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
 "Ein interner Fehler in Bezug auf eine Vorlage ist aufgetreten. Dies ist ein "
-"Programmierfehler, weiterführende Informationen finden Sie in den Logs"
+"Programmierfehler, weiterführende Informationen finden Sie in den Logs."
 
 #: ../../main/core/src/EBox/CGI/Progress.pm:82
 #: ../../main/core/src/EBox/CGI/Progress.pm:130
@@ -4283,11 +4256,7 @@ msgstr "Statische Domain"
 
 #: ../../main/core/src/EBox/WebAdmin.pm:684
 msgid "Zentyal Administration Web Server"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Zentyal Administrations-Webserver\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Zentyals interner Webserver"
+msgstr "Zentyal Administrations-Webserver"
 
 #: ../../main/core/src/EBox/WebAdmin.pm:849
 #, perl-brace-format
@@ -4426,13 +4395,8 @@ msgid "Checking updates..."
 msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo.pm:321
-#, fuzzy
 msgid "System load"
-msgstr ""
-"#-#-#-#-#  de.po (EBox-monitor 0.1)  #-#-#-#-#\n"
-"Systemauslastung\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Systemlast"
+msgstr "Systemlast"
 
 #: ../../main/core/src/EBox/SysInfo.pm:322
 #, fuzzy
@@ -4511,23 +4475,14 @@ msgid "Incorrect password"
 msgstr "Falsches Passwort"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:72
-#, fuzzy
 msgid "For security reasons your session has expired due to inactivity"
 msgstr ""
-"#-#-#-#-#  de.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Aus Sicherheitsgründen wurde deine Sitzung wegen Inaktivität beendet\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
 "Weil Sie länger nicht aktiv waren wurde die Sitzung aus Sicherheitsgründen "
 "beendet"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:74
-#, fuzzy
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Du wurdest abgemeldet weil eine neue Sitzung geöffnet wurde\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Sie wurden abgemeldet, weil eine neue Sitzung eröffnet wurde"
+msgstr "Sie wurden abgemeldet, weil eine neue Sitzung begonnen wurde"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:76
 #, perl-brace-format
@@ -4762,13 +4717,8 @@ msgstr "Name der Domäne"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/CurrentProgress.pm:37
 #: ../../main/software/src/EBox/Software/CGI/CurrentPackage.pm:31
-#, fuzzy
 msgid "Upgrading"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-software 0.12.1)  #-#-#-#-#\n"
-"wird aktualisiert\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Wird auf eine neuere Version aktualisiert"
+msgstr "Aktualisierung"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:47
 msgid "You have broken packages installed, fix them before upgrading"
@@ -4894,15 +4844,8 @@ msgstr "E-Mail-Adresse"
 
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:58
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:59
-#, fuzzy
 msgid "General configuration"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"Allgemeine Einstellungen\n"
-"#-#-#-#-#  de.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Allgemeine Konfigurationseinstellungen\n"
-"#-#-#-#-#  de.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Konfiguration"
+msgstr "Allgemeine Einstellungen"
 
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:61
 #, fuzzy
@@ -5364,19 +5307,16 @@ msgid "Disabled - {oh}Enable{ch}"
 msgstr "deaktiviert - {oh}aktiviert{ch}"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1321
-#, fuzzy
 msgid "Standard 2 days"
-msgstr "Standard"
+msgstr "Standard 2 Tage"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1322
-#, fuzzy
 msgid "Standard 1 day"
-msgstr "Standard"
+msgstr "Standard 1Tag"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1323
-#, fuzzy
 msgid "Standard 4 hours"
-msgstr "Standard"
+msgstr "Standard 4 Stunden"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1327
 msgid "Configuration backup enabled"
@@ -5448,13 +5388,8 @@ msgid "Could not unpack the backup"
 msgstr "Die Sicherung konnte nicht geöffnet werden"
 
 #: ../../main/core/src/EBox/Backup.pm:719
-#, fuzzy
 msgid "Backup"
-msgstr ""
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Datensicherung\n"
-"#-#-#-#-#  de.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Sicherung"
+msgstr "Sicherung"
 
 #: ../../main/core/src/EBox/Backup.pm:755
 msgid "Writing backup file to hard disk"
@@ -5649,9 +5584,8 @@ msgid "Must be a valid regular expression"
 msgstr "Auschlusspfad regulärer Ausdruck"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4593
-#, fuzzy
 msgid "Page 1"
-msgstr "Seite"
+msgstr "Seite 1"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4595
 #, perl-brace-format
@@ -5687,7 +5621,8 @@ msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
-"Die Daten, welche Sie löschen möchten werden von folgenden Bereichen benutzt:"
+"Die Daten die sie entfernen wollen werden verwendet von\n"
+"                    den folgenden Bereichen:"
 
 #: ../../main/core/src/EBox/Model/Manager.pm:545
 msgid ""
@@ -6009,13 +5944,8 @@ msgstr "Zertifikat widerrufen"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:158
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
-#, fuzzy
 msgid "Virtual Domains"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Virtuelle Domäne\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Virtuelle Domänen"
+msgstr "Virtuelle Domänen"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:159
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
@@ -6254,9 +6184,10 @@ msgid "Enable proxy, proxy_http and headers Apache 2 modules."
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:124
-#, fuzzy
 msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
-msgstr "Webmail wird unter http://ip/webmail/ erreichbar sein."
+msgstr ""
+"Um OpenChange Webmail unter folgender Adresse verfügbar zu machen: "
+"http://ip/SOGo/."
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:226
 #, fuzzy
@@ -6842,28 +6773,14 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:71
-#, fuzzy
 msgid "Domain Name"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Name der Domäne\n"
-"#-#-#-#-#  de.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Domänenname\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Name der Domäne"
+msgstr "Name der Domäne"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:72
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:135
 #: ../../main/samba/src/templates/wizard/users.mas:112
-#, fuzzy
 msgid "Domain controller FQDN"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Name der Domäne\n"
-"#-#-#-#-#  de.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Domänenname\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Name der Domäne"
+msgstr "Domain Kontroller FQDN"
 
 # there's no german expression for 'name server'
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:73
@@ -7813,13 +7730,8 @@ msgstr "Voreingestellte Größenbeschränkung "
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:56
 #: ../../main/samba/src/templates/edituser.mas:278
-#, fuzzy
 msgid "Limited to"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Begrenzt mit\n"
-"#-#-#-#-#  de.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"begrenzt auf"
+msgstr "begrenzt auf"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:58
 msgid "Mb"
@@ -7944,7 +7856,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:165
 msgid "Site"
-msgstr ""
+msgstr "Seite"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:177
 msgid "Server description"
@@ -7981,15 +7893,8 @@ msgstr ""
 "und importiert die Benutzer und Gruppen aus der Domäne."
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:272
-#, fuzzy
 msgid "Domain controller"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Name der Domäne\n"
-"#-#-#-#-#  de.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Domänenname\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Name der Domäne"
+msgstr "Domain Controller"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:273
 #: ../../main/samba/src/templates/wizard/users.mas:22
@@ -8092,9 +7997,7 @@ msgstr "Erstelle Samba Home-Verzeichnis für Benutzer und Gruppen"
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
-msgstr ""
-"Zentyal wird die Home-Verzeichnisse für Samba-Benutzer und -Gruppen unter /"
-"home/samba erstellen."
+msgstr "Zentyal erstellt die Samba-Freigaben und -Gruppen unter /home/samba."
 
 #: ../../main/samba/src/EBox/Samba.pm:289
 msgid "Configure PAM."
@@ -8303,13 +8206,8 @@ msgid "Zentyal will execute {cmd}"
 msgstr "Zentyal wird {cmd} ausführen"
 
 #: ../../main/mail/src/EBox/Mail.pm:155
-#, fuzzy
 msgid "Add LDAP schemas"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Füge LDAP Shemas hinzu\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"LDAP-Schemas hinzufügen"
+msgstr "LDAP-Schemas hinzufügen"
 
 #: ../../main/mail/src/EBox/Mail.pm:157
 #, fuzzy
@@ -8342,7 +8240,8 @@ msgstr "Um postfix zu konfigurieren"
 #: ../../main/mail/src/EBox/Mail.pm:198
 msgid "To define how client programs connect to services in  postfix"
 msgstr ""
-"Um zu definieren, wie Client-Programme zu Diensten in _ _ postfix verbinden"
+"Um zu definieren wie Client Programme zu einen Service in  postfix verbinden "
+"können"
 
 #: ../../main/mail/src/EBox/Mail.pm:205
 #, fuzzy
@@ -8949,13 +8848,8 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:164
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:183
 #: ../../main/mail/src/templates/createaccount.mas:54
-#, fuzzy
 msgid "Unlimited size"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Unbegrenzte Größe\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Uneingeschränkt"
+msgstr "Uneingeschränkt Größe"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:168
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:187
@@ -9305,15 +9199,8 @@ msgstr "Dieses Feld enthält normalerweise Jeder"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:170
 #: ../../main/core/src/templates/enable.mas:9
-#, fuzzy
 msgid "Service configuration"
-msgstr ""
-"#-#-#-#-#  de.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Konfiguration der Dienste\n"
-"#-#-#-#-#  de.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Dienst konfigurieren\n"
-"#-#-#-#-#  de.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Dienste konfigurieren"
+msgstr "Service konfigurieren"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:180
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:160
@@ -9585,13 +9472,8 @@ msgstr "bearbeiten"
 #: ../../main/dns/src/templates/edit.mas:86
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:179
 #: ../../main/core/src/templates/backup.mas:201
-#, fuzzy
 msgid "delete"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"löschen\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Löschen"
+msgstr "löschen"
 
 #: ../../main/dns/src/templates/edit.mas:12
 #, perl-brace-format
@@ -9602,13 +9484,8 @@ msgstr "Liste der Computer in der Domäne {domain}"
 #: ../../main/mail/src/templates/groupalias.mas:170
 #: ../../main/mail/src/templates/alias.mas:53
 #: ../../main/mail/src/templates/createaccount.mas:33
-#, fuzzy
 msgid "Create"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Generieren\n"
-"#-#-#-#-#  de.po (ebox-ca 0.12)  #-#-#-#-#\n"
-"Erstellen"
+msgstr "Erstellen"
 
 #: ../../main/ca/src/templates/createCA.mas:35
 msgid ""
@@ -9728,7 +9605,7 @@ msgstr "Widerrufen"
 #: ../../main/ca/src/templates/index.mas:159
 #: ../../main/ca/src/templates/index.mas:184
 msgid "Download Key(s) and Certificate"
-msgstr "Schlüssel und Zertifikat downloaden"
+msgstr "Laden Sie den(die) Schlüssel und Zertifikat herunter"
 
 #: ../../main/ca/src/templates/index.mas:170
 #: ../../main/ca/src/templates/formReissue.mas:26
@@ -9873,15 +9750,8 @@ msgstr "Namensauflösung"
 #: ../../main/network/src/templates/diag.mas:24
 #: ../../main/samba/src/templates/wizard/users.mas:107
 #: ../../main/mail/src/templates/createaccount.mas:22
-#, fuzzy
 msgid "Domain name"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Name der Domäne\n"
-"#-#-#-#-#  de.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Domänenname\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Name der Domäne"
+msgstr "Domänenname"
 
 #: ../../main/network/src/templates/diag.mas:26
 msgid "Lookup"
@@ -10024,13 +9894,8 @@ msgid "Virtual Interfaces"
 msgstr "Virtuelle Netzwerkkarten"
 
 #: ../../main/core/src/templates/login/index.mas:42
-#, fuzzy
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Achtung: Feststelltaste ist aktiviert\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Warnung: Feststelltaste (Großschreibung) wurde aktiviert"
+msgstr "Warnung: Feststelltaste (Großschreibung) wurde aktiviert"
 
 #: ../../main/core/src/templates/login/index.mas:44
 #, perl-brace-format
@@ -10053,13 +9918,8 @@ msgstr ""
 "des Navigierens auf der Zentyal-Benutzeroberfläche auftreten können."
 
 #: ../../main/core/src/templates/login/index.mas:59
-#, fuzzy
 msgid "Enter"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Enter\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Eingeben"
+msgstr "Entertaste"
 
 #: ../../main/core/src/templates/finish.mas:14
 msgid "The following changes are pending. You can save or discard them."
@@ -10117,7 +9977,7 @@ msgid ""
 "Browse the available widgets in the top menu and drag&drop them to the "
 "dashboard."
 msgstr ""
-"Durchsuchen Sie die im Hauptmenü verfügbaren Widgets und ziehen Sie sie auf "
+"Durchsuchen Sie die im Hauptmenü verfügbaren Widgets und ziehen Sie es auf "
 "das Dashboard."
 
 #: ../../main/core/src/templates/dashboard/index.mas:45
@@ -10244,15 +10104,8 @@ msgstr "Hilfe anzeigen"
 #: ../../main/core/src/templates/logs/dbtable.mas:69
 #: ../../main/core/src/templates/ajax/tablePager.mas:54
 #: ../../main/mail/src/templates/qmanager.mas:66
-#, fuzzy
 msgid "first"
-msgstr ""
-"#-#-#-#-#  de.po (libebox 0.12.1)  #-#-#-#-#\n"
-"erste\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Erster\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Erster"
+msgstr "Erster"
 
 #: ../../main/core/src/templates/logs/dbtable.mas:71
 #: ../../main/core/src/templates/ajax/tablePager.mas:58
@@ -10277,15 +10130,8 @@ msgstr "von"
 #: ../../main/core/src/templates/logs/dbtable.mas:87
 #: ../../main/core/src/templates/ajax/tablePager.mas:63
 #: ../../main/mail/src/templates/qmanager.mas:75
-#, fuzzy
 msgid "next"
-msgstr ""
-"#-#-#-#-#  de.po (libebox 0.12.1)  #-#-#-#-#\n"
-"nächste\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Nächster\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Nächster"
+msgstr "Nächster"
 
 #: ../../main/core/src/templates/logs/dbtable.mas:89
 #: ../../main/core/src/templates/ajax/tablePager.mas:68
@@ -10636,13 +10482,8 @@ msgid "Remote Backup: "
 msgstr "Sicherung im Netzwerk"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:104
-#, fuzzy
 msgid "Back up"
-msgstr ""
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Datensicherung\n"
-"#-#-#-#-#  de.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Sicherung"
+msgstr "Sicherung"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:134
 #: ../../main/core/src/templates/remoteservices/Backup/unsubscribed.mas:12
@@ -10802,13 +10643,8 @@ msgstr "E-Mail Adresse"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:122
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:127
-#, fuzzy
 msgid "Back"
-msgstr ""
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Datensicherung\n"
-"#-#-#-#-#  de.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Sicherung"
+msgstr "Zurück"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:128
 #, fuzzy
@@ -10973,10 +10809,9 @@ msgid "Zentyal homepage"
 msgstr "Zentyal-Homepage"
 
 #: ../../main/core/src/templates/componentNotFound.mas:7
-#, fuzzy
 msgid "If you typed the page address manually, please check it"
 msgstr ""
-"Falls Sie die Adresse manuell eingegeben haben, prüfen Sie sie auf "
+"Falls Sie die Seiten-Adresse manuell eingegeben haben, prüfen Sie diese auf "
 "Schreibfehler"
 
 #: ../../main/core/src/templates/componentNotFound.mas:8
@@ -11045,8 +10880,8 @@ msgid ""
 "Zentyal detected that some files which need to be overwritten have been\n"
 "modified by you."
 msgstr ""
-"Zentyal entdeckte, das einige Dateien die überschrieben werden sollten, von "
-"Ihnen bearbeitet wurden."
+"Zentyal erkannte das einige Dateien welche überschrieben werden müssen\n"
+"von Ihnen verändert wurden."
 
 #: ../../main/core/src/templates/configurationFiles.mas:13
 msgid "Do you wish to overwrite these files?"
@@ -11058,13 +10893,8 @@ msgstr "Behalte derzeitige Datei"
 
 #: ../../main/core/src/templates/configurationFiles.mas:19
 #: ../../main/mail/src/templates/alias.mas:216
-#, fuzzy
 msgid "Modify"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Ändern\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Bearbeiten"
+msgstr "Ändern"
 
 #: ../../main/core/src/templates/configurationFiles.mas:22
 #: ../../main/core/src/templates/configureView.mas:50
@@ -11279,9 +11109,8 @@ msgid "Total calendar"
 msgstr ""
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:85
-#, fuzzy
 msgid "Estimate time (100mb/s)"
-msgstr "Fertig ca. um {time}"
+msgstr "Geschätzte Fertigstellungszeit (100mb/s)"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:90
 #, fuzzy
