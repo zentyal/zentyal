@@ -1,3 +1,5 @@
+HEAD
+	+ Fix regression in leases information in dashboard widget
 4.1
 	+ Avoid statement not recognized errors parsing ddns keys in leases file
 	+ Set version to 4.1
