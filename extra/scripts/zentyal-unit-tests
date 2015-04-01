@@ -4,7 +4,7 @@ PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mockti
 
 ADDITIONAL_ARGS=""
 EXTRA_ARGS="-j4"
-MODULES_WITH_TESTS="common core samba firewall mail"
+MODULES_WITH_TESTS="ca common core dhcp dns firewall mail network ntp openvpn samba"
 
 while getopts ":vjscf" opt; do
     case $opt in
