@@ -5913,7 +5913,8 @@ msgstr "Habilitar suporte ao ActiveSync para todos os domínios de e-mail"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:64
 msgid "The ActiveSync gateway, standard protocol for several mobile devices."
-msgstr "O gateway ActiveSync, protocolo padrão para vários dispositivos móveis."
+msgstr ""
+"O gateway ActiveSync, protocolo padrão para vários dispositivos móveis."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:105
 msgid "The required packages are not installed."
@@ -6055,8 +6056,8 @@ msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
 msgstr ""
-"Para disposição OpenChange você precisa primeiro {oh}criar um domínio de "
-"e-mail virtual{oc}"
+"Para disposição OpenChange você precisa primeiro {oh}criar um domínio de e-"
+"mail virtual{oc}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:495
 msgid "Invalid administrator user name or password"
@@ -7442,8 +7443,7 @@ msgid ""
 "enable it in the {oh}users and groups manager{ch}."
 msgstr ""
 "Conta de domínio convidado deve ser habilitado para acesso de convidado para "
-"compartilhamentos. Você pode habilitá-lo no gerenciador de usuários e "
-"grupos."
+"compartilhamentos. Você pode habilitá-lo no gerenciador de usuários e grupos."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:421
 #, perl-brace-format
@@ -7542,8 +7542,8 @@ msgid ""
 "status section and save changes in order to use it."
 msgstr ""
 "É preciso ativar o módulo controlador de domínio e Compartilhamento de "
-"Arquivos na seção de status do módulo e salvar as alterações, a fim de "
-"usá-lo."
+"Arquivos na seção de status do módulo e salvar as alterações, a fim de usá-"
+"lo."
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
 msgid "User/Group/Share"
