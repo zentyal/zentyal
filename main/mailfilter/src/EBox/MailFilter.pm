@@ -190,7 +190,6 @@ sub setupLDAP
 sub enableActions
 {
     my ($self) = @_;
-    $self->checkUsersMode();
 
     # Execute enable-module script
     $self->SUPER::enableActions();

@@ -22,7 +22,7 @@ Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2),
          libsys-filesystem-perl, libgssapi-perl, auth-client-config,
          libauthen-sasl-perl, libnet-ntp-perl, libnet-dns-perl, libnet-ping-perl,
          rsync, libdate-calc-xs-perl, libnet-dns-perl,
-         libnet-ntp-perl, libuuid-perl,
+         libclamav-client-perl, libnet-ntp-perl, libuuid-perl,
          libdata-hexdumper-perl, libsys-filesystem-perl, libfile-libmagic-perl,
          libauthen-krb5-easy-perl (>= 0.90-6), libdate-calc-xs-perl, ${misc:Depends}
 Breaks: zentyal-mail (<< 4.0~1), zentyal-squid (<< 4.0~1)
