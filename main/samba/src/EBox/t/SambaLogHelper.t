@@ -23,7 +23,7 @@ use base 'Test::Class';
 use Test::Differences;
 use Test::Exception;
 use Test::MockObject;
-use Test::More tests => 5;
+use Test::More tests => 7;
 
 sub setUpDBEngine : Test(startup)
 {
