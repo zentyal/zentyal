@@ -23,7 +23,9 @@ ADD main/common/extra/eboxlog.conf /tmp/main/common/extra/eboxlog.conf
 
 #ADD control files to check the dependencies
 ADD  main/firewall/debian/control /tmp/main/firewall/debian/control
+ADD  main/mailfilter/debian/control /tmp/main/mailfilter/debian/control
 ADD  main/services/debian/control /tmp/main/services/debian/control
+ADD  main/antivirus/debian/control /tmp/main/antivirus/debian/control
 ADD  main/ntp/debian/control /tmp/main/ntp/debian/control
 ADD  main/dhcp/debian/control /tmp/main/dhcp/debian/control
 ADD  main/software/debian/control /tmp/main/software/debian/control
