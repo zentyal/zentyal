@@ -519,7 +519,7 @@ sub initKeyTabs
             my $path        = $ktab->{path};
             my $keytabFound = EBox::Sudo::fileTest('-r', $path);
             # external keytab must be owned by ebox but accessibe by the service user. We assume that the user has a group with the same name
-            my $keytabUser  = 'ebox'; 
+            my $keytabUser  = 'ebox';
             my $keytabGroup = $ktab->{user};
             my $service     = $ktab->{service};
             my $keytabTempPath = EBox::Config::tmp() . "$service.keytab";
@@ -551,7 +551,7 @@ sub initKeyTabs
 
             # Move keytab to the correct place
             EBox::Sudo::root("mv '$keytabTempPath' '$path'");
-            EBox::Sudo::root("chown $keytabUser:$keytabGroup '$path'");
+            EBox::Sudo::root("chown $keytabUser:proxy '$path'");
             EBox::Sudo::root("chmod 440 '$path'");
         }
     } catch ($e) {
