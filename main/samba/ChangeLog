@@ -1,4 +1,5 @@
 HEAD
+	+ Corrected check for value of listen_all config key
 	+ Corrected name for default containers
 	+ Added EBox::LdapUserBase::objectInDefaultContainer
 	+ Added debug options to stub (commented)
