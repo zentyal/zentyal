@@ -19,6 +19,8 @@ models:
     - SambaShares
     - SambaSharePermissions
     - SambaDeletedShares
+    - AntivirusDefault
+    - AntivirusExceptions
     - RecycleDefault
     - RecycleExceptions
 
@@ -26,9 +28,12 @@ composites:
     Settings: [LdapInfo, PAM]
     UserTemplate: []
     RecycleBin: [RecycleDefault, RecycleExceptions]
-    FileSharing: [SambaShares, RecycleBin]
+    Antivirus: [AntivirusDefault, AntivirusExceptions]
+    FileSharing: [SambaShares, RecycleBin, Antivirus]
 
 modeldepends:
+    AntivirusExceptions:
+        samba/SambaShares: [share]
     RecycleExceptions:
         samba/SambaShares: [share]
 
