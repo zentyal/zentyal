@@ -1,4 +1,4 @@
-HEAD
+4.1
 	+ Remove wrong call to checkUsersMode after external AD removal
 4.0.3
 	+ Changed stub to not give points based on AHBL_RHSBL, given it is
