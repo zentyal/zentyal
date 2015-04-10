@@ -2660,17 +2660,7 @@ sub _generateProxyConfig
 {
     my ($self) = @_;
 
-    my $proxy = $self->model('Proxy');
-    my $proxyConf;
-
-    if ($proxy->serverValue() and $proxy->portValue()) {
-        $proxyConf = "http://".$proxy->serverValue().":".$proxy->portValue()."/";
-        if ($proxy->usernameValue() and $proxy->passwordValue()) {
-            $proxyConf = "http://".$proxy->usernameValue().":".$proxy->passwordValue();
-            $proxyConf .= "@".$proxy->serverValue().":".$proxy->portValue()."/";
-        }
-    }
-
+    my $proxyConf = $self->proxySettings(1);
     # Write environment file by edition not overwritting
     my @contents = File::Slurp::read_file(ENV_FILE);
     my @finalContents = ();
@@ -2700,9 +2690,13 @@ sub _generateProxyConfig
 #
 #    Return the proxy settings if configured
 #
+#  Parameters:
+#   asString - return the settings as string, like in the HTTP_PROXY
+#              environment variable (default: false)
 # Returns:
 #
-#    Hash ref - the following keys are included
+#  If asString is false:
+#    Hash ref  - the following keys are included
 #
 #        server   - the HTTP proxy's name
 #        port     - the HTTP proxy's port
@@ -2711,24 +2705,37 @@ sub _generateProxyConfig
 #
 #    undef - if there is not proxy settings
 #
+#  If asString is true:
+#    string like in the HTTP_PROXY environment variable.
+#
 sub proxySettings
 {
-    my ($self) = @_;
-
+    my ($self, $asString) = @_;
     my $proxy  = $self->model('Proxy');
     my $server = $proxy->serverValue();
     my $port   = $proxy->portValue();
     if ( $server and $port ) {
-        my $retValue = { server => $server, port => $port };
+        my $retValue;
         my $username = $proxy->usernameValue();
         my $password = $proxy->passwordValue();
-        if ( $username and $password ) {
-            $retValue->{username} = $username;
-            $retValue->{password} = $password;
+        if ($asString) {
+
+            if ($username and $password) {
+                $retValue = "http://".$username.":".$password;
+                $retValue .= "@".$server.":".$port."/";
+            } else {
+                $retValue = "http://".$server.":".$port."/";
+            }
+        } else {
+            $retValue = { server => $server, port => $port };
+            if ( $username and $password ) {
+                $retValue->{username} = $username;
+                $retValue->{password} = $password;
+            }
         }
         return $retValue;
     } else {
-        return undef;
+        return $asString ? '' : undef;
     }
 }
 
