@@ -1,4 +1,5 @@
 HEAD
+	+ Delete obsolete cron file when upgrading from 4.0
 	+ Add integration with zentyal-antivirus
 4.1.1
 	+ Remove wrong Synchronization broken link in the menu
