@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2015-04-02 15:54+0200\n"
+"PO-Revision-Date: 2015-04-09 18:41+0200\n"
 "Last-Translator: misteregis <misteregis@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
@@ -316,11 +316,11 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
-"{openpar} Você pode adicionar aqui as redes que você deseja disponibilizar "
-"para os clientes que conectarem com esta VPN.{closepar}{openpar} "
-"Tipicamente, você vai permitir acesso para a sua LAN anunciando este "
-"endereço de rede aqui.closepar}{openpar}Se um endereço de rede anunciado for "
-"o mesmo do endereço de rede da VPN, a rede anunciada será ignorada.{closepar}"
+"{openpar}Você pode adicionar aqui as redes que você deseja disponibilizar "
+"para clientes que se conectam a este VPN.{closepar}{openpar}Normalmente, "
+"você irá permitir o acesso à sua rede local anunciando seu endereço de rede "
+"aqui.{closepar}{openpar}Se um endereço de rede anunciado é o mesmo que o "
+"endereço da rede VPN, a rede anunciada será ignorada.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -417,7 +417,7 @@ msgid ""
 "go to the certificate authority module and create new certificates"
 msgstr ""
 "{act} não é possível porque não há nenhum certificado disponível. Por favor, "
-"vá para o Módulo de Autoridade de Certificação e criar novos certificados"
+"vá para o módulo de autoridade de certificação e criar novos certificados"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 msgid "revoked"
@@ -438,9 +438,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
-"Não é possivel criar um servidor chamado {name} porque já existe um "
-"certificado chamado  {certName} com o estado {state}.<br/>Escolha outro nome "
-"ou renomeie o certificado {certName}"
+"Não é possível criar um servidor chamado {name} porque alreadyexists um "
+"certificado chamado {certName} com o estado {state}.<br/>Escolha outro nome "
+"para reedição do certificado {certName}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -585,7 +585,7 @@ msgstr "Aleatório"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
 msgid "Failover"
-msgstr "Falha na WAN"
+msgstr "Redunância"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
@@ -635,7 +635,7 @@ msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
-"Não é possivél criar um pacote porque o servidor não está totalmente "
+"Não é possivél criar um pacote porque o servidor  não está totalmente "
 "configurado; por favor complete a configuração e tente novamente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:343
@@ -675,7 +675,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:101
 msgid "Network Address Translation"
-msgstr "Tradução de Endereços de Rede (NAT)"
+msgstr "Tradução de Endereços de Rede"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
 msgid "Enable it if this VPN server is not the default gateway"
@@ -783,32 +783,32 @@ msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
-"Não é possível usar a Tradução dos Endereços de Rede (NAT) porque ela requer "
-"o módulo de firewall. Não há nenhum módulo ativado ou instalado"
+"Não é possível usar a Tradução de Endereços de Rede porque ela requer o "
+"módulo de firewall. Não há nenhum módulo ativado ou instalado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:506
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
-"Impossível usar a Tradução dos Endereços de Rede (NAT) porque ela requer o "
-"módulo de firewall ativado. Por favor ative-o e tente de novo"
+"Impossível usar a Tradução de Endereços de Rede porque ela requer o módulo "
+"de firewall ativado. Por favor ative-o e tente de novo"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:535
 msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
 msgstr ""
-"Pelo menos uma interface de rede é necessária para conectar com o servidor "
-"uma vez que a opção a Tradução dos Endereços de Rede (NAT) esteja ativada"
+"Pelo menos uma interface externa é necessária para se conectar ao servidor, "
+"a menos que a tradução de endereços de rede opção é habilitado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:544
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
 msgstr ""
-"A interface precisa ser uma interface externa, a menos que a Tradução dos "
-"Endereços de Rede (NAT) esteja habilitada"
+"A interface precisa ser uma interface externa, a menos que a Tradução de "
+"Endereços de Rede esteja habilitada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:592
 #, perl-brace-format
@@ -849,8 +849,8 @@ msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
-"Não é possivél ativar o cliente porque não está totalmente configurado; por "
-"favor edite a configuração e tente novamente."
+"Não é possível ativar o cliente porque não está totalmente configurado; por "
+"favor edite a configuração e tente novamente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:183
 msgid "RIP password is mandatory"
@@ -1088,7 +1088,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm:532
 msgid "Let the bind daemon to be dynamically updated"
-msgstr "Deixe o daemon BIND para ser atualizados dinamicamente"
+msgstr "Deixe o daemon se ligam a ser atualizada dinamicamente"
 
 #: ../../main/dns/src/EBox/DNS.pm:536
 msgid "Remove bind9 init script link"
@@ -1096,11 +1096,11 @@ msgstr "Remove o link do script de inicialização do bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:537 ../../main/ntp/src/EBox/NTP.pm:82
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr "O Zentyal cuidará de iniciar e finalizar os serviços."
+msgstr "Zentyal irá cuidar de iniciar e parar os serviços."
 
 #: ../../main/dns/src/EBox/DNS.pm:542
 msgid "Override named apparmor profile"
-msgstr "Sobrepõe perfil  apparmor"
+msgstr "Sobrepõe perfil apparmor"
 
 #: ../../main/dns/src/EBox/DNS.pm:543
 msgid "To allow samba daemon load Active Directory zone"
@@ -1113,7 +1113,7 @@ msgstr "Serviço de Nomes de Domínio"
 #: ../../main/dns/src/EBox/DNS.pm:946
 #, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "A chave '{key}' no arquivo de configuração {value}"
+msgstr "chave '{key}' no arquivo de configuração {value}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1689
 msgid "hostname"
@@ -1134,7 +1134,7 @@ msgstr "O nome do host {x} já está definido no domínio {y}"
 
 #: ../../main/dns/src/EBox/DNS/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
-msgstr "Um nome de domínio válido ou um curinga (*) deve ser fornecido"
+msgstr "Um nome de domínio válido ou um curinga (*) deve ser fornecido."
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:77
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
@@ -1232,7 +1232,7 @@ msgid ""
 "is enabled."
 msgstr ""
 "Cada consulta DNS será redirecionada para o servidor de DNS local se o modo "
-"transparente estiver ativo"
+"transparente estiver ativo."
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:76
 msgid "Forwarder"
@@ -1252,7 +1252,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:92
 msgid "forwarder"
-msgstr "Encaminhador"
+msgstr "encaminhador"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:132
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:122
@@ -1300,8 +1300,8 @@ msgstr "Destino"
 msgid ""
 "If you select the \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
-"Se você selecionar \"Customizado\", isto deve ser um nome de domínio "
-"totalmente qualificado (Fully Qualified Domain Name) FQDN"
+"Se você selecionar \"Personalizado\", isto deve ser um nome de domínio "
+"totalmente qualificado FQDN"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:176
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:195
@@ -1426,14 +1426,14 @@ msgid ""
 "mx.{name}?"
 msgstr ""
 "O nome do host fornecido não é um nome de domínio totalmente qualificado "
-"(FQDN). Você quer dizer mx. {name}?"
+"(FQDN). Você quer dizer mx.{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:189
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:217
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
 "Se você escolher \"Custom\", deve ser um nome de domínio totalmente "
-"qualificado (Fully Qualified Domain Name) FQDN"
+"qualificado FQDN"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:211
 msgid "Preference"
@@ -1451,7 +1451,7 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
-"O menor número de preferência tem a prioridade mais alta e é o primeiro "
+"O menor número de preferência tem a prioridade mais alta  e é o primeiro "
 "servidor a ser experimentado quando um cliente remoto (tipicamente outro "
 "servidor de e-mail) faz uma pesquisa de MX para o nome de domínio. "
 "Preferência de número de intervalo permitida = ({min}, {max})"
@@ -1506,7 +1506,7 @@ msgstr "Servidor de nomes"
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
-msgstr "registros {txt}"
+msgstr "{txt} registros"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:666
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:219
@@ -1524,7 +1524,7 @@ msgid ""
 "(MX, NS, TXT and SRV)."
 msgstr ""
 "Aqui você pode adicionar domínios para este servidor DNS. Cada domínio pode "
-"ter diferentes hostnames com aliases (A e CNAME) e outros registros "
+"ter diferentes nomes de host com aliases  (A e CNAME) e outros registros "
 "especiais (MX, NS, TXT e SRV)."
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:78
@@ -1542,7 +1542,7 @@ msgstr "O último servidor de nome não pode ser removido"
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:242
 msgid "Name servers"
-msgstr "Servidor de nomes (DNS)"
+msgstr "Servidor de nomes"
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:248
 msgid "It manages the name server (NS) records for this domain"
@@ -1779,7 +1779,7 @@ msgstr "Acesso para convidados"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:76
 msgid "This printer will not require authentication."
-msgstr "Esta impressora não irá requerer autenticação"
+msgstr "Esta impressora não irá requerer autenticação."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:80
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:125
@@ -1805,9 +1805,8 @@ msgid ""
 "Prior to configure printers ACLs you need to enable the module in the "
 "{openref}Module Status{closeref}  section and save changes after that."
 msgstr ""
-"Antes de configurar lista de controle de acesso para impressoras você "
-"precisa habilitar o módulo na seção {openref}Module Status{closeref} e "
-"salvar as alterações."
+"Antes de configurar impressoras ACLs você precisa ativar o módulo na seção "
+"{openref}Módulo Estado{closeref}  e salvar as alterações depois disso."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:252
 #, perl-brace-format
@@ -1824,7 +1823,7 @@ msgstr "Criar diretório de spool para impressoras"
 
 #: ../../main/printers/src/EBox/Printers.pm:63
 msgid "Zentyal will create a spool directory under /var/spool/samba"
-msgstr "O Zentyal irá criar um diretório de spool em /var/spool/samba"
+msgstr "Zentyal criará um diretório de spool em /var/spool/samba"
 
 #: ../../main/printers/src/EBox/Printers.pm:68
 msgid "Create log table"
@@ -1834,7 +1833,7 @@ msgstr "Criar tabela de log"
 msgid ""
 "Zentyal will create a new table into its log database to store printers logs"
 msgstr ""
-"O Zentyal irá criar uma nova tabela no banco de registros para guardar os "
+"Zentyal irá criar uma nova tabela no banco de registros para guardar os "
 "registros das impressoras"
 
 #: ../../main/printers/src/EBox/Printers.pm:74
@@ -1982,7 +1981,7 @@ msgstr ""
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
-"A infraestrutura da Autoridade Certificadora não está disponível. Crie isto "
+"A infraestrutura da Autoridade Certificadora não está disponível, crie isto "
 "primeiro"
 
 #: ../../main/ca/src/EBox/CA.pm:1171
@@ -2178,11 +2177,11 @@ msgstr "O novo certificado CA foi renovado"
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:136
 #, perl-brace-format
 msgid "Error creating archive file for  certificates: {err}"
-msgstr "Erro ao criar o arquivo para certificados: {err}"
+msgstr "Erro ao criar o arquivo para  certificados: {err}"
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:67
 msgid "The certificate has NOT been revoked."
-msgstr "O certificado NÃO foi revogado"
+msgstr "O certificado NÃO foi revogado."
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:77
 #: ../../main/ca/src/templates/formRevoke.mas:61
@@ -2220,11 +2219,11 @@ msgstr ""
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:191
 msgid "The certificate has been issued."
-msgstr "O certificado foi assinado"
+msgstr "O certificado foi assinado."
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:192
 msgid "The new CA certificate has been issued."
-msgstr "O novo certificado CA foi assinado"
+msgstr "O novo certificado CA foi assinado."
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:143
 msgid "Problems creating Certification Authority has happened"
@@ -2329,7 +2328,7 @@ msgstr "método"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:93
 msgid "ip address"
-msgstr "endereço IP"
+msgstr "endereço ip"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:94
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:66
@@ -2454,7 +2453,7 @@ msgid ""
 "it belongs to the network of {iface} which is not static"
 msgstr ""
 "O gateway {gw} dever estar na mesma rede da interface estática. Atualmente "
-"ele pertence a rede  {iface} que não é estática"
+"ele pertence a rede {iface} que não é estática"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:285
 msgid "Since you have not gateways you should add the first one as default"
@@ -2557,7 +2556,7 @@ msgstr ""
 "servidor DNS local será utilizado para resolver as consultas. As consultas "
 "para o qual este servidor não tem autoridade e não tem a resposta em seu "
 "cache será enviado para os {ohref}redirecionadores configurados{chref} caso "
-"os mesmos não respondam os servidores DNS raiz serão utilizados. "
+"os mesmos não respondam os servidores DNS raiz serão utilizados."
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:75
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:220
@@ -2610,7 +2609,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:146
 #, perl-brace-format
 msgid "Proxy {addr} is invalid because it is the address of the interface {if}"
-msgstr "O Proxy {addr} é inválido porque é o endereço da interface {if}"
+msgstr "Proxy {addr} é inválido porque é o endereço da interface {if}"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:158
 msgid ""
@@ -2834,15 +2833,15 @@ msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
-"Esta inrerface está em modo trunk, você deve desconfigurar todas as "
-"interfaces vlan neste trunk alterando o seu modo de configuração"
+"Esta interface está em modo trunk, você deve desconfigurar todas as "
+"interfaces vlan neste trunk alterando o seu modo de configuração."
 
 #: ../../main/network/src/EBox/Network.pm:1626
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 "As interfaces de rede necessitam estar em modo trunk antes que seja possível "
-"adicionar mais vlans"
+"adicionar mais vlans."
 
 #: ../../main/network/src/EBox/Network.pm:2939
 msgid ""
@@ -2931,7 +2930,7 @@ msgstr "Objetos"
 
 #: ../../main/objects/src/EBox/Objects.pm:118
 msgid "network object"
-msgstr "Objeto de Rede"
+msgstr "objeto de rede"
 
 #: ../../main/objects/src/EBox/Objects.pm:178
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:156
@@ -3018,7 +3017,7 @@ msgstr "{server} arquivo de configuração"
 #: ../../main/dhcp/src/EBox/DHCP.pm:106
 #, perl-brace-format
 msgid "AppArmor profile for {server} daemon"
-msgstr "O perfil do Apparmor para {server}  daemon"
+msgstr "O perfil do Apparmor para {server} daemon"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:131
 msgid "Trivial File Transfer Protocol"
@@ -3231,7 +3230,7 @@ msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr ""
-"Você pode querer personalizar as opções de thin client. Para isso, você pode "
+"Você pode querer personalizar as opções de thin client.Para isso, você pode "
 "incluir todos os arquivos que desejar no diretório {path}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:182
@@ -3276,19 +3275,19 @@ msgstr "Nenhum"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:345
 msgid "Zentyal domain"
-msgstr "Domínio Zentyal"
+msgstr "Zentyal domínio"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:354
 msgid "local Zentyal DNS"
-msgstr "DNS local Zentyal"
+msgstr "dns Zentyal local"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:375
 msgid "local Zentyal NTP"
-msgstr "NTP local Zentyal"
+msgstr "ntp Zentyal local"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:393
 msgid "local Zentyal"
-msgstr "Zentyal local"
+msgstr "local Zentyal"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:405
 msgid "Default gateway"
@@ -3316,7 +3315,7 @@ msgid ""
 "are not fully qualified"
 msgstr ""
 "O domínio selecionado completará os clientes cujas solicitações de DNS não "
-"sejam totalmente qualificadas (FQDN)"
+"sejam totalmente qualificadas"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:445
 msgid "Primary nameserver"
@@ -3449,7 +3448,8 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:164
 msgid "No interfaces enabled.  The DHCP server  will not serve any address"
 msgstr ""
-"Nenhuma interface habilitada. O servidor DHCP não irá servir nenhum endereço"
+"Nenhuma interface habilitada.  O servidor DHCP  não irá servir nenhum "
+"endereço"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:166
 msgid ""
@@ -3457,7 +3457,7 @@ msgid ""
 "DHCP server  will not serve any address"
 msgstr ""
 "Para habilitar interfaces que não tenham nenhuma faixa ou endereço fixo "
-"configurado. O servidor DHCP não irá servir nenhum endereço"
+"configurado.  O servidor DHCP  não irá servir nenhum endereço"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:102
 msgid "DNS module must be configured to work with this feature"
@@ -3652,7 +3652,7 @@ msgstr "Deve ser uma string HTML válida"
 
 #: ../../main/core/src/EBox/Types/Float.pm:77
 msgid "Enter a float number"
-msgstr "Digite um número real (float)"
+msgstr "Digite um número real"
 
 #: ../../main/core/src/EBox/Types/TimeZone.pm:56
 #: ../../main/core/src/EBox/SysInfo/Model/TimeZone.pm:58
@@ -3682,7 +3682,7 @@ msgstr "Backup de configuração de upload corrompido"
 
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:146
 msgid "Try the upload again"
-msgstr "tente o upload novamente"
+msgstr "Tente o upload novamente"
 
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:190
 msgid "Server not found"
@@ -3922,7 +3922,7 @@ msgstr "Deve ser um nome de domínio válido"
 
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Validate.pm:74
 msgid "server name"
-msgstr "Nome do servidor"
+msgstr "nome do servidor"
 
 #: ../../main/core/src/EBox/RemoteServices/Exceptions/NotCapable.pm:31
 msgid "This server is not able to do this action."
@@ -3977,7 +3977,7 @@ msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
-"Ocorreu um erro interno, este erro é provavelmente um bug, informações "
+"Ocorreu um erro interno. Este erro é provavelmente um bug, informações "
 "importantes podem ser encontradas nos logs."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:700
@@ -3990,7 +3990,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/Base.pm:705
 msgid "Sorry, you have just hit a bug in Zentyal."
-msgstr "Sinto muito, você encontrou um bug no Zentyal. "
+msgstr "Sinto muito, você encontrou um bug no Zentyal."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:709
 #, perl-brace-format
@@ -4305,7 +4305,7 @@ msgstr "Verificando atualizações..."
 
 #: ../../main/core/src/EBox/SysInfo.pm:321
 msgid "System load"
-msgstr "Carga do Sistema"
+msgstr "Carga do sistema"
 
 #: ../../main/core/src/EBox/SysInfo.pm:322
 msgid "Uptime"
@@ -4380,15 +4380,15 @@ msgstr "Sua sessão expirou"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:70
 msgid "Incorrect password"
-msgstr "Senha incorreta."
+msgstr "Senha incorreta"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:72
 msgid "For security reasons your session has expired due to inactivity"
-msgstr "Por razões de Segurança sua sessão foi expirada por inatividade."
+msgstr "Por razões de segurança sua sessão foi expirada por inatividade"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:74
 msgid "You have been logged out because a new session has been opened"
-msgstr "Você foi desconectado porque outra sessão foi aberta."
+msgstr "Você foi desconectado porque outra sessão foi aberta"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:76
 #, perl-brace-format
@@ -4444,7 +4444,7 @@ msgstr "Desculpe, houve um erro inesperado"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:110
 msgid "Please contact support."
-msgstr "Favor contate o Suporte Técnico"
+msgstr "Por favor, contate o suporte técnico."
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:114
 #, perl-brace-format
@@ -4517,7 +4517,7 @@ msgstr "Para fazer um relatório manual, por favor, siga estas instruções:"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:141
 msgid "Create a new ticket in the Zentyal bug tracker by clicking "
-msgstr "Criar um novo bilhete no Zentyal bug tracker clicando"
+msgstr "Criar um novo bilhete no Zentyal bug tracker clicando "
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:143
 #: ../../main/core/src/EBox/View/StackTrace.pm:147
@@ -4746,7 +4746,7 @@ msgstr ""
 msgid "Please confirm that you want to restore using this backup file:"
 msgstr ""
 "Por favor, confirme que você quer restaurar a configuração desse arquivo de "
-"backup."
+"backup:"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:179
 msgid "Full data and configuration backup"
@@ -4955,7 +4955,8 @@ msgstr "Data e hora"
 msgid ""
 "A change in the date or time will cause all Zentyal services to be restarted."
 msgstr ""
-"Uma mudança na data ou hora fará com que o Zentyal reinicie todos os serviços"
+"Uma mudança na data ou hora fará com que o Zentyal reinicie todos os "
+"serviços."
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:100
 msgid ""
@@ -5032,8 +5033,8 @@ msgid ""
 "Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a "
 "FREE 30-day Trial!"
 msgstr ""
-"Você quer fazer um backup de configuração remota de seu Zentyal Server? "
-"Então clique {oh}aqui{ch} é GRÁTIS!"
+"Você está interessado em uma edição comercial do Servidor Zentyal? "
+"{oh}Faça{ch} um teste grátis por 30 dias!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:244
 #, perl-brace-format
@@ -5041,8 +5042,8 @@ msgid ""
 "Are you a happy Zentyal Server user? Do you want to help the project? Get "
 "involved in the {oh}Community{ch}!"
 msgstr ""
-"Você está interessado em uma edição comercial do Zentyal Server? {oh}"
-"Faça{ch} um Teste GRÁTIS por 30 dias!"
+"Você está interessado em uma edição comercial do Zentyal Server? Faça um "
+"{oh}Teste{ch} GRÁTIS por 30 dias!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/ConfigureWidgets.pm:30
 msgid "Configure Widgets"
@@ -5142,7 +5143,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:259
 msgid ", "
-msgstr "'"
+msgstr ", "
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:274
 msgid "never purge"
@@ -5250,7 +5251,7 @@ msgstr "Padrão 4 horas"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1327
 msgid "Configuration backup enabled"
-msgstr "Backup da Configuração habilitado"
+msgstr "Backup da configuração habilitado"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1332
 #: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:155
@@ -5275,7 +5276,7 @@ msgstr "{oh}Registre-se para armazenar seus backups na nuvem{ch}"
 #: ../../main/core/src/templates/remoteservices/index.mas:35
 #: ../../main/core/src/templates/remoteservices/index.mas:83
 msgid "Server name"
-msgstr "Nome do Servidor"
+msgstr "Nome do servidor"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1346
 #: ../../main/core/src/templates/remoteservices/index.mas:84
@@ -5284,7 +5285,7 @@ msgstr "Edição servidor"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1349
 msgid "Technical support"
-msgstr "Suporte Técnico"
+msgstr "Suporte técnico"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1352
 msgid "Registered e-mail"
@@ -5332,19 +5333,21 @@ msgstr ""
 
 #: ../../main/core/src/EBox/Backup.pm:854
 msgid "Incorrect or corrupt backup file"
-msgstr "Arquivo de Backup incorreto ou corrompido"
+msgstr "Arquivo de backup incorreto ou corrompido"
 
 #: ../../main/core/src/EBox/Backup.pm:881
 msgid "The backup file is corrupt: could not open archive"
-msgstr "Não foi possível abrir o arquivo. O arquivo de Backup está corrompido"
+msgstr "Não foi possível abrir o arquivo: arquivo de backup está corrompido"
 
 #: ../../main/core/src/EBox/Backup.pm:892
 msgid "The backup file is corrupt: could not open backup checksum"
-msgstr "O arquivo de Backup está corrompido"
+msgstr ""
+"O arquivo de backup está corrompido: não pôde abrir soma de verificação de "
+"backup"
 
 #: ../../main/core/src/EBox/Backup.pm:899
 msgid "The backup file is corrupt."
-msgstr "O arquivo de Backup está corrompido"
+msgstr "O arquivo de backup está corrompido."
 
 #: ../../main/core/src/EBox/Backup.pm:917
 msgid ""
@@ -5462,7 +5465,7 @@ msgstr "{model} em {module} módulo"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:274
 msgid "element"
-msgstr "Elemento"
+msgstr "elemento"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:276
 #, perl-brace-format
@@ -5540,8 +5543,8 @@ msgid ""
 "You cannot set the width property if the composite has not a: {left_right} "
 "layout"
 msgstr ""
-"Você não pode definir a propriedade de largura se o composto não tem um: "
-"Disposição {left_right}"
+"Você não pode definir a propriedade de largura se o composto não tem uma: "
+"disposição {left_right}"
 
 #: ../../main/core/src/EBox/Model/TreeView.pm:268
 #: ../../main/core/src/templates/ajax/tableBody.mas:399
@@ -5842,8 +5845,8 @@ msgid ""
 "Webmail and groupware platform. SSL enabled version. To enable this option "
 "you have to \"Issue Certificate\" first."
 msgstr ""
-"Webmail e plataforma de groupware. SSL versão habilitada. Para ativar essa "
-"opção você tem que Emitir Certificado\" primeiro."
+"Webmail e plataforma de groupware. Versão SSL habilitada. Para ativar essa "
+"opção você tem que \"Emitir Certificado\" primeiro."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:136
 msgid "Revoke certificate"
@@ -5963,7 +5966,7 @@ msgstr "Resetar"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:116
 msgid "Database unconfigured"
-msgstr "Banco de Dados resetado"
+msgstr "Banco de dados resetado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:122
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:134
@@ -5972,7 +5975,7 @@ msgstr "Instalação"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:124
 msgid "Database configured"
-msgstr "Banco de Dados configurado"
+msgstr "Banco de dados configurado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:135
 msgid "OpenChange Server Provision"
@@ -5992,8 +5995,8 @@ msgid ""
 "You must enable the {x} module in the module status section before "
 "provisioning {y} module database."
 msgstr ""
-"Você deve habilitar o módulo de {x} na seção Status do módulo antes do "
-"provisionamento do banco de dados do módulo {y}"
+"Você deve habilitar o módulo de {x} na seção status do módulo antes do "
+"provisionamento do banco de dados do módulo {y}."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:219
 #, perl-brace-format
@@ -6119,7 +6122,7 @@ msgstr "Para configurar o sogo daemon"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:219
 msgid "To configure sogo parameters"
-msgstr "Para configurar os parâmetros Sogo"
+msgstr "Para configurar os parâmetros sogo"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:224
 msgid "To configure autodiscovery service"
@@ -6212,7 +6215,7 @@ msgstr "Escolher pacotes Zentyal para instalar"
 
 #: ../../main/software/src/EBox/Software/CGI/EBox.pm:37
 msgid "Zentyal components"
-msgstr "Componentes Zentyal"
+msgstr "Zentyal componentes"
 
 #: ../../main/software/src/EBox/Software/CGI/Updates.pm:33
 msgid "System updates"
@@ -6251,7 +6254,7 @@ msgid ""
 msgstr ""
 "A instalação dos pacotes foi finalizada com sucesso. A interface "
 "administrativa pode ficar sem resposta por alguns segundos. Por favor "
-"aguarde pacientemente até que o sistema tenha sido configurado totalmente"
+"aguarde pacientemente até que o sistema tenha sido configurado totalmente."
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:241
 msgid "Installing"
@@ -6323,7 +6326,7 @@ msgstr "Instalação Inicial"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:657
 msgid "Firewall failed to add rules for the following modules: "
-msgstr "Firewall não conseguiu adicionar regras para os seguintes módulos:"
+msgstr "Firewall não conseguiu adicionar regras para os seguintes módulos: "
 
 #: ../../main/firewall/src/EBox/Iptables.pm:660
 msgid ""
@@ -6341,7 +6344,7 @@ msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
 "Você deve definir a variável iptables_log_limit no arquivo de configuração "
-"do eBox"
+"do ebox"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:917
 #: ../../main/firewall/src/EBox/Iptables.pm:954
@@ -6351,7 +6354,7 @@ msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
 "Você deve definir a variável iptables_log_burst no arquivo de configuração "
-"do eBox"
+"do ebox"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RulesWithInterface.pm:46
 #, perl-brace-format
@@ -6755,7 +6758,7 @@ msgstr "nome de exibição"
 #: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:88
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:52
 msgid "description"
-msgstr "Descrição"
+msgstr "descrição"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:71
 #: ../../main/samba/src/templates/addgroup.mas:19
@@ -6858,7 +6861,7 @@ msgstr ""
 "Você criou um nome de usuário com mais de 20 caracteres. Alguns sistemas "
 "operacionais Microsoft não suportam nomes longos de usuários, caso o usuário "
 "não esteja conectado a uma estação de trabalho Windows, faça a exclusão e "
-"crie novamente com um nome de usuário mais curto."
+"crie novamente com um nome de usuário mais curto"
 
 #: ../../main/samba/src/EBox/Samba/CGI/AddOU.pm:49
 msgid "OU name"
@@ -6922,7 +6925,7 @@ msgstr "nome da conta"
 #: ../../main/samba/src/EBox/Samba/Group.pm:179
 msgid "Windows group names cannot be only spaces, numbers and dots"
 msgstr ""
-"Nomes de grupos do Windows não podem ter apenas espaços, números e pontos"
+"Nomes de grupos do windows não podem ter apenas espaços, números e pontos"
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:280
 #, perl-brace-format
@@ -6953,7 +6956,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:436
 msgid "There was an error updating LDAP:"
-msgstr "Houve um erro na atualização LDAP: "
+msgstr "Houve um erro na atualização LDAP:"
 
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:506
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:109
@@ -6995,11 +6998,11 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:188
 msgid "Windows account names cannot end with a dot"
-msgstr "Nomes de contas de usuários Windows não podem terminar com um ponto"
+msgstr "Nomes de contas de usuários windows não podem terminar com um ponto"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:190
 msgid "Windows account names cannot start with a dash"
-msgstr "Nomes de contas de usuários Windows não podem iniciar com um traço"
+msgstr "Nomes de contas de usuários windows não podem iniciar com um traço"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:192
 msgid ""
@@ -7021,22 +7024,22 @@ msgstr "Nome da conta"
 
 #: ../../main/samba/src/EBox/Samba/Contact.pm:46
 msgid "contact"
-msgstr "Contato"
+msgstr "contato"
 
 #: ../../main/samba/src/EBox/Samba/Contact.pm:149
 #, perl-brace-format
 msgid "Username '{x}' already exists on the same container"
-msgstr "Nome de Usuário '{x}' já existe no mesmo recipiente"
+msgstr "Nome de usuário '{x}' já existe no mesmo recipiente"
 
 #: ../../main/samba/src/EBox/Samba/Contact.pm:173
 #: ../../main/samba/src/EBox/Samba/User.pm:533
 msgid "Error on person LDAP entry creation:"
-msgstr "Erro na criação da entrada de pessoa no LDAP"
+msgstr "Erro na criação da entrada de pessoa no LDAP:"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:112
 #, perl-brace-format
 msgid "The host domain '{d}' has to be the same than the kerberos realm '{r}'"
-msgstr "O nome do host  '{d}' tem que ser o mesmo que kerberos realm '{r}'"
+msgstr "O nome do host '{d}' tem que ser o mesmo que domínio kerberos'{r}'"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:127
 #, perl-brace-format
@@ -7045,7 +7048,7 @@ msgid ""
 "name '{y}'"
 msgstr ""
 "O nome netbios '{x}' do host tem que ser diferente do nome de domínio "
-"NetBIOS '{y}'"
+"netbios '{y}'"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:143
 #, perl-brace-format
@@ -7214,7 +7217,7 @@ msgid ""
 "Windows Server 2003 R2 or greater."
 msgstr ""
 "O esquema de domínio não atende RFC 2307. Você terá que atualizar para o "
-"Windows Server 2003 R2 ou superior"
+"Windows Server 2003 R2 ou superior."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:964
 msgid ""
@@ -7275,7 +7278,7 @@ msgstr "Houve um erro ao modificar o RDN:"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:460
 msgid "Username already exists on the system"
-msgstr "Nome de Usuário já existe no sistema"
+msgstr "Nome de usuário já existe no sistema"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:497
 #, perl-brace-format
@@ -7288,11 +7291,11 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/User.pm:591
 msgid "Windows user names cannot be only spaces and dots."
-msgstr "Nomes de usuário do Windows não podem ter apenas espaços e pontos."
+msgstr "Nomes de usuário do windows não podem ter apenas espaços e pontos."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:597
 msgid "Windows user names cannot contain the \"@\" character."
-msgstr "Nomes de usuário do Windows não podem conter o caractere \"@\"."
+msgstr "Nomes de usuário do windows não podem conter o caractere \"@\"."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:608
 #, perl-brace-format
@@ -7417,7 +7420,7 @@ msgstr "compartilhamento"
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:256
 #, perl-brace-format
 msgid "Zentyal could not access to directory '{x}': {y}"
-msgstr "O Zentyal não conseguiu acessar o diretório '{x}': {y}"
+msgstr "Zentyal não conseguiu acessar o diretório '{x}': {y}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:271
 msgid "Samba share absolute path"
@@ -7443,7 +7446,8 @@ msgid ""
 "enable it in the {oh}users and groups manager{ch}."
 msgstr ""
 "Conta de domínio convidado deve ser habilitado para acesso de convidado para "
-"compartilhamentos. Você pode habilitá-lo no gerenciador de usuários e grupos."
+"compartilhamentos. Você pode habilitá-lo no {oh}gerenciador de usuários e "
+"grupos{ch}."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:421
 #, perl-brace-format
@@ -7595,9 +7599,8 @@ msgid "path"
 msgstr "caminho"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:42
-#, fuzzy
 msgid "External Active Directory"
-msgstr "servidor de e-mail externo"
+msgstr "Active Directory externo"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:46
 msgid "Base DN"
@@ -7608,19 +7611,16 @@ msgid "Root DN"
 msgstr "Root DN"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:58
-#, fuzzy
 msgid "Default Users DN"
-msgstr "Quota padrão de usuário."
+msgstr "Usuários Padrão DN"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:62
-#, fuzzy
 msgid "Default Groups DN"
-msgstr "Grupos DN"
+msgstr "Grupos Padrão DN"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:66
-#, fuzzy
 msgid "Administrative user of external active directory"
-msgstr "Destino precisa ser um diretório relativo"
+msgstr "Usuário administrativo de active directory externo"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:72
 msgid "LDAP information"
@@ -7630,11 +7630,11 @@ msgstr "Informações LDAP"
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information."
 msgstr ""
-"Você deve ativar o módulo Usuários e Grupos para acessar informações LDAP"
+"Você deve ativar o módulo Usuários e Grupos para acessar informações LDAP."
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:52
 msgid "Default user quota"
-msgstr "Quota padrão de usuário."
+msgstr "Quota padrão de usuário"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:56
 #: ../../main/samba/src/templates/edituser.mas:278
@@ -7647,7 +7647,7 @@ msgstr "Mb"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:72
 msgid "Default account settings"
-msgstr "Configurações padrão das contas."
+msgstr "Configurações padrão das contas"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:77
 msgid "On this page you can configure the default settings for user accounts"
@@ -7668,9 +7668,8 @@ msgid "Recycle Bin default settings"
 msgstr "Configurações-padrão da Lixeira"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:84
-#, fuzzy
 msgid "All domain users"
-msgstr "Adicionar usuário"
+msgstr "Todos os usuários do domínio"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:101
 msgid "Read only"
@@ -7707,7 +7706,7 @@ msgid ""
 "mode, edit {file} and restart this module"
 msgstr ""
 "As listas de controle de acesso (ACLs) dos compartilhamentos estão no modo "
-"não-gerenciado. Para alterar este modo, edite {file} e reinicie este módulo."
+"não-gerenciado. Para alterar este modo, edite {file} e reinicie este módulo"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:344
 msgid ""
@@ -7811,9 +7810,8 @@ msgid "Additional domain controller"
 msgstr "Controlador de domínio adicional"
 
 #: ../../main/samba/src/EBox/LdapUserImplementation.pm:53
-#, fuzzy
 msgid "This group contains members"
-msgstr "Este grupo contêm usuarios"
+msgstr "Este grupo contém membros"
 
 #: ../../main/samba/src/EBox/LdapUserImplementation.pm:162
 msgid "Sharing directory for this group"
@@ -7828,11 +7826,11 @@ msgstr "FATAL: Não foi possível conectar com o servidor LDAP do samba: {error}
 #: ../../main/samba/src/EBox/Module/LDAP.pm:231
 #, perl-brace-format
 msgid "Error loading LDIF. Error message: {x}, Error lines: {y}"
-msgstr ""
+msgstr "Erro ao carregar LDIF. Mensagem de erro: {x}, linhas de erro: {y}"
 
 #: ../../main/samba/src/EBox/LdapUserBase.pm:391
 msgid "This addon applies only to users in the default 'Users' container"
-msgstr ""
+msgstr "Este addon se aplica somente a usuários no recipiente 'Usuários' padrão"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:107
 #, perl-brace-format
@@ -7840,31 +7838,33 @@ msgid ""
 "DNS query failed: {x} (using nameservers {y}, /etc/resolv.conf was\n"
 "'{z}'"
 msgstr ""
+"Consulta DNS falhou: {x} (usando nome de servidores {y}, /etc/resolv.conf "
+"foi\n"
+"'{z}'"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:147
 #, perl-brace-format
 msgid "Error on search: Expected one entry, got {x}.\n"
-msgstr ""
+msgstr "Erro na pesquisa: Esperado uma entrada, tem {x}.\n"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:160
 #, perl-brace-format
 msgid "Error connecting to schema master role owner ({x})"
-msgstr ""
+msgstr "Erro ao conectar a função de esquema mestre do proprietário ({x})"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:183
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Unable to create SASL client: {x}"
-msgstr "Não foi possível configurar o objeto SASL: {x}"
+msgstr "Não é possível criar cliente SASL: {x}"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:198
 msgid "Error binding to schama master LDAP:"
-msgstr ""
+msgstr "Erro de ligação ao esquema mestre LDAP:"
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:237
 #: ../../main/mail/src/EBox/Mail.pm:412
-#, fuzzy
 msgid "Error on LDAP entry creation:"
-msgstr "Erro na criação da entrada de pessoa no LDAP"
+msgstr "Erro na criação de entrada LDAP:"
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:294
 #: ../../main/mail/src/EBox/Mail.pm:387
@@ -7873,16 +7873,16 @@ msgid ""
 "Unexpected number of LDAP entries found searching for {dn}: Expected one, "
 "got {count}"
 msgstr ""
+"Número inesperado de entradas LDAP encontrado procurando por {dn}: Espera "
+"um, tem {count}"
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:306
-#, fuzzy
 msgid "Error on LDAP entry update:"
-msgstr "Erro na criação da entrada de pessoa no LDAP"
+msgstr "Erro na atualização de entrada LDAP:"
 
 #: ../../main/samba/src/EBox/Samba.pm:168
-#, fuzzy
 msgid "Domain Controller and File Sharing"
-msgstr "Protocolo de compartilhamento de arquivos (Samba)"
+msgstr "Controlador de Domínio e Compartilhamento de Arquivos"
 
 #: ../../main/samba/src/EBox/Samba.pm:275
 msgid ""
@@ -7894,8 +7894,8 @@ msgstr ""
 msgid ""
 "Zentyal needs this organizational units to add users and groups into them."
 msgstr ""
-"O Zentyal necessita dessa unidade organizacional para adicionar usuários e "
-"grupos nela"
+"Zentyal necessita dessa unidade organizacional para adicionar usuários e "
+"grupos nela."
 
 #: ../../main/samba/src/EBox/Samba.pm:280
 msgid "Create Samba home directory for shares and groups"
@@ -7914,14 +7914,12 @@ msgid "Configure PAM."
 msgstr "Configurar PAM."
 
 #: ../../main/samba/src/EBox/Samba.pm:290
-#, fuzzy
 msgid "Zentyal will give LDAP samba system account."
-msgstr "O Zentyal dará contas do sistema aos usuários."
+msgstr "Zentyal vai dar conta do sistema samba LDAP."
 
 #: ../../main/samba/src/EBox/Samba.pm:308
-#, fuzzy
 msgid "To set up kerberos authentication"
-msgstr "Requer autenticação"
+msgstr "Para configurar a autenticação kerberos"
 
 #: ../../main/samba/src/EBox/Samba.pm:315
 msgid ""
@@ -7940,15 +7938,16 @@ msgid ""
 "To configure System Security Services Daemon to manage remote authentication "
 "mechanisms"
 msgstr ""
+"Para configurar os Serviços de Segurança do Sistema Daemon para gerenciar "
+"mecanismos de autenticação remota"
 
 #: ../../main/samba/src/EBox/Samba.pm:332
 msgid "To enable extended attributes and acls."
-msgstr ""
+msgstr "Para habilitar os atributos estendidos e acls."
 
 #: ../../main/samba/src/EBox/Samba.pm:360
-#, fuzzy
 msgid "Domain and File sharing protocols"
-msgstr "Protocolo de compartilhamento de arquivos (Samba)"
+msgstr "Domínio e Protocolos de compartilhamento de arquivos"
 
 #: ../../main/samba/src/EBox/Samba.pm:392
 #, perl-brace-format
@@ -7958,6 +7957,11 @@ msgid ""
 "you have not received leases. Saving changes if network module has just been "
 "configured or waiting for a lease can solve this situation"
 msgstr ""
+"Não é possível ativar o módulo Usuários e computadores, porque o seu sistema "
+"não tem IPs disponíveis. Desde que você tem interfaces de DHCP ({ifaces}), "
+"é possível que você não tenha recebido arrendamentos. Guardar as alterações "
+"se o módulo de rede acaba de ser configurado ou à espera de um contrato de "
+"arrendamento pode resolver esta situação"
 
 #: ../../main/samba/src/EBox/Samba.pm:396
 #, perl-brace-format
@@ -7966,37 +7970,42 @@ msgid ""
 "available IPs. {oh}Configuring network interfaces{ch} and saving changes can "
 "solve this situation"
 msgstr ""
+"Não é possível ativar o módulo Usuários e computadores, porque o seu sistema "
+"não tem IPs disponíveis. {oh}Configurando interfaces de rede{ch} e salvar "
+"as alterações podem resolver esta situação"
 
 #: ../../main/samba/src/EBox/Samba.pm:997
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr ""
+"Erro ao configurar descritor de segurança no compartilhamento '{x}': {y}"
 
 #: ../../main/samba/src/EBox/Samba.pm:1019
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
-msgstr ""
+msgstr "Erro ao configurar descritor de segurança no arquivo {x}{y}: {z}"
 
 #: ../../main/samba/src/EBox/Samba.pm:1036
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
 msgstr ""
+"Houve erros ao configurar ACLs em compartilhamento samba, por favor, "
+"verifique o log do Zentyal para mais detalhes."
 
 #: ../../main/samba/src/EBox/Samba.pm:1572
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
+"Encontrados {count} resultados para o grupo '{name}', esperado somente um."
 
 #: ../../main/samba/src/EBox/Samba.pm:1913
-#, fuzzy
 msgid "Manage"
-msgstr "Somente gerenciamento"
+msgstr "Gerenciar"
 
 #: ../../main/samba/src/EBox/Samba.pm:1925
-#, fuzzy
 msgid "Configure mode"
-msgstr "Configurados"
+msgstr "Modo de configuração"
 
 #: ../../main/samba/src/EBox/Samba.pm:2063
 #, perl-brace-format
@@ -8004,6 +8013,9 @@ msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
+"Para ser capaz de restaurar este backup o nome do host deve ser primeiro "
+"definido para {hn}. Caso contrário, os dados samba não poderá ser "
+"restaurado."
 
 #: ../../main/samba/src/EBox/Samba.pm:2079
 #, perl-brace-format
@@ -8021,28 +8033,34 @@ msgid ""
 "we get this error:\n"
 "{ex}"
 msgstr ""
+"Não podemos recriar a provisão samba com os dados a partir do backup, porque "
+"nós temos este erro:\n"
+"{ex}"
 
 #: ../../main/samba/src/EBox/Samba.pm:2106
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
+"Restaurar só é possível se o servidor é o controlador de domínio exclusivo "
+"da forest"
 
 #: ../../main/samba/src/EBox/Samba.pm:2370
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
+"O nome do host ou domínio não pode ser alterada se Zentyal é configurado "
+"como controlador de domínio adicional."
 
 #: ../../main/samba/src/EBox/Samba.pm:2463
-#, fuzzy
 msgid "Users data and Filesystem shares"
-msgstr "Utilização do sistema de arquivos"
+msgstr "Dados dos usuários e Compartilhamentos de Sistema de arquivo"
 
 #: ../../main/samba/src/EBox/Samba.pm:2606
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
-msgstr "Endereço {ip} já está em uso pela interface {iface}"
+msgstr "Endereço {addr} já está em uso pelo {type} {name}"
 
 #: ../../main/samba/src/EBox/Samba.pm:3074
 msgid "Client address"
@@ -8092,7 +8110,7 @@ msgstr "Renomear"
 
 #: ../../main/samba/src/EBox/Samba.pm:3093
 msgid "Samba access"
-msgstr "Acesso Samba"
+msgstr "Acesso samba"
 
 #: ../../main/mail/src/EBox/Mail.pm:148
 msgid "Generate mail aliases"
@@ -8101,7 +8119,7 @@ msgstr "Criar apelidos de e-mail"
 #: ../../main/mail/src/EBox/Mail.pm:150
 #, perl-brace-format
 msgid "Zentyal will execute {cmd}"
-msgstr "O Zentyal irá executar {cmd}"
+msgstr "Zentyal irá executar {cmd}"
 
 #: ../../main/mail/src/EBox/Mail.pm:155
 msgid "Add LDAP schemas"
@@ -8118,19 +8136,18 @@ msgstr "Criar certificados"
 
 #: ../../main/mail/src/EBox/Mail.pm:165
 msgid "Zentyal will create certificates to use in mail services"
-msgstr ""
-"O Zentyal irá criar certificados para serem usados nos serviços de correio"
+msgstr "Zentyal irá criar certificados para serem usados nos serviços de e-mail"
 
 #: ../../main/mail/src/EBox/Mail.pm:170
 msgid "Add fetchmail update cron job"
-msgstr "Adicionar trarefa de atualização de busca de correio no CRON"
+msgstr "Adicionar trarefa de atualização de busca de e-mail no cron"
 
 #: ../../main/mail/src/EBox/Mail.pm:172
 msgid ""
 "Zentyal will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
-"O Zentyal irá agendar uma tarefa no CRON para atualizar a configuração de "
+"Zentyal irá agendar uma tarefa no cron para atualizar a configuração de "
 "correio quando o usuário adicionar contas externas"
 
 #: ../../main/mail/src/EBox/Mail.pm:192
@@ -8159,9 +8176,8 @@ msgid "To configure dovecot to authenticate against LDAP"
 msgstr "Para configurar o dovecot para autenticar no LDAP"
 
 #: ../../main/mail/src/EBox/Mail.pm:225
-#, fuzzy
 msgid "To configure dovecot to have a master password"
-msgstr "Para configurar o dovecot para autenticar no LDAP"
+msgstr "Configure o dovecot para ter uma senha mestra"
 
 #: ../../main/mail/src/EBox/Mail.pm:230
 msgid "To configure smart host authentication"
@@ -8172,9 +8188,8 @@ msgid "To configure mail transports"
 msgstr "Para configurar os transportes de correio"
 
 #: ../../main/mail/src/EBox/Mail.pm:240
-#, fuzzy
 msgid "To let dovecot authenticate users using PAM"
-msgstr "Para configurar o dovecot para autenticar no LDAP"
+msgstr "Deixar os usuários dovecot autenticar usando PAM"
 
 #: ../../main/mail/src/EBox/Mail.pm:301
 msgid "Outgoing Mail (SMTP protocol)."
@@ -8194,7 +8209,7 @@ msgstr "Envio de E-mails"
 
 #: ../../main/mail/src/EBox/Mail.pm:321
 msgid "Outgoing Mail (Submission protocol)."
-msgstr "Saída de Correio (protocolo de submissão)"
+msgstr "Saída de Correio (protocolo de submissão)."
 
 #: ../../main/mail/src/EBox/Mail.pm:889
 msgid ""
@@ -8267,7 +8282,7 @@ msgstr "Do servidor"
 
 #: ../../main/mail/src/EBox/Mail.pm:1576
 msgid "From host ip"
-msgstr "Do servidor com o IP"
+msgstr "Do servidor com o ip"
 
 #: ../../main/mail/src/EBox/Mail.pm:1577
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -8339,9 +8354,9 @@ msgid "Mailboxes"
 msgstr "Caixas de e-mail"
 
 #: ../../main/mail/src/EBox/Mail.pm:1814
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Address {addr} is in use as external alias"
-msgstr "Endereço {ip} já está em uso pela interface {iface}"
+msgstr "Endereço {addr} está em uso como alias externo"
 
 #: ../../main/mail/src/EBox/Mail/CGI/Wizard/VirtualDomain.pm:42
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:167
@@ -8358,9 +8373,9 @@ msgid "Mail address"
 msgstr "Endereço de email"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:61
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{acc} account created"
-msgstr "Não criado"
+msgstr "{acc} conta criada"
 
 #: ../../main/mail/src/EBox/Mail/CGI/MQRequeue.pm:41
 #: ../../main/mail/src/EBox/Mail/CGI/MQRemove.pm:41
@@ -8377,35 +8392,36 @@ msgid "External account"
 msgstr "Conta externa"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:69
-#, fuzzy
 msgid "Mail protocol"
-msgstr "protocolo"
+msgstr "Protocolo de e-mail"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:85
 msgid ""
 "Keep messages and fetch all mail cannot work together because a "
 "implementation limitation"
 msgstr ""
+"Mantenha as mensagens e buscar todos os e-mails não podem trabalhar juntos, "
+"por causa de limitação de implementação"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:99
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "External account {acc} added"
-msgstr "Conta externa adicionada"
+msgstr "Conta externa {acc} adicionada"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:58
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:61
 #, perl-brace-format
 msgid "Added alias {al}"
-msgstr ""
+msgstr "Alias adicionado {al}"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelAccount.pm:49
 msgid "user mail"
 msgstr "correio do usuário"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelAccount.pm:56
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{acc} account removed"
-msgstr "Conta externa {ac} removida"
+msgstr "{acc} conta removida"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelAlias.pm:48
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:133
@@ -8415,16 +8431,15 @@ msgstr "apelido de email"
 #: ../../main/mail/src/EBox/Mail/CGI/DelAlias.pm:56
 #, perl-brace-format
 msgid "Removed alias {al}"
-msgstr ""
+msgstr "Alias removido {al}"
 
 #: ../../main/mail/src/EBox/Mail/CGI/SetAccountMaildirQuota.pm:60
 msgid "Quota must be a amount of MB greter than zero"
 msgstr "A quota deve ser uma quantidade de MB maior que zero"
 
 #: ../../main/mail/src/EBox/Mail/CGI/SetAccountMaildirQuota.pm:67
-#, fuzzy
 msgid "Mail directory quota set"
-msgstr "Nome do diretório"
+msgstr "Cota diretório de e-mail definido"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:48
 msgid "maildrop"
@@ -8435,24 +8450,22 @@ msgid "group alias mail"
 msgstr "apelido de grupo de correio"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:54
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Alias {al} removed"
-msgstr "OU {rou} removida"
+msgstr "Alias {al} removida"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelExternalAccount.pm:44
-#, fuzzy
 msgid "External mail account"
-msgstr "Contas de e-mail externas"
+msgstr "Conta de e-mail externa"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelExternalAccount.pm:59
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "External account {acc} removed"
-msgstr "Conta externa {ac} removida"
+msgstr "Conta externa {acc} removida"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:247
-#, fuzzy
 msgid "Local email account"
-msgstr "conta de correio"
+msgstr "Conta de e-mail local"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:251
 #: ../../main/mail/src/EBox/Mail/Composite/General.pm:48
@@ -8461,9 +8474,8 @@ msgid "Mail server"
 msgstr "Servidor de e-mail"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:252
-#, fuzzy
 msgid "Mail server port"
-msgstr "Servidor de e-mail"
+msgstr "Porta do servidor de e-mail"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:493
 msgid "External retrieval service"
@@ -8485,7 +8497,7 @@ msgstr "Caractere \"'\" e proíbido para externa"
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:592
 #, perl-brace-format
 msgid "Unknown mail protocol: {proto}"
-msgstr ""
+msgstr "Protocolo de e-mail desconhecido: {proto}"
 
 #: ../../main/mail/src/EBox/Mail/Composite/General.pm:47
 #: ../../main/mail/src/EBox/Mail/Composite/ServiceConfiguration.pm:60
@@ -8573,18 +8585,22 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:231
 #, perl-brace-format
 msgid "{oh}Manage additional OpenChange features for these domains{ch}"
-msgstr ""
+msgstr "{oh}Gerenciar recursos OpenChange adicionais para estes domínios{ch}"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:80
-#, fuzzy
 msgid "This form is only available from the User Corner application."
-msgstr "A lista deve conter pelo menos um aplicativo."
+msgstr ""
+"Este formulário está disponível apenas a partir da aplicação Canto do "
+"Usuário."
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:83
 msgid ""
 "Password change is only available in master or standalone servers. You need "
 "to change your password from the user corner of your master server."
 msgstr ""
+"A alteração de senha está disponível apenas em servidores mestres ou "
+"autônomos. Você precisa alterar sua senha a partir do canto do usuário do "
+"servidor mestre."
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:86
 msgid ""
@@ -8618,7 +8634,7 @@ msgstr "IMAP seguro"
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:215
 #, perl-brace-format
 msgid "User {x} not found in LDAP database"
-msgstr ""
+msgstr "Usuário {x} não encontrado na base de dados LDAP"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:312
 msgid "External account added"
@@ -8650,15 +8666,14 @@ msgid "Retrieve mail for external accounts"
 msgstr "Recuperar e-mails de contas externas"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:85
-#, fuzzy
 msgid ""
 "This allow users to retrieve mail for external accounts, the mail would be "
 "delivered to their local account. External accounts must be configured for "
 "each user."
 msgstr ""
-"Isto permite aos usuários recuperar e-mails para as contas externas, o "
-"correio seria entregue à sua conta local. Contas externas podem ser "
-"configuradas no espaço do usuário."
+"Isso permitirá que os usuários recupere e-mails para as contas externas, o "
+"e-mail seria entregue para sua conta local. As contas externas devem ser "
+"configurados para cada usuário."
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:90
 msgid "Manage Sieve scripts"
@@ -8678,7 +8693,7 @@ msgstr "Serviço de recuperação de e-mail"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:71
 msgid "Smarthost to send mail"
-msgstr "Endereço IP do Smarthost para enviar o Email"
+msgstr "Endereço ip do smarthost para enviar o e-mail"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:74
 msgid "The format is host[:port] being port set to 25 if none is supplied"
@@ -8688,7 +8703,7 @@ msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:81
 msgid "Smarthost authentication"
-msgstr "Autenticação do Smarthost"
+msgstr "Autenticação do smarthost"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:93
 msgid "User and password"
@@ -8708,7 +8723,7 @@ msgstr "Nome do servidor FQDN"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:140
 msgid "Postmaster address"
-msgstr "Endereço do Postmaster"
+msgstr "Endereço do postmaster"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:142
 msgid "Address used to report mail problems"
@@ -8732,7 +8747,7 @@ msgid ""
 "be overidden by account"
 msgstr ""
 "Quando uma caixa alcança este tamanho as próximas mensagens podem ser "
-"rejeitadas."
+"rejeitadas"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:164
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:183
@@ -8787,11 +8802,11 @@ msgstr "Opções"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:362
 msgid "Smarthost's address"
-msgstr "Endereço do Smarthost"
+msgstr "Endereço do smarthost"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:364
 msgid "Smarthost's port"
-msgstr "Porta do Smarthost"
+msgstr "Porta do smarthost's"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:438
 msgid ""
@@ -8873,23 +8888,23 @@ msgstr ""
 "usar este apelido"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:115
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{alias} (alias)"
-msgstr "apelido de email"
+msgstr "{alias} (alias)"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:157
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain or virtual "
 "domain alias managed by this server"
 msgstr ""
-"Não posso adicionar o apelido porque o domínio {vd} não é um domínio virtual "
-"gerenciado por este servidor"
+"Não é possível adicionar alias por causa de domínio {vd} não é um domínio "
+"virtual ou alias de domínio virtual gerenciado por este servidor"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:170
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{ac} is not an external account"
-msgstr "{ac} não é um cliente externo"
+msgstr "{ac} não é uma conta externa"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:262
 msgid ""
@@ -8907,8 +8922,8 @@ msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
 msgstr ""
-"Marque para permitir que as máquinas pertencentes a esta objeto enviem e-"
-"mails através deste servidor"
+"Marque para permitir que as máquinas pertencentes a esta objeto enviem "
+"e-mails através deste servidor."
 
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:111
 msgid "Relay policy for network objects"
@@ -8936,7 +8951,7 @@ msgstr "Endereço para envio de cópia"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:71
 msgid "Virtual domain settings"
-msgstr "Configurações do Domínio Virtual"
+msgstr "Configurações do domínio virtual"
 
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:52
 msgid "Mail Account"
@@ -8996,14 +9011,16 @@ msgid "group alias"
 msgstr "apelido de grupo"
 
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:165
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot create alias because group {name} does not mail acocunt set"
-msgstr "Não é possível criar um servidor, pois não há um certificado da CA"
+msgstr ""
+"Não é possível criar alias porque o grupo {name} conta de e-mail não "
+"definida"
 
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:174
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Mail domain {d} is not managed by Zentyal"
-msgstr "Domínio de correio {d} não existe"
+msgstr "Domínio de e-mail {d} não é gerenciado por Zentyal"
 
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:197
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:216
@@ -9013,9 +9030,9 @@ msgstr "Apelido de domínio"
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:202
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:239
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:264
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Mail domain {d} does not exist"
-msgstr "Domínio de correio {d} não existe"
+msgstr "Domínio de e-mail {d} não existe"
 
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:209
 #, perl-brace-format
@@ -9037,7 +9054,7 @@ msgstr "conta de correio"
 
 #: ../../main/mail/src/EBox/MailUserLdap.pm:362
 msgid "This group has a mail alias"
-msgstr "Este grupo tem um apelido de Email"
+msgstr "Este grupo tem um apelido de e-mail"
 
 #: ../../main/mail/src/EBox/MailUserLdap.pm:386
 msgid "This user has a mail account"
@@ -9089,6 +9106,8 @@ msgid ""
 "If you want a service for any connections on this protocol, use the "
 "predefined service {ser}"
 msgstr ""
+"Se você quer um serviço para quaisquer conexões sobre este protocolo, "
+"utilize o serviço predefinido {ser}"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:103
 msgid "Internal"
@@ -9141,14 +9160,12 @@ msgid "Any TCP port"
 msgstr "Qualquer porta TCP"
 
 #: ../../main/services/src/EBox/Services.pm:112
-#, fuzzy
 msgid "Any ICMP"
-msgstr "Qualquer TCP"
+msgstr "Qualquer ICMP"
 
 #: ../../main/services/src/EBox/Services.pm:113
-#, fuzzy
 msgid "Any ICMP packet"
-msgstr "Qualquer porta TCP"
+msgstr "Qualquer pacote ICMP"
 
 #: ../../main/services/src/EBox/Services.pm:129
 msgid "Secure Shell"
@@ -9159,9 +9176,8 @@ msgid "HyperText Transport Protocol"
 msgstr "HTTP Protoloco de Transporte de HiperTexto"
 
 #: ../../main/services/src/EBox/Services.pm:145
-#, fuzzy
 msgid "HyperText Transport Protocol over SSL"
-msgstr "HTTP Protoloco de Transporte de HiperTexto"
+msgstr "Protocolo de transporte HyperText sobre SSL"
 
 #: ../../main/common/src/EBox/Sudo.pm:291
 #, perl-brace-format
@@ -9177,7 +9193,8 @@ msgstr ""
 #: ../../main/common/src/EBox/Exceptions/WrongHTTPReferer.pm:37
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
 msgstr ""
-"HTTP referer errado detectado, operação cancelada por motivos de sergurança."
+"Referenciador HTTP erro detectado, operação cancelada por razões de "
+"segurança"
 
 #: ../../main/common/src/EBox/Exceptions/InvalidData.pm:38
 #, perl-brace-format
@@ -9301,22 +9318,22 @@ msgstr ""
 "and dhclient)"
 
 #: ../../main/ntp/src/EBox/NTP.pm:87
-#, fuzzy
 msgid "Override ntpd apparmor profile"
-msgstr "Sobrepõe perfil  apparmor"
+msgstr "Substituir perfil apparmor ntpd"
 
 #: ../../main/ntp/src/EBox/NTP.pm:88
 msgid "To allow samba clients to synchronize clock with ntp server"
 msgstr ""
+"Permitir que os clientes de samba para sincronize o relógio com o servidor "
+"ntp"
 
 #: ../../main/ntp/src/EBox/NTP.pm:104
 msgid "NTP configuration file"
 msgstr "Arquivo de configuração NTP"
 
 #: ../../main/ntp/src/EBox/NTP.pm:134
-#, fuzzy
 msgid "Network Time Protocol"
-msgstr "Ferramentas de Diagnóstico de Rede"
+msgstr "Protocolo Tempo de Rede"
 
 #: ../../main/dns/src/templates/index.mas:16
 msgid "Domain list"
@@ -9352,14 +9369,13 @@ msgid "Create"
 msgstr "Criar"
 
 #: ../../main/ca/src/templates/createCA.mas:35
-#, fuzzy
 msgid ""
 "This page only appears once at starting up the Certification\n"
 "  Authority.\n"
 "Changes take effect immediately."
 msgstr ""
-"Esta página só aparece uma vez ao iniciar a Certificação\n"
-"  Autorização.\n"
+"Esta página só aparece uma vez no início da Certificação\n"
+"  Autoridade.\n"
 "As alterações entram em vigor imediatamente."
 
 #: ../../main/ca/src/templates/createCA.mas:40
@@ -9383,12 +9399,11 @@ msgid "Renew a certificate"
 msgstr "Renovar um certificado"
 
 #: ../../main/ca/src/templates/formRenew.mas:31
-#, fuzzy
 msgid ""
 "This operation will resign all the issued user certificates\n"
 "  with the same expiration date"
 msgstr ""
-"Esta operação vai renunciar a todos os certificados de usuário emitido\n"
+"Esta operação vai reassinar todos os certificados do usuário emitidos\n"
 "  com a mesma data de vencimento"
 
 #: ../../main/ca/src/templates/formRenew.mas:45
@@ -9556,12 +9571,11 @@ msgid "Revoke a Certificate"
 msgstr "Revogar um certificado"
 
 #: ../../main/ca/src/templates/formRevoke.mas:13
-#, fuzzy
 msgid ""
 "This operation will revoke all the issued user certificates\n"
 "    and the CA Certificate."
 msgstr ""
-"Esta operação irá revogar todos os certificates de usuário emitido\n"
+"Esta operação irá revogar todos os certificados do usuário emitidos\n"
 "    e o Certificado CA."
 
 #: ../../main/ca/src/templates/formRevoke.mas:19
@@ -9575,7 +9589,7 @@ msgid ""
 "more modules that use references to this network interface."
 msgstr ""
 "A alteração que você está a tentando efetuar afetará um ou mais módulos que "
-"fazem referência a esta interface de rede"
+"fazem referência a esta interface de rede."
 
 #: ../../main/network/src/templates/confirmremove.mas:13
 #: ../../main/network/src/templates/confirmVlanDel.mas:11
@@ -9676,24 +9690,23 @@ msgid "Configure interface types"
 msgstr "Configurar tipos de interface"
 
 #: ../../main/network/src/templates/wizard/interfaces.mas:11
-#, fuzzy
 msgid ""
 "External interfaces connect to networks that are not under your control "
 "(typically the Internet), traffic coming from external networks is not "
 "trusted by default, thus, you will not be able to connect to Zentyal "
 "administration page through them"
 msgstr ""
-"Interfaces externas se conectam com redes que não estão sob o seu controle "
-"(tipicamente a internet), tráfego vindo de interfaces extenas não é "
-"confiável por padrão, você não deve permitir acesso à console de "
-"administração por ele."
+"Interfaces externas se conecta a redes que não estão sob seu controle "
+"(normalmente a Internet), tráfego proveniente de redes externas não é "
+"confiável por padrão, este, você não será capaz de se conectar à página de "
+"administração Zentyal através deles"
 
 #: ../../main/network/src/templates/confirmVlanDel.mas:9
 msgid ""
 "The removal of the vlan interface will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
-"A remoção da interface VLAN irá afetar a configuração de um ou mais módulos "
+"A remoção da interface vlan irá afetar a configuração de um ou mais módulos "
 "que fazem referências para esta interface de rede."
 
 #: ../../main/network/src/templates/ifaces.mas:15
@@ -9702,7 +9715,7 @@ msgid ""
 "lose access to the administration page."
 msgstr ""
 "Lembre-se que alterar a configuração das interfaces de rede pode causar a "
-"perda de acesso à página de administração"
+"perda de acesso à página de administração."
 
 #: ../../main/network/src/templates/ifaces.mas:17
 msgid ""
@@ -9726,7 +9739,7 @@ msgstr ""
 "como externo o firewall irá bloquear você, a menos que você adicione regras "
 "no firewall para regras de filtragem de {openhref} a partir de redes "
 "externas para Zentyal {closehref} para permitir o acesso para a porta de "
-"administração Zentyal, SSH,..."
+"administração Zentyal, SSH, ..."
 
 #: ../../main/network/src/templates/ifaces.mas:37
 #: ../../main/network/src/templates/ifaces.mas:38
@@ -9824,9 +9837,8 @@ msgstr ""
 "administração novamente."
 
 #: ../../main/core/src/templates/finish.mas:46
-#, fuzzy
 msgid "Discarding changes"
-msgstr "Descartar alterações"
+msgstr "Descartando alterações"
 
 #: ../../main/core/src/templates/finish.mas:51
 #: ../../main/software/src/templates/welcome.mas:10
@@ -9839,25 +9851,24 @@ msgstr "Descartar alterações"
 
 #: ../../main/core/src/templates/finish.mas:56
 msgid "There are no unsaved changes."
-msgstr "Não existem alterações não salvas"
+msgstr "Não existem alterações não salvas."
 
 #: ../../main/core/src/templates/dashboard/configurewidgets.mas:22
-#, fuzzy
 msgid ""
 "Browse the available widgets in the top menu and drag&drop them to the "
 "dashboard."
 msgstr ""
-"Navegue pelos widgets disponíveis no menu da esquerda e arraste-os para o "
-"dashboard."
+"Procurar os widgets disponíveis no menu superior e arrastar e soltá-los no "
+"painel."
 
 #: ../../main/core/src/templates/dashboard/index.mas:45
 msgid "Configure widgets"
 msgstr "Configurar widgets"
 
 #: ../../main/core/src/templates/dashboard/index.mas:48
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following packages are not properly installed: {packages}."
-msgstr "Os seguintes pacotes serão instalados"
+msgstr "Os pacotes a seguir não estão instalados corretamente: {packages}."
 
 #: ../../main/core/src/templates/dashboard/index.mas:52
 #, perl-brace-format
@@ -9867,17 +9878,17 @@ msgstr ""
 "informações."
 
 #: ../../main/core/src/templates/dashboard/index.mas:56
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console: {cmd}"
 msgstr ""
-"Para resolver esta situação, tente executar o seguinte comando na console:"
+"Para resolver esta situação, por favor, tente executar o seguinte comando no "
+"console: {cmd}"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:22
-#, fuzzy
 msgid "Official Community documentation in English and Spanish."
-msgstr "Documentação oficial em Inglês e Espanhol."
+msgstr "Documentação oficial da Comunidade em Inglês e Espanhol."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:22
 msgid "Documentation"
@@ -9900,25 +9911,25 @@ msgid "Report a bug"
 msgstr "Informe um bug"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:32
-#, fuzzy
 msgid "Fully supported Zentyal Server editions"
-msgstr "Sem Servidores Zentyal registrados"
+msgstr "Edições do Servidor Zentyal totalmente suportada"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:32
-#, fuzzy
 msgid "Commercial Editions"
-msgstr "Opções comuns"
+msgstr "Edições comerciais"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:34
 #: ../../main/core/src/templates/dashboard/links-widget.mas:52
 msgid ""
 "Learn to use all Zentyal based network services in production environments."
 msgstr ""
+"Aprenda a usar todos os serviços de rede baseados Zentyal em ambientes de "
+"produção."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:34
 #: ../../main/core/src/templates/dashboard/links-widget.mas:52
 msgid "Certified Training"
-msgstr ""
+msgstr "Treinamento Certificado"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:35
 #: ../../main/core/src/templates/dashboard/links-widget.mas:45
@@ -9928,26 +9939,23 @@ msgstr "\"Zentyal for Network Administrators\" livros em Inglês e Espanhol."
 #: ../../main/core/src/templates/dashboard/links-widget.mas:35
 #: ../../main/core/src/templates/dashboard/links-widget.mas:45
 msgid "Official Manual"
-msgstr ""
+msgstr "Manual Oficial"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:44
-#, fuzzy
 msgid "Contact our Support Team"
-msgstr "Outros grupos"
+msgstr "Entre em contato com nossa Equipe de Suporte"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:44
-#, fuzzy
 msgid "Contact Support"
-msgstr "Outros grupos"
+msgstr "Contato com o suporte"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:54
 msgid "Official documentation in English and Spanish."
 msgstr "Documentação oficial em Inglês e Espanhol."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:54
-#, fuzzy
 msgid "Official Documentation "
-msgstr "Documentação"
+msgstr "Documentação Oficial "
 
 #: ../../main/core/src/templates/dashboard/list.mas:36
 msgid "No entries in this list"
@@ -9958,9 +9966,8 @@ msgid "Local"
 msgstr "Local"
 
 #: ../../main/core/src/templates/backupTabs.mas:18
-#, fuzzy
 msgid "Cloud"
-msgstr "Sincronização Cloud"
+msgstr "Nuvem"
 
 #: ../../main/core/src/templates/title.mas:23
 msgid "Display help notes"
@@ -10107,7 +10114,7 @@ msgstr "Dispositivo RAID {a} inexistente"
 
 #: ../../main/core/src/templates/report/raid.mas:41
 msgid "RAID is not enabled in this system."
-msgstr "O RAID não está habilitado neste sistema"
+msgstr "O RAID não está habilitado neste sistema."
 
 #: ../../main/core/src/templates/report/raid.mas:90
 msgid "left-asymmetric"
@@ -10203,7 +10210,7 @@ msgstr "Porcentagem completa"
 
 #: ../../main/core/src/templates/report/raid.mas:206
 msgid "Estimated time left"
-msgstr "Tempo estimado para conclusão : {time}"
+msgstr "Tempo estimado para conclusão"
 
 #: ../../main/core/src/templates/report/raid.mas:208
 msgid "Operation speed"
@@ -10226,52 +10233,45 @@ msgid "spare"
 msgstr "de reserva"
 
 #: ../../main/core/src/templates/report/raid.mas:231
-#, fuzzy
 msgid "Failure on spare"
-msgstr "Espaço livre"
+msgstr "Falha no spare"
 
 #: ../../main/core/src/templates/report/raid.mas:259
-#, fuzzy
 msgid "No unused RAID devices"
-msgstr "Não existem dispositivos RAID não utilizados"
+msgstr "Nenhum dispositivo RAID disponível"
 
 #: ../../main/core/src/templates/report/raid.mas:262
 msgid "Unused RAID arrays"
 msgstr "Dispositivos RAID não utilizados"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:25
-#, fuzzy
 msgid "Register your server"
-msgstr "Registrando seu servidor"
+msgstr "Registre seu servidor"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:27
 msgid "Registration Email Address"
-msgstr "Endereço de E-mail de Registro "
+msgstr "Endereço de E-mail de Registro"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:40
 msgid "Register"
 msgstr "Registro"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:62
-#, fuzzy
 msgid "Choose a server edition"
-msgstr "Escolha o servidor para restaurar"
+msgstr "Escolha uma edição do servidor"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:67
-#, fuzzy
 msgid "Assigned to"
-msgstr "Bridge para"
+msgstr "Designado para"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:67
 #: ../../main/core/src/templates/remoteservices/index.mas:85
-#, fuzzy
 msgid "Start date"
-msgstr "iniciado em"
+msgstr "Data de início"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:67
-#, fuzzy
 msgid "End date"
-msgstr "Atualizar"
+msgstr "Data final"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:82
 msgid "Email Address"
@@ -10287,7 +10287,7 @@ msgstr "Mensagens"
 
 #: ../../main/core/src/templates/remoteservices/subscriptionSlotsTbody.mas:25
 msgid "Free"
-msgstr ""
+msgstr "Grátis"
 
 #: ../../main/core/src/templates/remoteservices/subscriptionSlotsTbody.mas:43
 #: ../../main/software/src/templates/welcome.mas:10
@@ -10336,6 +10336,8 @@ msgid ""
 "A configuration backup will be automatically done daily. Also it will be "
 "automatically rotated"
 msgstr ""
+"Um backup de configuração será feito automaticamente diariamente. Também "
+"será rodado automaticamente"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:27
 #: ../../main/core/src/templates/backup.mas:25
@@ -10343,11 +10345,12 @@ msgid ""
 "User mail messages are neither backed up or restored. If you want to back up "
 "them manually they reside under '/var/vmail'"
 msgstr ""
+"Mensagens de e-mail do usuário não são guardados ou restaurado. Se você "
+"deseja fazer o backup manualmente eles residem em '/var/vmail'"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:70
-#, fuzzy
 msgid "Remote Backup: "
-msgstr "Backup remoto"
+msgstr "Backup remoto: "
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:104
 msgid "Back up"
@@ -10368,30 +10371,26 @@ msgstr ""
 "descarte-as para poder efetuar o backup da configuração"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:142
-#, fuzzy
 msgid ""
 "Please note that you have reached the maximum number of manual remote "
 "configuration backup. If you make a new configuration backup, the oldest "
 "backup will be overwritten."
 msgstr ""
-"Note que a Inscrição Básica permite que você armazene somente um backup de "
-"configuração. Se você um novo backup de configuração, o anterior será "
-"sobrescrito."
+"Por favor, note que você atingiu o número máximo de backup de configuração "
+"remoto manual. Se você fizer um novo backup de configuração, o backup mais "
+"antigo será substituído."
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:163
-#, fuzzy
 msgid "Restore configuration backup"
-msgstr "Restaurando backup da configuração"
+msgstr "Restaurar backup de configuração"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:164
-#, fuzzy
 msgid "Download configuration backup"
-msgstr "Recebendo configuração"
+msgstr "Baixar backup de configuração"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:165
-#, fuzzy
 msgid "Delete configuration backup"
-msgstr "Último backup de configuração"
+msgstr "Excluir backup de configuração"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:171
 #: ../../main/core/src/templates/backup.mas:200
@@ -10401,7 +10400,7 @@ msgstr "restaurar"
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:175
 #: ../../main/core/src/templates/backup.mas:199
 msgid "download"
-msgstr "download"
+msgstr "baixar"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
 msgid "Configuration backups' list"
@@ -10409,33 +10408,31 @@ msgstr "Lista das cópias' de segurança da configuração"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:188
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:59
-#, fuzzy
 msgid "Company"
-msgstr "Componente"
+msgstr "Companhia"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 msgid "Size"
 msgstr "Tamanho"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
-#, fuzzy
 msgid "Automatic"
-msgstr "Estático"
+msgstr "Automático"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:227
-#, fuzzy
 msgid "Remote backups associated mail"
-msgstr "Status do Backup Remoto"
+msgstr "Backups remotos de e-mail associado"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:228
 msgid ""
 "The backups of this server are associate with the following email address:"
 msgstr ""
+"Os backups deste servidor estão associados com o seguinte endereço de "
+"e-mail:"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:231
-#, fuzzy
 msgid "Disassociate this server"
-msgstr "Registrando um servidor"
+msgstr "Desassociar este servidor"
 
 #: ../../main/core/src/templates/remoteservices/Backup/unsubscribed.mas:6
 #, perl-brace-format
@@ -10443,17 +10440,19 @@ msgid ""
 "You cannot make remote backups while unregistered. If you have valid "
 "credentials, go to the {oa}registration page.{ca}"
 msgstr ""
+"Você não pode fazer backups remoto enquanto não estiver registrado. Se você "
+"tiver credenciais válidas, vá para a {oa}página de registro.{ca}"
 
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:20
 #: ../../main/core/src/templates/confirm-backup.mas:23
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Restore backup: {desc}"
-msgstr "- Último backup: {date}"
+msgstr "Restaurar backup: {desc}"
 
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:27
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Remote backup: {desc}"
-msgstr "- Último backup: {date}"
+msgstr "Backup remoto: {desc}"
 
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:67
 #: ../../main/core/src/templates/backup.mas:150
@@ -10463,32 +10462,31 @@ msgstr "Tamanho do arquivo"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:16
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:25
-#, fuzzy
 msgid "Store configuration backups in the cloud"
-msgstr "Não foi possível encontrar backup de configuração na nuvem"
+msgstr "Armazenar backups de configuração na nuvem"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:26
 msgid "We need an e-mail address in order to retrieve your backups later."
 msgstr ""
+"Precisamos de um endereço de e-mail, a fim de recuperar seus backups mais "
+"tarde."
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:37
-#, fuzzy
 msgid "E-mail address"
-msgstr "endereço de e-mail"
+msgstr "Endereço de e-mail"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:41
-#, fuzzy
 msgid "Confirm e-mail address"
-msgstr "endereço de e-mail"
+msgstr "Confirmar endereço de e-mail"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:57
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Do you agree with the {oa}privacy policy{ca}?"
-msgstr "Você precisa concordar com as políticas de privacidade para continuar"
+msgstr "Você concorda com a {oa}política de privacidade{ca}?"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:67
 msgid "I want to suscribe to Zentyal newsletter"
-msgstr ""
+msgstr "Eu quero me inscrever ao boletim de notícias do Zentyal"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:71
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:122
@@ -10498,28 +10496,24 @@ msgstr "Aceitar"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:78
 msgid "I have already configured cloud backup for other server."
-msgstr ""
+msgstr "Eu já configurei o backup na nuvem para outro servidor."
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:90
-#, fuzzy
 msgid "Add this server to store configuration backups in the cloud"
-msgstr "Configurações de NAT do servidor Asterisk atualizadas"
+msgstr "Adicionar este servidor para armazenar backups de configuração na nuvem"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:101
-#, fuzzy
 msgid "E-Mail address"
-msgstr "Endereço de email"
+msgstr "Endereço de e-mail"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:122
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:127
-#, fuzzy
 msgid "Back"
-msgstr "Backup"
+msgstr "Voltar"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:128
-#, fuzzy
 msgid "Reset my password"
-msgstr "Senha repetida"
+msgstr "Resetar minha senha"
 
 #: ../../main/core/src/templates/backup.mas:40
 msgid "Backup the Current State"
@@ -10554,26 +10548,23 @@ msgid ""
 msgstr ""
 "Você pode fazer upload do backup a partir do seu computador. Quando fizer o "
 "upload de arquivos grandes (>= 1Gb), tenha em mente que alguns servidores "
-"web não o suportam"
+"web não o suportam."
 
 #: ../../main/core/src/templates/backup.mas:132
-#, fuzzy
 msgid "Restore backup"
-msgstr "Restaurando backup"
+msgstr "Restaurar backup"
 
 #: ../../main/core/src/templates/backup.mas:133
 msgid "Restore configuration using this file"
 msgstr "Restaurar a configuração usando este arquivo"
 
 #: ../../main/core/src/templates/backup.mas:135
-#, fuzzy
 msgid "Download backup file"
-msgstr "Recebendo os dados do backup"
+msgstr "Baixar o arquivo de backup"
 
 #: ../../main/core/src/templates/backup.mas:136
-#, fuzzy
 msgid "Delete backup"
-msgstr "Apagar grupo"
+msgstr "Excluir backup"
 
 #: ../../main/core/src/templates/backup.mas:139
 msgid "Full"
@@ -10622,7 +10613,7 @@ msgstr "Adicionar novo..."
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
 msgid "No elements found. "
-msgstr "Nenhum elemento encontrado "
+msgstr "Nenhum elemento encontrado. "
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
 msgid "Add a new one"
@@ -10643,19 +10634,17 @@ msgid "Editing {row}"
 msgstr "Editando {row}"
 
 #: ../../main/core/src/templates/ajax/changeRowForm.mas:85
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cloning {row}"
-msgstr "Editando {row}"
+msgstr "Clonagem {row}"
 
 #: ../../main/core/src/templates/ajax/viewer/file.mas:18
-#, fuzzy
 msgid "Current file"
-msgstr "Módulo atual"
+msgstr "Arquivo atual"
 
 #: ../../main/core/src/templates/ajax/viewer/hasManyViewer.mas:9
-#, fuzzy
 msgid "configure"
-msgstr "Não configurar"
+msgstr "configurar"
 
 #: ../../main/core/src/templates/ajax/row.mas:100
 msgid "Clone"
@@ -10670,33 +10659,32 @@ msgid "Read-only row: delete disabled"
 msgstr "Linha somente leitura: remoção desabilitada"
 
 #: ../../main/core/src/templates/ajax/row.mas:108
-#, fuzzy
 msgid "Read-only row: clone disabled"
-msgstr "Linha somente leitura: remoção desabilitada"
+msgstr "Linha somente leitura: clone desabilitado"
 
 #: ../../main/core/src/templates/ajax/tablePager.mas:29
-#, fuzzy
 msgid "View all"
-msgstr "Exibir"
+msgstr "Ver tudo"
 
 #: ../../main/core/src/templates/componentNotFound.mas:3
 msgid "Zentyal homepage"
-msgstr "Homepage Zentyal"
+msgstr "Zentyal página inicial"
 
 #: ../../main/core/src/templates/componentNotFound.mas:7
-#, fuzzy
 msgid "If you typed the page address manually, please check it"
-msgstr "Se você digitou a URL manualmente, favor cheque-a"
+msgstr "Se você digitou o endereço da página manualmente, por favor, verifique"
 
 #: ../../main/core/src/templates/componentNotFound.mas:8
 msgid "Maybe the element was removed and the page address is not longer valid"
-msgstr ""
+msgstr "Talvez o elemento foi removido e o endereço de página não é mais válido"
 
 #: ../../main/core/src/templates/componentNotFound.mas:9
 msgid ""
 "It can be also a parameters cache error, in this case you can navigate again "
 "to the page using the left menu"
 msgstr ""
+"Pode ser também um erro de parâmetros de cache, neste caso, você pode "
+"navegar novamente para a página usando o menu à esquerda"
 
 #: ../../main/core/src/templates/componentNotFound.mas:10
 #, perl-brace-format
@@ -10713,7 +10701,7 @@ msgstr "desculpe-nos"
 
 #: ../../main/core/src/templates/componentNotFound.mas:13
 msgid "The request contains a reference to a element which doest not exists"
-msgstr ""
+msgstr "O pedido contém uma referência a um elemento que não existe"
 
 #: ../../main/core/src/templates/progress.mas:32
 msgid "Item"
@@ -10728,18 +10716,16 @@ msgid "Some error has happened in Zentyal: "
 msgstr "Aconteceram alguns erros no Zentyal: "
 
 #: ../../main/core/src/templates/progress.mas:44
-#, fuzzy
 msgid "Click here to go to the Dashboard"
-msgstr "Clique aqui para retornar ao Dashboard"
+msgstr "Clique aqui para ir ao Painel"
 
 #: ../../main/core/src/templates/progress.mas:180
 msgid "Starting..."
 msgstr "Iniciando..."
 
 #: ../../main/core/src/templates/progress.mas:185
-#, fuzzy
 msgid "Loading..."
-msgstr "Carregando"
+msgstr "Carregando..."
 
 #: ../../main/core/src/templates/progress.mas:187
 msgid " of "
@@ -10747,7 +10733,7 @@ msgstr " de "
 
 #: ../../main/core/src/templates/progress.mas:195
 msgid "The process produced some warning messages:"
-msgstr "O processo produziu algumas mensagens de aviso"
+msgstr "O processo produziu algumas mensagens de aviso:"
 
 #: ../../main/core/src/templates/configurationFiles.mas:9
 msgid ""
@@ -10778,20 +10764,22 @@ msgstr "Arquivo"
 #: ../../main/core/src/templates/configureView.mas:14
 #, perl-brace-format
 msgid "Enabling this module will also enable its dependecies: {deps}"
-msgstr ""
+msgstr "Ativando este módulo também irá ativar suas dependências: {deps}"
 
 #: ../../main/core/src/templates/configureView.mas:19
 msgid "The modules' enable process will make some modifications to the system."
 msgstr ""
+"O processo de ativação de módulos' irá fazer algumas modificações para o "
+"sistema."
 
 #: ../../main/core/src/templates/configureView.mas:20
 msgid "Enabling the module will make some modifications to the system."
-msgstr ""
+msgstr "Ativando o módulo irá fazer algumas modificações para o sistema."
 
 #: ../../main/core/src/templates/configureView.mas:21
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{ohref}Click here to see the details{chref}"
-msgstr "Clique aqui para retornar ao Dashboard"
+msgstr "{ohref}Clique aqui para ver os detalhes{chref}"
 
 #: ../../main/core/src/templates/configureView.mas:33
 msgid "Actions to perform by Zentyal"
@@ -10819,59 +10807,52 @@ msgstr "Parabéns!"
 
 #: ../../main/core/src/templates/wizard/software-setup-finish.mas:11
 msgid "Your Zentyal installation has successfully finished!"
-msgstr ""
+msgstr "Sua instalação Zentyal terminou com sucesso!"
 
 #: ../../main/core/src/templates/wizard/software-setup-finish.mas:12
-#, fuzzy
 msgid ""
 "Now you can go to the dashboard and start using your brand new Zentyal "
 "server."
 msgstr ""
-"Agora você está pronto para salvar suas alterações e iniciar o uso do seu "
-"servidor Zentyal."
+"Agora você pode ir para o painel e começar a usar o seu novo servidor "
+"Zentyal."
 
 #: ../../main/core/src/templates/wizard/software-setup-finish.mas:13
-#, fuzzy
 msgid "Go to the Dashboard"
-msgstr "Clique aqui para retornar ao Dashboard"
+msgstr "Ir para o Painel"
 
 #: ../../main/core/src/templates/logout/index.mas:9
-#, fuzzy
 msgid "There are unsaved changes. Do you really want to close the session?"
-msgstr "Não existem configurações a serem salvas nesta sessão"
+msgstr "Há alterações não salvas. Você realmente quer encerrar a sessão?"
 
 #: ../../main/core/src/templates/logout/index.mas:12
 msgid "Do you really want to close the session?"
-msgstr ""
+msgstr "Você realmente quer encerrar a sessão?"
 
 #: ../../main/core/src/templates/logout/index.mas:16
-#, fuzzy
 msgid "Discard current changes"
-msgstr "Descartar alterações"
+msgstr "Descartar alterações atuais"
 
 #: ../../main/core/src/templates/sysinfo/searchResults.mas:8
 #, perl-brace-format
 msgid "Matches for {oem}{search}{cem}"
-msgstr ""
+msgstr "Correspondências para {oem}{search}{cem}"
 
 #: ../../main/core/src/templates/sysinfo/searchResults.mas:17
 msgid "Sorry, your search did not match any data"
-msgstr ""
+msgstr "Desculpe, sua pesquisa não corresponde a qualquer dados"
 
 #: ../../main/core/src/templates/headTitle.mas:10
-#, fuzzy
 msgid "Close session"
-msgstr "Versão do núcleo"
+msgstr "Encerrar sessão"
 
 #: ../../main/core/src/templates/headTitle.mas:11
-#, fuzzy
 msgid "Save changes?"
-msgstr "Salvar alterações"
+msgstr "Salvar alterações?"
 
 #: ../../main/core/src/templates/headTitle.mas:21
-#, fuzzy
 msgid "Search..."
-msgstr "Pesquisar"
+msgstr "Pesquisar..."
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:64
 msgid "Depends"
@@ -10883,49 +10864,45 @@ msgid "Configure module: {module}"
 msgstr "Configurar módulo: {module}"
 
 #: ../../main/openchange/src/templates/openchange.mas:12
-#, fuzzy
 msgid "Account status"
-msgstr "Nome da conta"
+msgstr "Status da conta"
 
 #: ../../main/openchange/src/templates/openchange.mas:27
 #, perl-brace-format
 msgid "{oc} account could not enabled until the user has an email account"
 msgstr ""
+"{oc} conta não pôde ser habilitada até que o usuário tenha uma conta de "
+"e-mail"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:7
-#, fuzzy
 msgid "Migration finished!"
-msgstr "Registro finalizado"
+msgstr "Migração concluída!"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:8
-#, fuzzy
 msgid "Migration has been finished!!"
-msgstr "Registro finalizado"
+msgstr "A migração foi concluída!!"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:15
-#, fuzzy
 msgid "Select mailboxes to migrate"
-msgstr "Selecione domínios de backup para restaurar"
+msgstr "Selecione as caixas de e-mail para migrar"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:18
-#, fuzzy
 msgid "Connected to"
-msgstr "Conectado"
+msgstr "Conectado a"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:22
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:30
-#, fuzzy
 msgid "mailboxes"
-msgstr "Caixas de e-mail"
+msgstr "caixas de e-mail"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:25
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Disconnect from {ip}"
-msgstr "Desconectar"
+msgstr "Desconectar de {ip}"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:25
 msgid "DISCONNECT"
-msgstr ""
+msgstr "DESCONECTAR"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:19
@@ -10936,75 +10913,66 @@ msgstr "nome"
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:19
 #: ../../main/openchange/src/templates/migration/progress.mas:35
-#, fuzzy
 msgid "status"
-msgstr "Estado"
+msgstr "estado"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:19
-#, fuzzy
 msgid "date"
-msgstr "Atualizar"
+msgstr "data"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:54
-#, fuzzy
 msgid "loading"
-msgstr "Carregando"
+msgstr "carregando"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:61
-#, fuzzy
 msgid "Migration details"
-msgstr "Detalhes de tráfego de correio"
+msgstr "Detalhes da migração"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:65
-#, fuzzy
 msgid "No mailboxes selected"
-msgstr "Nenhum domínio selecionado"
+msgstr "Não há caixas de e-mail selecionadas"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:69
-#, fuzzy
 msgid "selected mailboxes"
-msgstr "Mensagens rejeitadas"
+msgstr "caixas de e-mail selecionadas"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:72
-#, fuzzy
 msgid "Total data"
-msgstr "Storage total"
+msgstr "Total de dados"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:75
-#, fuzzy
 msgid "Total mails"
-msgstr "Total de marcas"
+msgstr "Total de e-mails"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:78
-#, fuzzy
 msgid "Total contacts"
-msgstr "Total de marcas"
+msgstr "Total de contatos"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:81
 msgid "Total calendar"
-msgstr ""
+msgstr "Total de calendário"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:85
 msgid "Estimate time (100mb/s)"
-msgstr "Tempo estimado: {time}"
+msgstr "Tempo estimado (100mb/s)"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:90
-#, fuzzy
 msgid "estimate migration"
-msgstr "Restaurar Configuração"
+msgstr "estimativa de migração"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:90
-#, fuzzy
 msgid "start migration"
-msgstr "Restaurar Configuração"
+msgstr "iniciar migração"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:10
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must provision the {x} module database before being able to use the "
 "migration."
-msgstr "Você precisa habilitar o módulo Usuários no modo master"
+msgstr ""
+"Você deve provisionar o banco de dados do módulo {x} antes de ser capaz de "
+"usar a migração."
 
 #: ../../main/openchange/src/templates/migration/connect.mas:20
 msgid ""
@@ -11013,152 +10981,142 @@ msgid ""
 "exist in Zentyal and its OpenChange account to be enabled prior the process "
 "starts."
 msgstr ""
+"As características de migração fornecidos como parte desta prévia da "
+"tecnologia só permitem a você migrar um usuário de cada vez. Cada migração "
+"exige que o usuário exista no Zentyal e sua conta OpenChange esteja ativo "
+"antes do processo começar."
 
 #: ../../main/openchange/src/templates/migration/connect.mas:23
-#, fuzzy
 msgid "Select origin server"
-msgstr "Servidor secundário"
+msgstr "Selecione um servidor de origem"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:24
 msgid ""
 "This wizard helps you to migrate users data from any server to this zentyal "
 "server"
 msgstr ""
+"Este assistente ajuda a você migrar dados de usuários a partir de qualquer "
+"servidor para este servidor zentyal"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:27
-#, fuzzy
 msgid "Enter origin server name"
-msgstr "Nome do servidor externo"
+msgstr "Digite o nome do servidor de origem"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:27
 msgid "Enter server Fully qualified domain name or IP address"
-msgstr ""
+msgstr "Digite o servidor de nome de domínio completo ou o endereço IP"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:30
 msgid "Credential for origin server"
-msgstr ""
+msgstr "Credenciais para servidor de origem"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:30
 msgid ""
 "You need either a user with Full privileges in Exchange with access to all "
 "mailboxes or the credentials of the user that is going to be migrated"
 msgstr ""
+"Você precisará de um usuário com privilégios totais no Exchange com acesso a "
+"todas as caixas de e-mail ou as credenciais do usuário que está sendo "
+"migrado"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:30
-#, fuzzy
 msgid "Origin user"
-msgstr "nome de usuário"
+msgstr "Usuário de origem"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:31
-#, fuzzy
 msgid "Origin user password"
-msgstr "Senha de usuário"
+msgstr "Senha do usuário de origem"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:35
-#, fuzzy
 msgid "Credential for local server"
-msgstr "servidor de e-mail externo"
+msgstr "Credenciais para servidor local"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:35
 msgid ""
 "You need the user and password of the Zentyal user you want to migrate to"
 msgstr ""
+"Você precisa do usuário e senha do usuário Zentyal que você deseja migrar "
+"para"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:35
-#, fuzzy
 msgid "Zentyal user name"
-msgstr "nome de usuário"
+msgstr "Zentyal nome de usuário"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:36
-#, fuzzy
 msgid "Zentyal user password"
-msgstr "Senha Zentyal Cloud"
+msgstr "Zentyal senha de usuário"
 
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:29
-#, fuzzy
 msgid "Migrated"
-msgstr "taxa"
+msgstr "Migrado"
 
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:33
-#, fuzzy
 msgid "User name conflict"
-msgstr "Nome de usuário"
+msgstr "Conflito de nome de usuário"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:13
-#, fuzzy
 msgid "Migrating process"
-msgstr "Em progresso"
+msgstr "Processo de migração"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:19
-#, fuzzy
 msgid "Mailbox migrated"
-msgstr "Caixas de e-mail"
+msgstr "Caixas de e-mail migrada"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:21
 msgid "Data migrated"
-msgstr ""
+msgstr "Dados migrado"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:23
-#, fuzzy
 msgid "Time left"
-msgstr "itens restantes"
+msgstr "Tempo restante"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:26
-#, fuzzy
 msgid "Cancel migration process"
-msgstr "Alterações de configuração"
+msgstr "Cancelar processo de migração"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:32
-#, fuzzy
 msgid "total data"
-msgstr "{txt} dado"
+msgstr "total de dados"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:35
-#, fuzzy
 msgid "errors"
-msgstr "Erro"
+msgstr "erros"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:35
-#, fuzzy
 msgid "details"
-msgstr "Detalhe do alerta"
+msgstr "detalhes"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:35
-#, fuzzy
 msgid "actions"
-msgstr "ação"
+msgstr "ações"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:53
-#, fuzzy
 msgid "See details"
-msgstr "Detalhe do alerta"
+msgstr "Ver detalhes"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:53
-#, fuzzy
 msgid "Details"
-msgstr "Detalhe do alerta"
+msgstr "Detalhes"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:57
 msgid "discard mailbox"
-msgstr ""
+msgstr "descartar caixa de e-mail"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:58
 msgid "activate mailbox"
-msgstr ""
+msgstr "ativar caixa de e-mail"
 
 #: ../../main/openchange/src/templates/wizard/provision.mas:8
 msgid "Set up OpenChange Mail services"
-msgstr ""
+msgstr "Instalação dos Serviços de E-Mail OpenChange"
 
 #: ../../main/openchange/src/templates/wizard/provision.mas:8
-#, fuzzy
 msgid "Enter the name of your organization"
-msgstr "Interface para escutar"
+msgstr "Digite o nome da sua organização"
 
 #: ../../main/openchange/src/templates/wizard/provision.mas:11
-#, fuzzy
 msgid "Certification Authority details"
-msgstr "Autoridade Certificadora"
+msgstr "Detalhes de Autoridade de Certificação"
 
 #: ../../main/software/src/templates/updateNote.mas:14
 #, perl-brace-format
@@ -11168,11 +11126,17 @@ msgid ""
 "or Premium Editions{ch}: commercial Zentyal server editions fully supported "
 "by Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
+"Aviso: Estas são as atualizações da comunidade não testadas que podem "
+"prejudicar o seu sistema. Em ambientes de produção recomendamos o uso do das "
+"{oh}Edições Profissionais, Negócios ou Premium{ch}: edições de servidor "
+"Zentyal comerciais totalmente suportado por Zentyal S.L. e Canonical/Ubuntu."
 
 #: ../../main/software/src/templates/welcome.mas:9
 msgid ""
 "Thank your for choosing Zentyal, only few steps left to start enjoying it:"
 msgstr ""
+"Obrigado por escolher o seu Zentyal, a apenas alguns passos à esquerda para "
+"começar a desfrutar-lo:"
 
 #: ../../main/software/src/templates/welcome.mas:10
 #: ../../main/software/src/templates/ebox.mas:71
@@ -11182,20 +11146,17 @@ msgid "Install"
 msgstr "Instalar"
 
 #: ../../main/software/src/templates/welcome.mas:10
-#, fuzzy
 msgid "Configure"
-msgstr "Não configurar"
+msgstr "Configurar"
 
 #: ../../main/software/src/templates/welcome.mas:12
 #: ../../main/software/src/templates/del.mas:95
-#, fuzzy
 msgid "Continue"
-msgstr "continente"
+msgstr "Continuar"
 
 #: ../../main/software/src/templates/config.mas:9
-#, fuzzy
 msgid "Perform automatic software updates"
-msgstr "Atualização automática de software"
+msgstr "Realizar atualizações automáticas de software"
 
 #: ../../main/software/src/templates/config.mas:16
 msgid "Zentyal is configured to use automatic QA updates"
@@ -11206,9 +11167,8 @@ msgid "Automatic operations start time"
 msgstr "Hora de início das operações automáticas"
 
 #: ../../main/software/src/templates/del.mas:70
-#, fuzzy
 msgid "Confirm packages to install"
-msgstr "Escolher pacotes Zentyal para instalar"
+msgstr "Confirmar pacotes para instalar"
 
 #: ../../main/software/src/templates/del.mas:74
 msgid "The following packages will be installed"
@@ -11223,6 +11183,9 @@ msgid ""
 "Software updates are being handled automatically. They will be installed\n"
 "automatically as scheduled"
 msgstr ""
+"As atualizações de software estão sendo manipulados automaticamente. Eles "
+"serão instalados\n"
+"automaticamente, como programado"
 
 #: ../../main/software/src/templates/updates.mas:77
 #: ../../main/software/src/templates/ebox.mas:359
@@ -11280,18 +11243,16 @@ msgid "Update all packages"
 msgstr "Atualizar todos os pacotes"
 
 #: ../../main/software/src/templates/updates.mas:137
-#, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Update button."
 msgstr ""
-"A operação pode levar algum tempo, não se preocupe se o Zentyal parecer não "
-"responder após pressionar o botão de Atualizar"
+"Esta operação pode demorar algum tempo, não se preocupe se Zentyal parecer "
+"não responder após pressionar o botão Atualizar."
 
 #: ../../main/software/src/templates/updates.mas:141
-#, fuzzy
 msgid "Upgrading system packages"
-msgstr "Instalando pacotes"
+msgstr "Atualizando pacotes do sistema"
 
 #: ../../main/software/src/templates/updates.mas:142
 #: ../../main/software/src/templates/ebox.mas:297
@@ -11310,9 +11271,8 @@ msgid "Latest Version"
 msgstr "Última Versão"
 
 #: ../../main/software/src/templates/ebox.mas:51
-#, fuzzy
 msgid "Upgrading packages"
-msgstr "Instalando pacotes"
+msgstr "Atualizando pacotes"
 
 #: ../../main/software/src/templates/ebox.mas:95
 msgid ""
@@ -11336,20 +11296,21 @@ msgid ""
 "persists, you can ask for help in the {ofhref}community forum{chref} or file "
 "a ticket in the {othref}Zentyal trac{chref}."
 msgstr ""
+"Após o comando acima estiver concluída, você pode recarregar esta página. Se "
+"o problema persistir, você pode pedir ajuda no {ofhref}Fórum da "
+"Comunidade{chref} ou envie um ticket no {othref}Zentyal trac{chref}."
 
 #: ../../main/software/src/templates/ebox.mas:125
 msgid "View advanced mode"
 msgstr "Visualizar modo avançado"
 
 #: ../../main/software/src/templates/ebox.mas:128
-#, fuzzy
 msgid "Server roles"
-msgstr "Porta do servidor"
+msgstr "Funções do servidor"
 
 #: ../../main/software/src/templates/ebox.mas:144
-#, fuzzy
 msgid "Additional services"
-msgstr "Lista de serviços"
+msgstr "Serviços adicionais"
 
 #: ../../main/software/src/templates/ebox.mas:166
 msgid "Skip install"
@@ -11397,7 +11358,7 @@ msgid ""
 msgstr ""
 "Estas regras permitem você controlar o acesso das redes internas para a "
 "Internet e o tráfego entre suas redes internas. Caso queira prover acesso "
-"aos seus serviços Zentyal, você deve utilizar a seção acima"
+"aos seus serviços Zentyal, você deve utilizar a seção acima."
 
 #: ../../main/firewall/src/templates/filter.mas:33
 msgid "Filtering rules from external networks to Zentyal"
@@ -11433,7 +11394,7 @@ msgid ""
 "services."
 msgstr ""
 "Estas regras permitem você controlar o acesso do seu Zentyal para serviços "
-"externos"
+"externos."
 
 #: ../../main/firewall/src/templates/filter.mas:63
 msgid "These rules are automatically added by the Zentyal services."
@@ -11449,12 +11410,11 @@ msgid "Delete user"
 msgstr "Apagar usuário"
 
 #: ../../main/samba/src/templates/deluser.mas:14
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all its dependent data"
 msgstr ""
-"Esta operação causará a remoção do usuário e todos os dados dependentes como "
-"diretórico compartilhado, etc."
+"Esta operação irá provocar a remoção do usuário e todos os seus dados "
+"dependente"
 
 #: ../../main/samba/src/templates/addgroup.mas:7
 msgid "Add Group"
@@ -11462,19 +11422,17 @@ msgstr "Adicionar Grupo"
 
 #: ../../main/samba/src/templates/addgroup.mas:10
 #: ../../main/samba/src/templates/editgroup.mas:28
-#, fuzzy
 msgid "Security Group"
-msgstr "Atualizações de segurança"
+msgstr "Grupo de Segurança"
 
 #: ../../main/samba/src/templates/addgroup.mas:10
 #: ../../main/samba/src/templates/editgroup.mas:30
-#, fuzzy
 msgid "Distribution Group"
-msgstr "Direitos administrativos"
+msgstr "Grupo de Distribuição"
 
 #: ../../main/samba/src/templates/addgroup.mas:12
 msgid "Group name"
-msgstr "Nome do Grupo"
+msgstr "Nome do grupo"
 
 #: ../../main/samba/src/templates/addgroup.mas:15
 #: ../../main/samba/src/templates/addgroup.mas:19
@@ -11482,9 +11440,8 @@ msgid "Optional value"
 msgstr "Valor opcional"
 
 #: ../../main/samba/src/templates/editgroup.mas:16
-#, fuzzy
 msgid "Group "
-msgstr "Grupo"
+msgstr "Grupo "
 
 #: ../../main/samba/src/templates/editgroup.mas:20
 msgid ""
@@ -11492,21 +11449,18 @@ msgid ""
 "properly."
 msgstr ""
 "Não existem usuários no momento. Você precisa de pelo menos um para "
-"administrar adequadamente este grupo"
+"administrar adequadamente este grupo."
 
 #: ../../main/samba/src/templates/editgroup.mas:51
 #: ../../main/samba/src/templates/edituser.mas:79
-#, fuzzy
 msgid "Modules configuration"
-msgstr "Configuração de estado do Módulo"
+msgstr "Configuração de módulos"
 
 #: ../../main/samba/src/templates/editgroup.mas:121
-#, fuzzy
 msgid "This group does not have members"
-msgstr "Este grupo tem um apelido de Email"
+msgstr "Este grupo não tem membros"
 
 #: ../../main/samba/src/templates/editgroup.mas:189
-#, fuzzy
 msgid "Add user"
 msgstr "Adicionar usuário"
 
@@ -11516,23 +11470,20 @@ msgstr "Contato"
 
 #: ../../main/samba/src/templates/delou.mas:9
 #: ../../main/samba/src/templates/delou.mas:20
-#, fuzzy
 msgid "Delete Organizational Unit"
-msgstr "Deletar Unidade Organizacional"
+msgstr "Excluir Unidade Organizacional"
 
 #: ../../main/samba/src/templates/delou.mas:10
-#, fuzzy
 msgid "This organizational unit cannot be deleted"
-msgstr "unidade organizacional"
+msgstr "Esta unidade organizacional não pode ser excluído"
 
 #: ../../main/samba/src/templates/delou.mas:13
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the OU and all objects inside it, "
 "including users, groups, etc."
 msgstr ""
-"Esta operação causará a remoção do usuário e todos os dados dependentes como "
-"contas de e-mail, arquivos do usuário, etc."
+"Esta operação fará com que a remoção da OU e todos os objetos dentro dela, "
+"incluindo usuários, grupos, etc."
 
 #: ../../main/samba/src/templates/samba.mas:14
 msgid ""
@@ -11546,7 +11497,7 @@ msgstr ""
 
 #: ../../main/samba/src/templates/samba.mas:23
 msgid "This resource name is longer than 12 characters."
-msgstr "O nome do recurso tem mais de 12 caracteres"
+msgstr "O nome do recurso tem mais de 12 caracteres."
 
 #: ../../main/samba/src/templates/samba.mas:25
 msgid "Directory name"
@@ -11557,31 +11508,27 @@ msgid "file sharing module"
 msgstr "módulo de compartilhamento de arquivos"
 
 #: ../../main/samba/src/templates/samba.mas:89
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following settings will take effect only when the {mod} is enabled"
 msgstr ""
-"Os seguintes ajustes apenas terão efeito quando o módulo de e-mail está "
-"ativado"
+"As seguintes configurações só terão efeito quando o {mod} estiver habilitado"
 
 #: ../../main/samba/src/templates/delcontact.mas:8
 #: ../../main/samba/src/templates/delcontact.mas:15
-#, fuzzy
 msgid "Delete contact"
-msgstr "Apagar dados"
+msgstr "Excluir contato"
 
 #: ../../main/samba/src/templates/delcontact.mas:11
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the contact and any dependent "
 "configuration."
 msgstr ""
-"Esta operação causará a remoção do usuário e todos os dados dependentes como "
-"diretórico compartilhado, etc."
+"Esta operação irá provocar a remoção do contato e qualquer configuração "
+"dependente."
 
 #: ../../main/samba/src/templates/addou.mas:7
-#, fuzzy
 msgid "Add Organizational Unit"
-msgstr "Unidade Organizacional"
+msgstr "Adicionar Unidade Organizacional"
 
 #: ../../main/samba/src/templates/edituser.mas:23
 #: ../../main/samba/src/templates/adduser.mas:18
@@ -11599,9 +11546,8 @@ msgstr "Último nome"
 
 #: ../../main/samba/src/templates/edituser.mas:34
 #: ../../main/samba/src/templates/editcontact.mas:26
-#, fuzzy
 msgid "Display name"
-msgstr "Exibir notas de ajuda"
+msgstr "Mostrar nome"
 
 #: ../../main/samba/src/templates/edituser.mas:52
 msgid "User quota"
@@ -11621,9 +11567,8 @@ msgid "User groups"
 msgstr "Grupos do usuário"
 
 #: ../../main/samba/src/templates/edituser.mas:128
-#, fuzzy
 msgid "Remove mail account"
-msgstr "Criar conta de e-mail"
+msgstr "Remover conta de e-mail"
 
 #: ../../main/samba/src/templates/edituser.mas:128
 msgid "This action removes the mail account and its associated data."
@@ -11635,19 +11580,17 @@ msgstr "Substitua conta de e-mail"
 
 #: ../../main/samba/src/templates/edituser.mas:131
 msgid "Replacing the mail account removes all its current data."
-msgstr ""
+msgstr "Substituir a conta de e-mail e remover todos os seus dados atuais."
 
 #: ../../main/samba/src/templates/edituser.mas:185
 #: ../../main/samba/src/templates/edituser.mas:269
-#, fuzzy
 msgid "This user is not a member of any group"
-msgstr "Usuários fora de grupo"
+msgstr "Este usuário não é um membro de nenhum grupo"
 
 #: ../../main/samba/src/templates/edituser.mas:254
 #: ../../main/samba/src/templates/editcontact.mas:152
-#, fuzzy
 msgid "Add group"
-msgstr "Adicionar Grupo"
+msgstr "Adicionar grupo"
 
 #: ../../main/samba/src/templates/wizard/users.mas:8
 msgid "Change server local domain?"
@@ -11665,6 +11608,10 @@ msgid ""
 "administration connections. This means you will have to reload the page "
 "manually once the save change proccess ends.{cp}"
 msgstr ""
+"{op}A mudança de nome de host irá criar um novo certificado para as conexões "
+"de administração web. Isso significa que você vai ter que recarregar a "
+"página manualmente uma vez que o processo de salvar as alterações "
+"terminar.{cp}"
 
 #: ../../main/samba/src/templates/wizard/users.mas:12
 msgid "Users and Groups"
@@ -11679,14 +11626,12 @@ msgid "Standalone server"
 msgstr "Servidor standalone"
 
 #: ../../main/samba/src/templates/wizard/users.mas:89
-#, fuzzy
 msgid "Select the domain name of the server"
-msgstr "Selecione o tipo de servidor"
+msgstr "Selecione o nome de domínio do servidor"
 
 #: ../../main/samba/src/templates/wizard/users.mas:91
-#, fuzzy
 msgid "Host domain name"
-msgstr "Nome do servidor de e-mail"
+msgstr "Nome de domínio do host"
 
 #: ../../main/samba/src/templates/wizard/users.mas:92
 msgid "This will be used as the Kerberos authentication realm for your users."
@@ -11694,32 +11639,28 @@ msgstr ""
 "Este será usado como o domínio de autenticação Kerberos para seus usuários."
 
 #: ../../main/samba/src/templates/wizard/users.mas:105
-#, fuzzy
 msgid "Enter your existing domain settings"
-msgstr "Configurações da monitoração da taxa de tráfego"
+msgstr "Digite os seus dados de domínio existentes"
 
 #: ../../main/samba/src/templates/wizard/users.mas:108
 msgid "This is the name of the existing domain you want to join."
-msgstr ""
+msgstr "Este é o nome do domínio existente que você deseja entrar."
 
 #: ../../main/samba/src/templates/adduser.mas:11
 msgid "Add User"
 msgstr "Adicionar usuário"
 
 #: ../../main/samba/src/templates/editcontact.mas:19
-#, fuzzy
 msgid "Administration of contact "
-msgstr "Direitos administrativos"
+msgstr "Administração de contato "
 
 #: ../../main/samba/src/templates/editcontact.mas:35
-#, fuzzy
 msgid "Contact groups"
-msgstr "Outros grupos"
+msgstr "Grupos de contato"
 
 #: ../../main/samba/src/templates/editcontact.mas:90
-#, fuzzy
 msgid "This contact is not member of any group"
-msgstr "Usuários fora de grupo"
+msgstr "Este contato não é membro de nenhum grupo"
 
 #: ../../main/samba/src/templates/addcontact.mas:7
 msgid "Add Contact"
@@ -11731,9 +11672,8 @@ msgid "Delete group"
 msgstr "Excluir grupo"
 
 #: ../../main/samba/src/templates/delgroup.mas:13
-#, fuzzy
 msgid "This group cannot be deleted"
-msgstr "Este grupo tem um apelido de Email"
+msgstr "Este grupo não pode ser excluído"
 
 #: ../../main/samba/src/templates/delgroup.mas:15
 msgid ""
@@ -11750,7 +11690,7 @@ msgstr "Alias de e-mail"
 
 #: ../../main/mail/src/templates/groupalias.mas:68
 msgid "Group aliases cannot be created for a group without mail account"
-msgstr "Grupo Aliases não pode ser criado por um grupo sem uma conta de E-Mail"
+msgstr "Grupo aliases não pode ser criado por um grupo sem uma conta de e-mail"
 
 #: ../../main/mail/src/templates/groupalias.mas:69
 msgid ""
@@ -11774,19 +11714,16 @@ msgstr ""
 "correspondentes"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:9
-#, fuzzy
 msgid "Delete external account"
-msgstr "Conta externa"
+msgstr "Excluir conta externa"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:17
-#, fuzzy
 msgid "Don't delete retrieved mail from external server"
-msgstr "Recuperação de e-mail de contas externas"
+msgstr "Não excluir e-mail recebido do servidor externo"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:19
-#, fuzzy
 msgid "Fetch already read messages"
-msgstr "Aprendido das mensagens"
+msgstr "Buscar mensagens lidas"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:26
 #, perl-brace-format
@@ -11794,10 +11731,12 @@ msgid ""
 "Mail retrieval from external accounts service is not enabled; until you {ub}"
 "enable it{ue} your changes won't have any effect."
 msgstr ""
+"Receber e-mail do serviço de contas externas não está habilitado; até que "
+"seja {ub}ativado{ue}, suas alterações não terão qualquer efeito."
 
 #: ../../main/mail/src/templates/alias.mas:26
 msgid "Create mail aliases"
-msgstr "Criar Aliases de e-mail"
+msgstr "Criar aliases de e-mail"
 
 #: ../../main/mail/src/templates/alias.mas:183
 msgid "No quota"
@@ -11817,13 +11756,12 @@ msgstr "Tipo de cota"
 
 #: ../../main/mail/src/templates/alias.mas:202
 msgid "Maximum mailbox size"
-msgstr "Tamanho máximo da caixa de correio (mailbox)"
+msgstr "Tamanho máximo da caixa de e-mail"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:10
 #: ../../main/mail/src/templates/warnvdmdsize.mas:14
-#, fuzzy
 msgid "Changing maildir size of"
-msgstr "Tamanho do diretório de e-mail"
+msgstr "Alterando tamanho do diretório de e-mail"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:11
 msgid ""
@@ -11839,17 +11777,18 @@ msgstr ""
 msgid ""
 "This user has a mail account which does not belong to any managed mail domain"
 msgstr ""
+"Esse usuário tem uma conta de e-mail que não pertence a nenhum domínio de "
+"e-mail gerenciado"
 
 #: ../../main/mail/src/templates/account.mas:46
-#, fuzzy
 msgid ""
 "Mail account is unavailable because either there isn't  any mail virtual\n"
 " domain created or you need to save changes in order to activate the new "
 "domains."
 msgstr ""
-"A conta de e-mail não está disponível porque não há  nenhhum e-mail virtual\n"
-" domínio criado ou você precisa salvar as alterações para ativar os novos "
-"domínios."
+"Conta de e-mail não está disponível porque não há  nenhum domínio de e-mail "
+"virtual criado\n"
+" ou você precisa salvar as alterações, a fim de ativar os novos domínios."
 
 #: ../../main/mail/src/templates/account.mas:49
 msgid "Click here to create a new mail virtual domain"
@@ -11888,9 +11827,8 @@ msgid "There are no messages in queue or the service is stopped"
 msgstr "Não há mensagens na fila ou o serviço está parado"
 
 #: ../../main/mail/src/templates/createaccount.mas:42
-#, fuzzy
 msgid "Maildir size"
-msgstr "Tamanho de arquivo"
+msgstr "Tamanho da caixa de e-mail"
 
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
 msgid ""
