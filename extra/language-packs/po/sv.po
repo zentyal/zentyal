@@ -20,6 +20,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
+#: ../../main/mail/src/EBox/Mail.pm:1562
 msgid "disabled"
 msgstr "inaktiv"
 
@@ -159,6 +160,7 @@ msgstr "Aktiverad"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:891
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
 #: ../../main/core/src/EBox/SysInfo.pm:480
 #: ../../main/core/src/EBox/RemoteServices.pm:1306
@@ -965,6 +967,7 @@ msgid "Common name"
 msgstr "Allmänt namn"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
+#: ../../main/mail/src/EBox/Mail.pm:1579
 msgid "Address"
 msgstr "Adress"
 
@@ -982,11 +985,16 @@ msgstr "OpenVPN demoner"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1479
 #: ../../main/printers/src/EBox/Printers.pm:396
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:62
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:432
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:475
 #: ../../main/dhcp/src/EBox/DHCP.pm:979
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3073
-#: ../../main/mail/src/EBox/Mail.pm:1571
+#: ../../main/samba/src/EBox/Samba.pm:3220
+#: ../../main/samba/src/EBox/Samba.pm:3240
+#: ../../main/samba/src/EBox/Samba.pm:3251
+#: ../../main/mail/src/EBox/Mail.pm:1676
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
@@ -999,15 +1007,18 @@ msgstr "Datum"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1480
 #: ../../main/printers/src/EBox/Printers.pm:397
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:434
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:478
 #: ../../main/dhcp/src/EBox/DHCP.pm:983
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/mail/src/EBox/Mail.pm:1581
+#: ../../main/mail/src/EBox/Mail.pm:1686
 msgid "Event"
 msgstr "Händelse"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
+#: ../../main/samba/src/EBox/Samba.pm:3245
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1130,7 +1141,7 @@ msgstr "Värdnamn"
 
 #: ../../main/dns/src/EBox/DNS.pm:1694
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2595
+#: ../../main/samba/src/EBox/Samba.pm:2628
 msgid "alias"
 msgstr "alias"
 
@@ -1223,7 +1234,7 @@ msgstr "Aktivera transparent DNS cache"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:1900
+#: ../../main/samba/src/EBox/Samba.pm:1933
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
@@ -1322,6 +1333,7 @@ msgstr "Denna domän"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
+#: ../../main/mail/src/EBox/Mail.pm:1577
 msgid "Custom"
 msgstr "Anpassad"
 
@@ -1471,12 +1483,13 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:606
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:71
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:53
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1894
+#: ../../main/samba/src/EBox/Samba.pm:1927
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "Domän"
@@ -1661,7 +1674,9 @@ msgstr "All åtkomst är tillåten om gäståtkomst är aktiverad."
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3075
+#: ../../main/samba/src/EBox/Samba.pm:3222
+#: ../../main/samba/src/EBox/Samba.pm:3242
+#: ../../main/samba/src/EBox/Samba.pm:3253
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2001,8 +2016,10 @@ msgstr "Certifikatet att förnya finns INTE"
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "Certifikatet med det här namnet {cn} finns INTE i detta CA"
 
-#: ../../main/ca/src/EBox/CA.pm:1760 ../../main/core/src/EBox/SysInfo.pm:110
-#: ../../main/mail/src/EBox/Mail.pm:1508
+#: ../../main/ca/src/EBox/CA.pm:1760
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
+#: ../../main/core/src/EBox/SysInfo.pm:110
+#: ../../main/mail/src/EBox/Mail.pm:1613
 msgid "General"
 msgstr "Allmänt"
 
@@ -2103,13 +2120,14 @@ msgstr ""
 "icke-alfanumeriska tecknen: .?&+:\\@ och blanksteg tillåts."
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:75
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:477
 #: ../../main/core/src/EBox/Model/DataTable.pm:1764
 #: ../../main/core/src/EBox/Model/Composite.pm:521
 #: ../../main/core/src/EBox/Model/Composite.pm:536
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3076
+#: ../../main/samba/src/EBox/Samba.pm:3223
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -2295,6 +2313,716 @@ msgid ""
 "The CN {cn} is reserved by OpenChange and cannot be generated automatically. "
 "You can issue it from the {oh}OpenChange virtual domains interface.{ch}"
 msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:58
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
+#: ../../main/network/src/EBox/Network.pm:3428
+#: ../../main/mail/src/EBox/Mail.pm:1564 ../../main/mail/src/EBox/Mail.pm:1685
+#: ../../main/core/src/templates/report/raid.mas:100
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
+#: ../../main/mail/src/templates/qmanager.mas:17
+msgid "Status"
+msgstr "Status"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
+#, fuzzy
+msgid "Signatures"
+msgstr "Status"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
+msgid "Database Update Status"
+msgstr "Antivirusdatabasens uppdateringsstatus"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:73
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:77
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:398
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:403
+#: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:59
+msgid "Antivirus"
+msgstr "Antivirus"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:151
+msgid ""
+"The antivirus database has not been updated since the module was enabled."
+msgstr "Antivirusdatabasen har inte uppdaterats sedan modulen aktiverades."
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:153
+msgid "The last update failed."
+msgstr "Den senaste uppdateringen misslyckades"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:154
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:155
+msgid "Last update successful."
+msgstr "Den senaste uppdateringen lyckades."
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:157
+msgid ""
+"The antivirus module is not configured. Enable it first in Module Status "
+"section."
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:160
+#, fuzzy
+msgid ""
+"The antivirus module is not enabled. Enable it first to know the antivirus "
+"status."
+msgstr "Modulen för händelser är inte aktiverad för att sända händelser"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
+#, perl-brace-format
+msgid "Unknown event {event}."
+msgstr "Okänd händelse {event}."
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:185
+#, perl-brace-format
+msgid ""
+"Want to protect your system against scams, spear phishing, frauds and other "
+"junk? Get one of the {oh}Commercial Editions{ch} that will keep your "
+"Antvirus database always up-to-date."
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:169
+msgid " To configure clamd daemon"
+msgstr "För att konfigurera clamd tjänsten"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:174
+msgid "To schedule the launch of the updater"
+msgstr "För att schemalägga uppdateringar"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:179
+#, perl-brace-format
+msgid "Custom {app} profile configuration for {bin} binary"
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:186
+#, perl-brace-format
+msgid "Disable {app} profile for {bin} binary"
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:433
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
+#: ../../main/firewall/src/EBox/Firewall.pm:789
+msgid "Source"
+msgstr "Källa"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:438
+#, fuzzy
+msgid "Success"
+msgstr "Gäståtkomst"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:438
+#, fuzzy
+msgid "Failure"
+msgstr "misslyckad"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:441
+#, fuzzy
+msgid "Antivirus DB updates"
+msgstr "Antivirus allmänna inställningar"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:60
+msgid "Mail Filter"
+msgstr "E-postfilter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:78
+msgid "Add clamav user to amavis group"
+msgstr "Lägg till clamav användare till amavis gruppen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:79
+msgid "Clamav need access to amavis fields to properly scan mail"
+msgstr "Clamav behöver access till amavis fält för att kunna skanna e-post"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:83
+msgid "Add clamav user to p3scan group"
+msgstr "Lägg till clamav användare till p3scan gruppen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:84
+msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
+msgstr ""
+"Clamav behöver access till p3scan gruppen för att kunna skanna i POP proxyn"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:88
+msgid "Add spam and ham system users"
+msgstr "Lägg till spam och ham systemanvändare"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:90
+msgid ""
+"This users are for the email accounts used for training the bayesian filter"
+msgstr ""
+"Användarna för detta epostkonto används för att träna det bayesiska filtret"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:95
+msgid "Update LDAP"
+msgstr "Uppdatera LDAP"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:96
+msgid "Add amavis specific classes and fields"
+msgstr "Lägg till amavis specifika klasser och fält"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:127
+msgid ""
+"Mail server has a custom filter set, unset it before enabling Zentyal Mail "
+"Filter module"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:309
+msgid "Cannot proceed because the filter is in use"
+msgstr "Kan inte fortsätta eftersom filtret används"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:455
+msgid "Mail filter"
+msgstr "E-postfilter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:480
+msgid "Sender address"
+msgstr "Sändares adress"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:481
+msgid "Recipient address"
+msgstr "Mottagares adress"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:483
+msgid "Spam hits"
+msgstr "Skräppost träffar"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:488
+msgid "Bad header found"
+msgstr "Dåligt e-post huvud funnet"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:489
+msgid "Spam found"
+msgstr "Skräppost funnet"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:490
+msgid "Forbidden attached file found"
+msgstr "Förbjuden bifogad fil funnen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:491
+msgid "Address in blacklist found"
+msgstr "Adress från svartlista funnen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:492
+msgid "Virus found"
+msgstr "Virus upptäckt"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:493
+msgid "Clean message"
+msgstr "Rent meddelande"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:494
+#, fuzzy
+msgid "Unable to reinject in the mail server"
+msgstr "Kan inte ansluta till mailserver {smtp}"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:498
+msgid "SMTP filter"
+msgstr "SMTP filter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:529
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:39
+msgid "SMTP Mail Filter"
+msgstr "SMTP e-postfilter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:536
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:458
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:40
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:41
+msgid "Antispam"
+msgstr "Skräppostfilter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:543
+msgid "Files ACL"
+msgstr "Fil ACL"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:76
+#: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:88
+#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:47
+#: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:50
+msgid "domain name"
+msgstr "domännamn"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:80
+msgid "email address"
+msgstr "e-post adress"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:84
+msgid ""
+"The sender ought be either an email address or a domain name prefixed with "
+"'@'"
+msgstr ""
+"Avsändaren borde vara endera en e-postadress eller ett domännamn med @ före"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:105
+msgid "Write down a decimal number"
+msgstr "Skriv ned ett decimalt nummer"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:110
+msgid "Only non-zero positive numbers are allowed"
+msgstr "Endast nummer från ett och uppåt tillåts"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:118
+#, perl-brace-format
+msgid "Write down a number lesser than {m}"
+msgstr "Skriv ned ett nummer mindre än {m}"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:125
+#, perl-brace-format
+msgid "Write down a number greater  than {m}"
+msgstr "Skriv ned ett nummer större än {m}"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:57
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:100
+msgid "MIME type"
+msgstr "MIME-typ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/FileExtension.pm:55
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:104
+msgid "file extension"
+msgstr "filändelse"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:28
+msgid "Pass"
+msgstr "Släpp igenom"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
+#, fuzzy
+msgid "Notify sender server"
+msgstr "sekundär server"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
+#, fuzzy
+msgid "Notify mail sender account"
+msgstr "e-postkonto alias"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:31
+msgid "Drop silently"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:75
+msgid "Mailfilter's policy"
+msgstr "Policy för skräppostfilter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:68
+msgid "To configure amavis"
+msgstr "För att konfigurera amavis"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:426
+msgid "Zentyal internal mail filter"
+msgstr "Zentyal internt e-postfilter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
+msgid "SMTP filter proxy"
+msgstr "Proxy för SMTP filter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:599
+#, perl-brace-format
+msgid "Virtual mail domain {vd} does not exist"
+msgstr "Virtuell e-postdomän {vd} finns inte"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:59
+msgid " To configure spamassassin daemon"
+msgstr "För att konfigurera spamassasin tjänsten"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:328
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:58
+msgid "Spam threshold"
+msgstr "Skräpposttröskel"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:328
+msgid "It must be a number(decimal point allowed)"
+msgstr "Det måste vara ett nummer (decimaler tillåtna)"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:338
+msgid "The spam's threshold cannot be higher than its autolearn threshold"
+msgstr "Skräppostens tröskel kan inte vara högre än dess autoinlärningströskel"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:342
+msgid ""
+"The spam's threshold cannot be lower or equal than its ham's autolearn "
+"threshold"
+msgstr ""
+"Skräppostens tröskel kan inte vara lägre eller lika stor som dess brapost "
+"(ham) autoinlärningströskel"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:379
+msgid ""
+"Cannot learn because bayesian filter is disabled in the current "
+"configuration. In order to be able to learn enable the bayesian filter and "
+"save changes"
+msgstr ""
+"Kan inte lära eftersom bayesian filtret är inaktiverat i nuvarande "
+"konfiguration. För att kunna lära systemet aktivera bayesian filtret och "
+"spara ändringarna"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:392
+#, perl-brace-format
+msgid "Accounts from the domain {d} cannot train the bayesian filter"
+msgstr "Konton från domänen {d} kan inte träna det bayesiska filtret"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:39
+msgid "External connections"
+msgstr "Externa anslutningar"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
+msgid "Attached Files Filter"
+msgstr "Filter för bifogade filer"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:41
+msgid ""
+"Filter mail messages according attached files. The transparent POP proxy "
+"only filters by extension"
+msgstr ""
+"Filtrera e-postmeddelanden efter dess bifogade filer. Den transparenta POP "
+"proxyn filtrerar bara efter filändelse"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:80
+msgid "Use virus filtering"
+msgstr "Använd virusfiltrering"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:86
+msgid "Use spam filtering"
+msgstr "Använd skräppostfiltrering"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:99
+msgid "default"
+msgstr "standard"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
+msgid "custom threshold"
+msgstr "anpassat tröskelvärde"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:150
+msgid "Antispam sender policy"
+msgstr "Antiskräppost avsändarpolicy"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
+#, fuzzy
+msgid "Virtual Domains specific policies"
+msgstr "Virtuella domän-alias"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
+#, fuzzy
+msgid "virtual domain policy"
+msgstr "virtuell domän-alias"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:183
+#, perl-brace-format
+msgid ""
+"There are no virtual mail domains managed by this server. You can create "
+"some in the {openA}virtual domains mail page{closeA}."
+msgstr ""
+"Det finns inga virtuella domäner som hanteras av denna server. Du kan skapa "
+"några i {openA}virtual domains mail page{closeA}. "
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:62
+msgid "The score threshold to mark a message as spam"
+msgstr "Tröskelpoängen för att markera ett meddelande som skräppost"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:66
+msgid "Spam subject tag"
+msgstr "Skräppost ärendemärkning"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:69
+msgid "Tag which will be added to the spam mail subject"
+msgstr "Märking som kommer att adderas till skräppost ärenderad."
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:73
+msgid "Use Bayesian classifier"
+msgstr "Använd bayesian klassificering"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:79
+msgid "Auto-whitelist"
+msgstr "Auto vitlista"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:82
+msgid "Change the score of mail according to the sender history"
+msgstr "Ändra poängen för e-post enligt avsändarens historia"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:86
+msgid "Auto-learn"
+msgstr "Autolär"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:89
+msgid "Feedback the learning system with messages that reach the threshold"
+msgstr "Återkoppla inlärningssystemet med meddelanden som når tröskelvärdet"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:94
+msgid "Autolearn spam threshold"
+msgstr "Autolär skräppost tröskeln"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:98
+msgid ""
+"Spam messages with a score equal or greater than this threshold will be "
+"added to the learning system "
+msgstr ""
+"Skräppost med ett lika stort eller större värde än tröskelvärdet kommer att "
+"läggas till inlärningssystemet"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:102
+msgid "Autolearn ham threshold"
+msgstr "Autolär brapost (ham) tröskel"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
+msgid ""
+"Ham messages with a score below this threshold will be added to the learning "
+"system"
+msgstr ""
+"Brapost (ham) meddelanden med en poäng lägre än denna tröskel kommer att "
+"läggas till inlärningssystemet"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:111
+msgid "Antispam configuration"
+msgstr "Antiskräppost konfiguration"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:155
+msgid ""
+"You must define autolearn spam threshold when autolearn option is active"
+msgstr ""
+"Du måste definiera autoinlärnings skräppost tröskel när autoinlärning är "
+"aktiverad"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:161
+msgid "You must define autolearn ham threshold when autolearn option is active"
+msgstr ""
+"Du måste definiera autoinlärnings braposttröskel (ham) när autoinlärning är "
+"aktiverad"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:167
+msgid ""
+"The spam's autolearn threshold cannot be lower than the default spam's "
+"treshold "
+msgstr ""
+"Skräppostens autoinlärningströskel kan inte vara lägre än standard tröskel"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:173
+msgid ""
+"The ham's autolearn threshold canot be higher or equal than the default spam "
+"level"
+msgstr ""
+"Brapost (ham) autoinlärningströskel kan inte vara lägre än standard tröskel"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:70
+msgid "External mail domain"
+msgstr "Extern e-postdomän"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:76
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:77
+msgid "Allow connection"
+msgstr "Tillåt kommunikation"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:84
+msgid "External mail domains"
+msgstr "Externa e-postdomäner"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:96
+msgid "external mail domain"
+msgstr "extern e-postdomän"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:97
+msgid ""
+"Here you can specify which external mail domains can connect to the mail "
+"filter"
+msgstr ""
+"Här kan du specificera vilken extern e-postdomän som kan ansluta till e-"
+"postfiltret"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:114
+#, perl-brace-format
+msgid "{d} is a internal Zentyal virtual main domain"
+msgstr "{d} är en intern Zentyal virtuell huvuddomän"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
+msgid "External mail server"
+msgstr "Extern e-postserver"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:73
+msgid "IP address of the server"
+msgstr "Ip adressen för servern"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:85
+msgid "External mail servers"
+msgstr "Externa e-postservrar"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:97
+msgid "external mail server"
+msgstr "extern e-postserver"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:98
+msgid ""
+"Here you can specify which external mail servers can connect to the mail "
+"filter"
+msgstr ""
+"Här kan du specificera vilka externa e-postservrar som kan ansluta till e-"
+"postfiltret."
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:140
+#, perl-brace-format
+msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
+msgstr "Felaktig extern MTA {mta}. Lokala nätverksadresser är inte tillåtna"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:61
+msgid "Antivirus enabled"
+msgstr "Antivirus aktiverat"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:67
+msgid "Antispam enabled"
+msgstr "Antiskräppost aktiverad"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:74
+msgid "Service's port"
+msgstr "Tjänstens port"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:81
+msgid "Notify of non-spam problematic messages"
+msgstr "Meddela om problematiska meddelande som inte är skräppost"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
+#: ../../main/core/src/EBox/RemoteServices.pm:505
+#: ../../main/core/src/EBox/RemoteServices.pm:546
+msgid "mail address"
+msgstr "e-post adress"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:128
+#, perl-brace-format
+msgid "The port {port} is already used by module {mod}"
+msgstr "Porten {port} används redan av modulen {mod}"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:55
+msgid "Mail sender"
+msgstr "E-postavsändare"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:61
+msgid "Policy"
+msgstr "Policy"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
+msgid "Sender policy for virtual domain"
+msgstr "Sändpolicy för virtuell domän"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:88
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:82
+msgid "sender policy"
+msgstr "sändarpolicy"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:96
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:90
+msgid "whitelist"
+msgstr "vitlista"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:97
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:91
+msgid "blacklist"
+msgstr "svartlista"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:92
+msgid "process"
+msgstr "process"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:77
+msgid "MIME Type"
+msgstr "MIME-typ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:83
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:87
+msgid "Allow"
+msgstr "Tillåt"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:92
+msgid "MIME types"
+msgstr "MIME-typer"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:101
+msgid ""
+"MIME types which are not listed below are allowed. MIME types aren't used by "
+"POP transparent proxy"
+msgstr ""
+"Mimetyper som inte listas nedan tillåts. Mimetyper används inte av POP "
+"transparent proxy"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:81
+msgid "File extension"
+msgstr "Filändelse"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:96
+msgid "File extensions"
+msgstr "filändelser"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:105
+msgid "Extensions which are not listed below are allowed"
+msgstr "Filändelser som inte listas nedan är inte tillåtna"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:55
+msgid "Mailbox"
+msgstr "Brevlåda"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:61
+msgid "Mailbox contains"
+msgstr "Brevlåda innehåller"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:71
+msgid "Train bayesian spam filter"
+msgstr "Träna bayesiskt skräppostfilter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
+msgid "Learned from messages"
+msgstr "Lärde från meddelanden"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:78
+msgid "Train"
+msgstr "Träna"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:87
+msgid "spam"
+msgstr "skräppost"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
+msgid "ham"
+msgstr "brapost (ham)"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:115
+#, perl-brace-format
+msgid "Invalid mailbox type: {type}"
+msgstr "Ogiltig brevlådetyp: {type}"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:70
+msgid "Sender policy"
+msgstr "Sändarpolicy"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:154
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:158
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
+msgid "Virtual Domains"
+msgstr "Virtuella domäner"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:58
+msgid "Virus policy"
+msgstr "Virus policy"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:65
+msgid "Spam policy"
+msgstr "Skräppostpolicy"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:68
+msgid "Bounce policy will be ignored for high-score spam messages"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:72
+msgid "Banned files policy"
+msgstr "Policy för bannade filer"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:78
+msgid "Bad header policy"
+msgstr "Felaktig e-posthuvudpolicy"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
+msgid "Filter Policies"
+msgstr "Filterpolicy"
 
 #: ../../main/network/src/EBox/NetworkUtil.pm:56
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:280
@@ -2884,14 +3612,6 @@ msgstr "länk ok"
 msgid "no link"
 msgstr "ingen länk"
 
-#: ../../main/network/src/EBox/Network.pm:3428
-#: ../../main/mail/src/EBox/Mail.pm:1580
-#: ../../main/core/src/templates/report/raid.mas:100
-#: ../../main/core/src/templates/moduleStatusTable.mas:64
-#: ../../main/mail/src/templates/qmanager.mas:17
-msgid "Status"
-msgstr "Status"
-
 #: ../../main/network/src/EBox/Network.pm:3454
 msgid "Tx bytes"
 msgstr "Tx bytes"
@@ -3174,13 +3894,13 @@ msgstr ""
 "{ifaceIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/mail/src/EBox/Mail.pm:1573
+#: ../../main/mail/src/EBox/Mail.pm:1678
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
 msgstr "Från"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/mail/src/EBox/Mail.pm:1574
+#: ../../main/mail/src/EBox/Mail.pm:1679
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 msgid "To"
 msgstr "Till"
@@ -4669,12 +5389,6 @@ msgstr ""
 msgid "Administration interface TCP port"
 msgstr "Administrationsgränssnittets TCP-port"
 
-#: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:88
-#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:47
-#: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:50
-msgid "domain name"
-msgstr "domännamn"
-
 #: ../../main/core/src/EBox/SysInfo/CGI/CurrentProgress.pm:37
 #: ../../main/software/src/EBox/Software/CGI/CurrentPackage.pm:31
 #, fuzzy
@@ -5256,11 +5970,6 @@ msgstr ""
 #, fuzzy
 msgid "Zentyal Remote Client"
 msgstr "Komponenter i eBox"
-
-#: ../../main/core/src/EBox/RemoteServices.pm:505
-#: ../../main/core/src/EBox/RemoteServices.pm:546
-msgid "mail address"
-msgstr "e-post adress"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1012
 #, perl-brace-format
@@ -5957,11 +6666,6 @@ msgstr "Certifikatfil"
 msgid "Revoke and reissue certificate"
 msgstr "Spärra ett certifikat"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:158
-#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
-msgid "Virtual Domains"
-msgstr "Virtuella domäner"
-
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:159
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:85
@@ -6267,8 +6971,8 @@ msgid "To make autodiscovery service available"
 msgstr "För att konfigurera dovecot"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:625
-#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1485
-#: ../../main/mail/src/EBox/Mail.pm:1606
+#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1547
+#: ../../main/mail/src/EBox/Mail.pm:1711
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "E-post"
@@ -6593,13 +7297,6 @@ msgstr "Ursprunglig destination"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:263
 msgid "Original destination port"
 msgstr "Ursprunglig destinationsport"
-
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
-#: ../../main/firewall/src/EBox/Firewall.pm:789
-msgid "Source"
-msgstr "Källa"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:283
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:116
@@ -7012,7 +7709,7 @@ msgid "OU name"
 msgstr "Användarnamn"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:1921
+#: ../../main/samba/src/EBox/Samba.pm:1954
 msgid "LDAP Settings"
 msgstr "LDAP inställningar"
 
@@ -7023,7 +7720,7 @@ msgstr ""
 "Dessa konfigurationsalternativ används när ett nytt användarkonto skapas."
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:1917
+#: ../../main/samba/src/EBox/Samba.pm:1950
 #, fuzzy
 msgid "User Template"
 msgstr "Användarnamn"
@@ -7033,7 +7730,7 @@ msgid "Recycle Bin"
 msgstr "Papperskorg"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:1931
+#: ../../main/samba/src/EBox/Samba.pm:1964
 msgid "File Sharing"
 msgstr "Fildelning"
 
@@ -7590,7 +8287,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:1907
+#: ../../main/samba/src/EBox/Samba.pm:1940
 #, fuzzy
 msgid "Users and Computers"
 msgstr "Användare i grupp"
@@ -7630,15 +8327,32 @@ msgid ""
 msgstr ""
 "Du måste aktivera modulen Användare i modulen status för att använda den."
 
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:51
+msgid "Enable virus scanning"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:59
+msgid "Antivirus default settings"
+msgstr "Antivirus allmänna inställningar"
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
+#, fuzzy
+msgid ""
+"Zentyal antivirus module must be installed and enabled to use this feature"
+msgstr "{pkg} måste vara installerat för att använda denna funktion."
+
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:70
 msgid "User/Group/Share"
 msgstr "Användare/Grupp/Utdelning"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:84
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:75
 msgid "User homes"
 msgstr "Användarens hemkatalog"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:89
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:80
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
 msgstr "Utdelning"
@@ -7652,8 +8366,17 @@ msgid "Add exceptions to the default Recycle Bin settings"
 msgstr "Lägg till undantag till papperskorgens  antivirus inställningar"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:106
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:96
 msgid "exception"
 msgstr "undantag"
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:90
+msgid "Samba shares antivirus exceptions"
+msgstr "Samba delar antivirus undantag"
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:95
+msgid "Add exceptions to the default antivirus settings"
+msgstr "Lägg till undantag till standard antivirus inställningar"
 
 #: ../../main/samba/src/EBox/Samba/Model/PAM.pm:104
 msgid "Enable PAM"
@@ -7959,30 +8682,30 @@ msgstr ""
 msgid "Error on LDAP entry update:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:168
+#: ../../main/samba/src/EBox/Samba.pm:170
 #, fuzzy
 msgid "Domain Controller and File Sharing"
 msgstr "Fildelning (Samba) protokoll"
 
-#: ../../main/samba/src/EBox/Samba.pm:275
+#: ../../main/samba/src/EBox/Samba.pm:277
 msgid ""
 "Your LDAP database will be populated with some basic organizational units"
 msgstr ""
 "Din LDAP-databas kommer att befolkas med några grundläggande organiserings "
 "enheter"
 
-#: ../../main/samba/src/EBox/Samba.pm:276
+#: ../../main/samba/src/EBox/Samba.pm:278
 msgid ""
 "Zentyal needs this organizational units to add users and groups into them."
 msgstr ""
 "Zentyal behöver organiserings enheter för att lägga till användare och "
 "grupper i dem."
 
-#: ../../main/samba/src/EBox/Samba.pm:280
+#: ../../main/samba/src/EBox/Samba.pm:282
 msgid "Create Samba home directory for shares and groups"
 msgstr "Skapa Samba hemkatalog för utdelningar och grupper"
 
-#: ../../main/samba/src/EBox/Samba.pm:281
+#: ../../main/samba/src/EBox/Samba.pm:283
 #, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
@@ -7991,21 +8714,21 @@ msgstr ""
 "eBox kommer att skapa katalogerna för Samba utdelningar och grupper under /"
 "home/samba."
 
-#: ../../main/samba/src/EBox/Samba.pm:289
+#: ../../main/samba/src/EBox/Samba.pm:291
 msgid "Configure PAM."
 msgstr "Konfigurera PAM"
 
-#: ../../main/samba/src/EBox/Samba.pm:290
+#: ../../main/samba/src/EBox/Samba.pm:292
 #, fuzzy
 msgid "Zentyal will give LDAP samba system account."
 msgstr "Zentyal kommer att ge LDAP-användare system konto."
 
-#: ../../main/samba/src/EBox/Samba.pm:308
+#: ../../main/samba/src/EBox/Samba.pm:310
 #, fuzzy
 msgid "To set up kerberos authentication"
 msgstr "För att konfigurera smart host autentisering"
 
-#: ../../main/samba/src/EBox/Samba.pm:315
+#: ../../main/samba/src/EBox/Samba.pm:317
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
@@ -8013,26 +8736,26 @@ msgstr ""
 "För att NSS ska använda LDAP beslut för användar- och grupp konton. Behövs "
 "en Samba PDC konfiguration."
 
-#: ../../main/samba/src/EBox/Samba.pm:321
+#: ../../main/samba/src/EBox/Samba.pm:323
 msgid "To add quota support to /home partition."
 msgstr "För att lägga till kvotmöjligheter till din /home partition."
 
-#: ../../main/samba/src/EBox/Samba.pm:326
+#: ../../main/samba/src/EBox/Samba.pm:328
 msgid ""
 "To configure System Security Services Daemon to manage remote authentication "
 "mechanisms"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:332
+#: ../../main/samba/src/EBox/Samba.pm:334
 msgid "To enable extended attributes and acls."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:360
+#: ../../main/samba/src/EBox/Samba.pm:362
 #, fuzzy
 msgid "Domain and File sharing protocols"
 msgstr "Fildelning (Samba) protokoll"
 
-#: ../../main/samba/src/EBox/Samba.pm:392
+#: ../../main/samba/src/EBox/Samba.pm:394
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8041,7 +8764,7 @@ msgid ""
 "configured or waiting for a lease can solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:396
+#: ../../main/samba/src/EBox/Samba.pm:398
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8049,52 +8772,52 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:997
+#: ../../main/samba/src/EBox/Samba.pm:1020
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1019
+#: ../../main/samba/src/EBox/Samba.pm:1042
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1036
+#: ../../main/samba/src/EBox/Samba.pm:1065
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1572
+#: ../../main/samba/src/EBox/Samba.pm:1605
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1913
+#: ../../main/samba/src/EBox/Samba.pm:1946
 #, fuzzy
 msgid "Manage"
 msgstr "Endast läsbar"
 
-#: ../../main/samba/src/EBox/Samba.pm:1925
+#: ../../main/samba/src/EBox/Samba.pm:1958
 #, fuzzy
 msgid "Configure mode"
 msgstr "Konfigurerade"
 
-#: ../../main/samba/src/EBox/Samba.pm:2063
+#: ../../main/samba/src/EBox/Samba.pm:2096
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2079
+#: ../../main/samba/src/EBox/Samba.pm:2112
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2096
+#: ../../main/samba/src/EBox/Samba.pm:2129
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8102,77 +8825,106 @@ msgid ""
 "{ex}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2106
+#: ../../main/samba/src/EBox/Samba.pm:2139
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2370
+#: ../../main/samba/src/EBox/Samba.pm:2403
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2463
+#: ../../main/samba/src/EBox/Samba.pm:2496
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Fyllnadsgrad i filsystemet"
 
-#: ../../main/samba/src/EBox/Samba.pm:2606
+#: ../../main/samba/src/EBox/Samba.pm:2639
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "Porten {port} används redan av modulen {mod}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3074
+#: ../../main/samba/src/EBox/Samba.pm:3221
+#: ../../main/samba/src/EBox/Samba.pm:3241
+#: ../../main/samba/src/EBox/Samba.pm:3252
 msgid "Client address"
 msgstr "Klient adress"
 
-#: ../../main/samba/src/EBox/Samba.pm:3077
+#: ../../main/samba/src/EBox/Samba.pm:3224
 msgid "Resource"
 msgstr "Resurs"
 
-#: ../../main/samba/src/EBox/Samba.pm:3081
+#: ../../main/samba/src/EBox/Samba.pm:3228
 msgid "Connect"
 msgstr "Ansluta"
 
-#: ../../main/samba/src/EBox/Samba.pm:3082
+#: ../../main/samba/src/EBox/Samba.pm:3229
 msgid "Access to directory"
 msgstr "Access till katalog"
 
-#: ../../main/samba/src/EBox/Samba.pm:3083
+#: ../../main/samba/src/EBox/Samba.pm:3230
 msgid "Read file"
 msgstr "Läsa fil"
 
-#: ../../main/samba/src/EBox/Samba.pm:3084
+#: ../../main/samba/src/EBox/Samba.pm:3231
 msgid "Write file"
 msgstr "Skriva fil"
 
-#: ../../main/samba/src/EBox/Samba.pm:3085
+#: ../../main/samba/src/EBox/Samba.pm:3232
 msgid "Disconnect"
 msgstr "Koppla bort"
 
-#: ../../main/samba/src/EBox/Samba.pm:3086
+#: ../../main/samba/src/EBox/Samba.pm:3233
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../../main/samba/src/EBox/Samba.pm:3087
+#: ../../main/samba/src/EBox/Samba.pm:3234
 msgid "Create directory"
 msgstr "Skapa katalog"
 
-#: ../../main/samba/src/EBox/Samba.pm:3088
+#: ../../main/samba/src/EBox/Samba.pm:3235
 msgid "Remove directory"
 msgstr "Ta bort katalog"
 
-#: ../../main/samba/src/EBox/Samba.pm:3089
+#: ../../main/samba/src/EBox/Samba.pm:3236
 msgid "Rename"
 msgstr "Döpa om"
 
-#: ../../main/samba/src/EBox/Samba.pm:3093
+#: ../../main/samba/src/EBox/Samba.pm:3243
+#: ../../main/samba/src/EBox/Samba.pm:3254
+msgid "File name"
+msgstr "Filnamn"
+
+#: ../../main/samba/src/EBox/Samba.pm:3244
+#: ../../main/samba/src/EBox/Samba.pm:3248
+msgid "Virus"
+msgstr "Virus"
+
+#: ../../main/samba/src/EBox/Samba.pm:3255
+msgid "Quarantined file name"
+msgstr "Fil i karantän"
+
+#: ../../main/samba/src/EBox/Samba.pm:3256
+#: ../../main/samba/src/EBox/Samba.pm:3259
+msgid "Quarantine"
+msgstr "Karantän"
+
+#: ../../main/samba/src/EBox/Samba.pm:3262
 msgid "Samba access"
 msgstr "Tillgång till Samba"
+
+#: ../../main/samba/src/EBox/Samba.pm:3273
+msgid "Samba virus"
+msgstr "Samba virus"
+
+#: ../../main/samba/src/EBox/Samba.pm:3284
+msgid "Samba quarantine"
+msgstr "Samba karantän"
 
 #: ../../main/mail/src/EBox/Mail.pm:148
 msgid "Generate mail aliases"
@@ -8278,7 +9030,7 @@ msgstr ""
 msgid "Outgoing Mail (Submission protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:889
+#: ../../main/mail/src/EBox/Mail.pm:902
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -8286,140 +9038,152 @@ msgstr ""
 "Kan inte använda värdnamnet som epostnamn eftersom det inte är ett "
 "fullständigt värdnamn. Vänligen ställ in ett manuellt server epostnamn"
 
-#: ../../main/mail/src/EBox/Mail.pm:894
+#: ../../main/mail/src/EBox/Mail.pm:907
 msgid "The mail name must be a fully qualified name"
 msgstr "Epostnamnet måste vara ett fullständigt värdnamn"
 
-#: ../../main/mail/src/EBox/Mail.pm:898 ../../main/mail/src/EBox/Mail.pm:909
-#: ../../main/mail/src/EBox/Mail.pm:917
+#: ../../main/mail/src/EBox/Mail.pm:911 ../../main/mail/src/EBox/Mail.pm:922
+#: ../../main/mail/src/EBox/Mail.pm:930
 msgid "Host mail name"
 msgstr "Epostnamn för värden"
 
-#: ../../main/mail/src/EBox/Mail.pm:912
+#: ../../main/mail/src/EBox/Mail.pm:925
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "Epostnamnet och en virtuell domän är identiska"
 
-#: ../../main/mail/src/EBox/Mail.pm:1434
+#: ../../main/mail/src/EBox/Mail.pm:1493
 msgid "SMTP service"
 msgstr "SMTP-tjänst"
 
-#: ../../main/mail/src/EBox/Mail.pm:1441
+#: ../../main/mail/src/EBox/Mail.pm:1500
 msgid "POP3 service"
 msgstr "POP3-tjänst"
 
-#: ../../main/mail/src/EBox/Mail.pm:1447
+#: ../../main/mail/src/EBox/Mail.pm:1506
 msgid "POP3S service"
 msgstr "POP3S-tjänst"
 
-#: ../../main/mail/src/EBox/Mail.pm:1453
+#: ../../main/mail/src/EBox/Mail.pm:1512
 msgid "IMAP service"
 msgstr "IMAP-tjänst"
 
-#: ../../main/mail/src/EBox/Mail.pm:1459
+#: ../../main/mail/src/EBox/Mail.pm:1518
 msgid "IMAPS service"
 msgstr "IMAPS-tjänst"
 
-#: ../../main/mail/src/EBox/Mail.pm:1516
+#: ../../main/mail/src/EBox/Mail.pm:1562
+msgid "enabled"
+msgstr "aktiv"
+
+#: ../../main/mail/src/EBox/Mail.pm:1567
+msgid "Mail server's filter"
+msgstr "Mailserverns filter"
+
+#: ../../main/mail/src/EBox/Mail.pm:1576 ../../main/mail/src/EBox/Mail.pm:1583
+msgid "Filter type"
+msgstr "Typ av filter"
+
+#: ../../main/mail/src/EBox/Mail.pm:1621
 msgid "Virtual Mail Domains"
 msgstr "Virtuella e-postdomäner"
 
-#: ../../main/mail/src/EBox/Mail.pm:1523
+#: ../../main/mail/src/EBox/Mail.pm:1628
 msgid "Greylist"
 msgstr "Grålista"
 
-#: ../../main/mail/src/EBox/Mail.pm:1530
+#: ../../main/mail/src/EBox/Mail.pm:1635
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Köhantering"
 
-#: ../../main/mail/src/EBox/Mail.pm:1557
+#: ../../main/mail/src/EBox/Mail.pm:1662
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "Hämta epost från externa konton"
 
-#: ../../main/mail/src/EBox/Mail.pm:1572
+#: ../../main/mail/src/EBox/Mail.pm:1677
 msgid "Message ID"
 msgstr "Meddelande ID"
 
-#: ../../main/mail/src/EBox/Mail.pm:1575
+#: ../../main/mail/src/EBox/Mail.pm:1680
 msgid "From hostname"
 msgstr "Från värdnamn"
 
-#: ../../main/mail/src/EBox/Mail.pm:1576
+#: ../../main/mail/src/EBox/Mail.pm:1681
 msgid "From host ip"
 msgstr "Från värd-IP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1577
+#: ../../main/mail/src/EBox/Mail.pm:1682
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Storlek (bytes)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1578
+#: ../../main/mail/src/EBox/Mail.pm:1683
 msgid "Relay"
 msgstr "Relä"
 
-#: ../../main/mail/src/EBox/Mail.pm:1579
+#: ../../main/mail/src/EBox/Mail.pm:1684
 msgid "Message type"
 msgstr "Meddelandetyp"
 
-#: ../../main/mail/src/EBox/Mail.pm:1582
+#: ../../main/mail/src/EBox/Mail.pm:1687
 msgid "Additional Info"
 msgstr "Extra information"
 
-#: ../../main/mail/src/EBox/Mail.pm:1593
+#: ../../main/mail/src/EBox/Mail.pm:1698
 msgid "Successful messages"
 msgstr "Lyckade meddelanden"
 
-#: ../../main/mail/src/EBox/Mail.pm:1594
+#: ../../main/mail/src/EBox/Mail.pm:1699
 msgid "Maximum message size exceeded"
 msgstr "Maximal meddelandestorlek överskriden"
 
-#: ../../main/mail/src/EBox/Mail.pm:1595
+#: ../../main/mail/src/EBox/Mail.pm:1700
 msgid "User quota exceeded"
 msgstr "Användarkvot överstigen"
 
-#: ../../main/mail/src/EBox/Mail.pm:1596
+#: ../../main/mail/src/EBox/Mail.pm:1701
 msgid "Relay access denied"
 msgstr "Relä åtkomst nekad"
 
-#: ../../main/mail/src/EBox/Mail.pm:1597
+#: ../../main/mail/src/EBox/Mail.pm:1702
 msgid "Account does not exist"
 msgstr "Konto existerar ej"
 
-#: ../../main/mail/src/EBox/Mail.pm:1598
+#: ../../main/mail/src/EBox/Mail.pm:1703
 msgid "Host unreachable"
 msgstr "Värd ej nåbar"
 
-#: ../../main/mail/src/EBox/Mail.pm:1599
+#: ../../main/mail/src/EBox/Mail.pm:1704
 msgid "Authentication error"
 msgstr "Autentiseringsfel"
 
-#: ../../main/mail/src/EBox/Mail.pm:1600
+#: ../../main/mail/src/EBox/Mail.pm:1705
 msgid "Greylisted"
 msgstr "Grålistad"
 
-#: ../../main/mail/src/EBox/Mail.pm:1601
+#: ../../main/mail/src/EBox/Mail.pm:1706
 msgid "Relay rejected by the smarthost"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1602
+#: ../../main/mail/src/EBox/Mail.pm:1707
 msgid "Other events"
 msgstr "Övriga händelser"
 
-#: ../../main/mail/src/EBox/Mail.pm:1680
+#: ../../main/mail/src/EBox/Mail.pm:1785
 msgid "Mail SMTP server"
 msgstr "SMTP-server för epost."
 
-#: ../../main/mail/src/EBox/Mail.pm:1688
+#: ../../main/mail/src/EBox/Mail.pm:1793
 msgid "Mail POP/IMAP server"
 msgstr "Epostserver POP/IMAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1765
+#: ../../main/mail/src/EBox/Mail.pm:1870
 msgid "Mailboxes"
 msgstr "E-postbrevlådor"
 
-#: ../../main/mail/src/EBox/Mail.pm:1814
+#: ../../main/mail/src/EBox/Mail.pm:1919
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "Porten {port} används redan av modulen {mod}"
@@ -8577,7 +9341,7 @@ msgstr "Inställningar för e-posttjänst"
 msgid "To configure whitelist for greylisting"
 msgstr "För att konfigurera vitlistor för grålistning"
 
-#: ../../main/mail/src/EBox/Mail/Greylist.pm:243
+#: ../../main/mail/src/EBox/Mail/Greylist.pm:263
 msgid "Greylist service"
 msgstr "Tjänst för grålistning"
 
@@ -8605,6 +9369,12 @@ msgstr "Inställningar för e-postfilter"
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:132
 msgid "custom"
 msgstr "anpassad"
+
+#: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:199
+msgid ""
+"As long mailfilter module is enabled the mail server will use the filter it "
+"provides"
+msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:52
 msgid "Virtual domain aliases"
@@ -11546,7 +12316,7 @@ msgstr ""
 msgid "These rules are automatically added by the Zentyal services."
 msgstr "Dessa regler är automatiskt tillagda av eBox tjänster."
 
-#: ../../main/samba/stubs/shares.conf.mas:17
+#: ../../main/samba/stubs/shares.conf.mas:21
 msgid "Home Directories"
 msgstr "Hemkataloger"
 
@@ -12332,477 +13102,6 @@ msgstr ""
 #~ "denne fortsätta vara ansluten tills jabber autentisering behövs igen."
 
 #, fuzzy
-#~ msgid "Signatures"
-#~ msgstr "Status"
-
-#~ msgid "Database Update Status"
-#~ msgstr "Antivirusdatabasens uppdateringsstatus"
-
-#~ msgid "Antivirus"
-#~ msgstr "Antivirus"
-
-#~ msgid ""
-#~ "The antivirus database has not been updated since the module was enabled."
-#~ msgstr "Antivirusdatabasen har inte uppdaterats sedan modulen aktiverades."
-
-#~ msgid "The last update failed."
-#~ msgstr "Den senaste uppdateringen misslyckades"
-
-#~ msgid "Last update successful."
-#~ msgstr "Den senaste uppdateringen lyckades."
-
-#~ msgid "Unknown event {event}."
-#~ msgstr "Okänd händelse {event}."
-
-#~ msgid " To configure clamd daemon"
-#~ msgstr "För att konfigurera clamd tjänsten"
-
-#~ msgid "To schedule the launch of the updater"
-#~ msgstr "För att schemalägga uppdateringar"
-
-#, fuzzy
-#~ msgid "Success"
-#~ msgstr "Gäståtkomst"
-
-#, fuzzy
-#~ msgid "Failure"
-#~ msgstr "misslyckad"
-
-#, fuzzy
-#~ msgid "Antivirus DB updates"
-#~ msgstr "Antivirus allmänna inställningar"
-
-#~ msgid "Mail Filter"
-#~ msgstr "E-postfilter"
-
-#~ msgid "Add clamav user to amavis group"
-#~ msgstr "Lägg till clamav användare till amavis gruppen"
-
-#~ msgid "Clamav need access to amavis fields to properly scan mail"
-#~ msgstr "Clamav behöver access till amavis fält för att kunna skanna e-post"
-
-#~ msgid "Add clamav user to p3scan group"
-#~ msgstr "Lägg till clamav användare till p3scan gruppen"
-
-#~ msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
-#~ msgstr ""
-#~ "Clamav behöver access till p3scan gruppen för att kunna skanna i POP "
-#~ "proxyn"
-
-#~ msgid "Add spam and ham system users"
-#~ msgstr "Lägg till spam och ham systemanvändare"
-
-#~ msgid ""
-#~ "This users are for the email accounts used for training the bayesian "
-#~ "filter"
-#~ msgstr ""
-#~ "Användarna för detta epostkonto används för att träna det bayesiska "
-#~ "filtret"
-
-#~ msgid "Update LDAP"
-#~ msgstr "Uppdatera LDAP"
-
-#~ msgid "Add amavis specific classes and fields"
-#~ msgstr "Lägg till amavis specifika klasser och fält"
-
-#~ msgid "Cannot proceed because the filter is in use"
-#~ msgstr "Kan inte fortsätta eftersom filtret används"
-
-#~ msgid "Mail filter"
-#~ msgstr "E-postfilter"
-
-#~ msgid "Sender address"
-#~ msgstr "Sändares adress"
-
-#~ msgid "Recipient address"
-#~ msgstr "Mottagares adress"
-
-#~ msgid "Spam hits"
-#~ msgstr "Skräppost träffar"
-
-#~ msgid "Bad header found"
-#~ msgstr "Dåligt e-post huvud funnet"
-
-#~ msgid "Spam found"
-#~ msgstr "Skräppost funnet"
-
-#~ msgid "Forbidden attached file found"
-#~ msgstr "Förbjuden bifogad fil funnen"
-
-#~ msgid "Address in blacklist found"
-#~ msgstr "Adress från svartlista funnen"
-
-#~ msgid "Virus found"
-#~ msgstr "Virus upptäckt"
-
-#~ msgid "Clean message"
-#~ msgstr "Rent meddelande"
-
-#, fuzzy
-#~ msgid "Unable to reinject in the mail server"
-#~ msgstr "Kan inte ansluta till mailserver {smtp}"
-
-#~ msgid "SMTP filter"
-#~ msgstr "SMTP filter"
-
-#~ msgid "SMTP Mail Filter"
-#~ msgstr "SMTP e-postfilter"
-
-#~ msgid "Antispam"
-#~ msgstr "Skräppostfilter"
-
-#~ msgid "Files ACL"
-#~ msgstr "Fil ACL"
-
-#~ msgid "email address"
-#~ msgstr "e-post adress"
-
-#~ msgid ""
-#~ "The sender ought be either an email address or a domain name prefixed "
-#~ "with '@'"
-#~ msgstr ""
-#~ "Avsändaren borde vara endera en e-postadress eller ett domännamn med @ "
-#~ "före"
-
-#~ msgid "Write down a decimal number"
-#~ msgstr "Skriv ned ett decimalt nummer"
-
-#~ msgid "Only non-zero positive numbers are allowed"
-#~ msgstr "Endast nummer från ett och uppåt tillåts"
-
-#~ msgid "Write down a number lesser than {m}"
-#~ msgstr "Skriv ned ett nummer mindre än {m}"
-
-#~ msgid "Write down a number greater  than {m}"
-#~ msgstr "Skriv ned ett nummer större än {m}"
-
-#~ msgid "MIME type"
-#~ msgstr "MIME-typ"
-
-#~ msgid "file extension"
-#~ msgstr "filändelse"
-
-#~ msgid "Pass"
-#~ msgstr "Släpp igenom"
-
-#, fuzzy
-#~ msgid "Notify sender server"
-#~ msgstr "sekundär server"
-
-#, fuzzy
-#~ msgid "Notify mail sender account"
-#~ msgstr "e-postkonto alias"
-
-#~ msgid "Mailfilter's policy"
-#~ msgstr "Policy för skräppostfilter"
-
-#~ msgid "To configure amavis"
-#~ msgstr "För att konfigurera amavis"
-
-#~ msgid "Zentyal internal mail filter"
-#~ msgstr "Zentyal internt e-postfilter"
-
-#~ msgid "SMTP filter proxy"
-#~ msgstr "Proxy för SMTP filter"
-
-#~ msgid "Virtual mail domain {vd} does not exist"
-#~ msgstr "Virtuell e-postdomän {vd} finns inte"
-
-#~ msgid " To configure spamassassin daemon"
-#~ msgstr "För att konfigurera spamassasin tjänsten"
-
-#~ msgid "Spam threshold"
-#~ msgstr "Skräpposttröskel"
-
-#~ msgid "It must be a number(decimal point allowed)"
-#~ msgstr "Det måste vara ett nummer (decimaler tillåtna)"
-
-#~ msgid "The spam's threshold cannot be higher than its autolearn threshold"
-#~ msgstr ""
-#~ "Skräppostens tröskel kan inte vara högre än dess autoinlärningströskel"
-
-#~ msgid ""
-#~ "The spam's threshold cannot be lower or equal than its ham's autolearn "
-#~ "threshold"
-#~ msgstr ""
-#~ "Skräppostens tröskel kan inte vara lägre eller lika stor som dess brapost "
-#~ "(ham) autoinlärningströskel"
-
-#~ msgid ""
-#~ "Cannot learn because bayesian filter is disabled in the current "
-#~ "configuration. In order to be able to learn enable the bayesian filter "
-#~ "and save changes"
-#~ msgstr ""
-#~ "Kan inte lära eftersom bayesian filtret är inaktiverat i nuvarande "
-#~ "konfiguration. För att kunna lära systemet aktivera bayesian filtret och "
-#~ "spara ändringarna"
-
-#~ msgid "Accounts from the domain {d} cannot train the bayesian filter"
-#~ msgstr "Konton från domänen {d} kan inte träna det bayesiska filtret"
-
-#~ msgid "External connections"
-#~ msgstr "Externa anslutningar"
-
-#~ msgid "Attached Files Filter"
-#~ msgstr "Filter för bifogade filer"
-
-#~ msgid ""
-#~ "Filter mail messages according attached files. The transparent POP proxy "
-#~ "only filters by extension"
-#~ msgstr ""
-#~ "Filtrera e-postmeddelanden efter dess bifogade filer. Den transparenta "
-#~ "POP proxyn filtrerar bara efter filändelse"
-
-#~ msgid "Use virus filtering"
-#~ msgstr "Använd virusfiltrering"
-
-#~ msgid "Use spam filtering"
-#~ msgstr "Använd skräppostfiltrering"
-
-#~ msgid "default"
-#~ msgstr "standard"
-
-#~ msgid "custom threshold"
-#~ msgstr "anpassat tröskelvärde"
-
-#~ msgid "Antispam sender policy"
-#~ msgstr "Antiskräppost avsändarpolicy"
-
-#, fuzzy
-#~ msgid "Virtual Domains specific policies"
-#~ msgstr "Virtuella domän-alias"
-
-#, fuzzy
-#~ msgid "virtual domain policy"
-#~ msgstr "virtuell domän-alias"
-
-#~ msgid ""
-#~ "There are no virtual mail domains managed by this server. You can create "
-#~ "some in the {openA}virtual domains mail page{closeA}."
-#~ msgstr ""
-#~ "Det finns inga virtuella domäner som hanteras av denna server. Du kan "
-#~ "skapa några i {openA}virtual domains mail page{closeA}. "
-
-#~ msgid "The score threshold to mark a message as spam"
-#~ msgstr "Tröskelpoängen för att markera ett meddelande som skräppost"
-
-#~ msgid "Spam subject tag"
-#~ msgstr "Skräppost ärendemärkning"
-
-#~ msgid "Tag which will be added to the spam mail subject"
-#~ msgstr "Märking som kommer att adderas till skräppost ärenderad."
-
-#~ msgid "Use Bayesian classifier"
-#~ msgstr "Använd bayesian klassificering"
-
-#~ msgid "Auto-whitelist"
-#~ msgstr "Auto vitlista"
-
-#~ msgid "Change the score of mail according to the sender history"
-#~ msgstr "Ändra poängen för e-post enligt avsändarens historia"
-
-#~ msgid "Auto-learn"
-#~ msgstr "Autolär"
-
-#~ msgid "Feedback the learning system with messages that reach the threshold"
-#~ msgstr "Återkoppla inlärningssystemet med meddelanden som når tröskelvärdet"
-
-#~ msgid "Autolearn spam threshold"
-#~ msgstr "Autolär skräppost tröskeln"
-
-#~ msgid ""
-#~ "Spam messages with a score equal or greater than this threshold will be "
-#~ "added to the learning system "
-#~ msgstr ""
-#~ "Skräppost med ett lika stort eller större värde än tröskelvärdet kommer "
-#~ "att läggas till inlärningssystemet"
-
-#~ msgid "Autolearn ham threshold"
-#~ msgstr "Autolär brapost (ham) tröskel"
-
-#~ msgid ""
-#~ "Ham messages with a score below this threshold will be added to the "
-#~ "learning system"
-#~ msgstr ""
-#~ "Brapost (ham) meddelanden med en poäng lägre än denna tröskel kommer att "
-#~ "läggas till inlärningssystemet"
-
-#~ msgid "Antispam configuration"
-#~ msgstr "Antiskräppost konfiguration"
-
-#~ msgid ""
-#~ "You must define autolearn spam threshold when autolearn option is active"
-#~ msgstr ""
-#~ "Du måste definiera autoinlärnings skräppost tröskel när autoinlärning är "
-#~ "aktiverad"
-
-#~ msgid ""
-#~ "You must define autolearn ham threshold when autolearn option is active"
-#~ msgstr ""
-#~ "Du måste definiera autoinlärnings braposttröskel (ham) när autoinlärning "
-#~ "är aktiverad"
-
-#~ msgid ""
-#~ "The spam's autolearn threshold cannot be lower than the default spam's "
-#~ "treshold "
-#~ msgstr ""
-#~ "Skräppostens autoinlärningströskel kan inte vara lägre än standard tröskel"
-
-#~ msgid ""
-#~ "The ham's autolearn threshold canot be higher or equal than the default "
-#~ "spam level"
-#~ msgstr ""
-#~ "Brapost (ham) autoinlärningströskel kan inte vara lägre än standard "
-#~ "tröskel"
-
-#~ msgid "External mail domain"
-#~ msgstr "Extern e-postdomän"
-
-#~ msgid "Allow connection"
-#~ msgstr "Tillåt kommunikation"
-
-#~ msgid "External mail domains"
-#~ msgstr "Externa e-postdomäner"
-
-#~ msgid "external mail domain"
-#~ msgstr "extern e-postdomän"
-
-#~ msgid ""
-#~ "Here you can specify which external mail domains can connect to the mail "
-#~ "filter"
-#~ msgstr ""
-#~ "Här kan du specificera vilken extern e-postdomän som kan ansluta till e-"
-#~ "postfiltret"
-
-#~ msgid "{d} is a internal Zentyal virtual main domain"
-#~ msgstr "{d} är en intern Zentyal virtuell huvuddomän"
-
-#~ msgid "External mail server"
-#~ msgstr "Extern e-postserver"
-
-#~ msgid "IP address of the server"
-#~ msgstr "Ip adressen för servern"
-
-#~ msgid "External mail servers"
-#~ msgstr "Externa e-postservrar"
-
-#~ msgid "external mail server"
-#~ msgstr "extern e-postserver"
-
-#~ msgid ""
-#~ "Here you can specify which external mail servers can connect to the mail "
-#~ "filter"
-#~ msgstr ""
-#~ "Här kan du specificera vilka externa e-postservrar som kan ansluta till e-"
-#~ "postfiltret."
-
-#~ msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
-#~ msgstr "Felaktig extern MTA {mta}. Lokala nätverksadresser är inte tillåtna"
-
-#~ msgid "Antivirus enabled"
-#~ msgstr "Antivirus aktiverat"
-
-#~ msgid "Antispam enabled"
-#~ msgstr "Antiskräppost aktiverad"
-
-#~ msgid "Service's port"
-#~ msgstr "Tjänstens port"
-
-#~ msgid "Notify of non-spam problematic messages"
-#~ msgstr "Meddela om problematiska meddelande som inte är skräppost"
-
-#~ msgid "The port {port} is already used by module {mod}"
-#~ msgstr "Porten {port} används redan av modulen {mod}"
-
-#~ msgid "Mail sender"
-#~ msgstr "E-postavsändare"
-
-#~ msgid "Policy"
-#~ msgstr "Policy"
-
-#~ msgid "Sender policy for virtual domain"
-#~ msgstr "Sändpolicy för virtuell domän"
-
-#~ msgid "sender policy"
-#~ msgstr "sändarpolicy"
-
-#~ msgid "whitelist"
-#~ msgstr "vitlista"
-
-#~ msgid "blacklist"
-#~ msgstr "svartlista"
-
-#~ msgid "process"
-#~ msgstr "process"
-
-#~ msgid "MIME Type"
-#~ msgstr "MIME-typ"
-
-#~ msgid "Allow"
-#~ msgstr "Tillåt"
-
-#~ msgid "MIME types"
-#~ msgstr "MIME-typer"
-
-#~ msgid ""
-#~ "MIME types which are not listed below are allowed. MIME types aren't used "
-#~ "by POP transparent proxy"
-#~ msgstr ""
-#~ "Mimetyper som inte listas nedan tillåts. Mimetyper används inte av POP "
-#~ "transparent proxy"
-
-#~ msgid "File extension"
-#~ msgstr "Filändelse"
-
-#~ msgid "File extensions"
-#~ msgstr "filändelser"
-
-#~ msgid "Extensions which are not listed below are allowed"
-#~ msgstr "Filändelser som inte listas nedan är inte tillåtna"
-
-#~ msgid "Mailbox"
-#~ msgstr "Brevlåda"
-
-#~ msgid "Mailbox contains"
-#~ msgstr "Brevlåda innehåller"
-
-#~ msgid "Train bayesian spam filter"
-#~ msgstr "Träna bayesiskt skräppostfilter"
-
-#~ msgid "Learned from messages"
-#~ msgstr "Lärde från meddelanden"
-
-#~ msgid "Train"
-#~ msgstr "Träna"
-
-#~ msgid "spam"
-#~ msgstr "skräppost"
-
-#~ msgid "ham"
-#~ msgstr "brapost (ham)"
-
-#~ msgid "Invalid mailbox type: {type}"
-#~ msgstr "Ogiltig brevlådetyp: {type}"
-
-#~ msgid "Sender policy"
-#~ msgstr "Sändarpolicy"
-
-#~ msgid "Virus policy"
-#~ msgstr "Virus policy"
-
-#~ msgid "Spam policy"
-#~ msgstr "Skräppostpolicy"
-
-#~ msgid "Banned files policy"
-#~ msgstr "Policy för bannade filer"
-
-#~ msgid "Bad header policy"
-#~ msgstr "Felaktig e-posthuvudpolicy"
-
-#~ msgid "Filter Policies"
-#~ msgstr "Filterpolicy"
-
-#, fuzzy
 #~ msgid "L2TP connections"
 #~ msgstr "Tillåt kommunikation"
 
@@ -13170,9 +13469,6 @@ msgstr ""
 #~ msgid "If service is any, some source or destination should be provided"
 #~ msgstr "Om service är valfri bör någon källa eller destintion anges"
 
-#~ msgid "Filter type"
-#~ msgstr "Typ av filter"
-
 #~ msgid "Lowest priotiry: 7 Highest priority: 0"
 #~ msgstr "Lägsta prioritet: 7 Högsta prioritet: 0"
 
@@ -13335,14 +13631,6 @@ msgstr ""
 #~ msgid "PowerShell"
 #~ msgstr "Säker per standard"
 
-#~ msgid "Antivirus default settings"
-#~ msgstr "Antivirus allmänna inställningar"
-
-#, fuzzy
-#~ msgid ""
-#~ "Zentyal antivirus module must be installed and enabled to use this feature"
-#~ msgstr "{pkg} måste vara installerat för att använda denna funktion."
-
 #, fuzzy
 #~ msgid "Group Policy Links"
 #~ msgstr "Gruppens policy"
@@ -13366,12 +13654,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Du måste aktivera e-postmodulen i modulstatussektionen för att använda "
 #~ "den."
-
-#~ msgid "Samba shares antivirus exceptions"
-#~ msgstr "Samba delar antivirus undantag"
-
-#~ msgid "Add exceptions to the default antivirus settings"
-#~ msgstr "Lägg till undantag till standard antivirus inställningar"
 
 #, fuzzy
 #~ msgid "Server mode"
@@ -13452,24 +13734,6 @@ msgstr ""
 #~ msgid ""
 #~ "The domain controller must be specified as full qualified domain name"
 #~ msgstr "Epostnamnet måste vara ett fullständigt värdnamn"
-
-#~ msgid "File name"
-#~ msgstr "Filnamn"
-
-#~ msgid "Virus"
-#~ msgstr "Virus"
-
-#~ msgid "Quarantined file name"
-#~ msgstr "Fil i karantän"
-
-#~ msgid "Quarantine"
-#~ msgstr "Karantän"
-
-#~ msgid "Samba virus"
-#~ msgstr "Samba virus"
-
-#~ msgid "Samba quarantine"
-#~ msgstr "Samba karantän"
 
 #~ msgid "HTTP Proxy"
 #~ msgstr "HTTP-proxy"
@@ -14105,12 +14369,6 @@ msgstr ""
 #~ "You can exempt some addresses from transparent proxy. The domains will be "
 #~ "resolved at saving changes process."
 #~ msgstr "Du kan undanta några adresser från att cachas"
-
-#~ msgid "enabled"
-#~ msgstr "aktiv"
-
-#~ msgid "Mail server's filter"
-#~ msgstr "Mailserverns filter"
 
 #~ msgid "User account"
 #~ msgstr "Användarkonto"
@@ -15416,9 +15674,6 @@ msgstr ""
 
 #~ msgid "Events"
 #~ msgstr "Händelser"
-
-#~ msgid "The events module is not enabled to send events"
-#~ msgstr "Modulen för händelser är inte aktiverad för att sända händelser"
 
 #~ msgid "Date of first event"
 #~ msgstr "Datum för första händelse"

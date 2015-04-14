@@ -20,6 +20,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
+#: ../../main/mail/src/EBox/Mail.pm:1562
 msgid "disabled"
 msgstr "無効"
 
@@ -159,6 +160,7 @@ msgstr "有効"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:891
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
 #: ../../main/core/src/EBox/SysInfo.pm:480
 #: ../../main/core/src/EBox/RemoteServices.pm:1306
@@ -959,6 +961,7 @@ msgid "Common name"
 msgstr "コモンネーム"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
+#: ../../main/mail/src/EBox/Mail.pm:1579
 msgid "Address"
 msgstr "アドレス"
 
@@ -976,11 +979,16 @@ msgstr "OpenVPNデーモン"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1479
 #: ../../main/printers/src/EBox/Printers.pm:396
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:62
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:432
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:475
 #: ../../main/dhcp/src/EBox/DHCP.pm:979
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3073
-#: ../../main/mail/src/EBox/Mail.pm:1571
+#: ../../main/samba/src/EBox/Samba.pm:3220
+#: ../../main/samba/src/EBox/Samba.pm:3240
+#: ../../main/samba/src/EBox/Samba.pm:3251
+#: ../../main/mail/src/EBox/Mail.pm:1676
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
@@ -993,15 +1001,18 @@ msgstr "日付"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1480
 #: ../../main/printers/src/EBox/Printers.pm:397
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:434
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:478
 #: ../../main/dhcp/src/EBox/DHCP.pm:983
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/mail/src/EBox/Mail.pm:1581
+#: ../../main/mail/src/EBox/Mail.pm:1686
 msgid "Event"
 msgstr "イベント"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
+#: ../../main/samba/src/EBox/Samba.pm:3245
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1121,7 +1132,7 @@ msgstr "ホスト名"
 
 #: ../../main/dns/src/EBox/DNS.pm:1694
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2595
+#: ../../main/samba/src/EBox/Samba.pm:2628
 msgid "alias"
 msgstr "エイリアス"
 
@@ -1215,7 +1226,7 @@ msgstr "透明なDNSキャッシュを有効にする"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:1900
+#: ../../main/samba/src/EBox/Samba.pm:1933
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
@@ -1315,6 +1326,7 @@ msgstr "ドメイン"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
+#: ../../main/mail/src/EBox/Mail.pm:1577
 msgid "Custom"
 msgstr "カスタム"
 
@@ -1471,12 +1483,13 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:606
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:71
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:53
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1894
+#: ../../main/samba/src/EBox/Samba.pm:1927
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "ドメイン"
@@ -1662,7 +1675,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3075
+#: ../../main/samba/src/EBox/Samba.pm:3222
+#: ../../main/samba/src/EBox/Samba.pm:3242
+#: ../../main/samba/src/EBox/Samba.pm:3253
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -1991,8 +2006,10 @@ msgstr "更新する証明書が存在しません"
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "このCAには共通名 {cn} を持つ証明書が存在しません"
 
-#: ../../main/ca/src/EBox/CA.pm:1760 ../../main/core/src/EBox/SysInfo.pm:110
-#: ../../main/mail/src/EBox/Mail.pm:1508
+#: ../../main/ca/src/EBox/CA.pm:1760
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
+#: ../../main/core/src/EBox/SysInfo.pm:110
+#: ../../main/mail/src/EBox/Mail.pm:1613
 msgid "General"
 msgstr "一般"
 
@@ -2089,13 +2106,14 @@ msgstr ""
 "と空白が許可されています"
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:75
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:477
 #: ../../main/core/src/EBox/Model/DataTable.pm:1764
 #: ../../main/core/src/EBox/Model/Composite.pm:521
 #: ../../main/core/src/EBox/Model/Composite.pm:536
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3076
+#: ../../main/samba/src/EBox/Samba.pm:3223
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -2278,6 +2296,713 @@ msgid ""
 "The CN {cn} is reserved by OpenChange and cannot be generated automatically. "
 "You can issue it from the {oh}OpenChange virtual domains interface.{ch}"
 msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:58
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
+#: ../../main/network/src/EBox/Network.pm:3428
+#: ../../main/mail/src/EBox/Mail.pm:1564 ../../main/mail/src/EBox/Mail.pm:1685
+#: ../../main/core/src/templates/report/raid.mas:100
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
+#: ../../main/mail/src/templates/qmanager.mas:17
+msgid "Status"
+msgstr "状態"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
+msgid "Signatures"
+msgstr "署名"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
+msgid "Database Update Status"
+msgstr "データベースの更新状態"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:73
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:77
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:398
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:403
+#: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:59
+msgid "Antivirus"
+msgstr "アンチウィルス"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:151
+msgid ""
+"The antivirus database has not been updated since the module was enabled."
+msgstr "定義データベースは、モジュールが有効になってから更新されていません。"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:153
+msgid "The last update failed."
+msgstr "最後の更新に失敗しました。"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:154
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:155
+msgid "Last update successful."
+msgstr "最後のアップデートに成功。"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:157
+msgid ""
+"The antivirus module is not configured. Enable it first in Module Status "
+"section."
+msgstr ""
+"ウィルス対策モジュールが構成されていません。モジュール状態セクションで最初に"
+"それを有効にします。"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:160
+msgid ""
+"The antivirus module is not enabled. Enable it first to know the antivirus "
+"status."
+msgstr ""
+"ウィルス対策モジュールが有効になっていません。アンチウィルス状態を知ることが"
+"最初にそれを有効にします。"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
+#, perl-brace-format
+msgid "Unknown event {event}."
+msgstr "不明なイベント{event}。"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:185
+#, perl-brace-format
+msgid ""
+"Want to protect your system against scams, spear phishing, frauds and other "
+"junk? Get one of the {oh}Commercial Editions{ch} that will keep your "
+"Antvirus database always up-to-date."
+msgstr ""
+"詐欺、スピアフィッシング、詐欺やその他の迷惑に対してあなたのシステムを保護し"
+"てみませんか？最新に必ずアンチウィルス対策データベースを維持する{oh}商用版"
+"{ch}のいずれかを取得します。"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:169
+msgid " To configure clamd daemon"
+msgstr "clamdへデーモンを設定する"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:174
+msgid "To schedule the launch of the updater"
+msgstr "アップデータの立ち上げをスケジュールする"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:179
+#, perl-brace-format
+msgid "Custom {app} profile configuration for {bin} binary"
+msgstr "{bin}バイナリのカスタム{app}のプロファイルを設定する"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:186
+#, perl-brace-format
+msgid "Disable {app} profile for {bin} binary"
+msgstr "{{bin}バイナリ用の{app}のプロファイルを無効にする"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:433
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
+#: ../../main/firewall/src/EBox/Firewall.pm:789
+msgid "Source"
+msgstr "送信元"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:438
+msgid "Success"
+msgstr "成功"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:438
+msgid "Failure"
+msgstr "失敗"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:441
+msgid "Antivirus DB updates"
+msgstr "アンチウィルスDBの更新"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:60
+msgid "Mail Filter"
+msgstr "メールフィルタ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:78
+msgid "Add clamav user to amavis group"
+msgstr "ClamAVユーザをAMaViSグループに追加"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:79
+msgid "Clamav need access to amavis fields to properly scan mail"
+msgstr "ClamAVがメールをスキャンするにはAMaViSフィールドへのアクセスが必要です"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:83
+msgid "Add clamav user to p3scan group"
+msgstr "ClamAVユーザをp3scanグループに追加"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:84
+msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
+msgstr ""
+"ClamAVがPOPプロキシのp3scanグループでスキャンする為のアクセスが必要です"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:88
+msgid "Add spam and ham system users"
+msgstr "スパムおよびハムシステムユーザを追加します。"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:90
+msgid ""
+"This users are for the email accounts used for training the bayesian filter"
+msgstr ""
+"このユーザは、電子メールアカウントのベイジアンフィルタを訓練するために使用さ"
+"れ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:95
+msgid "Update LDAP"
+msgstr "LDAPを更新"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:96
+msgid "Add amavis specific classes and fields"
+msgstr "AMaViS用のクラスとフィールドを追加"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:127
+msgid ""
+"Mail server has a custom filter set, unset it before enabling Zentyal Mail "
+"Filter module"
+msgstr ""
+"メールサーバはZentyalメールフィルタモジュールを有効にする前に、カスタムフィル"
+"タセット、アンセットそれを持っている"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:309
+msgid "Cannot proceed because the filter is in use"
+msgstr "フィルタが使われているため進めません"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:455
+msgid "Mail filter"
+msgstr "メールフィルタ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:480
+msgid "Sender address"
+msgstr "送信者アドレス"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:481
+msgid "Recipient address"
+msgstr "受信者アドレス"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:483
+msgid "Spam hits"
+msgstr "スパムヒット値"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:488
+msgid "Bad header found"
+msgstr "誤ったヘッダ発見"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:489
+msgid "Spam found"
+msgstr "スパムが見つかりました。"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:490
+msgid "Forbidden attached file found"
+msgstr "禁断の添付ファイルが見つかり"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:491
+msgid "Address in blacklist found"
+msgstr "ブラックリストのアドレスが見つかりました。"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:492
+msgid "Virus found"
+msgstr "ウイルス発見"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:493
+msgid "Clean message"
+msgstr "クリーンメッセージ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:494
+msgid "Unable to reinject in the mail server"
+msgstr "メールサーバに再挿入することができません"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:498
+msgid "SMTP filter"
+msgstr "SMTPフィルタ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:529
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:39
+msgid "SMTP Mail Filter"
+msgstr "SMTPメールフィルタ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:536
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:458
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:40
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:41
+msgid "Antispam"
+msgstr "アンチスパム"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:543
+msgid "Files ACL"
+msgstr "ファイルのACL"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:76
+#: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:88
+#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:47
+#: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:50
+msgid "domain name"
+msgstr "ドメイン名"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:80
+msgid "email address"
+msgstr "Eメールアドレス"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:84
+msgid ""
+"The sender ought be either an email address or a domain name prefixed with "
+"'@'"
+msgstr ""
+"送信者はEメールアドレスか'@'でプリフィックスされたドメイン名のいずれかを使え"
+"ます"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:105
+msgid "Write down a decimal number"
+msgstr "進数を書き留め"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:110
+msgid "Only non-zero positive numbers are allowed"
+msgstr "唯一の非ゼロの正の数が許可されています"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:118
+#, perl-brace-format
+msgid "Write down a number lesser than {m}"
+msgstr "{m}よりも少ない数を書き留め"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:125
+#, perl-brace-format
+msgid "Write down a number greater  than {m}"
+msgstr "{m}よりも大きい番号を書き留め"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:57
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:100
+msgid "MIME type"
+msgstr "MIMEタイプ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/FileExtension.pm:55
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:104
+msgid "file extension"
+msgstr "ファイル拡張子"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:28
+msgid "Pass"
+msgstr "通過"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
+msgid "Notify sender server"
+msgstr "送信側サーバに通知"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
+msgid "Notify mail sender account"
+msgstr "メール送信アカウントを通知"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:31
+msgid "Drop silently"
+msgstr "何もせすドロップ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:75
+msgid "Mailfilter's policy"
+msgstr "メールフィルタポリシー"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:68
+msgid "To configure amavis"
+msgstr "AMaViSを設定"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:426
+msgid "Zentyal internal mail filter"
+msgstr "Zentyal内部メールフィルタ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
+msgid "SMTP filter proxy"
+msgstr "SMTPフィルタプロキシ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:599
+#, perl-brace-format
+msgid "Virtual mail domain {vd} does not exist"
+msgstr "仮想メールドメイン {vd} は存在しません"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:59
+msgid " To configure spamassassin daemon"
+msgstr "Spamassassinデーモンを設定"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:328
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:58
+msgid "Spam threshold"
+msgstr "迷惑メール閾値"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:328
+msgid "It must be a number(decimal point allowed)"
+msgstr "数字を入力してください(小数点も利用可能)"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:338
+msgid "The spam's threshold cannot be higher than its autolearn threshold"
+msgstr "迷惑メールの閾値は学習のしきい値以下に設定してください"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:342
+msgid ""
+"The spam's threshold cannot be lower or equal than its ham's autolearn "
+"threshold"
+msgstr "迷惑メールの閾値は通常メールの学習のしきい値よりも高く設定してください"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:379
+msgid ""
+"Cannot learn because bayesian filter is disabled in the current "
+"configuration. In order to be able to learn enable the bayesian filter and "
+"save changes"
+msgstr ""
+"ベイジアンフィルタが無効になっているため学習を開始できません。ベイジアンフィ"
+"ルタが有効になるように設定してください"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:392
+#, perl-brace-format
+msgid "Accounts from the domain {d} cannot train the bayesian filter"
+msgstr ""
+"ドメイン{d}からアカウントのベイジアンフィルタを訓練することはできません"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:39
+msgid "External connections"
+msgstr "外部接続"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
+msgid "Attached Files Filter"
+msgstr "添付ファイルフィルタ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:41
+msgid ""
+"Filter mail messages according attached files. The transparent POP proxy "
+"only filters by extension"
+msgstr ""
+"添付ファイルに従ってメールメッセージをフィルタリングします。透明POPプロキシは"
+"拡張子でフィルタリングする"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:80
+msgid "Use virus filtering"
+msgstr "ウィルスフィルタを使用"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:86
+msgid "Use spam filtering"
+msgstr "迷惑メールフィルタを使用"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:99
+msgid "default"
+msgstr "デフォルト"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
+msgid "custom threshold"
+msgstr "カスタム閾値"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:150
+msgid "Antispam sender policy"
+msgstr "アンチスパムの送信者ポリシー"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
+msgid "Virtual Domains specific policies"
+msgstr "仮想ドメインの固有のポリシー"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
+msgid "virtual domain policy"
+msgstr "仮想ドメインポリシー"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:183
+#, perl-brace-format
+msgid ""
+"There are no virtual mail domains managed by this server. You can create "
+"some in the {openA}virtual domains mail page{closeA}."
+msgstr ""
+"このサーバが管理してない仮想メールドメインはありません。あなたは、{openA}仮想"
+"ドメインのメールページ{closeA}内のいくつかを作成することができます。"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:62
+msgid "The score threshold to mark a message as spam"
+msgstr "メッセージを迷惑メールとしてマークする閾値スコア"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:66
+msgid "Spam subject tag"
+msgstr "迷惑メール題名タグ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:69
+msgid "Tag which will be added to the spam mail subject"
+msgstr "迷惑メール題名として追加するタグ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:73
+msgid "Use Bayesian classifier"
+msgstr "ベイジアンクラスフィルタを使用"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:79
+msgid "Auto-whitelist"
+msgstr "自動ホワイトリスト"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:82
+msgid "Change the score of mail according to the sender history"
+msgstr "送信者の履歴を使用してメールのスコアを変更"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:86
+msgid "Auto-learn"
+msgstr "自動学習"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:89
+msgid "Feedback the learning system with messages that reach the threshold"
+msgstr "閾値に達したメッセージを使って学習システムにフィードバック"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:94
+msgid "Autolearn spam threshold"
+msgstr "迷惑メールの閾値を自動で学習"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:98
+msgid ""
+"Spam messages with a score equal or greater than this threshold will be "
+"added to the learning system "
+msgstr "この閾値以上のスパムメッセージが学習システムに追加されます"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:102
+msgid "Autolearn ham threshold"
+msgstr "通常メールの閾値を自動で学習"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
+msgid ""
+"Ham messages with a score below this threshold will be added to the learning "
+"system"
+msgstr "この閾値を下回るスコアの通常メッセージを学習システムに追加"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:111
+msgid "Antispam configuration"
+msgstr "アンチスパムの設定"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:155
+msgid ""
+"You must define autolearn spam threshold when autolearn option is active"
+msgstr ""
+"自動学習オプションがアクティブであるときは、自動学習でのスパムの閾値を定義す"
+"る必要があります"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:161
+msgid "You must define autolearn ham threshold when autolearn option is active"
+msgstr ""
+"自動学習オプションがアクティブであるときに、自動学習ハムのしきい値を定義する"
+"必要があります"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:167
+msgid ""
+"The spam's autolearn threshold cannot be lower than the default spam's "
+"treshold "
+msgstr ""
+"迷惑メールの学習の閾値はデフォルトの迷惑メールの閾値以上に設定してください"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:173
+msgid ""
+"The ham's autolearn threshold canot be higher or equal than the default spam "
+"level"
+msgstr ""
+"通常メールの学習の閾値はデフォルトの迷惑メールのレベルよりも小さく設定してく"
+"ださい"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:70
+msgid "External mail domain"
+msgstr "外部メールドメイン"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:76
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:77
+msgid "Allow connection"
+msgstr "接続を許可する"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:84
+msgid "External mail domains"
+msgstr "外部メールドメイン"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:96
+msgid "external mail domain"
+msgstr "外部メールドメイン"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:97
+msgid ""
+"Here you can specify which external mail domains can connect to the mail "
+"filter"
+msgstr ""
+"ここでは、外部のメールドメインがメールフィルタに接続できるかを指定することが"
+"できます"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:114
+#, perl-brace-format
+msgid "{d} is a internal Zentyal virtual main domain"
+msgstr "{d}は、内部Zentyal仮想メインドメインである"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
+msgid "External mail server"
+msgstr "外部メールサーバ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:73
+msgid "IP address of the server"
+msgstr "サーバのIPアドレス"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:85
+msgid "External mail servers"
+msgstr "外部メールサーバ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:97
+msgid "external mail server"
+msgstr "外部メールサーバ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:98
+msgid ""
+"Here you can specify which external mail servers can connect to the mail "
+"filter"
+msgstr ""
+"ここでは、外部のメールサーバがメールフィルタに接続できるかを指定することがで"
+"きます"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:140
+#, perl-brace-format
+msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
+msgstr ""
+"無効な外部MTAです: {mta}。ローカルのネットワークアドレスは利用できません"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:61
+msgid "Antivirus enabled"
+msgstr "アンチウィルスを有効にする"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:67
+msgid "Antispam enabled"
+msgstr "アンチスパムを有効にする"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:74
+msgid "Service's port"
+msgstr "サービスポート"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:81
+msgid "Notify of non-spam problematic messages"
+msgstr "問題のある非迷惑メッセージを通知"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
+#: ../../main/core/src/EBox/RemoteServices.pm:505
+#: ../../main/core/src/EBox/RemoteServices.pm:546
+msgid "mail address"
+msgstr "メールアドレス"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:128
+#, perl-brace-format
+msgid "The port {port} is already used by module {mod}"
+msgstr "ポート {port} はすでにモジュール {mod} で使われています"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:55
+msgid "Mail sender"
+msgstr "メール送信者"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:61
+msgid "Policy"
+msgstr "ポリシー"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
+msgid "Sender policy for virtual domain"
+msgstr "仮想ドメインの送信者ポリシー"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:88
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:82
+msgid "sender policy"
+msgstr "送信者ポリシー"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:96
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:90
+msgid "whitelist"
+msgstr "ホワイトリスト"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:97
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:91
+msgid "blacklist"
+msgstr "ブラックリスト"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:92
+msgid "process"
+msgstr "プロセス"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:77
+msgid "MIME Type"
+msgstr "MIMEタイプ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:83
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:87
+msgid "Allow"
+msgstr "許可"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:92
+msgid "MIME types"
+msgstr "MIMEタイプ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:101
+msgid ""
+"MIME types which are not listed below are allowed. MIME types aren't used by "
+"POP transparent proxy"
+msgstr ""
+"以下に記載されていないMIMEタイプが許可されています。 MIMEタイプは、POP透過プ"
+"ロキシでは使用されません"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:81
+msgid "File extension"
+msgstr "ファイル拡張子"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:96
+msgid "File extensions"
+msgstr "ファイル拡張子"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:105
+msgid "Extensions which are not listed below are allowed"
+msgstr "以下に記載されていない拡張機能が許可されています"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:55
+msgid "Mailbox"
+msgstr "メールボックス"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:61
+msgid "Mailbox contains"
+msgstr "メールボックス内容"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:71
+msgid "Train bayesian spam filter"
+msgstr "ベイジアンスパムフィルタをトレーニング"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
+msgid "Learned from messages"
+msgstr "メッセージから学習"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:78
+msgid "Train"
+msgstr "学習"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:87
+msgid "spam"
+msgstr "迷惑メール"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
+msgid "ham"
+msgstr "通常メール"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:115
+#, perl-brace-format
+msgid "Invalid mailbox type: {type}"
+msgstr "無効なメールボックス形式です: {type}"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:70
+msgid "Sender policy"
+msgstr "送信者ポリシー"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:154
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:158
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
+msgid "Virtual Domains"
+msgstr "仮想ドメイン"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:58
+msgid "Virus policy"
+msgstr "ウィルスポリシー"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:65
+msgid "Spam policy"
+msgstr "迷惑メールポリシー"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:68
+msgid "Bounce policy will be ignored for high-score spam messages"
+msgstr "バウンスポリシーは、ハイスコアスパムメッセージでは無視されます"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:72
+msgid "Banned files policy"
+msgstr "隔離ファイルポリシー"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:78
+msgid "Bad header policy"
+msgstr "誤ったヘッダポリシー"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
+msgid "Filter Policies"
+msgstr "フィルタポリシー"
 
 #: ../../main/network/src/EBox/NetworkUtil.pm:56
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:280
@@ -2876,14 +3601,6 @@ msgstr "正常なリンク"
 msgid "no link"
 msgstr "リンクなし"
 
-#: ../../main/network/src/EBox/Network.pm:3428
-#: ../../main/mail/src/EBox/Mail.pm:1580
-#: ../../main/core/src/templates/report/raid.mas:100
-#: ../../main/core/src/templates/moduleStatusTable.mas:64
-#: ../../main/mail/src/templates/qmanager.mas:17
-msgid "Status"
-msgstr "状態"
-
 #: ../../main/network/src/EBox/Network.pm:3454
 msgid "Tx bytes"
 msgstr "のTxバイト"
@@ -3169,13 +3886,13 @@ msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
 msgstr "範囲 {from}-{to} はHAのfloating IP：\"{name}\" - {IP}を含んでいます"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/mail/src/EBox/Mail.pm:1573
+#: ../../main/mail/src/EBox/Mail.pm:1678
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
 msgstr "From"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/mail/src/EBox/Mail.pm:1574
+#: ../../main/mail/src/EBox/Mail.pm:1679
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 msgid "To"
 msgstr "To"
@@ -4597,12 +5314,6 @@ msgstr ""
 msgid "Administration interface TCP port"
 msgstr "管理インターフェイスのTCPポート"
 
-#: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:88
-#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:47
-#: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:50
-msgid "domain name"
-msgstr "ドメイン名"
-
 #: ../../main/core/src/EBox/SysInfo/CGI/CurrentProgress.pm:37
 #: ../../main/software/src/EBox/Software/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
@@ -5171,11 +5882,6 @@ msgstr "プレミアム"
 #: ../../main/core/src/EBox/RemoteServices.pm:104
 msgid "Zentyal Remote Client"
 msgstr "Zentyalリモートクライアント"
-
-#: ../../main/core/src/EBox/RemoteServices.pm:505
-#: ../../main/core/src/EBox/RemoteServices.pm:546
-msgid "mail address"
-msgstr "メールアドレス"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1012
 #, perl-brace-format
@@ -5830,11 +6536,6 @@ msgstr "証明書ファイル"
 msgid "Revoke and reissue certificate"
 msgstr "証明書を失効"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:158
-#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
-msgid "Virtual Domains"
-msgstr "仮想ドメイン"
-
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:159
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:85
@@ -6095,8 +6796,8 @@ msgid "To make autodiscovery service available"
 msgstr "自動検出サービスを設定する"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:625
-#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1485
-#: ../../main/mail/src/EBox/Mail.pm:1606
+#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1547
+#: ../../main/mail/src/EBox/Mail.pm:1711
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "メール"
@@ -6417,13 +7118,6 @@ msgstr "オリジナル送信先"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:263
 msgid "Original destination port"
 msgstr "オリジナル送信先ポート"
-
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
-#: ../../main/firewall/src/EBox/Firewall.pm:789
-msgid "Source"
-msgstr "送信元"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:283
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:116
@@ -6813,7 +7507,7 @@ msgid "OU name"
 msgstr "OU名"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:1921
+#: ../../main/samba/src/EBox/Samba.pm:1954
 msgid "LDAP Settings"
 msgstr "LDAP設定"
 
@@ -6824,7 +7518,7 @@ msgstr ""
 "新しいユーザアカウントが作成されるときにこれらの設定オプションが使用される。"
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:1917
+#: ../../main/samba/src/EBox/Samba.pm:1950
 msgid "User Template"
 msgstr "ユーザのテンプレート"
 
@@ -6833,7 +7527,7 @@ msgid "Recycle Bin"
 msgstr "ごみ箱"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:1931
+#: ../../main/samba/src/EBox/Samba.pm:1964
 msgid "File Sharing"
 msgstr "ファイル共有"
 
@@ -7448,7 +8142,7 @@ msgstr ""
 "があります。パーミッションが正しく動作するために必要です。"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:1907
+#: ../../main/samba/src/EBox/Samba.pm:1940
 msgid "Users and Computers"
 msgstr "ユーザとコンピュータ"
 
@@ -7489,15 +8183,33 @@ msgstr ""
 "使用するためにはモジュール状態セクションのユーザモジュールを有効にし、変更内"
 "容を保存する必要があります。"
 
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:51
+msgid "Enable virus scanning"
+msgstr "ウィルススキャンを有効にする"
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:59
+msgid "Antivirus default settings"
+msgstr "アンチウィルスのデフォルト設定"
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
+msgid ""
+"Zentyal antivirus module must be installed and enabled to use this feature"
+msgstr ""
+"Zentyalウィルス対策モジュールがインストールされ、この機能を使用するには有効に"
+"する必要があります"
+
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:70
 msgid "User/Group/Share"
 msgstr "ユーザ/グループ/共有"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:84
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:75
 msgid "User homes"
 msgstr "ユーザホーム"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:89
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:80
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
 msgstr "共有"
@@ -7511,8 +8223,17 @@ msgid "Add exceptions to the default Recycle Bin settings"
 msgstr "デフォルトごみ箱の設定に例外を追加"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:106
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:96
 msgid "exception"
 msgstr "例外"
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:90
+msgid "Samba shares antivirus exceptions"
+msgstr "Samba共有でのウィルス対策の例外"
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:95
+msgid "Add exceptions to the default antivirus settings"
+msgstr "デフォルトのウィルス対策設定に例外を追加"
 
 #: ../../main/samba/src/EBox/Samba/Model/PAM.pm:104
 msgid "Enable PAM"
@@ -7818,45 +8539,45 @@ msgstr ""
 msgid "Error on LDAP entry update:"
 msgstr "LDAPエントリの更新時にエラー："
 
-#: ../../main/samba/src/EBox/Samba.pm:168
+#: ../../main/samba/src/EBox/Samba.pm:170
 msgid "Domain Controller and File Sharing"
 msgstr "ドメインコントローラとファイル共有"
 
-#: ../../main/samba/src/EBox/Samba.pm:275
+#: ../../main/samba/src/EBox/Samba.pm:277
 msgid ""
 "Your LDAP database will be populated with some basic organizational units"
 msgstr "LDAPデータベースは、いくつかの基本的な組織単位が入力されます"
 
-#: ../../main/samba/src/EBox/Samba.pm:276
+#: ../../main/samba/src/EBox/Samba.pm:278
 msgid ""
 "Zentyal needs this organizational units to add users and groups into them."
 msgstr ""
 "Zentyalはそ​​れらにユーザとグループを追加するには、この組織単位を必要とします。"
 
-#: ../../main/samba/src/EBox/Samba.pm:280
+#: ../../main/samba/src/EBox/Samba.pm:282
 msgid "Create Samba home directory for shares and groups"
 msgstr "共有およびグループのSambaホームディレクトリを作成"
 
-#: ../../main/samba/src/EBox/Samba.pm:281
+#: ../../main/samba/src/EBox/Samba.pm:283
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
 "Zentyal は/home/samba以下にsamba共有とグループ用ディレクトリを作成します。"
 
-#: ../../main/samba/src/EBox/Samba.pm:289
+#: ../../main/samba/src/EBox/Samba.pm:291
 msgid "Configure PAM."
 msgstr "PAMを設定します。"
 
-#: ../../main/samba/src/EBox/Samba.pm:290
+#: ../../main/samba/src/EBox/Samba.pm:292
 msgid "Zentyal will give LDAP samba system account."
 msgstr "Zentyalは、LDAP Sambaシステムアカウントを提供します。"
 
-#: ../../main/samba/src/EBox/Samba.pm:308
+#: ../../main/samba/src/EBox/Samba.pm:310
 msgid "To set up kerberos authentication"
 msgstr "Kerberos認証を設定する"
 
-#: ../../main/samba/src/EBox/Samba.pm:315
+#: ../../main/samba/src/EBox/Samba.pm:317
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
@@ -7864,11 +8585,11 @@ msgstr ""
 "NSSはユーザアカウントとグループアカウントの解決にLDAPを使用するようにする。 "
 "SambaのPDCの構成に必要です。"
 
-#: ../../main/samba/src/EBox/Samba.pm:321
+#: ../../main/samba/src/EBox/Samba.pm:323
 msgid "To add quota support to /home partition."
 msgstr "/homeパーティションにクォータサポートを追加します。"
 
-#: ../../main/samba/src/EBox/Samba.pm:326
+#: ../../main/samba/src/EBox/Samba.pm:328
 msgid ""
 "To configure System Security Services Daemon to manage remote authentication "
 "mechanisms"
@@ -7876,15 +8597,15 @@ msgstr ""
 "リモート認証機構を管理するために、システムセキュリティサービスデーモンを設定"
 "する"
 
-#: ../../main/samba/src/EBox/Samba.pm:332
+#: ../../main/samba/src/EBox/Samba.pm:334
 msgid "To enable extended attributes and acls."
 msgstr "拡張属性とACLを有効にする。"
 
-#: ../../main/samba/src/EBox/Samba.pm:360
+#: ../../main/samba/src/EBox/Samba.pm:362
 msgid "Domain and File sharing protocols"
 msgstr "ドメインとファイル共有プロトコル"
 
-#: ../../main/samba/src/EBox/Samba.pm:392
+#: ../../main/samba/src/EBox/Samba.pm:394
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -7898,7 +8619,7 @@ msgstr ""
 "モジュールがちょうど構成されている場合、変更を保存するか、リース待っているこ"
 "とは、このような状況を解決することができます"
 
-#: ../../main/samba/src/EBox/Samba.pm:396
+#: ../../main/samba/src/EBox/Samba.pm:398
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -7909,17 +8630,17 @@ msgstr ""
 "ジュールを有効にすることはできません。{oh}ネットワークインターフェイスを設定"
 "{ch}し、変更を保存すると、この状況を解決することができます"
 
-#: ../../main/samba/src/EBox/Samba.pm:997
+#: ../../main/samba/src/EBox/Samba.pm:1020
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr "共有にセキュリティ記述子の設定でエラー '{x}'：{y}"
 
-#: ../../main/samba/src/EBox/Samba.pm:1019
+#: ../../main/samba/src/EBox/Samba.pm:1042
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr "ファイルのセキュリティ記述子の設定でエラー{x} {y}：{z}"
 
-#: ../../main/samba/src/EBox/Samba.pm:1036
+#: ../../main/samba/src/EBox/Samba.pm:1065
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
@@ -7927,27 +8648,27 @@ msgstr ""
 "Sambaの共有でACLの設定でエラーが発生しました。詳細はzentyalログをチェックして"
 "ください。"
 
-#: ../../main/samba/src/EBox/Samba.pm:1572
+#: ../../main/samba/src/EBox/Samba.pm:1605
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr "一つだけを期待し'{name}'のグループで{count}の検索結果"
 
-#: ../../main/samba/src/EBox/Samba.pm:1913
+#: ../../main/samba/src/EBox/Samba.pm:1946
 msgid "Manage"
 msgstr "管理"
 
-#: ../../main/samba/src/EBox/Samba.pm:1925
+#: ../../main/samba/src/EBox/Samba.pm:1958
 msgid "Configure mode"
 msgstr "モード設定"
 
-#: ../../main/samba/src/EBox/Samba.pm:2063
+#: ../../main/samba/src/EBox/Samba.pm:2096
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2079
+#: ../../main/samba/src/EBox/Samba.pm:2112
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -7956,7 +8677,7 @@ msgstr ""
 "LDAPユーザ{user}が既に/etc/passwdにユーザとして存在しているため、復元すること"
 "はできません。削除するか、このユーザの名前を変更して、再試行してください"
 
-#: ../../main/samba/src/EBox/Samba.pm:2096
+#: ../../main/samba/src/EBox/Samba.pm:2129
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -7964,7 +8685,7 @@ msgid ""
 "{ex}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2106
+#: ../../main/samba/src/EBox/Samba.pm:2139
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
@@ -7972,7 +8693,7 @@ msgstr ""
 "復元サーバは、フォレストの一意のドメインコントローラである場合にのみ可能であ"
 "る"
 
-#: ../../main/samba/src/EBox/Samba.pm:2370
+#: ../../main/samba/src/EBox/Samba.pm:2403
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
@@ -7980,64 +8701,93 @@ msgstr ""
 "Zentyalが追加のドメインコントローラとして構成されている場合、ホスト名またはド"
 "メインを変更することはできません。"
 
-#: ../../main/samba/src/EBox/Samba.pm:2463
+#: ../../main/samba/src/EBox/Samba.pm:2496
 msgid "Users data and Filesystem shares"
 msgstr "ユーザデータとファイルシステムを共有"
 
-#: ../../main/samba/src/EBox/Samba.pm:2606
+#: ../../main/samba/src/EBox/Samba.pm:2639
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "アドレス {addr} は、{type} {name}により既に使われています"
 
-#: ../../main/samba/src/EBox/Samba.pm:3074
+#: ../../main/samba/src/EBox/Samba.pm:3221
+#: ../../main/samba/src/EBox/Samba.pm:3241
+#: ../../main/samba/src/EBox/Samba.pm:3252
 msgid "Client address"
 msgstr "クライアントアドレス"
 
-#: ../../main/samba/src/EBox/Samba.pm:3077
+#: ../../main/samba/src/EBox/Samba.pm:3224
 msgid "Resource"
 msgstr "リソース"
 
-#: ../../main/samba/src/EBox/Samba.pm:3081
+#: ../../main/samba/src/EBox/Samba.pm:3228
 msgid "Connect"
 msgstr "接続"
 
-#: ../../main/samba/src/EBox/Samba.pm:3082
+#: ../../main/samba/src/EBox/Samba.pm:3229
 msgid "Access to directory"
 msgstr "ディレクトリへのアクセス"
 
-#: ../../main/samba/src/EBox/Samba.pm:3083
+#: ../../main/samba/src/EBox/Samba.pm:3230
 msgid "Read file"
 msgstr "ファイルを読む"
 
-#: ../../main/samba/src/EBox/Samba.pm:3084
+#: ../../main/samba/src/EBox/Samba.pm:3231
 msgid "Write file"
 msgstr "ファイルを書く"
 
-#: ../../main/samba/src/EBox/Samba.pm:3085
+#: ../../main/samba/src/EBox/Samba.pm:3232
 msgid "Disconnect"
 msgstr "切断"
 
-#: ../../main/samba/src/EBox/Samba.pm:3086
+#: ../../main/samba/src/EBox/Samba.pm:3233
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "削除"
 
-#: ../../main/samba/src/EBox/Samba.pm:3087
+#: ../../main/samba/src/EBox/Samba.pm:3234
 msgid "Create directory"
 msgstr "ディレクトリを作成"
 
-#: ../../main/samba/src/EBox/Samba.pm:3088
+#: ../../main/samba/src/EBox/Samba.pm:3235
 msgid "Remove directory"
 msgstr "ディレクトリを削除"
 
-#: ../../main/samba/src/EBox/Samba.pm:3089
+#: ../../main/samba/src/EBox/Samba.pm:3236
 msgid "Rename"
 msgstr "名前の変更"
 
-#: ../../main/samba/src/EBox/Samba.pm:3093
+#: ../../main/samba/src/EBox/Samba.pm:3243
+#: ../../main/samba/src/EBox/Samba.pm:3254
+msgid "File name"
+msgstr "ファイル名"
+
+#: ../../main/samba/src/EBox/Samba.pm:3244
+#: ../../main/samba/src/EBox/Samba.pm:3248
+msgid "Virus"
+msgstr "ウイルス"
+
+#: ../../main/samba/src/EBox/Samba.pm:3255
+msgid "Quarantined file name"
+msgstr "検疫されたファイル名"
+
+#: ../../main/samba/src/EBox/Samba.pm:3256
+#: ../../main/samba/src/EBox/Samba.pm:3259
+msgid "Quarantine"
+msgstr "検疫"
+
+#: ../../main/samba/src/EBox/Samba.pm:3262
 msgid "Samba access"
 msgstr "Sambaのアクセス"
+
+#: ../../main/samba/src/EBox/Samba.pm:3273
+msgid "Samba virus"
+msgstr "Sambaのウイルス"
+
+#: ../../main/samba/src/EBox/Samba.pm:3284
+msgid "Samba quarantine"
+msgstr "Sambaの検疫"
 
 #: ../../main/mail/src/EBox/Mail.pm:148
 msgid "Generate mail aliases"
@@ -8137,7 +8887,7 @@ msgstr "メール発信"
 msgid "Outgoing Mail (Submission protocol)."
 msgstr "送信メール（提出プロトコル）。"
 
-#: ../../main/mail/src/EBox/Mail.pm:889
+#: ../../main/mail/src/EBox/Mail.pm:902
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -8145,140 +8895,152 @@ msgstr ""
 "それが完全修飾名ではないため、メール名としてホスト名を使用することはできませ"
 "ん。 、カスタムサーバメール名を定義してください"
 
-#: ../../main/mail/src/EBox/Mail.pm:894
+#: ../../main/mail/src/EBox/Mail.pm:907
 msgid "The mail name must be a fully qualified name"
 msgstr "メール名は、完全修飾名でなければなりません"
 
-#: ../../main/mail/src/EBox/Mail.pm:898 ../../main/mail/src/EBox/Mail.pm:909
-#: ../../main/mail/src/EBox/Mail.pm:917
+#: ../../main/mail/src/EBox/Mail.pm:911 ../../main/mail/src/EBox/Mail.pm:922
+#: ../../main/mail/src/EBox/Mail.pm:930
 msgid "Host mail name"
 msgstr "ホストメール名"
 
-#: ../../main/mail/src/EBox/Mail.pm:912
+#: ../../main/mail/src/EBox/Mail.pm:925
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "メール名と仮想メールドメイン名が等しい"
 
-#: ../../main/mail/src/EBox/Mail.pm:1434
+#: ../../main/mail/src/EBox/Mail.pm:1493
 msgid "SMTP service"
 msgstr "SMTPサービス"
 
-#: ../../main/mail/src/EBox/Mail.pm:1441
+#: ../../main/mail/src/EBox/Mail.pm:1500
 msgid "POP3 service"
 msgstr "POP3サービス"
 
-#: ../../main/mail/src/EBox/Mail.pm:1447
+#: ../../main/mail/src/EBox/Mail.pm:1506
 msgid "POP3S service"
 msgstr "POP3Sサービス"
 
-#: ../../main/mail/src/EBox/Mail.pm:1453
+#: ../../main/mail/src/EBox/Mail.pm:1512
 msgid "IMAP service"
 msgstr "IMAPサービス"
 
-#: ../../main/mail/src/EBox/Mail.pm:1459
+#: ../../main/mail/src/EBox/Mail.pm:1518
 msgid "IMAPS service"
 msgstr "IMAPSサービス"
 
-#: ../../main/mail/src/EBox/Mail.pm:1516
+#: ../../main/mail/src/EBox/Mail.pm:1562
+msgid "enabled"
+msgstr "有効"
+
+#: ../../main/mail/src/EBox/Mail.pm:1567
+msgid "Mail server's filter"
+msgstr "メールサーバフィルタ"
+
+#: ../../main/mail/src/EBox/Mail.pm:1576 ../../main/mail/src/EBox/Mail.pm:1583
+msgid "Filter type"
+msgstr "フィルタ種別"
+
+#: ../../main/mail/src/EBox/Mail.pm:1621
 msgid "Virtual Mail Domains"
 msgstr "仮想メールドメイン"
 
-#: ../../main/mail/src/EBox/Mail.pm:1523
+#: ../../main/mail/src/EBox/Mail.pm:1628
 msgid "Greylist"
 msgstr "グレイリスト"
 
-#: ../../main/mail/src/EBox/Mail.pm:1530
+#: ../../main/mail/src/EBox/Mail.pm:1635
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "キュー管理"
 
-#: ../../main/mail/src/EBox/Mail.pm:1557
+#: ../../main/mail/src/EBox/Mail.pm:1662
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "外部アカウントからのメールの取得"
 
-#: ../../main/mail/src/EBox/Mail.pm:1572
+#: ../../main/mail/src/EBox/Mail.pm:1677
 msgid "Message ID"
 msgstr "メッセージID"
 
-#: ../../main/mail/src/EBox/Mail.pm:1575
+#: ../../main/mail/src/EBox/Mail.pm:1680
 msgid "From hostname"
 msgstr "ホスト名から"
 
-#: ../../main/mail/src/EBox/Mail.pm:1576
+#: ../../main/mail/src/EBox/Mail.pm:1681
 msgid "From host ip"
 msgstr "ホストIPから"
 
-#: ../../main/mail/src/EBox/Mail.pm:1577
+#: ../../main/mail/src/EBox/Mail.pm:1682
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "サイズ (bytes)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1578
+#: ../../main/mail/src/EBox/Mail.pm:1683
 msgid "Relay"
 msgstr "リレー"
 
-#: ../../main/mail/src/EBox/Mail.pm:1579
+#: ../../main/mail/src/EBox/Mail.pm:1684
 msgid "Message type"
 msgstr "メッセージ種別"
 
-#: ../../main/mail/src/EBox/Mail.pm:1582
+#: ../../main/mail/src/EBox/Mail.pm:1687
 msgid "Additional Info"
 msgstr "追加情報"
 
-#: ../../main/mail/src/EBox/Mail.pm:1593
+#: ../../main/mail/src/EBox/Mail.pm:1698
 msgid "Successful messages"
 msgstr "メッセージ"
 
-#: ../../main/mail/src/EBox/Mail.pm:1594
+#: ../../main/mail/src/EBox/Mail.pm:1699
 msgid "Maximum message size exceeded"
 msgstr "メッセージサイズ最大値を超えています"
 
-#: ../../main/mail/src/EBox/Mail.pm:1595
+#: ../../main/mail/src/EBox/Mail.pm:1700
 msgid "User quota exceeded"
 msgstr "ユーザクォータを超えました"
 
-#: ../../main/mail/src/EBox/Mail.pm:1596
+#: ../../main/mail/src/EBox/Mail.pm:1701
 msgid "Relay access denied"
 msgstr "リレーアクセスが拒否されました"
 
-#: ../../main/mail/src/EBox/Mail.pm:1597
+#: ../../main/mail/src/EBox/Mail.pm:1702
 msgid "Account does not exist"
 msgstr "アカウントが存在しません"
 
-#: ../../main/mail/src/EBox/Mail.pm:1598
+#: ../../main/mail/src/EBox/Mail.pm:1703
 msgid "Host unreachable"
 msgstr "ホストに到達できません"
 
-#: ../../main/mail/src/EBox/Mail.pm:1599
+#: ../../main/mail/src/EBox/Mail.pm:1704
 msgid "Authentication error"
 msgstr "認証エラー"
 
-#: ../../main/mail/src/EBox/Mail.pm:1600
+#: ../../main/mail/src/EBox/Mail.pm:1705
 msgid "Greylisted"
 msgstr "グレイリスト"
 
-#: ../../main/mail/src/EBox/Mail.pm:1601
+#: ../../main/mail/src/EBox/Mail.pm:1706
 msgid "Relay rejected by the smarthost"
 msgstr "スマートホストで拒否されたリレーは"
 
-#: ../../main/mail/src/EBox/Mail.pm:1602
+#: ../../main/mail/src/EBox/Mail.pm:1707
 msgid "Other events"
 msgstr "その他のイベント"
 
-#: ../../main/mail/src/EBox/Mail.pm:1680
+#: ../../main/mail/src/EBox/Mail.pm:1785
 msgid "Mail SMTP server"
 msgstr "メールSMTPサーバ"
 
-#: ../../main/mail/src/EBox/Mail.pm:1688
+#: ../../main/mail/src/EBox/Mail.pm:1793
 msgid "Mail POP/IMAP server"
 msgstr "メール POP/IMAP サーバ"
 
-#: ../../main/mail/src/EBox/Mail.pm:1765
+#: ../../main/mail/src/EBox/Mail.pm:1870
 msgid "Mailboxes"
 msgstr "メールボックス"
 
-#: ../../main/mail/src/EBox/Mail.pm:1814
+#: ../../main/mail/src/EBox/Mail.pm:1919
 #, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "アドレス {addr} は、外部エイリアスとして使われています"
@@ -8433,7 +9195,7 @@ msgstr "メールサーバオプション"
 msgid "To configure whitelist for greylisting"
 msgstr "グレイリスティングのためのホワイトリストを設定する"
 
-#: ../../main/mail/src/EBox/Mail/Greylist.pm:243
+#: ../../main/mail/src/EBox/Mail/Greylist.pm:263
 msgid "Greylist service"
 msgstr "グレイリストサービス"
 
@@ -8461,6 +9223,14 @@ msgstr "メールフィルタオプション"
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:132
 msgid "custom"
 msgstr "カスタム"
+
+#: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:199
+msgid ""
+"As long mailfilter module is enabled the mail server will use the filter it "
+"provides"
+msgstr ""
+"長いメールフィルタモジュールが有効であるように、メールサーバは、それが提供す"
+"るフィルタを使用します"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:52
 msgid "Virtual domain aliases"
@@ -11295,7 +12065,7 @@ msgstr "これらのルールによりZentyalから外部サービスへのア�
 msgid "These rules are automatically added by the Zentyal services."
 msgstr "これらのルールは、自動的にZentyalサービスによって追加されます。"
 
-#: ../../main/samba/stubs/shares.conf.mas:17
+#: ../../main/samba/stubs/shares.conf.mas:21
 msgid "Home Directories"
 msgstr "ホームディレクトリ"
 
@@ -12245,506 +13015,6 @@ msgstr "メールモジュール有効のときのみ以下の設定が適用さ
 #~ "このユーザは、Jabberアカウントを持っている。ユーザが現在接続している場合"
 #~ "Jabber認証が再度必要になるまで、それは、接続されています。"
 
-#~ msgid "Signatures"
-#~ msgstr "署名"
-
-#~ msgid "Database Update Status"
-#~ msgstr "データベースの更新状態"
-
-#~ msgid "Antivirus"
-#~ msgstr "アンチウィルス"
-
-#~ msgid ""
-#~ "The antivirus database has not been updated since the module was enabled."
-#~ msgstr ""
-#~ "定義データベースは、モジュールが有効になってから更新されていません。"
-
-#~ msgid "The last update failed."
-#~ msgstr "最後の更新に失敗しました。"
-
-#~ msgid "Last update successful."
-#~ msgstr "最後のアップデートに成功。"
-
-#~ msgid ""
-#~ "The antivirus module is not configured. Enable it first in Module Status "
-#~ "section."
-#~ msgstr ""
-#~ "ウィルス対策モジュールが構成されていません。モジュール状態セクションで最初"
-#~ "にそれを有効にします。"
-
-#~ msgid ""
-#~ "The antivirus module is not enabled. Enable it first to know the "
-#~ "antivirus status."
-#~ msgstr ""
-#~ "ウィルス対策モジュールが有効になっていません。アンチウィルス状態を知ること"
-#~ "が最初にそれを有効にします。"
-
-#~ msgid "Unknown event {event}."
-#~ msgstr "不明なイベント{event}。"
-
-#~ msgid ""
-#~ "Want to protect your system against scams, spear phishing, frauds and "
-#~ "other junk? Get one of the {oh}Commercial Editions{ch} that will keep "
-#~ "your Antvirus database always up-to-date."
-#~ msgstr ""
-#~ "詐欺、スピアフィッシング、詐欺やその他の迷惑に対してあなたのシステムを保護"
-#~ "してみませんか？最新に必ずアンチウィルス対策データベースを維持する{oh}商用"
-#~ "版{ch}のいずれかを取得します。"
-
-#~ msgid " To configure clamd daemon"
-#~ msgstr "clamdへデーモンを設定する"
-
-#~ msgid "To schedule the launch of the updater"
-#~ msgstr "アップデータの立ち上げをスケジュールする"
-
-#~ msgid "Custom {app} profile configuration for {bin} binary"
-#~ msgstr "{bin}バイナリのカスタム{app}のプロファイルを設定する"
-
-#~ msgid "Disable {app} profile for {bin} binary"
-#~ msgstr "{{bin}バイナリ用の{app}のプロファイルを無効にする"
-
-#~ msgid "Success"
-#~ msgstr "成功"
-
-#~ msgid "Failure"
-#~ msgstr "失敗"
-
-#~ msgid "Antivirus DB updates"
-#~ msgstr "アンチウィルスDBの更新"
-
-#~ msgid "Mail Filter"
-#~ msgstr "メールフィルタ"
-
-#~ msgid "Add clamav user to amavis group"
-#~ msgstr "ClamAVユーザをAMaViSグループに追加"
-
-#~ msgid "Clamav need access to amavis fields to properly scan mail"
-#~ msgstr ""
-#~ "ClamAVがメールをスキャンするにはAMaViSフィールドへのアクセスが必要です"
-
-#~ msgid "Add clamav user to p3scan group"
-#~ msgstr "ClamAVユーザをp3scanグループに追加"
-
-#~ msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
-#~ msgstr ""
-#~ "ClamAVがPOPプロキシのp3scanグループでスキャンする為のアクセスが必要です"
-
-#~ msgid "Add spam and ham system users"
-#~ msgstr "スパムおよびハムシステムユーザを追加します。"
-
-#~ msgid ""
-#~ "This users are for the email accounts used for training the bayesian "
-#~ "filter"
-#~ msgstr ""
-#~ "このユーザは、電子メールアカウントのベイジアンフィルタを訓練するために使用"
-#~ "され"
-
-#~ msgid "Update LDAP"
-#~ msgstr "LDAPを更新"
-
-#~ msgid "Add amavis specific classes and fields"
-#~ msgstr "AMaViS用のクラスとフィールドを追加"
-
-#~ msgid ""
-#~ "Mail server has a custom filter set, unset it before enabling Zentyal "
-#~ "Mail Filter module"
-#~ msgstr ""
-#~ "メールサーバはZentyalメールフィルタモジュールを有効にする前に、カスタム"
-#~ "フィルタセット、アンセットそれを持っている"
-
-#~ msgid "Cannot proceed because the filter is in use"
-#~ msgstr "フィルタが使われているため進めません"
-
-#~ msgid "Mail filter"
-#~ msgstr "メールフィルタ"
-
-#~ msgid "Sender address"
-#~ msgstr "送信者アドレス"
-
-#~ msgid "Recipient address"
-#~ msgstr "受信者アドレス"
-
-#~ msgid "Spam hits"
-#~ msgstr "スパムヒット値"
-
-#~ msgid "Bad header found"
-#~ msgstr "誤ったヘッダ発見"
-
-#~ msgid "Spam found"
-#~ msgstr "スパムが見つかりました。"
-
-#~ msgid "Forbidden attached file found"
-#~ msgstr "禁断の添付ファイルが見つかり"
-
-#~ msgid "Address in blacklist found"
-#~ msgstr "ブラックリストのアドレスが見つかりました。"
-
-#~ msgid "Virus found"
-#~ msgstr "ウイルス発見"
-
-#~ msgid "Clean message"
-#~ msgstr "クリーンメッセージ"
-
-#~ msgid "Unable to reinject in the mail server"
-#~ msgstr "メールサーバに再挿入することができません"
-
-#~ msgid "SMTP filter"
-#~ msgstr "SMTPフィルタ"
-
-#~ msgid "SMTP Mail Filter"
-#~ msgstr "SMTPメールフィルタ"
-
-#~ msgid "Antispam"
-#~ msgstr "アンチスパム"
-
-#~ msgid "Files ACL"
-#~ msgstr "ファイルのACL"
-
-#~ msgid "email address"
-#~ msgstr "Eメールアドレス"
-
-#~ msgid ""
-#~ "The sender ought be either an email address or a domain name prefixed "
-#~ "with '@'"
-#~ msgstr ""
-#~ "送信者はEメールアドレスか'@'でプリフィックスされたドメイン名のいずれかを使"
-#~ "えます"
-
-#~ msgid "Write down a decimal number"
-#~ msgstr "進数を書き留め"
-
-#~ msgid "Only non-zero positive numbers are allowed"
-#~ msgstr "唯一の非ゼロの正の数が許可されています"
-
-#~ msgid "Write down a number lesser than {m}"
-#~ msgstr "{m}よりも少ない数を書き留め"
-
-#~ msgid "Write down a number greater  than {m}"
-#~ msgstr "{m}よりも大きい番号を書き留め"
-
-#~ msgid "MIME type"
-#~ msgstr "MIMEタイプ"
-
-#~ msgid "file extension"
-#~ msgstr "ファイル拡張子"
-
-#~ msgid "Pass"
-#~ msgstr "通過"
-
-#~ msgid "Notify sender server"
-#~ msgstr "送信側サーバに通知"
-
-#~ msgid "Notify mail sender account"
-#~ msgstr "メール送信アカウントを通知"
-
-#~ msgid "Drop silently"
-#~ msgstr "何もせすドロップ"
-
-#~ msgid "Mailfilter's policy"
-#~ msgstr "メールフィルタポリシー"
-
-#~ msgid "To configure amavis"
-#~ msgstr "AMaViSを設定"
-
-#~ msgid "Zentyal internal mail filter"
-#~ msgstr "Zentyal内部メールフィルタ"
-
-#~ msgid "SMTP filter proxy"
-#~ msgstr "SMTPフィルタプロキシ"
-
-#~ msgid "Virtual mail domain {vd} does not exist"
-#~ msgstr "仮想メールドメイン {vd} は存在しません"
-
-#~ msgid " To configure spamassassin daemon"
-#~ msgstr "Spamassassinデーモンを設定"
-
-#~ msgid "Spam threshold"
-#~ msgstr "迷惑メール閾値"
-
-#~ msgid "It must be a number(decimal point allowed)"
-#~ msgstr "数字を入力してください(小数点も利用可能)"
-
-#~ msgid "The spam's threshold cannot be higher than its autolearn threshold"
-#~ msgstr "迷惑メールの閾値は学習のしきい値以下に設定してください"
-
-#~ msgid ""
-#~ "The spam's threshold cannot be lower or equal than its ham's autolearn "
-#~ "threshold"
-#~ msgstr ""
-#~ "迷惑メールの閾値は通常メールの学習のしきい値よりも高く設定してください"
-
-#~ msgid ""
-#~ "Cannot learn because bayesian filter is disabled in the current "
-#~ "configuration. In order to be able to learn enable the bayesian filter "
-#~ "and save changes"
-#~ msgstr ""
-#~ "ベイジアンフィルタが無効になっているため学習を開始できません。ベイジアン"
-#~ "フィルタが有効になるように設定してください"
-
-#~ msgid "Accounts from the domain {d} cannot train the bayesian filter"
-#~ msgstr ""
-#~ "ドメイン{d}からアカウントのベイジアンフィルタを訓練することはできません"
-
-#~ msgid "External connections"
-#~ msgstr "外部接続"
-
-#~ msgid "Attached Files Filter"
-#~ msgstr "添付ファイルフィルタ"
-
-#~ msgid ""
-#~ "Filter mail messages according attached files. The transparent POP proxy "
-#~ "only filters by extension"
-#~ msgstr ""
-#~ "添付ファイルに従ってメールメッセージをフィルタリングします。透明POPプロキ"
-#~ "シは拡張子でフィルタリングする"
-
-#~ msgid "Use virus filtering"
-#~ msgstr "ウィルスフィルタを使用"
-
-#~ msgid "Use spam filtering"
-#~ msgstr "迷惑メールフィルタを使用"
-
-#~ msgid "default"
-#~ msgstr "デフォルト"
-
-#~ msgid "custom threshold"
-#~ msgstr "カスタム閾値"
-
-#~ msgid "Antispam sender policy"
-#~ msgstr "アンチスパムの送信者ポリシー"
-
-#~ msgid "Virtual Domains specific policies"
-#~ msgstr "仮想ドメインの固有のポリシー"
-
-#~ msgid "virtual domain policy"
-#~ msgstr "仮想ドメインポリシー"
-
-#~ msgid ""
-#~ "There are no virtual mail domains managed by this server. You can create "
-#~ "some in the {openA}virtual domains mail page{closeA}."
-#~ msgstr ""
-#~ "このサーバが管理してない仮想メールドメインはありません。あなたは、{openA}"
-#~ "仮想ドメインのメールページ{closeA}内のいくつかを作成することができます。"
-
-#~ msgid "The score threshold to mark a message as spam"
-#~ msgstr "メッセージを迷惑メールとしてマークする閾値スコア"
-
-#~ msgid "Spam subject tag"
-#~ msgstr "迷惑メール題名タグ"
-
-#~ msgid "Tag which will be added to the spam mail subject"
-#~ msgstr "迷惑メール題名として追加するタグ"
-
-#~ msgid "Use Bayesian classifier"
-#~ msgstr "ベイジアンクラスフィルタを使用"
-
-#~ msgid "Auto-whitelist"
-#~ msgstr "自動ホワイトリスト"
-
-#~ msgid "Change the score of mail according to the sender history"
-#~ msgstr "送信者の履歴を使用してメールのスコアを変更"
-
-#~ msgid "Auto-learn"
-#~ msgstr "自動学習"
-
-#~ msgid "Feedback the learning system with messages that reach the threshold"
-#~ msgstr "閾値に達したメッセージを使って学習システムにフィードバック"
-
-#~ msgid "Autolearn spam threshold"
-#~ msgstr "迷惑メールの閾値を自動で学習"
-
-#~ msgid ""
-#~ "Spam messages with a score equal or greater than this threshold will be "
-#~ "added to the learning system "
-#~ msgstr "この閾値以上のスパムメッセージが学習システムに追加されます"
-
-#~ msgid "Autolearn ham threshold"
-#~ msgstr "通常メールの閾値を自動で学習"
-
-#~ msgid ""
-#~ "Ham messages with a score below this threshold will be added to the "
-#~ "learning system"
-#~ msgstr "この閾値を下回るスコアの通常メッセージを学習システムに追加"
-
-#~ msgid "Antispam configuration"
-#~ msgstr "アンチスパムの設定"
-
-#~ msgid ""
-#~ "You must define autolearn spam threshold when autolearn option is active"
-#~ msgstr ""
-#~ "自動学習オプションがアクティブであるときは、自動学習でのスパムの閾値を定義"
-#~ "する必要があります"
-
-#~ msgid ""
-#~ "You must define autolearn ham threshold when autolearn option is active"
-#~ msgstr ""
-#~ "自動学習オプションがアクティブであるときに、自動学習ハムのしきい値を定義す"
-#~ "る必要があります"
-
-#~ msgid ""
-#~ "The spam's autolearn threshold cannot be lower than the default spam's "
-#~ "treshold "
-#~ msgstr ""
-#~ "迷惑メールの学習の閾値はデフォルトの迷惑メールの閾値以上に設定してください"
-
-#~ msgid ""
-#~ "The ham's autolearn threshold canot be higher or equal than the default "
-#~ "spam level"
-#~ msgstr ""
-#~ "通常メールの学習の閾値はデフォルトの迷惑メールのレベルよりも小さく設定して"
-#~ "ください"
-
-#~ msgid "External mail domain"
-#~ msgstr "外部メールドメイン"
-
-#~ msgid "Allow connection"
-#~ msgstr "接続を許可する"
-
-#~ msgid "External mail domains"
-#~ msgstr "外部メールドメイン"
-
-#~ msgid "external mail domain"
-#~ msgstr "外部メールドメイン"
-
-#~ msgid ""
-#~ "Here you can specify which external mail domains can connect to the mail "
-#~ "filter"
-#~ msgstr ""
-#~ "ここでは、外部のメールドメインがメールフィルタに接続できるかを指定すること"
-#~ "ができます"
-
-#~ msgid "{d} is a internal Zentyal virtual main domain"
-#~ msgstr "{d}は、内部Zentyal仮想メインドメインである"
-
-#~ msgid "External mail server"
-#~ msgstr "外部メールサーバ"
-
-#~ msgid "IP address of the server"
-#~ msgstr "サーバのIPアドレス"
-
-#~ msgid "External mail servers"
-#~ msgstr "外部メールサーバ"
-
-#~ msgid "external mail server"
-#~ msgstr "外部メールサーバ"
-
-#~ msgid ""
-#~ "Here you can specify which external mail servers can connect to the mail "
-#~ "filter"
-#~ msgstr ""
-#~ "ここでは、外部のメールサーバがメールフィルタに接続できるかを指定することが"
-#~ "できます"
-
-#~ msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
-#~ msgstr ""
-#~ "無効な外部MTAです: {mta}。ローカルのネットワークアドレスは利用できません"
-
-#~ msgid "Antivirus enabled"
-#~ msgstr "アンチウィルスを有効にする"
-
-#~ msgid "Antispam enabled"
-#~ msgstr "アンチスパムを有効にする"
-
-#~ msgid "Service's port"
-#~ msgstr "サービスポート"
-
-#~ msgid "Notify of non-spam problematic messages"
-#~ msgstr "問題のある非迷惑メッセージを通知"
-
-#~ msgid "The port {port} is already used by module {mod}"
-#~ msgstr "ポート {port} はすでにモジュール {mod} で使われています"
-
-#~ msgid "Mail sender"
-#~ msgstr "メール送信者"
-
-#~ msgid "Policy"
-#~ msgstr "ポリシー"
-
-#~ msgid "Sender policy for virtual domain"
-#~ msgstr "仮想ドメインの送信者ポリシー"
-
-#~ msgid "sender policy"
-#~ msgstr "送信者ポリシー"
-
-#~ msgid "whitelist"
-#~ msgstr "ホワイトリスト"
-
-#~ msgid "blacklist"
-#~ msgstr "ブラックリスト"
-
-#~ msgid "process"
-#~ msgstr "プロセス"
-
-#~ msgid "MIME Type"
-#~ msgstr "MIMEタイプ"
-
-#~ msgid "Allow"
-#~ msgstr "許可"
-
-#~ msgid "MIME types"
-#~ msgstr "MIMEタイプ"
-
-#~ msgid ""
-#~ "MIME types which are not listed below are allowed. MIME types aren't used "
-#~ "by POP transparent proxy"
-#~ msgstr ""
-#~ "以下に記載されていないMIMEタイプが許可されています。 MIMEタイプは、POP透過"
-#~ "プロキシでは使用されません"
-
-#~ msgid "File extension"
-#~ msgstr "ファイル拡張子"
-
-#~ msgid "File extensions"
-#~ msgstr "ファイル拡張子"
-
-#~ msgid "Extensions which are not listed below are allowed"
-#~ msgstr "以下に記載されていない拡張機能が許可されています"
-
-#~ msgid "Mailbox"
-#~ msgstr "メールボックス"
-
-#~ msgid "Mailbox contains"
-#~ msgstr "メールボックス内容"
-
-#~ msgid "Train bayesian spam filter"
-#~ msgstr "ベイジアンスパムフィルタをトレーニング"
-
-#~ msgid "Learned from messages"
-#~ msgstr "メッセージから学習"
-
-#~ msgid "Train"
-#~ msgstr "学習"
-
-#~ msgid "spam"
-#~ msgstr "迷惑メール"
-
-#~ msgid "ham"
-#~ msgstr "通常メール"
-
-#~ msgid "Invalid mailbox type: {type}"
-#~ msgstr "無効なメールボックス形式です: {type}"
-
-#~ msgid "Sender policy"
-#~ msgstr "送信者ポリシー"
-
-#~ msgid "Virus policy"
-#~ msgstr "ウィルスポリシー"
-
-#~ msgid "Spam policy"
-#~ msgstr "迷惑メールポリシー"
-
-#~ msgid "Bounce policy will be ignored for high-score spam messages"
-#~ msgstr "バウンスポリシーは、ハイスコアスパムメッセージでは無視されます"
-
-#~ msgid "Banned files policy"
-#~ msgstr "隔離ファイルポリシー"
-
-#~ msgid "Bad header policy"
-#~ msgstr "誤ったヘッダポリシー"
-
-#~ msgid "Filter Policies"
-#~ msgstr "フィルタポリシー"
-
 #, fuzzy
 #~ msgid "L2TP connections"
 #~ msgstr "L2TP接続"
@@ -13215,9 +13485,6 @@ msgstr "メールモジュール有効のときのみ以下の設定が適用さ
 #~ "全てのインターフェイスのための既存の '小さなパケットの優先順位'は既に存在"
 #~ "しています"
 
-#~ msgid "Filter type"
-#~ msgstr "フィルタ種別"
-
 #~ msgid ""
 #~ "Priorization of small control packages will affect small ACK, SYN, FIN "
 #~ "and RST control packages"
@@ -13425,18 +13692,6 @@ msgstr "メールモジュール有効のときのみ以下の設定が適用さ
 #~ "期限切れのセッションを通報します。 どうぞ、{ohref} GPOのメインページ"
 #~ "{chref}からこのページに再び移動してください。"
 
-#~ msgid "Enable virus scanning"
-#~ msgstr "ウィルススキャンを有効にする"
-
-#~ msgid "Antivirus default settings"
-#~ msgstr "アンチウィルスのデフォルト設定"
-
-#~ msgid ""
-#~ "Zentyal antivirus module must be installed and enabled to use this feature"
-#~ msgstr ""
-#~ "Zentyalウィルス対策モジュールがインストールされ、この機能を使用するには有"
-#~ "効にする必要があります"
-
 #~ msgid "Group Policy Links"
 #~ msgstr "グループポリシーリンク"
 
@@ -13461,12 +13716,6 @@ msgstr "メールモジュール有効のときのみ以下の設定が適用さ
 #~ msgstr ""
 #~ "使用するためには、モジュール状態セクションでファイル共有モジュールを有効に"
 #~ "する必要があります"
-
-#~ msgid "Samba shares antivirus exceptions"
-#~ msgstr "Samba共有でのウィルス対策の例外"
-
-#~ msgid "Add exceptions to the default antivirus settings"
-#~ msgstr "デフォルトのウィルス対策設定に例外を追加"
 
 #~ msgid ""
 #~ "External AD mode cannot be set once the users module has been configured."
@@ -13714,24 +13963,6 @@ msgstr "メールモジュール有効のときのみ以下の設定が適用さ
 #~ msgstr ""
 #~ "モード{mode}で実行中であり、バックアップがモード {bpMode}で行われたため、"
 #~ "ユーザがモジュールを復元することはできません"
-
-#~ msgid "File name"
-#~ msgstr "ファイル名"
-
-#~ msgid "Virus"
-#~ msgstr "ウイルス"
-
-#~ msgid "Quarantined file name"
-#~ msgstr "検疫されたファイル名"
-
-#~ msgid "Quarantine"
-#~ msgstr "検疫"
-
-#~ msgid "Samba virus"
-#~ msgstr "Sambaのウイルス"
-
-#~ msgid "Samba quarantine"
-#~ msgstr "Sambaの検疫"
 
 #~ msgid "HTTP Proxy"
 #~ msgstr "HTTPプロキシ"
@@ -14453,19 +14684,6 @@ msgstr "メールモジュール有効のときのみ以下の設定が適用さ
 #~ msgstr ""
 #~ "透過プロキシからいくつかのアドレスを免除することができます。ドメインはプロ"
 #~ "セス変更を保存する時に解決されます。"
-
-#~ msgid "enabled"
-#~ msgstr "有効"
-
-#~ msgid "Mail server's filter"
-#~ msgstr "メールサーバフィルタ"
-
-#~ msgid ""
-#~ "As long mailfilter module is enabled the mail server will use the filter "
-#~ "it provides"
-#~ msgstr ""
-#~ "長いメールフィルタモジュールが有効であるように、メールサーバは、それが提供"
-#~ "するフィルタを使用します"
 
 #~ msgid "Leave Cluster"
 #~ msgstr "クラスタのままに"

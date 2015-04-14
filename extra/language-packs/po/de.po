@@ -20,6 +20,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
+#: ../../main/mail/src/EBox/Mail.pm:1562
 msgid "disabled"
 msgstr "deaktiviert"
 
@@ -59,8 +60,8 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
-"Dies ist kein gültiges Zentyal-zu-Zentyal Konfigurationspaket. (Fehlendes "
-"CA-Zertifikat Datei)"
+"Dies ist kein gültiges Zentyal-zu-Zentyal Konfigurationspaket. (Fehlendes CA-"
+"Zertifikat Datei)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
 msgid ""
@@ -162,6 +163,7 @@ msgstr "Aktiviert"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:891
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
 #: ../../main/core/src/EBox/SysInfo.pm:480
 #: ../../main/core/src/EBox/RemoteServices.pm:1306
@@ -321,9 +323,9 @@ msgid ""
 msgstr ""
 "{openpar}Sie können hier die Netzwerke hinzufügen, die Sie für VPN-Benutzer "
 "freigeben wollen.{closepar}{openpar}Normalerweise erlauben Sie den Zugriff "
-"zu Ihrem LAN, indem Sie die Netzwerkadresse hier "
-"angeben{closepar}{openpar}.Hat ein verfügbares Netzwerk dieselbe Adresse wie "
-"das VPN-Netzwerk, wird das verfügbare Netzwerk ignoriert.{closepar}"
+"zu Ihrem LAN, indem Sie die Netzwerkadresse hier angeben{closepar}{openpar}."
+"Hat ein verfügbares Netzwerk dieselbe Adresse wie das VPN-Netzwerk, wird das "
+"verfügbare Netzwerk ignoriert.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -394,9 +396,9 @@ msgid ""
 "module{closehref} and create it.{closepar}"
 msgstr ""
 "{openpar}Sie müssen ein CA Zertifikat erstellen um einen VPN Server zu "
-"betreiben. {closepar}{openpar}Bitte gehen Sie zur "
-"{openhref}Modulzertifizierungsstelle{closehref} und erstellen Sie ein neues "
-"Zertifikat.{closepar}"
+"betreiben. {closepar}{openpar}Bitte gehen Sie zur {openhref}"
+"Modulzertifizierungsstelle{closehref} und erstellen Sie ein neues Zertifikat."
+"{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
@@ -567,8 +569,8 @@ msgid ""
 "server. Typically, this will be a public IP or host name"
 msgstr ""
 "Dies ist die Adresse, welche von den VPN-Clients verwendet wird um zum "
-"Server eine Verbindung aufzubauen. Normalerweise ist dies die öffentliche "
-"IP-Adresse oder der Hostname"
+"Server eine Verbindung aufzubauen. Normalerweise ist dies die öffentliche IP-"
+"Adresse oder der Hostname"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:87
 msgid "Additional server address (optional)"
@@ -654,8 +656,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
-"Es sind keine Zertifikate für diesen Client verfügbar. Bitte "
-"{ohref}erstellen{chref} Sie eines"
+"Es sind keine Zertifikate für diesen Client verfügbar. Bitte {ohref}"
+"erstellen{chref} Sie eines"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -990,6 +992,7 @@ msgid "Common name"
 msgstr "Allgemeiner Name"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
+#: ../../main/mail/src/EBox/Mail.pm:1579
 msgid "Address"
 msgstr "Adresse"
 
@@ -1007,11 +1010,16 @@ msgstr "OpenVPN-Dienste"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1479
 #: ../../main/printers/src/EBox/Printers.pm:396
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:62
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:432
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:475
 #: ../../main/dhcp/src/EBox/DHCP.pm:979
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3073
-#: ../../main/mail/src/EBox/Mail.pm:1571
+#: ../../main/samba/src/EBox/Samba.pm:3220
+#: ../../main/samba/src/EBox/Samba.pm:3240
+#: ../../main/samba/src/EBox/Samba.pm:3251
+#: ../../main/mail/src/EBox/Mail.pm:1676
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
@@ -1024,15 +1032,18 @@ msgstr "Datum"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1480
 #: ../../main/printers/src/EBox/Printers.pm:397
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:434
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:478
 #: ../../main/dhcp/src/EBox/DHCP.pm:983
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/mail/src/EBox/Mail.pm:1581
+#: ../../main/mail/src/EBox/Mail.pm:1686
 msgid "Event"
 msgstr "Ereignis"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
+#: ../../main/samba/src/EBox/Samba.pm:3245
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1156,7 +1167,7 @@ msgstr "hostname"
 
 #: ../../main/dns/src/EBox/DNS.pm:1694
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2595
+#: ../../main/samba/src/EBox/Samba.pm:2628
 msgid "alias"
 msgstr "auch"
 
@@ -1250,7 +1261,7 @@ msgstr "Aktiviere den transparenten DNS Zwischenspeicher"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:1900
+#: ../../main/samba/src/EBox/Samba.pm:1933
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
@@ -1352,6 +1363,7 @@ msgstr "Diese Domäne"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
+#: ../../main/mail/src/EBox/Mail.pm:1577
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
@@ -1462,8 +1474,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "mx.{name}?"
 msgstr ""
-"Der angegebene Hostname ist nicht voll Qualifiziert (FQDN). Meinen Sie "
-"mx.{name}?"
+"Der angegebene Hostname ist nicht voll Qualifiziert (FQDN). Meinen Sie mx."
+"{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:189
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:217
@@ -1488,10 +1500,10 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
-"Die kleinste Präferenz-Nummer hat die höchste Priorität. Nach Abfrage des "
-"MX-Eintrages durch einen externen Mailversender (meist ein anderer "
-"Mailserver) ist dies der erste Server an dem versucht wird die Nachricht "
-"zuzustellen. Der erlaubte Bereich geht von ({min}, {max})"
+"Die kleinste Präferenz-Nummer hat die höchste Priorität. Nach Abfrage des MX-"
+"Eintrages durch einen externen Mailversender (meist ein anderer Mailserver) "
+"ist dies der erste Server an dem versucht wird die Nachricht zuzustellen. "
+"Der erlaubte Bereich geht von ({min}, {max})"
 
 # in german speaking countries 'mail exchanger' is rarely used. more common is 'MX', 'MX record' or 'MX Eintrag'.
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:232
@@ -1513,12 +1525,13 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:606
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:71
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:53
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1894
+#: ../../main/samba/src/EBox/Samba.pm:1927
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "Domäne"
@@ -1710,7 +1723,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3075
+#: ../../main/samba/src/EBox/Samba.pm:3222
+#: ../../main/samba/src/EBox/Samba.pm:3242
+#: ../../main/samba/src/EBox/Samba.pm:3253
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2049,8 +2064,10 @@ msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr ""
 "Das Zertifikat mit der üblichen Bezeichnung {cn} gibt es NICHT bei dieser CA"
 
-#: ../../main/ca/src/EBox/CA.pm:1760 ../../main/core/src/EBox/SysInfo.pm:110
-#: ../../main/mail/src/EBox/Mail.pm:1508
+#: ../../main/ca/src/EBox/CA.pm:1760
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
+#: ../../main/core/src/EBox/SysInfo.pm:110
+#: ../../main/mail/src/EBox/Mail.pm:1613
 msgid "General"
 msgstr "Allgemein"
 
@@ -2149,13 +2166,14 @@ msgstr ""
 "Ziffern 0-9, die Sonderzeichen: .?&+:-@* und Leerzeichen sind erlaubt."
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:75
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:477
 #: ../../main/core/src/EBox/Model/DataTable.pm:1764
 #: ../../main/core/src/EBox/Model/Composite.pm:521
 #: ../../main/core/src/EBox/Model/Composite.pm:536
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3076
+#: ../../main/samba/src/EBox/Samba.pm:3223
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -2261,8 +2279,8 @@ msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
-"Der alternative Name des Betreffs muss folgenden Muster entsprechen: "
-"Typ:Wert, Typ:Wert"
+"Der alternative Name des Betreffs muss folgenden Muster entsprechen: Typ:"
+"Wert, Typ:Wert"
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:191
 msgid "The certificate has been issued."
@@ -2295,8 +2313,8 @@ msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
-"Sie müssen zuerst eine Zertifizierungsstelle erstellen. Gehe nach: "
-"{openhref}Zertifizierungsstelle{closehref} um dieses zu tun"
+"Sie müssen zuerst eine Zertifizierungsstelle erstellen. Gehe nach: {openhref}"
+"Zertifizierungsstelle{closehref} um dieses zu tun"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:117
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:151
@@ -2351,6 +2369,734 @@ msgstr ""
 "Die CN {cn} ist für OpenChange reserviert und kann nicht automatisch "
 "generiert werden. Sie können das Problem unter {oh}OpenChange virtuelle "
 "Domain-Schnittstelle lösen.{ch}"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:58
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
+#: ../../main/network/src/EBox/Network.pm:3428
+#: ../../main/mail/src/EBox/Mail.pm:1564 ../../main/mail/src/EBox/Mail.pm:1685
+#: ../../main/core/src/templates/report/raid.mas:100
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
+#: ../../main/mail/src/templates/qmanager.mas:17
+msgid "Status"
+msgstr "Status"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
+msgid "Signatures"
+msgstr "Signaturen"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
+msgid "Database Update Status"
+msgstr "Datenbank Aktualisierungstatus"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:73
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:77
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:398
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:403
+#: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:59
+msgid "Antivirus"
+msgstr "Antivirus"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:151
+msgid ""
+"The antivirus database has not been updated since the module was enabled."
+msgstr ""
+"Die Antivirus-Datenbank ist seit der Aktivierung des Moduls nicht mehr "
+"aktualisiert worden."
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:153
+msgid "The last update failed."
+msgstr "Die letzte Aktualisierung schlug fehl."
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:154
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:155
+msgid "Last update successful."
+msgstr "Die letzte Aktualisierung war erfolgreich."
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:157
+msgid ""
+"The antivirus module is not configured. Enable it first in Module Status "
+"section."
+msgstr ""
+"Das Antivirus Modul ist nicht konfiguriert. Aktivieren Sie das Modul zuerst "
+"in der Modul Status Sektion"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:160
+msgid ""
+"The antivirus module is not enabled. Enable it first to know the antivirus "
+"status."
+msgstr ""
+"Das Antivirus Modul ist nicht aktiviert. Aktivieren Sie dieses zuerst um den "
+"Status zu sehen."
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
+#, perl-brace-format
+msgid "Unknown event {event}."
+msgstr "Unbekanntes Ereignis: {event}."
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:185
+#, perl-brace-format
+msgid ""
+"Want to protect your system against scams, spear phishing, frauds and other "
+"junk? Get one of the {oh}Commercial Editions{ch} that will keep your "
+"Antvirus database always up-to-date."
+msgstr ""
+"Möchten Sie Ihr System gegen Betrug, Phishing, Spam und anderer "
+"Schafsoftware schützen? Holen Sie sich eine der {oh} Vollversionen {ch}, die "
+"Ihre AntVirus Datenbank immer auf dem neuesten Stand hält."
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:169
+msgid " To configure clamd daemon"
+msgstr " um den clamd-Dienst zu konfigurieren"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:174
+msgid "To schedule the launch of the updater"
+msgstr "Zeitgesteuertes Update"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:179
+#, perl-brace-format
+msgid "Custom {app} profile configuration for {bin} binary"
+msgstr "Eigene {app} Profil Konfiguration für {bin} binär."
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:186
+#, perl-brace-format
+msgid "Disable {app} profile for {bin} binary"
+msgstr "Deaktiviert {app} Profil für {bin} binär."
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:433
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
+#: ../../main/firewall/src/EBox/Firewall.pm:789
+msgid "Source"
+msgstr "Quelle"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:438
+msgid "Success"
+msgstr "Erfolgreich"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:438
+msgid "Failure"
+msgstr "Fehler"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:441
+msgid "Antivirus DB updates"
+msgstr "AntiVirus Datenbank Updates"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:60
+msgid "Mail Filter"
+msgstr "Mailfilter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:78
+msgid "Add clamav user to amavis group"
+msgstr "Füge Benutzer clamav zur Gruppe amavis hinzu"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:79
+msgid "Clamav need access to amavis fields to properly scan mail"
+msgstr ""
+"Clamav braucht Zugriff auf die Datenfelder von amavis um Mails richtig zu "
+"überprüfen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:83
+msgid "Add clamav user to p3scan group"
+msgstr "Benutzer clamav zur Gruppe amavis hinzufügen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:84
+#, fuzzy
+msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
+msgstr ""
+"Clamav braucht Zugriff auf die Datenfelder von amavis um Mails richtig zu "
+"überprüfen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:88
+#, fuzzy
+msgid "Add spam and ham system users"
+msgstr "Füge vmail Systembenutzer hinzu"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:90
+msgid ""
+"This users are for the email accounts used for training the bayesian filter"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:95
+msgid "Update LDAP"
+msgstr "LDAP aktualisieren"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:96
+msgid "Add amavis specific classes and fields"
+msgstr "Füge amavis spezifische Klassen und Datenfelder hinzu"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:127
+msgid ""
+"Mail server has a custom filter set, unset it before enabling Zentyal Mail "
+"Filter module"
+msgstr ""
+"Auf dem Mail-Server ist ein eigener Filter aktiviert, deaktivieren Sie "
+"diesen, bevor Sie den Zentyal Mail Filter aktivieren."
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:309
+msgid "Cannot proceed because the filter is in use"
+msgstr "Kann nicht weitermachen, weil der Filter in Verwendung ist"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:455
+msgid "Mail filter"
+msgstr "E-Mail Filter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:480
+msgid "Sender address"
+msgstr "Adresse des Senders"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:481
+msgid "Recipient address"
+msgstr "Adresse des Empfängers"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:483
+msgid "Spam hits"
+msgstr "Spam-Treffer"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:488
+msgid "Bad header found"
+msgstr "Ungültige Kopfzeile gefunden"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:489
+msgid "Spam found"
+msgstr "Spam gefunden"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:490
+msgid "Forbidden attached file found"
+msgstr "Nicht erlaubter Dateianhang gefunden."
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:491
+msgid "Address in blacklist found"
+msgstr "Adresse in Blacklist gefunden"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:492
+msgid "Virus found"
+msgstr "Virus gefunden"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:493
+msgid "Clean message"
+msgstr "Virenfreie Nachricht"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:494
+#, fuzzy
+msgid "Unable to reinject in the mail server"
+msgstr "Es konnte keine Verbindung zum Mailserver {smtp} hergestellt werden"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:498
+msgid "SMTP filter"
+msgstr "SMTP-Filter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:529
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:39
+msgid "SMTP Mail Filter"
+msgstr "SMTP-Mailfilter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:536
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:458
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:40
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:41
+msgid "Antispam"
+msgstr "Antispam"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:543
+msgid "Files ACL"
+msgstr "Datei-ACL (Zugriffskontrolliste)"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:76
+#: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:88
+#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:47
+#: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:50
+msgid "domain name"
+msgstr "name der Domäne"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:80
+msgid "email address"
+msgstr "E-Mail-Adresse"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:84
+msgid ""
+"The sender ought be either an email address or a domain name prefixed with "
+"'@'"
+msgstr ""
+"Der Sender kann eine E-Mail-Adresse oder eine Domäne (mit einem \"@\" "
+"vorangestellt) sein"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:105
+msgid "Write down a decimal number"
+msgstr "Tragen Sie eine Dezimalzahl ein"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:110
+msgid "Only non-zero positive numbers are allowed"
+msgstr "Nur Werte größer als 0 sind erlaubt"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:118
+#, perl-brace-format
+msgid "Write down a number lesser than {m}"
+msgstr "Tragen Sie eine Zahl kleiner als {m} ein"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:125
+#, perl-brace-format
+msgid "Write down a number greater  than {m}"
+msgstr "Tragen Sie eine Zahl größer als {m} ein"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:57
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:100
+msgid "MIME type"
+msgstr "MIME-Typ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/FileExtension.pm:55
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:104
+msgid "file extension"
+msgstr "Dateiendung"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:28
+msgid "Pass"
+msgstr "Durchlassen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
+#, fuzzy
+msgid "Notify sender server"
+msgstr "Zweiter Server"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
+#, fuzzy
+msgid "Notify mail sender account"
+msgstr "Alias für Postfach"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:31
+msgid "Drop silently"
+msgstr "Unbemerkt entfernen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:75
+msgid "Mailfilter's policy"
+msgstr "Richtlinien des Mailfilters"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:68
+msgid "To configure amavis"
+msgstr "Amavis konfigurieren"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:426
+msgid "Zentyal internal mail filter"
+msgstr "Interner Zentyal Mailfilter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
+msgid "SMTP filter proxy"
+msgstr "SMTP-Filter Proxy"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:599
+#, perl-brace-format
+msgid "Virtual mail domain {vd} does not exist"
+msgstr "Die virtuelle Maildomäne {vd} gibt es nicht"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:59
+msgid " To configure spamassassin daemon"
+msgstr " um den SpamAssassin-Dämon zu konfigurieren."
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:328
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:58
+msgid "Spam threshold"
+msgstr "Spam - Schwellwert"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:328
+msgid "It must be a number(decimal point allowed)"
+msgstr "Es muss eine Zahl sein (Dezimalstellen mit Punkt schreiben)"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:338
+msgid "The spam's threshold cannot be higher than its autolearn threshold"
+msgstr ""
+"Die Spam-Schwelle kann nicht höher sein, als die  Autolern-Spamschwelle"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:342
+msgid ""
+"The spam's threshold cannot be lower or equal than its ham's autolearn "
+"threshold"
+msgstr ""
+"Der Wert unerwünschter Nachrichten muss grösser sein, als der Wert für "
+"automatisches Lernen erwünschter Nachrichten"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:379
+msgid ""
+"Cannot learn because bayesian filter is disabled in the current "
+"configuration. In order to be able to learn enable the bayesian filter and "
+"save changes"
+msgstr ""
+"Lernen ist nicht möglich, weil der bayesische Filter in der Konfiguration "
+"deaktiviert ist. Damit Sie das Lernmodul nutzen können, aktivieren Sie den "
+"bayesischen Filter und speichern Sie die Änderungen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:392
+#, perl-brace-format
+msgid "Accounts from the domain {d} cannot train the bayesian filter"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:39
+msgid "External connections"
+msgstr "Externe Verbindungen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
+msgid "Attached Files Filter"
+msgstr "Mailanhang-Filter"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:41
+msgid ""
+"Filter mail messages according attached files. The transparent POP proxy "
+"only filters by extension"
+msgstr ""
+"Nachrichten nach angehängten Dateien filtern. Der Transparente POP-Proxy "
+"filtert nur nach Datei-Erweiterungen."
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:80
+msgid "Use virus filtering"
+msgstr "Viren filtern"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:86
+msgid "Use spam filtering"
+msgstr "Spam filtern"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:99
+msgid "default"
+msgstr "Standard"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
+msgid "custom threshold"
+msgstr "Benutzerdefinierter Grenzwert"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:150
+msgid "Antispam sender policy"
+msgstr "Antispam-Senderrichtlinie"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
+msgid "Virtual Domains specific policies"
+msgstr "spezifische Richtlinie der virtuelle Domäne"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
+msgid "virtual domain policy"
+msgstr "Virtuelle Domänen Richtlinie"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:183
+#, perl-brace-format
+msgid ""
+"There are no virtual mail domains managed by this server. You can create "
+"some in the {openA}virtual domains mail page{closeA}."
+msgstr ""
+"Es gibt keine virtuelle Mail Domäne die von diesem Server verwaltet wird. "
+"Sie können auf der {openA}virtuellen Mail Domänen Seite{closeA} eine "
+"erzeugen."
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:62
+msgid "The score threshold to mark a message as spam"
+msgstr "Der nötige Wert um ein E-Mail als Spam zu markieren"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:66
+msgid "Spam subject tag"
+msgstr "Betreffzeile bei Spam"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:69
+msgid "Tag which will be added to the spam mail subject"
+msgstr ""
+"Etikett, das an die Betreffzeile unerwünschter Nachrichten angehängt wird"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:73
+#, fuzzy
+msgid "Use Bayesian classifier"
+msgstr "Bayesischen Filter verwenden"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:79
+msgid "Auto-whitelist"
+msgstr "Automatisch auf weisse Liste setzen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:82
+msgid "Change the score of mail according to the sender history"
+msgstr "Den Wert der E-Mail der Sendervergangenheit anpassen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:86
+msgid "Auto-learn"
+msgstr "Automatisch lernen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:89
+msgid "Feedback the learning system with messages that reach the threshold"
+msgstr "Das Lernmodul mit E-Mails füttern, welche den Wert erreichen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:94
+msgid "Autolearn spam threshold"
+msgstr "Wert für automatisches Lernen von Spam"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:98
+msgid ""
+"Spam messages with a score equal or greater than this threshold will be "
+"added to the learning system "
+msgstr ""
+"Unerwünschte Nachrichten mit einem Wert, der grösser oder gleich diesem Wert "
+"ist werden dem Lernmodul hinzugefügt"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:102
+msgid "Autolearn ham threshold"
+msgstr "Wert für automatisches Lernen von erwünschten Nachrichten"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
+msgid ""
+"Ham messages with a score below this threshold will be added to the learning "
+"system"
+msgstr ""
+"Erwünschte Nachrichten mit einem Wert, der unter diesem Wert ist werden dem "
+"Lernmodul hinzugefügt"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:111
+msgid "Antispam configuration"
+msgstr "Antispam-Konfiguration"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:155
+msgid ""
+"You must define autolearn spam threshold when autolearn option is active"
+msgstr ""
+"Sie müssen einen Auto-Lern-Grenzwert für Spam festlegen, wenn die "
+"automatische Lernfunktion aktiv ist"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:161
+msgid "You must define autolearn ham threshold when autolearn option is active"
+msgstr ""
+"Sie müssen einen Auto-Lern-Grenzwert für Ham festlegen, wenn die "
+"automatische Lernfunktion aktiv ist"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:167
+msgid ""
+"The spam's autolearn threshold cannot be lower than the default spam's "
+"treshold "
+msgstr ""
+"Der Wert für das Lernmodul kann nicht kleiner sein, als der Standardwert für "
+"Spam"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:173
+msgid ""
+"The ham's autolearn threshold canot be higher or equal than the default spam "
+"level"
+msgstr ""
+"Der Wert für das Lernen von erwünschten Nachrichten muss kleiner sein, als "
+"der Standardwert für Spam"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:70
+msgid "External mail domain"
+msgstr "Externe Maildomäne"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:76
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:77
+msgid "Allow connection"
+msgstr "Erlaube Verbindung"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:84
+msgid "External mail domains"
+msgstr "Externe Maildomänen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:96
+msgid "external mail domain"
+msgstr "Externe Maildomäne"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:97
+msgid ""
+"Here you can specify which external mail domains can connect to the mail "
+"filter"
+msgstr ""
+"Hier können Sie festlegen, welche externe Maildomöne zum Mail-Filter "
+"verbinden kann"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:114
+#, fuzzy, perl-brace-format
+msgid "{d} is a internal Zentyal virtual main domain"
+msgstr "{d} ist eine interne Zentyal Virtuelle Hauptdomäne"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
+msgid "External mail server"
+msgstr "Externer Mailserver"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:73
+msgid "IP address of the server"
+msgstr "IP-Adresse des Servers"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:85
+msgid "External mail servers"
+msgstr "Externe Mailserver"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:97
+msgid "external mail server"
+msgstr "Externer Mailserver"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:98
+msgid ""
+"Here you can specify which external mail servers can connect to the mail "
+"filter"
+msgstr ""
+"Hier können Sie festlegen welche externen Mailserver auf den Mail-Filter "
+"verbinden können"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:140
+#, perl-brace-format
+msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
+msgstr ""
+"Die externe MTA-Adresse {mta} ist ungültig. Lokale Netzwerkadressen sind "
+"nicht erlaubt"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:61
+msgid "Antivirus enabled"
+msgstr "Antivirus aktiviert"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:67
+msgid "Antispam enabled"
+msgstr "Antispam aktiviert"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:74
+msgid "Service's port"
+msgstr "Port des Dienstes"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:81
+msgid "Notify of non-spam problematic messages"
+msgstr "Benachrichtigen bei problematischen Nicht-Spam-Nachrichten"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
+#: ../../main/core/src/EBox/RemoteServices.pm:505
+#: ../../main/core/src/EBox/RemoteServices.pm:546
+msgid "mail address"
+msgstr "e-mail-adresse"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:128
+#, perl-brace-format
+msgid "The port {port} is already used by module {mod}"
+msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:55
+msgid "Mail sender"
+msgstr "Mail Absender"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:61
+msgid "Policy"
+msgstr "Richtlinie"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
+#, fuzzy
+msgid "Sender policy for virtual domain"
+msgstr "Spam-Schwellwert für die virtuelle Domäne {domain}"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:88
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:82
+msgid "sender policy"
+msgstr "Senderichtlinien"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:96
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:90
+msgid "whitelist"
+msgstr "weisser Liste"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:97
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:91
+msgid "blacklist"
+msgstr "schwarzer Liste"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:92
+msgid "process"
+msgstr "Prozess"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:77
+msgid "MIME Type"
+msgstr "MIME-Typ"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:83
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:87
+msgid "Allow"
+msgstr "Erlauben"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:92
+msgid "MIME types"
+msgstr "MIME-Typen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:101
+msgid ""
+"MIME types which are not listed below are allowed. MIME types aren't used by "
+"POP transparent proxy"
+msgstr ""
+"MIME-Typen, die unten nicht aufgelistet sind, sind erlaubt. MIME-Typen "
+"werden vom transparenten POP-Proxy nicht verwendet"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:81
+msgid "File extension"
+msgstr "Dateiendung"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:96
+msgid "File extensions"
+msgstr "Dateiendungen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:105
+msgid "Extensions which are not listed below are allowed"
+msgstr "Dateiendungen, die unten nicht aufgelistet sind, sind erlaubt"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:55
+msgid "Mailbox"
+msgstr "Postfach"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:61
+msgid "Mailbox contains"
+msgstr "Postfach enthält"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:71
+msgid "Train bayesian spam filter"
+msgstr "Bayesischen Filter trainieren"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
+msgid "Learned from messages"
+msgstr "von Nachrichten gelernt"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:78
+msgid "Train"
+msgstr "Trainieren"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:87
+msgid "spam"
+msgstr "Spam"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
+msgid "ham"
+msgstr "erwünschte Nachrichten"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:115
+#, perl-brace-format
+msgid "Invalid mailbox type: {type}"
+msgstr "Ungültiger Mailboxtyp: {type}"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:70
+msgid "Sender policy"
+msgstr "Senderichtlinien"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:154
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:158
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
+msgid "Virtual Domains"
+msgstr "Virtuelle Domänen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:58
+msgid "Virus policy"
+msgstr "Richtlinie bei Viren"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:65
+msgid "Spam policy"
+msgstr "Richtlinie bei Spam"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:68
+msgid "Bounce policy will be ignored for high-score spam messages"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:72
+msgid "Banned files policy"
+msgstr "Regel bei nicht zugelassenen Dateien"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:78
+msgid "Bad header policy"
+msgstr "Regel für nicht konforme Kopfzeilen"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
+msgid "Filter Policies"
+msgstr "Filter Richtlinien"
 
 #: ../../main/network/src/EBox/NetworkUtil.pm:56
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:280
@@ -2795,8 +3541,8 @@ msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
 msgstr ""
-"Es wird darauf Acht gegeben, dass eine Standard-Route, welche von einem "
-"DHCP-Server zur Verfügung gestellt wurde, in der Standard-Routing-Tabelle "
+"Es wird darauf Acht gegeben, dass eine Standard-Route, welche von einem DHCP-"
+"Server zur Verfügung gestellt wurde, in der Standard-Routing-Tabelle "
 "hinzugefügt wird."
 
 #: ../../main/network/src/EBox/Network.pm:140
@@ -2968,14 +3714,6 @@ msgstr "verbindung OK"
 #: ../../main/network/src/EBox/Network.pm:3419
 msgid "no link"
 msgstr "keine Verbindung"
-
-#: ../../main/network/src/EBox/Network.pm:3428
-#: ../../main/mail/src/EBox/Mail.pm:1580
-#: ../../main/core/src/templates/report/raid.mas:100
-#: ../../main/core/src/templates/moduleStatusTable.mas:64
-#: ../../main/mail/src/templates/qmanager.mas:17
-msgid "Status"
-msgstr "Status"
 
 #: ../../main/network/src/EBox/Network.pm:3454
 msgid "Tx bytes"
@@ -3267,13 +4005,13 @@ msgstr ""
 "\"{name}\" - {IP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/mail/src/EBox/Mail.pm:1573
+#: ../../main/mail/src/EBox/Mail.pm:1678
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
 msgstr "Von"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/mail/src/EBox/Mail.pm:1574
+#: ../../main/mail/src/EBox/Mail.pm:1679
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 msgid "To"
 msgstr "Um"
@@ -3447,12 +4185,12 @@ msgid ""
 "value as \"None\" or leaving blank."
 msgstr ""
 "Wenn Sie \"Zentyal\" als Standardgateway einsetzen, wird die IP-Adresse der "
-"Netzwerkkarte verwendet. Wenn Sie \"Name\" wählen, können Sie aus den bereits "
-"konfigurierten Gateways wählen. Als \"Suchdomäne\" kann eine der DNS-Domänen "
-"gewählt werden, die für diese Zentyal konfiguriert sind. Falls Sie \"Zentyal "
-"DNS\" für \"Erster Nameserver\" wählen (falls installiert), kann die Zentyal "
-"als DNS-Cache verwendet werden. Alle Felder sind optional, sie können sie "
-"leer lassen."
+"Netzwerkkarte verwendet. Wenn Sie \"Name\" wählen, können Sie aus den "
+"bereits konfigurierten Gateways wählen. Als \"Suchdomäne\" kann eine der DNS-"
+"Domänen gewählt werden, die für diese Zentyal konfiguriert sind. Falls Sie "
+"\"Zentyal DNS\" für \"Erster Nameserver\" wählen (falls installiert), kann "
+"die Zentyal als DNS-Cache verwendet werden. Alle Felder sind optional, sie "
+"können sie leer lassen."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:87
 #, perl-brace-format
@@ -3886,7 +4624,8 @@ msgstr "Löschen"
 msgid ""
 "Please confirm that you want to overwrite the following remote backup with a "
 "new one"
-msgstr "Bitte bestätigen Sie, das Sie das folgende remote Backup löschen wollen"
+msgstr ""
+"Bitte bestätigen Sie, das Sie das folgende remote Backup löschen wollen"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:117
 msgid "Overwrite"
@@ -4140,7 +4879,8 @@ msgstr "Ein neuer {rowName} \"{r}\" wurde mit \"{f}\" als \"{x}\" hinzugefügt"
 msgid ""
 "The field \"{f}\" in the {rowName} \"{r}\" has been changed from \"{x}\" to "
 "\"{y}\""
-msgstr "Das Feld \"{f}\" im {rowName} \"{r}\" wurde von \"{x}\" nach \"{y}\" geändert"
+msgstr ""
+"Das Feld \"{f}\" im {rowName} \"{r}\" wurde von \"{x}\" nach \"{y}\" geändert"
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:32
 msgid "Upgrade to Zentyal 4.0"
@@ -4723,12 +5463,6 @@ msgstr ""
 msgid "Administration interface TCP port"
 msgstr "TCP-Port der Administrationsschnittstelle"
 
-#: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:88
-#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:47
-#: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:50
-msgid "domain name"
-msgstr "name der Domäne"
-
 #: ../../main/core/src/EBox/SysInfo/CGI/CurrentProgress.pm:37
 #: ../../main/software/src/EBox/Software/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
@@ -4736,7 +5470,8 @@ msgstr "Aktualisierung"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:47
 msgid "You have broken packages installed, fix them before upgrading"
-msgstr "Sie haben defekte Pakete installiert, beheben Sie diese vor dem Upgrade"
+msgstr ""
+"Sie haben defekte Pakete installiert, beheben Sie diese vor dem Upgrade"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:61
 msgid "No updates"
@@ -4909,7 +5644,8 @@ msgstr "User \"{user}\" erstellt und Zentyal Administrationsrechte zugewiesen"
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:147
 #, perl-brace-format
 msgid "User \"{user}\" granted Zentyal administrative permissions"
-msgstr "Der Benutzer \"{user}\" erhielt administrative Berechtigung für Zentyal"
+msgstr ""
+"Der Benutzer \"{user}\" erhielt administrative Berechtigung für Zentyal"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:211
 #, perl-brace-format
@@ -5121,8 +5857,8 @@ msgid ""
 "report{cb}"
 msgstr ""
 "Danke für die Bereitschaft, den Fehlerbericht zu senden. Wenn Sie sich über "
-"den Status informieren möchten, geben Sie Ihre E-Mail an: "
-"{form}{obs}Absenden Absturzbericht{cb}"
+"den Status informieren möchten, geben Sie Ihre E-Mail an: {form}{obs}"
+"Absenden Absturzbericht{cb}"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:234
 #, perl-brace-format
@@ -5130,8 +5866,8 @@ msgid ""
 "Do you want a remote configuration backup of your Zentyal Server? Set it up "
 "{oh}here{ch} for FREE!"
 msgstr ""
-"Möchten Sie ein Fern-Backup Ihres Zentyal Servers machen? Richten Sie es "
-"{oh}hier{ch} GRATIS ein!"
+"Möchten Sie ein Fern-Backup Ihres Zentyal Servers machen? Richten Sie es {oh}"
+"hier{ch} GRATIS ein!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:239
 #, perl-brace-format
@@ -5139,8 +5875,8 @@ msgid ""
 "Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a "
 "FREE 30-day Trial!"
 msgstr ""
-"Haben Sie Interesse an einer kommerziellen Zentyal Server-Edition ? "
-"{oh}Holen{ch} Sie sich eine kostenlose 30-Tage Testversion!"
+"Haben Sie Interesse an einer kommerziellen Zentyal Server-Edition ? {oh}"
+"Holen{ch} Sie sich eine kostenlose 30-Tage Testversion!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:244
 #, perl-brace-format
@@ -5310,11 +6046,6 @@ msgstr "Premium"
 msgid "Zentyal Remote Client"
 msgstr "Zentyal Fernzugriffs-Client"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:505
-#: ../../main/core/src/EBox/RemoteServices.pm:546
-msgid "mail address"
-msgstr "e-mail-adresse"
-
 #: ../../main/core/src/EBox/RemoteServices.pm:1012
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
@@ -5374,7 +6105,8 @@ msgstr "- letzte Sicherung der Konfiguration: {date}"
 #: ../../main/core/src/EBox/RemoteServices.pm:1339
 #, perl-brace-format
 msgid "{oh}Register to store your backups in the cloud{ch}"
-msgstr "{oh}Registrieren Sie sich um Ihre Backups in der Cloud{ch} zu speichern"
+msgstr ""
+"{oh}Registrieren Sie sich um Ihre Backups in der Cloud{ch} zu speichern"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1344
 #: ../../main/core/src/templates/remoteservices/index.mas:35
@@ -5435,8 +6167,7 @@ msgid ""
 "you must save or discard them"
 msgstr ""
 "Einige Module haben ungespeicherte Änderungen: {mods}. Bevor Sie den "
-"Sicherungsvorgang starten, müssen Sie die Änderungen speichern oder "
-"verwerfen"
+"Sicherungsvorgang starten, müssen Sie die Änderungen speichern oder verwerfen"
 
 #: ../../main/core/src/EBox/Backup.pm:854
 msgid "Incorrect or corrupt backup file"
@@ -5520,8 +6251,7 @@ msgid ""
 "need to install them before restoring."
 msgstr ""
 "Die folgenden Module welche im Backup vorhanden sind, sind nicht "
-"installiert: {mods}. Sie müssen vor der Wiederherstellung installiert "
-"werden."
+"installiert: {mods}. Sie müssen vor der Wiederherstellung installiert werden."
 
 #: ../../main/core/src/EBox/Backup.pm:1397
 #, perl-brace-format
@@ -5881,8 +6611,8 @@ msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
 "renew it{ch}"
 msgstr ""
-"Es sind keine Zertifikate für diesen Client verfügbar. Bitte "
-"{ohref}erstellen{chref} Sie eines"
+"Es sind keine Zertifikate für diesen Client verfügbar. Bitte {ohref}"
+"erstellen{chref} Sie eines"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:52
 msgid "Virtual domain"
@@ -5980,11 +6710,6 @@ msgstr "Zertifikats ausgegeben "
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:148
 msgid "Revoke and reissue certificate"
 msgstr "Zertifikat widerrufen und neu herausgeben"
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:158
-#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
-msgid "Virtual Domains"
-msgstr "Virtuelle Domänen"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:159
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
@@ -6142,8 +6867,8 @@ msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
 "renew it{ch}{cp}"
 msgstr ""
-"{op}Es sind keine Zertifikate für diesen Client verfügbar. Sie "
-"müssen{oh}eines erstellen{ch}{cp}"
+"{op}Es sind keine Zertifikate für diesen Client verfügbar. Sie müssen{oh}"
+"eines erstellen{ch}{cp}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
 msgid "Missing user and/or password for provision"
@@ -6154,8 +6879,7 @@ msgid ""
 "The PDC server either has been already provisioned or has Exchange Server "
 "installed"
 msgstr ""
-"Der PDC wurde bereits eingerichtet oder der Exchange Server wurde "
-"installiert"
+"Der PDC wurde bereits eingerichtet oder der Exchange Server wurde installiert"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:382
 msgid "The PDC server has been already provisioned"
@@ -6255,8 +6979,8 @@ msgid "To make autodiscovery service available"
 msgstr "Um Autodiscoveryservice verfügbar zu stellen"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:625
-#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1485
-#: ../../main/mail/src/EBox/Mail.pm:1606
+#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1547
+#: ../../main/mail/src/EBox/Mail.pm:1711
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "E-Mail"
@@ -6587,13 +7311,6 @@ msgstr "Ursprüngliches Ziel"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:263
 msgid "Original destination port"
 msgstr "Ursprünglicher Zielport"
-
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
-#: ../../main/firewall/src/EBox/Firewall.pm:789
-msgid "Source"
-msgstr "Quelle"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:283
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:116
@@ -6992,7 +7709,7 @@ msgid "OU name"
 msgstr "OU Name"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:1921
+#: ../../main/samba/src/EBox/Samba.pm:1954
 msgid "LDAP Settings"
 msgstr "LDAP Einstellungen"
 
@@ -7004,7 +7721,7 @@ msgstr ""
 "erstellt wird."
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:1917
+#: ../../main/samba/src/EBox/Samba.pm:1950
 msgid "User Template"
 msgstr "Standard Benutzer-Vorlage"
 
@@ -7013,7 +7730,7 @@ msgid "Recycle Bin"
 msgstr "Papierkorb"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:1931
+#: ../../main/samba/src/EBox/Samba.pm:1964
 msgid "File Sharing"
 msgstr "Dateifreigabe"
 
@@ -7648,7 +8365,7 @@ msgstr ""
 "verbundenwerden. Dies ist für eine korrekte Arbeitserlaubnis erforderlich."
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:1907
+#: ../../main/samba/src/EBox/Samba.pm:1940
 msgid "Users and Computers"
 msgstr "Benutzer und Computer"
 
@@ -7690,15 +8407,32 @@ msgstr ""
 "Sie müssen das Modul Domain Controller und Dateifreigaben im Modulstatus-"
 "Bereich aktivieren und die Änderungen speichern, um es benutzen zu können."
 
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:51
+msgid "Enable virus scanning"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:59
+msgid "Antivirus default settings"
+msgstr "Antivirus Standardeinstellungen"
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
+msgid ""
+"Zentyal antivirus module must be installed and enabled to use this feature"
+msgstr ""
+"Zentyal Antivirus-Module muß installiert sein um diese Option zu nutzen"
+
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:70
 msgid "User/Group/Share"
 msgstr "Benutzer/Gruppe/Freigabe"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:84
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:75
 msgid "User homes"
 msgstr "Eigene Dateien-Verzeichnisse der Benutzer"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:89
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:80
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
 msgstr "Freigabe"
@@ -7712,8 +8446,17 @@ msgid "Add exceptions to the default Recycle Bin settings"
 msgstr "Hinzufügen von Ausnahmen zu den Papierkorb-Standardeinstellungen"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:106
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:96
 msgid "exception"
 msgstr "ausnahme"
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:90
+msgid "Samba shares antivirus exceptions"
+msgstr "Antivirus-Ausnahmen von Samba-Freigaben"
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:95
+msgid "Add exceptions to the default antivirus settings"
+msgstr "Hinzufügen von Ausnahmen zu den Antivirus-Standardeinstellungen"
 
 #: ../../main/samba/src/EBox/Samba/Model/PAM.pm:104
 msgid "Enable PAM"
@@ -7989,8 +8732,8 @@ msgid ""
 "DNS query failed: {x} (using nameservers {y}, /etc/resolv.conf was\n"
 "'{z}'"
 msgstr ""
-"Die DNS-Abfrage ist fehlgeschlagen: {x} (Verwendung des Nameservers {y}, "
-"/etc/resolv.conf war\n"
+"Die DNS-Abfrage ist fehlgeschlagen: {x} (Verwendung des Nameservers {y}, /"
+"etc/resolv.conf war\n"
 "'{z}'"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:147
@@ -8001,7 +8744,8 @@ msgstr "Fehler bei der Suche: Erwartet wird ein Eintrag, erhalten {x}.\n"
 #: ../../main/samba/src/EBox/Module/LDAP.pm:160
 #, perl-brace-format
 msgid "Error connecting to schema master role owner ({x})"
-msgstr "Fehler bei der Verbindung mit dem Schema Master-Rollen-Eigentümer ({x})"
+msgstr ""
+"Fehler bei der Verbindung mit dem Schema Master-Rollen-Eigentümer ({x})"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:183
 #, perl-brace-format
@@ -8031,46 +8775,46 @@ msgstr ""
 msgid "Error on LDAP entry update:"
 msgstr "Fehler beim Aktualisieren des LDAP-Eintrags:"
 
-#: ../../main/samba/src/EBox/Samba.pm:168
+#: ../../main/samba/src/EBox/Samba.pm:170
 msgid "Domain Controller and File Sharing"
 msgstr "Domain-Controller und Datenaustausch "
 
-#: ../../main/samba/src/EBox/Samba.pm:275
+#: ../../main/samba/src/EBox/Samba.pm:277
 msgid ""
 "Your LDAP database will be populated with some basic organizational units"
 msgstr ""
 "Ihre LDAP-Datenbank wird mit grundlegenden Organsationseinheiten angelegt"
 
-#: ../../main/samba/src/EBox/Samba.pm:276
+#: ../../main/samba/src/EBox/Samba.pm:278
 msgid ""
 "Zentyal needs this organizational units to add users and groups into them."
 msgstr ""
 "Zentyal benötigt diese Organsationseinheiten, um darin Benutzer und Gruppen "
 "anzulegen."
 
-#: ../../main/samba/src/EBox/Samba.pm:280
+#: ../../main/samba/src/EBox/Samba.pm:282
 msgid "Create Samba home directory for shares and groups"
 msgstr "Erstelle Samba Home-Verzeichnis für Benutzer und Gruppen"
 
-#: ../../main/samba/src/EBox/Samba.pm:281
+#: ../../main/samba/src/EBox/Samba.pm:283
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr "Zentyal erstellt die Samba-Freigaben und -Gruppen unter /home/samba."
 
-#: ../../main/samba/src/EBox/Samba.pm:289
+#: ../../main/samba/src/EBox/Samba.pm:291
 msgid "Configure PAM."
 msgstr "Konfiguriere PAM."
 
-#: ../../main/samba/src/EBox/Samba.pm:290
+#: ../../main/samba/src/EBox/Samba.pm:292
 msgid "Zentyal will give LDAP samba system account."
 msgstr "Zentyal wird LDAP Benutzern ein System-Konto geben."
 
-#: ../../main/samba/src/EBox/Samba.pm:308
+#: ../../main/samba/src/EBox/Samba.pm:310
 msgid "To set up kerberos authentication"
 msgstr "Um kerberos Authentifizierung zu starten"
 
-#: ../../main/samba/src/EBox/Samba.pm:315
+#: ../../main/samba/src/EBox/Samba.pm:317
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
@@ -8078,11 +8822,11 @@ msgstr ""
 "Erlaubt NSS die Verwendung der Auflösung für LDAP Benutzer- und Gruppen-"
 "Accounts. Erforderlich für Samba-PDC-Konfiguration."
 
-#: ../../main/samba/src/EBox/Samba.pm:321
+#: ../../main/samba/src/EBox/Samba.pm:323
 msgid "To add quota support to /home partition."
 msgstr "Um Speicherplatzbegrenzung für die /home-Partition hinzuzufügen."
 
-#: ../../main/samba/src/EBox/Samba.pm:326
+#: ../../main/samba/src/EBox/Samba.pm:328
 msgid ""
 "To configure System Security Services Daemon to manage remote authentication "
 "mechanisms"
@@ -8090,15 +8834,15 @@ msgstr ""
 "Um die Systemsicherheitsservicedomäne zu aktivieren um die "
 "Fernzugriffsautentifikationsmechamismen zu verwalten"
 
-#: ../../main/samba/src/EBox/Samba.pm:332
+#: ../../main/samba/src/EBox/Samba.pm:334
 msgid "To enable extended attributes and acls."
 msgstr "Zum Einschalten von erweiterten Attributen und acls."
 
-#: ../../main/samba/src/EBox/Samba.pm:360
+#: ../../main/samba/src/EBox/Samba.pm:362
 msgid "Domain and File sharing protocols"
 msgstr "Domänen- und Dateifreigabe-Protokolle"
 
-#: ../../main/samba/src/EBox/Samba.pm:392
+#: ../../main/samba/src/EBox/Samba.pm:394
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8113,7 +8857,7 @@ msgstr ""
 "konfiguriert wurde, oder warten auf eine Adresszuweisung (Lease), kann das "
 "Problem lösen"
 
-#: ../../main/samba/src/EBox/Samba.pm:396
+#: ../../main/samba/src/EBox/Samba.pm:398
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8124,19 +8868,19 @@ msgstr ""
 "keine IPs verfügbar sind. {oh}Netzwerk Oberfläche{ch} konfigurieren und "
 "Änderungen speichern kann das Problem lösen"
 
-#: ../../main/samba/src/EBox/Samba.pm:997
+#: ../../main/samba/src/EBox/Samba.pm:1020
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr ""
 "Fehler beim einstellen der Sicherheitsbeschreibung der Freigabe '{x}': {y}"
 
-#: ../../main/samba/src/EBox/Samba.pm:1019
+#: ../../main/samba/src/EBox/Samba.pm:1042
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr ""
 "Fehler beim einstellen der Sicherheitsbeschreibung der Datei {x}{y}: {z}"
 
-#: ../../main/samba/src/EBox/Samba.pm:1036
+#: ../../main/samba/src/EBox/Samba.pm:1065
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
@@ -8144,22 +8888,22 @@ msgstr ""
 "Es wurden Fehler beim einstellen der ACLs auf Samba-Freigaben gemeldet, "
 "bitte prüfen Sie die Zentyal-Logs, um Details zu erhalten."
 
-#: ../../main/samba/src/EBox/Samba.pm:1572
+#: ../../main/samba/src/EBox/Samba.pm:1605
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 "Es wurden {count} Ergebnisse für die Gruppe '{name}' gefunden, erwartet "
 "wurde nur eines."
 
-#: ../../main/samba/src/EBox/Samba.pm:1913
+#: ../../main/samba/src/EBox/Samba.pm:1946
 msgid "Manage"
 msgstr "Verwalten"
 
-#: ../../main/samba/src/EBox/Samba.pm:1925
+#: ../../main/samba/src/EBox/Samba.pm:1958
 msgid "Configure mode"
 msgstr "Konfigurationsmodus"
 
-#: ../../main/samba/src/EBox/Samba.pm:2063
+#: ../../main/samba/src/EBox/Samba.pm:2096
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
@@ -8169,7 +8913,7 @@ msgstr ""
 "eingestellt werden. Ansonsten können die Samba-Daten nicht wiederhergestellt "
 "werden."
 
-#: ../../main/samba/src/EBox/Samba.pm:2079
+#: ../../main/samba/src/EBox/Samba.pm:2112
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -8179,7 +8923,7 @@ msgstr ""
 "Benutzer in /etc/passwd existiert. Löschen Sie diesen oder benennen Sie ihn "
 "um und versuchen Sie es erneut"
 
-#: ../../main/samba/src/EBox/Samba.pm:2096
+#: ../../main/samba/src/EBox/Samba.pm:2129
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8190,7 +8934,7 @@ msgstr ""
 "werden da diese Fehlermeldung erschienen ist:\n"
 "{ex}"
 
-#: ../../main/samba/src/EBox/Samba.pm:2106
+#: ../../main/samba/src/EBox/Samba.pm:2139
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
@@ -8198,7 +8942,7 @@ msgstr ""
 "Eine Wiederherstellung ist nur möglich wenn der Server die einzige Domain "
 "Kontrolle in der Struktur ist. "
 
-#: ../../main/samba/src/EBox/Samba.pm:2370
+#: ../../main/samba/src/EBox/Samba.pm:2403
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
@@ -8206,64 +8950,93 @@ msgstr ""
 "Hostname und Domäne können nicht geändet werden, wenn Zentyal als "
 "zusätzlicher Domänen-Controller konfiguriert wurde."
 
-#: ../../main/samba/src/EBox/Samba.pm:2463
+#: ../../main/samba/src/EBox/Samba.pm:2496
 msgid "Users data and Filesystem shares"
 msgstr "Benutzerdaten und Dateisystem-Freigabe"
 
-#: ../../main/samba/src/EBox/Samba.pm:2606
+#: ../../main/samba/src/EBox/Samba.pm:2639
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "Die Adresse {addr} wird bereits von {type} {name} verwendet"
 
-#: ../../main/samba/src/EBox/Samba.pm:3074
+#: ../../main/samba/src/EBox/Samba.pm:3221
+#: ../../main/samba/src/EBox/Samba.pm:3241
+#: ../../main/samba/src/EBox/Samba.pm:3252
 msgid "Client address"
 msgstr "Clientadresse"
 
-#: ../../main/samba/src/EBox/Samba.pm:3077
+#: ../../main/samba/src/EBox/Samba.pm:3224
 msgid "Resource"
 msgstr "Ressource"
 
-#: ../../main/samba/src/EBox/Samba.pm:3081
+#: ../../main/samba/src/EBox/Samba.pm:3228
 msgid "Connect"
 msgstr "Verbinden"
 
-#: ../../main/samba/src/EBox/Samba.pm:3082
+#: ../../main/samba/src/EBox/Samba.pm:3229
 msgid "Access to directory"
 msgstr "Zugriff auf das Verzeichnis"
 
-#: ../../main/samba/src/EBox/Samba.pm:3083
+#: ../../main/samba/src/EBox/Samba.pm:3230
 msgid "Read file"
 msgstr "Lesen"
 
-#: ../../main/samba/src/EBox/Samba.pm:3084
+#: ../../main/samba/src/EBox/Samba.pm:3231
 msgid "Write file"
 msgstr "Schreiben"
 
-#: ../../main/samba/src/EBox/Samba.pm:3085
+#: ../../main/samba/src/EBox/Samba.pm:3232
 msgid "Disconnect"
 msgstr "Trennung"
 
-#: ../../main/samba/src/EBox/Samba.pm:3086
+#: ../../main/samba/src/EBox/Samba.pm:3233
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Entfernen"
 
-#: ../../main/samba/src/EBox/Samba.pm:3087
+#: ../../main/samba/src/EBox/Samba.pm:3234
 msgid "Create directory"
 msgstr "Verzeichnis erstellen"
 
-#: ../../main/samba/src/EBox/Samba.pm:3088
+#: ../../main/samba/src/EBox/Samba.pm:3235
 msgid "Remove directory"
 msgstr "Entferne Verzeichnis"
 
-#: ../../main/samba/src/EBox/Samba.pm:3089
+#: ../../main/samba/src/EBox/Samba.pm:3236
 msgid "Rename"
 msgstr "Umbenennen"
 
-#: ../../main/samba/src/EBox/Samba.pm:3093
+#: ../../main/samba/src/EBox/Samba.pm:3243
+#: ../../main/samba/src/EBox/Samba.pm:3254
+msgid "File name"
+msgstr "Dateiname"
+
+#: ../../main/samba/src/EBox/Samba.pm:3244
+#: ../../main/samba/src/EBox/Samba.pm:3248
+msgid "Virus"
+msgstr "Virus"
+
+#: ../../main/samba/src/EBox/Samba.pm:3255
+msgid "Quarantined file name"
+msgstr "Datei in Quarantäne"
+
+#: ../../main/samba/src/EBox/Samba.pm:3256
+#: ../../main/samba/src/EBox/Samba.pm:3259
+msgid "Quarantine"
+msgstr "Quarantäne"
+
+#: ../../main/samba/src/EBox/Samba.pm:3262
 msgid "Samba access"
 msgstr "Samba-Zugriff"
+
+#: ../../main/samba/src/EBox/Samba.pm:3273
+msgid "Samba virus"
+msgstr "Samba-Virus"
+
+#: ../../main/samba/src/EBox/Samba.pm:3284
+msgid "Samba quarantine"
+msgstr "Samba-Quarantäne"
 
 #: ../../main/mail/src/EBox/Mail.pm:148
 msgid "Generate mail aliases"
@@ -8366,7 +9139,7 @@ msgstr "Mail Eingabe"
 msgid "Outgoing Mail (Submission protocol)."
 msgstr "Ausgehende Mail (Eingabe Protokoll)."
 
-#: ../../main/mail/src/EBox/Mail.pm:889
+#: ../../main/mail/src/EBox/Mail.pm:902
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -8375,142 +9148,154 @@ msgstr ""
 "ein voll qualifizierter Name. Bitte, definieren sie einen angepassten Server "
 "Mailnamen "
 
-#: ../../main/mail/src/EBox/Mail.pm:894
+#: ../../main/mail/src/EBox/Mail.pm:907
 msgid "The mail name must be a fully qualified name"
 msgstr "Der mailname muss ein komplett qualifizierter Name sein"
 
-#: ../../main/mail/src/EBox/Mail.pm:898 ../../main/mail/src/EBox/Mail.pm:909
-#: ../../main/mail/src/EBox/Mail.pm:917
+#: ../../main/mail/src/EBox/Mail.pm:911 ../../main/mail/src/EBox/Mail.pm:922
+#: ../../main/mail/src/EBox/Mail.pm:930
 msgid "Host mail name"
 msgstr "Name der Mail-Domäne"
 
-#: ../../main/mail/src/EBox/Mail.pm:912
+#: ../../main/mail/src/EBox/Mail.pm:925
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "Der Mailname und die virtuelle Maildomainname sind gleich"
 
-#: ../../main/mail/src/EBox/Mail.pm:1434
+#: ../../main/mail/src/EBox/Mail.pm:1493
 msgid "SMTP service"
 msgstr "SMTP-Dienst"
 
-#: ../../main/mail/src/EBox/Mail.pm:1441
+#: ../../main/mail/src/EBox/Mail.pm:1500
 msgid "POP3 service"
 msgstr "POP3-Dienst"
 
-#: ../../main/mail/src/EBox/Mail.pm:1447
+#: ../../main/mail/src/EBox/Mail.pm:1506
 msgid "POP3S service"
 msgstr "POP3S-Dienst"
 
-#: ../../main/mail/src/EBox/Mail.pm:1453
+#: ../../main/mail/src/EBox/Mail.pm:1512
 msgid "IMAP service"
 msgstr "IMAP-Dienst"
 
-#: ../../main/mail/src/EBox/Mail.pm:1459
+#: ../../main/mail/src/EBox/Mail.pm:1518
 msgid "IMAPS service"
 msgstr "IMAPS-Dienst"
 
-#: ../../main/mail/src/EBox/Mail.pm:1516
+#: ../../main/mail/src/EBox/Mail.pm:1562
+msgid "enabled"
+msgstr "aktiviert"
+
+#: ../../main/mail/src/EBox/Mail.pm:1567
+msgid "Mail server's filter"
+msgstr "Filter des Mail-Servers"
+
+#: ../../main/mail/src/EBox/Mail.pm:1576 ../../main/mail/src/EBox/Mail.pm:1583
+msgid "Filter type"
+msgstr "Filter-Art"
+
+#: ../../main/mail/src/EBox/Mail.pm:1621
 msgid "Virtual Mail Domains"
 msgstr "Virtuelle Mail-Domains"
 
 # no common german expression
-#: ../../main/mail/src/EBox/Mail.pm:1523
+#: ../../main/mail/src/EBox/Mail.pm:1628
 msgid "Greylist"
 msgstr "Die graue Liste "
 
-#: ../../main/mail/src/EBox/Mail.pm:1530
+#: ../../main/mail/src/EBox/Mail.pm:1635
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Warteschlanagen-Verwaltung"
 
-#: ../../main/mail/src/EBox/Mail.pm:1557
+#: ../../main/mail/src/EBox/Mail.pm:1662
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "Mail-Abruf von externen E-Mail-Accounts"
 
-#: ../../main/mail/src/EBox/Mail.pm:1572
+#: ../../main/mail/src/EBox/Mail.pm:1677
 msgid "Message ID"
 msgstr "Nachrichten ID"
 
-#: ../../main/mail/src/EBox/Mail.pm:1575
+#: ../../main/mail/src/EBox/Mail.pm:1680
 msgid "From hostname"
 msgstr "Von Host aus"
 
-#: ../../main/mail/src/EBox/Mail.pm:1576
+#: ../../main/mail/src/EBox/Mail.pm:1681
 msgid "From host ip"
 msgstr "Von Hostrechner ip"
 
-#: ../../main/mail/src/EBox/Mail.pm:1577
+#: ../../main/mail/src/EBox/Mail.pm:1682
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Größe (bytes)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1578
+#: ../../main/mail/src/EBox/Mail.pm:1683
 msgid "Relay"
 msgstr "Übermittlung"
 
-#: ../../main/mail/src/EBox/Mail.pm:1579
+#: ../../main/mail/src/EBox/Mail.pm:1684
 msgid "Message type"
 msgstr "Nachrichtentyp"
 
-#: ../../main/mail/src/EBox/Mail.pm:1582
+#: ../../main/mail/src/EBox/Mail.pm:1687
 msgid "Additional Info"
 msgstr "Weitere Informationen"
 
-#: ../../main/mail/src/EBox/Mail.pm:1593
+#: ../../main/mail/src/EBox/Mail.pm:1698
 msgid "Successful messages"
 msgstr "Erfolgreiche Nachrichten"
 
-#: ../../main/mail/src/EBox/Mail.pm:1594
+#: ../../main/mail/src/EBox/Mail.pm:1699
 msgid "Maximum message size exceeded"
 msgstr "Maximale Nachrichtengröße überschritten"
 
-#: ../../main/mail/src/EBox/Mail.pm:1595
+#: ../../main/mail/src/EBox/Mail.pm:1700
 msgid "User quota exceeded"
 msgstr "Speicherplatz des Benutzers überschritten"
 
-#: ../../main/mail/src/EBox/Mail.pm:1596
+#: ../../main/mail/src/EBox/Mail.pm:1701
 msgid "Relay access denied"
 msgstr "Übermittlung verweigert"
 
-#: ../../main/mail/src/EBox/Mail.pm:1597
+#: ../../main/mail/src/EBox/Mail.pm:1702
 msgid "Account does not exist"
 msgstr "Dieses Konto existiert nicht"
 
-#: ../../main/mail/src/EBox/Mail.pm:1598
+#: ../../main/mail/src/EBox/Mail.pm:1703
 msgid "Host unreachable"
 msgstr "Hostrechner nicht erreichbar"
 
-#: ../../main/mail/src/EBox/Mail.pm:1599
+#: ../../main/mail/src/EBox/Mail.pm:1704
 msgid "Authentication error"
 msgstr "Authentifizierungsfehler "
 
 # no common german expression
-#: ../../main/mail/src/EBox/Mail.pm:1600
+#: ../../main/mail/src/EBox/Mail.pm:1705
 msgid "Greylisted"
 msgstr "Graugelistet"
 
-#: ../../main/mail/src/EBox/Mail.pm:1601
+#: ../../main/mail/src/EBox/Mail.pm:1706
 msgid "Relay rejected by the smarthost"
 msgstr "Übermittlung durch den smarthost verweigert "
 
-#: ../../main/mail/src/EBox/Mail.pm:1602
+#: ../../main/mail/src/EBox/Mail.pm:1707
 msgid "Other events"
 msgstr "Andere Ereignisse"
 
-#: ../../main/mail/src/EBox/Mail.pm:1680
+#: ../../main/mail/src/EBox/Mail.pm:1785
 msgid "Mail SMTP server"
 msgstr "Mail SMTP Server"
 
-#: ../../main/mail/src/EBox/Mail.pm:1688
+#: ../../main/mail/src/EBox/Mail.pm:1793
 msgid "Mail POP/IMAP server"
 msgstr "Mail POP/IMAP Server"
 
-#: ../../main/mail/src/EBox/Mail.pm:1765
+#: ../../main/mail/src/EBox/Mail.pm:1870
 msgid "Mailboxes"
 msgstr "Postfächer"
 
-#: ../../main/mail/src/EBox/Mail.pm:1814
+#: ../../main/mail/src/EBox/Mail.pm:1919
 #, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
@@ -8665,7 +9450,7 @@ msgstr "Mail-Server Einstellungen"
 msgid "To configure whitelist for greylisting"
 msgstr "Whitelist für das Greylisting konfigurieren"
 
-#: ../../main/mail/src/EBox/Mail/Greylist.pm:243
+#: ../../main/mail/src/EBox/Mail/Greylist.pm:263
 msgid "Greylist service"
 msgstr "Greylist-Dienst"
 
@@ -8693,6 +9478,12 @@ msgstr "Mailfilter Optionen"
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:132
 msgid "custom"
 msgstr "benutzerdefiniert"
+
+#: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:199
+msgid ""
+"As long mailfilter module is enabled the mail server will use the filter it "
+"provides"
+msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:52
 msgid "Virtual domain aliases"
@@ -9863,8 +10654,7 @@ msgid ""
 msgstr ""
 "Für Verkehr, der durch als extern gekennzeichnete Netzwerkkarten geleitet "
 "wird, wird ein NAT angewendet. Außerdem werden Dienste, welche für LAN-"
-"Benutzer gedacht sind, nicht von den externen Netzwerkkarten erreichbar "
-"sein."
+"Benutzer gedacht sind, nicht von den externen Netzwerkkarten erreichbar sein."
 
 #: ../../main/network/src/templates/ifaces.mas:22
 #, perl-brace-format
@@ -10004,7 +10794,8 @@ msgstr "Widgets konfigurieren"
 #: ../../main/core/src/templates/dashboard/index.mas:48
 #, perl-brace-format
 msgid "The following packages are not properly installed: {packages}."
-msgstr "Die folgenden Pakete sind möglicherweise nicht installiert: {packages}."
+msgstr ""
+"Die folgenden Pakete sind möglicherweise nicht installiert: {packages}."
 
 #: ../../main/core/src/templates/dashboard/index.mas:52
 #, perl-brace-format
@@ -11530,7 +12321,7 @@ msgstr ""
 "Diese Regeln erlauben Ihnen, den Zugriff der Zentyal auf externe Dienste zu "
 "konfigurieren."
 
-#: ../../main/samba/stubs/shares.conf.mas:17
+#: ../../main/samba/stubs/shares.conf.mas:21
 msgid "Home Directories"
 msgstr "Eigener Ordner"
 
@@ -12444,510 +13235,6 @@ msgstr ""
 #~ "bleibt er solange verbunden bis der Jabber-Server nach einer erneuten "
 #~ "Anmeldung verlangt."
 
-#~ msgid "Signatures"
-#~ msgstr "Signaturen"
-
-#~ msgid "Database Update Status"
-#~ msgstr "Datenbank Aktualisierungstatus"
-
-#~ msgid "Antivirus"
-#~ msgstr "Antivirus"
-
-#~ msgid ""
-#~ "The antivirus database has not been updated since the module was enabled."
-#~ msgstr ""
-#~ "Die Antivirus-Datenbank ist seit der Aktivierung des Moduls nicht mehr "
-#~ "aktualisiert worden."
-
-#~ msgid "The last update failed."
-#~ msgstr "Die letzte Aktualisierung schlug fehl."
-
-#~ msgid "Last update successful."
-#~ msgstr "Die letzte Aktualisierung war erfolgreich."
-
-#~ msgid ""
-#~ "The antivirus module is not configured. Enable it first in Module Status "
-#~ "section."
-#~ msgstr ""
-#~ "Das Antivirus Modul ist nicht konfiguriert. Aktivieren Sie das Modul "
-#~ "zuerst in der Modul Status Sektion"
-
-#~ msgid ""
-#~ "The antivirus module is not enabled. Enable it first to know the "
-#~ "antivirus status."
-#~ msgstr ""
-#~ "Das Antivirus Modul ist nicht aktiviert. Aktivieren Sie dieses zuerst um "
-#~ "den Status zu sehen."
-
-#~ msgid "Unknown event {event}."
-#~ msgstr "Unbekanntes Ereignis: {event}."
-
-#~ msgid ""
-#~ "Want to protect your system against scams, spear phishing, frauds and "
-#~ "other junk? Get one of the {oh}Commercial Editions{ch} that will keep "
-#~ "your Antvirus database always up-to-date."
-#~ msgstr ""
-#~ "Möchten Sie Ihr System gegen Betrug, Phishing, Spam und anderer "
-#~ "Schafsoftware schützen? Holen Sie sich eine der {oh} Vollversionen {ch}, "
-#~ "die Ihre AntVirus Datenbank immer auf dem neuesten Stand hält."
-
-#~ msgid " To configure clamd daemon"
-#~ msgstr " um den clamd-Dienst zu konfigurieren"
-
-#~ msgid "To schedule the launch of the updater"
-#~ msgstr "Zeitgesteuertes Update"
-
-#~ msgid "Custom {app} profile configuration for {bin} binary"
-#~ msgstr "Eigene {app} Profil Konfiguration für {bin} binär."
-
-#~ msgid "Disable {app} profile for {bin} binary"
-#~ msgstr "Deaktiviert {app} Profil für {bin} binär."
-
-#~ msgid "Success"
-#~ msgstr "Erfolgreich"
-
-#~ msgid "Failure"
-#~ msgstr "Fehler"
-
-#~ msgid "Antivirus DB updates"
-#~ msgstr "AntiVirus Datenbank Updates"
-
-#~ msgid "Mail Filter"
-#~ msgstr "Mailfilter"
-
-#~ msgid "Add clamav user to amavis group"
-#~ msgstr "Füge Benutzer clamav zur Gruppe amavis hinzu"
-
-#~ msgid "Clamav need access to amavis fields to properly scan mail"
-#~ msgstr ""
-#~ "Clamav braucht Zugriff auf die Datenfelder von amavis um Mails richtig zu "
-#~ "überprüfen"
-
-#~ msgid "Add clamav user to p3scan group"
-#~ msgstr "Benutzer clamav zur Gruppe amavis hinzufügen"
-
-#, fuzzy
-#~ msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
-#~ msgstr ""
-#~ "Clamav braucht Zugriff auf die Datenfelder von amavis um Mails richtig zu "
-#~ "überprüfen"
-
-#~ msgid "Update LDAP"
-#~ msgstr "LDAP aktualisieren"
-
-#~ msgid "Add amavis specific classes and fields"
-#~ msgstr "Füge amavis spezifische Klassen und Datenfelder hinzu"
-
-#~ msgid ""
-#~ "Mail server has a custom filter set, unset it before enabling Zentyal "
-#~ "Mail Filter module"
-#~ msgstr ""
-#~ "Auf dem Mail-Server ist ein eigener Filter aktiviert, deaktivieren Sie "
-#~ "diesen, bevor Sie den Zentyal Mail Filter aktivieren."
-
-#~ msgid "Cannot proceed because the filter is in use"
-#~ msgstr "Kann nicht weitermachen, weil der Filter in Verwendung ist"
-
-#~ msgid "Mail filter"
-#~ msgstr "E-Mail Filter"
-
-#~ msgid "Sender address"
-#~ msgstr "Adresse des Senders"
-
-#~ msgid "Recipient address"
-#~ msgstr "Adresse des Empfängers"
-
-#~ msgid "Spam hits"
-#~ msgstr "Spam-Treffer"
-
-#~ msgid "Bad header found"
-#~ msgstr "Ungültige Kopfzeile gefunden"
-
-#~ msgid "Spam found"
-#~ msgstr "Spam gefunden"
-
-#~ msgid "Forbidden attached file found"
-#~ msgstr "Nicht erlaubter Dateianhang gefunden."
-
-#~ msgid "Address in blacklist found"
-#~ msgstr "Adresse in Blacklist gefunden"
-
-#~ msgid "Virus found"
-#~ msgstr "Virus gefunden"
-
-#~ msgid "Clean message"
-#~ msgstr "Virenfreie Nachricht"
-
-#, fuzzy
-#~ msgid "Unable to reinject in the mail server"
-#~ msgstr "Es konnte keine Verbindung zum Mailserver {smtp} hergestellt werden"
-
-#~ msgid "SMTP filter"
-#~ msgstr "SMTP-Filter"
-
-#~ msgid "SMTP Mail Filter"
-#~ msgstr "SMTP-Mailfilter"
-
-#~ msgid "Antispam"
-#~ msgstr "Antispam"
-
-#~ msgid "Files ACL"
-#~ msgstr "Datei-ACL (Zugriffskontrolliste)"
-
-#~ msgid "email address"
-#~ msgstr "E-Mail-Adresse"
-
-#~ msgid ""
-#~ "The sender ought be either an email address or a domain name prefixed "
-#~ "with '@'"
-#~ msgstr ""
-#~ "Der Sender kann eine E-Mail-Adresse oder eine Domäne (mit einem \"@\" "
-#~ "vorangestellt) sein"
-
-#~ msgid "Write down a decimal number"
-#~ msgstr "Tragen Sie eine Dezimalzahl ein"
-
-#~ msgid "Only non-zero positive numbers are allowed"
-#~ msgstr "Nur Werte größer als 0 sind erlaubt"
-
-#~ msgid "Write down a number lesser than {m}"
-#~ msgstr "Tragen Sie eine Zahl kleiner als {m} ein"
-
-#~ msgid "Write down a number greater  than {m}"
-#~ msgstr "Tragen Sie eine Zahl größer als {m} ein"
-
-#~ msgid "MIME type"
-#~ msgstr "MIME-Typ"
-
-#~ msgid "file extension"
-#~ msgstr "Dateiendung"
-
-#~ msgid "Pass"
-#~ msgstr "Durchlassen"
-
-#, fuzzy
-#~ msgid "Notify sender server"
-#~ msgstr "Zweiter Server"
-
-#, fuzzy
-#~ msgid "Notify mail sender account"
-#~ msgstr "Alias für Postfach"
-
-#~ msgid "Drop silently"
-#~ msgstr "Unbemerkt entfernen"
-
-#~ msgid "Mailfilter's policy"
-#~ msgstr "Richtlinien des Mailfilters"
-
-#~ msgid "To configure amavis"
-#~ msgstr "Amavis konfigurieren"
-
-#~ msgid "Zentyal internal mail filter"
-#~ msgstr "Interner Zentyal Mailfilter"
-
-#~ msgid "SMTP filter proxy"
-#~ msgstr "SMTP-Filter Proxy"
-
-#~ msgid "Virtual mail domain {vd} does not exist"
-#~ msgstr "Die virtuelle Maildomäne {vd} gibt es nicht"
-
-#~ msgid " To configure spamassassin daemon"
-#~ msgstr " um den SpamAssassin-Dämon zu konfigurieren."
-
-#~ msgid "Spam threshold"
-#~ msgstr "Spam - Schwellwert"
-
-#~ msgid "It must be a number(decimal point allowed)"
-#~ msgstr "Es muss eine Zahl sein (Dezimalstellen mit Punkt schreiben)"
-
-#~ msgid "The spam's threshold cannot be higher than its autolearn threshold"
-#~ msgstr ""
-#~ "Die Spam-Schwelle kann nicht höher sein, als die  Autolern-Spamschwelle"
-
-#~ msgid ""
-#~ "The spam's threshold cannot be lower or equal than its ham's autolearn "
-#~ "threshold"
-#~ msgstr ""
-#~ "Der Wert unerwünschter Nachrichten muss grösser sein, als der Wert für "
-#~ "automatisches Lernen erwünschter Nachrichten"
-
-#~ msgid ""
-#~ "Cannot learn because bayesian filter is disabled in the current "
-#~ "configuration. In order to be able to learn enable the bayesian filter "
-#~ "and save changes"
-#~ msgstr ""
-#~ "Lernen ist nicht möglich, weil der bayesische Filter in der Konfiguration "
-#~ "deaktiviert ist. Damit Sie das Lernmodul nutzen können, aktivieren Sie "
-#~ "den bayesischen Filter und speichern Sie die Änderungen"
-
-#~ msgid "External connections"
-#~ msgstr "Externe Verbindungen"
-
-#~ msgid "Attached Files Filter"
-#~ msgstr "Mailanhang-Filter"
-
-#~ msgid ""
-#~ "Filter mail messages according attached files. The transparent POP proxy "
-#~ "only filters by extension"
-#~ msgstr ""
-#~ "Nachrichten nach angehängten Dateien filtern. Der Transparente POP-Proxy "
-#~ "filtert nur nach Datei-Erweiterungen."
-
-#~ msgid "Use virus filtering"
-#~ msgstr "Viren filtern"
-
-#~ msgid "Use spam filtering"
-#~ msgstr "Spam filtern"
-
-#~ msgid "default"
-#~ msgstr "Standard"
-
-#~ msgid "custom threshold"
-#~ msgstr "Benutzerdefinierter Grenzwert"
-
-#~ msgid "Antispam sender policy"
-#~ msgstr "Antispam-Senderrichtlinie"
-
-#~ msgid "Virtual Domains specific policies"
-#~ msgstr "spezifische Richtlinie der virtuelle Domäne"
-
-#~ msgid "virtual domain policy"
-#~ msgstr "Virtuelle Domänen Richtlinie"
-
-#~ msgid ""
-#~ "There are no virtual mail domains managed by this server. You can create "
-#~ "some in the {openA}virtual domains mail page{closeA}."
-#~ msgstr ""
-#~ "Es gibt keine virtuelle Mail Domäne die von diesem Server verwaltet wird. "
-#~ "Sie können auf der {openA}virtuellen Mail Domänen Seite{closeA} eine "
-#~ "erzeugen."
-
-#~ msgid "The score threshold to mark a message as spam"
-#~ msgstr "Der nötige Wert um ein E-Mail als Spam zu markieren"
-
-#~ msgid "Spam subject tag"
-#~ msgstr "Betreffzeile bei Spam"
-
-#~ msgid "Tag which will be added to the spam mail subject"
-#~ msgstr ""
-#~ "Etikett, das an die Betreffzeile unerwünschter Nachrichten angehängt wird"
-
-#, fuzzy
-#~ msgid "Use Bayesian classifier"
-#~ msgstr "Bayesischen Filter verwenden"
-
-#~ msgid "Auto-whitelist"
-#~ msgstr "Automatisch auf weisse Liste setzen"
-
-#~ msgid "Change the score of mail according to the sender history"
-#~ msgstr "Den Wert der E-Mail der Sendervergangenheit anpassen"
-
-#~ msgid "Auto-learn"
-#~ msgstr "Automatisch lernen"
-
-#~ msgid "Feedback the learning system with messages that reach the threshold"
-#~ msgstr "Das Lernmodul mit E-Mails füttern, welche den Wert erreichen"
-
-#~ msgid "Autolearn spam threshold"
-#~ msgstr "Wert für automatisches Lernen von Spam"
-
-#~ msgid ""
-#~ "Spam messages with a score equal or greater than this threshold will be "
-#~ "added to the learning system "
-#~ msgstr ""
-#~ "Unerwünschte Nachrichten mit einem Wert, der grösser oder gleich diesem "
-#~ "Wert ist werden dem Lernmodul hinzugefügt"
-
-#~ msgid "Autolearn ham threshold"
-#~ msgstr "Wert für automatisches Lernen von erwünschten Nachrichten"
-
-#~ msgid ""
-#~ "Ham messages with a score below this threshold will be added to the "
-#~ "learning system"
-#~ msgstr ""
-#~ "Erwünschte Nachrichten mit einem Wert, der unter diesem Wert ist werden "
-#~ "dem Lernmodul hinzugefügt"
-
-#~ msgid "Antispam configuration"
-#~ msgstr "Antispam-Konfiguration"
-
-#~ msgid ""
-#~ "You must define autolearn spam threshold when autolearn option is active"
-#~ msgstr ""
-#~ "Sie müssen einen Auto-Lern-Grenzwert für Spam festlegen, wenn die "
-#~ "automatische Lernfunktion aktiv ist"
-
-#~ msgid ""
-#~ "You must define autolearn ham threshold when autolearn option is active"
-#~ msgstr ""
-#~ "Sie müssen einen Auto-Lern-Grenzwert für Ham festlegen, wenn die "
-#~ "automatische Lernfunktion aktiv ist"
-
-#~ msgid ""
-#~ "The spam's autolearn threshold cannot be lower than the default spam's "
-#~ "treshold "
-#~ msgstr ""
-#~ "Der Wert für das Lernmodul kann nicht kleiner sein, als der Standardwert "
-#~ "für Spam"
-
-#~ msgid ""
-#~ "The ham's autolearn threshold canot be higher or equal than the default "
-#~ "spam level"
-#~ msgstr ""
-#~ "Der Wert für das Lernen von erwünschten Nachrichten muss kleiner sein, "
-#~ "als der Standardwert für Spam"
-
-#~ msgid "External mail domain"
-#~ msgstr "Externe Maildomäne"
-
-#~ msgid "Allow connection"
-#~ msgstr "Erlaube Verbindung"
-
-#~ msgid "External mail domains"
-#~ msgstr "Externe Maildomänen"
-
-#~ msgid "external mail domain"
-#~ msgstr "Externe Maildomäne"
-
-#~ msgid ""
-#~ "Here you can specify which external mail domains can connect to the mail "
-#~ "filter"
-#~ msgstr ""
-#~ "Hier können Sie festlegen, welche externe Maildomöne zum Mail-Filter "
-#~ "verbinden kann"
-
-#, fuzzy
-#~ msgid "{d} is a internal Zentyal virtual main domain"
-#~ msgstr "{d} ist eine interne Zentyal Virtuelle Hauptdomäne"
-
-#~ msgid "External mail server"
-#~ msgstr "Externer Mailserver"
-
-#~ msgid "IP address of the server"
-#~ msgstr "IP-Adresse des Servers"
-
-#~ msgid "External mail servers"
-#~ msgstr "Externe Mailserver"
-
-#~ msgid "external mail server"
-#~ msgstr "Externer Mailserver"
-
-#~ msgid ""
-#~ "Here you can specify which external mail servers can connect to the mail "
-#~ "filter"
-#~ msgstr ""
-#~ "Hier können Sie festlegen welche externen Mailserver auf den Mail-Filter "
-#~ "verbinden können"
-
-#~ msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
-#~ msgstr ""
-#~ "Die externe MTA-Adresse {mta} ist ungültig. Lokale Netzwerkadressen sind "
-#~ "nicht erlaubt"
-
-#~ msgid "Antivirus enabled"
-#~ msgstr "Antivirus aktiviert"
-
-#~ msgid "Antispam enabled"
-#~ msgstr "Antispam aktiviert"
-
-#~ msgid "Service's port"
-#~ msgstr "Port des Dienstes"
-
-#~ msgid "Notify of non-spam problematic messages"
-#~ msgstr "Benachrichtigen bei problematischen Nicht-Spam-Nachrichten"
-
-#~ msgid "The port {port} is already used by module {mod}"
-#~ msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
-
-#~ msgid "Mail sender"
-#~ msgstr "Mail Absender"
-
-#~ msgid "Policy"
-#~ msgstr "Richtlinie"
-
-#, fuzzy
-#~ msgid "Sender policy for virtual domain"
-#~ msgstr "Spam-Schwellwert für die virtuelle Domäne {domain}"
-
-#~ msgid "sender policy"
-#~ msgstr "Senderichtlinien"
-
-#~ msgid "whitelist"
-#~ msgstr "weisser Liste"
-
-#~ msgid "blacklist"
-#~ msgstr "schwarzer Liste"
-
-#~ msgid "process"
-#~ msgstr "Prozess"
-
-#~ msgid "MIME Type"
-#~ msgstr "MIME-Typ"
-
-#~ msgid "Allow"
-#~ msgstr "Erlauben"
-
-#~ msgid "MIME types"
-#~ msgstr "MIME-Typen"
-
-#~ msgid ""
-#~ "MIME types which are not listed below are allowed. MIME types aren't used "
-#~ "by POP transparent proxy"
-#~ msgstr ""
-#~ "MIME-Typen, die unten nicht aufgelistet sind, sind erlaubt. MIME-Typen "
-#~ "werden vom transparenten POP-Proxy nicht verwendet"
-
-#~ msgid "File extension"
-#~ msgstr "Dateiendung"
-
-#~ msgid "File extensions"
-#~ msgstr "Dateiendungen"
-
-#~ msgid "Extensions which are not listed below are allowed"
-#~ msgstr "Dateiendungen, die unten nicht aufgelistet sind, sind erlaubt"
-
-#~ msgid "Mailbox"
-#~ msgstr "Postfach"
-
-#~ msgid "Mailbox contains"
-#~ msgstr "Postfach enthält"
-
-#~ msgid "Train bayesian spam filter"
-#~ msgstr "Bayesischen Filter trainieren"
-
-#~ msgid "Learned from messages"
-#~ msgstr "von Nachrichten gelernt"
-
-#~ msgid "Train"
-#~ msgstr "Trainieren"
-
-#~ msgid "spam"
-#~ msgstr "Spam"
-
-#~ msgid "ham"
-#~ msgstr "erwünschte Nachrichten"
-
-#~ msgid "Invalid mailbox type: {type}"
-#~ msgstr "Ungültiger Mailboxtyp: {type}"
-
-#~ msgid "Sender policy"
-#~ msgstr "Senderichtlinien"
-
-#~ msgid "Virus policy"
-#~ msgstr "Richtlinie bei Viren"
-
-#~ msgid "Spam policy"
-#~ msgstr "Richtlinie bei Spam"
-
-#~ msgid "Banned files policy"
-#~ msgstr "Regel bei nicht zugelassenen Dateien"
-
-#~ msgid "Bad header policy"
-#~ msgstr "Regel für nicht konforme Kopfzeilen"
-
-#~ msgid "Filter Policies"
-#~ msgstr "Filter Richtlinien"
-
 #~ msgid "L2TP connections"
 #~ msgstr "L2TP / IMAP Verbindungstypen"
 
@@ -13357,9 +13644,6 @@ msgstr ""
 #~ "Wenn der alle Dienste betroffen sind, sollte eine Quelle oder ein Ziel "
 #~ "angegeben werden"
 
-#~ msgid "Filter type"
-#~ msgstr "Filter-Art"
-
 #~ msgid "Lowest priotiry: 7 Highest priority: 0"
 #~ msgstr "Niedriegste Priorität: 7 Höchste Priorität: 0"
 
@@ -13524,14 +13808,6 @@ msgstr ""
 #~ msgid "PowerShell"
 #~ msgstr "PowerShell"
 
-#~ msgid "Antivirus default settings"
-#~ msgstr "Antivirus Standardeinstellungen"
-
-#~ msgid ""
-#~ "Zentyal antivirus module must be installed and enabled to use this feature"
-#~ msgstr ""
-#~ "Zentyal Antivirus-Module muß installiert sein um diese Option zu nutzen"
-
 #, fuzzy
 #~ msgid "Group Policy Links"
 #~ msgstr "Regeln für Gruppen"
@@ -13555,12 +13831,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Sie müssen das Mail-Modul im Bereich Modul-Status aktivieren um es zu "
 #~ "nutzen."
-
-#~ msgid "Samba shares antivirus exceptions"
-#~ msgstr "Antivirus-Ausnahmen von Samba-Freigaben"
-
-#~ msgid "Add exceptions to the default antivirus settings"
-#~ msgstr "Hinzufügen von Ausnahmen zu den Antivirus-Standardeinstellungen"
 
 #~ msgid "Server mode"
 #~ msgstr "Servermodus"
@@ -13671,24 +13941,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Das Modul \"Benutzer\" konnte nicht wiederhergestellt werden, da es "
 #~ "zurzeit im Modus {mode} läuft und die Sicherung im Modus {bpMode} erfolgte"
-
-#~ msgid "File name"
-#~ msgstr "Dateiname"
-
-#~ msgid "Virus"
-#~ msgstr "Virus"
-
-#~ msgid "Quarantined file name"
-#~ msgstr "Datei in Quarantäne"
-
-#~ msgid "Quarantine"
-#~ msgstr "Quarantäne"
-
-#~ msgid "Samba virus"
-#~ msgstr "Samba-Virus"
-
-#~ msgid "Samba quarantine"
-#~ msgstr "Samba-Quarantäne"
 
 #~ msgid "HTTP Proxy"
 #~ msgstr "HTTP-Proxy"
@@ -14423,12 +14675,6 @@ msgstr ""
 #~ "You can exempt some addresses from transparent proxy. The domains will be "
 #~ "resolved at saving changes process."
 #~ msgstr "Sie können Adressen vom transparenten Proxy ausschließen"
-
-#~ msgid "enabled"
-#~ msgstr "aktiviert"
-
-#~ msgid "Mail server's filter"
-#~ msgstr "Filter des Mail-Servers"
 
 #, fuzzy
 #~ msgid "User account"
@@ -17886,9 +18132,6 @@ msgstr ""
 
 #~ msgid "Zentyal will need this schema to store Zarafa users."
 #~ msgstr "Zentyal benötigt dieses Schema um Zarafa-Benutzer zu speichern."
-
-#~ msgid "Add vmail system user"
-#~ msgstr "Füge vmail Systembenutzer hinzu"
 
 #~ msgid "Zentyal will need this to deliver mail to Zarafa."
 #~ msgstr "Zentyal braucht dies um EMail an Zarafa zu liefern"

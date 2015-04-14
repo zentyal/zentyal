@@ -21,6 +21,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
+#: ../../main/mail/src/EBox/Mail.pm:1562
 msgid "disabled"
 msgstr "dezactivat"
 
@@ -160,6 +161,7 @@ msgstr "Activat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:891
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
 #: ../../main/core/src/EBox/SysInfo.pm:480
 #: ../../main/core/src/EBox/RemoteServices.pm:1306
@@ -954,6 +956,7 @@ msgid "Common name"
 msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
+#: ../../main/mail/src/EBox/Mail.pm:1579
 msgid "Address"
 msgstr "Adresa"
 
@@ -971,11 +974,16 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1479
 #: ../../main/printers/src/EBox/Printers.pm:396
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:62
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:432
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:475
 #: ../../main/dhcp/src/EBox/DHCP.pm:979
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3073
-#: ../../main/mail/src/EBox/Mail.pm:1571
+#: ../../main/samba/src/EBox/Samba.pm:3220
+#: ../../main/samba/src/EBox/Samba.pm:3240
+#: ../../main/samba/src/EBox/Samba.pm:3251
+#: ../../main/mail/src/EBox/Mail.pm:1676
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
@@ -988,15 +996,18 @@ msgstr "Data"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1480
 #: ../../main/printers/src/EBox/Printers.pm:397
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:434
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:478
 #: ../../main/dhcp/src/EBox/DHCP.pm:983
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/mail/src/EBox/Mail.pm:1581
+#: ../../main/mail/src/EBox/Mail.pm:1686
 msgid "Event"
 msgstr "Eveniment"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
+#: ../../main/samba/src/EBox/Samba.pm:3245
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1118,7 +1129,7 @@ msgstr "Nume gazda"
 
 #: ../../main/dns/src/EBox/DNS.pm:1694
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2595
+#: ../../main/samba/src/EBox/Samba.pm:2628
 msgid "alias"
 msgstr "alias"
 
@@ -1238,7 +1249,7 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:1900
+#: ../../main/samba/src/EBox/Samba.pm:1933
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
@@ -1340,6 +1351,7 @@ msgstr "Acest domeniu"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
+#: ../../main/mail/src/EBox/Mail.pm:1577
 #, fuzzy
 msgid "Custom"
 msgstr ""
@@ -1499,12 +1511,13 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:606
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:71
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:53
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1894
+#: ../../main/samba/src/EBox/Samba.pm:1927
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "Domeniu"
@@ -1693,7 +1706,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3075
+#: ../../main/samba/src/EBox/Samba.pm:3222
+#: ../../main/samba/src/EBox/Samba.pm:3242
+#: ../../main/samba/src/EBox/Samba.pm:3253
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2054,8 +2069,10 @@ msgstr ""
 "Certificatul cu numele comun {cn} NU există în această autoritate de "
 "certificare."
 
-#: ../../main/ca/src/EBox/CA.pm:1760 ../../main/core/src/EBox/SysInfo.pm:110
-#: ../../main/mail/src/EBox/Mail.pm:1508
+#: ../../main/ca/src/EBox/CA.pm:1760
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
+#: ../../main/core/src/EBox/SysInfo.pm:110
+#: ../../main/mail/src/EBox/Mail.pm:1613
 msgid "General"
 msgstr "General"
 
@@ -2156,13 +2173,14 @@ msgstr ""
 "alfanumerice, spațiile și caracterele .?&+:-@*"
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:75
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:477
 #: ../../main/core/src/EBox/Model/DataTable.pm:1764
 #: ../../main/core/src/EBox/Model/Composite.pm:521
 #: ../../main/core/src/EBox/Model/Composite.pm:536
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3076
+#: ../../main/samba/src/EBox/Samba.pm:3223
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -2359,6 +2377,777 @@ msgid ""
 "The CN {cn} is reserved by OpenChange and cannot be generated automatically. "
 "You can issue it from the {oh}OpenChange virtual domains interface.{ch}"
 msgstr ""
+
+# #-#-#-#-#  ro.po (ebox-antivirus 0.1)  #-#-#-#-#
+# src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:58
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
+#: ../../main/network/src/EBox/Network.pm:3428
+#: ../../main/mail/src/EBox/Mail.pm:1564 ../../main/mail/src/EBox/Mail.pm:1685
+#: ../../main/core/src/templates/report/raid.mas:100
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
+#: ../../main/mail/src/templates/qmanager.mas:17
+msgid "Status"
+msgstr "Stare"
+
+# src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
+#, fuzzy
+msgid "Signatures"
+msgstr "Stare"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
+msgid "Database Update Status"
+msgstr "Starea actualizării bazei de date a antivirusului"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:73
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:77
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:398
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:403
+#: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:59
+msgid "Antivirus"
+msgstr "Antivirus"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:151
+msgid ""
+"The antivirus database has not been updated since the module was enabled."
+msgstr ""
+"Baza de date a antivirusului nu a fost actualizată de când modulul a fost "
+"activat"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:153
+msgid "The last update failed."
+msgstr "Ultima actualizare a eșuat"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:154
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:155
+msgid "Last update successful."
+msgstr "Ultima actualizare a fost făcută cu succes"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:157
+msgid ""
+"The antivirus module is not configured. Enable it first in Module Status "
+"section."
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:160
+#, fuzzy
+msgid ""
+"The antivirus module is not enabled. Enable it first to know the antivirus "
+"status."
+msgstr "Modulul evenimente, nu este activ pentru a putea trimite evenimente"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
+#, perl-brace-format
+msgid "Unknown event {event}."
+msgstr "Eveniment necunoscut {event}"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:185
+#, perl-brace-format
+msgid ""
+"Want to protect your system against scams, spear phishing, frauds and other "
+"junk? Get one of the {oh}Commercial Editions{ch} that will keep your "
+"Antvirus database always up-to-date."
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:169
+msgid " To configure clamd daemon"
+msgstr "Pentru a configura clamd daemon"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:174
+msgid "To schedule the launch of the updater"
+msgstr "Pentru a programa lansarea a actualizarii"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:179
+#, perl-brace-format
+msgid "Custom {app} profile configuration for {bin} binary"
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:186
+#, perl-brace-format
+msgid "Disable {app} profile for {bin} binary"
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:433
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
+#: ../../main/firewall/src/EBox/Firewall.pm:789
+#, fuzzy
+msgid "Source"
+msgstr ""
+"#-#-#-#-#  ro.po (ebox-network 0.12.99)  #-#-#-#-#\n"
+"Sursă\n"
+"#-#-#-#-#  ro.po (ebox-ids 1.1)  #-#-#-#-#\n"
+"Sursă\n"
+"#-#-#-#-#  ro.po (ebox-firewall 0.12.99)  #-#-#-#-#\n"
+"Sursa\n"
+"#-#-#-#-#  ro.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
+"Sursa"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:438
+msgid "Success"
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:438
+#, fuzzy
+msgid "Failure"
+msgstr "eşuat"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:441
+#, fuzzy
+msgid "Antivirus DB updates"
+msgstr "Antivirus"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:60
+msgid "Mail Filter"
+msgstr "Filtru corespondenţă"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:78
+msgid "Add clamav user to amavis group"
+msgstr "Adaugă utilizatorul clamav la grupul amavis"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:79
+msgid "Clamav need access to amavis fields to properly scan mail"
+msgstr ""
+"Clamav are nevoie de acces la câmpurile amavis pentru a scana corespondenţa"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:83
+msgid "Add clamav user to p3scan group"
+msgstr "Adaugă utilizatorul clamav la grupul p3scan"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:84
+msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
+msgstr ""
+"Clamav are nevoie de acces la grupul p3scan pentru a scana proxy-ul POP"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:88
+msgid "Add spam and ham system users"
+msgstr "Adaugă utilizatorii spam și ham la utilizatorii sistemului"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:90
+msgid ""
+"This users are for the email accounts used for training the bayesian filter"
+msgstr ""
+"Acest utilizator este folosit pentru instruirea utilizării filtrului "
+"bayesian de către conturilor de corespondență"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:95
+msgid "Update LDAP"
+msgstr "Actualizează LDAP"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:96
+msgid "Add amavis specific classes and fields"
+msgstr "Adaugă câmpurile și filtrele specifice pentru amavis"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:127
+msgid ""
+"Mail server has a custom filter set, unset it before enabling Zentyal Mail "
+"Filter module"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:309
+msgid "Cannot proceed because the filter is in use"
+msgstr "Nu se poate continua deoarece filtrul este în uz"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:455
+msgid "Mail filter"
+msgstr "Filtru corespondență"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:480
+msgid "Sender address"
+msgstr "Adresa expeditorului"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:481
+msgid "Recipient address"
+msgstr "Adresa destinatarului"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:483
+msgid "Spam hits"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:488
+#, fuzzy
+msgid "Bad header found"
+msgstr "Cont utilizator"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:489
+#, fuzzy
+msgid "Spam found"
+msgstr "Negăsit"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:490
+msgid "Forbidden attached file found"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:491
+msgid "Address in blacklist found"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:492
+#, fuzzy
+msgid "Virus found"
+msgstr "Negăsit"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:493
+#, fuzzy
+msgid "Clean message"
+msgstr "mesaj de ajutor"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:494
+msgid "Unable to reinject in the mail server"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:498
+#, fuzzy
+msgid "SMTP filter"
+msgstr "Filtru corespondență"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:529
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:39
+#, fuzzy
+msgid "SMTP Mail Filter"
+msgstr "Filtru corespondenţă"
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:536
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:458
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:40
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:41
+msgid "Antispam"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:543
+#, fuzzy
+msgid "Files ACL"
+msgstr "Fisier"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:76
+#: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:88
+#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:47
+#: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:50
+msgid "domain name"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:80
+#, fuzzy
+msgid "email address"
+msgstr "Adresa de mail"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:84
+msgid ""
+"The sender ought be either an email address or a domain name prefixed with "
+"'@'"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:105
+msgid "Write down a decimal number"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:110
+#, fuzzy
+msgid "Only non-zero positive numbers are allowed"
+msgstr "Trebuie sa fie un numar pozitiv diferit de zero"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:118
+#, perl-brace-format
+msgid "Write down a number lesser than {m}"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:125
+#, fuzzy, perl-brace-format
+msgid "Write down a number greater  than {m}"
+msgstr "Valoarea ar trebui să fie mai mică de {m}"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:57
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:100
+msgid "MIME type"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/FileExtension.pm:55
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:104
+#, fuzzy
+msgid "file extension"
+msgstr "Extensie utilizator"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:28
+#, fuzzy
+msgid "Pass"
+msgstr ""
+"#-#-#-#-#  ro.po (ebox-network 0.12.99)  #-#-#-#-#\n"
+"Parolă\n"
+"#-#-#-#-#  ro.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
+"Parola\n"
+"#-#-#-#-#  ro.po (ebox-webmail 1.3)  #-#-#-#-#\n"
+"Parolă\n"
+"#-#-#-#-#  ro.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
+"Parola\n"
+"#-#-#-#-#  ro.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
+"Parola"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
+#, fuzzy
+msgid "Notify sender server"
+msgstr "server secundar"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
+#, fuzzy
+msgid "Notify mail sender account"
+msgstr "Intrare externă"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:31
+msgid "Drop silently"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:75
+#, fuzzy
+msgid "Mailfilter's policy"
+msgstr "Filtru corespondență"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:68
+#, fuzzy
+msgid "To configure amavis"
+msgstr "Pentru a configura vsftpd"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:426
+#, fuzzy
+msgid "Zentyal internal mail filter"
+msgstr "Serviciu mail Zentyal"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
+#, fuzzy
+msgid "SMTP filter proxy"
+msgstr "Port server SMTP"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:599
+#, fuzzy, perl-brace-format
+msgid "Virtual mail domain {vd} does not exist"
+msgstr "Nu există tabelul {table}"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:59
+#, fuzzy
+msgid " To configure spamassassin daemon"
+msgstr "Pentru a configura clamd daemon"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:328
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:58
+#, fuzzy
+msgid "Spam threshold"
+msgstr "Prag"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:328
+#, fuzzy
+msgid "It must be a number(decimal point allowed)"
+msgstr "Nume domeniu"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:338
+msgid "The spam's threshold cannot be higher than its autolearn threshold"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:342
+msgid ""
+"The spam's threshold cannot be lower or equal than its ham's autolearn "
+"threshold"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:379
+msgid ""
+"Cannot learn because bayesian filter is disabled in the current "
+"configuration. In order to be able to learn enable the bayesian filter and "
+"save changes"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:392
+#, fuzzy, perl-brace-format
+msgid "Accounts from the domain {d} cannot train the bayesian filter"
+msgstr ""
+"Acest utilizator este folosit pentru instruirea utilizării filtrului "
+"bayesian de către conturilor de corespondență"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:39
+#, fuzzy
+msgid "External connections"
+msgstr "Conexiune la server extern"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
+#, fuzzy
+msgid "Attached Files Filter"
+msgstr "Filtru corespondenţă"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:41
+msgid ""
+"Filter mail messages according attached files. The transparent POP proxy "
+"only filters by extension"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:80
+#, fuzzy
+msgid "Use virus filtering"
+msgstr "Utilizatori"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:86
+#, fuzzy
+msgid "Use spam filtering"
+msgstr "Utilizatori"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:99
+#, fuzzy
+msgid "default"
+msgstr "Implicit"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
+#, fuzzy
+msgid "custom threshold"
+msgstr "Prag"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:150
+msgid "Antispam sender policy"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
+#, fuzzy
+msgid "Virtual Domains specific policies"
+msgstr "nume interfaţă virtuală"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
+#, fuzzy
+msgid "virtual domain policy"
+msgstr "nume interfaţă virtuală"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:183
+#, perl-brace-format
+msgid ""
+"There are no virtual mail domains managed by this server. You can create "
+"some in the {openA}virtual domains mail page{closeA}."
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:62
+msgid "The score threshold to mark a message as spam"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:66
+msgid "Spam subject tag"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:69
+msgid "Tag which will be added to the spam mail subject"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:73
+msgid "Use Bayesian classifier"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:79
+msgid "Auto-whitelist"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:82
+msgid "Change the score of mail according to the sender history"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:86
+#, fuzzy
+msgid "Auto-learn"
+msgstr "Repornire"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:89
+msgid "Feedback the learning system with messages that reach the threshold"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:94
+msgid "Autolearn spam threshold"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:98
+msgid ""
+"Spam messages with a score equal or greater than this threshold will be "
+"added to the learning system "
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:102
+msgid "Autolearn ham threshold"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
+msgid ""
+"Ham messages with a score below this threshold will be added to the learning "
+"system"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:111
+#, fuzzy
+msgid "Antispam configuration"
+msgstr "Configurare iniţială"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:155
+msgid ""
+"You must define autolearn spam threshold when autolearn option is active"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:161
+msgid "You must define autolearn ham threshold when autolearn option is active"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:167
+msgid ""
+"The spam's autolearn threshold cannot be lower than the default spam's "
+"treshold "
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:173
+msgid ""
+"The ham's autolearn threshold canot be higher or equal than the default spam "
+"level"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:70
+#, fuzzy
+msgid "External mail domain"
+msgstr "Intrare externă"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:76
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:77
+#, fuzzy
+msgid "Allow connection"
+msgstr "Tip conexiune IMAP"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:84
+#, fuzzy
+msgid "External mail domains"
+msgstr "Intrare externă"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:96
+#, fuzzy
+msgid "external mail domain"
+msgstr "Domeniu email virtual "
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:97
+msgid ""
+"Here you can specify which external mail domains can connect to the mail "
+"filter"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:114
+#, perl-brace-format
+msgid "{d} is a internal Zentyal virtual main domain"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
+#, fuzzy
+msgid "External mail server"
+msgstr "Conexiune la server extern"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:73
+#, fuzzy
+msgid "IP address of the server"
+msgstr "Adresa IP a serverului DNS folosit de Zentyal pentru a rezolva numele."
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:85
+#, fuzzy
+msgid "External mail servers"
+msgstr "Conexiune la server extern"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:97
+#, fuzzy
+msgid "external mail server"
+msgstr "Serviciu mail Zentyal"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:98
+msgid ""
+"Here you can specify which external mail servers can connect to the mail "
+"filter"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:140
+#, perl-brace-format
+msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:61
+#, fuzzy
+msgid "Antivirus enabled"
+msgstr "Serviciu activat"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:67
+#, fuzzy
+msgid "Antispam enabled"
+msgstr "Serviciu activat"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:74
+#, fuzzy
+msgid "Service's port"
+msgstr "Portul serverului"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:81
+msgid "Notify of non-spam problematic messages"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
+#: ../../main/core/src/EBox/RemoteServices.pm:505
+#: ../../main/core/src/EBox/RemoteServices.pm:546
+msgid "mail address"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:128
+#, fuzzy, perl-brace-format
+msgid "The port {port} is already used by module {mod}"
+msgstr "Portul {p}/{pro} este deja utilizat"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:55
+#, fuzzy
+msgid "Mail sender"
+msgstr "Preschimbare posta"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:61
+msgid "Policy"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
+#, fuzzy
+msgid "Sender policy for virtual domain"
+msgstr "Domeniu Zentyal"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:88
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:82
+msgid "sender policy"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:96
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:90
+#, fuzzy
+msgid "whitelist"
+msgstr "Actualizare listă"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:97
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:91
+#, fuzzy
+msgid "blacklist"
+msgstr "Lista backup-uri"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:92
+#, fuzzy
+msgid "process"
+msgstr "Lista proceselor"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:77
+#, fuzzy
+msgid "MIME Type"
+msgstr "Tip"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:83
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:87
+#, fuzzy
+msgid "Allow"
+msgstr "Permite SSL"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:92
+msgid "MIME types"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:101
+msgid ""
+"MIME types which are not listed below are allowed. MIME types aren't used by "
+"POP transparent proxy"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:81
+#, fuzzy
+msgid "File extension"
+msgstr "Extensie utilizator"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:96
+#, fuzzy
+msgid "File extensions"
+msgstr "Extensie utilizator"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:105
+msgid "Extensions which are not listed below are allowed"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:55
+msgid "Mailbox"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:61
+#, fuzzy
+msgid "Mailbox contains"
+msgstr ""
+"#-#-#-#-#  ro.po (ebox-network 0.12.99)  #-#-#-#-#\n"
+"Configurare\n"
+"#-#-#-#-#  ro.po (ebox-services 0.12.99)  #-#-#-#-#\n"
+"Configurare\n"
+"#-#-#-#-#  ro.po (ebox-webserver 0.12.99)  #-#-#-#-#\n"
+"Configuraţie\n"
+"#-#-#-#-#  ro.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
+"Configuraţie\n"
+"#-#-#-#-#  ro.po (ebox-jabber 0.12.99)  #-#-#-#-#\n"
+"Configurare"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:71
+msgid "Train bayesian spam filter"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
+#, fuzzy
+msgid "Learned from messages"
+msgstr "Mesaje jurnalizate"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:78
+msgid "Train"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:87
+msgid "spam"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
+msgid "ham"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:115
+#, perl-brace-format
+msgid "Invalid mailbox type: {type}"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:70
+#, fuzzy
+msgid "Sender policy"
+msgstr "Expeditor"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:154
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:158
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
+msgid "Virtual Domains"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:58
+#, fuzzy
+msgid "Virus policy"
+msgstr "nume interfaţă virtuală"
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:65
+msgid "Spam policy"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:68
+msgid "Bounce policy will be ignored for high-score spam messages"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:72
+msgid "Banned files policy"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:78
+msgid "Bad header policy"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
+#, fuzzy
+msgid "Filter Policies"
+msgstr "Filtreaza profilul"
 
 #: ../../main/network/src/EBox/NetworkUtil.pm:56
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:280
@@ -2971,16 +3760,6 @@ msgstr "conectat(ă)"
 msgid "no link"
 msgstr "deconectat(ă)"
 
-# #-#-#-#-#  ro.po (ebox-antivirus 0.1)  #-#-#-#-#
-# src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
-#: ../../main/network/src/EBox/Network.pm:3428
-#: ../../main/mail/src/EBox/Mail.pm:1580
-#: ../../main/core/src/templates/report/raid.mas:100
-#: ../../main/core/src/templates/moduleStatusTable.mas:64
-#: ../../main/mail/src/templates/qmanager.mas:17
-msgid "Status"
-msgstr "Stare"
-
 #: ../../main/network/src/EBox/Network.pm:3454
 msgid "Tx bytes"
 msgstr "octeti Tx "
@@ -3274,13 +4053,13 @@ msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
 msgstr "Intervalul {from} - {to} include interfata cu adresa IP: {ifaceIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/mail/src/EBox/Mail.pm:1573
+#: ../../main/mail/src/EBox/Mail.pm:1678
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
 msgstr "De la"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/mail/src/EBox/Mail.pm:1574
+#: ../../main/mail/src/EBox/Mail.pm:1679
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 msgid "To"
 msgstr "Catre"
@@ -4749,12 +5528,6 @@ msgstr ""
 msgid "Administration interface TCP port"
 msgstr "Port TCP pt. interfaţa de administrare"
 
-#: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:88
-#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:47
-#: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:50
-msgid "domain name"
-msgstr ""
-
 #: ../../main/core/src/EBox/SysInfo/CGI/CurrentProgress.pm:37
 #: ../../main/software/src/EBox/Software/CGI/CurrentPackage.pm:31
 #, fuzzy
@@ -5330,11 +6103,6 @@ msgstr ""
 #, fuzzy
 msgid "Zentyal Remote Client"
 msgstr "Componente Zentyal"
-
-#: ../../main/core/src/EBox/RemoteServices.pm:505
-#: ../../main/core/src/EBox/RemoteServices.pm:546
-msgid "mail address"
-msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1012
 #, perl-brace-format
@@ -6032,11 +6800,6 @@ msgstr "Fișierul certificatului"
 msgid "Revoke and reissue certificate"
 msgstr "Revocare certificat"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:158
-#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
-msgid "Virtual Domains"
-msgstr ""
-
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:159
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:85
@@ -6325,8 +7088,8 @@ msgid "To make autodiscovery service available"
 msgstr "Configurarea mesageriei vocale."
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:625
-#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1485
-#: ../../main/mail/src/EBox/Mail.pm:1606
+#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1547
+#: ../../main/mail/src/EBox/Mail.pm:1711
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr ""
@@ -6658,22 +7421,6 @@ msgstr "Destinaţie iniţială"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:263
 msgid "Original destination port"
 msgstr "Port destinaţie iniţial"
-
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
-#: ../../main/firewall/src/EBox/Firewall.pm:789
-#, fuzzy
-msgid "Source"
-msgstr ""
-"#-#-#-#-#  ro.po (ebox-network 0.12.99)  #-#-#-#-#\n"
-"Sursă\n"
-"#-#-#-#-#  ro.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Sursă\n"
-"#-#-#-#-#  ro.po (ebox-firewall 0.12.99)  #-#-#-#-#\n"
-"Sursa\n"
-"#-#-#-#-#  ro.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"Sursa"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:283
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:116
@@ -7116,7 +7863,7 @@ msgid "OU name"
 msgstr "Nume utilizator"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:1921
+#: ../../main/samba/src/EBox/Samba.pm:1954
 msgid "LDAP Settings"
 msgstr ""
 
@@ -7126,7 +7873,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:1917
+#: ../../main/samba/src/EBox/Samba.pm:1950
 msgid "User Template"
 msgstr ""
 
@@ -7135,7 +7882,7 @@ msgid "Recycle Bin"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:1931
+#: ../../main/samba/src/EBox/Samba.pm:1964
 msgid "File Sharing"
 msgstr ""
 
@@ -7681,7 +8428,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:1907
+#: ../../main/samba/src/EBox/Samba.pm:1940
 #, fuzzy
 msgid "Users and Computers"
 msgstr "Utilizator şi parolă"
@@ -7723,15 +8470,33 @@ msgstr ""
 "Pentru a utiliza modului Mail, trebuie să îl activaţi în secţiunea Stare "
 "Module"
 
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:51
+msgid "Enable virus scanning"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:59
+#, fuzzy
+msgid "Antivirus default settings"
+msgstr "Antivirus"
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
+#, fuzzy
+msgid ""
+"Zentyal antivirus module must be installed and enabled to use this feature"
+msgstr "pachetul {pkg} trebuie instalat pentru a putea folosi aceasta optiune"
+
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:70
 msgid "User/Group/Share"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:84
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:75
 msgid "User homes"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:89
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:80
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
 msgstr ""
@@ -7745,7 +8510,17 @@ msgid "Add exceptions to the default Recycle Bin settings"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:106
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:96
 msgid "exception"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:90
+#, fuzzy
+msgid "Samba shares antivirus exceptions"
+msgstr "director absolut"
+
+#: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:95
+msgid "Add exceptions to the default antivirus settings"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/PAM.pm:104
@@ -8053,70 +8828,70 @@ msgstr ""
 msgid "Error on LDAP entry update:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:168
+#: ../../main/samba/src/EBox/Samba.pm:170
 #, fuzzy
 msgid "Domain Controller and File Sharing"
 msgstr "Nume domeniu"
 
-#: ../../main/samba/src/EBox/Samba.pm:275
+#: ../../main/samba/src/EBox/Samba.pm:277
 msgid ""
 "Your LDAP database will be populated with some basic organizational units"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:276
+#: ../../main/samba/src/EBox/Samba.pm:278
 msgid ""
 "Zentyal needs this organizational units to add users and groups into them."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:280
+#: ../../main/samba/src/EBox/Samba.pm:282
 msgid "Create Samba home directory for shares and groups"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:281
+#: ../../main/samba/src/EBox/Samba.pm:283
 #, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr "Zentyal va crea un director de lucru în /var/spool/samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:289
+#: ../../main/samba/src/EBox/Samba.pm:291
 msgid "Configure PAM."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:290
+#: ../../main/samba/src/EBox/Samba.pm:292
 msgid "Zentyal will give LDAP samba system account."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:308
+#: ../../main/samba/src/EBox/Samba.pm:310
 #, fuzzy
 msgid "To set up kerberos authentication"
 msgstr "Autentificare SMTP"
 
-#: ../../main/samba/src/EBox/Samba.pm:315
+#: ../../main/samba/src/EBox/Samba.pm:317
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:321
+#: ../../main/samba/src/EBox/Samba.pm:323
 msgid "To add quota support to /home partition."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:326
+#: ../../main/samba/src/EBox/Samba.pm:328
 msgid ""
 "To configure System Security Services Daemon to manage remote authentication "
 "mechanisms"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:332
+#: ../../main/samba/src/EBox/Samba.pm:334
 msgid "To enable extended attributes and acls."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:360
+#: ../../main/samba/src/EBox/Samba.pm:362
 msgid "Domain and File sharing protocols"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:392
+#: ../../main/samba/src/EBox/Samba.pm:394
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8125,7 +8900,7 @@ msgid ""
 "configured or waiting for a lease can solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:396
+#: ../../main/samba/src/EBox/Samba.pm:398
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8133,52 +8908,52 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:997
+#: ../../main/samba/src/EBox/Samba.pm:1020
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1019
+#: ../../main/samba/src/EBox/Samba.pm:1042
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1036
+#: ../../main/samba/src/EBox/Samba.pm:1065
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1572
+#: ../../main/samba/src/EBox/Samba.pm:1605
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1913
+#: ../../main/samba/src/EBox/Samba.pm:1946
 #, fuzzy
 msgid "Manage"
 msgstr "Numai citire"
 
-#: ../../main/samba/src/EBox/Samba.pm:1925
+#: ../../main/samba/src/EBox/Samba.pm:1958
 #, fuzzy
 msgid "Configure mode"
 msgstr "Cele configurate"
 
-#: ../../main/samba/src/EBox/Samba.pm:2063
+#: ../../main/samba/src/EBox/Samba.pm:2096
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2079
+#: ../../main/samba/src/EBox/Samba.pm:2112
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2096
+#: ../../main/samba/src/EBox/Samba.pm:2129
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8186,76 +8961,105 @@ msgid ""
 "{ex}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2106
+#: ../../main/samba/src/EBox/Samba.pm:2139
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2370
+#: ../../main/samba/src/EBox/Samba.pm:2403
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2463
+#: ../../main/samba/src/EBox/Samba.pm:2496
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Utilizare sistem de fișiere"
 
-#: ../../main/samba/src/EBox/Samba.pm:2606
+#: ../../main/samba/src/EBox/Samba.pm:2639
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3074
+#: ../../main/samba/src/EBox/Samba.pm:3221
+#: ../../main/samba/src/EBox/Samba.pm:3241
+#: ../../main/samba/src/EBox/Samba.pm:3252
 msgid "Client address"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3077
+#: ../../main/samba/src/EBox/Samba.pm:3224
 msgid "Resource"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3081
+#: ../../main/samba/src/EBox/Samba.pm:3228
 msgid "Connect"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3082
+#: ../../main/samba/src/EBox/Samba.pm:3229
 msgid "Access to directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3083
+#: ../../main/samba/src/EBox/Samba.pm:3230
 msgid "Read file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3084
+#: ../../main/samba/src/EBox/Samba.pm:3231
 msgid "Write file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3085
+#: ../../main/samba/src/EBox/Samba.pm:3232
 msgid "Disconnect"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3086
+#: ../../main/samba/src/EBox/Samba.pm:3233
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Şterge"
 
-#: ../../main/samba/src/EBox/Samba.pm:3087
+#: ../../main/samba/src/EBox/Samba.pm:3234
 msgid "Create directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3088
+#: ../../main/samba/src/EBox/Samba.pm:3235
 msgid "Remove directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3089
+#: ../../main/samba/src/EBox/Samba.pm:3236
 msgid "Rename"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3093
+#: ../../main/samba/src/EBox/Samba.pm:3243
+#: ../../main/samba/src/EBox/Samba.pm:3254
+msgid "File name"
+msgstr "Nume fisier"
+
+#: ../../main/samba/src/EBox/Samba.pm:3244
+#: ../../main/samba/src/EBox/Samba.pm:3248
+msgid "Virus"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:3255
+msgid "Quarantined file name"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:3256
+#: ../../main/samba/src/EBox/Samba.pm:3259
+msgid "Quarantine"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:3262
 msgid "Samba access"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:3273
+msgid "Samba virus"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:3284
+msgid "Samba quarantine"
 msgstr ""
 
 #: ../../main/mail/src/EBox/Mail.pm:148
@@ -8355,146 +9159,161 @@ msgstr ""
 msgid "Outgoing Mail (Submission protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:889
+#: ../../main/mail/src/EBox/Mail.pm:902
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:894
+#: ../../main/mail/src/EBox/Mail.pm:907
 msgid "The mail name must be a fully qualified name"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:898 ../../main/mail/src/EBox/Mail.pm:909
-#: ../../main/mail/src/EBox/Mail.pm:917
+#: ../../main/mail/src/EBox/Mail.pm:911 ../../main/mail/src/EBox/Mail.pm:922
+#: ../../main/mail/src/EBox/Mail.pm:930
 msgid "Host mail name"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:912
+#: ../../main/mail/src/EBox/Mail.pm:925
 msgid "The mail name and virtual mail domain name are equal"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1434
+#: ../../main/mail/src/EBox/Mail.pm:1493
 msgid "SMTP service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1441
+#: ../../main/mail/src/EBox/Mail.pm:1500
 msgid "POP3 service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1447
+#: ../../main/mail/src/EBox/Mail.pm:1506
 msgid "POP3S service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1453
+#: ../../main/mail/src/EBox/Mail.pm:1512
 msgid "IMAP service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1459
+#: ../../main/mail/src/EBox/Mail.pm:1518
 msgid "IMAPS service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1516
+#: ../../main/mail/src/EBox/Mail.pm:1562
+#, fuzzy
+msgid "enabled"
+msgstr "Activat"
+
+#: ../../main/mail/src/EBox/Mail.pm:1567
+#, fuzzy
+msgid "Mail server's filter"
+msgstr "Port server IMAP"
+
+#: ../../main/mail/src/EBox/Mail.pm:1576 ../../main/mail/src/EBox/Mail.pm:1583
+#, fuzzy
+msgid "Filter type"
+msgstr "filtru"
+
+#: ../../main/mail/src/EBox/Mail.pm:1621
 msgid "Virtual Mail Domains"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1523
+#: ../../main/mail/src/EBox/Mail.pm:1628
 msgid "Greylist"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1530
+#: ../../main/mail/src/EBox/Mail.pm:1635
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1557
+#: ../../main/mail/src/EBox/Mail.pm:1662
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1572
+#: ../../main/mail/src/EBox/Mail.pm:1677
 msgid "Message ID"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1575
+#: ../../main/mail/src/EBox/Mail.pm:1680
 msgid "From hostname"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1576
+#: ../../main/mail/src/EBox/Mail.pm:1681
 msgid "From host ip"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1577
+#: ../../main/mail/src/EBox/Mail.pm:1682
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1578
+#: ../../main/mail/src/EBox/Mail.pm:1683
 msgid "Relay"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1579
+#: ../../main/mail/src/EBox/Mail.pm:1684
 msgid "Message type"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1582
+#: ../../main/mail/src/EBox/Mail.pm:1687
 msgid "Additional Info"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1593
+#: ../../main/mail/src/EBox/Mail.pm:1698
 msgid "Successful messages"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1594
+#: ../../main/mail/src/EBox/Mail.pm:1699
 msgid "Maximum message size exceeded"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1595
+#: ../../main/mail/src/EBox/Mail.pm:1700
 msgid "User quota exceeded"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1596
+#: ../../main/mail/src/EBox/Mail.pm:1701
 msgid "Relay access denied"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1597
+#: ../../main/mail/src/EBox/Mail.pm:1702
 msgid "Account does not exist"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1598
+#: ../../main/mail/src/EBox/Mail.pm:1703
 msgid "Host unreachable"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1599
+#: ../../main/mail/src/EBox/Mail.pm:1704
 msgid "Authentication error"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1600
+#: ../../main/mail/src/EBox/Mail.pm:1705
 msgid "Greylisted"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1601
+#: ../../main/mail/src/EBox/Mail.pm:1706
 msgid "Relay rejected by the smarthost"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1602
+#: ../../main/mail/src/EBox/Mail.pm:1707
 msgid "Other events"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1680
+#: ../../main/mail/src/EBox/Mail.pm:1785
 msgid "Mail SMTP server"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1688
+#: ../../main/mail/src/EBox/Mail.pm:1793
 msgid "Mail POP/IMAP server"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1765
+#: ../../main/mail/src/EBox/Mail.pm:1870
 msgid "Mailboxes"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1814
+#: ../../main/mail/src/EBox/Mail.pm:1919
 #, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr ""
@@ -8652,7 +9471,7 @@ msgstr ""
 msgid "To configure whitelist for greylisting"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Greylist.pm:243
+#: ../../main/mail/src/EBox/Mail/Greylist.pm:263
 msgid "Greylist service"
 msgstr ""
 
@@ -8679,6 +9498,12 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:156
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:132
 msgid "custom"
+msgstr ""
+
+#: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:199
+msgid ""
+"As long mailfilter module is enabled the mail server will use the filter it "
+"provides"
 msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:52
@@ -11561,7 +12386,7 @@ msgstr ""
 msgid "These rules are automatically added by the Zentyal services."
 msgstr "Aceste reguli sunt adăugate automat de către serviciile Zentyal."
 
-#: ../../main/samba/stubs/shares.conf.mas:17
+#: ../../main/samba/stubs/shares.conf.mas:21
 msgid "Home Directories"
 msgstr ""
 
@@ -12097,10 +12922,6 @@ msgstr ""
 #~ msgstr "Eroare"
 
 #, fuzzy
-#~ msgid "not enabled"
-#~ msgstr "Serviciu activat"
-
-#, fuzzy
 #~ msgid "Cluster is not configured"
 #~ msgstr "Configuraţie curentă"
 
@@ -12304,9 +13125,6 @@ msgstr ""
 #~ msgid "Jabber"
 #~ msgstr "Jabber"
 
-#~ msgid "Allow SSL"
-#~ msgstr "Permite SSL"
-
 #, fuzzy
 #~ msgid "Force SSL"
 #~ msgstr ""
@@ -12395,100 +13213,6 @@ msgstr ""
 #~ "Acest utilizator are un cont JAbber. Dacă este conectat acum, va rămâne "
 #~ "conectat până când i se va cere din nou autentificarea."
 
-# src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
-#, fuzzy
-#~ msgid "Signatures"
-#~ msgstr "Stare"
-
-#~ msgid "Database Update Status"
-#~ msgstr "Starea actualizării bazei de date a antivirusului"
-
-#~ msgid "Antivirus"
-#~ msgstr "Antivirus"
-
-#~ msgid ""
-#~ "The antivirus database has not been updated since the module was enabled."
-#~ msgstr ""
-#~ "Baza de date a antivirusului nu a fost actualizată de când modulul a fost "
-#~ "activat"
-
-#~ msgid "The last update failed."
-#~ msgstr "Ultima actualizare a eșuat"
-
-#~ msgid "Last update successful."
-#~ msgstr "Ultima actualizare a fost făcută cu succes"
-
-#~ msgid "Unknown event {event}."
-#~ msgstr "Eveniment necunoscut {event}"
-
-#~ msgid " To configure clamd daemon"
-#~ msgstr "Pentru a configura clamd daemon"
-
-#~ msgid "To schedule the launch of the updater"
-#~ msgstr "Pentru a programa lansarea a actualizarii"
-
-#, fuzzy
-#~ msgid "Failure"
-#~ msgstr "eşuat"
-
-#, fuzzy
-#~ msgid "Antivirus DB updates"
-#~ msgstr "Antivirus"
-
-#~ msgid "Mail Filter"
-#~ msgstr "Filtru corespondenţă"
-
-#~ msgid "Add clamav user to amavis group"
-#~ msgstr "Adaugă utilizatorul clamav la grupul amavis"
-
-#~ msgid "Clamav need access to amavis fields to properly scan mail"
-#~ msgstr ""
-#~ "Clamav are nevoie de acces la câmpurile amavis pentru a scana "
-#~ "corespondenţa"
-
-#~ msgid "Add clamav user to p3scan group"
-#~ msgstr "Adaugă utilizatorul clamav la grupul p3scan"
-
-#~ msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
-#~ msgstr ""
-#~ "Clamav are nevoie de acces la grupul p3scan pentru a scana proxy-ul POP"
-
-#~ msgid "Add spam and ham system users"
-#~ msgstr "Adaugă utilizatorii spam și ham la utilizatorii sistemului"
-
-#~ msgid ""
-#~ "This users are for the email accounts used for training the bayesian "
-#~ "filter"
-#~ msgstr ""
-#~ "Acest utilizator este folosit pentru instruirea utilizării filtrului "
-#~ "bayesian de către conturilor de corespondență"
-
-#~ msgid "Update LDAP"
-#~ msgstr "Actualizează LDAP"
-
-#~ msgid "Add amavis specific classes and fields"
-#~ msgstr "Adaugă câmpurile și filtrele specifice pentru amavis"
-
-#~ msgid "Cannot proceed because the filter is in use"
-#~ msgstr "Nu se poate continua deoarece filtrul este în uz"
-
-#~ msgid "Mail filter"
-#~ msgstr "Filtru corespondență"
-
-#~ msgid "Sender address"
-#~ msgstr "Adresa expeditorului"
-
-#~ msgid "Recipient address"
-#~ msgstr "Adresa destinatarului"
-
-#, fuzzy
-#~ msgid "Notify sender server"
-#~ msgstr "server secundar"
-
-#, fuzzy
-#~ msgid "virtual domain policy"
-#~ msgstr "nume interfaţă virtuală"
-
 #, fuzzy
 #~ msgid "L2TP connections"
 #~ msgstr "Tip conexiune IMAP"
@@ -12561,10 +13285,6 @@ msgstr ""
 
 #~ msgid "Users Group"
 #~ msgstr "Grupuri Utilizatori"
-
-#, fuzzy
-#~ msgid "L2TP connection"
-#~ msgstr "Tip conexiune IMAP"
 
 #, fuzzy
 #~ msgid "Enabled flag"
@@ -12743,10 +13463,6 @@ msgstr ""
 #~ msgstr "Reguli"
 
 #, fuzzy
-#~ msgid "filterType"
-#~ msgstr "filtru"
-
-#, fuzzy
 #~ msgid "Rules for external interfaces (upload)"
 #~ msgstr "Toate interfeţele externe"
 
@@ -12826,12 +13542,6 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "Zentyal antivirus module must be installed and enabled to use this feature"
-#~ msgstr ""
-#~ "pachetul {pkg} trebuie instalat pentru a putea folosi aceasta optiune"
-
-#, fuzzy
-#~ msgid ""
 #~ "You must enable the File Sharing module in the module status section in "
 #~ "order to use it."
 #~ msgstr ""
@@ -12886,9 +13596,6 @@ msgstr ""
 #~ msgid "GPO {x} is already linked to this container"
 #~ msgstr "Exista un numegazda cu acelasi nume \"{name}\" in acelasi domeniu"
 
-#~ msgid "File name"
-#~ msgstr "Nume fisier"
-
 #~ msgid "HTTP Proxy"
 #~ msgstr "HTTP Proxy"
 
@@ -12918,9 +13625,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Access Rules"
 #~ msgstr "Reguli de testare"
-
-#~ msgid "Filter Profiles"
-#~ msgstr "Filtreaza profilul"
 
 #~ msgid "Categorized Lists"
 #~ msgstr "Liste pe Categorii"
@@ -13099,9 +13803,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Domain categories"
 #~ msgstr "Server Nume Domeniu (DNS)"
-
-#~ msgid "Threshold"
-#~ msgstr "Prag"
 
 #~ msgid "No spaces are allowed in profile names"
 #~ msgstr "Nu sunt permise spaţii in numele de profil"
@@ -13482,10 +14183,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Connection status"
 #~ msgstr "Configuratia si status"
-
-#, fuzzy
-#~ msgid "External server name"
-#~ msgstr "Conexiune la server extern"
 
 #, fuzzy
 #~ msgid "Import/Export Configuration"
@@ -13985,9 +14682,6 @@ msgstr ""
 #~ msgid "Check if gateways are connected or disconnected."
 #~ msgstr "Verifică dacă gateway-urile sunt conectate sau deconectate."
 
-#~ msgid "Log messages"
-#~ msgstr "Mesaje jurnalizate"
-
 #~ msgid "Disk Usage"
 #~ msgstr "Utilizare discuri"
 
@@ -14212,9 +14906,6 @@ msgstr ""
 #~ msgid "Events"
 #~ msgstr "Evenimente"
 
-#~ msgid "The events module is not enabled to send events"
-#~ msgstr "Modulul evenimente, nu este activ pentru a putea trimite evenimente"
-
 #~ msgid "Date of first event"
 #~ msgstr "Data primului eveniment"
 
@@ -14385,20 +15076,6 @@ msgstr ""
 #~ "#-#-#-#-#  ro.po (ebox-usersandgroups 0.12.99Report-Msgid-Bugs-To: "
 #~ "developers@zentyal.org)  #-#-#-#-#\n"
 #~ "Parola"
-
-#, fuzzy
-#~ msgid "Mailbox Migration"
-#~ msgstr ""
-#~ "#-#-#-#-#  ro.po (ebox-network 0.12.99)  #-#-#-#-#\n"
-#~ "Configurare\n"
-#~ "#-#-#-#-#  ro.po (ebox-services 0.12.99)  #-#-#-#-#\n"
-#~ "Configurare\n"
-#~ "#-#-#-#-#  ro.po (ebox-webserver 0.12.99)  #-#-#-#-#\n"
-#~ "Configuraţie\n"
-#~ "#-#-#-#-#  ro.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-#~ "Configuraţie\n"
-#~ "#-#-#-#-#  ro.po (ebox-jabber 0.12.99)  #-#-#-#-#\n"
-#~ "Configurare"
 
 #, fuzzy
 #~ msgid "Mail Box Migration"
@@ -14647,9 +15324,6 @@ msgstr ""
 #~ msgid "SMTP connection type"
 #~ msgstr "Tip conexiune SMTP"
 
-#~ msgid "SMTP server port"
-#~ msgstr "Port server SMTP"
-
 #~ msgid "SMTP authentication"
 #~ msgstr "Autentificare SMTP"
 
@@ -14664,9 +15338,6 @@ msgstr ""
 
 #~ msgid "Manage sieve connection uses TLS"
 #~ msgstr "Conectarea la administrarea sitei foloseşte TLS"
-
-#~ msgid "External server connection"
-#~ msgstr "Conexiune la server extern"
 
 #~ msgid "unencrypted"
 #~ msgstr "necriptată"
@@ -14687,9 +15358,6 @@ msgstr ""
 
 #~ msgid "Operation mode"
 #~ msgstr "Mod de operare"
-
-#~ msgid "Zentyal mail service"
-#~ msgstr "Serviciu mail Zentyal"
 
 #~ msgid "Remote server"
 #~ msgstr "Server la distanţă"
@@ -15909,10 +16577,6 @@ msgstr ""
 #~ "Zentyal va crea certificatele necesare pt. TTLS în /etc/freeradius/certs/"
 
 #, fuzzy
-#~ msgid "To configure vsftpd."
-#~ msgstr "Pentru a configura vsftpd"
-
-#, fuzzy
 #~ msgid "To configure vsftpd with LDAP authentication."
 #~ msgstr "Pentru a configura vsftpd cu autentificare LDAP"
 
@@ -16205,10 +16869,6 @@ msgstr ""
 #~ "Gazdă virtuală"
 
 #, fuzzy
-#~ msgid "Autostart"
-#~ msgstr "Repornire"
-
-#, fuzzy
 #~ msgid "List of Virtual Machines"
 #~ msgstr "Lista de domenii"
 
@@ -16323,11 +16983,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Time Server"
 #~ msgstr "Servere de nume"
-
-#, fuzzy
-#~ msgid "IP address of the time server."
-#~ msgstr ""
-#~ "Adresa IP a serverului DNS folosit de Zentyal pentru a rezolva numele."
 
 #, fuzzy
 #~ msgid "At"
@@ -16551,9 +17206,6 @@ msgstr ""
 
 #~ msgid "VoIP"
 #~ msgstr "VoIP"
-
-#~ msgid "User extension"
-#~ msgstr "Extensie utilizator"
 
 #, fuzzy
 #~ msgid "Must be a number between {min} and {max}"
@@ -17279,10 +17931,6 @@ msgstr ""
 #~ msgstr "Alegeti o interfata statica pentru configurare:"
 
 #, fuzzy
-#~ msgid "Users files"
-#~ msgstr "Utilizatori"
-
-#, fuzzy
 #~ msgid "Groups files"
 #~ msgstr "Grupuri"
 
@@ -17820,9 +18468,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Configure network"
 #~ msgstr "Configurare"
-
-#~ msgid "help message"
-#~ msgstr "mesaj de ajutor"
 
 #~ msgid "Error dumping the postgresql database {name}"
 #~ msgstr "Eroare la bascularea bazei de date postgresql {name}"
