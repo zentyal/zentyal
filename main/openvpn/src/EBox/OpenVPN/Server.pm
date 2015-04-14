@@ -488,7 +488,6 @@ sub localAddress
 
         # translate local iface to a local ip
         my $network = EBox::Global->modInstance('network');
-        $localIface = $network->etherIface($localIface);
         my $ifaceAddresses_r = $network->ifaceAddresses($localIface);
         my @addresses = @{$ifaceAddresses_r};
         if (@addresses == 0) {
