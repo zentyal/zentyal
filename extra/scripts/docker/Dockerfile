@@ -8,6 +8,7 @@ RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise main universe" >> /etc
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise-updates main universe" >> /etc/apt/sources.list
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise-security main universe" >> /etc/apt/sources.list
 RUN echo "deb http://ppa.launchpad.net/zentyal/3.0/ubuntu precise main" >> /etc/apt/sources.list
+RUN echo "deb http://archive.zentyal.org/zentyal-beta 3.0-proposed main" >> /etc/apt/sources.list
 RUN apt-get update -y
 
 #Installing basic and build dependencies
