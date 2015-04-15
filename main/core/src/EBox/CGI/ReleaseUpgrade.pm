@@ -53,7 +53,7 @@ sub _process
         $self->{json} = { output => $output, finished => $finished };
     } else {
         my @removedModules;
-        foreach my $module (qw(antivirus ha jabber l2tp mailfilter squid trafficshaping)) {
+        foreach my $module (qw(ha jabber l2tp squid trafficshaping)) {
             if (EBox::GlobalImpl::_packageInstalled("zentyal-$module")) {
                 push (@removedModules, $module);
             }
