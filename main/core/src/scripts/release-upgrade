@@ -31,6 +31,7 @@ upgrade
 
 echo; echo "Upgrading from Zentyal 4.0 to 4.1..."; echo
 sed -ri 's/zentyal(.)4.0/zentyal\14.1/g' /etc/apt/sources.list
+sed -i 's/zentyal-qa-4.0/zentyal-qa-4.1/g' /etc/apt/sources.list.d/zentyal-qa.list
 upgrade
 
 if apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
