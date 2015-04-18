@@ -1,3 +1,5 @@
+HEAD
+	+ Add missing method _removeEmptyBridges
 4.1
 	+ Remove multi-gateway functionality (balancing, failover, etc)
 	+ Remove support for PPPoE, bridged and bundled interfaces

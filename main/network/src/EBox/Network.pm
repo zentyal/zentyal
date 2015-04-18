@@ -3102,6 +3102,29 @@ sub DHCPCleanUp # (interface)
     $self->set_state($state);
 }
 
+
+# Method: _removeEmptyBridges
+#
+# Removes bridges which has no bridged interfaces
+sub _removeEmptyBridges
+{
+    my ($self) = @_;
+    my %seen;
+
+    for my $if ( @{$self->ifaces()} ) {
+        if ( $self->ifaceMethod($if) eq 'bridged' ) {
+            $seen{$self->ifaceBridge($if)}++;
+        }
+    }
+
+    # remove unseen bridges
+    for my $bridge ( @{$self->bridges()} ) {
+        next if ( $seen{$bridge} );
+        $self->_removeBridge($bridge);
+    }
+}
+
+
 # Method: BridgedCleanUp
 #
 #   Removes the bridge configuration for a given bridged interface
