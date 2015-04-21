@@ -2329,17 +2329,14 @@ msgid "Source"
 msgstr "منبع"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Success"
 msgstr "اشتراک‌گذاری‌های سامبا"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "شکست"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "تنظیمات عمومی"
 
@@ -2522,7 +2519,6 @@ msgid "Pass"
 msgstr "گذرواژه جدید"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "سرویس بر اساس پورت"
 
@@ -2649,7 +2645,6 @@ msgid "Virtual Domains specific policies"
 msgstr "نام واسط مجازی"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "نام واسط مجازی"
 
@@ -2894,7 +2889,6 @@ msgid "File extension"
 msgstr "پسوند فایل"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:96
-#, fuzzy
 msgid "File extensions"
 msgstr "پسوندهای فایل"
 
@@ -8187,12 +8181,10 @@ msgid "Enable virus scanning"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:59
-#, fuzzy
 msgid "Antivirus default settings"
 msgstr "تنظیمات عمومی"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr ""
@@ -8233,7 +8225,6 @@ msgid "exception"
 msgstr "توضیح"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:90
-#, fuzzy
 msgid "Samba shares antivirus exceptions"
 msgstr "پیکربندی اشتراک‌گذاری سامبا"
 
@@ -8774,12 +8765,10 @@ msgid "Samba access"
 msgstr "اشتراک‌گذاری‌های سامبا"
 
 #: ../../main/samba/src/EBox/Samba.pm:3273
-#, fuzzy
 msgid "Samba virus"
 msgstr "اشتراک‌گذاری‌های سامبا"
 
 #: ../../main/samba/src/EBox/Samba.pm:3284
-#, fuzzy
 msgid "Samba quarantine"
 msgstr "اشتراک‌گذاری‌های سامبا"
 

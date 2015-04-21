@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2012-10-09 22:09+0200\n"
-"Last-Translator: Olugbenga77 <gb7to7@gmail.com>\n"
+"PO-Revision-Date: 2015-04-15 15:59+0200\n"
+"Last-Translator: PhilippG <plg741@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: yo\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +22,11 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/mail/src/EBox/Mail.pm:1562
 msgid "disabled"
-msgstr ""
+msgstr "Hallo"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr ""
+msgstr "Nobody hackt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format

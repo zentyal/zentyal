@@ -2236,7 +2236,6 @@ msgid "Status"
 msgstr "Egoera"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
-#, fuzzy
 msgid "Signatures"
 msgstr "Egoera"
 
@@ -2327,12 +2326,10 @@ msgid "Success"
 msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "Gaiturik"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Antibirusa"
 
@@ -2386,7 +2383,6 @@ msgid "Cannot proceed because the filter is in use"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:455
-#, fuzzy
 msgid "Mail filter"
 msgstr "PostaIragazki sistema"
 
@@ -2437,13 +2433,11 @@ msgid "Unable to reinject in the mail server"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:498
-#, fuzzy
 msgid "SMTP filter"
 msgstr "PostaIragazki sistema"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:529
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:39
-#, fuzzy
 msgid "SMTP Mail Filter"
 msgstr "PostaIragazki sistema"
 
@@ -2525,7 +2519,6 @@ msgid "Drop silently"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:75
-#, fuzzy
 msgid "Mailfilter's policy"
 msgstr "PostaIragazki sistema"
 
@@ -2540,7 +2533,6 @@ msgid "Zentyal internal mail filter"
 msgstr "Sare lokala"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
-#, fuzzy
 msgid "SMTP filter proxy"
 msgstr "PostaIragazki sistema"
 
@@ -2592,7 +2584,6 @@ msgid "External connections"
 msgstr "Zenbakia"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
-#, fuzzy
 msgid "Attached Files Filter"
 msgstr "PostaIragazki sistema"
 
@@ -2629,7 +2620,6 @@ msgid "Virtual Domains specific policies"
 msgstr "Interfaze"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "Interfaze"
 
@@ -2946,7 +2936,6 @@ msgid "Bad header policy"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
-#, fuzzy
 msgid "Filter Policies"
 msgstr "PostaIragazki sistema"
 
@@ -8677,12 +8666,10 @@ msgid "IMAPS service"
 msgstr "Zerbitzu"
 
 #: ../../main/mail/src/EBox/Mail.pm:1562
-#, fuzzy
 msgid "enabled"
 msgstr "Gaitu"
 
 #: ../../main/mail/src/EBox/Mail.pm:1567
-#, fuzzy
 msgid "Mail server's filter"
 msgstr "Zerbitzuak"
 

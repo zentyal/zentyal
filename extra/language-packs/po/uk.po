@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -2199,7 +2199,6 @@ msgid "Status"
 msgstr "Статус"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
-#, fuzzy
 msgid "Signatures"
 msgstr "Статус"
 
@@ -2291,7 +2290,6 @@ msgid "Failure"
 msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Антивірус"
 
@@ -2466,7 +2464,6 @@ msgid "Pass"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "допоміжний сервер"
 
@@ -2583,7 +2580,6 @@ msgid "Virtual Domains specific policies"
 msgstr "Вірусна політика"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "Вірусна політика"
 
@@ -7809,7 +7805,6 @@ msgid "Antivirus default settings"
 msgstr "Антивірус"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr "Для роботи цієї функції повинен бути встановлений {pkg}"

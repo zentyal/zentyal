@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2015-04-09 18:41+0200\n"
+"PO-Revision-Date: 2015-04-15 15:43+0200\n"
 "Last-Translator: misteregis <misteregis@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
@@ -2380,7 +2380,7 @@ msgid "Unknown event {event}."
 msgstr "Evento desconhecido {event}."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:185
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Want to protect your system against scams, spear phishing, frauds and other "
 "junk? Get one of the {oh}Commercial Editions{ch} that will keep your "
@@ -2388,11 +2388,11 @@ msgid ""
 msgstr ""
 "Quer proteger seu sistema contra fraudes, spear phishing, fraudes e outras "
 "porcarias? Pegue um dos {oh } edições comerciais {ch} que irá manter o banco "
-"de dados do Antvirus sempre atualizado"
+"de dados do Antivirus sempre atualizado."
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:169
 msgid " To configure clamd daemon"
-msgstr " Para configurar o daemon Clamd"
+msgstr " Para configurar o daemon clamd"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:174
 msgid "To schedule the launch of the updater"
@@ -2563,7 +2563,7 @@ msgid ""
 "'@'"
 msgstr ""
 "O remetente deveria ser um endereço de e-mail ou um nome de domínio com o "
-"prefixo \"@\""
+"prefixo '@'"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:105
 msgid "Write down a decimal number"
@@ -2619,7 +2619,7 @@ msgstr "Para configurar o amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:426
 msgid "Zentyal internal mail filter"
-msgstr "Filtro de correio interno Zentyal"
+msgstr "Filtro de correio interno zentyal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
 msgid "SMTP filter proxy"
@@ -5764,8 +5764,8 @@ msgid ""
 "Are you a happy Zentyal Server user? Do you want to help the project? Get "
 "involved in the {oh}Community{ch}!"
 msgstr ""
-"Você está interessado em uma edição comercial do Zentyal Server? Faça um {oh}"
-"Teste{ch} GRÁTIS por 30 dias!"
+"Voçê está feliz com o Servidor Zentyal? Você quer ajudar o projeto? Envolva-"
+"se na {oh}Comunidade{ch}!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/ConfigureWidgets.pm:30
 msgid "Configure Widgets"
@@ -7564,7 +7564,7 @@ msgid ""
 "creating it again with a shorter username"
 msgstr ""
 "Você criou um nome de usuário com mais de 20 caracteres. Alguns sistemas "
-"operacionais Microsoft não suportam nomes longos de usuários, caso o usuário "
+"operacionais Microsoft não suportam nomes longos de usuários. Caso o usuário "
 "não esteja conectado a uma estação de trabalho Windows, faça a exclusão e "
 "crie novamente com um nome de usuário mais curto"
 
@@ -7829,7 +7829,7 @@ msgstr "Não é possível determinar o realm do servidor AD {x} especificado."
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr ""
-"Não foi possível vincular ao servidor AD LDAP ({x}). Favor verificar as "
+"Não foi possível vincular ao servidor AD LDAP ({x}).Favor verificar as "
 "credenciais fornecidas."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:720
@@ -8260,13 +8260,13 @@ msgstr "Habilitar checagem de vírus"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:59
 msgid "Antivirus default settings"
-msgstr "Configurações-padrão do Anti-vírus"
+msgstr "Configurações-padrão do antivirus"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr ""
-"O módulo Zentyal antivirus module deve estar instalado e habilitado para "
+"O módulo zentyal antivirus module deve estar instalado e habilitado para "
 "usar este recurso"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
@@ -8300,11 +8300,11 @@ msgstr "exceção"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:90
 msgid "Samba shares antivirus exceptions"
-msgstr "Exceções do anti-vírus nos compartilhamentos Samba"
+msgstr "Exceções do antivirus nos compartilhamentos samba"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:95
 msgid "Add exceptions to the default antivirus settings"
-msgstr "Adicionar exceções às configurações padrões do Anti-vírus"
+msgstr "Adicionar exceções às configurações padrões do antivirus"
 
 #: ../../main/samba/src/EBox/Samba/Model/PAM.pm:104
 msgid "Enable PAM"
@@ -8445,7 +8445,7 @@ msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share."
 msgstr ""
-"Seja cuidadoso ao dar privilégios de <i>administrador</i>. O usuário vai "
+"Seja cuidadoso ao dar privilégios de <i>administrador</i>.O usuário vai "
 "poder ler e escrever qualquer arquivo dentro do compartilhamento."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:356
@@ -8867,11 +8867,11 @@ msgstr "Acesso samba"
 
 #: ../../main/samba/src/EBox/Samba.pm:3273
 msgid "Samba virus"
-msgstr "Vírus Samba"
+msgstr "Samba vírus"
 
 #: ../../main/samba/src/EBox/Samba.pm:3284
 msgid "Samba quarantine"
-msgstr "Quarentena do Samba"
+msgstr "Samba quarentena"
 
 #: ../../main/mail/src/EBox/Mail.pm:148
 msgid "Generate mail aliases"
@@ -8979,8 +8979,8 @@ msgid ""
 "name. Please, define a custom server mailname"
 msgstr ""
 "Não posso usar o nome do servidor como um nome de e-mail porque ele não é "
-"totalmente qualificado. por favor, defina um nome personalizado para o "
-"servidor de e-mail"
+"totalmente qualificado. Por favor, defina um nome personalizado para o "
+"servidor nome de e-mail"
 
 #: ../../main/mail/src/EBox/Mail.pm:907
 msgid "The mail name must be a fully qualified name"
@@ -9528,8 +9528,8 @@ msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
-"Quando uma caixa alcança este tamanho as próximas mensagens podem ser "
-"rejeitadas"
+"Quando uma caixa de e-mail atingir este tamanho, mais mensagens serão "
+"rejeitadas. Isso pode ser substituído por conta"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:164
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:183
@@ -11978,8 +11978,8 @@ msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
 msgstr ""
-"Erro ao atualizar a lista de pacotes. <p>Por favor, tente executar o "
-"seguinte comando em um console para ver o problema: sudo apt-get update</p>"
+"Erro ao atualizar a lista de pacotes.<p>Por favor, tente executar o seguinte "
+"comando em um console para ver o problema: sudo apt-get update</p>"
 
 #: ../../main/software/src/templates/updates.mas:86
 msgid "Updates are available for the following system components"

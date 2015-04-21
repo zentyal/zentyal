@@ -2231,12 +2231,10 @@ msgid "Status"
 msgstr "Състояние"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
-#, fuzzy
 msgid "Signatures"
 msgstr "Състояние"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
-#, fuzzy
 msgid "Database Update Status"
 msgstr "Обновления на антивирусната база данни"
 
@@ -2250,7 +2248,6 @@ msgstr "Антивирусна система"
 
 # Филтър на поща
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:151
-#, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
 msgstr "Антивирусната база данни не е обновявана откакто модулът е инсталиран."
@@ -2328,12 +2325,10 @@ msgid "Success"
 msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "неуспех"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Антивирусна система"
 
@@ -2342,24 +2337,20 @@ msgid "Mail Filter"
 msgstr "Мейл филтър"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:78
-#, fuzzy
 msgid "Add clamav user to amavis group"
 msgstr "Добави clamav потребител към група amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:79
-#, fuzzy
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr ""
 "Clamav се нуждае от достъп до полетата на amavis, за да сканира качествено "
 "пощата"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:83
-#, fuzzy
 msgid "Add clamav user to p3scan group"
 msgstr "Добавяне на потребител clamav към група p3scan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
-#, fuzzy
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
 "Clamav се нуждае от достъп до група p3scan , за да сканира правилвно в POP "
@@ -2377,7 +2368,6 @@ msgstr ""
 "филтърът bayesian"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:95
-#, fuzzy
 msgid "Update LDAP"
 msgstr "Подновяване на LDAP"
 
@@ -2519,7 +2509,6 @@ msgid "Pass"
 msgstr "Парола"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "Отдалеччен сървър"
 
@@ -7995,7 +7984,6 @@ msgid "Antivirus default settings"
 msgstr "Антивирусна система"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr "DNS модулът трябва да е настроен да работи с това свойство."

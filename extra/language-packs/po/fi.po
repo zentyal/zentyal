@@ -2232,12 +2232,10 @@ msgid "Status"
 msgstr "Status"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
-#, fuzzy
 msgid "Signatures"
 msgstr "Tila"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
-#, fuzzy
 msgid "Database Update Status"
 msgstr "Antivirus tietokannan päivityksen tila"
 
@@ -2616,7 +2614,6 @@ msgid "Virtual Domains specific policies"
 msgstr "Viruskäytäntö"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "Viruskäytäntö"
 

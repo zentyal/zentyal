@@ -2223,7 +2223,6 @@ msgid "Signatures"
 msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
-#, fuzzy
 msgid "Database Update Status"
 msgstr "Ενημέρωση κατάστασης Βάσης Δεδομένων"
 
@@ -2236,7 +2235,6 @@ msgid "Antivirus"
 msgstr "Antivirus"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:151
-#, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
 msgstr ""
@@ -2304,12 +2302,10 @@ msgid "Source"
 msgstr "Πηγή"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Success"
 msgstr "Πρόσβαση Guest"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "αποτυχία"
 
@@ -2322,7 +2318,6 @@ msgid "Mail Filter"
 msgstr "Φίλτρο Αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:78
-#, fuzzy
 msgid "Add clamav user to amavis group"
 msgstr "Προσθήκη του χρήστη clamav στην ομάδα amavis"
 
@@ -2337,7 +2332,6 @@ msgid "Add clamav user to p3scan group"
 msgstr "Προσθήκη του χρήστη clamav στην ομάδα p3scan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
-#, fuzzy
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
 "Το Clamav χρειάζεται πρόσβαση στην ομάδα p3scan για να σαρώσει στο POP Proxy"
@@ -2358,7 +2352,6 @@ msgid "Update LDAP"
 msgstr "Ενημέρωση LDAP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:96
-#, fuzzy
 msgid "Add amavis specific classes and fields"
 msgstr "Προσθήκη συγκεκριμένων κλάσεων και πεδίων του amavis"
 
@@ -2369,7 +2362,6 @@ msgid ""
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:309
-#, fuzzy
 msgid "Cannot proceed because the filter is in use"
 msgstr "Δεν μπορεί να συνεχιστεί, το φίλτρο είναι σε χρήση"
 
@@ -2386,12 +2378,10 @@ msgid "Recipient address"
 msgstr "Διεύθυνση παραλήπτη "
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:483
-#, fuzzy
 msgid "Spam hits"
 msgstr "Επιτυχίες spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:488
-#, fuzzy
 msgid "Bad header found"
 msgstr "Βρέθηκε κακή κεφαλίδα"
 
@@ -2404,7 +2394,6 @@ msgid "Forbidden attached file found"
 msgstr "Βρέθηκε απαγορευμένο συνημμένο αρχείο"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:491
-#, fuzzy
 msgid "Address in blacklist found"
 msgstr "Βρέθηκε διεύθυνση από τη μαύρη λίστα"
 
@@ -2496,7 +2485,6 @@ msgid "Notify sender server"
 msgstr "Δημιουργία λογαριασμού αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
-#, fuzzy
 msgid "Notify mail sender account"
 msgstr "Δημιουργία λογαριασμού αλληλογραφίας"
 
@@ -2535,7 +2523,6 @@ msgstr "Ρύθμιση του spamassasin δαίμονα"
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:328
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:58
-#, fuzzy
 msgid "Spam threshold"
 msgstr "Spam όριο"
 
@@ -2605,12 +2592,10 @@ msgid "Antispam sender policy"
 msgstr "Πολιτική καταπολέμησης της ανεπιθύμητης αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
-#, fuzzy
 msgid "Virtual Domains specific policies"
 msgstr "Εικονικοί Τομείς"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "Εικονικός Τομέας"
 
@@ -2730,7 +2715,7 @@ msgstr ""
 "συνδεθούν με το φίλτρο αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:114
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{d} is a internal Zentyal virtual main domain"
 msgstr "{d} είναι ένας κεντρικός εσωτερικός Zentyal εικονικός τομέας"
 
@@ -2759,7 +2744,7 @@ msgstr ""
 "μπορούν να συνδεθούν με το φίλτρο αλληλογραφίας"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:140
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
 msgstr ""
 "Άκυρο εξωτερικό MTA {mta}. Τοπικές διευθύνσεις του δικτύου δεν επιτρέπονται"
@@ -2879,12 +2864,10 @@ msgid "Train"
 msgstr "Εκπαίδευση"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:87
-#, fuzzy
 msgid "spam"
 msgstr "spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
-#, fuzzy
 msgid "ham"
 msgstr "ham"
 
@@ -8401,7 +8384,6 @@ msgid "Samba access"
 msgstr "Πρόσβαση SAMBA"
 
 #: ../../main/samba/src/EBox/Samba.pm:3273
-#, fuzzy
 msgid "Samba virus"
 msgstr "Ιός SAMBA"
 

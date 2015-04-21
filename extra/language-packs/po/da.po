@@ -8386,12 +8386,10 @@ msgid "Enable virus scanning"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:59
-#, fuzzy
 msgid "Antivirus default settings"
 msgstr "Almen opsætning for Antivirus"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr "{pkg} skal være installeret for at bruge denne funktion"
@@ -9152,12 +9150,10 @@ msgid "enabled"
 msgstr "Aktiveret"
 
 #: ../../main/mail/src/EBox/Mail.pm:1567
-#, fuzzy
 msgid "Mail server's filter"
 msgstr "Mail services"
 
 #: ../../main/mail/src/EBox/Mail.pm:1576 ../../main/mail/src/EBox/Mail.pm:1583
-#, fuzzy
 msgid "Filter type"
 msgstr "Filter"
 

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-04-11 06:22+0200\n"
-"Last-Translator: callme <softbroken@hotmail.com>\n"
+"PO-Revision-Date: 2015-04-15 15:58+0200\n"
+"Last-Translator: PhilippG <plg741@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/mail/src/EBox/Mail.pm:1562
 msgid "disabled"
-msgstr "تعطيل"
+msgstr "تعطيلallah akhubar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
@@ -2245,7 +2245,6 @@ msgid "Status"
 msgstr "الحالة"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
-#, fuzzy
 msgid "Signatures"
 msgstr "الحالة"
 
@@ -2331,12 +2330,10 @@ msgid "Success"
 msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "فشلت"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "مضاد الفيروسات"
 
@@ -2630,7 +2627,6 @@ msgid "Virtual Domains specific policies"
 msgstr "اسم المضيف الوهمي"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "اسم المضيف الوهمي"
 

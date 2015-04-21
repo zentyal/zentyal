@@ -2293,7 +2293,6 @@ msgid "Success"
 msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "erro"
 
@@ -2471,7 +2470,6 @@ msgid "Pass"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "servidor secundario"
 
@@ -2592,7 +2590,6 @@ msgid "Virtual Domains specific policies"
 msgstr "Política de Squid"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "Política de Squid"
 

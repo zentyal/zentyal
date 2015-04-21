@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2015-04-07 09:37+0200\n"
+"PO-Revision-Date: 2015-04-14 10:41+0200\n"
 "Last-Translator: Anonymous Pootle User\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: an\n"
@@ -2382,17 +2382,14 @@ msgid "Success"
 msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "Abilitato"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Confegurazión cheneral"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:60
-#, fuzzy
 msgid "Mail Filter"
 msgstr "Sistema de filtrato"
 
@@ -2443,7 +2440,6 @@ msgid "Cannot proceed because the filter is in use"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:455
-#, fuzzy
 msgid "Mail filter"
 msgstr "Sistema de filtrato"
 
@@ -2492,13 +2488,11 @@ msgid "Unable to reinject in the mail server"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:498
-#, fuzzy
 msgid "SMTP filter"
 msgstr "Sistema de filtrato"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:529
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:39
-#, fuzzy
 msgid "SMTP Mail Filter"
 msgstr "Sistema de filtrato"
 
@@ -2565,12 +2559,10 @@ msgid "Pass"
 msgstr "Parabra de paso"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "serbidor secundario"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
-#, fuzzy
 msgid "Notify mail sender account"
 msgstr "alias de cuenta de correu"
 
@@ -2579,7 +2571,6 @@ msgid "Drop silently"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:75
-#, fuzzy
 msgid "Mailfilter's policy"
 msgstr "Sistema de filtrato"
 
@@ -2589,12 +2580,10 @@ msgid "To configure amavis"
 msgstr "Demandar autenticazión"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:426
-#, fuzzy
 msgid "Zentyal internal mail filter"
 msgstr "Sistema de filtrato"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
-#, fuzzy
 msgid "SMTP filter proxy"
 msgstr "Sistema de filtrato"
 
@@ -2647,7 +2636,6 @@ msgid "External connections"
 msgstr "cuenta de correu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
-#, fuzzy
 msgid "Attached Files Filter"
 msgstr "Sistema de filtrato"
 
@@ -2682,12 +2670,10 @@ msgid "Antispam sender policy"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
-#, fuzzy
 msgid "Virtual Domains specific policies"
 msgstr "Lista de dominios birtuals"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "Lista de dominios birtuals"
 
@@ -2871,7 +2857,6 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:55
-#, fuzzy
 msgid "Mail sender"
 msgstr "Sistema de filtrato"
 
@@ -3019,7 +3004,6 @@ msgid "Bad header policy"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
-#, fuzzy
 msgid "Filter Policies"
 msgstr "Sistema de filtrato"
 
@@ -8270,7 +8254,6 @@ msgid "Enable virus scanning"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:59
-#, fuzzy
 msgid "Antivirus default settings"
 msgstr "Confegurazión cheneral"
 
@@ -8839,7 +8822,6 @@ msgstr "nombre d'usuario"
 
 #: ../../main/samba/src/EBox/Samba.pm:3243
 #: ../../main/samba/src/EBox/Samba.pm:3254
-#, fuzzy
 msgid "File name"
 msgstr ""
 "#-#-#-#-#  an.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
@@ -9025,12 +9007,10 @@ msgid "enabled"
 msgstr "abilitato"
 
 #: ../../main/mail/src/EBox/Mail.pm:1567
-#, fuzzy
 msgid "Mail server's filter"
 msgstr "Carauteristicas d'o serbizio de correu"
 
 #: ../../main/mail/src/EBox/Mail.pm:1576 ../../main/mail/src/EBox/Mail.pm:1583
-#, fuzzy
 msgid "Filter type"
 msgstr "Filtro"
 

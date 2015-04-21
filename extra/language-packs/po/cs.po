@@ -2258,7 +2258,6 @@ msgid "Status"
 msgstr "Stav"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
-#, fuzzy
 msgid "Signatures"
 msgstr "Stav"
 
@@ -2349,7 +2348,6 @@ msgid "Failure"
 msgstr "Selhání"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Antivirus povolen"
 
@@ -2429,7 +2427,6 @@ msgid "Spam found"
 msgstr "Spam nalezen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:490
-#, fuzzy
 msgid "Forbidden attached file found"
 msgstr "Nalezen zakázaný přiložený soubor"
 
@@ -2446,7 +2443,6 @@ msgid "Clean message"
 msgstr "Čistá zpráva"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:494
-#, fuzzy
 msgid "Unable to reinject in the mail server"
 msgstr "Nelze se připojit k {smtp} mail serveru"
 
@@ -2521,12 +2517,10 @@ msgid "Pass"
 msgstr "Pass"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "sekundární server"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
-#, fuzzy
 msgid "Notify mail sender account"
 msgstr "mail alias účet"
 
@@ -2570,7 +2564,6 @@ msgid "It must be a number(decimal point allowed)"
 msgstr "Musí to být číslo (desetinné číslo povoleno)"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:338
-#, fuzzy
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
 msgstr "spam práh nemůže být vyšší než jeho Autolearn práh"
 
@@ -2633,12 +2626,10 @@ msgid "Antispam sender policy"
 msgstr "zásada odesílatele"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
-#, fuzzy
 msgid "Virtual Domains specific policies"
 msgstr "Virtuální aliasy domén"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "virtuální doménový alias"
 
@@ -2840,7 +2831,6 @@ msgstr "Zásady odesílatele pro virtuální doménu"
 # zásada/zásady ?
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:88
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:82
-#, fuzzy
 msgid "sender policy"
 msgstr "zásada odesílatele"
 
@@ -2926,7 +2916,6 @@ msgid "Invalid mailbox type: {type}"
 msgstr "Neplatný typ poštovní schránky: {type}"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:70
-#, fuzzy
 msgid "Sender policy"
 msgstr "Zásady odesílatele"
 

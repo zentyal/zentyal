@@ -2450,7 +2450,6 @@ msgstr ""
 "Status"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
-#, fuzzy
 msgid "Signatures"
 msgstr "Status"
 
@@ -2534,17 +2533,14 @@ msgid "Source"
 msgstr "Źródło"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Success"
 msgstr "Dostęp anonimowy"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "awaria"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Domyślne ustawienia Antywirusa"
 
@@ -2638,7 +2634,6 @@ msgid "Clean message"
 msgstr "Wiadomość jest czysta"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:494
-#, fuzzy
 msgid "Unable to reinject in the mail server"
 msgstr "Nie można połączyć się z serwerem SMTP {smtp}"
 
@@ -2716,12 +2711,10 @@ msgid "Pass"
 msgstr "Zatwierdź"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "drugi serwer"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
-#, fuzzy
 msgid "Notify mail sender account"
 msgstr "alias konta mailowego"
 
@@ -2825,12 +2818,10 @@ msgid "Antispam sender policy"
 msgstr "polityka przesyłania"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
-#, fuzzy
 msgid "Virtual Domains specific policies"
 msgstr "Aliasy domeny wirtualnej"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "alias domeny wirtualnej"
 
@@ -8499,7 +8490,6 @@ msgid "Antivirus default settings"
 msgstr "Domyślne ustawienia Antywirusa"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr "By skorzystać z tej funkcji należy zainstalować {pkg}"

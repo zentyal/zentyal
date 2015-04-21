@@ -2332,7 +2332,6 @@ msgid "Status"
 msgstr "狀態"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
-#, fuzzy
 msgid "Signatures"
 msgstr "狀態"
 
@@ -2415,17 +2414,14 @@ msgid "Source"
 msgstr "來源"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Success"
 msgstr "Samba 存取"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "失敗"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "防毒預設設定值"
 
@@ -2501,7 +2497,6 @@ msgid "Spam found"
 msgstr "找到垃圾信"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:490
-#, fuzzy
 msgid "Forbidden attached file found"
 msgstr "找到禁止的附加檔案"
 
@@ -2518,7 +2513,6 @@ msgid "Clean message"
 msgstr "乾淨的郵件"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:494
-#, fuzzy
 msgid "Unable to reinject in the mail server"
 msgstr "無法連線到 {smtp} 郵件伺服器"
 
@@ -2592,12 +2586,10 @@ msgid "Pass"
 msgstr "過關"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "次要伺服器"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
-#, fuzzy
 msgid "Notify mail sender account"
 msgstr "郵件別名帳號"
 
@@ -2614,7 +2606,6 @@ msgid "To configure amavis"
 msgstr "設置 amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:426
-#, fuzzy
 msgid "Zentyal internal mail filter"
 msgstr "eBox 內部郵件過濾"
 
@@ -2670,7 +2661,6 @@ msgid "External connections"
 msgstr "外部連線"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
-#, fuzzy
 msgid "Attached Files Filter"
 msgstr "附加檔案過濾"
 
@@ -2701,12 +2691,10 @@ msgid "Antispam sender policy"
 msgstr "防垃圾信寄件者政策"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
-#, fuzzy
 msgid "Virtual Domains specific policies"
 msgstr "虛擬網域別名"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "虛擬網域別名"
 
@@ -2730,7 +2718,6 @@ msgid "Tag which will be added to the spam mail subject"
 msgstr "標籤將會新增到垃圾信的郵件主旨"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:73
-#, fuzzy
 msgid "Use Bayesian classifier"
 msgstr "使用貝氏(bayesian)過濾器"
 
@@ -2819,7 +2806,7 @@ msgid ""
 msgstr "這裡您可以指定可以連線到郵件過濾器的外部網域郵件"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:114
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{d} is a internal Zentyal virtual main domain"
 msgstr "{d} 是內部 eBox 的虛擬網域郵件"
 
@@ -2889,7 +2876,6 @@ msgid "Policy"
 msgstr "政策"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
-#, fuzzy
 msgid "Sender policy for virtual domain"
 msgstr "虛擬網域"
 
@@ -3013,7 +2999,6 @@ msgid "Bad header policy"
 msgstr "錯誤表頭政策"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
-#, fuzzy
 msgid "Filter Policies"
 msgstr "SMTP 過濾政策"
 
@@ -8348,7 +8333,6 @@ msgid "Antivirus default settings"
 msgstr "防毒預設設定值"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr "DNS 服務必須啟動才能選擇 eBox 做為主要名稱伺服器"

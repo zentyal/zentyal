@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2015-03-18 02:59+0200\n"
-"Last-Translator: Emiliano <syntaxerrormmm@gmail.com>\n"
+"PO-Revision-Date: 2015-04-15 16:52+0200\n"
+"Last-Translator: Kejan <kejanbalo@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -4142,7 +4142,7 @@ msgstr ""
 "dell'interfaccia"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:97
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The object contains an IP address {ip} which also is in the range '{range}': "
 "{from}-{to}"
@@ -4172,6 +4172,8 @@ msgid ""
 "Members whose name is not a valid hostname will be modified to become a "
 "valid domain name."
 msgstr ""
+"I membri il cui nome non è un nome host valido questo verrà modificato per "
+"diventare un nome di dominio valido"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeInfo.pm:82
 msgid "Interface IP address"
@@ -4190,7 +4192,6 @@ msgid "DHCP ranges"
 msgstr "Intervalli DHCP"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:76
-#, fuzzy
 msgid "You need at least one static interface to serve DHCP"
 msgstr "Hai bisogno almeno di un interfaccia interna e un interfaccia esterna"
 
@@ -4199,10 +4200,12 @@ msgid ""
 "Here you can configure the DHCP server for each internal interface, and "
 "enable or disable them"
 msgstr ""
+"Qui è possibile configurare il server DHCP per ogni interfaccia interna , e "
+"abilitarle o disabilitarle"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:164
 msgid "No interfaces enabled.  The DHCP server  will not serve any address"
-msgstr ""
+msgstr "Nessuna interfaccia abilitata . Il server DHCP non darà alcun indirizzo"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:166
 msgid ""
@@ -4222,7 +4225,6 @@ msgid "{pkg} must be installed to use this feature"
 msgstr "{pkg} deve essere installato per usare questa caratteristica"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:128
-#, fuzzy
 msgid "DNS module must be enabled to make this feature work."
 msgstr ""
 "Il modulo DNS deve essere abilitato per far funzionare questa caratteristica."
@@ -4330,7 +4332,6 @@ msgid "Not a leap year."
 msgstr ""
 
 #: ../../main/core/src/EBox/Types/Date.pm:255
-#, fuzzy
 msgid "This month does not have 31 days."
 msgstr "Questo protocollo non usa porte"
 
@@ -4359,7 +4360,6 @@ msgstr "Indirizzi IP non consentiti "
 
 #: ../../main/core/src/EBox/Types/InverseMatchSelect.pm:50
 #: ../../main/core/src/EBox/Types/InverseMatchUnion.pm:50
-#, fuzzy
 msgid "Not"
 msgstr "No"
 
@@ -4388,22 +4388,18 @@ msgid "No digit character in time component"
 msgstr ""
 
 #: ../../main/core/src/EBox/Types/Time.pm:240
-#, fuzzy
 msgid "Invalid hours value"
 msgstr "Valore non valido per l'host"
 
 #: ../../main/core/src/EBox/Types/Time.pm:247
-#, fuzzy
 msgid "Invalid minutes value"
 msgstr "Valore dei minuti non corretto: {mi}"
 
 #: ../../main/core/src/EBox/Types/Time.pm:254
-#, fuzzy
 msgid "Invalid seconds value"
 msgstr "Valore non valido per {data}: {value}."
 
 #: ../../main/core/src/EBox/Types/HTML.pm:97
-#, fuzzy
 msgid "It must be a valid HTML string"
 msgstr "Deve essere non nome di subdomain valido"
 
@@ -4413,17 +4409,14 @@ msgstr "Scrivi un numero in virgola mobile"
 
 #: ../../main/core/src/EBox/Types/TimeZone.pm:56
 #: ../../main/core/src/EBox/SysInfo/Model/TimeZone.pm:58
-#, fuzzy
 msgid "Time zone"
 msgstr "Fuso orario"
 
 #: ../../main/core/src/EBox/Types/TimeZone.pm:235
-#, fuzzy
 msgid "This city does not exist."
 msgstr "Il cliente {c} non esiste"
 
 #: ../../main/core/src/EBox/Types/TimeZone.pm:241
-#, fuzzy
 msgid "This continent does not exist."
 msgstr "L'account non esiste"
 
@@ -4437,16 +4430,14 @@ msgid "Scheme should be one of: {schemes}, not {scheme}"
 msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:145
-#, fuzzy
 msgid "Configuration backup upload corrupted"
 msgstr "Backup configurazione"
 
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:146
 msgid "Try the upload again"
-msgstr ""
+msgstr "Provi il upload ancora"
 
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:190
-#, fuzzy
 msgid "Server not found"
 msgstr "Pagina non trovata"
 
@@ -4464,7 +4455,6 @@ msgid "Missing parameter: {par}"
 msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:66
-#, fuzzy
 msgid "Invalid credentials"
 msgstr "Tipo di casella non valido: {type}"
 
@@ -4475,7 +4465,7 @@ msgstr ""
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:94
 #, perl-brace-format
 msgid "Subscribing server as name {name}"
-msgstr ""
+msgstr "Raccomondata server as name {name}"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Index.pm:39
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/Register.pm:40
@@ -4598,7 +4588,6 @@ msgid "Server unregistered. Save changes to remove all the subscription files"
 msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/NoSubscription.pm:28
-#, fuzzy
 msgid "Server unregistered"
 msgstr "Registrazione del server"
 
@@ -4612,12 +4601,10 @@ msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:51
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:38
-#, fuzzy
 msgid "Missing registration mail address"
 msgstr "Nome utente o indirizzo mail"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:54
-#, fuzzy
 msgid "Missing confirmation of mail address"
 msgstr "Nome utente o indirizzo mail"
 
@@ -4627,7 +4614,6 @@ msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:63
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:50
-#, fuzzy
 msgid "Missing server name"
 msgstr "Connessione a server esterno"
 
@@ -4643,17 +4629,15 @@ msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:102
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:64
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "You can now use backups for server {name}"
 msgstr "Dati di traffico per servizio"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:44
-#, fuzzy
 msgid "Missing registration password"
 msgstr "Amministratore"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/UnRegister.pm:37
-#, fuzzy
 msgid "The server has been disassociated"
 msgstr "Il certificato è stato emesso."
 
@@ -4678,17 +4662,14 @@ msgid "It cannot be greater than {n} characters"
 msgstr "Non puo essere più lunga di {n} caratteri"
 
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Validate.pm:70
-#, fuzzy
 msgid "It must be a valid domain name"
 msgstr "Deve essere non nome di subdomain valido"
 
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Validate.pm:74
-#, fuzzy
 msgid "server name"
 msgstr "Server {name}"
 
 #: ../../main/core/src/EBox/RemoteServices/Exceptions/NotCapable.pm:31
-#, fuzzy
 msgid "This server is not able to do this action."
 msgstr "Il servizio non è abilitato in Zentyal"
 
@@ -4699,7 +4680,6 @@ msgid "Automatic software updates"
 msgstr "Aggiornamenti software automatici"
 
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:60
-#, fuzzy
 msgid "Latest automatic software update"
 msgstr "Aggiornamenti software automatici"
 
@@ -4717,7 +4697,6 @@ msgid "Software module is not installed"
 msgstr "Il modulo software non è installato"
 
 #: ../../main/core/src/EBox/Wizard/CGI/SoftwareSetupFinish.pm:28
-#, fuzzy
 msgid "Installation finished"
 msgstr "Installazione"
 
@@ -4726,7 +4705,6 @@ msgid "Initial configuration wizard"
 msgstr "Wizard di configurazione"
 
 #: ../../main/core/src/EBox/CGI/Base.pm:256
-#, fuzzy
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: ={},/.?&+:-@ and spaces are allowed."
@@ -4756,7 +4734,6 @@ msgstr ""
 "rilevanti si possono trovare nei log."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:705
-#, fuzzy
 msgid "Sorry, you have just hit a bug in Zentyal."
 msgstr ""
 "Hai appena trovato un bug in Zentyal. Per favore, contatta il supporto "
@@ -4789,7 +4766,7 @@ msgid "row"
 msgstr ""
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:90
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {rowName} \"{r}\" has been deleted"
 msgstr "Il certificato è stato rinnovato"
 
@@ -4799,7 +4776,7 @@ msgid "The {rowName} \"{r}\" has been moved from {x} to {y} position"
 msgstr ""
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:97
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The action \"{a}\" has been executed"
 msgstr "Il certificato è stato rinnovato"
 
@@ -4827,12 +4804,10 @@ msgid "Search"
 msgstr "Cerca"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:46
-#, fuzzy
 msgid "No search term"
 msgstr "Dominio di ricerca"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:57
-#, fuzzy
 msgid "The search term should have a lenght of at least 3 characters"
 msgstr "La password deve essere lunga almeno {minLength} caratteri"
 
@@ -4921,12 +4896,10 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/EBox/RESTClient.pm:438
-#, fuzzy
 msgid "User and password do not match."
 msgstr "Le nuove password non corrispondono."
 
 #: ../../main/core/src/EBox/WebAdmin.pm:66
-#, fuzzy
 msgid "Zentyal Webadmin"
 msgstr "Dominio Zentyal"
 
@@ -5037,7 +5010,6 @@ msgid "Process List"
 msgstr "Elenco processi"
 
 #: ../../main/core/src/EBox/SysInfo.pm:248
-#, fuzzy
 msgid "Resources"
 msgstr "Risorsa"
 
@@ -5060,7 +5032,6 @@ msgid "Core version"
 msgstr "Versione core"
 
 #: ../../main/core/src/EBox/SysInfo.pm:320
-#, fuzzy
 msgid "Software"
 msgstr "Software HTTP"
 
@@ -5157,7 +5128,7 @@ msgstr ""
 "La tua autenticazione e' scaduda perchè è stata aperta una nuova sessione"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:76
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Unknown error: '{error}'"
 msgstr "Modo di ripristino sconosciuto: {mode}"
 
@@ -5167,6 +5138,8 @@ msgid ""
 "{mod} module is disabled. Don't forget to enable it on the {oh}Module "
 "Status{ch} section, otherwise your changes won't have any effect."
 msgstr ""
+"{mod} modulo é disabilitato.  Non dimentichi a il {oh} Modulo Stato {ch} "
+"setzione, oppure il effeto non avrei un affeto."
 
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:69
 #, perl-brace-format
@@ -5198,7 +5171,6 @@ msgid "Actions"
 msgstr "Azioni"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:103
-#, fuzzy
 msgid "Go back"
 msgstr "backup"
 
@@ -5211,29 +5183,28 @@ msgid "Please contact support."
 msgstr ""
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:114
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following software packages are not correctly installed: {pack}"
 msgstr "I seguenti pacchetti saranno installati"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:119
 #: ../../main/core/src/EBox/View/StackTrace.pm:129
 msgid "Show technical details"
-msgstr ""
+msgstr "Presenti tecnici detallogio"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:121
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There are some software packages which are not correctly installed: {pack}."
 msgstr "I seguenti pacchetti saranno installati"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:123
 msgid "You should reinstall them and retry your operation."
-msgstr ""
+msgstr "Non installi e ripeti l' operazione. "
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:130
-#, fuzzy
 msgid "Report the problem"
-msgstr "Report periodo di tempo"
+msgstr "Racconto la problema "
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:131
 #: ../../main/ca/src/templates/forceRevoke.mas:39
@@ -8221,7 +8192,6 @@ msgid "Antivirus default settings"
 msgstr "Impostazioni generali antivirus"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr "{pkg} deve essere installato per usare questa caratteristica"

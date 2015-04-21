@@ -2325,7 +2325,6 @@ msgid "Status"
 msgstr "Status"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
-#, fuzzy
 msgid "Signatures"
 msgstr "Status"
 
@@ -2408,17 +2407,14 @@ msgid "Source"
 msgstr "Källa"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Success"
 msgstr "Gäståtkomst"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "misslyckad"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Antivirus allmänna inställningar"
 
@@ -2512,7 +2508,6 @@ msgid "Clean message"
 msgstr "Rent meddelande"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:494
-#, fuzzy
 msgid "Unable to reinject in the mail server"
 msgstr "Kan inte ansluta till mailserver {smtp}"
 
@@ -2587,12 +2582,10 @@ msgid "Pass"
 msgstr "Släpp igenom"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "sekundär server"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
-#, fuzzy
 msgid "Notify mail sender account"
 msgstr "e-postkonto alias"
 
@@ -2699,12 +2692,10 @@ msgid "Antispam sender policy"
 msgstr "Antiskräppost avsändarpolicy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
-#, fuzzy
 msgid "Virtual Domains specific policies"
 msgstr "Virtuella domän-alias"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "virtuell domän-alias"
 
@@ -8336,7 +8327,6 @@ msgid "Antivirus default settings"
 msgstr "Antivirus allmänna inställningar"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr "{pkg} måste vara installerat för att använda denna funktion."

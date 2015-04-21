@@ -2326,7 +2326,6 @@ msgid "Status"
 msgstr "Status"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
-#, fuzzy
 msgid "Signatures"
 msgstr "Status"
 
@@ -2427,12 +2426,10 @@ msgid "Failure"
 msgstr "Mislukt"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Algemene instellingen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:60
-#, fuzzy
 msgid "Mail Filter"
 msgstr "MailFilter systeem"
 
@@ -2524,7 +2521,6 @@ msgid "Clean message"
 msgstr "Veilig bericht"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:494
-#, fuzzy
 msgid "Unable to reinject in the mail server"
 msgstr "Kan {smtp} server niet bereiken"
 
@@ -2603,12 +2599,10 @@ msgid "Pass"
 msgstr "Wachtwoord"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "tweede server"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
-#, fuzzy
 msgid "Notify mail sender account"
 msgstr "Ontvang mail voor externe accounts"
 
@@ -2617,7 +2611,6 @@ msgid "Drop silently"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:75
-#, fuzzy
 msgid "Mailfilter's policy"
 msgstr "MailFilter systeem"
 
@@ -2627,12 +2620,10 @@ msgid "To configure amavis"
 msgstr "Vsftpd configureren."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:426
-#, fuzzy
 msgid "Zentyal internal mail filter"
 msgstr "MailFilter systeem"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
-#, fuzzy
 msgid "SMTP filter proxy"
 msgstr "MailFilter systeem"
 
@@ -2688,7 +2679,6 @@ msgid "External connections"
 msgstr "Externe server verbinding"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
-#, fuzzy
 msgid "Attached Files Filter"
 msgstr "MailFilter systeem"
 
@@ -2728,7 +2718,6 @@ msgid "Virtual Domains specific policies"
 msgstr "virtueel domein"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "virtueel domein"
 
@@ -2917,7 +2906,6 @@ msgstr "De poort {p}/{pr} is al ingebruik"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:55
-#, fuzzy
 msgid "Mail sender"
 msgstr "MailFilter systeem"
 
@@ -3059,7 +3047,6 @@ msgid "Bad header policy"
 msgstr "Slechte header gevonden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
-#, fuzzy
 msgid "Filter Policies"
 msgstr "MailFilter systeem"
 
@@ -8168,12 +8155,10 @@ msgid "Enable virus scanning"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:59
-#, fuzzy
 msgid "Antivirus default settings"
 msgstr "Algemene instellingen"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr ""
@@ -8215,7 +8200,6 @@ msgid "exception"
 msgstr "omschrijving"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:90
-#, fuzzy
 msgid "Samba shares antivirus exceptions"
 msgstr "Samba gedeelde map configuratie"
 
@@ -8779,12 +8763,10 @@ msgid "Samba access"
 msgstr "Door Samba gedeelde mappen"
 
 #: ../../main/samba/src/EBox/Samba.pm:3273
-#, fuzzy
 msgid "Samba virus"
 msgstr "Door Samba gedeelde mappen"
 
 #: ../../main/samba/src/EBox/Samba.pm:3284
-#, fuzzy
 msgid "Samba quarantine"
 msgstr "Door Samba gedeelde mappen"
 

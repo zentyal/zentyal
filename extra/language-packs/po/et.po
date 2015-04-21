@@ -2468,7 +2468,6 @@ msgid "Status"
 msgstr "Olek"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
-#, fuzzy
 msgid "Signatures"
 msgstr "Olek"
 
@@ -2563,18 +2562,15 @@ msgstr ""
 "Allikas"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Success"
 msgstr "Külalise ligipääs"
 
 #  
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "nurjunud"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Viirusetõrje vaikimisi seadistused"
 
@@ -2654,7 +2650,6 @@ msgid "Spam found"
 msgstr "Leitud on spämmi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:490
-#, fuzzy
 msgid "Forbidden attached file found"
 msgstr "Leitud on kirjale lisatud keelatud fail"
 
@@ -2672,7 +2667,6 @@ msgid "Clean message"
 msgstr "Puhas sõnum"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:494
-#, fuzzy
 msgid "Unable to reinject in the mail server"
 msgstr "E-posti serveriga {smtp} ei saa ühendust"
 
@@ -2753,12 +2747,10 @@ msgid "Pass"
 msgstr "Lase läbi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "sekundaarne server"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
-#, fuzzy
 msgid "Notify mail sender account"
 msgstr "e-posti aliase konto"
 
@@ -2775,7 +2767,6 @@ msgid "To configure amavis"
 msgstr "Amavisi seadistamiseks"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:426
-#, fuzzy
 msgid "Zentyal internal mail filter"
 msgstr "eBoxi sisemine e-posti filter"
 
@@ -2866,12 +2857,10 @@ msgid "Antispam sender policy"
 msgstr "Saatja spämmitõrje reegel"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
-#, fuzzy
 msgid "Virtual Domains specific policies"
 msgstr "Virtuaaldomeeni aliased"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "virtuaaldomeeni alias"
 
@@ -2886,7 +2875,6 @@ msgstr ""
 
 # Läve (suurus, punktisumma, skoor, number) kirjade spämmina märgistamiseks
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:62
-#, fuzzy
 msgid "The score threshold to mark a message as spam"
 msgstr "Läve hinne kirjade spämmina märgistamiseks"
 
@@ -3002,7 +2990,7 @@ msgstr ""
 
 # algkirje viga: main peaks olema mail
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:114
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{d} is a internal Zentyal virtual main domain"
 msgstr "{d} on eBoxi sisemine virtuaalne e-posti domeen"
 
@@ -8586,7 +8574,6 @@ msgid "Antivirus default settings"
 msgstr "Viirusetõrje vaikimisi seadistused"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr "{pkg} peab olema selle funktsiooni kasutamiseks paigaldatud"
@@ -9169,7 +9156,6 @@ msgstr "Muuda nime"
 
 #: ../../main/samba/src/EBox/Samba.pm:3243
 #: ../../main/samba/src/EBox/Samba.pm:3254
-#, fuzzy
 msgid "File name"
 msgstr ""
 "#-#-#-#-#  et.po (ebox-dhcp 1.4)  #-#-#-#-#\n"

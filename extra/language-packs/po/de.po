@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2015-04-09 17:50+0200\n"
-"Last-Translator: Frettchenking2 <sebastianmucha97@gmail.com>\n"
+"PO-Revision-Date: 2015-04-15 16:03+0200\n"
+"Last-Translator: joseffesoj <joseffesojniklas@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -35,16 +35,14 @@ msgstr "Sie müssen dem Server mindestens eine Adresse {name} zuweisen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:142
 msgid "The client certificate can't be the same than the server's one"
-msgstr ""
-"Das Clienut-Zertifikat des VPN-Benutzers darf nicht das gleiche wie das des "
-"Servers sein"
+msgstr "Das Client Zertifik darf nicht das gleiche wie das des Servers sein"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:140
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
-"Dieses Packet ist kein gültiges Zentyal-zu-Zentyal Konfigurationspaket. "
+"Dieses Paket ist kein gültiges Zentyal-zu-Zentyal Konfigurationspaket. "
 "(Entpacken nicht möglich)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
@@ -52,7 +50,7 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
-"Dieses Packet ist kein gültiges Zentyal-zu-Zentyal Konfigurationspaket. "
+"Dieses Paket ist kein gültiges Zentyal-zu-Zentyal Konfigurationspaket. "
 "(Fehlende Server Konfigurationsdatei)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
@@ -60,24 +58,24 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
-"Dies ist kein gültiges Zentyal-zu-Zentyal Konfigurationspaket. (Fehlendes CA-"
-"Zertifikat Datei)"
+"Dieses Paket ist kein gültiges Zentyal-zu-Zentyal Konfigurationspaket. "
+"(Fehlendes CA-Zertifikat Datei)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
-"Dies ist kein gültiges Zentyal-zu-Zentyal Konfigurationspaket. (Fehlende "
-"Zertifikatdatei)"
+"Dieses Paket ist kein gültiges Zentyal-zu-Zentyal Konfigurationspaket. "
+"(Fehlende Zertifikat Datei)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:192
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
-"Dies ist kein gültiges Zentyal-zu-Zentyal Konfigurationspaket. (Fehlende "
-"private Zertifikatsdatei)"
+"Dieses Paket ist kein gültiges Zentyal-zu-Zentyal Konfigurationspaket. "
+"(Fehlendes privates Zertifikat)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -87,7 +85,7 @@ msgstr "Die CA Zertifikatsdatei {p} ist nicht vorhanden"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr "Zertifikat des VPN-Benutzers {p} existiert nicht"
+msgstr "Client-Zertifikat des VPN-Benutzers {p} existiert nicht"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
@@ -100,7 +98,7 @@ msgstr "Das angegebene Zertifikat der Zertifizierungsstelle ist ungültig"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
-msgstr "Das angegebene Zertifikat des VPN-Benutzers ist ungültig"
+msgstr "Das angegebene Client-Zertifikat ist ungültig"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
@@ -128,7 +126,7 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
 msgstr ""
-"PN Client sollte nicht zuriert werden, um sich mit der Adresse {addr} zu "
+"VPN Client sollte nicht konfiguriert sein, um zur Adresse {addr} zu "
 "verbinden, da dies eine Adresse des lokalen Hosts selbst ist"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:337
@@ -137,14 +135,13 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
-"Der VPN-Client sollte nicht mit dieser Adresse {addr} konfiguriert und "
-"verbunden werden, da dies sich um eine Adresse einer lokalen "
-"Netzwerkschnittstelle handelt"
+"Der VPN Client sollte nicht mit dieser Adresse {addr} verbunden werden, da "
+"dies sich um eine Adresse einer lokalen Netzwerkschnittstelle ist"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
 msgid "Client {name}"
-msgstr "VPN-Benutzer {name}"
+msgstr "Benutzer {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:891
@@ -159,7 +156,7 @@ msgstr "VPN-Benutzer {name}"
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
 msgid "Enabled"
-msgstr "Aktiviert"
+msgstr "aktiviert"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:891
@@ -200,11 +197,11 @@ msgstr "Angehalten"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:895
 msgid "Daemon status"
-msgstr "Status des Dienstes"
+msgstr "Status des Hintergrund-Dienstes"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:566
 msgid "Connection target"
-msgstr "Verbindungsstelle"
+msgstr "Verbindungsziel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:570
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
@@ -249,7 +246,7 @@ msgid ""
 "assigned"
 msgstr ""
 "Der Schlüssel des Servers {name} konnte nicht angefordert werden, da ihm "
-"kein Zertifikat zugewiesen wurde"
+"kein Zertifikat zugeordnet wurde"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:496
 #, perl-brace-format
@@ -262,7 +259,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:618
 msgid "OpenVPN servers cannot be used for internal services"
-msgstr "OffeneVPN-Server können nicht für interne Dienste verwendet werden"
+msgstr "OffeneVPN Server können nicht für interne Dienste verwendet werden"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:646
 #, perl-brace-format
@@ -304,12 +301,12 @@ msgstr "VPN Netzwerkschnittstelle"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
 msgid "List of Advertised Networks"
-msgstr "Liste der verfügbaren Netzwerke"
+msgstr "Liste verfügbarer Netzwerke"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:50
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:49
 msgid "Advertised network"
-msgstr "Verfügbares Netzwerk"
+msgstr "Verfügbare Netzwerke"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
@@ -321,11 +318,11 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
-"{openpar}Sie können hier die Netzwerke hinzufügen, die Sie für VPN-Benutzer "
+"{openpar} Sie können hier die Netzwerke hinzufügen, die Sie für Clients "
 "freigeben wollen.{closepar}{openpar}Normalerweise erlauben Sie den Zugriff "
-"zu Ihrem LAN, indem Sie die Netzwerkadresse hier angeben{closepar}{openpar}."
-"Hat ein verfügbares Netzwerk dieselbe Adresse wie das VPN-Netzwerk, wird das "
-"verfügbare Netzwerk ignoriert.{closepar}"
+"zu Ihrem LAN, indem Sie die Netzwerkadresse hier "
+"angeben{closepar}{openpar}.Hat ein verfügbares Netzwerk dieselbe Adresse wie "
+"das VPN-Netzwerk, wird das verfügbare Netzwerk ignoriert.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -361,7 +358,7 @@ msgstr "Verfügbare Netzwerke"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:94
 msgid "Download client bundle"
-msgstr "Clientdateien herunterladen"
+msgstr "Client Dateien herunterladen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:106
 msgid "List of servers"
@@ -395,10 +392,9 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority "
 "module{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Sie müssen ein CA Zertifikat erstellen um einen VPN Server zu "
-"betreiben. {closepar}{openpar}Bitte gehen Sie zur {openhref}"
-"Modulzertifizierungsstelle{closehref} und erstellen Sie ein neues Zertifikat."
-"{closepar}"
+"{openpar}Sie benötigen ein gültiges CA-Zertifikat, um einen VPN Server zu "
+"betreiben. {closepar}{openpar}Bitte gehen Sie zum {openhref} Modul "
+"Zertifizierungsstelle{closehref} und erneuern Sie das Zertifikat.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
@@ -409,13 +405,13 @@ msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
-"Der Server kann nicht aktiviert werden, weil  nicht komplett konfiguriert "
-"ist; Bitte bearbeiten Sie die Konfiguration und versuchen Sie es erneut"
+"Der Server kann nicht aktiviert werden,  weil nicht komplett konfiguriert "
+"ist. Bitte bearbeiten Sie die Konfiguration und versuchen Sie es erneut"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:298
 msgid "Cannot create a server because there is not a CA certificate"
 msgstr ""
-"Der Server konnte nicht erstellt werden, weil kein CA-Zertifikat vorhanden "
+"Der Server konnte nicht erstellt werden, weil kein CA Zertifikat vorhanden "
 "ist"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:323
@@ -430,7 +426,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 msgid "revoked"
-msgstr "zurückziehen"
+msgstr "widerrufen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
 msgid "expired"
@@ -447,9 +443,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
-"Ein Server \"{name}\" kann nicht erstellt werden, da bereits ein Zertifikat "
-"\"{certName}\" und demit Status \"{state}\" existiert.<br/>Wählen Sie einen "
-"anderen Namen oder erneuern Sie das Zertifikat \"{certName}\""
+"Ein Server {name} kann nicht erstellt werden, da bereits ein Zertifikat "
+"{certName} mit {state} Status existiert. <br/>Wählen Sie einen anderen Namen "
+"oder erneuern Sie das {certName} Zertifikat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -527,7 +523,7 @@ msgstr "Clientkonfiguration"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:112
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:72
 msgid "client"
-msgstr "client"
+msgstr "benutzer"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:236
 #, perl-brace-format
@@ -540,7 +536,7 @@ msgid ""
 "The uploaded certificates and/or private key are not valid. File: {file}, "
 "Error: {err}"
 msgstr ""
-"Die hochgeladenen Zertifikate und / oder privaten Schlüssel sind ungültig. "
+"Die hochgeladenen Zertifikate und/oder privaten Schlüssel sind nicht gültig. "
 "Datei: {file}, Fehler: {err}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
@@ -553,7 +549,7 @@ msgstr "OpenVPN-Installationsprogramm zum Paket hinzufügen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:69
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr "OpenVPN-Installationsprogramm für Microsoft Windows"
+msgstr "OpenVPN Installationsprogramm für Microsoft Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
 msgid "Connection strategy"
@@ -597,7 +593,7 @@ msgstr "Zufall"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
 msgid "Failover"
-msgstr "Ausfallsicher"
+msgstr "Ausfallsicherung"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
@@ -609,7 +605,7 @@ msgid ""
 "edit the configuration and retry"
 msgstr ""
 "Es konnte kein Paket erstellt werden, weil der Server  nicht vollständig "
-"konfiguriert ist. Bitte verändern Sie die Konfiguration und versuchen Sie es "
+"konfiguriert ist; Bitte verändern Sie die Konfiguration und versuchen Sie es "
 "erneut"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:196
@@ -646,7 +642,7 @@ msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
-"Es konnte kein Paket erstellt werden, weil der Server nicht vollständig "
+"Es konnte kein Paket erstellt werden, weil der Server  nicht vollständig "
 "konfiguriert ist; Bitte ändern Sie die Konfiguration und versuchen Sie es "
 "erneut"
 
@@ -656,8 +652,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
-"Es sind keine Zertifikate für diesen Client verfügbar. Bitte {ohref}"
-"erstellen{chref} Sie eines"
+"Es sind keine Zertifikate für diesen Client verfügbar. Bitte {ohref}erstelle "
+"Sie eine{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -666,7 +662,7 @@ msgstr "VPN-Adresse"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:71
 msgid "Use a network address which is not used by this machine"
 msgstr ""
-"Verwenden Sie eine Netzwerkadresse, die nicht von diesem Computer benutzt "
+"Verwenden Sie eine Netzwerkadresse, die nicht von dieser Maschine benutzt "
 "wird"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:77
@@ -683,7 +679,7 @@ msgid ""
 "to connect. If enabled, only certificates whose common name begins with the "
 "selected value will be able to connect."
 msgstr ""
-"Falls es deaktiviert ist, können sich alle Clients mit einem von Zentyal "
+"Falls deaktiviert, können sich alle Clients mit einem von Zentyal "
 "generierten Zertifikat verbinden. Wenn aktiviert, können sich nur "
 "Zertifikate, deren Common-Name mit dem selektierten Wert beginnt, verbinden."
 
@@ -695,17 +691,16 @@ msgstr "Netzwerk Adressen Übersetzung"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
 msgid "Enable it if this VPN server is not the default gateway"
 msgstr ""
-"Aktivieren Sie diese Option, falls dieser VPN-Server nicht das default "
-"Gateway ist"
+"Aktivieren Sie es, falls dieser VPN-Server nicht das default Gateway ist"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
-msgstr "Verbindungen zwischen VPN Benutzern ermöglichen"
+msgstr "Client-zu-Client Verbindungen erlauben"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:111
 msgid "Enable it to allow client machines of this VPN to see each other"
 msgstr ""
-"Aktivieren Sie diese Option, damit sich die Clients dieses VPN-Netzes "
+"Aktivieren Sie dies, um zu erlauben, dass sich die Clients dieses VPN-Netzes "
 "gegenseitig sehen können"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:116
@@ -730,8 +725,8 @@ msgstr "Verwerfe Routen, die durch Zentyal Tunnel Clients gepushed werden"
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
-"Wenn ausgewählt wird dieser Server keine bekanntgegebene Route seiner "
-"Clients verwenden"
+"Sobald überprüft, wird der Server keine Route verwenden, die von dessen "
+"Client geworben wird"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
@@ -739,7 +734,7 @@ msgstr "Auf dieser Schnittstelle lauschen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
 msgid "Redirect gateway"
-msgstr "Umleitung des Defaultgateways auf dem Client über diesen Server"
+msgstr "Weiterleitung zum Gateway"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:150
 msgid "Makes Zentyal the default gateway for the client"
@@ -781,7 +776,7 @@ msgstr ""
 msgid "Other server is using the same VPN address, please choose another"
 msgstr ""
 "Ein anderer Server nutzt die gleiche VPN Adresse, bitte wählen Sie eine "
-"andere"
+"andere aus"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:378
 msgid "Other server is listening on the same port"
@@ -843,7 +838,7 @@ msgstr "{par} ist nicht kompatibel mit Zentyal-zu-Zentyal-Tunnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
 msgid "List of advertised networks to tunnel server"
-msgstr "Liste der verfügbaren Netzwerke am Tunnel-Server"
+msgstr "Liste der geworbenen Netzwerke zum Tunnel Server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
@@ -898,12 +893,12 @@ msgstr "Konfigurationspaket hochladen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:66
 msgid "Upload client configuration bundle"
-msgstr "Client Konfigurations-Dateipaket hochladen"
+msgstr "Client Konfigurations Datei hochladen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:134
 #, perl-brace-format
 msgid "Upload configuration bundle for {na}"
-msgstr "Konfigurations-Dateipaket für {na} hochladen"
+msgstr " Konfigurations Datei für {na} hochladen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:73
 msgid "VPN"
@@ -927,7 +922,7 @@ msgstr "Zentrale Konfigurationsdatei für zebra"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:135
 msgid "To configure ripd to exchange routes with client to client connections"
 msgstr ""
-"Konfiguriere den RIPD Wechsel Router,für eine Client-Client-Verbindungen"
+"Konfiguriere den ripd Wechsel Router,für eine Client zu Client Verbindungen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:142
 msgid "To remove system-wide VPN servers autostart"
@@ -1054,11 +1049,11 @@ msgstr "Art"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 msgid "Remote IP"
-msgstr "IP-Adresse der Gegenstelle"
+msgstr "Fernzugriffs-Remote-IP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1484
 msgid "Remote Certificate"
-msgstr "Zertifikat der Gegenstelle"
+msgstr "Remote Zertifikat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1489
 msgid "Initialization sequence completed"
@@ -1070,7 +1065,7 @@ msgstr "Der Aussteller des Zertifikates ist nicht berechtigt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1492
 msgid "Certificate common name not authorized"
-msgstr "Die Zertifikatsbezeichnung ist nicht berechtigt"
+msgstr "Die Zertifikatsbezeichnung ist nicht berechti-w^32q"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1493
 msgid "Certificate verification failed"
@@ -1163,7 +1158,7 @@ msgstr "schlüssel '{key}' in Konfigurations-Datei {value}"
 # Computername is not correct, because any network equipment has or may have a Hostname.
 #: ../../main/dns/src/EBox/DNS.pm:1689
 msgid "hostname"
-msgstr "hostname"
+msgstr "host name"
 
 #: ../../main/dns/src/EBox/DNS.pm:1694
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
@@ -1453,9 +1448,9 @@ msgid ""
 "domain, only first match will be used by reverse resolution. Dynamic zones "
 "may erase your manual reverse resolution."
 msgstr ""
-"Automatische Revers Auflösung ausgeführt. Wenn Sie eine IP Adresse auch in "
-"anderen Domänen verwenden, wird der erste gefundene Eintrag verwendet. "
-"Dynamische Zonen können ihre manuellen Revers Auflösungen löschen."
+"Die automatische rückwärts Auflösung wird durchgeführt. Falls Sie dieses mit "
+"einer IP Adresse in einer anderen Domäne wiederholen wird nur der erste "
+"Treffer benutzt. Dynamische Zonen können Ihre rückwärts Auflösungen löschen."
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:214
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:79
@@ -1474,15 +1469,15 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "mx.{name}?"
 msgstr ""
-"Der angegebene Hostname ist nicht voll Qualifiziert (FQDN). Meinen Sie mx."
-"{name}?"
+"Der angegebene Hostname ist ein nicht voll Qualifiziert Domäne Name (FQDN). "
+"Meinen Sie mx.{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:189
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:217
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
-"Wenn Sie \"Benutzerdefiniert\" wählen, muss es ein voll qualifizierter "
-"Domänenamen haben"
+"Wenn Sie \"Benutzerdefiniert\" wählen, muss es ein Voll qualifizierter "
+"Domänename sein"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:211
 msgid "Preference"
@@ -1500,10 +1495,10 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
-"Die kleinste Präferenz-Nummer hat die höchste Priorität. Nach Abfrage des MX-"
-"Eintrages durch einen externen Mailversender (meist ein anderer Mailserver) "
-"ist dies der erste Server an dem versucht wird die Nachricht zuzustellen. "
-"Der erlaubte Bereich geht von ({min}, {max})"
+"Die kleinste Präferenz-Nummer hat die höchste Priorität  . Nach Abfrage des "
+"MX-Eintrages durch einen externen Mailversender (meist ein anderer "
+"Mailserver) ist dies der erste Server an dem versucht wird die Nachricht "
+"zuzustellen. Der erlaubte Bereich geht von ({min}, {max})"
 
 # in german speaking countries 'mail exchanger' is rarely used. more common is 'MX', 'MX record' or 'MX Eintrag'.
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:232
@@ -1575,7 +1570,7 @@ msgid ""
 "(MX, NS, TXT and SRV)."
 msgstr ""
 "Hier können Sie die Domänen für den DNS Server hinzufügen. Jede Domäne kann "
-"verschiedenen Hostnamen mit Aliasen (A and CNAME) und weitere besondere "
+"verschiedenen Hostnamen mit Aliasen  (A and CNAME) und weitere besondere "
 "Datensätze (M, NS, TXT und SRV) enthalten."
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:78
@@ -1612,7 +1607,7 @@ msgstr "Der {name} darf nicht länger als {value} Zeichen sein"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:144
 msgid "If you select the Domain, then you are choosing the zone"
-msgstr "Wenn Sie eine Domäne auswählen, dann wählen Sie bitte die Zone"
+msgstr "Wenn Sie eine Domäne auswählen, dann wählen Sie die Zone"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:161
 msgid "Custom owner"
@@ -1771,7 +1766,7 @@ msgid ""
 "Module Status{closeref}  section and save changes after that."
 msgstr ""
 "Bevor Sie Drucker konfigurieren, müssen Sie das Modul in der {openref}Modul-"
-"Status{closeref} Sektion aktivieren und die Änderungen speichern."
+"Status{closeref}  Sektion aktivieren und die Änderungen speichern."
 
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:129
 msgid "Listen"
@@ -1779,7 +1774,7 @@ msgstr "Lauschen"
 
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:137
 msgid "Select CUPS Interfaces"
-msgstr "Wählen Sie die CUPS Oberfläche"
+msgstr "Wählen Sie die CUPS Oberfläche aus"
 
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:142
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:148
@@ -1792,13 +1787,13 @@ msgid ""
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
-"Wählen Sie das Netzwerk-Interface für den CUPS-Webserver aus. Bedenke dabei, "
-"dass es möglicherweisek eine gute Idee ist, ein externes Netzwerk-Interface "
+"Wähle das Netzwerk-Interface für den CUPS-Webserver aus. Bedenke dabei, dass "
+"es möglicherweise keine gute Idee ist, ein externes Netzwerk-Interface "
 "auszuwählen. Wenn gar keines ausgewählt ist, wird nur Localhost benutzt"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:55
 msgid "Printer name"
-msgstr "Druckername"
+msgstr "Drucker Name"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:61
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:201
@@ -1832,7 +1827,7 @@ msgstr "Ort"
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:73
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:113
 msgid "Guest access"
-msgstr "Gast Zugriff"
+msgstr "Gäste Zugriff"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:76
 msgid "This printer will not require authentication."
@@ -1845,7 +1840,7 @@ msgstr "Zugriffskontrolle"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:89
 msgid "Printer permissions"
-msgstr "Druckerberechtigung"
+msgstr "Druckerberechtigungen"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:94
 msgid "printer"
@@ -1862,7 +1857,7 @@ msgid ""
 "{openref}Module Status{closeref}  section and save changes after that."
 msgstr ""
 "Bevor Sie die ACL des Druckers konfigurieren, müssen Sie das Modul in der "
-"{openref}Modul-Status{closeref} Sektion aktivieren und die Änderungen "
+"{openref}Modul-Status{closeref}  Sektion aktivieren und die Änderungen "
 "speichern."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:252
@@ -1896,7 +1891,7 @@ msgstr ""
 #: ../../main/printers/src/EBox/Printers.pm:74
 #, perl-brace-format
 msgid "Disable {server} upstart job"
-msgstr "Deaktiviere {server} upstart Job"
+msgstr "Deaktiviere {server} start Job"
 
 #: ../../main/printers/src/EBox/Printers.pm:75
 #: ../../main/dhcp/src/EBox/DHCP.pm:198
@@ -1913,7 +1908,7 @@ msgstr "Netzwerkdrucker"
 
 #: ../../main/printers/src/EBox/Printers.pm:116
 msgid "Internet Printing Protocol (CUPS)"
-msgstr "Internet Druck Protokoll (CUPS)"
+msgstr "Protokoll (CUPS) im Internet drucken"
 
 #: ../../main/printers/src/EBox/Printers.pm:393
 msgid "Job ID"
@@ -1989,7 +1984,7 @@ msgid ""
 "certificate"
 msgstr ""
 "Vor dem Ausstellen eines neuen Zertifikat der Zertifizierungsstelle sollte "
-"com widerrufen werden oder zumindest abgelaufen sein"
+"com widerrufen werden  oder zumindest abgelaufen sein"
 
 #: ../../main/ca/src/EBox/CA.pm:736
 #, perl-brace-format
@@ -2023,7 +2018,7 @@ msgstr "Gemeinsamer Name"
 #: ../../main/ca/src/EBox/CA.pm:921 ../../main/ca/src/EBox/CA.pm:1262
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
-msgstr "Ein Zertifikat mit der Bezeichnung {cn} existiert NICHT"
+msgstr "Ein Zertifikat mit üblichen Namen {cn} existiert NICHT"
 
 #: ../../main/ca/src/EBox/CA.pm:925
 #, perl-brace-format
@@ -2062,7 +2057,8 @@ msgstr "Das zu erneuernde Zertifikat gibt es nicht"
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr ""
-"Das Zertifikat mit der üblichen Bezeichnung {cn} gibt es NICHT bei dieser CA"
+"Das Zertifikat mit der üblichen Bezeichnung {cn} existiert NICHT bei dieser "
+"CA"
 
 #: ../../main/ca/src/EBox/CA.pm:1760
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
@@ -2078,7 +2074,7 @@ msgstr "Zertifizierungsdienste"
 
 #: ../../main/ca/src/EBox/CA.pm:1876
 msgid "Not created"
-msgstr "Nicht erzeugt"
+msgstr "Nicht erstellt"
 
 #: ../../main/ca/src/EBox/CA.pm:1878
 msgid "Available"
@@ -2101,8 +2097,8 @@ msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"Das Feld enthält ungültige Zeichen. Nur die ASCII-Buchstaben A-Z und a-z, "
-"die Ziffern 0-9, die Sonderzeichen .?&+:-@* und Leerzeichen sind erlaubt."
+"Die Eingabe enthält ungültige Zeichen. Nur die ASCII-Buchstaben A-Z und a-z, "
+"die Ziffern 0-9, die Sonderzeichen .?&+:@ und Leerzeichen sind erlaubt."
 
 #: ../../main/ca/src/EBox/CA.pm:2454
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
@@ -2116,7 +2112,7 @@ msgstr "Datenbankfehler"
 
 #: ../../main/ca/src/EBox/CA.pm:2458
 msgid "Identifier duplicated in Database"
-msgstr "Die ID wurde in der Datenbank dupliziert"
+msgstr "Das Identifizieren wurde in der Datenbank dupliziert"
 
 #: ../../main/ca/src/EBox/CA.pm:2460
 msgid "Certificate already revoked"
@@ -2128,12 +2124,12 @@ msgstr "Das Feld ASN1 ist zu lang. Maximale Grösse:"
 
 #: ../../main/ca/src/EBox/CA.pm:2465
 msgid "Unknown error. Given the OpenSSL output:"
-msgstr "Unbekannter Fehler. Das ist die Ausgabe von OpenSSL:"
+msgstr "Unbekannter Fehler. OpenSSL Aussage:"
 
 #: ../../main/ca/src/EBox/CA.pm:2532 ../../main/ca/src/EBox/CA/TestStub.pm:732
 msgid "Expiration date later than CA certificate expiration date"
 msgstr ""
-"Das Ablaufdatum ist später als dasjenige des Zertifikats der "
+"Das Ablaufdatum ist später als das Ablaufdatum des Zertifikats der "
 "Zertifizierungsstelle"
 
 #: ../../main/ca/src/EBox/CA.pm:2553
@@ -2148,7 +2144,9 @@ msgstr "Subjekt Alternativetyp"
 #: ../../main/ca/src/EBox/CA.pm:2572
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
-msgstr "Ausschließlich {dns}, {ip} und {email} sind gültige Namenstypen"
+msgstr ""
+"Ausschließlich {dns}, {ip} und {email} sind als alternative Namenstypen "
+"gültig"
 
 #: ../../main/ca/src/EBox/CA.pm:2616
 #, perl-brace-format
@@ -2162,8 +2160,8 @@ msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"Die Eingabe enthält ungültige Zeichen. Nur die Buchstaben A-Z und a-z, die "
-"Ziffern 0-9, die Sonderzeichen: .?&+:-@* und Leerzeichen sind erlaubt."
+"Die Eingabe enthält unzulässige Zeichen. Erlaubt sind nur "
+"Standardbuchstaben, Ziffern, Leerzeichen und die Sonderzeichen: .?&+:-@*."
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:75
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:477
@@ -2190,14 +2188,13 @@ msgstr "Aktion"
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:86
 msgid "Only revoke, renew and reissue actions are performed"
 msgstr ""
-"Nur die Aktionen Widerrufen, Erneuern und Neuveröffentlichung werden "
-"durchgeführt"
+"Nur die Aktionen Widerrufen, Erneuern und Neuausgeben werden durchgeführt"
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:94
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:76
 #, perl-brace-format
 msgid "Common name: {cn} does NOT exist in database"
-msgstr "Die Bezeichnung: {cn} ist NICHT in der Datenbank vorhanden"
+msgstr "Die Bezeichnung: {cn} exsistiert NICHT in der Datenbank"
 
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:59
 msgid "The certificate has NOT been renewed"
@@ -2240,11 +2237,11 @@ msgstr "Das Zertifikat der Zertifizierungsstelle wurde erneuert"
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:136
 #, perl-brace-format
 msgid "Error creating archive file for  certificates: {err}"
-msgstr "Fehler beim Erzeugen der Archivdatei für Zertifikate: {err}"
+msgstr "Fehler beim Erzeugen der Archivdatei für  Zertifikate: {err}"
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:67
 msgid "The certificate has NOT been revoked."
-msgstr "Das Zertifikat wurde NICHT widerrufen."
+msgstr "Das Zertifikat kann NICHT zurückgezogen werden."
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:77
 #: ../../main/ca/src/templates/formRevoke.mas:61
@@ -2313,8 +2310,8 @@ msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
-"Sie müssen zuerst eine Zertifizierungsstelle erstellen. Gehe nach: {openhref}"
-"Zertifizierungsstelle{closehref} um dieses zu tun"
+"Sie müssen zuerst ein Zertifikat einer Zertifizierungsstelle erstellen. "
+"Rufen Sie dazu: {openhref}Certification Authory{closehref} auf"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:117
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:151
@@ -2351,14 +2348,14 @@ msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by Zentyal"
 msgstr ""
-"Hier können Sie die Zertifikate von dieser Zertifizierungsstelle für einen "
-"sicheren Dienst von Zentyal wählen"
+"Hier können Sie das Zertifikat von dieser CA für einen sicheren Dienst von "
+"Zentyal wählen"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:341
 msgid "This service does not allow to change the certificate common name"
 msgstr ""
-"Diesem Service Dienst ist es nicht gestattet den allgemeinen "
-"Zertifikatsnamen zu ändern"
+"Diesem Service ist es nicht gestattet den allgemeinen Zertifikatsnamen zu "
+"ändern"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:374
 #, perl-brace-format
@@ -2418,15 +2415,15 @@ msgid ""
 "section."
 msgstr ""
 "Das Antivirus Modul ist nicht konfiguriert. Aktivieren Sie das Modul zuerst "
-"in der Modul Status Sektion"
+"in der Modul Status Sektion."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:160
 msgid ""
 "The antivirus module is not enabled. Enable it first to know the antivirus "
 "status."
 msgstr ""
-"Das Antivirus Modul ist nicht aktiviert. Aktivieren Sie dieses zuerst um den "
-"Status zu sehen."
+"Das Antivirus Modul ist nicht aktiviert. Aktivieren Sie dies zuerst um den "
+"Status zu überprüfen."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
 #, perl-brace-format
@@ -2441,12 +2438,12 @@ msgid ""
 "Antvirus database always up-to-date."
 msgstr ""
 "Möchten Sie Ihr System gegen Betrug, Phishing, Spam und anderer "
-"Schafsoftware schützen? Holen Sie sich eine der {oh} Vollversionen {ch}, die "
+"Schadsoftware schützen? Holen Sie sich eine der {oh} Vollversionen {ch}, die "
 "Ihre AntVirus Datenbank immer auf dem neuesten Stand hält."
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:169
 msgid " To configure clamd daemon"
-msgstr " um den clamd-Dienst zu konfigurieren"
+msgstr " Um den clamd Dienst zu konfigurieren"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:174
 msgid "To schedule the launch of the updater"
@@ -2455,12 +2452,12 @@ msgstr "Zeitgesteuertes Update"
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:179
 #, perl-brace-format
 msgid "Custom {app} profile configuration for {bin} binary"
-msgstr "Eigene {app} Profil Konfiguration für {bin} binär."
+msgstr "Angepasste {app} Profil Konfiguration für {bin} binär"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:186
 #, perl-brace-format
 msgid "Disable {app} profile for {bin} binary"
-msgstr "Deaktiviert {app} Profil für {bin} binär."
+msgstr "Deaktivieren Sie {app} Profil für {bin} binär"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:433
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
@@ -2472,7 +2469,7 @@ msgstr "Quelle"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
 msgid "Success"
-msgstr "Erfolgreich"
+msgstr "Erfolg"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
 msgid "Failure"
@@ -2480,7 +2477,7 @@ msgstr "Fehler"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
 msgid "Antivirus DB updates"
-msgstr "AntiVirus Datenbank Updates"
+msgstr "Antivirus DB Aktualisierungen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:60
 msgid "Mail Filter"
@@ -2493,22 +2490,20 @@ msgstr "Füge Benutzer clamav zur Gruppe amavis hinzu"
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:79
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr ""
-"Clamav braucht Zugriff auf die Datenfelder von amavis um Mails richtig zu "
+"Clamav benötigt Zugriff auf die Datenfelder von amavis um Mails richtig zu "
 "überprüfen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:83
 msgid "Add clamav user to p3scan group"
-msgstr "Benutzer clamav zur Gruppe amavis hinzufügen"
+msgstr "Benutzer clamav zur Gruppe p3scan hinzufügen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
-#, fuzzy
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
-"Clamav braucht Zugriff auf die Datenfelder von amavis um Mails richtig zu "
-"überprüfen"
+"Clamav braucht Zugriff auf die p3scan Gruppe um Mails im POP Proxy richtig "
+"zu können"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:88
-#, fuzzy
 msgid "Add spam and ham system users"
 msgstr "Füge vmail Systembenutzer hinzu"
 
@@ -2516,6 +2511,8 @@ msgstr "Füge vmail Systembenutzer hinzu"
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
+"Diese Benutzer sind für die E-Mai Accounts, welche ein Training für Bayesian "
+"Filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:95
 msgid "Update LDAP"
@@ -2531,7 +2528,7 @@ msgid ""
 "Filter module"
 msgstr ""
 "Auf dem Mail-Server ist ein eigener Filter aktiviert, deaktivieren Sie "
-"diesen, bevor Sie den Zentyal Mail Filter aktivieren."
+"diesen, bevor Sie den Zentyal Mail Filter aktivieren"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:309
 msgid "Cannot proceed because the filter is in use"
@@ -2563,7 +2560,7 @@ msgstr "Spam gefunden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:490
 msgid "Forbidden attached file found"
-msgstr "Nicht erlaubter Dateianhang gefunden."
+msgstr "Nicht erlaubter Datei anhänge gefunden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:491
 msgid "Address in blacklist found"
@@ -2575,12 +2572,11 @@ msgstr "Virus gefunden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:493
 msgid "Clean message"
-msgstr "Virenfreie Nachricht"
+msgstr "Bereinigte Nachricht"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:494
-#, fuzzy
 msgid "Unable to reinject in the mail server"
-msgstr "Es konnte keine Verbindung zum Mailserver {smtp} hergestellt werden"
+msgstr "Es konnte keine Verbindung zum Mailserver hergestellt werden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:498
 msgid "SMTP filter"
@@ -2600,7 +2596,7 @@ msgstr "Antispam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:543
 msgid "Files ACL"
-msgstr "Datei-ACL (Zugriffskontrolliste)"
+msgstr "Datei-ACL"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:76
 #: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:88
@@ -2611,19 +2607,19 @@ msgstr "name der Domäne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:80
 msgid "email address"
-msgstr "E-Mail-Adresse"
+msgstr "e-Mail-Adresse"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:84
 msgid ""
 "The sender ought be either an email address or a domain name prefixed with "
 "'@'"
 msgstr ""
-"Der Sender kann eine E-Mail-Adresse oder eine Domäne (mit einem \"@\" "
-"vorangestellt) sein"
+"Der Sender soll eine E-Mail-Adresse oder einen Namen einer Domäne mit einem "
+"vorangestelltem '@' sein"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:105
 msgid "Write down a decimal number"
-msgstr "Tragen Sie eine Dezimalzahl ein"
+msgstr "Trage eine Dezimalzahl ein"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:110
 msgid "Only non-zero positive numbers are allowed"
@@ -2637,7 +2633,7 @@ msgstr "Tragen Sie eine Zahl kleiner als {m} ein"
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:125
 #, perl-brace-format
 msgid "Write down a number greater  than {m}"
-msgstr "Tragen Sie eine Zahl größer als {m} ein"
+msgstr "Geben Sie eine Zahl größer   als {m} ein"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:57
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:100
@@ -2647,25 +2643,23 @@ msgstr "MIME-Typ"
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/FileExtension.pm:55
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:104
 msgid "file extension"
-msgstr "Dateiendung"
+msgstr "dateiendung"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:28
 msgid "Pass"
 msgstr "Durchlassen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
-msgstr "Zweiter Server"
+msgstr "Absender server benachrichtigen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
-#, fuzzy
 msgid "Notify mail sender account"
-msgstr "Alias für Postfach"
+msgstr "Absender E-Mail Konto benachrichtigen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:31
 msgid "Drop silently"
-msgstr "Unbemerkt entfernen"
+msgstr "Kommentarlos entfernen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:75
 msgid "Mailfilter's policy"
@@ -2681,22 +2675,22 @@ msgstr "Interner Zentyal Mailfilter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
 msgid "SMTP filter proxy"
-msgstr "SMTP-Filter Proxy"
+msgstr "SMTP filter Proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:599
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
-msgstr "Die virtuelle Maildomäne {vd} gibt es nicht"
+msgstr "Die virtuelle Maildomäne {vd} existiert nicht"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:59
 msgid " To configure spamassassin daemon"
-msgstr " um den SpamAssassin-Dämon zu konfigurieren."
+msgstr " Um den Spamassassin Dämon zu konfigurieren"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:328
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:58
 msgid "Spam threshold"
-msgstr "Spam - Schwellwert"
+msgstr "Spam obergrenze"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:328
 msgid "It must be a number(decimal point allowed)"
@@ -2704,8 +2698,7 @@ msgstr "Es muss eine Zahl sein (Dezimalstellen mit Punkt schreiben)"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:338
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
-msgstr ""
-"Die Spam-Schwelle kann nicht höher sein, als die  Autolern-Spamschwelle"
+msgstr "Die Spam Obergrenze darf nicht höher sein, als die erlernte Obergrenze"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:342
 msgid ""
@@ -2729,6 +2722,7 @@ msgstr ""
 #, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
 msgstr ""
+"Die Accounts von der Domäne {d} können den Bayesian Filter nicht trainieren"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:39
 msgid "External connections"
@@ -2743,8 +2737,8 @@ msgid ""
 "Filter mail messages according attached files. The transparent POP proxy "
 "only filters by extension"
 msgstr ""
-"Nachrichten nach angehängten Dateien filtern. Der Transparente POP-Proxy "
-"filtert nur nach Datei-Erweiterungen."
+"Nachrichten nach angehängten Dateien filtern. Der transparente POP-Proxy "
+"filtert nur nach Datei-Erweiterungen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:80
 msgid "Use virus filtering"
@@ -2756,11 +2750,11 @@ msgstr "Spam filtern"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:99
 msgid "default"
-msgstr "Standard"
+msgstr "standard"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
 msgid "custom threshold"
-msgstr "Benutzerdefinierter Grenzwert"
+msgstr "benutzerdefinierter Grenzwert"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:150
 msgid "Antispam sender policy"
@@ -2768,11 +2762,11 @@ msgstr "Antispam-Senderrichtlinie"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
 msgid "Virtual Domains specific policies"
-msgstr "spezifische Richtlinie der virtuelle Domäne"
+msgstr "Spezifische Richtlinie der virtuelle Domäne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
 msgid "virtual domain policy"
-msgstr "Virtuelle Domänen Richtlinie"
+msgstr "virtuelle Domänen Richtlinie"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:183
 #, perl-brace-format
@@ -2798,9 +2792,8 @@ msgstr ""
 "Etikett, das an die Betreffzeile unerwünschter Nachrichten angehängt wird"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:73
-#, fuzzy
 msgid "Use Bayesian classifier"
-msgstr "Bayesischen Filter verwenden"
+msgstr "Bayesian Klassifizierer verwenden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:79
 msgid "Auto-whitelist"
@@ -2828,7 +2821,7 @@ msgid ""
 "added to the learning system "
 msgstr ""
 "Unerwünschte Nachrichten mit einem Wert, der grösser oder gleich diesem Wert "
-"ist werden dem Lernmodul hinzugefügt"
+"ist werden dem Lernmodul hinzugefügt "
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:102
 msgid "Autolearn ham threshold"
@@ -2865,7 +2858,7 @@ msgid ""
 "treshold "
 msgstr ""
 "Der Wert für das Lernmodul kann nicht kleiner sein, als der Standardwert für "
-"Spam"
+"Spam "
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:173
 msgid ""
@@ -2890,20 +2883,20 @@ msgstr "Externe Maildomänen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:96
 msgid "external mail domain"
-msgstr "Externe Maildomäne"
+msgstr "externe Maildomäne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:97
 msgid ""
 "Here you can specify which external mail domains can connect to the mail "
 "filter"
 msgstr ""
-"Hier können Sie festlegen, welche externe Maildomöne zum Mail-Filter "
-"verbinden kann"
+"Hier können Sie festlegen, welche externen Mail Domänen sich zum Mail Filter "
+"verbinden können"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:114
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{d} is a internal Zentyal virtual main domain"
-msgstr "{d} ist eine interne Zentyal Virtuelle Hauptdomäne"
+msgstr "{d} ist eine interne virtuelle Zentyal Haupt Domäne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
 msgid "External mail server"
@@ -2911,7 +2904,7 @@ msgstr "Externer Mailserver"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:73
 msgid "IP address of the server"
-msgstr "IP-Adresse des Servers"
+msgstr "IP Adresse des Servers"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:85
 msgid "External mail servers"
@@ -2919,15 +2912,15 @@ msgstr "Externe Mailserver"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:97
 msgid "external mail server"
-msgstr "Externer Mailserver"
+msgstr "externer Mailserver"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:98
 msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
-"Hier können Sie festlegen welche externen Mailserver auf den Mail-Filter "
-"verbinden können"
+"Hier können Sie festlegen, welche externen Mailserver sich mit dem Mail-"
+"Filter verbinden können"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:140
 #, perl-brace-format
@@ -2974,29 +2967,28 @@ msgid "Policy"
 msgstr "Richtlinie"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
-#, fuzzy
 msgid "Sender policy for virtual domain"
-msgstr "Spam-Schwellwert für die virtuelle Domäne {domain}"
+msgstr "Spam-Schwellwert für die virtuelle Domäne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:88
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:82
 msgid "sender policy"
-msgstr "Senderichtlinien"
+msgstr "senderichtlinien"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:96
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:90
 msgid "whitelist"
-msgstr "weisser Liste"
+msgstr "weiße Liste"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:97
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:91
 msgid "blacklist"
-msgstr "schwarzer Liste"
+msgstr "schwarze Liste"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:92
 msgid "process"
-msgstr "Prozess"
+msgstr "prozess"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:77
 msgid "MIME Type"
@@ -3045,7 +3037,7 @@ msgstr "Bayesischen Filter trainieren"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
 msgid "Learned from messages"
-msgstr "von Nachrichten gelernt"
+msgstr "Von Nachrichten gelernt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:78
 msgid "Train"
@@ -3053,7 +3045,7 @@ msgstr "Trainieren"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:87
 msgid "spam"
-msgstr "Spam"
+msgstr "spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
 msgid "ham"
@@ -3084,7 +3076,7 @@ msgstr "Richtlinie bei Spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:68
 msgid "Bounce policy will be ignored for high-score spam messages"
-msgstr ""
+msgstr "Die Export-Regel wird für die High-Score Spam-Nachrichten ignoriert"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:72
 msgid "Banned files policy"
@@ -3144,7 +3136,7 @@ msgstr "bindung"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:127
 msgid "bonding mode"
-msgstr "bindungsmodus"
+msgstr "bindungs Modus"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:31
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:42
@@ -3294,9 +3286,7 @@ msgstr "Ein Gateway-Name darf nicht mit einem '-' beginnen oder enden"
 msgid ""
 "Gateways names can only be composed of lowercase ASCII english letters, "
 "digits and '-'"
-msgstr ""
-"Gateway-Namen dürfen nur aus Kleinbuchstaben (keine Umlaute), Zahlen und '-' "
-"bestehen"
+msgstr "Gateway-Namen dürfen nur aus Kleinbuchstaben, Zahlen und '-' bestehen"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:99
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
@@ -3492,7 +3482,7 @@ msgstr "IP oder Netzwerkadresse"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:196
 msgid "Gateway used to reach the above network  address"
-msgstr "Gateway, um die oben genannte Netzwerk-Adresse zu erreichen"
+msgstr "Gateway, um die oben genannte Netzwerk  Adresse zu erreichen"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:204
 msgid "Optional description for this route"
@@ -3541,9 +3531,9 @@ msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
 msgstr ""
-"Es wird darauf Acht gegeben, dass eine Standard-Route, welche von einem DHCP-"
-"Server zur Verfügung gestellt wurde, in der Standard-Routing-Tabelle "
-"hinzugefügt wird."
+"Es wird darauf Acht gegeben, dass eine Standard-Route, welche von einem "
+"DHCP-Server zur Verfügung gestellt wurde, in der Standard-Routing-Tabelle "
+"hinzugefügt wird. "
 
 #: ../../main/network/src/EBox/Network.pm:140
 msgid "Disable IPv6"
@@ -4000,9 +3990,7 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:160
 #, perl-brace-format
 msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
-msgstr ""
-"Der Bereich {from}-{to} beinhaltet die HA (Hochverfügbare) floating IP: "
-"\"{name}\" - {IP}"
+msgstr "Der Bereich {from}-{to} beinhaltet die HA floating IP: \"{name}\" - {IP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/mail/src/EBox/Mail.pm:1678
@@ -4220,7 +4208,7 @@ msgstr "feste adresse"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:203
 msgid "Not object added for fixed addresses"
-msgstr "Kein Objekt für feste Adressen hinzugefügt "
+msgstr "Kein Objekt für feste Adressen hinzugefügt"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:206
 msgid ""
@@ -4562,7 +4550,7 @@ msgstr "Erstelle Remote Backup"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:77
 msgid "Backing up modules "
-msgstr "Module werden gesichert"
+msgstr "Module werden gesichert "
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:78
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:242
@@ -5507,11 +5495,10 @@ msgid ""
 "Premium Editions: commercial Zentyal Server editions fully supported by "
 "Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
-"Warnung : Dies sind ungetestete Community Updates welche Ihrem System "
-"schaden könnten. In geschäftlichen Bereichen empfehlen wir die Benutzung von "
-"Professional, Business oder Premium Edition: kommerzielle Zentryal Server "
-"Editionen sind vollständig von Zentryal S.L. und Canonical/Ubuntu "
-"unterstützt. "
+"Achtung: Dies sind ungetestete Community Updates, die Ihr System beschädigen "
+"könnten. In Produktionsumgebungen empfehlen wir die Verwendung der "
+"Professional, Business oder Premium Edition: kommerzielle Zentyal Server "
+"Editionen vollständig durch Zentyal SL unterstützt mit Canonical/Ubuntu."
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:126
 #: ../../main/software/src/templates/updateNote.mas:11
@@ -6664,7 +6651,7 @@ msgid ""
 "this option you have to \"Issue Certificate\" first."
 msgstr ""
 "RPC über HTTPS-Zugriff. MAPI/RPC über HTTP, SSL-fähige Version. Für diese "
-"Option müssen Sie zuerst die Zertifikatanfrage erstellen."
+"Option müssen Sie zuerst die \"Zertifikatanfrage\" erstellen."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:109
 msgid "Webmail"
@@ -6687,8 +6674,8 @@ msgid ""
 "Webmail and groupware platform. SSL enabled version. To enable this option "
 "you have to \"Issue Certificate\" first."
 msgstr ""
-"Netzmail und Gruppenware Plattform. SSL aktiviert die Version. Um dies "
-"Option zu aktivieren muss man zuerst eine Bescheinigung ausstellen.  "
+"Webmail und Groupware-Plattform. SSL-fähige Version. Für diese Option müssen "
+"Sie zuerst eine \"Zertifikatanfrage\" erstellen."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:136
 msgid "Revoke certificate"
@@ -6705,7 +6692,7 @@ msgstr "Problemzertifikat"
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:144
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:150
 msgid "Certificate issued"
-msgstr "Zertifikats ausgegeben "
+msgstr "Zertifikats ausgegeben"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:148
 msgid "Revoke and reissue certificate"
@@ -6745,7 +6732,7 @@ msgstr "Es gibt keine konfigurierten {oh}virtuelle Domäne{ch}."
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:52
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:60
 msgid "ActiveSync"
-msgstr "Aktive Synchronisation "
+msgstr "Aktive Synchronisation"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:55
 msgid "Enable ActiveSync support for all the mail domains"
@@ -6765,8 +6752,8 @@ msgid ""
 "To configure OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
 msgstr ""
-"Um OpenChange zu konfigurieren musst du zuerst eine Mail{oh}erstellen mit "
-"einer virtuellen Domäne. "
+"Um Openchange konfigurieren zu können, müssen Sie zunächst {oh}eine "
+"virtuelle Mail-Domäne{oc} erstellen"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:117
 msgid ""
@@ -6790,7 +6777,7 @@ msgstr "Administrationsbenutzer"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:96
 msgid "Domain user belonging to the Schema Admins group"
-msgstr "Domain Benutzer gehören zum Schema der Gruppe der Administratoren "
+msgstr "Domain Benutzer gehören zum Schema der Gruppe der Administratoren"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:102
 msgid "Password of the administrator user"
@@ -7164,7 +7151,7 @@ msgstr "Ersteinrichtung"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:657
 msgid "Firewall failed to add rules for the following modules: "
-msgstr "Firewall konnte für folgende Module keine Regel(n) setzen:"
+msgstr "Firewall konnte für folgende Module keine Regel(n) setzen: "
 
 #: ../../main/firewall/src/EBox/Iptables.pm:660
 msgid ""
@@ -7439,7 +7426,7 @@ msgstr "Protokoll neuer weitergeleiteter Verbindungen"
 # NAT is in german speaking countries the most used expression
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:155
 msgid "Source Network Address Translation rules"
-msgstr "Network Address Translation "
+msgstr "Ursprung der Regeln für Übersetzung der Netzwerkadressen"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:156
 #: ../../main/firewall/src/EBox/Firewall.pm:627
@@ -8054,7 +8041,7 @@ msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr ""
-"Die Funktionsstufe der Domäne muss \"Windows Server 2003\" oder höher sein. "
+"Die Funktionsstufe der Domäne muss Windows Server 2003 oder höher sein. "
 "Bitte erhöhen sie die Funktiosstufe der Domäne."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:930
@@ -8177,7 +8164,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/User.pm:858
 #: ../../main/samba/src/EBox/Samba/User.pm:868
 msgid "user quota"
-msgstr "benutzerdefinierte Größenbeschränkung "
+msgstr "benutzerdefinierte Größenbeschränkung"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:761
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
@@ -8409,7 +8396,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:51
 msgid "Enable virus scanning"
-msgstr ""
+msgstr "Aktiviere die Virussuche"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:59
 msgid "Antivirus default settings"
@@ -8496,11 +8483,11 @@ msgstr "Wurzeldomänenname"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:58
 msgid "Default Users DN"
-msgstr "Voreingestellter Benutzer-Domänenname "
+msgstr "Voreingestellter Benutzer-Domänenname"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:62
 msgid "Default Groups DN"
-msgstr "Standard-Gruppen-Domänenname (DN)"
+msgstr "Standard-Gruppen-Domänenname"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:66
 msgid "Administrative user of external active directory"
@@ -8519,7 +8506,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:52
 msgid "Default user quota"
-msgstr "Voreingestelltes Benutzerkontigent "
+msgstr "Voreingestelltes Benutzerkontigent"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:56
 #: ../../main/samba/src/templates/edituser.mas:278
@@ -8777,7 +8764,7 @@ msgstr "Fehler beim Aktualisieren des LDAP-Eintrags:"
 
 #: ../../main/samba/src/EBox/Samba.pm:170
 msgid "Domain Controller and File Sharing"
-msgstr "Domain-Controller und Datenaustausch "
+msgstr "Domain-Controller und Datenaustausch"
 
 #: ../../main/samba/src/EBox/Samba.pm:277
 msgid ""
@@ -8850,7 +8837,7 @@ msgid ""
 "you have not received leases. Saving changes if network module has just been "
 "configured or waiting for a lease can solve this situation"
 msgstr ""
-"Aktivieren des Moduls \"Benutzer und Computer\" nicht möglich, da Ihr System "
+"Aktivieren des Moduls Benutzer und Computer nicht möglich, da Ihr System "
 "keine verfügbaren IPs hat. Falls Sie DHCP-Schnittstellen ({ifaces}) "
 "verwenden, kann es sein, dass Sie keine Adresszuweisung (Leases) erhalten "
 "haben. Die Sicherung der Einstellungen, falls das Netzwerk-Modul bereits "
@@ -8939,8 +8926,8 @@ msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
-"Eine Wiederherstellung ist nur möglich wenn der Server die einzige Domain "
-"Kontrolle in der Struktur ist. "
+"Eine Wiederherstellung ist nur möglich, wenn der Server der einzige Domänen-"
+"Controller in der Struktur ist"
 
 #: ../../main/samba/src/EBox/Samba.pm:2403
 msgid ""
@@ -9108,11 +9095,11 @@ msgstr "Um dovecot so zu konfigurieren, dass es ein master passwort hat"
 
 #: ../../main/mail/src/EBox/Mail.pm:230
 msgid "To configure smart host authentication"
-msgstr "Um die smart host Authentifizierung "
+msgstr "Smart host Authentifizierung konfigurieren"
 
 #: ../../main/mail/src/EBox/Mail.pm:235
 msgid "To configure mail transports"
-msgstr "Um die mail Transporte zu konfigurieren "
+msgstr "Mail Transporte konfigurieren"
 
 #: ../../main/mail/src/EBox/Mail.pm:240
 msgid "To let dovecot authenticate users using PAM"
@@ -9144,9 +9131,9 @@ msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
-"Man kann den Rechnernamen nicht als Mailnamen verwenden weil es ist nicht "
-"ein voll qualifizierter Name. Bitte, definieren sie einen angepassten Server "
-"Mailnamen "
+"Man kann den Rechnernamen nicht als Mailnamen verwenden weil es kein voll "
+"qualifizierter Name ist. Bitte, definieren Sie einen angepassten Server "
+"Mailnamen"
 
 #: ../../main/mail/src/EBox/Mail.pm:907
 msgid "The mail name must be a fully qualified name"
@@ -9200,7 +9187,7 @@ msgstr "Virtuelle Mail-Domains"
 # no common german expression
 #: ../../main/mail/src/EBox/Mail.pm:1628
 msgid "Greylist"
-msgstr "Die graue Liste "
+msgstr "Graue Liste"
 
 #: ../../main/mail/src/EBox/Mail.pm:1635
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
@@ -9268,7 +9255,7 @@ msgstr "Hostrechner nicht erreichbar"
 
 #: ../../main/mail/src/EBox/Mail.pm:1704
 msgid "Authentication error"
-msgstr "Authentifizierungsfehler "
+msgstr "Authentifizierungsfehler"
 
 # no common german expression
 #: ../../main/mail/src/EBox/Mail.pm:1705
@@ -9277,7 +9264,7 @@ msgstr "Graugelistet"
 
 #: ../../main/mail/src/EBox/Mail.pm:1706
 msgid "Relay rejected by the smarthost"
-msgstr "Übermittlung durch den smarthost verweigert "
+msgstr "Übermittlung durch den smarthost verweigert"
 
 #: ../../main/mail/src/EBox/Mail.pm:1707
 msgid "Other events"
@@ -9317,7 +9304,7 @@ msgstr "E-Mail Adresse"
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:61
 #, perl-brace-format
 msgid "{acc} account created"
-msgstr "{acc} Account erstellt "
+msgstr "{acc} Account erstellt"
 
 #: ../../main/mail/src/EBox/Mail/CGI/MQRequeue.pm:41
 #: ../../main/mail/src/EBox/Mail/CGI/MQRemove.pm:41
@@ -9342,7 +9329,7 @@ msgid ""
 "Keep messages and fetch all mail cannot work together because a "
 "implementation limitation"
 msgstr ""
-"Nachrichten erhalten und alle mail \"zu nehmen\" können nicht zusammen "
+"Nachrichten erhalten und alle mail zu nehmen können nicht zusammen "
 "funktionieren da es ein Implementationslimit gibt"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:99
@@ -9421,7 +9408,7 @@ msgstr "Mail Server Port"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:493
 msgid "External retrieval service"
-msgstr "Externes Abfrageservice "
+msgstr "Externes Abfrageservice"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:564
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:571
@@ -9484,6 +9471,8 @@ msgid ""
 "As long mailfilter module is enabled the mail server will use the filter it "
 "provides"
 msgstr ""
+"Solange der Hauptfilter aktiviert ist, verwendet der Mail Server das "
+"bereitgestellte Dokument"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:52
 msgid "Virtual domain aliases"
@@ -9516,7 +9505,7 @@ msgstr ""
 msgid "'sieve' is a reserved name in this context, please choose another name"
 msgstr ""
 "'sieve' wird in diesem Kontext bereits verwendet, bitte verwenden Sie einen "
-"anderen Namen "
+"anderen Namen"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:170
 msgid "The virtual domain name cannot be equal to the mailname"
@@ -9766,12 +9755,12 @@ msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
 msgstr ""
-"Der Post?-Name ist auf den Host-Namen des Servers gesetzt, aber der Hostname "
-"ist nicht komplett qualifiziert."
+"Der Mailname ist auf den Host-Namen des Servers gesetzt, aber der Hostname "
+"ist nicht komplett qualifiziert. "
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:448
 msgid "The selected mailname is not a fully qualified hostname. "
-msgstr "Der gewählte Post?-Name ist kein qualifizierter Host-Name."
+msgstr "Der gewählte Mailname ist kein voll qualifizierter Host-Name. "
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:452
 msgid ""
@@ -9828,12 +9817,12 @@ msgstr "Externer Konto Alias"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:90
 msgid "External account alias added. You must save changes to use this alias"
-msgstr "ich versau euch die Seite"
+msgstr "Ich versau euch die Seite"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:115
 #, perl-brace-format
 msgid "{alias} (alias)"
-msgstr "KAPPA"
+msgstr "{alias} (alias)"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:157
 #, perl-brace-format
@@ -9857,7 +9846,7 @@ msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:99
 msgid "Allow relay"
-msgstr "Erlaube Weiterleitung "
+msgstr "Weiterleitung erlauben"
 
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:102
 msgid ""
@@ -9936,7 +9925,7 @@ msgstr "Eintrags-Lebensdauer (Tage)"
 
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:99
 msgid "Period till unseen entries will be deleted"
-msgstr "Zeit nach der ungelesene Einträge gelöscht werden "
+msgstr "Zeit nach der ungelesene Einträge gelöscht werden"
 
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:107
 msgid "Greylist configuration"
@@ -10016,7 +10005,7 @@ msgstr "Einstellungen des E-Mail Konto"
 
 #: ../../main/mail/src/EBox/MailUserLdap.pm:493
 msgid "Mail alias settings"
-msgstr "Einstellungen für E-Mail-Namen "
+msgstr "Einstellungen für E-Mail-Namen"
 
 #: ../../main/mail/src/EBox/MailUserLdap.pm:803
 msgid "Quota can only be a positive number or zero for unlimited quota"
@@ -10029,7 +10018,7 @@ msgstr "Die Nachricht wird zugestellt sein"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:152
 msgid "This field is usually set to any"
-msgstr "Dieses Feld wird gewöhnlich auf jeden gesetzt "
+msgstr "Dieses Feld wird gewöhnlich zu gesetzt"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:170
 #: ../../main/core/src/templates/enable.mas:9
@@ -10107,15 +10096,15 @@ msgstr "Jeder ICMP"
 
 #: ../../main/services/src/EBox/Services.pm:113
 msgid "Any ICMP packet"
-msgstr "Jedes ICMP Packet "
+msgstr "Jedes ICMP Packet"
 
 #: ../../main/services/src/EBox/Services.pm:129
 msgid "Secure Shell"
-msgstr "Sichere Umgebung "
+msgstr "Sichere Umgebung"
 
 #: ../../main/services/src/EBox/Services.pm:137
 msgid "HyperText Transport Protocol"
-msgstr "HyperText Transport Protokoll "
+msgstr "HyperText Transport Protokoll"
 
 #: ../../main/services/src/EBox/Services.pm:145
 msgid "HyperText Transport Protocol over SSL"
@@ -10206,7 +10195,7 @@ msgid ""
 "characters are supported) "
 msgstr ""
 "Sie haben einen ungültigen Dateipfad angegeben. (Zum jetzigen Zeitpunkt sind "
-"noch nicht alle gültigen Zeichen unterstützt)"
+"noch nicht alle gültigen Zeichen unterstützt) "
 
 #: ../../main/common/src/EBox/Validate.pm:865
 msgid "The file path must be absolute"
@@ -10234,7 +10223,7 @@ msgstr "NTP"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:47
 msgid "Enable synchronization with external servers"
-msgstr "Zeitsynchronisation mit NTP-Servern "
+msgstr "Zeitsynchronisation mit NTP-Servern"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:60
 msgid ""
@@ -10247,7 +10236,7 @@ msgstr ""
 
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:56
 msgid "NTP Servers"
-msgstr "NTP-Server "
+msgstr "NTP-Server"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:61
 msgid "Here you can add external NTP servers to synchronize with."
@@ -10255,7 +10244,7 @@ msgstr "Hier können sie externe NTP Server hinzufügen."
 
 #: ../../main/ntp/src/EBox/NTP.pm:81
 msgid "Remove ntp init script link and networking hooks (if-up.d and dhclient)"
-msgstr ""
+msgstr "Entfernen Sie die ntp init Skript-Verknüpfung und Netzwerkanker"
 
 #: ../../main/ntp/src/EBox/NTP.pm:87
 msgid "Override ntpd apparmor profile"
@@ -10263,7 +10252,7 @@ msgstr "Überreiten des ntpd profils"
 
 #: ../../main/ntp/src/EBox/NTP.pm:88
 msgid "To allow samba clients to synchronize clock with ntp server"
-msgstr ""
+msgstr "Samba Clients die Synchronisation der Uhr mit dem ntp Server erlauben"
 
 #: ../../main/ntp/src/EBox/NTP.pm:104
 msgid "NTP configuration file"
@@ -10312,6 +10301,9 @@ msgid ""
 "  Authority.\n"
 "Changes take effect immediately."
 msgstr ""
+"Diese Seite erscheint nur einmal am beginn der Zertifizierung\n"
+"Erlaubnis.\n"
+"Veränderungen werden sofort übernommen."
 
 #: ../../main/ca/src/templates/createCA.mas:40
 msgid "Create Certification Authority Certificate"
@@ -10338,6 +10330,8 @@ msgid ""
 "This operation will resign all the issued user certificates\n"
 "  with the same expiration date"
 msgstr ""
+"Diese Operation wird die veröffentlichten Benutzer-Zertifikationen\n"
+"mit dem gleichen Verfallsdatum verfallen lassen"
 
 #: ../../main/ca/src/templates/formRenew.mas:45
 #: ../../main/ca/src/templates/formRevoke.mas:29
@@ -10350,7 +10344,7 @@ msgstr "Ablaufdatum"
 #: ../../main/ca/src/templates/formReissue.mas:39
 #: ../../main/ca/src/templates/formRevoke.mas:42
 msgid "Subject Alternative Names"
-msgstr ""
+msgstr "Gegenstand alternative Namen"
 
 #: ../../main/ca/src/templates/index.mas:59
 #, perl-brace-format
@@ -10358,6 +10352,8 @@ msgid ""
 "Multi-value separated by commas, only valid types are: {dns}, {ip} and "
 "{email}. For instance, {example}"
 msgstr ""
+"Mehrere Werte werden durch Komma getrennt, zugelassene Eingaben sind: {dns}, "
+"{ip} und {email}. Zum Beispiel: {example}"
 
 #: ../../main/ca/src/templates/index.mas:73
 msgid "Issue"
@@ -10376,7 +10372,6 @@ msgid "Issue the Certification Authority Certificate"
 msgstr "Ein Zertifikat für die Zertifizierungsstelle ausstellen"
 
 #: ../../main/ca/src/templates/index.mas:88
-#, fuzzy
 msgid "Issue a New Certificate"
 msgstr "Ein neues Zertifikat ausstellen"
 
@@ -10411,7 +10406,7 @@ msgstr "Widerrufen"
 #: ../../main/ca/src/templates/index.mas:132
 #, perl-brace-format
 msgid "Reason: {reason}"
-msgstr ""
+msgstr "Grund: {grund}"
 
 #: ../../main/ca/src/templates/index.mas:155
 #: ../../main/ca/src/templates/index.mas:182
@@ -10510,6 +10505,8 @@ msgid ""
 "This operation will revoke all the issued user certificates\n"
 "    and the CA Certificate."
 msgstr ""
+"Dieser Vorgang wurd alle veröffentlichten Benutzer-Zertifikatione\n"
+" und CA-Zertifikationen zurücksetzen."
 
 #: ../../main/ca/src/templates/formRevoke.mas:19
 msgid "Revoke the selected certificate"
@@ -10571,7 +10568,7 @@ msgstr "Nachschlagen"
 
 #: ../../main/network/src/templates/diag.mas:31
 msgid "Wake On LAN"
-msgstr ""
+msgstr "Über LAN aufwachen"
 
 #: ../../main/network/src/templates/diag.mas:50
 msgid "Other..."
@@ -10603,6 +10600,8 @@ msgstr "Netzwerkkarten konfigurieren"
 #: ../../main/network/src/templates/wizard/network.mas:34
 msgid "Now you can set IP addresses and networks for each interface"
 msgstr ""
+"Jetzt können Sie IP Adressen und Netzwerke für jede Benutzeroberfläche "
+"setzen"
 
 #: ../../main/network/src/templates/wizard/network.mas:41
 #: ../../main/network/src/templates/ifaces.mas:35
@@ -10628,6 +10627,10 @@ msgid ""
 "trusted by default, thus, you will not be able to connect to Zentyal "
 "administration page through them"
 msgstr ""
+"Externe Interfaces verbinden sich mit Systemen die Sie nicht kontrollieren "
+"können (typischerweise das Internet), Verkehr der von externen Netzwerken "
+"kommt ist nicht mit dem Standart vertraut, so sind Sie durch dies nicht "
+"fähig sich mit der Zentyal Administration Seite zu verbinden"
 
 #: ../../main/network/src/templates/confirmVlanDel.mas:9
 msgid ""
@@ -10664,6 +10667,8 @@ msgid ""
 "{openhref}Filtering rules from external networks to Zentyal{closehref} to "
 "allow access to the Zentyal administration port, SSH, ..."
 msgstr ""
+"Sie verbinden sich mit Zentyal durch diese Oberfläche. Wenn Sie es als "
+"extern einstellen, sperrt Sie die Firewall aus wenn sie nicht ..."
 
 #: ../../main/network/src/templates/ifaces.mas:37
 #: ../../main/network/src/templates/ifaces.mas:38
@@ -10856,7 +10861,7 @@ msgstr ""
 #: ../../main/core/src/templates/dashboard/links-widget.mas:34
 #: ../../main/core/src/templates/dashboard/links-widget.mas:52
 msgid "Certified Training"
-msgstr ""
+msgstr "Zertifiziertes Training"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:35
 #: ../../main/core/src/templates/dashboard/links-widget.mas:45
@@ -10880,11 +10885,11 @@ msgstr "Andere Gruppen"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:54
 msgid "Official documentation in English and Spanish."
-msgstr ""
+msgstr "Offizielle Dokumentation auf Englisch und Spanisch."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:54
 msgid "Official Documentation "
-msgstr "Dokumentation"
+msgstr "Offizielle Dokumentation "
 
 #: ../../main/core/src/templates/dashboard/list.mas:36
 msgid "No entries in this list"
@@ -10896,11 +10901,11 @@ msgstr "Lokal"
 
 #: ../../main/core/src/templates/backupTabs.mas:18
 msgid "Cloud"
-msgstr ""
+msgstr "Cloud"
 
 #: ../../main/core/src/templates/title.mas:23
 msgid "Display help notes"
-msgstr ""
+msgstr "Hilfeoptionen anzeigen"
 
 #: ../../main/core/src/templates/title.mas:23
 msgid "show help"
@@ -11111,7 +11116,7 @@ msgstr "Paritätsalgorithmus"
 
 #: ../../main/core/src/templates/report/raid.mas:156
 msgid "Bitmap"
-msgstr ""
+msgstr "Bitmap"
 
 #: ../../main/core/src/templates/report/raid.mas:177
 msgid "Array properties"
@@ -11183,7 +11188,7 @@ msgstr "Benutzername oder Mailadresse"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:40
 msgid "Register"
-msgstr ""
+msgstr "Verzeichnis"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:62
 msgid "Choose a server edition"
@@ -11191,12 +11196,12 @@ msgstr "Server Erstellung"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:67
 msgid "Assigned to"
-msgstr ""
+msgstr "Zugeteilt werden"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:67
 #: ../../main/core/src/templates/remoteservices/index.mas:85
 msgid "Start date"
-msgstr "Gestartet um "
+msgstr "Startdatum"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:67
 msgid "End date"
@@ -11216,7 +11221,7 @@ msgstr "Nachricht"
 
 #: ../../main/core/src/templates/remoteservices/subscriptionSlotsTbody.mas:25
 msgid "Free"
-msgstr ""
+msgstr "Frei"
 
 #: ../../main/core/src/templates/remoteservices/subscriptionSlotsTbody.mas:43
 #: ../../main/software/src/templates/welcome.mas:10
@@ -11229,22 +11234,26 @@ msgid ""
 "Cannot proceed with your request because it was a connection problem. "
 "Possible causes are:"
 msgstr ""
+"Mit Ihrer Anfrage kann nicht fortgefahren werden, da Netzwerkprobleme "
+"aufgetreten sind. Mögliche Probleme sind:"
 
 #: ../../main/core/src/templates/remoteservices/NoConnection.mas:12
 msgid "Your computer has not internet connection"
-msgstr ""
+msgstr "Ihr Computer hat keine Internetverbindung"
 
 #: ../../main/core/src/templates/remoteservices/NoConnection.mas:13
 msgid "Firewall is blocking the connection. Try to restart firewall module"
 msgstr ""
+"Die Firewall blockiert die Verbindung. Versuchen Sie das Firewall-Modul neu "
+"zu starten"
 
 #: ../../main/core/src/templates/remoteservices/NoConnection.mas:14
 msgid "Your computer has not a correct system date"
-msgstr ""
+msgstr "Ihr Computer hat kein korrektes Systemdatum"
 
 #: ../../main/core/src/templates/remoteservices/NoConnection.mas:15
 msgid "This server has been removed from your registered ones"
-msgstr ""
+msgstr "Dieser Server wurde von Ihrer Registrierung entfernt"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:22
 #: ../../main/core/src/templates/backup.mas:39
@@ -11263,6 +11272,8 @@ msgid ""
 "A configuration backup will be automatically done daily. Also it will be "
 "automatically rotated"
 msgstr ""
+"Eine Sicherung der Konfigurationen wird automatisch täglich durchgeführt. "
+"Außerdem wird es automatisch gedreht"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:27
 #: ../../main/core/src/templates/backup.mas:25
@@ -11270,10 +11281,12 @@ msgid ""
 "User mail messages are neither backed up or restored. If you want to back up "
 "them manually they reside under '/var/vmail'"
 msgstr ""
+"Benutzer Mailnachrichten werden weder gesichert noch gespeichert. Wenn Sie "
+"diese sichern möchten, befinden sie sich unter '/var/vmail'"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:70
 msgid "Remote Backup: "
-msgstr "Sicherung im Netzwerk"
+msgstr "Sicherung im Netzwerk: "
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:104
 msgid "Back up"
@@ -11300,6 +11313,9 @@ msgid ""
 "configuration backup. If you make a new configuration backup, the oldest "
 "backup will be overwritten."
 msgstr ""
+"Bitte bedenken Sie, dass Sie die maximale Anzahl von manuell erstellten "
+"Konfigurations-Backups erreicht haben! Erstellen Sie ein Neues, wird das "
+"älteste Backup überschrieben."
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:163
 msgid "Restore configuration backup"
@@ -11348,6 +11364,8 @@ msgstr "Fern Sicherung - Status"
 msgid ""
 "The backups of this server are associate with the following email address:"
 msgstr ""
+"Die Sicherungen dieses Servers sind mit der folgenden Emailadresse "
+"verbunden:"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:231
 msgid "Disassociate this server"
@@ -11359,6 +11377,9 @@ msgid ""
 "You cannot make remote backups while unregistered. If you have valid "
 "credentials, go to the {oa}registration page.{ca}"
 msgstr ""
+"Sie können kein Wiederherstellungs-Sicherung machen wenn Sie nicht "
+"registriert sind. Wenn Sie gültige Berechtigungen haben, gehen Sie "
+"{oa}Registrierungsseite.{ca}"
 
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:20
 #: ../../main/core/src/templates/confirm-backup.mas:23
@@ -11385,6 +11406,8 @@ msgstr "Stelle die Zentyal Sicherungskonfiguration wieder her"
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:26
 msgid "We need an e-mail address in order to retrieve your backups later."
 msgstr ""
+"Wir benötigen Ihre Email Adresse, damit wir Ihre Sicherungen später abrufen "
+"können."
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:37
 msgid "E-mail address"
@@ -11397,11 +11420,11 @@ msgstr "E-Mail-Adresse"
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:57
 #, perl-brace-format
 msgid "Do you agree with the {oa}privacy policy{ca}?"
-msgstr ""
+msgstr "Sind Sie mit der {oa}Privatsphärenerklärung{ca} einverstanden?"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:67
 msgid "I want to suscribe to Zentyal newsletter"
-msgstr ""
+msgstr "Ich will den Zentyal-Newsletter abonnieren"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:71
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:122
@@ -11411,7 +11434,7 @@ msgstr "Bestätigen"
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:78
 msgid "I have already configured cloud backup for other server."
-msgstr ""
+msgstr "Ich habe bereits Cloud Sicherungen für andere Server konfiguriert."
 
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:90
 msgid "Add this server to store configuration backups in the cloud"
@@ -11528,7 +11551,7 @@ msgstr "Hinzufügen..."
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
 msgid "No elements found. "
-msgstr "Keine Elemente gefunden."
+msgstr "Keine Elemente gefunden. "
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
 msgid "Add a new one"
@@ -11594,6 +11617,8 @@ msgstr ""
 #: ../../main/core/src/templates/componentNotFound.mas:8
 msgid "Maybe the element was removed and the page address is not longer valid"
 msgstr ""
+"Es kann sein, dass Elemente entfernt wurden und die Seitenadresse nicht mehr "
+"länger gültig ist"
 
 #: ../../main/core/src/templates/componentNotFound.mas:9
 msgid ""
@@ -11602,7 +11627,7 @@ msgid ""
 msgstr ""
 "Es kann sich auch um einen Parameter Cache Fehler handeln. In diesem Fall "
 "können sie durch die Nutzung des linken Menüs erneut zur gewünschten Seite "
-"gelangen."
+"gelangen"
 
 #: ../../main/core/src/templates/componentNotFound.mas:10
 #, perl-brace-format
@@ -11615,11 +11640,12 @@ msgstr ""
 
 #: ../../main/core/src/templates/componentNotFound.mas:13
 msgid "we're sorry"
-msgstr "Es tut uns Leid."
+msgstr "es tut uns Leid"
 
 #: ../../main/core/src/templates/componentNotFound.mas:13
 msgid "The request contains a reference to a element which doest not exists"
 msgstr ""
+"Diese Anfrage enthält einen Verweis auf ein Element, welches nicht existiert"
 
 #: ../../main/core/src/templates/progress.mas:32
 msgid "Item"
@@ -11635,7 +11661,7 @@ msgstr "Es traten Fehler in Zentyal auf: "
 
 #: ../../main/core/src/templates/progress.mas:44
 msgid "Click here to go to the Dashboard"
-msgstr ""
+msgstr "Klicken Sie hier, um zum Dashboard zu gelangen"
 
 #: ../../main/core/src/templates/progress.mas:180
 msgid "Starting..."
@@ -11647,11 +11673,11 @@ msgstr "Wird geladen..."
 
 #: ../../main/core/src/templates/progress.mas:187
 msgid " of "
-msgstr ""
+msgstr " von "
 
 #: ../../main/core/src/templates/progress.mas:195
 msgid "The process produced some warning messages:"
-msgstr ""
+msgstr "Der Prozess erzeugt einige Warnmeldungen:"
 
 #: ../../main/core/src/templates/configurationFiles.mas:9
 msgid ""
@@ -11683,14 +11709,18 @@ msgstr "Datei"
 #, perl-brace-format
 msgid "Enabling this module will also enable its dependecies: {deps}"
 msgstr ""
+"Die Aktivierung dieses Modules wird auch seine Abhängigkeiten aktivieren: "
+"{deps}"
 
 #: ../../main/core/src/templates/configureView.mas:19
 msgid "The modules' enable process will make some modifications to the system."
 msgstr ""
+"Der Ermöglichungsprozess' des Moduls führt einige Änderungen im System "
+"durch."
 
 #: ../../main/core/src/templates/configureView.mas:20
 msgid "Enabling the module will make some modifications to the system."
-msgstr ""
+msgstr "Die Aktivierung des Modules führt zu einigen Änderungen am System."
 
 #: ../../main/core/src/templates/configureView.mas:21
 #, perl-brace-format
@@ -11745,7 +11775,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/logout/index.mas:12
 msgid "Do you really want to close the session?"
-msgstr ""
+msgstr "Wollen Sie diese Sitzung wirklich beenden?"
 
 #: ../../main/core/src/templates/logout/index.mas:16
 msgid "Discard current changes"
@@ -11758,7 +11788,7 @@ msgstr "Fundstellen für {oem}{search}{cem}"
 
 #: ../../main/core/src/templates/sysinfo/searchResults.mas:17
 msgid "Sorry, your search did not match any data"
-msgstr "Sorry, es wurde keine ihrer gesuchten Daten gefunden."
+msgstr "Es tut uns leid, Ihre Suche hat keine Daten gefunden"
 
 #: ../../main/core/src/templates/headTitle.mas:10
 msgid "Close session"
@@ -11789,10 +11819,11 @@ msgstr "Kontoname"
 #, perl-brace-format
 msgid "{oc} account could not enabled until the user has an email account"
 msgstr ""
+"{oc} Konto konnte nicht aktiviert werden, da der User kein Email Konto hat"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:7
 msgid "Migration finished!"
-msgstr "Migration abgeschlossen !"
+msgstr "Migration abgeschlossen!"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:8
 msgid "Migration has been finished!!"
@@ -11800,7 +11831,7 @@ msgstr "Registrierung abgeschlossen!!"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:15
 msgid "Select mailboxes to migrate"
-msgstr ""
+msgstr "Auswahl der zu migrierenden Mailboxen"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:18
 msgid "Connected to"
@@ -11818,7 +11849,7 @@ msgstr "Getrennt von {ip}"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:25
 msgid "DISCONNECT"
-msgstr ""
+msgstr "Trennen"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:19
@@ -11847,11 +11878,11 @@ msgstr "Einstellungen für E-Mail-Dienst"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:65
 msgid "No mailboxes selected"
-msgstr ""
+msgstr "Keine Mailkästen ausgewählt"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:69
 msgid "selected mailboxes"
-msgstr "abgeweisene Nachrichten"
+msgstr "ausgewählte Mailkästen"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:72
 msgid "Total data"
@@ -11867,11 +11898,11 @@ msgstr "Alle Häckchen"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:81
 msgid "Total calendar"
-msgstr ""
+msgstr "Totaller Kalender"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:85
 msgid "Estimate time (100mb/s)"
-msgstr "Geschätzte Fertigstellungszeit (100mb/s)"
+msgstr "Geschätzte Zeit (100mb/s)"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:90
 msgid "estimate migration"
@@ -11911,8 +11942,8 @@ msgid ""
 "This wizard helps you to migrate users data from any server to this zentyal "
 "server"
 msgstr ""
-"Der Wizzard hilft ihnen Nutzerdaten von beliebigen Servern zum Zentyal "
-"Server zu migrieren."
+"Der Wizzard hilft Ihnen, Nutzerdaten von beliebigen Servern zum Zentyal "
+"Server zu migrieren"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:27
 msgid "Enter origin server name"
@@ -11920,17 +11951,19 @@ msgstr "Externer Servername"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:27
 msgid "Enter server Fully qualified domain name or IP address"
-msgstr ""
+msgstr "Geben sie den Fully qualified Domain Namen oder die IP Adresse ein"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:30
 msgid "Credential for origin server"
-msgstr ""
+msgstr "Referenz für Herkunftsserver"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:30
 msgid ""
 "You need either a user with Full privileges in Exchange with access to all "
 "mailboxes or the credentials of the user that is going to be migrated"
 msgstr ""
+"Sie brauchen entweder einen Benutzer mit vollem Zugriff in Austsuch mit dem "
+"Zugriff auf alle Briefkästen oder den Benutzer der gezogen wird"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:30
 msgid "Origin user"
@@ -11948,6 +11981,8 @@ msgstr "Externer Mailserver"
 msgid ""
 "You need the user and password of the Zentyal user you want to migrate to"
 msgstr ""
+"Sie benötigen Namen und Passwort des Zentyal-Benutzers, den Sie übernehmen "
+"wollen"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:35
 msgid "Zentyal user name"
@@ -11975,7 +12010,7 @@ msgstr "Postfächer"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:21
 msgid "Data migrated"
-msgstr ""
+msgstr "Migrierte Daten"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:23
 msgid "Time left"
@@ -11995,43 +12030,39 @@ msgstr "fehler"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:35
 msgid "details"
-msgstr "alarm-Details"
+msgstr "details"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:35
 msgid "actions"
 msgstr "aktionen"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:53
-#, fuzzy
 msgid "See details"
-msgstr "Alarm-Details"
+msgstr "Siehe in den Details"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:53
-#, fuzzy
 msgid "Details"
-msgstr "Alarm-Details"
+msgstr "Details"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:57
 msgid "discard mailbox"
-msgstr ""
+msgstr "mailbox verwerfen"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:58
 msgid "activate mailbox"
-msgstr ""
+msgstr "aktiviere Mailkasten"
 
 #: ../../main/openchange/src/templates/wizard/provision.mas:8
 msgid "Set up OpenChange Mail services"
-msgstr ""
+msgstr "Einrichten der OpenChange Mail services"
 
 #: ../../main/openchange/src/templates/wizard/provision.mas:8
-#, fuzzy
 msgid "Enter the name of your organization"
-msgstr "Auf dieser Schnittstelle lauschen"
+msgstr "Geben Sie den Namen Ihrer Organisation an"
 
 #: ../../main/openchange/src/templates/wizard/provision.mas:11
-#, fuzzy
 msgid "Certification Authority details"
-msgstr "Zertifizierungsstelle"
+msgstr "Details der Zertifizierungsstelle"
 
 #: ../../main/software/src/templates/updateNote.mas:14
 #, perl-brace-format
@@ -12041,11 +12072,17 @@ msgid ""
 "or Premium Editions{ch}: commercial Zentyal server editions fully supported "
 "by Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
+"Warnung: Das sind ungetestete Community Updates, welche Ihr System "
+"beschädigen können. In Produktionsumgebungen empfehlen wir die Nutzung von "
+"{oh}Professional, Business oder Premium Versionen{ch}: Voll unterstützte "
+"kommerzielle Zentyal Server sind Zentyal S.L. und Canonical/Ubuntu."
 
 #: ../../main/software/src/templates/welcome.mas:9
 msgid ""
 "Thank your for choosing Zentyal, only few steps left to start enjoying it:"
 msgstr ""
+"Danke, dass Sie sich für Zentyal entschieden haben, nur noch ein paar "
+"Schritte, bevor Sie anfangen können, das Programm zu genießen:"
 
 #: ../../main/software/src/templates/welcome.mas:10
 #: ../../main/software/src/templates/ebox.mas:71
@@ -12055,19 +12092,17 @@ msgid "Install"
 msgstr "Installieren"
 
 #: ../../main/software/src/templates/welcome.mas:10
-#, fuzzy
 msgid "Configure"
-msgstr "Nicht konfigurieren"
+msgstr "Konfiguriere"
 
 #: ../../main/software/src/templates/welcome.mas:12
 #: ../../main/software/src/templates/del.mas:95
 msgid "Continue"
-msgstr ""
+msgstr "Fortfahren"
 
 #: ../../main/software/src/templates/config.mas:9
-#, fuzzy
 msgid "Perform automatic software updates"
-msgstr "Automatische Softwareaktualisierungen"
+msgstr "Ausführen von automatische Softwareaktualisierungen"
 
 #: ../../main/software/src/templates/config.mas:16
 msgid "Zentyal is configured to use automatic QA updates"
@@ -12079,7 +12114,6 @@ msgid "Automatic operations start time"
 msgstr "Startzeit der automatischen Aktionen"
 
 #: ../../main/software/src/templates/del.mas:70
-#, fuzzy
 msgid "Confirm packages to install"
 msgstr "Zentyal Pakete zur Installation auswählen"
 
@@ -12096,12 +12130,13 @@ msgid ""
 "Software updates are being handled automatically. They will be installed\n"
 "automatically as scheduled"
 msgstr ""
+"Software Updates werden automatisch verwaltet. Sie werden nach\n"
+" automatisch nach Zeitplan installiert"
 
 #: ../../main/software/src/templates/updates.mas:77
 #: ../../main/software/src/templates/ebox.mas:359
-#, fuzzy
 msgid "Package list updated successfully"
-msgstr "Paketliste erfolgreich aktualisiert"
+msgstr "Paketliste wurde erfolgreich aktualisiert"
 
 #: ../../main/software/src/templates/updates.mas:80
 #: ../../main/software/src/templates/ebox.mas:366
@@ -12154,16 +12189,14 @@ msgid "Update all packages"
 msgstr "Alle Pakete aktualisieren"
 
 #: ../../main/software/src/templates/updates.mas:137
-#, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Update button."
 msgstr ""
-"Dieser Vorgang braucht etwas Zeit, seien Sie nicht beunruhigt wenn Zentyal "
+"Dieser Vorgang braucht etwas Zeit, seien Sie nicht beunruhigt, wenn Zentyal "
 "nicht mehr reagiert, nachdem Sie den Aktualisierungsvorgang gestartet haben."
 
 #: ../../main/software/src/templates/updates.mas:141
-#, fuzzy
 msgid "Upgrading system packages"
 msgstr "Pakete werden installiert"
 
@@ -12175,26 +12208,26 @@ msgstr "Liste aktualisieren"
 #: ../../main/software/src/templates/ebox.mas:44
 #: ../../main/software/src/templates/ebox.mas:70
 #: ../../main/software/src/templates/ebox.mas:73
-#, fuzzy
 msgid "Installed Version"
-msgstr "Installation"
+msgstr "Installierte Version"
 
 #: ../../main/software/src/templates/ebox.mas:45
 #: ../../main/software/src/templates/ebox.mas:74
-#, fuzzy
 msgid "Latest Version"
-msgstr "Version"
+msgstr "Letzte Version"
 
 #: ../../main/software/src/templates/ebox.mas:51
-#, fuzzy
 msgid "Upgrading packages"
-msgstr "Pakete werden installiert"
+msgstr "Pakete werden aktualisiert"
 
 #: ../../main/software/src/templates/ebox.mas:95
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
+"Die folgenden Pakete sind nicht richtig installiert. Sie müssen diese "
+"reparieren, bevor sie genutzt werden können, oder neue Module installiert "
+"werden."
 
 #: ../../main/software/src/templates/ebox.mas:111
 msgid ""
@@ -12211,20 +12244,22 @@ msgid ""
 "persists, you can ask for help in the {ofhref}community forum{chref} or file "
 "a ticket in the {othref}Zentyal trac{chref}."
 msgstr ""
+"Nachdem das vorangegangene Kommando abgeschlossen ist, können Sie die Seite "
+"neu laden. Falls das Problem weiterhin besteht, können Sie nach "
+"Unterstützung im {ofhref}Community-Formum{chref} fragen oder eine Ticket im "
+"{othref}Zentyal trac{chref} erstellen."
 
 #: ../../main/software/src/templates/ebox.mas:125
 msgid "View advanced mode"
 msgstr "Expertenmodus ansehen"
 
 #: ../../main/software/src/templates/ebox.mas:128
-#, fuzzy
 msgid "Server roles"
-msgstr "Port des Servers"
+msgstr "Serverrollen"
 
 #: ../../main/software/src/templates/ebox.mas:144
-#, fuzzy
 msgid "Additional services"
-msgstr "Liste der Dienste"
+msgstr "Zusätzliche Dienste"
 
 #: ../../main/software/src/templates/ebox.mas:166
 msgid "Skip install"
@@ -12237,7 +12272,7 @@ msgstr "Einfachen Modus ansehen"
 #: ../../main/software/src/templates/ebox.mas:364
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
-msgstr ""
+msgstr "Fehler bei der Aktualisierung der Package-list <p>{msg}</p>"
 
 #: ../../main/firewall/src/templates/filter.mas:16
 msgid "Filtering rules from internal networks to Zentyal"
@@ -12275,7 +12310,6 @@ msgstr ""
 "möchten, benutzen Sie die obige Sektion."
 
 #: ../../main/firewall/src/templates/filter.mas:33
-#, fuzzy
 msgid "Filtering rules from external networks to Zentyal"
 msgstr "Filter-Regeln zwischen internen Netzwerken"
 
@@ -12285,7 +12319,7 @@ msgid ""
 "running on your Zentyal machine."
 msgstr ""
 "Diese Regeln erlauben Ihnen für externe Netzwerke den Zugriff auf Zentyal-"
-"Dienste zu konfigurieren. "
+"Dienste zu konfigurieren."
 
 #: ../../main/firewall/src/templates/filter.mas:42
 msgid "Filtering rules from external networks to internal networks"
@@ -12301,25 +12335,20 @@ msgstr ""
 "Netzwerke zu konfigurieren."
 
 #: ../../main/firewall/src/templates/filter.mas:52
-#, fuzzy
 msgid "Filtering rules for traffic coming out from Zentyal"
-msgstr "Filter-Regeln für Verkehr von der Zentyal nach außerhalb"
+msgstr "Filter-Regeln für Verkehr von Zentyal kommend"
 
 #: ../../main/firewall/src/templates/filter.mas:53
-#, fuzzy
 msgid ""
 "These rules allow you to control access from your Zentyal to external "
 "services."
 msgstr ""
-"Diese Regeln erlauben Ihnen, den Zugriff der Zentyal auf externe Dienste zu "
+"Diese Regeln erlauben Ihnen, den Zugriff von Zentyal auf externe Dienste zu "
 "konfigurieren."
 
 #: ../../main/firewall/src/templates/filter.mas:63
-#, fuzzy
 msgid "These rules are automatically added by the Zentyal services."
-msgstr ""
-"Diese Regeln erlauben Ihnen, den Zugriff der Zentyal auf externe Dienste zu "
-"konfigurieren."
+msgstr "Diese Regeln weden automatisch durch die Zentyal Dienste hinzugefügt."
 
 #: ../../main/samba/stubs/shares.conf.mas:21
 msgid "Home Directories"
@@ -12331,11 +12360,10 @@ msgid "Delete user"
 msgstr "Benutzer löschen"
 
 #: ../../main/samba/src/templates/deluser.mas:14
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all its dependent data"
 msgstr ""
-"Dieser Vorgang löscht die Gruppe und alle zugehörigen Daten wie z.B. "
+"Dieser Vorgang löscht den Benutzer und alle zugehörigen Daten wie z.B. "
 "freigegebene Verzeichnisse"
 
 #: ../../main/samba/src/templates/addgroup.mas:7
@@ -12344,15 +12372,13 @@ msgstr "Gruppe hinzufügen"
 
 #: ../../main/samba/src/templates/addgroup.mas:10
 #: ../../main/samba/src/templates/editgroup.mas:28
-#, fuzzy
 msgid "Security Group"
-msgstr "Sicherheitsaktualisierung"
+msgstr "Sicherheitsgruppe"
 
 #: ../../main/samba/src/templates/addgroup.mas:10
 #: ../../main/samba/src/templates/editgroup.mas:30
-#, fuzzy
 msgid "Distribution Group"
-msgstr "Administration der Gruppe"
+msgstr "Distributions Gruppe"
 
 #: ../../main/samba/src/templates/addgroup.mas:12
 msgid "Group name"
@@ -12364,9 +12390,8 @@ msgid "Optional value"
 msgstr "Zusätzliche Informationen"
 
 #: ../../main/samba/src/templates/editgroup.mas:16
-#, fuzzy
 msgid "Group "
-msgstr "Gruppe"
+msgstr "Gruppe "
 
 #: ../../main/samba/src/templates/editgroup.mas:20
 msgid ""
@@ -12378,23 +12403,20 @@ msgstr ""
 
 #: ../../main/samba/src/templates/editgroup.mas:51
 #: ../../main/samba/src/templates/edituser.mas:79
-#, fuzzy
 msgid "Modules configuration"
-msgstr "Modul Status Einstellungen"
+msgstr "Moduleinstellungen"
 
 #: ../../main/samba/src/templates/editgroup.mas:121
-#, fuzzy
 msgid "This group does not have members"
-msgstr "Diese Gruppe hat ein E-Mail Alias"
+msgstr "Diese Gruppe hat keine E-Mail Mitglieder"
 
 #: ../../main/samba/src/templates/editgroup.mas:189
-#, fuzzy
 msgid "Add user"
 msgstr "Benutzer hinzufügen"
 
 #: ../../main/samba/src/templates/addobject.mas:10
 msgid "Contact"
-msgstr ""
+msgstr "kontaktioeren"
 
 #: ../../main/samba/src/templates/delou.mas:9
 #: ../../main/samba/src/templates/delou.mas:20
@@ -12435,17 +12457,16 @@ msgid "file sharing module"
 msgstr "dateifreigabe-Modul"
 
 #: ../../main/samba/src/templates/samba.mas:89
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following settings will take effect only when the {mod} is enabled"
 msgstr ""
-"Die folgenden Einstellungen werden nur angewendet, wenn der E-Mail-Dienst "
-"aktiviert ist"
+"Die folgenden Einstellungen werden nur angewendet, wenn der {mod} aktiviert "
+"ist"
 
 #: ../../main/samba/src/templates/delcontact.mas:8
 #: ../../main/samba/src/templates/delcontact.mas:15
-#, fuzzy
 msgid "Delete contact"
-msgstr "Daten löschen"
+msgstr "Kontakt löschen"
 
 #: ../../main/samba/src/templates/delcontact.mas:11
 msgid ""
@@ -12475,9 +12496,8 @@ msgstr "Nachname"
 
 #: ../../main/samba/src/templates/edituser.mas:34
 #: ../../main/samba/src/templates/editcontact.mas:26
-#, fuzzy
 msgid "Display name"
-msgstr "Nachname"
+msgstr "Angezeigter Name"
 
 #: ../../main/samba/src/templates/edituser.mas:52
 msgid "User quota"
@@ -12489,52 +12509,48 @@ msgid "Retype password"
 msgstr "Passwort erneut eingeben"
 
 #: ../../main/samba/src/templates/edituser.mas:64
-#, fuzzy
 msgid "Disabled account"
-msgstr "Jabber-Konto"
+msgstr "Gesperrtes Konto"
 
 #: ../../main/samba/src/templates/edituser.mas:74
 msgid "User groups"
 msgstr "Benutzergruppen"
 
 #: ../../main/samba/src/templates/edituser.mas:128
-#, fuzzy
 msgid "Remove mail account"
-msgstr "Neues E-Mail Konto"
+msgstr "Lösche E-Mail Konto"
 
 #: ../../main/samba/src/templates/edituser.mas:128
 msgid "This action removes the mail account and its associated data."
-msgstr ""
+msgstr "Diese Aktion entfernt den Mail Account und die verknüpften Daten."
 
 #: ../../main/samba/src/templates/edituser.mas:131
-#, fuzzy
 msgid "Replace mail account"
-msgstr "Neues E-Mail Konto"
+msgstr "E-Mail Konto ersetzen"
 
 #: ../../main/samba/src/templates/edituser.mas:131
 msgid "Replacing the mail account removes all its current data."
-msgstr ""
+msgstr "Das Ersetzen des Emailaccounts entfernt alle aktuellen Daten."
 
 #: ../../main/samba/src/templates/edituser.mas:185
 #: ../../main/samba/src/templates/edituser.mas:269
-#, fuzzy
 msgid "This user is not a member of any group"
 msgstr "Dieser Benutzer ist keiner Gruppe zugeteilt"
 
 #: ../../main/samba/src/templates/edituser.mas:254
 #: ../../main/samba/src/templates/editcontact.mas:152
-#, fuzzy
 msgid "Add group"
 msgstr "Gruppe hinzufügen"
 
 #: ../../main/samba/src/templates/wizard/users.mas:8
 msgid "Change server local domain?"
-msgstr ""
+msgstr "Lokale Server-Domain ändern?"
 
 #: ../../main/samba/src/templates/wizard/users.mas:9
 #, perl-brace-format
 msgid "{op}This action will trigger the change of the actual host name.{cp}"
 msgstr ""
+"{op}Dieser Vorgang wird die Änderung des aktuellen Hostnamens auslösen.{cp}"
 
 #: ../../main/samba/src/templates/wizard/users.mas:10
 #, perl-brace-format
@@ -12543,6 +12559,9 @@ msgid ""
 "administration connections. This means you will have to reload the page "
 "manually once the save change proccess ends.{cp}"
 msgstr ""
+"{op}Ein Änderung des Hostnamens wird ein neues Zertifikat für die "
+"Webadministrationsverbinungen erstellen. Das heißt Sie müssen diese Seite "
+"manuell neu laden, wenn der Sicherungsprozess endet.{cp}"
 
 #: ../../main/samba/src/templates/wizard/users.mas:12
 msgid "Users and Groups"
@@ -12561,36 +12580,36 @@ msgid "Select the domain name of the server"
 msgstr "Wählen Sie den Domänennamen des Servers aus"
 
 #: ../../main/samba/src/templates/wizard/users.mas:91
-#, fuzzy
 msgid "Host domain name"
 msgstr "Name der Domäne"
 
 #: ../../main/samba/src/templates/wizard/users.mas:92
 msgid "This will be used as the Kerberos authentication realm for your users."
 msgstr ""
+"Dies wird von Kerberos als Authentikations-Realm für Ihre Benutzer "
+"verwendet."
 
 #: ../../main/samba/src/templates/wizard/users.mas:105
-#, fuzzy
 msgid "Enter your existing domain settings"
 msgstr "Einstellungen zur Bandbreitenüberwachung"
 
 #: ../../main/samba/src/templates/wizard/users.mas:108
 msgid "This is the name of the existing domain you want to join."
 msgstr ""
+"Das ist der Name einer bereits existierenden Domain, dem Sie sich "
+"anschließen möchten."
 
 #: ../../main/samba/src/templates/adduser.mas:11
 msgid "Add User"
 msgstr "Benutzer hinzufügen"
 
 #: ../../main/samba/src/templates/editcontact.mas:19
-#, fuzzy
 msgid "Administration of contact "
-msgstr "Administration der Gruppe"
+msgstr "Administration der Kontakte "
 
 #: ../../main/samba/src/templates/editcontact.mas:35
-#, fuzzy
 msgid "Contact groups"
-msgstr "Andere Gruppen"
+msgstr "Kontaktgruppen"
 
 #: ../../main/samba/src/templates/editcontact.mas:90
 msgid "This contact is not member of any group"
@@ -12598,7 +12617,7 @@ msgstr "Keine Gruppenmitglieder"
 
 #: ../../main/samba/src/templates/addcontact.mas:7
 msgid "Add Contact"
-msgstr ""
+msgstr "Kontakt hinzufügen"
 
 #: ../../main/samba/src/templates/delgroup.mas:10
 #: ../../main/samba/src/templates/delgroup.mas:27
@@ -12606,9 +12625,8 @@ msgid "Delete group"
 msgstr "Gruppe löschen"
 
 #: ../../main/samba/src/templates/delgroup.mas:13
-#, fuzzy
 msgid "This group cannot be deleted"
-msgstr "Diese Gruppe hat ein E-Mail Alias"
+msgstr "Diese Gruppe kann nicht gelöscht werden"
 
 #: ../../main/samba/src/templates/delgroup.mas:15
 msgid ""
@@ -12655,14 +12673,13 @@ msgid "Delete external account"
 msgstr "Externes Konto löschen"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:17
-#, fuzzy
 msgid "Don't delete retrieved mail from external server"
-msgstr "Mail-Abruf von externen Accounts"
+msgstr "Behalten der empfangenen Mails von externen Servern"
 
 # Andere Übersetzung ist in dem Kontext irreführend, gemeint ist hier "Alle Nachrichten holen" sonst werden nur die neuen Mails abgeholt.
 #: ../../main/mail/src/templates/externalAccounts.mas:19
 msgid "Fetch already read messages"
-msgstr "Alle Nachrichten abholen"
+msgstr "Gelesene Nachrichten abholen"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:26
 #, perl-brace-format
@@ -12670,10 +12687,12 @@ msgid ""
 "Mail retrieval from external accounts service is not enabled; until you {ub}"
 "enable it{ue} your changes won't have any effect."
 msgstr ""
+"Der Dienst zum Mailempfang von externen Konten ist aktiviert. Bis sie diesen "
+"{ub}aktivieren{ue}, haben Ihre Änderungen keine Auswirkungen."
 
 #: ../../main/mail/src/templates/alias.mas:26
 msgid "Create mail aliases"
-msgstr "Neues E-Mail Alias"
+msgstr "Erstelle neue E-Mail Aliase"
 
 #: ../../main/mail/src/templates/alias.mas:183
 msgid "No quota"
@@ -12681,15 +12700,15 @@ msgstr "Keine Größenbeschränkung"
 
 #: ../../main/mail/src/templates/alias.mas:184
 msgid "Default quota"
-msgstr "Voreingestellte Größenbeschränkung "
+msgstr "Standarteingestelltes Kontingent"
 
 #: ../../main/mail/src/templates/alias.mas:185
 msgid "Custom quota"
-msgstr "Benutzerdefinierte Größenbeschränkung "
+msgstr "Angepasstes Kontingent"
 
 #: ../../main/mail/src/templates/alias.mas:193
 msgid "Quota type"
-msgstr "Art der Größenbeschränkung "
+msgstr "Typ des Kontigent"
 
 #: ../../main/mail/src/templates/alias.mas:202
 msgid "Maximum mailbox size"
@@ -12701,18 +12720,19 @@ msgid "Changing maildir size of"
 msgstr "Ändern der Postfachgrösse von"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:11
-#, fuzzy
 msgid ""
 "The new maildir size is smaller than the oldest one and the actual\n"
 "\tsize of the user maildir will surpass the new limitation."
 msgstr ""
 "Die neue Postfachgrösse ist kleiner als die älteste und die aktuelle\n"
-"\t Größe der Benutzer Postfächer wird die neue Limit überschreiten."
+"\t Größe der Benutzer Postfächer wird das neue Limit überschreiten."
 
 #: ../../main/mail/src/templates/account.mas:37
 msgid ""
 "This user has a mail account which does not belong to any managed mail domain"
 msgstr ""
+"Dieser Benutzer hat ein Email Konto, das nicht zu einer verwalteten Mail-"
+"Domäne gehört"
 
 #: ../../main/mail/src/templates/account.mas:46
 msgid ""
@@ -12720,6 +12740,9 @@ msgid ""
 " domain created or you need to save changes in order to activate the new "
 "domains."
 msgstr ""
+"Email Konto nicht verfügbar, da entweder keine virtuelle\n"
+" Domäne erzeugt wurde, oder Sie müssen die Änderungen speichern, um die neue "
+"Domäne zu aktivieren."
 
 #: ../../main/mail/src/templates/account.mas:49
 msgid "Click here to create a new mail virtual domain"
@@ -12759,9 +12782,8 @@ msgstr ""
 "Es sind keine Nachrichten in der Warteschlange oder der Dienst ist gestoppt"
 
 #: ../../main/mail/src/templates/createaccount.mas:42
-#, fuzzy
 msgid "Maildir size"
-msgstr "Postfachgrösse"
+msgstr "Größe des Maildir"
 
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
 msgid ""
@@ -12787,7 +12809,7 @@ msgstr "Das wird die Domäne für ihre E-Mail Konten"
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr ""
-"Die folgenden Einstellungen werden erst angewendet, wenn der E-Mail-Dienst "
+"Die folgenden Einstellungen werden erst angewendet, wenn das E-Mail Modul "
 "aktiviert ist"
 
 #~ msgid "Synchronization"

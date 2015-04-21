@@ -2421,7 +2421,6 @@ msgid "Failure"
 msgstr "Fallada"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Paràmetres per defecte de l'antivirus"
 
@@ -2594,12 +2593,10 @@ msgid "Pass"
 msgstr "Passar"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "servidor secundari"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
-#, fuzzy
 msgid "Notify mail sender account"
 msgstr "àlies de compte de correu"
 
@@ -8189,7 +8186,6 @@ msgid "Antivirus default settings"
 msgstr "Paràmetres per defecte de l'antivirus"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr "{pkg} ha d'estar instal·lat per fer servir aquesta funcionalitat"

@@ -2455,7 +2455,6 @@ msgid "Status"
 msgstr "Durum"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
-#, fuzzy
 msgid "Signatures"
 msgstr "Durum"
 
@@ -2468,7 +2467,6 @@ msgstr "Antivirus veritabanı güncelleme durumu"
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:398
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:403
 #: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:59
-#, fuzzy
 msgid "Antivirus"
 msgstr ""
 "#-#-#-#-#  tr.po (ebox-samba 0.12)  #-#-#-#-#\n"
@@ -2545,22 +2543,18 @@ msgid "Source"
 msgstr "Kaynak"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Success"
 msgstr "Samba Erişimi"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "alan"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:441
-#, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Antivirüs Varsayılan Ayarlar"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:60
-#, fuzzy
 msgid "Mail Filter"
 msgstr "Posta süzgeci"
 
@@ -2611,27 +2605,22 @@ msgid "Cannot proceed because the filter is in use"
 msgstr "İşlem yapılamıyor çünkü süzgeç kullanımda"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:455
-#, fuzzy
 msgid "Mail filter"
 msgstr "Posta süzgeci"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:480
-#, fuzzy
 msgid "Sender address"
 msgstr "E-posta adresi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:481
-#, fuzzy
 msgid "Recipient address"
 msgstr "E-posta adresi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:483
-#, fuzzy
 msgid "Spam hits"
 msgstr "Gereksiz posta eşiği"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:488
-#, fuzzy
 msgid "Bad header found"
 msgstr "Kötü başlık yönetimi"
 
@@ -2649,28 +2638,23 @@ msgid "Address in blacklist found"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:492
-#, fuzzy
 msgid "Virus found"
 msgstr "Virüs yönetimi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:493
-#, fuzzy
 msgid "Clean message"
 msgstr "Posta kutusu dosyasından öğren"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:494
-#, fuzzy
 msgid "Unable to reinject in the mail server"
 msgstr "{smtp} sunucusuna bağlanılamadı"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:498
-#, fuzzy
 msgid "SMTP filter"
 msgstr "MIME türü süzgeci"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:529
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:39
-#, fuzzy
 msgid "SMTP Mail Filter"
 msgstr "Posta süzgeci"
 
@@ -2698,7 +2682,6 @@ msgid "email address"
 msgstr "E-posta adresi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:84
-#, fuzzy
 msgid ""
 "The sender ought be either an email address or a domain name prefixed with "
 "'@'"
@@ -2740,12 +2723,10 @@ msgid "Pass"
 msgstr "Parola"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "İkincil sunucu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
-#, fuzzy
 msgid "Notify mail sender account"
 msgstr "Posta takma adı hesabı"
 
@@ -2754,7 +2735,6 @@ msgid "Drop silently"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:75
-#, fuzzy
 msgid "Mailfilter's policy"
 msgstr "Mail-süzgeci portu"
 
@@ -2764,12 +2744,10 @@ msgid "To configure amavis"
 msgstr "vsftpd konfigürasyonu için"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:426
-#, fuzzy
 msgid "Zentyal internal mail filter"
 msgstr "eBox dahili posta süzgeci"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
-#, fuzzy
 msgid "SMTP filter proxy"
 msgstr "MIME türü süzgeci"
 
@@ -2821,12 +2799,10 @@ msgid "Accounts from the domain {d} cannot train the bayesian filter"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:39
-#, fuzzy
 msgid "External connections"
 msgstr "Harici posta alan isimleri"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
-#, fuzzy
 msgid "Attached Files Filter"
 msgstr "Posta süzgeci"
 
@@ -2850,22 +2826,18 @@ msgid "default"
 msgstr "Öntanımlı"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
-#, fuzzy
 msgid "custom threshold"
 msgstr "Gereksiz posta eşiği"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:150
-#, fuzzy
 msgid "Antispam sender policy"
 msgstr "Antispam gönderici erişim listeleri"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
-#, fuzzy
 msgid "Virtual Domains specific policies"
 msgstr "Sanal alan listesi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "Sanal alan listesi"
 
@@ -2889,7 +2861,6 @@ msgid "Tag which will be added to the spam mail subject"
 msgstr "Gereksiz posta konusu olarak eklenecek etiket"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:73
-#, fuzzy
 msgid "Use Bayesian classifier"
 msgstr "Bayesian sınıflandırıcısı kullan"
 
@@ -2914,7 +2885,6 @@ msgid "Autolearn spam threshold"
 msgstr "Otomatik öğrenme gerksiz posta değeri"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:98
-#, fuzzy
 msgid ""
 "Spam messages with a score equal or greater than this threshold will be "
 "added to the learning system "
@@ -2927,7 +2897,6 @@ msgid "Autolearn ham threshold"
 msgstr "Otomatik öğrenme 'Ham' değeri"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
-#, fuzzy
 msgid ""
 "Ham messages with a score below this threshold will be added to the learning "
 "system"
@@ -2935,7 +2904,6 @@ msgstr ""
 "Bu puan eşiğinden daha düşük olan 'ham' mesajları öğrenme sistemine eklenecek"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:111
-#, fuzzy
 msgid "Antispam configuration"
 msgstr "Antispam seçenekleri"
 
@@ -2976,7 +2944,6 @@ msgid "External mail domains"
 msgstr "Harici posta alan isimleri"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:96
-#, fuzzy
 msgid "external mail domain"
 msgstr "Harici posta alan isimleri"
 
@@ -3001,12 +2968,10 @@ msgid "IP address of the server"
 msgstr "Başka Jabber ağlarına bağlan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:85
-#, fuzzy
 msgid "External mail servers"
 msgstr "Harici posta sunucusu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:97
-#, fuzzy
 msgid "external mail server"
 msgstr "Harici posta sunucusu"
 
@@ -3022,17 +2987,14 @@ msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
 msgstr "Geçersiz harici MTA {mta}. Yerel ağ adreslerine izin yok"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:61
-#, fuzzy
 msgid "Antivirus enabled"
 msgstr "Antivirüs"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:67
-#, fuzzy
 msgid "Antispam enabled"
 msgstr "Antispam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:74
-#, fuzzy
 msgid "Service's port"
 msgstr "Servis portu"
 
@@ -3054,13 +3016,11 @@ msgstr "{port} portu şu anda {mod} modülü tarafından kullanılmakta"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:55
-#, fuzzy
 msgid "Mail sender"
 msgstr "Posta süzgeci"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:61
-#, fuzzy
 msgid "Policy"
 msgstr ""
 "#-#-#-#-#  tr.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
@@ -3069,13 +3029,11 @@ msgstr ""
 "İlkeler"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
-#, fuzzy
 msgid "Sender policy for virtual domain"
 msgstr "{domain} sanal alan adı için gereksiz posta eşiği"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:88
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:82
-#, fuzzy
 msgid "sender policy"
 msgstr "Kötü başlık yönetimi"
 
@@ -3109,14 +3067,12 @@ msgid "MIME types"
 msgstr "MIME tipleri"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:101
-#, fuzzy
 msgid ""
 "MIME types which are not listed below are allowed. MIME types aren't used by "
 "POP transparent proxy"
 msgstr "Aşağıda listelenmeyen {plural} 'a izin verildi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:81
-#, fuzzy
 msgid "File extension"
 msgstr ""
 "#-#-#-#-#  tr.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
@@ -3125,12 +3081,10 @@ msgstr ""
 "Bütün uzantılar"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:96
-#, fuzzy
 msgid "File extensions"
 msgstr "dosya uzantısı"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:105
-#, fuzzy
 msgid "Extensions which are not listed below are allowed"
 msgstr "Aşağıda listelenmeyen {plural} 'a izin verildi"
 
@@ -3143,12 +3097,10 @@ msgid "Mailbox contains"
 msgstr "Posta kutusu içeriği"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:71
-#, fuzzy
 msgid "Train bayesian spam filter"
 msgstr "Bayesian sınıflandırıcısı kullan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
-#, fuzzy
 msgid "Learned from messages"
 msgstr "Posta kutusu dosyasından öğren"
 
@@ -3170,7 +3122,6 @@ msgid "Invalid mailbox type: {type}"
 msgstr "Geçersiz posta kutusu türü: {type}"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:70
-#, fuzzy
 msgid "Sender policy"
 msgstr "Kötü başlık yönetimi"
 
@@ -3202,12 +3153,10 @@ msgid "Banned files policy"
 msgstr "Yasaklanan dosya yönetimi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:78
-#, fuzzy
 msgid "Bad header policy"
 msgstr "Kötü başlık yönetimi"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
-#, fuzzy
 msgid "Filter Policies"
 msgstr "Mail-süzgeci portu"
 
@@ -8674,12 +8623,10 @@ msgid "Enable virus scanning"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:59
-#, fuzzy
 msgid "Antivirus default settings"
 msgstr "Antivirüs Varsayılan Ayarlar"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr "{pkg} paketi bu özelliğin kullanılabilmesi için şarttır"
@@ -9432,12 +9379,10 @@ msgid "enabled"
 msgstr "Etkinleşti"
 
 #: ../../main/mail/src/EBox/Mail.pm:1567
-#, fuzzy
 msgid "Mail server's filter"
 msgstr "Posta servis ayarları"
 
 #: ../../main/mail/src/EBox/Mail.pm:1576 ../../main/mail/src/EBox/Mail.pm:1583
-#, fuzzy
 msgid "Filter type"
 msgstr "Süzgeç"
 

@@ -2445,12 +2445,10 @@ msgid "Source"
 msgstr "Source"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Success"
 msgstr "Accès aux invités"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Failure"
 msgstr "échec"
 
@@ -2551,7 +2549,6 @@ msgid "Clean message"
 msgstr "Message nettoyé"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:494
-#, fuzzy
 msgid "Unable to reinject in the mail server"
 msgstr "Ne peut pas se connecter au serveur de courrier {smtp}"
 
@@ -2632,12 +2629,10 @@ msgid "Pass"
 msgstr "Passé"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
-#, fuzzy
 msgid "Notify sender server"
 msgstr "Serveur secondaire"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
-#, fuzzy
 msgid "Notify mail sender account"
 msgstr "alias de compte de messagerie "
 
@@ -2745,12 +2740,10 @@ msgid "Antispam sender policy"
 msgstr "Politique Antispam de l'expéditeur"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
-#, fuzzy
 msgid "Virtual Domains specific policies"
 msgstr "Alias de domaine virtuel"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "alias de domaine virtuel"
 
@@ -8505,7 +8498,6 @@ msgid "Antivirus default settings"
 msgstr "Paramètres par défaut de l'antivirus"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr "{pkg} doit être installé pour utiliser cette option"
