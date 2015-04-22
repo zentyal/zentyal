@@ -2,7 +2,7 @@
 set -e
 
 ZENTYAL_FOLDER=$1
-CONTAINER_NAME="zentyal/40"
+CONTAINER_NAME="zentyal/41"
 shift
 
 echo " == RUNNING UNIT TESTS == "
