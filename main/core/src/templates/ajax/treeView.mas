@@ -8,6 +8,7 @@
   my $treeViewerId = "treeviewer_" . $model->name();
 </%init>
 <script type="text/javascript" src="/data/js/form.js"></script>
+<script type="text/javascript" src="/data/js/table-helper.js"></script>
 
 <& .pageTitle, title => $model->pageTitle() &>
 <& .message, model => $model &>

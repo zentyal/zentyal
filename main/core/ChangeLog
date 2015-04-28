@@ -1,3 +1,5 @@
+HEAD
+	+ Added missing table-helper.js dependency to treeView template
 4.1
 	+ Increase uwsgi read timeout from 60 (default) to 180 seconds
 	+ Update version to 4.1
