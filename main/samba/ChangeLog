@@ -1,7 +1,8 @@
 HEAD
+	+ Harcoded proxy group for keytab on External Ad Mode
 	+ Corrected check for value of listen_all config key
 4.0.9
-	+ Added support for quotas on extra FS 
+	+ Added support for quotas on extra FS
 4.0.8
 	+ Create roaming profile directory correctly when the
 	  samAccountName has any space
