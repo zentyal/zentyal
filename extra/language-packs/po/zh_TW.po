@@ -297,8 +297,10 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
-"{openpar}您可以在這裡加入想要讓客戶端可以連線到這個 VPN 的網路。{closepar}{openpar}通常，您將允許透過廣發它的網路位址來"
-"存取您的區域網路。{closepar}{openpar}如果一個廣發網路位址跟 VPN 網路位址相同的話，那廣發網路位址將會被忽略。{closepar}"
+"{openpar}您可以在這裡加入想要讓客戶端可以連線到這個 VPN 的網路。{closepar}"
+"{openpar}通常，您將允許透過廣發它的網路位址來存取您的區域網路。{closepar}"
+"{openpar}如果一個廣發網路位址跟 VPN 網路位址相同的話，那廣發網路位址將會被忽"
+"略。{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -357,8 +359,8 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority "
 "module{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}您需要一個有效的 CA 憑證來建立 VPN "
-"伺服器。{closepar}{openpar}請到{openhref}憑證管理程式模組{closehref}建立新的憑證。"
+"{openpar}您需要一個有效的 CA 憑證來建立 VPN 伺服器。{closepar}{openpar}請到"
+"{openhref}憑證管理程式模組{closehref}建立新的憑證。"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
 #, perl-brace-format
@@ -367,8 +369,8 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority "
 "module{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}您需要建立一個有效的 CA 憑證來建立 VPN "
-"伺服器。{closepar}{openpar}請到{openhref}憑證管理程式模組{closehref}建立新的憑證。"
+"{openpar}您需要建立一個有效的 CA 憑證來建立 VPN 伺服器。{closepar}{openpar}請"
+"到{openhref}憑證管理程式模組{closehref}建立新的憑證。"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
@@ -411,8 +413,8 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
-"無法建立名為 {name} 的伺服器，因為已存在一個被認證為 {certName} ，狀態是 {state} "
-"的伺服器。<br/>請選用另一個名稱或是補發 {certName} 憑證。"
+"無法建立名為 {name} 的伺服器，因為已存在一個被認證為 {certName} ，狀態是 "
+"{state} 的伺服器。<br/>請選用另一個名稱或是補發 {certName} 憑證。"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
