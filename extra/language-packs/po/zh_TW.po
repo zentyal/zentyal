@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-10-18 01:04+0200\n"
-"Last-Translator: evenault <evenault@gmail.com>\n"
+"PO-Revision-Date: 2015-04-28 10:18+0200\n"
+"Last-Translator: Peter <bidoll@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
@@ -280,17 +280,16 @@ msgstr "VPN 網路介面"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
 #, fuzzy
 msgid "List of Advertised Networks"
-msgstr "網路廣告列表"
+msgstr "播發網路清單"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:50
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:49
-#, fuzzy
 msgid "Advertised network"
 msgstr "廣告網路"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You can add here those networks which you want to make available to "
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
@@ -298,8 +297,8 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
-"{openpar}您可以在這裡加入想要讓客戶端可以連線到這個 VPN　的網路。{closepar}"
-"{openpar}通常，我們會允許存取 LAN，只要在這裡宣告它的網路位址{closepar}"
+"{openpar}您可以在這裡加入想要讓客戶端可以連線到這個 VPN 的網路。{closepar}{openpar}通常，您將允許透過廣發它的網路位址來"
+"存取您的區域網路。{closepar}{openpar}如果一個廣發網路位址跟 VPN 網路位址相同的話，那廣發網路位址將會被忽略。{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -330,14 +329,12 @@ msgstr "組態"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
-#, fuzzy
 msgid "Advertised networks"
-msgstr "宣告的網路"
+msgstr "廣發網路"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:94
-#, fuzzy
 msgid "Download client bundle"
-msgstr "下載客戶端綁定程式"
+msgstr "下載客戶端組合包"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:106
 msgid "List of servers"
@@ -354,26 +351,24 @@ msgid "server"
 msgstr "伺服器"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:160
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority "
 "module{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}您不能建立 VPN 伺服器，因為沒有足夠的憑證。{closepar}{openpar}請到"
-"{openhref}憑證管理程式模組{closehref}建立新的憑證。{closepar}{openpar}您需要"
-"至少一個 CA 與一個憑證。{closepar}"
+"{openpar}您需要一個有效的 CA 憑證來建立 VPN "
+"伺服器。{closepar}{openpar}請到{openhref}憑證管理程式模組{closehref}建立新的憑證。"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority "
 "module{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}您不能建立 VPN 伺服器，因為沒有足夠的憑證。{closepar}{openpar}請到"
-"{openhref}憑證管理程式模組{closehref}建立新的憑證。{closepar}{openpar}您需要"
-"至少一個 CA 與一個憑證。{closepar}"
+"{openpar}您需要建立一個有效的 CA 憑證來建立 VPN "
+"伺服器。{closepar}{openpar}請到{openhref}憑證管理程式模組{closehref}建立新的憑證。"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
@@ -386,20 +381,17 @@ msgid ""
 msgstr "不能使用此伺服器，因為設定尚未完全；請編輯它的組態後再試一次"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:298
-#, fuzzy
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr "不能取得伺服器 {name} 的金鑰，因為它沒有被分配憑證"
+msgstr "不能建立伺服器，因為缺少 CA 憑證"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:323
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"
-msgstr ""
-"無法執行 {act} ，因為沒有任何可用的憑證。請移至憑證中心模組並建立新的模組"
+msgstr "{act}無法執行 ，因為沒有任何可用的憑證。請到憑證中心模組並建立新的憑證"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
-#, fuzzy
 msgid "revoked"
 msgstr "已註銷"
 
@@ -409,9 +401,8 @@ msgid "expired"
 msgstr "已逾期"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
-#, fuzzy
 msgid "invalid"
-msgstr "有效的"
+msgstr "無效"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:349
 #, perl-brace-format
@@ -420,6 +411,8 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"無法建立名為 {name} 的伺服器，因為已存在一個被認證為 {certName} ，狀態是 {state} "
+"的伺服器。<br/>請選用另一個名稱或是補發 {certName} 憑證。"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -466,12 +459,8 @@ msgstr "客戶端的私密金鑰"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:109
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:95
-#, fuzzy
 msgid "TUN interface"
-msgstr ""
-"#-#-#-#-#  zh_TW.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"#-#-#-#-#  zh_TW.po (ebox-printers 0.12.99)  #-#-#-#-#\n"
-"印表機"
+msgstr "TUN 介面"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:115
 msgid "Server tunnel password"
@@ -479,16 +468,15 @@ msgstr "伺服器通道密碼 "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:121
 msgid "Bind port for client"
-msgstr ""
+msgstr "綁定客戶端埠號"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:129
-#, fuzzy
 msgid "Bind address for client"
-msgstr "排除快取的網域"
+msgstr "綁定客戶端位址"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:136
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "指令將在路由器被設置後執行"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:146
 msgid "Client configuration"
@@ -501,16 +489,16 @@ msgid "client"
 msgstr "客戶端"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:236
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No file supplied or already set for {f}"
-msgstr "沒有提供檔案或已經為 {f} 設定"
+msgstr "沒有提供檔案或 {f} 已經設定完成"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:266
 #, perl-brace-format
 msgid ""
 "The uploaded certificates and/or private key are not valid. File: {file}, "
 "Error: {err}"
-msgstr ""
+msgstr "已上傳的證書其(或) 私有金鑰不是有效的。檔案: {file}，錯誤: {err}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
@@ -525,9 +513,8 @@ msgid "OpenVPN installer for Microsoft Windows"
 msgstr "Microsoft Windows 的 OpenVPN 安裝程式"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
-#, fuzzy
 msgid "Connection strategy"
-msgstr "連接目標"
+msgstr "連接策略"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
@@ -544,14 +531,12 @@ msgid "Additional server address (optional)"
 msgstr "額外的伺服器位址（選擇性的）"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
-#, fuzzy
 msgid "Second additional server address (optional)"
-msgstr "額外的伺服器位址（選擇性的）"
+msgstr "第二個額外伺服器位址（選擇性的）"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
-#, fuzzy
 msgid "Download Client Bundle"
-msgstr "下載客戶端綁定程式"
+msgstr "下載客戶端組合包"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
 #: ../../main/core/src/templates/ajax/viewer/file.mas:19
@@ -562,16 +547,15 @@ msgstr "下載"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
-msgstr ""
+msgstr "隨機"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
-#, fuzzy
 msgid "Failover"
-msgstr "失敗"
+msgstr "故障轉移"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
-msgstr ""
+msgstr "Zentyal to Zentyal 通道"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
 msgid ""
@@ -584,16 +568,14 @@ msgid "Cannot use for the bundle the server's certificate"
 msgstr "不能在預裝程式中使用伺服器的憑證"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:212
-#, fuzzy
 msgid ""
 "Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels"
-msgstr "無效的客戶端類型：該伺服器不允許 eBox 對 eBox 通道"
+msgstr "無效的客戶端類型：該伺服器不允許 Zental-to-Zentyal 通道"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:220
-#, fuzzy
 msgid ""
 "Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
-msgstr "無效的客戶端類型：該伺服器希望使用 eBox 對 eBox 通道"
+msgstr "無效的客戶端類型：該伺服器是用於 Zentyal-to-Zentyal 通道"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
