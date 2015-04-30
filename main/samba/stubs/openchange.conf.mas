@@ -1,6 +1,7 @@
 <%args>
     $openchangeProvisionedWithMySQL => 0
     $openchangeConnectionString => undef
+    $openchangeNotificationsReady => 0
 
     $openchangeNamedpropsMysqlUser => undef
     $openchangeNamedpropsMysqlPass => undef
@@ -8,7 +9,11 @@
     $openchangeNamedpropsMysqlDb => undef
 </%args>
 [global]
+% if ($openchangeNotificationsReady == 1) {
+    dcerpc endpoint servers = +epmapper, +mapiproxy, +asyncemsmdb
+% } else {
     dcerpc endpoint servers = +epmapper, +mapiproxy
+% }
     dcerpc_mapiproxy:server = true
     dcerpc_mapiproxy:interfaces = exchange_emsmdb, exchange_nsp, exchange_ds_rfr
 

@@ -737,12 +737,14 @@ sub _setDovecotConf
     my $gssapiHostname = $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my $openchange = 0;
+    my $notificationsReady = 0;
     my $openchangeMod;
 
     if ($self->global->modExists('openchange')) {
         $openchangeMod = $self->global->modInstance('openchange');
         if ($openchangeMod->isEnabled() and $openchangeMod->isProvisioned()) {
             $openchange = 1;
+            $notificationsReady = $openchangeMod->notificationsReady();
         }
     }
 
@@ -765,6 +767,7 @@ sub _setDovecotConf
     push @params, (keytabPath => KEYTAB_FILE);
     push @params, (gssapiHostname => $gssapiHostname);
     push @params, (openchange => $openchange);
+    push @params, (notificationsReady => $notificationsReady);
 
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas", \@params, $filePermissions);
 

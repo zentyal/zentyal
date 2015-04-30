@@ -63,6 +63,7 @@ use constant RPCPROXY_STOCK_CONF_FILE => '/etc/apache2/conf.d/rpcproxy.conf';
 use constant OPENCHANGE_CONF_FILE => '/etc/samba/openchange.conf';
 use constant OPENCHANGE_MYSQL_PASSWD_FILE => EBox::Config->conf . '/openchange/mysql.passwd';
 use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Samba::PRIVATE_DIR() . 'mapistore/master.password';
+use constant OPENCHANGE_DOVECOT_PLUGIN_FILE => '/usr/lib/dovecot/modules/lib90_openchange_plugin.so';
 
 use constant APACHE_OCSMANAGER_PORT_HTTP    => 80;
 use constant APACHE_OCSMANAGER_PORT_HTTPS   => 443;
@@ -248,6 +249,7 @@ sub writeSambaConfig
     my ($self) = @_;
 
     my $openchangeProvisionedWithMySQL = $self->isProvisionedWithMySQL();
+    my $openchangeNotificationsReady = $self->notificationsReady();
     my $openchangeConnectionString = undef;
     my $oc = [];
     if ($openchangeProvisionedWithMySQL) {
@@ -262,6 +264,7 @@ sub writeSambaConfig
     }
     push (@{$oc}, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
     push (@{$oc}, 'openchangeConnectionString' => $openchangeConnectionString);
+    push (@{$oc}, 'openchangeNotificationsReady' => $openchangeNotificationsReady);
     $self->writeConfFile(OPENCHANGE_CONF_FILE, 'samba/openchange.conf.mas', $oc,
                          { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
 }
@@ -952,8 +955,17 @@ sub certificateIsReserved
     my $managed = defined $vdomains->find(vdomain => $cn);
     return $managed;
 }
-# EBox::CA::Observer methods
 
+# Method: notificationsReady
+#
+# Returns: If the notifications are ready
+#
+sub notificationsReady
+{
+    my ($self) = @_;
+
+    return (-e OPENCHANGE_DOVECOT_PLUGIN_FILE);
+}
 
 sub certificateRevoked
 {

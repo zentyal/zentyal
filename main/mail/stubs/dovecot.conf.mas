@@ -3,6 +3,7 @@
     $gid
 
     $openchange
+    $notificationsReady
     %protocols
 
     $firstValidUid
@@ -215,7 +216,13 @@ protocol lda {
   # Enabling Sieve plugin for server-side mail filtering and quota for quota
   # support
 % my $ldaPlugins = "sieve quota";
-  mail_plugins = <% $ldaPlugins %>
+
+% if ($notificationsReady == 1) {
+    mail_plugins = <% $ldaPlugins %> notify openchange
+% } else {
+    mail_plugins = <% $ldaPlugins %>
+% }
+
 }
 
 ##
