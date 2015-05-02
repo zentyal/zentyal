@@ -24,7 +24,7 @@ use warnings;
 
 package EBox::HA::NodeList;
 
-use Clone::Fast;
+use Storable qw(dclone);
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::InvalidType;
 use List::Util qw(max);
@@ -271,7 +271,7 @@ sub diff
     my %other = map { $_->{name} => $_ } @{$other};
     my %mine = ();
     if (exists($state->{cluster_conf}->{nodes})) {
-        %mine = %{Clone::Fast::clone($state->{cluster_conf}->{nodes})};
+        %mine = %{dclone($state->{cluster_conf}->{nodes})};
     }
 
     my $equal = Test::Deep::eq_deeply(\%mine, \%other);

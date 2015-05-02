@@ -42,8 +42,7 @@ use EBox::Iptables;
 
 use EBox::Gettext;
 
-# Dependencies
-use Clone::Fast;
+use Storable qw(dclone);
 
 use constant R2Q => EBox::Config::configkey('r2q');
 
@@ -962,7 +961,7 @@ sub _createInternalStructure # (defaultClassId)
     my $defaultClass = new EBox::TrafficShaping::Class(
                                                        minorNumber      => $defaultClassId,
                                                        parent           => $parentUserDefinedNode,
-                                                       queueDiscipline  => Clone::Fast::clone($parentUserDefinedHTB),
+                                                       queueDiscipline  => dclone($parentUserDefinedHTB),
                                                        qdiscAttached    => $leafDefaultQDisc,
                                                       );
     $self->{defaultClass} = $defaultClass;

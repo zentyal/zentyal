@@ -1,3 +1,5 @@
+HEAD
+	+ Replaced deprecated Clone::Fast with Storage's dclone
 4.0
 	+ Set version to 4.0
 	+ Added migration which get rid of deprecated l7 rules

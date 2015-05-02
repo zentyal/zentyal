@@ -41,7 +41,7 @@ use EBox::Sudo;
 use EBox::Types::Boolean;
 use EBox::WebAdmin::UserConfiguration;
 
-use Clone::Fast;
+use Storable qw(dclone);
 use Encode;
 use TryCatch::Lite;
 use POSIX qw(ceil INT_MAX);
@@ -3768,7 +3768,7 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
 {
     my ($self, $action, $methodName, $oldParamsRef) = @_;
 
-    my $paramsRef = Clone::Fast::clone($oldParamsRef);
+    my $paramsRef = dclone($oldParamsRef);
 
     # Delete the action from the name
     my $first = ( $methodName =~ s/^$action// );
@@ -4039,7 +4039,7 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
 {
     my ($self, $action, $methodName, $origParamsRef) = @_;
 
-    my $paramsRef = Clone::Fast::clone($origParamsRef);
+    my $paramsRef = dclone($origParamsRef);
 
     $methodName =~ s/^$action//;
 
