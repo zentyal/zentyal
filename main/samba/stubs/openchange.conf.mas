@@ -9,7 +9,7 @@
     $openchangeNamedpropsMysqlDb => undef
 </%args>
 [global]
-% if ($openchangeNotificationsReady == 1) {
+% if ($openchangeNotificationsReady) {
     dcerpc endpoint servers = +epmapper, +mapiproxy, +asyncemsmdb
 % } else {
     dcerpc endpoint servers = +epmapper, +mapiproxy

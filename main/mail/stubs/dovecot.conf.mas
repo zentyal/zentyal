@@ -217,7 +217,7 @@ protocol lda {
   # support
 % my $ldaPlugins = "sieve quota";
 
-% if ($notificationsReady == 1) {
+% if ($notificationsReady) {
     mail_plugins = <% $ldaPlugins %> notify openchange
 % } else {
     mail_plugins = <% $ldaPlugins %>
