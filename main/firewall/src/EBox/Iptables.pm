@@ -499,13 +499,11 @@ sub start
         my $input = $self->_inputIface($if);
         my $output = $self->_outputIface($if);
 
-        unless ( $self->{net}->ifaceIsBridge($if) ) {
-            push(@commands,
-                pf("-A fnoexternal $statenew $input -j fdrop"),
-                pf("-A inoexternal $statenew $input -j idrop"),
-                pf("-A ftoexternalonly $output -j faccept"),
-            );
-        }
+        push(@commands,
+            pf("-A fnoexternal $statenew $input -j fdrop"),
+            pf("-A inoexternal $statenew $input -j idrop"),
+            pf("-A ftoexternalonly $output -j faccept"),
+        );
 
         next unless (_natEnabled());
 
