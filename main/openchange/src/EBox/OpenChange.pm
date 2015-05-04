@@ -967,6 +967,7 @@ sub notificationsReady
     return (-e OPENCHANGE_DOVECOT_PLUGIN_FILE);
 }
 
+# EBox::CA::Observer methods
 sub certificateRevoked
 {
     my ($self, $commonName, $isCACert) = @_;
