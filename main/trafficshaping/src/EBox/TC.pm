@@ -74,16 +74,15 @@ sub tc
 
     try {
         EBox::Sudo::root(TC_CMD . " $opts");
-    } catch (EBox::Exceptions::Sudo::Command $e) {
+    } catch (EBox::Exceptions::Sudo::Command $ex) {
         # Catching exception from tc command
-        my $exception = shift;
-        if ( $exception->exitValue() == 2 ) {
+        if ($ex->exitValue() == 2) {
             # RTNETLINK answers: No such file or directory
             # Trying to delete qdisc where nothing it is in
             EBox::warn("No qdisc to remove");
         }
         else {
-            $exception->throw();
+            $ex->throw();
         }
     }
 }

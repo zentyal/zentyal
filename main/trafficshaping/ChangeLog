@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed wrong call to exception's 'exitValue' method in EBox::TC package
 4.0
 	+ Set version to 4.0
 	+ Added migration which get rid of deprecated l7 rules
