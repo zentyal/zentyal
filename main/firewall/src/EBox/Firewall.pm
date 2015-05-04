@@ -204,7 +204,8 @@ sub _enforceServiceState
         } else {
             $ipt->stop();
         }
-    } catch {
+    } catch ($e) {
+        EBox::error("Error restarting firewall: $e");
     }
     EBox::Util::Lock::unlock('iptables');
 }

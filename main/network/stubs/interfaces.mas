@@ -8,10 +8,6 @@ use EBox::Config;
 my @autoIfaces = ('lo');
 push @autoIfaces, grep {
         my $ifMethod = $networkMod->ifaceMethod($_);
-            ($ifMethod eq 'bundled')
-   } @iflist;
-push @autoIfaces, grep {
-        my $ifMethod = $networkMod->ifaceMethod($_);
         (($ifMethod eq 'static') or ($ifMethod eq 'dhcp'))
    } @iflist;
 </%init>

@@ -1,3 +1,6 @@
+HEAD
+	+ Log exceptions in _enforceServiceState as errors
+	+ Remove leftovers of bridged mode
 4.1
 	+ Set version to 4.1
 4.0
