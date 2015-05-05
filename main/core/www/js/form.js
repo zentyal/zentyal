@@ -60,6 +60,7 @@ Zentyal.Form.submit = function (formSelector, params) {
         url : url,
         data: data,
         dataType: 'json',
+        type: 'post',
         success: function (response){
             if (response.success) {
                 if ('msg' in response) {
