@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2015-04-15 16:52+0200\n"
-"Last-Translator: Kejan <kejanbalo@gmail.com>\n"
+"PO-Revision-Date: 2015-04-28 13:55+0200\n"
+"Last-Translator: izerlotti <manager@st.iltk.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -4158,14 +4158,18 @@ msgstr "indirizzo fisso"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:203
 msgid "Not object added for fixed addresses"
-msgstr ""
+msgstr "Nessun oggetto aggiunto per indirizzi statici"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:206
+#, fuzzy
 msgid ""
 "Only those object members whose IP address is a host (/32), a valid MAC, the "
 "IP address is not used by the available range and whose name is unique as "
 "fixed address will be used"
 msgstr ""
+"Solo i membri di oggetti il cui indirizzo IP è un host ( / 32 ) , un MAC "
+"valido , il cui indirizzo IP non è già utilizzato nella gamma disponibile e "
+"il cui nome è unico in quanto verrà utilizzato l'indirizzo fisso"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:209
 msgid ""
@@ -4213,6 +4217,8 @@ msgid ""
 "The enabled interfaces have not any range or fixed address configured.  The "
 "DHCP server  will not serve any address"
 msgstr ""
+"Le interfacce abilitate non hanno configurato nessuna gamma o indirizzo "
+"fisso. Il server DHCP non servirà alcun indirizzo"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:102
 msgid "DNS module must be configured to work with this feature"
@@ -4223,26 +4229,27 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:105
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr "{pkg} deve essere installato per usare questa caratteristica"
+msgstr "Per usare questa caratteristica va installato {pkg} "
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:128
 msgid "DNS module must be enabled to make this feature work."
-msgstr ""
-"Il modulo DNS deve essere abilitato per far funzionare questa caratteristica."
+msgstr "Per far funzionare questo componente va abilitato il modulo DNS."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:193
 #, perl-brace-format
 msgid ""
 "Dynamic DNS feature has been disabled in DHCP module in {iface} interface."
 msgstr ""
+"Il componente DNS dinamico è stato disabilitato nel modulo DHCP per "
+"l'interfaccia {iface}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:221
 msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
 msgstr ""
-"Nome di dominio aggiunto al nome dell'host di quei client il cui IP proviene "
-"da un range"
+"Per i clienti il cui indirizzo IP assegnato proviene da un intervallo, il "
+"nome di dominio viene aggiunto al nome host"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:229
 msgid "Static domain"
