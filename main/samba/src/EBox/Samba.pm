@@ -1773,8 +1773,9 @@ sub notifyModsLdapUserBase
         $args = [ $args ];
     }
 
-    my $defaultOU = $args->[0]->isInDefaultContainer();
+    my $object = $args->[0];
     foreach my $mod (@{$self->_modsLdapUserBase($ignored_modules)}) {
+        my $defaultOU = $mod->objectInDefaultContainer($object);
 
         # Skip modules not supporting multiple OU if not default OU
         next unless ($mod->multipleOUSupport or $defaultOU);

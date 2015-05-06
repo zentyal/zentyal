@@ -1,4 +1,5 @@
 HEAD
+	+ Added EBox::LdapUserBase::objectInDefaultContainer
 	+ Added debug options to stub (commented)
 4.1.4
 	+ Configuration for openchange notifications with dovecot plugin

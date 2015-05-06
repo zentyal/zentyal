@@ -458,4 +458,17 @@ sub hiddenOUs
     return [];
 }
 
+# Method: objectInDefaultContainer
+#
+#   Returns whether the module finds that the object is in the default container/
+#
+#   Currently is only used by EBox::Samba:notifyModsLdapUserBVase to determine if we run the creation/deletion/modification notifications; they will be only called on a true return.
+#
+#   Default implementation is to call the isInDefaultContainer method on the object.
+sub objectInDefaultContainer
+{
+    my ($self, $object) = @_;
+    return $object->isInDefaultContainer();
+}
+
 1;
