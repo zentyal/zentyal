@@ -1,4 +1,5 @@
 HEAD
+	+ Configuration for openchange notifications with dovecot plugin
 	+ Delete obsolete cron file when upgrading from 4.0
 4.1.3
 	+ Remove deprecated bridged mode condition
