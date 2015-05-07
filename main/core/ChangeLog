@@ -1,4 +1,5 @@
 HEAD
+	+ Use POST method when submitting forms in AJAX requests
 	+ Added missing table-helper.js dependency to treeView template
 4.1
 	+ Increase uwsgi read timeout from 60 (default) to 180 seconds
