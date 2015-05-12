@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
-#: ../../main/mail/src/EBox/Mail.pm:1562
+#: ../../main/mail/src/EBox/Mail.pm:1565
 msgid "disabled"
 msgstr "tidak aktif"
 
@@ -973,7 +973,7 @@ msgid "Common name"
 msgstr "Nama umum"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
-#: ../../main/mail/src/EBox/Mail.pm:1579
+#: ../../main/mail/src/EBox/Mail.pm:1582
 msgid "Address"
 msgstr "Alamat"
 
@@ -997,10 +997,10 @@ msgstr "Daemon-daemon OpenVPN"
 #: ../../main/dhcp/src/EBox/DHCP.pm:979
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:787
-#: ../../main/samba/src/EBox/Samba.pm:3212
-#: ../../main/samba/src/EBox/Samba.pm:3232
-#: ../../main/samba/src/EBox/Samba.pm:3243
-#: ../../main/mail/src/EBox/Mail.pm:1676
+#: ../../main/samba/src/EBox/Samba.pm:3217
+#: ../../main/samba/src/EBox/Samba.pm:3237
+#: ../../main/samba/src/EBox/Samba.pm:3248
+#: ../../main/mail/src/EBox/Mail.pm:1679
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
@@ -1018,13 +1018,13 @@ msgstr "Tanggal"
 #: ../../main/dhcp/src/EBox/DHCP.pm:983
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/mail/src/EBox/Mail.pm:1686
+#: ../../main/mail/src/EBox/Mail.pm:1689
 msgid "Event"
 msgstr "Kejadian"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3237
+#: ../../main/samba/src/EBox/Samba.pm:3242
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1144,7 +1144,7 @@ msgstr "namahost"
 
 #: ../../main/dns/src/EBox/DNS.pm:1694
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2628
+#: ../../main/samba/src/EBox/Samba.pm:2633
 msgid "alias"
 msgstr "alias"
 
@@ -1235,7 +1235,7 @@ msgstr "Aktifkan cache DNS trasparant"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:1933
+#: ../../main/samba/src/EBox/Samba.pm:1938
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
@@ -1337,7 +1337,7 @@ msgstr "Domain ini"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
-#: ../../main/mail/src/EBox/Mail.pm:1577
+#: ../../main/mail/src/EBox/Mail.pm:1580
 msgid "Custom"
 msgstr "Pesanan"
 
@@ -1503,7 +1503,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1927
+#: ../../main/samba/src/EBox/Samba.pm:1932
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "Domain"
@@ -1690,9 +1690,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3214
-#: ../../main/samba/src/EBox/Samba.pm:3234
-#: ../../main/samba/src/EBox/Samba.pm:3245
+#: ../../main/samba/src/EBox/Samba.pm:3219
+#: ../../main/samba/src/EBox/Samba.pm:3239
+#: ../../main/samba/src/EBox/Samba.pm:3250
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2020,7 +2020,7 @@ msgstr ""
 #: ../../main/ca/src/EBox/CA.pm:1760
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/core/src/EBox/SysInfo.pm:110
-#: ../../main/mail/src/EBox/Mail.pm:1613
+#: ../../main/mail/src/EBox/Mail.pm:1616
 msgid "General"
 msgstr "Umum"
 
@@ -2119,7 +2119,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3215
+#: ../../main/samba/src/EBox/Samba.pm:3220
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -2307,7 +2307,7 @@ msgstr ""
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:58
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
 #: ../../main/network/src/EBox/Network.pm:3202
-#: ../../main/mail/src/EBox/Mail.pm:1564 ../../main/mail/src/EBox/Mail.pm:1685
+#: ../../main/mail/src/EBox/Mail.pm:1567 ../../main/mail/src/EBox/Mail.pm:1688
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:64
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -3814,13 +3814,13 @@ msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
 msgstr ""
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/mail/src/EBox/Mail.pm:1678
+#: ../../main/mail/src/EBox/Mail.pm:1681
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
 msgstr "Dari"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/mail/src/EBox/Mail.pm:1679
+#: ../../main/mail/src/EBox/Mail.pm:1682
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 #, fuzzy
 msgid "To"
@@ -6592,46 +6592,46 @@ msgstr ""
 msgid "Enable OpenChange account"
 msgstr "Mail domain eksternal"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:120
+#: ../../main/openchange/src/EBox/OpenChange.pm:121
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:121
+#: ../../main/openchange/src/EBox/OpenChange.pm:122
 #, fuzzy
 msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr "Webmail bisa diakses melalui alamat http://ip/webmail/."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:214
+#: ../../main/openchange/src/EBox/OpenChange.pm:215
 #, fuzzy
 msgid "To configure sogo daemon"
 msgstr "Untuk mengkonfigurasi daemon clamd"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:219
+#: ../../main/openchange/src/EBox/OpenChange.pm:220
 #, fuzzy
 msgid "To configure sogo parameters"
 msgstr "Mengkonfigurasi pemutakhiran freshclam"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:224
+#: ../../main/openchange/src/EBox/OpenChange.pm:225
 #, fuzzy
 msgid "To configure autodiscovery service"
 msgstr "Untuk mengkonfigurasi pesan suara."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:229
+#: ../../main/openchange/src/EBox/OpenChange.pm:230
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:234
+#: ../../main/openchange/src/EBox/OpenChange.pm:235
 msgid "To make SOGo webmail available"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:239
+#: ../../main/openchange/src/EBox/OpenChange.pm:240
 #, fuzzy
 msgid "To make autodiscovery service available"
 msgstr "Untuk mengkonfigurasi pesan suara."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:625
-#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1547
-#: ../../main/mail/src/EBox/Mail.pm:1711
+#: ../../main/openchange/src/EBox/OpenChange.pm:628
+#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1550
+#: ../../main/mail/src/EBox/Mail.pm:1714
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr ""
@@ -7376,7 +7376,7 @@ msgid "OU name"
 msgstr "nama"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:1954
+#: ../../main/samba/src/EBox/Samba.pm:1959
 msgid "LDAP Settings"
 msgstr ""
 
@@ -7386,7 +7386,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:1950
+#: ../../main/samba/src/EBox/Samba.pm:1955
 msgid "User Template"
 msgstr ""
 
@@ -7395,7 +7395,7 @@ msgid "Recycle Bin"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:1964
+#: ../../main/samba/src/EBox/Samba.pm:1969
 msgid "File Sharing"
 msgstr ""
 
@@ -7944,7 +7944,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:1940
+#: ../../main/samba/src/EBox/Samba.pm:1945
 #, fuzzy
 msgid "Users and Computers"
 msgstr "Nama pengguna dan kata kunci"
@@ -8391,7 +8391,7 @@ msgstr ""
 msgid "Domain and File sharing protocols"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:394
+#: ../../main/samba/src/EBox/Samba.pm:399
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8400,7 +8400,7 @@ msgid ""
 "configured or waiting for a lease can solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:398
+#: ../../main/samba/src/EBox/Samba.pm:403
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8408,52 +8408,52 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1020
+#: ../../main/samba/src/EBox/Samba.pm:1025
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1042
+#: ../../main/samba/src/EBox/Samba.pm:1047
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1065
+#: ../../main/samba/src/EBox/Samba.pm:1070
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1605
+#: ../../main/samba/src/EBox/Samba.pm:1610
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1946
+#: ../../main/samba/src/EBox/Samba.pm:1951
 #, fuzzy
 msgid "Manage"
 msgstr "Baca-saja"
 
-#: ../../main/samba/src/EBox/Samba.pm:1958
+#: ../../main/samba/src/EBox/Samba.pm:1963
 #, fuzzy
 msgid "Configure mode"
 msgstr "Mengkonfigurasi Aturan-aturan"
 
-#: ../../main/samba/src/EBox/Samba.pm:2096
+#: ../../main/samba/src/EBox/Samba.pm:2101
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2112
+#: ../../main/samba/src/EBox/Samba.pm:2117
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2129
+#: ../../main/samba/src/EBox/Samba.pm:2134
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8461,104 +8461,104 @@ msgid ""
 "{ex}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2139
+#: ../../main/samba/src/EBox/Samba.pm:2144
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2403
+#: ../../main/samba/src/EBox/Samba.pm:2408
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2496
+#: ../../main/samba/src/EBox/Samba.pm:2501
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Path file sistem"
 
-#: ../../main/samba/src/EBox/Samba.pm:2639
+#: ../../main/samba/src/EBox/Samba.pm:2644
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "Alamat VPN {addr} sudah digunakan oleh antarmuka {iface}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3213
-#: ../../main/samba/src/EBox/Samba.pm:3233
-#: ../../main/samba/src/EBox/Samba.pm:3244
+#: ../../main/samba/src/EBox/Samba.pm:3218
+#: ../../main/samba/src/EBox/Samba.pm:3238
+#: ../../main/samba/src/EBox/Samba.pm:3249
 msgid "Client address"
 msgstr "Alamat client"
 
-#: ../../main/samba/src/EBox/Samba.pm:3216
+#: ../../main/samba/src/EBox/Samba.pm:3221
 msgid "Resource"
 msgstr "Sumberdaya"
 
-#: ../../main/samba/src/EBox/Samba.pm:3220
+#: ../../main/samba/src/EBox/Samba.pm:3225
 msgid "Connect"
 msgstr "Konek"
 
-#: ../../main/samba/src/EBox/Samba.pm:3221
+#: ../../main/samba/src/EBox/Samba.pm:3226
 msgid "Access to directory"
 msgstr "Akses ke direktori"
 
-#: ../../main/samba/src/EBox/Samba.pm:3222
+#: ../../main/samba/src/EBox/Samba.pm:3227
 msgid "Read file"
 msgstr "Baca berkas"
 
-#: ../../main/samba/src/EBox/Samba.pm:3223
+#: ../../main/samba/src/EBox/Samba.pm:3228
 msgid "Write file"
 msgstr "Tulis berkas"
 
-#: ../../main/samba/src/EBox/Samba.pm:3224
+#: ../../main/samba/src/EBox/Samba.pm:3229
 msgid "Disconnect"
 msgstr "Putus koneksi"
 
-#: ../../main/samba/src/EBox/Samba.pm:3225
+#: ../../main/samba/src/EBox/Samba.pm:3230
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Buang"
 
-#: ../../main/samba/src/EBox/Samba.pm:3226
+#: ../../main/samba/src/EBox/Samba.pm:3231
 msgid "Create directory"
 msgstr "Buat direktori"
 
-#: ../../main/samba/src/EBox/Samba.pm:3227
+#: ../../main/samba/src/EBox/Samba.pm:3232
 msgid "Remove directory"
 msgstr "Buang direktori"
 
-#: ../../main/samba/src/EBox/Samba.pm:3228
+#: ../../main/samba/src/EBox/Samba.pm:3233
 msgid "Rename"
 msgstr "Ubah nama"
 
-#: ../../main/samba/src/EBox/Samba.pm:3235
-#: ../../main/samba/src/EBox/Samba.pm:3246
+#: ../../main/samba/src/EBox/Samba.pm:3240
+#: ../../main/samba/src/EBox/Samba.pm:3251
 msgid "File name"
 msgstr "Nama File"
 
-#: ../../main/samba/src/EBox/Samba.pm:3236
-#: ../../main/samba/src/EBox/Samba.pm:3240
+#: ../../main/samba/src/EBox/Samba.pm:3241
+#: ../../main/samba/src/EBox/Samba.pm:3245
 msgid "Virus"
 msgstr "Virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:3247
+#: ../../main/samba/src/EBox/Samba.pm:3252
 msgid "Quarantined file name"
 msgstr "Nama file terkarantina"
 
-#: ../../main/samba/src/EBox/Samba.pm:3248
-#: ../../main/samba/src/EBox/Samba.pm:3251
+#: ../../main/samba/src/EBox/Samba.pm:3253
+#: ../../main/samba/src/EBox/Samba.pm:3256
 msgid "Quarantine"
 msgstr "Karantina"
 
-#: ../../main/samba/src/EBox/Samba.pm:3254
+#: ../../main/samba/src/EBox/Samba.pm:3259
 msgid "Samba access"
 msgstr "Akses samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3265
+#: ../../main/samba/src/EBox/Samba.pm:3270
 msgid "Samba virus"
 msgstr "virus samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3276
+#: ../../main/samba/src/EBox/Samba.pm:3281
 msgid "Samba quarantine"
 msgstr "Karantina samba"
 
@@ -8659,161 +8659,161 @@ msgstr ""
 msgid "Outgoing Mail (Submission protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:902
+#: ../../main/mail/src/EBox/Mail.pm:905
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:907
+#: ../../main/mail/src/EBox/Mail.pm:910
 msgid "The mail name must be a fully qualified name"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:911 ../../main/mail/src/EBox/Mail.pm:922
-#: ../../main/mail/src/EBox/Mail.pm:930
+#: ../../main/mail/src/EBox/Mail.pm:914 ../../main/mail/src/EBox/Mail.pm:925
+#: ../../main/mail/src/EBox/Mail.pm:933
 msgid "Host mail name"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:925
+#: ../../main/mail/src/EBox/Mail.pm:928
 msgid "The mail name and virtual mail domain name are equal"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1493
+#: ../../main/mail/src/EBox/Mail.pm:1496
 msgid "SMTP service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1500
+#: ../../main/mail/src/EBox/Mail.pm:1503
 msgid "POP3 service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1506
+#: ../../main/mail/src/EBox/Mail.pm:1509
 msgid "POP3S service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1512
+#: ../../main/mail/src/EBox/Mail.pm:1515
 msgid "IMAP service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1518
+#: ../../main/mail/src/EBox/Mail.pm:1521
 msgid "IMAPS service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1562
+#: ../../main/mail/src/EBox/Mail.pm:1565
 #, fuzzy
 msgid "enabled"
 msgstr "Diaktifkan"
 
-#: ../../main/mail/src/EBox/Mail.pm:1567
+#: ../../main/mail/src/EBox/Mail.pm:1570
 #, fuzzy
 msgid "Mail server's filter"
 msgstr "Port server IMAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1576 ../../main/mail/src/EBox/Mail.pm:1583
+#: ../../main/mail/src/EBox/Mail.pm:1579 ../../main/mail/src/EBox/Mail.pm:1586
 #, fuzzy
 msgid "Filter type"
 msgstr "profil penyaringan"
 
-#: ../../main/mail/src/EBox/Mail.pm:1621
+#: ../../main/mail/src/EBox/Mail.pm:1624
 msgid "Virtual Mail Domains"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1628
+#: ../../main/mail/src/EBox/Mail.pm:1631
 msgid "Greylist"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1635
+#: ../../main/mail/src/EBox/Mail.pm:1638
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1662
+#: ../../main/mail/src/EBox/Mail.pm:1665
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1677
+#: ../../main/mail/src/EBox/Mail.pm:1680
 msgid "Message ID"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1680
+#: ../../main/mail/src/EBox/Mail.pm:1683
 msgid "From hostname"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1681
+#: ../../main/mail/src/EBox/Mail.pm:1684
 msgid "From host ip"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1682
+#: ../../main/mail/src/EBox/Mail.pm:1685
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1683
+#: ../../main/mail/src/EBox/Mail.pm:1686
 msgid "Relay"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1684
+#: ../../main/mail/src/EBox/Mail.pm:1687
 msgid "Message type"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1687
+#: ../../main/mail/src/EBox/Mail.pm:1690
 msgid "Additional Info"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1698
+#: ../../main/mail/src/EBox/Mail.pm:1701
 msgid "Successful messages"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1699
+#: ../../main/mail/src/EBox/Mail.pm:1702
 msgid "Maximum message size exceeded"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1700
+#: ../../main/mail/src/EBox/Mail.pm:1703
 msgid "User quota exceeded"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1701
+#: ../../main/mail/src/EBox/Mail.pm:1704
 msgid "Relay access denied"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1702
+#: ../../main/mail/src/EBox/Mail.pm:1705
 msgid "Account does not exist"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1703
+#: ../../main/mail/src/EBox/Mail.pm:1706
 msgid "Host unreachable"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1704
+#: ../../main/mail/src/EBox/Mail.pm:1707
 msgid "Authentication error"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1705
+#: ../../main/mail/src/EBox/Mail.pm:1708
 msgid "Greylisted"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1706
+#: ../../main/mail/src/EBox/Mail.pm:1709
 msgid "Relay rejected by the smarthost"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1707
+#: ../../main/mail/src/EBox/Mail.pm:1710
 msgid "Other events"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1785
+#: ../../main/mail/src/EBox/Mail.pm:1788
 msgid "Mail SMTP server"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1793
+#: ../../main/mail/src/EBox/Mail.pm:1796
 msgid "Mail POP/IMAP server"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1870
+#: ../../main/mail/src/EBox/Mail.pm:1873
 msgid "Mailboxes"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1919
+#: ../../main/mail/src/EBox/Mail.pm:1922
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "Alamat VPN {addr} sudah digunakan oleh antarmuka {iface}"
