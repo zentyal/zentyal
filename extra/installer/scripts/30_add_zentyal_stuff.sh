@@ -20,42 +20,48 @@ sed -i 's/INSTALL_MODE/RECOVER_MODE/g' $CD_BUILD_DIR/preseed/disaster-recovery.s
 cp $CD_BUILD_DIR/preseed/disaster-recovery.seed $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
 cat $DATA_DIR/zentyal-auto.seed >> $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
 
-UDEB_INCLUDE=$CD_BUILD_DIR/.disk/udeb_include
+#UDEB_INCLUDE=$CD_BUILD_DIR/.disk/udeb_include
+#
+#if [ "$INCLUDE_REMOTE" == "true" ]
+#then
+#    if ! grep -q zinstaller-remote $UDEB_INCLUDE
+#    then
+#        echo zinstaller-remote >> $UDEB_INCLUDE
+#    fi
+#fi
+#
+#if ! grep -q zinstaller-headless $UDEB_INCLUDE
+#then
+#    echo zinstaller-headless >> $UDEB_INCLUDE
+#fi
+#
+#if [ -f $BASE_DIR/DEBUG_MODE ]
+#then
+#    cp $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed
+#    cat $DATA_DIR/zentyal-debug.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed
+#
+#    cp $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed $CD_BUILD_DIR/preseed/disaster-recovery-debug.seed
+#    sed -i 's/INSTALL_MODE/RECOVER_MODE/g' $CD_BUILD_DIR/preseed/disaster-recovery-debug.seed
+#
+#    cp $DATA_DIR/isolinux-zentyal-debug.cfg $CD_BUILD_DIR/isolinux/txt.cfg
+#else
+#    sed -e s:VERSION:$VERSION: < $DATA_DIR/isolinux-zentyal.cfg.template > $CD_BUILD_DIR/isolinux/txt.cfg
+#fi
 
-if [ "$INCLUDE_REMOTE" == "true" ]
-then
-    if ! grep -q zinstaller-remote $UDEB_INCLUDE
-    then
-        echo zinstaller-remote >> $UDEB_INCLUDE
-    fi
-fi
+sed -e s:VERSION:$VERSION: < $DATA_DIR/isolinux-zentyal.cfg.template > $CD_BUILD_DIR/isolinux/txt.cfg
 
-if ! grep -q zinstaller-headless $UDEB_INCLUDE
-then
-    echo zinstaller-headless >> $UDEB_INCLUDE
-fi
-
-if [ -f $BASE_DIR/DEBUG_MODE ]
-then
-    cp $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed
-    cat $DATA_DIR/zentyal-debug.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed
-
-    cp $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed $CD_BUILD_DIR/preseed/disaster-recovery-debug.seed
-    sed -i 's/INSTALL_MODE/RECOVER_MODE/g' $CD_BUILD_DIR/preseed/disaster-recovery-debug.seed
-
-    cp $DATA_DIR/isolinux-zentyal-debug.cfg $CD_BUILD_DIR/isolinux/txt.cfg
-else
-    sed -e s:VERSION:$VERSION: < $DATA_DIR/isolinux-zentyal.cfg.template > $CD_BUILD_DIR/isolinux/txt.cfg
-fi
-
-USB_SUPPORT="cdrom-detect\/try-usb=true"
+#FIXME!!!
+USB_SUPPORT="debian-installer\/locale=en_US priority=critical cdrom-detect\/try-usb=true"
 sed -i "s/gz quiet/gz $USB_SUPPORT quiet/g" $CD_BUILD_DIR/isolinux/txt.cfg
 
-if echo $VERSION | grep -q daily
-then
-    DATE=`date +%Y-%m-%d`
-    sed -e s:DATE:$DATE: < $DATA_DIR/isolinux-daily.template >> $CD_BUILD_DIR/isolinux/adtxt.cfg
-fi
+echo "en" > $CD_BUILD_DIR/isolinux/lang
+sed -i '/^ui.*/d' $CD_BUILD_DIR/isolinux/isolinux.cfg
+
+#if echo $VERSION | grep -q daily
+#then
+#    DATE=`date +%Y-%m-%d`
+#    sed -e s:DATE:$DATE: < $DATA_DIR/isolinux-daily.template >> $CD_BUILD_DIR/isolinux/adtxt.cfg
+#fi
 
 test -d $CD_ZENTYAL_DIR || mkdir -p $CD_ZENTYAL_DIR
 
@@ -64,9 +70,9 @@ rm -rf $CD_ZENTYAL_DIR/*
 TMPDIR=/tmp/zentyal-installer-data-$$
 cp -r $DATA_DIR $TMPDIR
 
-./gen_locales.pl $TMPDIR || (echo "locales files autogeneration failed.";
-                             echo "make sure you have zentyal-common installed."; false) || exit 1
-
+#./gen_locales.pl $TMPDIR || (echo "locales files autogeneration failed.";
+#                             echo "make sure you have zentyal-common installed."; false) || exit 1
+#
 cp -r $TMPDIR/* $CD_ZENTYAL_DIR/
 
 rm -rf $TMPDIR

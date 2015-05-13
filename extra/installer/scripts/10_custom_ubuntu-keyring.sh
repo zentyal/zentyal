@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#exit 0
+
 . ../build_cd.conf
 
 ARCH=$1

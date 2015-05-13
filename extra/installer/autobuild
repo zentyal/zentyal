@@ -53,6 +53,8 @@ do
     ./generate_extras.sh $ARCH || exit 1
     ./build_cd.sh $ARCH || exit 1
 
+    exit 0
+
     for i in `./list-duplicated.sh $ARCH`
     do
         rm -f extras-$ARCH/${i}_*.deb

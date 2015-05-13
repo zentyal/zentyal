@@ -18,6 +18,8 @@ CHROOT="$CHROOT_BASE-$ARCH"
 
 test -d $EXTRAS_DIR || mkdir $EXTRAS_DIR
 
+exit 0
+
 sudo rm -fr $CHROOT
 mkdir $CHROOT
 

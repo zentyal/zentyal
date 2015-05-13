@@ -18,17 +18,17 @@ rm -rf tmp
 popd
 
 # Change default hostname
-pushd $CD_BUILD_DIR/pool/main/n/netcfg/
-NET_UDEB=`ls netcfg_*.udeb`
-mkdir tmp
-cd tmp
-dpkg-deb -e ../$NET_UDEB
-dpkg-deb -x ../$NET_UDEB .
-sed -i "s/ubuntu/zentyal/g" DEBIAN/templates
-dpkg-deb -b . ../$NET_UDEB
-cd ..
-rm -rf tmp
-popd
+#pushd $CD_BUILD_DIR/pool/main/n/netcfg/
+#NET_UDEB=`ls netcfg_*.udeb`
+#mkdir tmp
+#cd tmp
+#dpkg-deb -e ../$NET_UDEB
+#dpkg-deb -x ../$NET_UDEB .
+#sed -i "s/ubuntu/zentyal/g" DEBIAN/templates
+#dpkg-deb -b . ../$NET_UDEB
+#cd ..
+#rm -rf tmp
+#popd
 
 # Disable tasksel
 pushd $CD_BUILD_DIR/pool/main/p/pkgsel/

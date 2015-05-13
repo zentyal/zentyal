@@ -1,25 +1,13 @@
 #!/bin/bash
 
-# Workaround for broken /etc/hosts when there is no domain
-sed -i 's/127.0.1.1.*(null)/127.0.1.1/' /etc/hosts
-
-# copy *.deb files from CD to hard disk
-PKG_DIR=/var/tmp/zentyal-packages
-mkdir $PKG_DIR
-files=`find /media/cdrom/pool -name '*.deb'`
-for file in $files
-do
-    cp $file $PKG_DIR 2> /dev/null
-done
-
-if [ -f /tmp/RECOVER_MODE ]
-then
-    # Set DR flag for second stage
-    DISASTER_FILE=/var/tmp/.zentyal-disaster-recovery
-    touch $DISASTER_FILE
-    chown :admin $DISASTER_FILE
-    chown g+w $DISASTER_FILE
-fi
+# Vagrant stuff
+echo "vagrant ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/vagrant && \
+mkdir -p /home/vagrant/.ssh && \
+chmod 0700 /home/vagrant/.ssh && \
+wget --no-check-certificate  https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub -O /home/vagrant/.ssh/authorized_keys && \
+chmod 0600 /home/vagrant/.ssh/authorized_keys && \
+chown -R vagrant /home/vagrant/.ssh && \
+echo "AuthorizedKeysFile %h/.ssh/authorized_keys" >> /etc/ssh/sshd_config
 
 ### CUSTOM_ACTION ###
 

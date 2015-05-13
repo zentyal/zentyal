@@ -4,13 +4,6 @@
 ## zentyal stuff
 ##
 
-# add zentyal repository
-d-i apt-setup/local0/repository string http://archive.zentyal.org/zentyal 4.1 main extra
-d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-4.1-archive.asc
-
-# ignore error downloading key if not internet connection
-d-i apt-setup/local/key-error select Ignore
-
 # do not install recommends by default
 d-i base-installer/install-recommends boolean false
 
@@ -23,24 +16,35 @@ d-i pkgsel/language-pack-patterns string
 # no language support packages
 d-i pkgsel/install-language-support boolean false
 
-# install the system-customization package
-d-i pkgsel/include string zenbuntu-desktop
-
 # disable automatic updates, Zentyal will take care of that
 d-i pkgsel/update-policy select none
 
 # do not ask for fullname
-d-i passwd/user-fullname string  
+d-i passwd/user-fullname string 
 
 # do not encrypt home folder
 d-i user-setup/encrypt-home boolean false
 
+# install default packages
+d-i pkgsel/include string puppet openssh-server
+
 d-i preseed/early_command string \
     touch /tmp/INSTALL_MODE
 
-# late command (we prepare here the Zentyal custom installer)
+# network
+d-i netcfg/choose_interface select auto
+d-i netcfg/get_hostname string vagrant-proxmox
+d-i netcfg/get_domain string unassigned-domain
+#
+# to create a normal user account
+d-i passwd/username string vagrant
+d-i passwd/user-password password vagrant
+d-i passwd/user-password-again password vagrant
+d-i user-setup/allow-password-weak boolean true
+
+# late command (we prepare here the Vagrant user and keys)
 d-i preseed/late_command string \
     cp -r /target/media/cdrom/zentyal /target/tmp/ && \
-    touch /target/tmp/INSTALL_MODE && \
     chroot /target sh /tmp/zentyal/prepare-zentyal-install.sh
+
 
