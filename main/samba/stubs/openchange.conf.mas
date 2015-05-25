@@ -16,6 +16,7 @@
 % }
     dcerpc_mapiproxy:server = true
     dcerpc_mapiproxy:interfaces = exchange_emsmdb, exchange_nsp, exchange_ds_rfr
+    #dcerpc_mapiproxy:ndrdump = true
 
 % if ($openchangeProvisionedWithMySQL == 1 and defined $openchangeConnectionString) {
     mapistore:namedproperties = mysql
@@ -26,4 +27,5 @@
 
     mapistore:indexing_backend = <% $openchangeConnectionString %>
     mapiproxy:openchangedb = <% $openchangeConnectionString %>
+    #mapiproxy:openchangedb_logger = true
 % }
