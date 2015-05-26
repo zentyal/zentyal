@@ -158,7 +158,7 @@ sub _table
             ),
          new EBox::Types::Host(
              fieldName => 'dns2',
-             printableName => __('Secod nameserver'),
+             printableName => __('Second nameserver'),
              editable => 1,
              optional => 1,
             ),
