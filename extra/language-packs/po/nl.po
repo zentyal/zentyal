@@ -734,7 +734,8 @@ msgid "First nameserver"
 msgstr "Eerste naam server (DNS)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-msgid "Secod nameserver"
+#, fuzzy
+msgid "Second nameserver"
 msgstr "Tweede naam server (DNS)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:167

@@ -728,7 +728,8 @@ msgid "First nameserver"
 msgstr "Hoved navneserver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-msgid "Secod nameserver"
+#, fuzzy
+msgid "Second nameserver"
 msgstr "Sekundær navneserver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:167

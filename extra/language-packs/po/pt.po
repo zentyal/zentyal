@@ -733,7 +733,8 @@ msgid "First nameserver"
 msgstr "Servidor de nomes principal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-msgid "Secod nameserver"
+#, fuzzy
+msgid "Second nameserver"
 msgstr "Servidor de nomes segundário"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:167

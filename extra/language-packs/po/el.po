@@ -704,7 +704,8 @@ msgid "First nameserver"
 msgstr "Κύριος διακομιστής ονομάτων"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-msgid "Secod nameserver"
+#, fuzzy
+msgid "Second nameserver"
 msgstr "Δευτερεύων διακομιστής ονoμάτων"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:167
