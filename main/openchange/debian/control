@@ -9,12 +9,12 @@ Package: zentyal-openchange
 Architecture: all
 Pre-Depends: zentyal-core
 Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2),
-         zentyal-samba, zentyal-mail,
+         zentyal-samba (> 4.1.4), zentyal-mail,
          zentyal-ca, zentyal-dns,
          openchangeserver (>= 3:2.3-zentyal7),
          openchange-rpcproxy, libstring-random-perl,
          openchange-ocsmanager (>> 3:2.3-zentyal1),
-         apache2, zip, sogo-openchange (>= 2.2.5-zentyal1~20140618-1~108),
+         apache2, zip, sogo-openchange (> 2.2.17a-zentyal4),
          ${misc:Depends}
 Breaks: dovecot-openchange-plugin (= 0.1)
 Description: Zentyal - OpenChange Server
