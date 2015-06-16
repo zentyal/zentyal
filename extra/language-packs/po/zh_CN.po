@@ -140,6 +140,8 @@ msgstr "客户端 {name}"
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
+#: ../../main/openchange/src/templates/openchange_group.mas:14
+#: ../../main/openchange/src/templates/openchange_group.mas:15
 msgid "Enabled"
 msgstr "已启用"
 
@@ -155,6 +157,8 @@ msgstr "已启用"
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
+#: ../../main/openchange/src/templates/openchange_group.mas:14
+#: ../../main/openchange/src/templates/openchange_group.mas:15
 #: ../../main/samba/src/templates/edituser.mas:279
 msgid "Disabled"
 msgstr "禁用"
@@ -925,9 +929,9 @@ msgstr "OpenVPN 守护进程"
 #: ../../main/dhcp/src/EBox/DHCP.pm:979
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:787
-#: ../../main/samba/src/EBox/Samba.pm:3217
-#: ../../main/samba/src/EBox/Samba.pm:3237
-#: ../../main/samba/src/EBox/Samba.pm:3248
+#: ../../main/samba/src/EBox/Samba.pm:3218
+#: ../../main/samba/src/EBox/Samba.pm:3238
+#: ../../main/samba/src/EBox/Samba.pm:3249
 #: ../../main/mail/src/EBox/Mail.pm:1679
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
@@ -952,7 +956,7 @@ msgstr "事件"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3242
+#: ../../main/samba/src/EBox/Samba.pm:3243
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1071,7 +1075,7 @@ msgstr "主机名"
 
 #: ../../main/dns/src/EBox/DNS.pm:1694
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2633
+#: ../../main/samba/src/EBox/Samba.pm:2634
 msgid "alias"
 msgstr "别名"
 
@@ -1159,7 +1163,7 @@ msgstr "启用透明 DNS 缓存"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:1938
+#: ../../main/samba/src/EBox/Samba.pm:1939
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
@@ -1403,7 +1407,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1932
+#: ../../main/samba/src/EBox/Samba.pm:1933
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "域"
@@ -1576,9 +1580,9 @@ msgstr "如果允许客人访问，任何访问控制都会被禁用。"
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3219
-#: ../../main/samba/src/EBox/Samba.pm:3239
-#: ../../main/samba/src/EBox/Samba.pm:3250
+#: ../../main/samba/src/EBox/Samba.pm:3220
+#: ../../main/samba/src/EBox/Samba.pm:3240
+#: ../../main/samba/src/EBox/Samba.pm:3251
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2004,7 +2008,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3220
+#: ../../main/samba/src/EBox/Samba.pm:3221
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -5317,6 +5321,7 @@ msgstr "启用服务崩溃 bug 报告"
 #: ../../main/core/src/templates/dataInUse.mas:33
 #: ../../main/core/src/templates/dataInUse.mas:38
 #: ../../main/openchange/src/templates/openchange.mas:24
+#: ../../main/openchange/src/templates/openchange_group.mas:24
 #: ../../main/samba/src/templates/editgroup.mas:38
 #: ../../main/samba/src/templates/samba.mas:29
 #: ../../main/samba/src/templates/edituser.mas:69
@@ -5991,10 +5996,12 @@ msgid "user"
 msgstr "用户"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeUserOptions.pm:57
+#: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeGroupOptions.pm:57
 msgid "OpenChange account enabled"
 msgstr "OpenChange 帐号已启用"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeUserOptions.pm:61
+#: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeGroupOptions.pm:61
 msgid "OpenChange account disabled"
 msgstr "OpenChange 帐号已禁用"
 
@@ -6039,6 +6046,18 @@ msgstr "AD 的 LDAP 服务器不支持 GSSAPI"
 msgid "Could not bind to AD LDAP server '{server}'. Error was '{error}'"
 msgstr "无法绑定到 AD LDAP 服务器 {server}。错误是：{error}"
 
+#: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeGroupOptions.pm:45
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:110
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:122
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:192
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:204
+#: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:43
+#: ../../main/samba/src/EBox/Samba/Group.pm:225
+#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:42
+#: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:44
+msgid "group"
+msgstr "组"
+
 #: ../../main/openchange/src/EBox/OpenChange/Composite/Disclaimer.pm:46
 #, perl-brace-format
 msgid ""
@@ -6053,16 +6072,28 @@ msgstr "OpenChange"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:58
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:67
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:186
 msgid "OpenChange Account"
 msgstr "OpenChange 账户"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:93
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:86
 #, fuzzy, perl-brace-format
 msgid "Unknown value for {control}: {x}"
 msgstr "未知值 msExchUserAccountControl: {x}"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:160
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:147
 msgid "This user has a openchange account."
+msgstr "该用户已有 openchange 账户"
+
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:189
+msgid ""
+"The OpenChange account is only available to groups in the default 'Groups' "
+"container"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:292
+#, fuzzy
+msgid "This group has a openchange account."
 msgstr "该用户已有 openchange 账户"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:52
@@ -6386,41 +6417,47 @@ msgstr "修改管理员密码"
 msgid "Error provisioning: {error}"
 msgstr "正则表达式错误: {err}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:613
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:638
 #, fuzzy
 msgid "Provision OpenChange"
 msgstr "OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:614
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:639
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:615
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:640
 #, fuzzy
 msgid "Saving changes after provision"
 msgstr "保存模块的变更"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:661
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:686
 #, fuzzy
 msgid "Deprovision OpenChange"
 msgstr "OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:662
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:687
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:663
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:688
 #, fuzzy
 msgid "Saving changes after deprovision"
 msgstr "保存模块的变更"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
+#: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:31
 msgid "Enable OpenChange account"
 msgstr "启用 OpenChange 帐号"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:44
+msgid ""
+"This affects both new users and groups with mail account in a managed mail "
+"domain"
+msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:121
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
@@ -7048,17 +7085,6 @@ msgstr "E-mail"
 msgid "Contact updated"
 msgstr "联系人已更新"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:110
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:122
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:192
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:204
-#: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:43
-#: ../../main/samba/src/EBox/Samba/Group.pm:225
-#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:42
-#: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:44
-msgid "group"
-msgstr "组"
-
 #: ../../main/samba/src/EBox/Samba/CGI/AddGroup.pm:53
 msgid "group name"
 msgstr "组名称"
@@ -7143,7 +7169,7 @@ msgid "OU name"
 msgstr "OU 名"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:1959
+#: ../../main/samba/src/EBox/Samba.pm:1960
 msgid "LDAP Settings"
 msgstr "LDAP 设置"
 
@@ -7153,7 +7179,7 @@ msgid ""
 msgstr "创建新用户帐号时，会用到这些设置。"
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:1955
+#: ../../main/samba/src/EBox/Samba.pm:1956
 msgid "User Template"
 msgstr "用户模板"
 
@@ -7162,7 +7188,7 @@ msgid "Recycle Bin"
 msgstr "回收站"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:1969
+#: ../../main/samba/src/EBox/Samba.pm:1970
 msgid "File Sharing"
 msgstr "文件共享"
 
@@ -7725,7 +7751,7 @@ msgstr ""
 "权限。"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:1945
+#: ../../main/samba/src/EBox/Samba.pm:1946
 msgid "Users and Computers"
 msgstr "用户和计算机"
 
@@ -8209,22 +8235,22 @@ msgstr ""
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr "找到 {count} 个 '{name}' 组（应该只有一个）。"
 
-#: ../../main/samba/src/EBox/Samba.pm:1951
+#: ../../main/samba/src/EBox/Samba.pm:1952
 msgid "Manage"
 msgstr "管理"
 
-#: ../../main/samba/src/EBox/Samba.pm:1963
+#: ../../main/samba/src/EBox/Samba.pm:1964
 msgid "Configure mode"
 msgstr "配置模式"
 
-#: ../../main/samba/src/EBox/Samba.pm:2101
+#: ../../main/samba/src/EBox/Samba.pm:2102
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2117
+#: ../../main/samba/src/EBox/Samba.pm:2118
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -8233,7 +8259,7 @@ msgstr ""
 "无法恢复，因为 LDAP 用户 {user} 已经存在于  /etc/passwd。请删除（或改名）后重"
 "试。"
 
-#: ../../main/samba/src/EBox/Samba.pm:2134
+#: ../../main/samba/src/EBox/Samba.pm:2135
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8241,104 +8267,104 @@ msgid ""
 "{ex}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2144
+#: ../../main/samba/src/EBox/Samba.pm:2145
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr "只有服务器是林的唯一域控制器情况下才可能恢复"
 
-#: ../../main/samba/src/EBox/Samba.pm:2408
+#: ../../main/samba/src/EBox/Samba.pm:2409
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr "一旦 Zentyal 被配置为附加域控制器， 主机名和域将不能被改变。"
 
-#: ../../main/samba/src/EBox/Samba.pm:2501
+#: ../../main/samba/src/EBox/Samba.pm:2502
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "文件系统共享"
 
-#: ../../main/samba/src/EBox/Samba.pm:2644
+#: ../../main/samba/src/EBox/Samba.pm:2645
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "地址 {ip} 已经用于接口 {iface}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3218
-#: ../../main/samba/src/EBox/Samba.pm:3238
-#: ../../main/samba/src/EBox/Samba.pm:3249
+#: ../../main/samba/src/EBox/Samba.pm:3219
+#: ../../main/samba/src/EBox/Samba.pm:3239
+#: ../../main/samba/src/EBox/Samba.pm:3250
 msgid "Client address"
 msgstr "客户端地址"
 
-#: ../../main/samba/src/EBox/Samba.pm:3221
+#: ../../main/samba/src/EBox/Samba.pm:3222
 msgid "Resource"
 msgstr "资源"
 
-#: ../../main/samba/src/EBox/Samba.pm:3225
+#: ../../main/samba/src/EBox/Samba.pm:3226
 msgid "Connect"
 msgstr "连接"
 
-#: ../../main/samba/src/EBox/Samba.pm:3226
+#: ../../main/samba/src/EBox/Samba.pm:3227
 msgid "Access to directory"
 msgstr "访问文件夹"
 
-#: ../../main/samba/src/EBox/Samba.pm:3227
+#: ../../main/samba/src/EBox/Samba.pm:3228
 msgid "Read file"
 msgstr "读文件"
 
-#: ../../main/samba/src/EBox/Samba.pm:3228
+#: ../../main/samba/src/EBox/Samba.pm:3229
 msgid "Write file"
 msgstr "写文件"
 
-#: ../../main/samba/src/EBox/Samba.pm:3229
+#: ../../main/samba/src/EBox/Samba.pm:3230
 msgid "Disconnect"
 msgstr "断开"
 
-#: ../../main/samba/src/EBox/Samba.pm:3230
+#: ../../main/samba/src/EBox/Samba.pm:3231
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "删除"
 
-#: ../../main/samba/src/EBox/Samba.pm:3231
+#: ../../main/samba/src/EBox/Samba.pm:3232
 msgid "Create directory"
 msgstr "建立文件夹"
 
-#: ../../main/samba/src/EBox/Samba.pm:3232
+#: ../../main/samba/src/EBox/Samba.pm:3233
 msgid "Remove directory"
 msgstr "移除文件夹"
 
-#: ../../main/samba/src/EBox/Samba.pm:3233
+#: ../../main/samba/src/EBox/Samba.pm:3234
 msgid "Rename"
 msgstr "重命名"
 
-#: ../../main/samba/src/EBox/Samba.pm:3240
-#: ../../main/samba/src/EBox/Samba.pm:3251
+#: ../../main/samba/src/EBox/Samba.pm:3241
+#: ../../main/samba/src/EBox/Samba.pm:3252
 msgid "File name"
 msgstr "文件名"
 
-#: ../../main/samba/src/EBox/Samba.pm:3241
-#: ../../main/samba/src/EBox/Samba.pm:3245
+#: ../../main/samba/src/EBox/Samba.pm:3242
+#: ../../main/samba/src/EBox/Samba.pm:3246
 msgid "Virus"
 msgstr "病毒"
 
-#: ../../main/samba/src/EBox/Samba.pm:3252
+#: ../../main/samba/src/EBox/Samba.pm:3253
 msgid "Quarantined file name"
 msgstr "已隔离文件名"
 
-#: ../../main/samba/src/EBox/Samba.pm:3253
-#: ../../main/samba/src/EBox/Samba.pm:3256
+#: ../../main/samba/src/EBox/Samba.pm:3254
+#: ../../main/samba/src/EBox/Samba.pm:3257
 msgid "Quarantine"
 msgstr "隔离"
 
-#: ../../main/samba/src/EBox/Samba.pm:3259
+#: ../../main/samba/src/EBox/Samba.pm:3260
 msgid "Samba access"
 msgstr "Samba 权限"
 
-#: ../../main/samba/src/EBox/Samba.pm:3270
+#: ../../main/samba/src/EBox/Samba.pm:3271
 msgid "Samba virus"
 msgstr "Samba 病毒"
 
-#: ../../main/samba/src/EBox/Samba.pm:3281
+#: ../../main/samba/src/EBox/Samba.pm:3282
 msgid "Samba quarantine"
 msgstr "Samba 隔离"
 
@@ -10998,13 +11024,14 @@ msgid "Configure module: {module}"
 msgstr "配置模块: {module}"
 
 #: ../../main/openchange/src/templates/openchange.mas:12
+#: ../../main/openchange/src/templates/openchange_group.mas:12
 msgid "Account status"
 msgstr "帐号状态"
 
 #: ../../main/openchange/src/templates/openchange.mas:27
-#, perl-brace-format
-msgid "{oc} account could not enabled until the user has an email account"
-msgstr ""
+#, fuzzy, perl-brace-format
+msgid "{oc} account could not be enabled until the user has an email account"
+msgstr "组别名无法创建，因为该名称已被用作邮件账户"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:7
 msgid "Migration finished!"
@@ -11226,6 +11253,11 @@ msgstr "丢弃邮箱"
 #: ../../main/openchange/src/templates/migration/progress.mas:58
 msgid "activate mailbox"
 msgstr "激活邮箱"
+
+#: ../../main/openchange/src/templates/openchange_group.mas:27
+#, perl-brace-format
+msgid "{oc} account could not be enabled until the group has an email account"
+msgstr ""
 
 #: ../../main/openchange/src/templates/wizard/provision.mas:8
 #, fuzzy
@@ -15751,10 +15783,6 @@ msgstr "下来设置只有在邮件模块被启用后才能生效"
 
 #~ msgid "RAID"
 #~ msgstr "RAID"
-
-#, fuzzy
-#~ msgid "Group aliases cannot be created because no user has mail account"
-#~ msgstr "组别名无法创建，因为该名称已被用作邮件账户"
 
 #~ msgid "IPS Alerts report"
 #~ msgstr "IPS报警报告"

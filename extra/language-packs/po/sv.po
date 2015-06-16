@@ -155,6 +155,8 @@ msgstr "Klient {name}"
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
+#: ../../main/openchange/src/templates/openchange_group.mas:14
+#: ../../main/openchange/src/templates/openchange_group.mas:15
 msgid "Enabled"
 msgstr "Aktiverad"
 
@@ -170,6 +172,8 @@ msgstr "Aktiverad"
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
+#: ../../main/openchange/src/templates/openchange_group.mas:14
+#: ../../main/openchange/src/templates/openchange_group.mas:15
 #: ../../main/samba/src/templates/edituser.mas:279
 msgid "Disabled"
 msgstr "Inaktiverad"
@@ -991,9 +995,9 @@ msgstr "OpenVPN demoner"
 #: ../../main/dhcp/src/EBox/DHCP.pm:979
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:787
-#: ../../main/samba/src/EBox/Samba.pm:3217
-#: ../../main/samba/src/EBox/Samba.pm:3237
-#: ../../main/samba/src/EBox/Samba.pm:3248
+#: ../../main/samba/src/EBox/Samba.pm:3218
+#: ../../main/samba/src/EBox/Samba.pm:3238
+#: ../../main/samba/src/EBox/Samba.pm:3249
 #: ../../main/mail/src/EBox/Mail.pm:1679
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
@@ -1018,7 +1022,7 @@ msgstr "Händelse"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3242
+#: ../../main/samba/src/EBox/Samba.pm:3243
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1141,7 +1145,7 @@ msgstr "Värdnamn"
 
 #: ../../main/dns/src/EBox/DNS.pm:1694
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2633
+#: ../../main/samba/src/EBox/Samba.pm:2634
 msgid "alias"
 msgstr "alias"
 
@@ -1229,7 +1233,7 @@ msgstr "Aktivera transparent DNS cache"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:1938
+#: ../../main/samba/src/EBox/Samba.pm:1939
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
@@ -1484,7 +1488,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1932
+#: ../../main/samba/src/EBox/Samba.pm:1933
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "Domän"
@@ -1669,9 +1673,9 @@ msgstr "All åtkomst är tillåten om gäståtkomst är aktiverad."
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3219
-#: ../../main/samba/src/EBox/Samba.pm:3239
-#: ../../main/samba/src/EBox/Samba.pm:3250
+#: ../../main/samba/src/EBox/Samba.pm:3220
+#: ../../main/samba/src/EBox/Samba.pm:3240
+#: ../../main/samba/src/EBox/Samba.pm:3251
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2122,7 +2126,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3220
+#: ../../main/samba/src/EBox/Samba.pm:3221
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -5659,6 +5663,7 @@ msgstr "Aktivera FTP SSL-stöd för autentiserade användare."
 #: ../../main/core/src/templates/dataInUse.mas:33
 #: ../../main/core/src/templates/dataInUse.mas:38
 #: ../../main/openchange/src/templates/openchange.mas:24
+#: ../../main/openchange/src/templates/openchange_group.mas:24
 #: ../../main/samba/src/templates/editgroup.mas:38
 #: ../../main/samba/src/templates/samba.mas:29
 #: ../../main/samba/src/templates/edituser.mas:69
@@ -6396,11 +6401,13 @@ msgid "user"
 msgstr "användare"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeUserOptions.pm:57
+#: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeGroupOptions.pm:57
 #, fuzzy
 msgid "OpenChange account enabled"
 msgstr "Jabber-konto"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeUserOptions.pm:61
+#: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeGroupOptions.pm:61
 #, fuzzy
 msgid "OpenChange account disabled"
 msgstr "Jabber-konto"
@@ -6452,6 +6459,18 @@ msgstr ""
 msgid "Could not bind to AD LDAP server '{server}'. Error was '{error}'"
 msgstr ""
 
+#: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeGroupOptions.pm:45
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:110
+#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:122
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:192
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:204
+#: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:43
+#: ../../main/samba/src/EBox/Samba/Group.pm:225
+#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:42
+#: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:44
+msgid "group"
+msgstr "grupp"
+
 #: ../../main/openchange/src/EBox/OpenChange/Composite/Disclaimer.pm:46
 #, perl-brace-format
 msgid ""
@@ -6487,18 +6506,30 @@ msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:58
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:67
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:186
 #, fuzzy
 msgid "OpenChange Account"
 msgstr "Fildelningskonto"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:93
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:86
 #, perl-brace-format
 msgid "Unknown value for {control}: {x}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:160
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:147
 #, fuzzy
 msgid "This user has a openchange account."
+msgstr "Denna användare har ett mailkonto"
+
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:189
+msgid ""
+"The OpenChange account is only available to groups in the default 'Groups' "
+"container"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:292
+#, fuzzy
+msgid "This group has a openchange account."
 msgstr "Denna användare har ett mailkonto"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:52
@@ -6830,7 +6861,7 @@ msgstr "Byt lösenord"
 msgid "Error provisioning: {error}"
 msgstr "Felaktigt reguljärt uttryck"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:613
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:638
 #, fuzzy
 msgid "Provision OpenChange"
 msgstr ""
@@ -6855,18 +6886,18 @@ msgstr ""
 "#-#-#-#-#  sv.po (ebox-jabber 0.12)  #-#-#-#-#\n"
 "Ändra"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:614
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:639
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:615
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:640
 #, fuzzy
 msgid "Saving changes after provision"
 msgstr "Sparar ändringar i moduler"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:661
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:686
 #, fuzzy
 msgid "Deprovision OpenChange"
 msgstr ""
@@ -6891,21 +6922,27 @@ msgstr ""
 "#-#-#-#-#  sv.po (ebox-jabber 0.12)  #-#-#-#-#\n"
 "Ändra"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:662
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:687
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:663
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:688
 #, fuzzy
 msgid "Saving changes after deprovision"
 msgstr "Sparar ändringar i moduler"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
+#: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:31
 #, fuzzy
 msgid "Enable OpenChange account"
 msgstr "Fildelningskonto"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:44
+msgid ""
+"This affects both new users and groups with mail account in a managed mail "
+"domain"
+msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:121
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
@@ -7577,17 +7614,6 @@ msgstr ""
 msgid "Contact updated"
 msgstr "Ta bort grupp"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:110
-#: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:122
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:192
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:204
-#: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:43
-#: ../../main/samba/src/EBox/Samba/Group.pm:225
-#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:42
-#: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:44
-msgid "group"
-msgstr "grupp"
-
 #: ../../main/samba/src/EBox/Samba/CGI/AddGroup.pm:53
 msgid "group name"
 msgstr "gruppnamn"
@@ -7682,7 +7708,7 @@ msgid "OU name"
 msgstr "Användarnamn"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:1959
+#: ../../main/samba/src/EBox/Samba.pm:1960
 msgid "LDAP Settings"
 msgstr "LDAP inställningar"
 
@@ -7693,7 +7719,7 @@ msgstr ""
 "Dessa konfigurationsalternativ används när ett nytt användarkonto skapas."
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:1955
+#: ../../main/samba/src/EBox/Samba.pm:1956
 #, fuzzy
 msgid "User Template"
 msgstr "Användarnamn"
@@ -7703,7 +7729,7 @@ msgid "Recycle Bin"
 msgstr "Papperskorg"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:1969
+#: ../../main/samba/src/EBox/Samba.pm:1970
 msgid "File Sharing"
 msgstr "Fildelning"
 
@@ -8260,7 +8286,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:1945
+#: ../../main/samba/src/EBox/Samba.pm:1946
 #, fuzzy
 msgid "Users and Computers"
 msgstr "Användare i grupp"
@@ -8765,31 +8791,31 @@ msgstr ""
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1951
+#: ../../main/samba/src/EBox/Samba.pm:1952
 #, fuzzy
 msgid "Manage"
 msgstr "Endast läsbar"
 
-#: ../../main/samba/src/EBox/Samba.pm:1963
+#: ../../main/samba/src/EBox/Samba.pm:1964
 #, fuzzy
 msgid "Configure mode"
 msgstr "Konfigurerade"
 
-#: ../../main/samba/src/EBox/Samba.pm:2101
+#: ../../main/samba/src/EBox/Samba.pm:2102
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2117
+#: ../../main/samba/src/EBox/Samba.pm:2118
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2134
+#: ../../main/samba/src/EBox/Samba.pm:2135
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8797,104 +8823,104 @@ msgid ""
 "{ex}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2144
+#: ../../main/samba/src/EBox/Samba.pm:2145
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2408
+#: ../../main/samba/src/EBox/Samba.pm:2409
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2501
+#: ../../main/samba/src/EBox/Samba.pm:2502
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Fyllnadsgrad i filsystemet"
 
-#: ../../main/samba/src/EBox/Samba.pm:2644
+#: ../../main/samba/src/EBox/Samba.pm:2645
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "Porten {port} används redan av modulen {mod}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3218
-#: ../../main/samba/src/EBox/Samba.pm:3238
-#: ../../main/samba/src/EBox/Samba.pm:3249
+#: ../../main/samba/src/EBox/Samba.pm:3219
+#: ../../main/samba/src/EBox/Samba.pm:3239
+#: ../../main/samba/src/EBox/Samba.pm:3250
 msgid "Client address"
 msgstr "Klient adress"
 
-#: ../../main/samba/src/EBox/Samba.pm:3221
+#: ../../main/samba/src/EBox/Samba.pm:3222
 msgid "Resource"
 msgstr "Resurs"
 
-#: ../../main/samba/src/EBox/Samba.pm:3225
+#: ../../main/samba/src/EBox/Samba.pm:3226
 msgid "Connect"
 msgstr "Ansluta"
 
-#: ../../main/samba/src/EBox/Samba.pm:3226
+#: ../../main/samba/src/EBox/Samba.pm:3227
 msgid "Access to directory"
 msgstr "Access till katalog"
 
-#: ../../main/samba/src/EBox/Samba.pm:3227
+#: ../../main/samba/src/EBox/Samba.pm:3228
 msgid "Read file"
 msgstr "Läsa fil"
 
-#: ../../main/samba/src/EBox/Samba.pm:3228
+#: ../../main/samba/src/EBox/Samba.pm:3229
 msgid "Write file"
 msgstr "Skriva fil"
 
-#: ../../main/samba/src/EBox/Samba.pm:3229
+#: ../../main/samba/src/EBox/Samba.pm:3230
 msgid "Disconnect"
 msgstr "Koppla bort"
 
-#: ../../main/samba/src/EBox/Samba.pm:3230
+#: ../../main/samba/src/EBox/Samba.pm:3231
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../../main/samba/src/EBox/Samba.pm:3231
+#: ../../main/samba/src/EBox/Samba.pm:3232
 msgid "Create directory"
 msgstr "Skapa katalog"
 
-#: ../../main/samba/src/EBox/Samba.pm:3232
+#: ../../main/samba/src/EBox/Samba.pm:3233
 msgid "Remove directory"
 msgstr "Ta bort katalog"
 
-#: ../../main/samba/src/EBox/Samba.pm:3233
+#: ../../main/samba/src/EBox/Samba.pm:3234
 msgid "Rename"
 msgstr "Döpa om"
 
-#: ../../main/samba/src/EBox/Samba.pm:3240
-#: ../../main/samba/src/EBox/Samba.pm:3251
+#: ../../main/samba/src/EBox/Samba.pm:3241
+#: ../../main/samba/src/EBox/Samba.pm:3252
 msgid "File name"
 msgstr "Filnamn"
 
-#: ../../main/samba/src/EBox/Samba.pm:3241
-#: ../../main/samba/src/EBox/Samba.pm:3245
+#: ../../main/samba/src/EBox/Samba.pm:3242
+#: ../../main/samba/src/EBox/Samba.pm:3246
 msgid "Virus"
 msgstr "Virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:3252
+#: ../../main/samba/src/EBox/Samba.pm:3253
 msgid "Quarantined file name"
 msgstr "Fil i karantän"
 
-#: ../../main/samba/src/EBox/Samba.pm:3253
-#: ../../main/samba/src/EBox/Samba.pm:3256
+#: ../../main/samba/src/EBox/Samba.pm:3254
+#: ../../main/samba/src/EBox/Samba.pm:3257
 msgid "Quarantine"
 msgstr "Karantän"
 
-#: ../../main/samba/src/EBox/Samba.pm:3259
+#: ../../main/samba/src/EBox/Samba.pm:3260
 msgid "Samba access"
 msgstr "Tillgång till Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3270
+#: ../../main/samba/src/EBox/Samba.pm:3271
 msgid "Samba virus"
 msgstr "Samba virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:3281
+#: ../../main/samba/src/EBox/Samba.pm:3282
 msgid "Samba quarantine"
 msgstr "Samba karantän"
 
@@ -11725,13 +11751,14 @@ msgid "Configure module: {module}"
 msgstr "Konfigurera modul: {module}"
 
 #: ../../main/openchange/src/templates/openchange.mas:12
+#: ../../main/openchange/src/templates/openchange_group.mas:12
 #, fuzzy
 msgid "Account status"
 msgstr "Kontonamn"
 
 #: ../../main/openchange/src/templates/openchange.mas:27
 #, perl-brace-format
-msgid "{oc} account could not enabled until the user has an email account"
+msgid "{oc} account could not be enabled until the user has an email account"
 msgstr ""
 
 #: ../../main/openchange/src/templates/migration/finish.mas:7
@@ -11986,6 +12013,11 @@ msgstr ""
 
 #: ../../main/openchange/src/templates/migration/progress.mas:58
 msgid "activate mailbox"
+msgstr ""
+
+#: ../../main/openchange/src/templates/openchange_group.mas:27
+#, perl-brace-format
+msgid "{oc} account could not be enabled until the group has an email account"
 msgstr ""
 
 #: ../../main/openchange/src/templates/wizard/provision.mas:8
