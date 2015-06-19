@@ -75,12 +75,14 @@ my %i18nLevels = ( '-1' => __('Unknown'),
                    '6'  => __('Professional'),
                    '7'  => __('Business'),
                    '8'  => __('Trial'),
+                   '9'  => __('Commercial'),
                    '10' => __('Enterprise'),
                    '20' => __('Premium'));
 my %codenameLevels = ( 'basic'        => SUBSCRIPTION_LEVEL_COMMUNITY,
                        'professional' => 6,
                        'business'     => 7,
                        'trial'        => 8,
+                       'commercial'   => 9,
                        'premium'      => 20 );
 
 
@@ -154,6 +156,7 @@ sub aroundRestoreConfig
 #          6 - professional
 #          7 - business
 #          8 - trial
+#          9 - commercial
 #          20 - premium
 #
 sub subscriptionLevel
@@ -796,6 +799,7 @@ sub i18nServerEdition
 #         business
 #         enterprise
 #         trial
+#         commercial
 #
 sub subscriptionCodename
 {
