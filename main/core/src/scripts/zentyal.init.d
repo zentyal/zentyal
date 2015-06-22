@@ -5,7 +5,7 @@
 # Required-Stop:     $network
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Zentyal (Small Business Server)
+# Short-Description: Zentyal Server
 ### END INIT INFO
 
 use strict;
