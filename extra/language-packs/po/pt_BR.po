@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2015-06-07 22:50+0200\n"
-"Last-Translator: euhudson <euhudson@gmail.com>\n"
+"PO-Revision-Date: 2015-06-22 16:59+0200\n"
+"Last-Translator: Guaracy <tome.guaracy@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -6451,17 +6451,16 @@ msgid "This user has a openchange account."
 msgstr "Este usuário tem uma conta openchange."
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:189
-#, fuzzy
 msgid ""
 "The OpenChange account is only available to groups in the default 'Groups' "
 "container"
 msgstr ""
-"Este addon se aplica somente a usuários no recipiente 'Usuários' padrão"
+"A conta OpenChange está disponível apenas para os grupos definidos como "
+"padrão no conjunto de grupos. "
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:292
-#, fuzzy
 msgid "This group has a openchange account."
-msgstr "Este usuário tem uma conta openchange."
+msgstr "Este grupo têm uma conta OpenChange."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:52
 msgid "CA name"
@@ -6836,13 +6835,12 @@ msgid "Enable OpenChange account"
 msgstr "Habilitar conta OpenChange"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:44
-#, fuzzy
 msgid ""
 "This affects both new users and groups with mail account in a managed mail "
 "domain"
 msgstr ""
-"Esse usuário tem uma conta de e-mail que não pertence a nenhum domínio de e-"
-"mail gerenciado"
+"Isto se aplica tanto aos novos usuários como os novos grupos com conta de "
+"e-mail em um domínio de e-mail gerenciado."
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:121
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
@@ -11664,11 +11662,11 @@ msgid "Account status"
 msgstr "Status da conta"
 
 #: ../../main/openchange/src/templates/openchange.mas:27
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oc} account could not be enabled until the user has an email account"
 msgstr ""
-"{oc} conta não pôde ser habilitada até que o usuário tenha uma conta de e-"
-"mail"
+"{oc} A conta não pode ser habilitada até que o usuário tenha uma conta de "
+"e-mail"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:7
 msgid "Migration finished!"
@@ -11902,11 +11900,11 @@ msgid "activate mailbox"
 msgstr "ativar caixa de e-mail"
 
 #: ../../main/openchange/src/templates/openchange_group.mas:27
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oc} account could not be enabled until the group has an email account"
 msgstr ""
-"{oc} conta não pôde ser habilitada até que o usuário tenha uma conta de e-"
-"mail"
+"{oc} A conta não pode ser habilitada até que o grupo tenha uma conta de "
+"e-mail"
 
 #: ../../main/openchange/src/templates/wizard/provision.mas:8
 msgid "Set up OpenChange Mail services"
