@@ -6839,8 +6839,8 @@ msgid ""
 "This affects both new users and groups with mail account in a managed mail "
 "domain"
 msgstr ""
-"Isto se aplica tanto aos novos usuários como os novos grupos com conta de "
-"e-mail em um domínio de e-mail gerenciado."
+"Isto se aplica tanto aos novos usuários como os novos grupos com conta de e-"
+"mail em um domínio de e-mail gerenciado."
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:121
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
@@ -11665,8 +11665,8 @@ msgstr "Status da conta"
 #, perl-brace-format
 msgid "{oc} account could not be enabled until the user has an email account"
 msgstr ""
-"{oc} A conta não pode ser habilitada até que o usuário tenha uma conta de "
-"e-mail"
+"{oc} A conta não pode ser habilitada até que o usuário tenha uma conta de e-"
+"mail"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:7
 msgid "Migration finished!"
@@ -11903,8 +11903,8 @@ msgstr "ativar caixa de e-mail"
 #, perl-brace-format
 msgid "{oc} account could not be enabled until the group has an email account"
 msgstr ""
-"{oc} A conta não pode ser habilitada até que o grupo tenha uma conta de "
-"e-mail"
+"{oc} A conta não pode ser habilitada até que o grupo tenha uma conta de e-"
+"mail"
 
 #: ../../main/openchange/src/templates/wizard/provision.mas:8
 msgid "Set up OpenChange Mail services"
