@@ -166,7 +166,7 @@ msgstr "Activer"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
 #: ../../main/core/src/EBox/SysInfo.pm:480
-#: ../../main/core/src/EBox/RemoteServices.pm:1306
+#: ../../main/core/src/EBox/RemoteServices.pm:1310
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
 #: ../../main/core/src/templates/enable.mas:19
@@ -2927,8 +2927,8 @@ msgid "Notify of non-spam problematic messages"
 msgstr "Avertir en cas de messages problématiques non-spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
-#: ../../main/core/src/EBox/RemoteServices.pm:505
-#: ../../main/core/src/EBox/RemoteServices.pm:546
+#: ../../main/core/src/EBox/RemoteServices.pm:508
+#: ../../main/core/src/EBox/RemoteServices.pm:549
 msgid "mail address"
 msgstr "adresse de courrier"
 
@@ -3297,8 +3297,8 @@ msgstr "Le port {port} est déjà utilisé par le module {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:268
 #: ../../main/core/src/EBox/RemoteServices.pm:72
-#: ../../main/core/src/EBox/RemoteServices.pm:780
-#: ../../main/core/src/EBox/RemoteServices.pm:1319
+#: ../../main/core/src/EBox/RemoteServices.pm:783
+#: ../../main/core/src/EBox/RemoteServices.pm:1323
 #: ../../main/core/src/EBox/Backup.pm:460
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
 msgid "Unknown"
@@ -4045,7 +4045,7 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:388
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:421
 #: ../../main/core/src/EBox/CGI/Search.pm:48
-#: ../../main/core/src/EBox/RemoteServices.pm:1306
+#: ../../main/core/src/EBox/RemoteServices.pm:1310
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
 msgstr "Aucun"
@@ -4479,7 +4479,7 @@ msgstr "La page n'a pas pu être trouvée"
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:194
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:36
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:176
-#: ../../main/core/src/EBox/RemoteServices.pm:1355
+#: ../../main/core/src/EBox/RemoteServices.pm:1359
 msgid "Configuration backup"
 msgstr "Configuration des sauvegardes"
 
@@ -5089,7 +5089,7 @@ msgstr ""
 "Statut des modules"
 
 #: ../../main/core/src/EBox/SysInfo.pm:105
-#: ../../main/core/src/EBox/RemoteServices.pm:1214
+#: ../../main/core/src/EBox/RemoteServices.pm:1218
 msgid "System"
 msgstr "Système"
 
@@ -5520,9 +5520,9 @@ msgstr ""
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:121
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
-"In production environments we recommend using the Professional, Business or "
-"Premium Editions: commercial Zentyal Server editions fully supported by "
-"Zentyal S.L. and Canonical/Ubuntu."
+"In production environments we recommend using the Commercial Edition: "
+"commercial Zentyal Server editions fully supported by Zentyal S.L. and "
+"Canonical/Ubuntu."
 msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:126
@@ -6048,6 +6048,11 @@ msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices.pm:78
 #, fuzzy
+msgid "Commercial"
+msgstr "Options communes"
+
+#: ../../main/core/src/EBox/RemoteServices.pm:79
+#, fuzzy
 msgid "Enterprise"
 msgstr ""
 "#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
@@ -6055,99 +6060,99 @@ msgstr ""
 "#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
 "Se connecter"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:79
-#: ../../main/core/src/EBox/RemoteServices.pm:1324
+#: ../../main/core/src/EBox/RemoteServices.pm:80
+#: ../../main/core/src/EBox/RemoteServices.pm:1328
 msgid "Premium"
 msgstr "Premium"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:104
+#: ../../main/core/src/EBox/RemoteServices.pm:106
 #, fuzzy
 msgid "Zentyal Remote Client"
 msgstr "Client de Zentyal Cloud"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1012
+#: ../../main/core/src/EBox/RemoteServices.pm:1016
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1219
+#: ../../main/core/src/EBox/RemoteServices.pm:1223
 #, fuzzy
 msgid "Server Edition"
 msgstr "Création du serveur"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1236
+#: ../../main/core/src/EBox/RemoteServices.pm:1240
 msgid "Not subscribed"
 msgstr "Non souscrit"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1238
+#: ../../main/core/src/EBox/RemoteServices.pm:1242
 msgid "Subscribed"
 msgstr "Souscrit"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1288
+#: ../../main/core/src/EBox/RemoteServices.pm:1292
 #, fuzzy
 msgid "Server Information"
 msgstr "Information générale"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1308
+#: ../../main/core/src/EBox/RemoteServices.pm:1312
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "Désactivé - {oh}Activer{ch}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1321
+#: ../../main/core/src/EBox/RemoteServices.pm:1325
 #, fuzzy
 msgid "Standard 2 days"
 msgstr "Standard"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1322
+#: ../../main/core/src/EBox/RemoteServices.pm:1326
 #, fuzzy
 msgid "Standard 1 day"
 msgstr "Standard"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1323
+#: ../../main/core/src/EBox/RemoteServices.pm:1327
 #, fuzzy
 msgid "Standard 4 hours"
 msgstr "Standard"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1327
+#: ../../main/core/src/EBox/RemoteServices.pm:1331
 msgid "Configuration backup enabled"
 msgstr "Sauvegarde des configurations activées"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1332
+#: ../../main/core/src/EBox/RemoteServices.pm:1336
 #: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:155
 msgid "none"
 msgstr "aucun"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1335
+#: ../../main/core/src/EBox/RemoteServices.pm:1339
 msgid "unknown"
 msgstr "Inconnu"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1337
+#: ../../main/core/src/EBox/RemoteServices.pm:1341
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "- Dernière sauvegarde des configurations : {date}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1339
+#: ../../main/core/src/EBox/RemoteServices.pm:1343
 #, perl-brace-format
 msgid "{oh}Register to store your backups in the cloud{ch}"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1344
+#: ../../main/core/src/EBox/RemoteServices.pm:1348
 #: ../../main/core/src/templates/remoteservices/index.mas:35
 #: ../../main/core/src/templates/remoteservices/index.mas:83
 msgid "Server name"
 msgstr "Nom du serveur"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1346
+#: ../../main/core/src/EBox/RemoteServices.pm:1350
 #: ../../main/core/src/templates/remoteservices/index.mas:84
 #, fuzzy
 msgid "Server edition"
 msgstr "Création du serveur"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1349
+#: ../../main/core/src/EBox/RemoteServices.pm:1353
 msgid "Technical support"
 msgstr "Support technique"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1352
+#: ../../main/core/src/EBox/RemoteServices.pm:1356
 #, fuzzy
 msgid "Registered e-mail"
 msgstr "Destination"
@@ -12313,9 +12318,9 @@ msgstr "Autorité de certification"
 #, perl-brace-format
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
-"In production environments we recommend using the {oh}Professional, Business "
-"or Premium Editions{ch}: commercial Zentyal server editions fully supported "
-"by Zentyal S.L. and Canonical/Ubuntu."
+"In production environments we recommend using the {oh}Commercial "
+"Edition{ch}: commercial Zentyal server editions fully supported by Zentyal S."
+"L. and Canonical/Ubuntu."
 msgstr ""
 
 #: ../../main/software/src/templates/welcome.mas:9

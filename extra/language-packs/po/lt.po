@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -166,7 +166,7 @@ msgstr "Įjungta"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
 #: ../../main/core/src/EBox/SysInfo.pm:480
-#: ../../main/core/src/EBox/RemoteServices.pm:1306
+#: ../../main/core/src/EBox/RemoteServices.pm:1310
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
 #: ../../main/core/src/templates/enable.mas:19
@@ -2856,8 +2856,8 @@ msgid "Notify of non-spam problematic messages"
 msgstr "Pranešti apie non-spam probleminius pranešimus"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
-#: ../../main/core/src/EBox/RemoteServices.pm:505
-#: ../../main/core/src/EBox/RemoteServices.pm:546
+#: ../../main/core/src/EBox/RemoteServices.pm:508
+#: ../../main/core/src/EBox/RemoteServices.pm:549
 msgid "mail address"
 msgstr "pašto adresas"
 
@@ -3215,8 +3215,8 @@ msgstr "Vartai '{name} ' panaudoti {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:268
 #: ../../main/core/src/EBox/RemoteServices.pm:72
-#: ../../main/core/src/EBox/RemoteServices.pm:780
-#: ../../main/core/src/EBox/RemoteServices.pm:1319
+#: ../../main/core/src/EBox/RemoteServices.pm:783
+#: ../../main/core/src/EBox/RemoteServices.pm:1323
 #: ../../main/core/src/EBox/Backup.pm:460
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
 msgid "Unknown"
@@ -3925,7 +3925,7 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:388
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:421
 #: ../../main/core/src/EBox/CGI/Search.pm:48
-#: ../../main/core/src/EBox/RemoteServices.pm:1306
+#: ../../main/core/src/EBox/RemoteServices.pm:1310
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
 msgstr "Nėra"
@@ -4341,7 +4341,7 @@ msgstr "Vartotojas nerastas"
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:194
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:36
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:176
-#: ../../main/core/src/EBox/RemoteServices.pm:1355
+#: ../../main/core/src/EBox/RemoteServices.pm:1359
 msgid "Configuration backup"
 msgstr "Nustatymai atsarginės kopijos"
 
@@ -4897,7 +4897,7 @@ msgid "Module Status"
 msgstr "Modulio būsena"
 
 #: ../../main/core/src/EBox/SysInfo.pm:105
-#: ../../main/core/src/EBox/RemoteServices.pm:1214
+#: ../../main/core/src/EBox/RemoteServices.pm:1218
 msgid "System"
 msgstr "Sistema"
 
@@ -5298,9 +5298,9 @@ msgstr ""
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:121
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
-"In production environments we recommend using the Professional, Business or "
-"Premium Editions: commercial Zentyal Server editions fully supported by "
-"Zentyal S.L. and Canonical/Ubuntu."
+"In production environments we recommend using the Commercial Edition: "
+"commercial Zentyal Server editions fully supported by Zentyal S.L. and "
+"Canonical/Ubuntu."
 msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:126
@@ -5802,101 +5802,106 @@ msgid "Trial"
 msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices.pm:78
+#, fuzzy
+msgid "Commercial"
+msgstr "Pagrindinės parinktys"
+
+#: ../../main/core/src/EBox/RemoteServices.pm:79
 msgid "Enterprise"
 msgstr "Enterprise"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:79
-#: ../../main/core/src/EBox/RemoteServices.pm:1324
+#: ../../main/core/src/EBox/RemoteServices.pm:80
+#: ../../main/core/src/EBox/RemoteServices.pm:1328
 msgid "Premium"
 msgstr "Premium"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:104
+#: ../../main/core/src/EBox/RemoteServices.pm:106
 #, fuzzy
 msgid "Zentyal Remote Client"
 msgstr "Zentyal Debesies klientas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1012
+#: ../../main/core/src/EBox/RemoteServices.pm:1016
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1219
+#: ../../main/core/src/EBox/RemoteServices.pm:1223
 #, fuzzy
 msgid "Server Edition"
 msgstr "Serverio versija"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1236
+#: ../../main/core/src/EBox/RemoteServices.pm:1240
 msgid "Not subscribed"
 msgstr "Neužprenumeruota"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1238
+#: ../../main/core/src/EBox/RemoteServices.pm:1242
 msgid "Subscribed"
 msgstr "Užprenumeruota"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1288
+#: ../../main/core/src/EBox/RemoteServices.pm:1292
 #, fuzzy
 msgid "Server Information"
 msgstr "Bendra informacija"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1308
+#: ../../main/core/src/EBox/RemoteServices.pm:1312
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "Išjungta - {oh}Įjungti{ch}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1321
+#: ../../main/core/src/EBox/RemoteServices.pm:1325
 #, fuzzy
 msgid "Standard 2 days"
 msgstr "Standartas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1322
+#: ../../main/core/src/EBox/RemoteServices.pm:1326
 #, fuzzy
 msgid "Standard 1 day"
 msgstr "Standartas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1323
+#: ../../main/core/src/EBox/RemoteServices.pm:1327
 #, fuzzy
 msgid "Standard 4 hours"
 msgstr "Standartas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1327
+#: ../../main/core/src/EBox/RemoteServices.pm:1331
 msgid "Configuration backup enabled"
 msgstr "Nustatymai atsarginės kopijos įjungti"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1332
+#: ../../main/core/src/EBox/RemoteServices.pm:1336
 #: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:155
 msgid "none"
 msgstr "nėra"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1335
+#: ../../main/core/src/EBox/RemoteServices.pm:1339
 msgid "unknown"
 msgstr "nežinomas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1337
+#: ../../main/core/src/EBox/RemoteServices.pm:1341
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "- Paskutinė konf kopija: {date}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1339
+#: ../../main/core/src/EBox/RemoteServices.pm:1343
 #, perl-brace-format
 msgid "{oh}Register to store your backups in the cloud{ch}"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1344
+#: ../../main/core/src/EBox/RemoteServices.pm:1348
 #: ../../main/core/src/templates/remoteservices/index.mas:35
 #: ../../main/core/src/templates/remoteservices/index.mas:83
 msgid "Server name"
 msgstr "Serverio vardas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1346
+#: ../../main/core/src/EBox/RemoteServices.pm:1350
 #: ../../main/core/src/templates/remoteservices/index.mas:84
 msgid "Server edition"
 msgstr "Serverio versija"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1349
+#: ../../main/core/src/EBox/RemoteServices.pm:1353
 msgid "Technical support"
 msgstr "Techninė pagalba"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1352
+#: ../../main/core/src/EBox/RemoteServices.pm:1356
 #, fuzzy
 msgid "Registered e-mail"
 msgstr "paskirtis"
@@ -11757,9 +11762,9 @@ msgstr "Sertifikatų Autorizatoriai"
 #, perl-brace-format
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
-"In production environments we recommend using the {oh}Professional, Business "
-"or Premium Editions{ch}: commercial Zentyal server editions fully supported "
-"by Zentyal S.L. and Canonical/Ubuntu."
+"In production environments we recommend using the {oh}Commercial "
+"Edition{ch}: commercial Zentyal server editions fully supported by Zentyal S."
+"L. and Canonical/Ubuntu."
 msgstr ""
 
 #: ../../main/software/src/templates/welcome.mas:9

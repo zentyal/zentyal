@@ -165,7 +165,7 @@ msgstr "aktiviert"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
 #: ../../main/core/src/EBox/SysInfo.pm:480
-#: ../../main/core/src/EBox/RemoteServices.pm:1306
+#: ../../main/core/src/EBox/RemoteServices.pm:1310
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
 #: ../../main/core/src/templates/enable.mas:19
@@ -2945,8 +2945,8 @@ msgid "Notify of non-spam problematic messages"
 msgstr "Benachrichtigen bei problematischen Nicht-Spam-Nachrichten"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
-#: ../../main/core/src/EBox/RemoteServices.pm:505
-#: ../../main/core/src/EBox/RemoteServices.pm:546
+#: ../../main/core/src/EBox/RemoteServices.pm:508
+#: ../../main/core/src/EBox/RemoteServices.pm:549
 msgid "mail address"
 msgstr "e-mail-adresse"
 
@@ -3320,8 +3320,8 @@ msgstr "Der Namensserver '{port}' wird bereits vom Modul {mod} verwendet"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:268
 #: ../../main/core/src/EBox/RemoteServices.pm:72
-#: ../../main/core/src/EBox/RemoteServices.pm:780
-#: ../../main/core/src/EBox/RemoteServices.pm:1319
+#: ../../main/core/src/EBox/RemoteServices.pm:783
+#: ../../main/core/src/EBox/RemoteServices.pm:1323
 #: ../../main/core/src/EBox/Backup.pm:460
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
 msgid "Unknown"
@@ -4064,7 +4064,7 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:388
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:421
 #: ../../main/core/src/EBox/CGI/Search.pm:48
-#: ../../main/core/src/EBox/RemoteServices.pm:1306
+#: ../../main/core/src/EBox/RemoteServices.pm:1310
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
 msgstr "Keine"
@@ -4492,7 +4492,7 @@ msgstr "Der Server wurde nicht gefunden"
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:194
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:36
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:176
-#: ../../main/core/src/EBox/RemoteServices.pm:1355
+#: ../../main/core/src/EBox/RemoteServices.pm:1359
 msgid "Configuration backup"
 msgstr "Sichern der Konfiguration"
 
@@ -5060,7 +5060,7 @@ msgid "Module Status"
 msgstr "Status des Moduls"
 
 #: ../../main/core/src/EBox/SysInfo.pm:105
-#: ../../main/core/src/EBox/RemoteServices.pm:1214
+#: ../../main/core/src/EBox/RemoteServices.pm:1218
 msgid "System"
 msgstr "System"
 
@@ -5477,11 +5477,12 @@ msgid "Moreover, some upgraded packages require a reboot to take effect"
 msgstr "Einige aktualisierte Pakete erfordern einen Neustart um wirksam werden"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:121
+#, fuzzy
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
-"In production environments we recommend using the Professional, Business or "
-"Premium Editions: commercial Zentyal Server editions fully supported by "
-"Zentyal S.L. and Canonical/Ubuntu."
+"In production environments we recommend using the Commercial Edition: "
+"commercial Zentyal Server editions fully supported by Zentyal S.L. and "
+"Canonical/Ubuntu."
 msgstr ""
 "Achtung: Dies sind ungetestete Community Updates, die Ihr System beschädigen "
 "könnten. In Produktionsumgebungen empfehlen wir die Verwendung der "
@@ -6010,96 +6011,101 @@ msgid "Trial"
 msgstr "Test"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:78
+#, fuzzy
+msgid "Commercial"
+msgstr "Gemeinsame Optionen"
+
+#: ../../main/core/src/EBox/RemoteServices.pm:79
 msgid "Enterprise"
 msgstr "Unternehmen"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:79
-#: ../../main/core/src/EBox/RemoteServices.pm:1324
+#: ../../main/core/src/EBox/RemoteServices.pm:80
+#: ../../main/core/src/EBox/RemoteServices.pm:1328
 msgid "Premium"
 msgstr "Premium"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:104
+#: ../../main/core/src/EBox/RemoteServices.pm:106
 msgid "Zentyal Remote Client"
 msgstr "Zentyal Fernzugriffs-Client"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1012
+#: ../../main/core/src/EBox/RemoteServices.pm:1016
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr "Dies ist ein Zentyal Server {edition} Ausgabe."
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1219
+#: ../../main/core/src/EBox/RemoteServices.pm:1223
 msgid "Server Edition"
 msgstr "Server Ausgabe"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1236
+#: ../../main/core/src/EBox/RemoteServices.pm:1240
 msgid "Not subscribed"
 msgstr "Nicht abonniert"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1238
+#: ../../main/core/src/EBox/RemoteServices.pm:1242
 msgid "Subscribed"
 msgstr "Abonniert"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1288
+#: ../../main/core/src/EBox/RemoteServices.pm:1292
 msgid "Server Information"
 msgstr "Server Information"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1308
+#: ../../main/core/src/EBox/RemoteServices.pm:1312
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "Deaktiviert - {oh}Aktivieren{ch}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1321
+#: ../../main/core/src/EBox/RemoteServices.pm:1325
 msgid "Standard 2 days"
 msgstr "Standard 2 Tage"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1322
+#: ../../main/core/src/EBox/RemoteServices.pm:1326
 msgid "Standard 1 day"
 msgstr "Standard 1 Tag"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1323
+#: ../../main/core/src/EBox/RemoteServices.pm:1327
 msgid "Standard 4 hours"
 msgstr "Standard 4 Stunden"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1327
+#: ../../main/core/src/EBox/RemoteServices.pm:1331
 msgid "Configuration backup enabled"
 msgstr "Sichern der Konfiguration aktiviert"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1332
+#: ../../main/core/src/EBox/RemoteServices.pm:1336
 #: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:155
 msgid "none"
 msgstr "keiner"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1335
+#: ../../main/core/src/EBox/RemoteServices.pm:1339
 msgid "unknown"
 msgstr "unbekannt"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1337
+#: ../../main/core/src/EBox/RemoteServices.pm:1341
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "- letzte Sicherung der Konfiguration: {date}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1339
+#: ../../main/core/src/EBox/RemoteServices.pm:1343
 #, perl-brace-format
 msgid "{oh}Register to store your backups in the cloud{ch}"
 msgstr ""
 "{oh}Registrieren Sie sich um Ihre Backups in der Cloud{ch} zu speichern"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1344
+#: ../../main/core/src/EBox/RemoteServices.pm:1348
 #: ../../main/core/src/templates/remoteservices/index.mas:35
 #: ../../main/core/src/templates/remoteservices/index.mas:83
 msgid "Server name"
 msgstr "Servername"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1346
+#: ../../main/core/src/EBox/RemoteServices.pm:1350
 #: ../../main/core/src/templates/remoteservices/index.mas:84
 msgid "Server edition"
 msgstr "Serverausgabe"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1349
+#: ../../main/core/src/EBox/RemoteServices.pm:1353
 msgid "Technical support"
 msgstr "Technische Unterstützung"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1352
+#: ../../main/core/src/EBox/RemoteServices.pm:1356
 msgid "Registered e-mail"
 msgstr "Registrierte E-Mail"
 
@@ -12083,12 +12089,12 @@ msgid "Certification Authority details"
 msgstr "Details der Zertifizierungsstelle"
 
 #: ../../main/software/src/templates/updateNote.mas:14
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
-"In production environments we recommend using the {oh}Professional, Business "
-"or Premium Editions{ch}: commercial Zentyal server editions fully supported "
-"by Zentyal S.L. and Canonical/Ubuntu."
+"In production environments we recommend using the {oh}Commercial "
+"Edition{ch}: commercial Zentyal server editions fully supported by Zentyal S."
+"L. and Canonical/Ubuntu."
 msgstr ""
 "Warnung: Das sind ungetestete Community Updates, welche Ihr System "
 "beschädigen können. In Produktionsumgebungen empfehlen wir die Nutzung von "
