@@ -171,7 +171,7 @@ sub _checkParent
                                            );
 
     my $baseDN    = $class->_ldap->dn();
-    my @forbidden = qw(cn=Users cn=Groups cn=Computers);
+    my @forbidden = qw(cn=Users ou=Users cn=Groups ou=Groups cn=Computers ou=Computers);
     foreach my $ouPortion (@forbidden) {
         my $dn = $ouPortion . ',' . $baseDN;
         if ($parentDN eq $dn) {
