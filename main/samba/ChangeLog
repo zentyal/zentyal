@@ -1,4 +1,5 @@
 HEAD
+	+ Corrected name for default containers
 	+ Added EBox::LdapUserBase::objectInDefaultContainer
 	+ Added debug options to stub (commented)
 4.1.4
