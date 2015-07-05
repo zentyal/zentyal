@@ -1,4 +1,6 @@
 HEAD
+	+ Added provision_ignore_already_exists configuration key to skip
+	  existent elements on provision
 	+ Now groups can be provisioned for OpenChange
 4.1.2
 	+ Configuration for openchange notifications with dovecot plugin
