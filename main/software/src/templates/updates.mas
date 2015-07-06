@@ -9,7 +9,8 @@
 use EBox::Gettext;
 </%init>
 <div class="item-block">
-<script  type="text/javascript">
+<script type="text/javascript" src="/data/js/common.js"></script>
+<script type="text/javascript">
 "use strict";
 function doUpdates(title) {
     var url, data;
@@ -25,7 +26,8 @@ function doUpdates(title) {
        }
        data += '&popup=1';
 
-      Zentyal.Dialog.showURL(url, {
+       data = Zentyal.escapeHTTPQuery(data);
+       Zentyal.Dialog.showURL(url, {
                          'title': title,
                          'data': data,
                          'close': function() { window.location.reload();  }

@@ -1,3 +1,5 @@
+HEAD
+	+ Escape parameters in calls to install/upgrade/remove packages CGIs
 4.1
 	+ Update installation slides
 	+ Make EBox::Software::listUpgradablePkgs recover form file corruption

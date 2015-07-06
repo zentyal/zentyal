@@ -96,6 +96,8 @@ Zentyal.SoftwareManagementUI._sendFormPackagesList = function(action, packages, 
          data += '&' +  packages[i] + '=yes';
      }
      data += '&popup=' + popup;
+     data = Zentyal.escapeHTTPQuery(data);
+
      if (popup) {
          Zentyal.Dialog.showURL(url, {'title': title, 'data': data});
      } else {
