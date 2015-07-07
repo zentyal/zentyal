@@ -457,12 +457,12 @@ msgid ""
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
 "{openpar}Zde můžete nastavit OpenVPN servery, prostřednictvím kterých se pak "
-"snadno připojí pobočky a uživatelé mimo "
-"kancelář.{closepar}{openpar}Klikněte na{openit}Nastavení{closeit} a nastavte "
-"parametry VPN.{closepar}{openpar}{openit}Propagované sítě {closeit} jsou "
-"ty, které chcete zpřístupnit uživatelům na dálku.{openpar}Až budete s "
-"nastavováním hotovi, stáhněte si balíčky s nastavením pro konkrétní operační "
-"systémy strojů, používaných klienty."
+"snadno připojí pobočky a uživatelé mimo kancelář.{closepar}{openpar}Klikněte "
+"na{openit}Nastavení{closeit} a nastavte parametry VPN.{closepar}{openpar}"
+"{openit}Propagované sítě {closeit} jsou ty, které chcete zpřístupnit "
+"uživatelům na dálku.{openpar}Až budete s nastavováním hotovi, stáhněte si "
+"balíčky s nastavením pro konkrétní operační systémy strojů, používaných "
+"klienty."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:49
@@ -687,7 +687,8 @@ msgstr "Umožnit připojení typu klient-klient"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:111
 msgid "Enable it to allow client machines of this VPN to see each other"
-msgstr "Zapněte pokud chcete, aby se na této VPN stroje klientů navzájem viděly"
+msgstr ""
+"Zapněte pokud chcete, aby se na této VPN stroje klientů navzájem viděly"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:116
 msgid "Allow Zentyal-to-Zentyal tunnels"
@@ -901,7 +902,8 @@ msgstr "Pro nastavení ripd kvůli výměně tras se spojeními typu klient-klie
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:142
 msgid "To remove system-wide VPN servers autostart"
-msgstr "Pro odebrání automatického spouštění VPN serveru v rámci celého systému"
+msgstr ""
+"Pro odebrání automatického spouštění VPN serveru v rámci celého systému"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:610
 #, perl-brace-format
@@ -1064,8 +1066,7 @@ msgstr "Spojení s klientem bylo přerušeno"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1527
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr ""
-"Položku insecure_rip_conf je třeba nastavit na hodnotu yes (ano) nebo no "
-"(ne)"
+"Položku insecure_rip_conf je třeba nastavit na hodnotu yes (ano) nebo no (ne)"
 
 #: ../../main/dns/src/EBox/DNS.pm:283 ../../main/dns/src/EBox/DNS.pm:363
 #: ../../main/dns/src/EBox/DNS.pm:391 ../../main/dns/src/EBox/DNS.pm:1663
@@ -1075,7 +1076,8 @@ msgstr "doména"
 
 #: ../../main/dns/src/EBox/DNS.pm:495
 msgid "Zentyal will set the required environment variables for bind9 daemon"
-msgstr "Zentyal nastaví potřebné proměnné prostředí pro systémovou službu bind9"
+msgstr ""
+"Zentyal nastaví potřebné proměnné prostředí pro systémovou službu bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:500
 msgid "main bind9 configuration file"
@@ -1527,8 +1529,8 @@ msgid ""
 "(MX, NS, TXT and SRV)."
 msgstr ""
 "Sem je možné pro tento DNS server přidat domény. Každá doména může mít různé "
-"stroje s alternativními názvy (A a CNAME) a další speciální záznamy (MX, "
-"NS, TXT a SRV)."
+"stroje s alternativními názvy (A a CNAME) a další speciální záznamy (MX, NS, "
+"TXT a SRV)."
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:78
 #, perl-brace-format
@@ -2216,8 +2218,8 @@ msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
-"Parametru Alternativní název subjektu musí mít následující podobu: "
-"typ:hodnota, typ:hodnota"
+"Parametru Alternativní název subjektu musí mít následující podobu: typ:"
+"hodnota, typ:hodnota"
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:191
 msgid "The certificate has been issued."
@@ -2246,8 +2248,8 @@ msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
-"Nejprve je třeba vytvořit certifikační autoritu. Přejděte do "
-"{openhref}Certifikační autorita{closehref} a učiňte tak"
+"Nejprve je třeba vytvořit certifikační autoritu. Přejděte do {openhref}"
+"Certifikační autorita{closehref} a učiňte tak"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:117
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:151
@@ -3547,8 +3549,8 @@ msgid ""
 "make this change."
 msgstr ""
 "Požadovaná operace způsobí, že jedna z nastavených bran nebo statických tras "
-"přestane být dostupná. Pokud tuto změnu opravdu chcete udělat, bude třeba "
-"ji nejprve odebrat."
+"přestane být dostupná. Pokud tuto změnu opravdu chcete udělat, bude třeba ji "
+"nejprve odebrat."
 
 #: ../../main/network/src/EBox/Network.pm:2836
 #, perl-brace-format
@@ -3934,8 +3936,7 @@ msgstr "{gateway} není v této síti"
 msgid ""
 "DNS module must be enabled to be able to select Zentyal as primary DNS server"
 msgstr ""
-"DNS modul musí být zapnut, aby bylo možné udělat ze Zentyal hlavní DNS "
-"server"
+"DNS modul musí být zapnut, aby bylo možné udělat ze Zentyal hlavní DNS server"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:138
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
@@ -4053,8 +4054,8 @@ msgid ""
 "value as \"None\" or leaving blank."
 msgstr ""
 "Pokud je jako výchozí brána nataveno „nastavené“, můžete zvolit jednu z "
-"nastavených bran. Coby Jako \"search domain\" hodnota, může být vybrána jedna "
-"z nastavených DNS domén na Zentyal serveru. Výchozí hodnoty všech polí "
+"nastavených bran. Coby Jako \"search domain\" hodnota, může být vybrána "
+"jedna z nastavených DNS domén na Zentyal serveru. Výchozí hodnoty všech polí "
 "odpovídají hodnotám  \"None\" nebo nevyplněným."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:87
