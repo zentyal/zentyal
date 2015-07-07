@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-06-28 21:19+0200\n"
+"PO-Revision-Date: 2015-07-03 16:32+0200\n"
 "Last-Translator: pavelb <pavel.borecki@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -190,7 +190,7 @@ msgstr "Služba"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:893
 #: ../../main/core/src/EBox/SysInfo.pm:465
 msgid "Running"
-msgstr "Běžící"
+msgstr "Spuštěný"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:893
@@ -272,7 +272,7 @@ msgstr "Nepodporovaný typ klienta: {ct}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:888
 #, perl-brace-format
 msgid "Server {name}"
-msgstr "Server {name}"
+msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:899
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:246
@@ -285,7 +285,7 @@ msgstr "Stránka nenalezena"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:903
 msgid "Local address"
-msgstr "Lokální adresa"
+msgstr "Místní adresa"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:908
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:305
@@ -321,6 +321,10 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
+"{openpar}Sem je možné přidat ty sítě, které chcete zpřístupnit klientům, "
+"připojujícím se k této VPN.{closepar}{openpar}Typicky je zde umožněn přístup "
+"do místní sítě, pomocí propagace její síťové adresy zde.{closepar}{openpar} "
+"Adresy stejné, jako má VPN, budou ignorovány.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -339,7 +343,7 @@ msgstr ""
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:63
 #: ../../main/samba/src/templates/addou.mas:10
 msgid "Name"
-msgstr "Jméno"
+msgstr "Název"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:76
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:66
@@ -347,16 +351,16 @@ msgstr "Jméno"
 #: ../../main/openchange/src/EBox/OpenChange/Composite/Configuration.pm:39
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:139
 msgid "Configuration"
-msgstr "Konfigurace"
+msgstr "Nastavení"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
 msgid "Advertised networks"
-msgstr ""
+msgstr "Propagované sítě"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:94
 msgid "Download client bundle"
-msgstr ""
+msgstr "Stáhnout klientský balíček"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:106
 msgid "List of servers"
@@ -370,7 +374,7 @@ msgstr "VPN servery"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:189
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:57
 msgid "server"
-msgstr "server"
+msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:160
 #, perl-brace-format
@@ -438,6 +442,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"Nelze vytvořit server s názvem {name}, protože již existuje certifikát s "
+"názvem {certName}, ve stavu {state}.<br/>Zvolte jiný název nebo certifikát "
+"{certName} vydejte znovu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -449,6 +456,13 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
+"{openpar}Zde můžete nastavit OpenVPN servery, prostřednictvím kterých se pak "
+"snadno připojí pobočky a uživatelé mimo "
+"kancelář.{closepar}{openpar}Klikněte na{openit}Nastavení{closeit} a nastavte "
+"parametry VPN.{closepar}{openpar}{openit}Propagované sítě {closeit} jsou "
+"ty, které chcete zpřístupnit uživatelům na dálku.{openpar}Až budete s "
+"nastavováním hotovi, stáhněte si balíčky s nastavením pro konkrétní operační "
+"systémy strojů, používaných klienty."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:49
@@ -476,7 +490,7 @@ msgstr "Certifikát klienta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:97
 msgid "Client's private key"
-msgstr "Privátní klíč klienta"
+msgstr "Soukromý klíč klienta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:109
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:95
@@ -602,7 +616,7 @@ msgstr "Neplatný typ klienta: server nepovoluje Zentyal-to-Zentyal tunely"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:220
 msgid ""
 "Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
-msgstr ""
+msgstr "Neplatný typ klienta: tento server je určen pro Zentyal-Zentyal tunely"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
@@ -613,12 +627,16 @@ msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr ""
+"Klientský balíček je soubor, který obsahuje předpřipravená nastavení pro "
+"vaše klienty"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:333
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
+"Nelze vytvořit klientsky balíček, protože server není zcela nastaven; "
+"dokončete nastavení a zkuste to znovu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:343
 #, perl-brace-format
@@ -626,6 +644,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Pro tohoto klienta nejsou k dispozici žádné certifikáty. {ohref} Vytvořte "
+"nějaký {chref}."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -633,7 +653,7 @@ msgstr "VPN adresa"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:71
 msgid "Use a network address which is not used by this machine"
-msgstr ""
+msgstr "Použijte adresu sítě, která není využívána tímto strojem."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:77
 msgid "Server certificate"
@@ -641,7 +661,7 @@ msgstr "Certifikát serveru"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:84
 msgid "Client authorization by common name"
-msgstr ""
+msgstr "Ověřování klientů pomocí atributu „common name“"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:86
 msgid ""
@@ -649,6 +669,9 @@ msgid ""
 "to connect. If enabled, only certificates whose common name begins with the "
 "selected value will be able to connect."
 msgstr ""
+"Je-li vypnuto, bude se schopen připojit jakýkoli klient, který má certifikát "
+"vytvořený v Zentyal. Pokud je zapnuto, bude se možné připojit pouze pomocí "
+"certifikátů, jejichž atribut „common name“ začíná na vybranou hodnotu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:101
 msgid "Network Address Translation"
@@ -656,59 +679,59 @@ msgstr "Překlad síťových adres (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr ""
+msgstr "Zapněte, pokud tento VPN server není výchozí bránou"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
-msgstr ""
+msgstr "Umožnit připojení typu klient-klient"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:111
 msgid "Enable it to allow client machines of this VPN to see each other"
-msgstr ""
+msgstr "Zapněte pokud chcete, aby se na této VPN stroje klientů navzájem viděly"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:116
 msgid "Allow Zentyal-to-Zentyal tunnels"
-msgstr ""
+msgstr "Umožnit vytváření tunelů typu Zentyal-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:119
 msgid "Enable it if this VPN is used to connect to another Zentyal"
 msgstr ""
+"Zapněte v případě, kdy tato VPN slouží k připojení k jinému Zentyal serveru"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:124
 msgid "Zentyal-to-Zentyal tunnel password"
-msgstr ""
+msgstr "Heslo tunelu Zentyal-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Odmítnout trasy, poskytnuté klienty tunelu Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Pokud je zaškrtnuto, tento server nepřevezme žádnou trasu, propagovanou jeho "
+"klientem"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
-msgstr ""
+msgstr "Rozhraní, na kterém očekávat spojení"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
-#, fuzzy
 msgid "Redirect gateway"
-msgstr "Výchozí brána"
+msgstr "Brána přesměrování"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:150
 msgid "Makes Zentyal the default gateway for the client"
-msgstr ""
+msgstr "Učiní ze Zentyal serveru výchozí bránu pro klienta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:154
-#, fuzzy
 msgid "First nameserver"
-msgstr "Primární nameserver"
+msgstr "Hlavní jmenný server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-#, fuzzy
 msgid "Second nameserver"
-msgstr "Sekundární nameserver"
+msgstr "Náhradní jmenný server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:167
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:437
@@ -717,30 +740,29 @@ msgstr "Hledat domény"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:173
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:467
-#, fuzzy
 msgid "WINS server"
-msgstr "Další server"
+msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:183
 msgid "Server configuration"
-msgstr "Konfigurace serveru"
+msgstr "Nastavení serveru"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:297
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
-msgstr ""
+msgstr "Volba tunelu Zentyal-Zentyal vyžaduje RIP heslo"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:323
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The VPN address {addr} is already used by interface {iface}"
-msgstr "Port {port} se již používá v modulu {mod}"
+msgstr "VPN adresa {addr} je již používána rozhraním {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:348
 msgid "Other server is using the same VPN address, please choose another"
-msgstr ""
+msgstr "Adresa VPN je již používána jiným serverem, zvolte jinou"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:378
 msgid "Other server is listening on the same port"
-msgstr ""
+msgstr "Na tomto portu již očekává spojení jiný server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
 #, perl-brace-format
@@ -786,36 +808,39 @@ msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
 msgstr ""
+"Je třeba, aby se jednalo o vnější rozhraní, výjimkou je, když je zapnuta "
+"volba „Překlad adresy sítě“"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:592
 #, perl-brace-format
 msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
-msgstr "{par} není kompatibilní s tunelem Zentyal-to-Zentyal"
+msgstr "{par} není možné použít pro tunel typu Zentyal-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
 msgid "List of advertised networks to tunnel server"
-msgstr ""
+msgstr "Seznam propagovaných sítí pro server tunelu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
 msgstr ""
+"Klientům, připojujícím se přes rozhraní typu TUN není možné nabízet trasy"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
 msgid "Advertised Network"
-msgstr ""
+msgstr "Nabízené sítě"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:58
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:303
 msgid "Enable"
-msgstr "Aktivní"
+msgstr "Zapnout"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:84
 msgid "Upload client bundle"
-msgstr ""
+msgstr "Nahrát klientský balíček"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:104
 msgid "List of Clients"
-msgstr ""
+msgstr "Seznam klientů"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:105
 msgid "VPN Clients"
@@ -826,57 +851,57 @@ msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Klienta nelze aktivovat, protože ještě není plně nastaven; upravte nastavení "
+"a zkuste to znovu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:183
 msgid "RIP password is mandatory"
-msgstr ""
+msgstr "RIP heslo je povinné"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:59
 msgid "Deleted daemons"
-msgstr ""
+msgstr "Smazané systémové služby"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:65
 msgid "daemon"
 msgstr "démon"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:57
-#, fuzzy
 msgid "Upload configuration bundle"
-msgstr "lokální bind9 konfigurační soubor"
+msgstr "Nahrát balíček s nastaveními"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:66
-#, fuzzy
 msgid "Upload client configuration bundle"
-msgstr "lokální bind9 konfigurační soubor"
+msgstr "Nahrát balíček s nastaveními pro klienta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:134
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Upload configuration bundle for {na}"
-msgstr "konfigurační soubor pro zónu {zone}"
+msgstr "Nahrát balíček s nastaveními pro {na}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:73
 msgid "VPN"
-msgstr "VPN"
+msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:118
 msgid "To configure Quagga to run ripd and zebra"
-msgstr ""
+msgstr "Pro nastavení Quagga pro provozování služeb ripd a zebra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:124
 msgid "To configure Quagga to listen on the given interfaces"
-msgstr ""
+msgstr "Pro nastavení Quagga, aby očekávalo spojení na daných rozhraních"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:129
 msgid "Main zebra configuration file"
-msgstr ""
+msgstr "Hlavní soubor s nastaveními pro zebra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:135
 msgid "To configure ripd to exchange routes with client to client connections"
-msgstr ""
+msgstr "Pro nastavení ripd kvůli výměně tras se spojeními typu klient-klient"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:142
 msgid "To remove system-wide VPN servers autostart"
-msgstr ""
+msgstr "Pro odebrání automatického spouštění VPN serveru v rámci celého systému"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:610
 #, perl-brace-format
@@ -884,16 +909,22 @@ msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
 "allowed"
 msgstr ""
+"Neplatný název {name}. Dovolena jsou pouze písmena a čísla, dále ještě znaky "
+"„-“ (rozdělovník), „_“ (podtržítko) a „.“ (tečka)."
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:622
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
 msgstr ""
+"Název {n} není možné použít, protože zde již existuje jiný klient, který ho "
+"používá"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:633
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
 msgstr ""
+"Název {n} není možné použít, protože zde již existuje jiný server, který ho "
+"používá"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:655
 #, perl-brace-format
@@ -901,6 +932,8 @@ msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
 "internal use"
 msgstr ""
+"Neplatný název {name}. Názvy, které začínají na {pf} jsou vyhrazeny pro "
+"vnitřní použití"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:664
 #, perl-brace-format
@@ -908,11 +941,12 @@ msgid ""
 "Invalid name {name}. An internal daemon must have a name which begins with "
 "the prefix {pf}"
 msgstr ""
+"Neplatný název {name}. Je třeba, aby název vnitřní služby začínal na {pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exist"
-msgstr "Mail doména {d} neexistuje"
+msgstr "Klient {c} neexistuje"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1286
 msgid "Servers"
@@ -933,7 +967,7 @@ msgstr "Adresa"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
 msgid "Connected since"
-msgstr ""
+msgstr "Připojeno od"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1341
 msgid "No users connected to the VPN"
@@ -941,7 +975,7 @@ msgstr "Žádní uživatelé nejsou připojeni k síti VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1381
 msgid "OpenVPN daemons"
-msgstr ""
+msgstr "Procesy služby OpenVPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1479
 #: ../../main/printers/src/EBox/Printers.pm:396
@@ -993,43 +1027,45 @@ msgstr "Vzdálená IP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1484
 msgid "Remote Certificate"
-msgstr ""
+msgstr "Certifikát protistrany"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1489
 msgid "Initialization sequence completed"
-msgstr ""
+msgstr "Inicializační sekvence dokončena"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1491
 msgid "Certificate issuer not authorized"
-msgstr ""
+msgstr "Vydavatel certifikátu není pověřen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1492
 msgid "Certificate common name not authorized"
-msgstr ""
+msgstr "Atribut certifikátu common name není pověřen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1493
 msgid "Certificate verification failed"
-msgstr ""
+msgstr "Ověření certifikátu nebylo úspěšné"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1495
 msgid "Client connection initiated"
-msgstr ""
+msgstr "Spojení klienta iniciováno"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1496
 msgid "Client connection terminated"
-msgstr ""
+msgstr "Spojení s klientem přerušeno"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1498
 msgid "Connection to server initiated"
-msgstr ""
+msgstr "Inicializováno spojení se serverem"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1499
 msgid "Server connection terminated"
-msgstr ""
+msgstr "Spojení s klientem bylo přerušeno"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1527
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr ""
+"Položku insecure_rip_conf je třeba nastavit na hodnotu yes (ano) nebo no "
+"(ne)"
 
 #: ../../main/dns/src/EBox/DNS.pm:283 ../../main/dns/src/EBox/DNS.pm:363
 #: ../../main/dns/src/EBox/DNS.pm:391 ../../main/dns/src/EBox/DNS.pm:1663
@@ -1039,7 +1075,7 @@ msgstr "doména"
 
 #: ../../main/dns/src/EBox/DNS.pm:495
 msgid "Zentyal will set the required environment variables for bind9 daemon"
-msgstr ""
+msgstr "Zentyal nastaví potřebné proměnné prostředí pro systémovou službu bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:500
 msgid "main bind9 configuration file"
@@ -1063,14 +1099,12 @@ msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr "Změna oprávnění pro {dir} povolit zapisovat bind skupině"
 
 #: ../../main/dns/src/EBox/DNS.pm:532
-#, fuzzy
 msgid "Let the bind daemon to be dynamically updated"
-msgstr "Nechť se bind démon updatuje dynamicky"
+msgstr "Umožnit dynamickou aktualizaci systémové služby bind"
 
 #: ../../main/dns/src/EBox/DNS.pm:536
-#, fuzzy
 msgid "Remove bind9 init script link"
-msgstr "Odstranit z inicializačního skriptu ntp odkaz"
+msgstr "Odstranit odkaz na inicializační skript bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:537 ../../main/ntp/src/EBox/NTP.pm:82
 msgid "Zentyal will take care of starting and stopping the services."
@@ -1078,25 +1112,24 @@ msgstr "Zentyal se postará o spouštění a zastavování služeb."
 
 #: ../../main/dns/src/EBox/DNS.pm:542
 msgid "Override named apparmor profile"
-msgstr ""
+msgstr "Přebít pojmenovaný apparmor profil"
 
 #: ../../main/dns/src/EBox/DNS.pm:543
 msgid "To allow samba daemon load Active Directory zone"
-msgstr ""
+msgstr "Pro umožnění toho, aby služba samba nahrála zónu Active Directory"
 
 #: ../../main/dns/src/EBox/DNS.pm:568
-#, fuzzy
 msgid "Domain Name Service"
-msgstr "Doménové jméno"
+msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm:946
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "Keys konfigurační soubor"
+msgstr "položka {key} v souboru s nastaveními {value}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1689
 msgid "hostname"
-msgstr ""
+msgstr "název stroje"
 
 #: ../../main/dns/src/EBox/DNS.pm:1694
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
@@ -1105,13 +1138,13 @@ msgid "alias"
 msgstr "alias"
 
 #: ../../main/dns/src/EBox/DNS.pm:1910
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
-msgstr "Tam je hostname se stejným názvem \"{name}\" ve stejné doméně"
+msgstr "Název stroje {x} je již definován v doméně {y}"
 
 #: ../../main/dns/src/EBox/DNS/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
-msgstr ""
+msgstr "Je třeba poskytnout platný název domény neb zástupné vyjádření (*)."
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:77
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
@@ -1179,7 +1212,7 @@ msgstr "IP adresa"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:100
 msgid "The domain name will be resolved to this list of IP addresses."
-msgstr ""
+msgstr "Název domény bude přeložen na tento seznam IP adres."
 
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:75
 msgid "Enable transparent DNS cache"
@@ -1196,31 +1229,35 @@ msgstr "Nastavení"
 
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:88
 msgid "Settings changed"
-msgstr "Nastavení změněno"
+msgstr "Nastavení bylo změněno"
 
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:89
 msgid ""
 "Every DNS query will be redirected to local DNS server if transparent mode "
 "is enabled."
 msgstr ""
+"Je-li zapnutý transparentní režim, bude každý DNS dotaz přesměrován na "
+"místní DNS server."
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:76
 msgid "Forwarder"
-msgstr ""
+msgstr "Přeposílač"
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:85
 msgid "Forwarders"
-msgstr ""
+msgstr "Přeposílače"
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:90
 msgid ""
 "The server will send the queries to the forwarders first, and if not "
 "answered it will attempt to answer the query."
 msgstr ""
+"Server se nejprve dotáže přeposílačů a teprve když zde neuspěje, pokusí se "
+"zodpovědět sám."
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:92
 msgid "forwarder"
-msgstr ""
+msgstr "přeposílač"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:132
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:122
@@ -1242,33 +1279,33 @@ msgstr "Priorita"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:148
 msgid "Lower value is greater priority"
-msgstr ""
+msgstr "Nižší hodnota znamená vyšší prioritu"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:152
 msgid "Weight"
-msgstr ""
+msgstr "Váha"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:157
 msgid ""
 "0 indicates no weighting and a greater value more chances to be selected "
 "with equal priority"
 msgstr ""
+"0 (nula) značí bez váhy a vyšší hodnota znamená větší šanci na výběr v "
+"případě stejné priority"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:163
-#, fuzzy
 msgid "Target port"
-msgstr "Zdrojový port"
+msgstr "Cílový port"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:168
 msgid "Target"
 msgstr "Cíl"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:170
-#, fuzzy
 msgid ""
 "If you select the \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
-"Pokud zvolíte \"Custom\", měl by to být plně kvalifikovaný název domény"
+"Pokud zvolíte Vlastní, měl by to být plně plně specifikovaný název domény"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:176
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:195
@@ -1286,15 +1323,8 @@ msgstr "Tato doména"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
 #: ../../main/mail/src/EBox/Mail.pm:1580
-#, fuzzy
 msgid "Custom"
-msgstr ""
-"#-#-#-#-#  cs.po (ebox-dhcp 1.5)  #-#-#-#-#\n"
-"Uživatelský  \n"
-"#-#-#-#-#  cs.po (ebox-dns 1.5)  #-#-#-#-#\n"
-"Uživatelský\n"
-"#-#-#-#-#  cs.po (ebox-mail 1.4.2)  #-#-#-#-#\n"
-"Uživatelský"
+msgstr "Vlastní"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:193
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:656
@@ -1308,25 +1338,27 @@ msgid ""
 "It manages the SRV records for this domain. They are useful to select a host "
 "based on the priority for a service."
 msgstr ""
+"Spravuje SRV záznamy pro tuto doménu. Ty jsou užitečné pro výběr stroje dle "
+"priority pro službu."
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:202
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{srv} record"
-msgstr "name server záznam"
+msgstr "{srv} záznam"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:291
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
-msgstr "eBox naběhl a beží"
+msgstr "Služba {srv} není uvedena v {file}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:309
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
 msgstr ""
-"Zadaný název hostitele není plně kvalifikovaný název domény (FQDN). Máte na "
-"mysli ns.{name}?"
+"Zadaný název stroje není plně specifikovaný doménový název (FQDN). Máte na "
+"mysli {srv}.{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:321
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:108
@@ -1335,6 +1367,8 @@ msgid ""
 "A custom host name cannot be set from the same domain. Use \"This domain\" "
 "option instead"
 msgstr ""
+"Vlastní název stroje nemůže být nastaven ze stejné domény. Namísto toho "
+"použijte volbu Tato doména."
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:87
 #, perl-brace-format
@@ -1375,6 +1409,9 @@ msgid ""
 "domain, only first match will be used by reverse resolution. Dynamic zones "
 "may erase your manual reverse resolution."
 msgstr ""
+"Jsou prováděna automatické zpětné překlady. Pokud IP adresu použijete i v "
+"jiné doméně, bude použita pouze první shoda při zpětném překladu. Dynamické "
+"zóny mohou smazat vaše ručně zadané zpětné překlady."
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:214
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:79
@@ -1434,6 +1471,10 @@ msgid ""
 "record. Moreover, the same IP addresses have been assigned to this new "
 "domain. You can always rename it or create alias for it."
 msgstr ""
+"Doména byla přidána. Název stroje {nshost} byl přidán pro tuto doménu s "
+"těmito IP adresami {ips}. Tento název stroje byl též přidán jako záznam pro "
+"jmenný server. Krom toho, stejné IP adresy byly přiřazeny této nové doméně. "
+"Vždy ji ale můžete přejmenovat nebo pro ni vytvořit alternativní název."
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:606
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
@@ -1449,9 +1490,8 @@ msgid "Domain"
 msgstr "Doména"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:614
-#, fuzzy
 msgid "Domain IP Addresses"
-msgstr "Místní(local) adresa"
+msgstr "IP adresy domény"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:623
 msgid "Hostnames"
@@ -1473,14 +1513,12 @@ msgstr "{txt} záznamy"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:666
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:219
-#, fuzzy
 msgid "Dynamic domain"
-msgstr "Hledat domény"
+msgstr "Dynamická doména"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:702
-#, fuzzy
 msgid "Domains"
-msgstr "Doména"
+msgstr "Domény"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:711
 msgid ""
@@ -1488,6 +1526,9 @@ msgid ""
 "different hostnames with aliases  (A and CNAME) and other special records "
 "(MX, NS, TXT and SRV)."
 msgstr ""
+"Sem je možné pro tento DNS server přidat domény. Každá doména může mít různé "
+"stroje s alternativními názvy (A a CNAME) a další speciální záznamy (MX, "
+"NS, TXT a SRV)."
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:78
 #, perl-brace-format
@@ -1499,9 +1540,8 @@ msgstr ""
 "mysli ns.{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:170
-#, fuzzy
 msgid "Last name server cannot be removed"
-msgstr "name server záznam"
+msgstr "Alespoň jeden jmenný server zde musí zůstat"
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:242
 msgid "Name servers"
@@ -1516,18 +1556,17 @@ msgid "name server record"
 msgstr "name server záznam"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {name} cannot be longer than {value} characters"
-msgstr "Vstup obsahuje neplatné znaky"
+msgstr "{name} nemůže být delší než {value} znaků"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:144
 msgid "If you select the Domain, then you are choosing the zone"
-msgstr ""
+msgstr "Pokud zvolíte Doména, pak volíte zónu"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:161
-#, fuzzy
 msgid "Custom owner"
-msgstr "Vlastní kvóta"
+msgstr "Vlastní vlastník"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:168
 #, perl-brace-format
@@ -1536,13 +1575,15 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:170
 msgid "Any data could be provided"
-msgstr ""
+msgstr "Měla by být poskytnuta libovolná data"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:184
 msgid ""
 "It manages the TXT records for this domain. They are useful to in SPF or "
 "DKIM antispam protocols"
 msgstr ""
+"Spravuje TXT záznamy pro tuto doménu. Ty jsou užitečné v SPF nebo DKIM "
+"protokolech filtrování nevyžádané pošty"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:185
 #, perl-brace-format
@@ -1574,11 +1615,15 @@ msgid ""
 "This is the list of host name aliases. All of them will be resolved to the "
 "host's IP addresses list."
 msgstr ""
+"Toto je seznam alternativních názvů počítačů. Všechny z nich budou přeloženy "
+"na seznam IP adres strojů."
 
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:83
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP '{ip}' is already assigned to host '{name}' in the same domain"
-msgstr "Tam je hostname se stejným názvem \"{name}\" ve stejné doméně"
+msgstr ""
+"IP adresa {ip} je již přiřazena stroji {name}, nacházejícímu se ve stejné "
+"doméně"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:117
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:132
@@ -1591,7 +1636,7 @@ msgstr "IP"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:138
 msgid "The host name will be resolved to this list of IP addresses."
-msgstr ""
+msgstr "Název stroje bude přeložen na tento seznam IP adres."
 
 #: ../../main/printers/src/EBox/Printers/Composite/General.pm:41
 msgid "Printer Sharing"
@@ -1616,7 +1661,7 @@ msgstr "Tiskárny"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:179
 msgid "Any access control is disabled if guest access is allowed."
-msgstr ""
+msgstr "V případě umožnění přístupu hostům je jakékoli řízen přístupu vypnuto."
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:206
 #: ../../main/printers/src/EBox/Printers.pm:395
@@ -1649,7 +1694,7 @@ msgstr "Oprávnění"
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:230
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:327
 msgid "Access Control"
-msgstr ""
+msgstr "Řízení přístupu"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:237
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:334
@@ -1697,9 +1742,8 @@ msgstr ""
 "nic nevyberete, potom bude naslouchat jen na localhost-u"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:55
-#, fuzzy
 msgid "Printer name"
-msgstr "Tiskárna"
+msgstr "Název tiskárny"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:61
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:201
@@ -1736,37 +1780,34 @@ msgid "Guest access"
 msgstr "Přístup hosta"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:76
-#, fuzzy
 msgid "This printer will not require authentication."
-msgstr "Autorizace"
+msgstr "Tato tiskárna bude k dispozici komukoli."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:80
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:125
 msgid "Access control"
-msgstr ""
+msgstr "Řízení přístupu"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:89
-#, fuzzy
 msgid "Printer permissions"
-msgstr "Velmi shovívavý"
+msgstr "Přístupová práva na tiskárnu"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:94
-#, fuzzy
 msgid "printer"
-msgstr "Tiskárna"
+msgstr "tiskárna"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:96
 msgid "Here you can define the access control list for your printers."
-msgstr ""
+msgstr "Zde je možné zadat seznam pro řízení přístupu k tiskárnám."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:219
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Prior to configure printers ACLs you need to enable the module in the "
 "{openref}Module Status{closeref}  section and save changes after that."
 msgstr ""
-"Před konfigurací tiskárny musíte povolit modul v {openref}Module "
-"Status{closeref} sekci a poté uložit změny."
+"Než budete nastavovat ACL seznamy tiskáren, je třeba zapnout modul v sekci "
+"{openref}Status modulu{closeref} a změny poté uložit."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:252
 #, perl-brace-format
@@ -1790,32 +1831,29 @@ msgid "Create log table"
 msgstr "Vytvoř tabulku záznamů (logů)"
 
 #: ../../main/printers/src/EBox/Printers.pm:69
-#, fuzzy
 msgid ""
 "Zentyal will create a new table into its log database to store printers logs"
 msgstr ""
-"eBox vytvoří novou tabulku v databázi záznamů (logů) pro ukládání záznamů o "
-"činnosti tiskáren"
+"Zentyal vytvoří novou tabulku v databázi záznamů protokolů pro ukládání "
+"záznamů o činnosti tiskáren"
 
 #: ../../main/printers/src/EBox/Printers.pm:74
 #, perl-brace-format
 msgid "Disable {server} upstart job"
-msgstr ""
+msgstr "Vypnout {server} upstart úlohu"
 
 #: ../../main/printers/src/EBox/Printers.pm:75
 #: ../../main/dhcp/src/EBox/DHCP.pm:198
 msgid "Zentyal will take care of start and stop the service"
-msgstr ""
+msgstr "Zentyal se postará o spuštění a zastavení služby"
 
 #: ../../main/printers/src/EBox/Printers.pm:91
-#, fuzzy
 msgid "To configure cupsd"
-msgstr "Tiskárna není nakonfigurovaná"
+msgstr "Na nastavení cupsd"
 
 #: ../../main/printers/src/EBox/Printers.pm:115
-#, fuzzy
 msgid "Network Printers"
-msgstr "Síťové rozhraní VPN"
+msgstr "Síťové tiskárny"
 
 #: ../../main/printers/src/EBox/Printers.pm:116
 msgid "Internet Printing Protocol (CUPS)"
@@ -1876,25 +1914,26 @@ msgid "Country code"
 msgstr "Kód země"
 
 #: ../../main/ca/src/EBox/CA.pm:223
-#, fuzzy
 msgid "The country code must be the 2-characters ISO code"
-msgstr "Heslo musí být alespoň 6 znaků dlouhé"
+msgstr "Kód země má podobu dvouznakového kódu dle normy ISO"
 
 #: ../../main/ca/src/EBox/CA.pm:267 ../../main/ca/src/EBox/CA.pm:758
 #: ../../main/ca/src/EBox/CA.pm:1394
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
-msgstr ""
+msgstr "Nastavení dnů na nejvyšší možnou hodnotu {days}: Chyba roku 2038"
 
 #: ../../main/ca/src/EBox/CA.pm:358
 msgid "The remove operation cannot be finished. Reason: "
-msgstr ""
+msgstr "Operace odebrání nebylo možné dokončit. Důvod: "
 
 #: ../../main/ca/src/EBox/CA.pm:527 ../../main/ca/src/EBox/CA/TestStub.pm:263
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
+"Certifikáty cert. autority byly zneplatněny nebo jejich platnost skončila k "
+"datu před vydáním nového certifikátu"
 
 #: ../../main/ca/src/EBox/CA.pm:736
 #, perl-brace-format
@@ -1903,6 +1942,9 @@ msgid ""
 "domain certificate by OpenChange. You can issue it from the {oh}OpenChange "
 "virtual domains interface.{ch}"
 msgstr ""
+"Nemůžete vydat certifikát s atributem CN {cn}, protože toto CN je vyhrazeno "
+"doménovému certifikátu pro OpenChange. Můžete jej vydat z rozhraní "
+"virtuálních domén {oh}OpenChange.{ch}"
 
 #: ../../main/ca/src/EBox/CA.pm:908 ../../main/ca/src/EBox/CA.pm:1251
 #: ../../main/ca/src/EBox/CA.pm:1321 ../../main/ca/src/EBox/CA.pm:1415
@@ -1925,7 +1967,7 @@ msgstr ""
 #: ../../main/ca/src/EBox/CA.pm:921 ../../main/ca/src/EBox/CA.pm:1262
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
-msgstr ""
+msgstr "Certifikát s atributem common name {cn} NEexistuje"
 
 #: ../../main/ca/src/EBox/CA.pm:925
 #, perl-brace-format
@@ -1933,15 +1975,17 @@ msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
+"Důvod {reason} NENÍ použitelným zdůvodněním.\n"
+"Možnosti:"
 
 #: ../../main/ca/src/EBox/CA.pm:1074
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
-msgstr ""
+msgstr "Infrastruktura cert. autority není k dispozici, nejprve ji vytvořte"
 
 #: ../../main/ca/src/EBox/CA.pm:1171
 msgid "Either common name, distinguished name or serial number has been passed"
-msgstr ""
+msgstr "Buď common name, rozlišený název nebo sériové číslo bylo předáno"
 
 #: ../../main/ca/src/EBox/CA.pm:1416
 msgid "or"
@@ -1949,23 +1993,24 @@ msgstr "nebo"
 
 #: ../../main/ca/src/EBox/CA.pm:1417
 msgid "Certificate file"
-msgstr ""
+msgstr "Soubor s certifikátem"
 
 #: ../../main/ca/src/EBox/CA.pm:1439
 msgid "The certificate to renew does NOT exist"
-msgstr ""
+msgstr "Certifikát, který by měl být obnoven NEexistuje"
 
 #: ../../main/ca/src/EBox/CA.pm:1479
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr ""
+"Certifikát s atributem common name {cn} v této cert. autoritě NEexistuje"
 
 #: ../../main/ca/src/EBox/CA.pm:1760
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/core/src/EBox/SysInfo.pm:110
 #: ../../main/mail/src/EBox/Mail.pm:1616
 msgid "General"
-msgstr "Hlavní"
+msgstr "Obecné"
 
 #: ../../main/ca/src/EBox/CA.pm:1763
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
@@ -1974,7 +2019,7 @@ msgstr "Certifikáty Služeb"
 
 #: ../../main/ca/src/EBox/CA.pm:1876
 msgid "Not created"
-msgstr ""
+msgstr "Nevytvořeno"
 
 #: ../../main/ca/src/EBox/CA.pm:1878
 msgid "Available"
@@ -1985,70 +2030,71 @@ msgid "Created but not available"
 msgstr "Vytvořen, ale není dostupný"
 
 #: ../../main/ca/src/EBox/CA.pm:1906
-#, fuzzy
 msgid "The field cannot contain only blank characters"
-msgstr "Vstup obsahuje neplatné znaky"
+msgstr "Kolonka nemůže obsahovat pouze prázdné znaky (mezera, tabulátor, atp.)"
 
 #: ../../main/ca/src/EBox/CA.pm:1929
-#, fuzzy
 msgid "String"
-msgstr "Filtrování"
+msgstr "Řetězec"
 
 #: ../../main/ca/src/EBox/CA.pm:1934
-#, fuzzy
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"Vstup obsahuje neplatné znaky. Povolené jsou všechny alfanumerické znaky, "
-"tyto znaky: /.?&+:-@ a mezerník."
+"Kolonka obsahuje neplatné znaky. Dovolené jsou písmena a čísla z ASCII "
+"tabulky, plus tyto následující znaky: .?&+:-@* a mezery."
 
 #: ../../main/ca/src/EBox/CA.pm:2454
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
+"Není možné podepsat. Chybné heslo k cert. autoritě nebo zmizel její klíč?"
 
 #: ../../main/ca/src/EBox/CA.pm:2456
 msgid "Database corruption"
-msgstr ""
+msgstr "Poškození databáze"
 
 #: ../../main/ca/src/EBox/CA.pm:2458
 msgid "Identifier duplicated in Database"
-msgstr ""
+msgstr "Identifikátor je v databázi duplicitně"
 
 #: ../../main/ca/src/EBox/CA.pm:2460
 msgid "Certificate already revoked"
-msgstr ""
+msgstr "Platnost certifikátu již byla odvolána"
 
 #: ../../main/ca/src/EBox/CA.pm:2463
 msgid "ASN1 field length too long. Maximum Size:"
-msgstr ""
+msgstr "Kolonka ASN1 je příliš dlouhá. Nejdelší přípustná délka:"
 
 #: ../../main/ca/src/EBox/CA.pm:2465
 msgid "Unknown error. Given the OpenSSL output:"
-msgstr ""
+msgstr "Neznámá chyba: Dle výstupu OpenSSL:"
 
 #: ../../main/ca/src/EBox/CA.pm:2532 ../../main/ca/src/EBox/CA/TestStub.pm:732
 msgid "Expiration date later than CA certificate expiration date"
 msgstr ""
+"Datum skončení platnosti je nastaveno na pozdější, než končí platnost "
+"certifikátu cert. autority"
 
 #: ../../main/ca/src/EBox/CA.pm:2553
 #, perl-brace-format
 msgid "Value for subject alternative of type {type}"
-msgstr ""
+msgstr "Hodnota pro alternativu subjektu typu {type}"
 
 #: ../../main/ca/src/EBox/CA.pm:2570
 msgid "Subject alternative type"
-msgstr ""
+msgstr "Typ alternativy subjektu"
 
 #: ../../main/ca/src/EBox/CA.pm:2572
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
 msgstr ""
+"Platnými typy alternativních názvů subjektu jsou pouze {dns}, {ip} a {email}"
 
 #: ../../main/ca/src/EBox/CA.pm:2616
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
-msgstr ""
+msgstr "Nelze spustit OpenSSL shell. ({errval})"
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:69
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:76
@@ -2057,6 +2103,8 @@ msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
+"Vstup obsahuje neplatné znaky. Dovolena jsou písmena a čísla, plus "
+"následující znaky: .?&+:-@* a mezery."
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:75
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:477
@@ -2082,22 +2130,22 @@ msgstr "Akce"
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:86
 msgid "Only revoke, renew and reissue actions are performed"
-msgstr ""
+msgstr "Prováděny jsou pouze akce zneplatnit, obnovit a vydat znovu"
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:94
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:76
 #, perl-brace-format
 msgid "Common name: {cn} does NOT exist in database"
-msgstr ""
+msgstr "Common name: {cn} NEexistuje v databázi"
 
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:59
 msgid "The certificate has NOT been renewed"
-msgstr ""
+msgstr "Certifikát NEBYL obnoven"
 
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:66
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:76
 msgid "Boolean indicating Certification Authority Certificate"
-msgstr ""
+msgstr "Hodnota ano/ne, značící certifikát cert. autority"
 
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:67
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:72
@@ -2107,67 +2155,69 @@ msgstr ""
 #: ../../main/ca/src/templates/formReissue.mas:13
 #: ../../main/openchange/src/templates/wizard/provision.mas:22
 msgid "Days to expire"
-msgstr "Počet dní do expirace"
+msgstr "Počet dnů do skončení platnosti"
 
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:93
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:144
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:127
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
-msgstr ""
+msgstr "Hodnota dnů do skončení platnosti  ({days}) musí být kladné číslo"
 
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:137
 msgid "The certificate CANNOT be renewed"
-msgstr ""
+msgstr "Tento certifikát NELZE obnovit"
 
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:139
 msgid "The certificate has been renewed"
-msgstr ""
+msgstr "Certifikát byl obnoven"
 
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:140
 msgid "The new CA certificate has been renewed"
-msgstr ""
+msgstr "Certifikát nové cert. autority byl obnoven"
 
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:136
 #, perl-brace-format
 msgid "Error creating archive file for  certificates: {err}"
-msgstr ""
+msgstr "Chyba při vytváření souboru archivu pro certifikáty: {err}"
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:67
 msgid "The certificate has NOT been revoked."
-msgstr ""
+msgstr "Certifikát NEBYL zneplatněn."
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:77
 #: ../../main/ca/src/templates/formRevoke.mas:61
 #: ../../main/core/src/templates/configureView.mas:40
 #: ../../main/core/src/templates/configureView.mas:52
 msgid "Reason"
-msgstr ""
+msgstr "Důvod"
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:143
 msgid "The certificate has been revoked"
-msgstr ""
+msgstr "Certifikát byl zneplatněn"
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:144
 msgid "The CA certificate has been revoked"
-msgstr ""
+msgstr "Certifikát cert. autority byl zneplatněn"
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:126
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:112
 msgid "CA passphrases do NOT match"
-msgstr ""
+msgstr "Heslo cert. autority NEodpovídá"
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:134
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:122
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
-msgstr ""
+msgstr "Heslo cert. autority by mělo být přinejmenším {length} znaků dlouhé"
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:161
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
+"Parametru Alternativní název subjektu musí mít následující podobu: "
+"typ:hodnota, typ:hodnota"
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:191
 msgid "The certificate has been issued."
@@ -2175,20 +2225,20 @@ msgstr "Byl vydán certifikát."
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:192
 msgid "The new CA certificate has been issued."
-msgstr ""
+msgstr "Byl vydán certifikát nové cert. autority."
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:143
 msgid "Problems creating Certification Authority has happened"
-msgstr ""
+msgstr "Došlo k problémům při vytváření cert. autority"
 
 #: ../../main/ca/src/EBox/CA/TestStub.pm:657
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
-msgstr ""
+msgstr "Uživatel {commonName} NEexistuje"
 
 #: ../../main/ca/src/EBox/CA/TestStub.pm:723
 msgid "Days set to the maximum allowed: Year 2038 Bug"
-msgstr ""
+msgstr "Dny nastaveny na možné maximum: Chyba roku 2038"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:89
 #, perl-brace-format
@@ -2196,6 +2246,8 @@ msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
+"Nejprve je třeba vytvořit certifikační autoritu. Přejděte do "
+"{openhref}Certifikační autorita{closehref} a učiňte tak"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:117
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:151
@@ -2205,9 +2257,8 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:238
 #: ../../main/core/src/templates/login/index.mas:15
 #: ../../main/core/src/templates/headerWithRefresh.mas:14
-#, fuzzy
 msgid "Zentyal"
-msgstr "Zentyal - domovská stránka"
+msgstr ""
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:275
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:78
@@ -2223,21 +2274,23 @@ msgstr "Modul"
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:305
 msgid "Generate the certificate using CA with the common name set above"
 msgstr ""
+"Vytvořit certifikát s použitím cert. autority s common name nastaveným výše"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:321
 msgid "certificate"
-msgstr ""
+msgstr "certifikát"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:327
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by Zentyal"
 msgstr ""
+"Zde je možné nastavit certifikáty z této cert. autority pro tyto zabezpečené "
+"služby, spravované serverem Zentyal"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:341
-#, fuzzy
 msgid "This service does not allow to change the certificate common name"
-msgstr "Server {name} nemá přidělen certifikát"
+msgstr "Tato služba neumožňuje u certifikátu změnit atribut common name"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:374
 #, perl-brace-format
@@ -2245,6 +2298,9 @@ msgid ""
 "The CN {cn} is reserved by OpenChange and cannot be generated automatically. "
 "You can issue it from the {oh}OpenChange virtual domains interface.{ch}"
 msgstr ""
+"Tento atribut CN {cn} je vyhrazen pro OpenChange a nelze ho automaticky "
+"vytvořit. Je ale možné jej vytvořit z {oh}rozhraní virtuálních domén "
+"OpenChange.{ch}"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:58
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
@@ -2258,7 +2314,7 @@ msgstr "Stav"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
 msgid "Signatures"
-msgstr "Stav"
+msgstr "Virové definice"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
 msgid "Database Update Status"
@@ -2270,7 +2326,7 @@ msgstr "Status Aktualizace databáze"
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:403
 #: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:59
 msgid "Antivirus"
-msgstr "Antivirus"
+msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:151
 msgid ""
@@ -2291,12 +2347,15 @@ msgid ""
 "The antivirus module is not configured. Enable it first in Module Status "
 "section."
 msgstr ""
+"Modul antivirus není nastaven. Nejprve jej zapněte v sekci Status modulů"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:160
 msgid ""
 "The antivirus module is not enabled. Enable it first to know the antivirus "
 "status."
 msgstr ""
+"Modul antivirus není zapnut. Nejprve jej zapněte a pak se dozvíte o stavu "
+"antiviru."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
 #, perl-brace-format
@@ -2310,6 +2369,8 @@ msgid ""
 "junk? Get one of the {oh}Commercial Editions{ch} that will keep your "
 "Antvirus database always up-to-date."
 msgstr ""
+"Chcete ochránít svůj systém proti bezpečnostním hrozbám? Pořiďte si jedno z "
+"{oh}komerčních vydání{ch}, které zajistí vždy aktuální databázi antiviru."
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:169
 msgid " To configure clamd daemon"
@@ -2322,12 +2383,12 @@ msgstr "Naplánovat spuštění Updater"
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:179
 #, perl-brace-format
 msgid "Custom {app} profile configuration for {bin} binary"
-msgstr ""
+msgstr "Vlastní {app} profil nastavení pro {bin} spustitelný soubor"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:186
 #, perl-brace-format
 msgid "Disable {app} profile for {bin} binary"
-msgstr ""
+msgstr "Nepoužívat {app} profil pro {bin} spustitelný soubor"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:433
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
@@ -2338,9 +2399,8 @@ msgid "Source"
 msgstr "Zdroj"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
-#, fuzzy
 msgid "Success"
-msgstr "Přístup hosta"
+msgstr "Úspěch"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:438
 msgid "Failure"
@@ -2396,6 +2456,8 @@ msgid ""
 "Mail server has a custom filter set, unset it before enabling Zentyal Mail "
 "Filter module"
 msgstr ""
+"Poštovní server má svou sadu filtrů, vypněte ji před zapnutím modulu "
+"filtrování e-mailů v Zentyal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:309
 msgid "Cannot proceed because the filter is in use"
@@ -2459,7 +2521,7 @@ msgstr "SMTP poštovní filtr"
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:40
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:41
 msgid "Antispam"
-msgstr "Antispam"
+msgstr "Filtr nevyžádané pošty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:543
 msgid "Files ACL"
@@ -2470,7 +2532,7 @@ msgstr "Soubory ACL"
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:47
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:50
 msgid "domain name"
-msgstr "jméno domény"
+msgstr "název domény"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AmavisSender.pm:80
 msgid "email address"
@@ -2517,7 +2579,7 @@ msgstr "Pass"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:29
 msgid "Notify sender server"
-msgstr "sekundární server"
+msgstr "Upozornit server odesilatele"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:30
 msgid "Notify mail sender account"
@@ -2567,11 +2629,10 @@ msgid "The spam's threshold cannot be higher than its autolearn threshold"
 msgstr "spam práh nemůže být vyšší než jeho Autolearn práh"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:342
-#, fuzzy
 msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
-msgstr "spam práh nemůže být vyšší než jeho Autolearn práh"
+msgstr "spam práh nemůže být nižší nebo stejný než jeho práh samoučení ham"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:379
 msgid ""
@@ -2579,27 +2640,29 @@ msgid ""
 "configuration. In order to be able to learn enable the bayesian filter and "
 "save changes"
 msgstr ""
+"Nelze pokračovat v učení, protože v současném nastavení je vypnut bayesian "
+"filtr. Pokud se má v učení pokračovat, zapněte tento filtr a uložte změny"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:392
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
-msgstr ""
-"Tyto uživatelé jsou pro e-mailové účty používané pro výcvik bayesovský filtrů"
+msgstr "Účty pro doménu {d} nemohou trénovat bayesian filtr"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:39
 msgid "External connections"
 msgstr "Externí připojení"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
-#, fuzzy
 msgid "Attached Files Filter"
-msgstr "Filtr pošty"
+msgstr "Filtr příloh"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:41
 msgid ""
 "Filter mail messages according attached files. The transparent POP proxy "
 "only filters by extension"
 msgstr ""
+"Filtrovat zprávy dle přiložených souborů. Transparentní POP proxy filtruje "
+"pouze dle přípon souborů"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:80
 msgid "Use virus filtering"
@@ -2607,39 +2670,37 @@ msgstr "Použít filtrování virů"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:86
 msgid "Use spam filtering"
-msgstr "Použít filtrování spamu"
+msgstr "Odfiltrovávat nevyžádanou poštu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:99
 msgid "default"
 msgstr "výchozí"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
-#, fuzzy
 msgid "custom threshold"
-msgstr "Limit spamu"
+msgstr "vlastní práh"
 
 # zásada/zásady ?
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:150
-#, fuzzy
 msgid "Antispam sender policy"
-msgstr "zásada odesílatele"
+msgstr "zásada odesilatele pro filtr nevyžádané pošty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:161
 msgid "Virtual Domains specific policies"
-msgstr "Virtuální aliasy domén"
+msgstr "Zásady, specifické virtuálním doménám"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:167
 msgid "virtual domain policy"
 msgstr "virtuální doménový alias"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:183
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
-"Nejsou žádné síťové objekty v systému. Můžete je vytvořit v {openurl}"
-"Objektová stránka{closeurl}"
+"Tento server doposud nespravuje žádné virtuální e-mailové domény. Vytvořit "
+"je můžete na {openA}stránce e-mail virtuálních domén{closeA}."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:62
 msgid "The score threshold to mark a message as spam"
@@ -2671,12 +2732,11 @@ msgstr "Samoučení"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:89
 msgid "Feedback the learning system with messages that reach the threshold"
-msgstr ""
+msgstr "Dávat systému učení zpětnou vazbu, když dosáhne prahu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:94
-#, fuzzy
 msgid "Autolearn spam threshold"
-msgstr "Limit spamu"
+msgstr "Samoučit práh nevyžádané pošty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:98
 msgid ""
@@ -2687,45 +2747,43 @@ msgstr ""
 "learning systému"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:102
-#, fuzzy
 msgid "Autolearn ham threshold"
-msgstr "Limit spamu"
+msgstr "Samoučit práh ham"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
-#, fuzzy
 msgid ""
 "Ham messages with a score below this threshold will be added to the learning "
 "system"
 msgstr ""
-"Spamy které mají skóre rovný nebo vyšší než je tento práh budou přidány do "
-"learning systému"
+"Ham správy, které mají hodnocení pod tento práh budou přidány do učícího "
+"systému"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:111
 msgid "Antispam configuration"
-msgstr "Antispam konfigurace"
+msgstr "Nastavení filtru nevyžádané pošty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:155
 msgid ""
 "You must define autolearn spam threshold when autolearn option is active"
 msgstr ""
+"Pokud je zapnut volba samoučit, je třeba určit práh samoučení nevyžádané "
+"pošty."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:161
 msgid "You must define autolearn ham threshold when autolearn option is active"
-msgstr ""
+msgstr "Pokud je zapnuta volba samoučit, je třeba určit práh samoučení ham."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:167
-#, fuzzy
 msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
-msgstr "spam práh nemůže být vyšší než jeho Autolearn práh"
+msgstr "Hodnota prahu nevyžádané pošty nemůže být vyšší než výchozí práh"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:173
-#, fuzzy
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
-msgstr "spam práh nemůže být vyšší než jeho Autolearn práh"
+msgstr "Hodnota prahu ham nemůže být vyšší než výchozí práh"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:70
 msgid "External mail domain"
@@ -2753,9 +2811,9 @@ msgstr ""
 "filtru"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:114
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{d} is a internal Zentyal virtual main domain"
-msgstr "Nastavit výchozí virtuální poštovní doménu"
+msgstr "{d} je vnitřní virtuální hlavní doména serveru Zentyal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
 msgid "External mail server"
@@ -2883,7 +2941,7 @@ msgstr "Přípony, které nejsou uvedeny níže jsou povoleny"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:55
 msgid "Mailbox"
-msgstr "Mailbox"
+msgstr "Poštovní schránka"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:61
 msgid "Mailbox contains"
@@ -2899,7 +2957,7 @@ msgstr "Učil ze zpráv"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:78
 msgid "Train"
-msgstr ""
+msgstr "Trénovat"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:87
 msgid "spam"
@@ -2925,40 +2983,37 @@ msgid "Virtual Domains"
 msgstr "Virtuální domény"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:58
-#, fuzzy
 msgid "Virus policy"
-msgstr "Mailfilter zásady"
+msgstr "Zásada virů"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:65
-#, fuzzy
 msgid "Spam policy"
-msgstr "Zásady odesílatele"
+msgstr "Zásada nevyžádané pošty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:68
 msgid "Bounce policy will be ignored for high-score spam messages"
 msgstr ""
+"Bouncy zásada bude ignorována pro zprávy s vysokým hodnocením nevyžádané "
+"pošty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:72
-#, fuzzy
 msgid "Banned files policy"
-msgstr "zakázané soubory"
+msgstr "Zásada zakázaných souborů"
 
 # zásada/zásady ?
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:78
-#, fuzzy
 msgid "Bad header policy"
-msgstr "zásada odesílatele"
+msgstr "Zásada špatných hlaviček"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
-#, fuzzy
 msgid "Filter Policies"
-msgstr "Profily filtrů"
+msgstr "Zásady filtru"
 
 #: ../../main/network/src/EBox/NetworkUtil.pm:56
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:280
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
-msgstr ""
+msgstr "Brána {gw} není dosažitelná"
 
 #: ../../main/network/src/EBox/Network/CGI/Wizard/Ifaces.pm:59
 #, perl-brace-format
@@ -2966,21 +3021,23 @@ msgid ""
 "You are connecting to Zentyal through the {i} interface. If you set it as "
 "external the firewall will lock you out during the installation."
 msgstr ""
+"K serveru Zentyal připojujete přes rozhraní {i}. Pokud ho nastavíte jako "
+"vnější, brána firewall vám v průběhu instalace znemožní přístup."
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:41
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:57
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:42
 #: ../../main/network/src/EBox/Network/CGI/Vlan.pm:40
 msgid "network interface"
-msgstr ""
+msgstr "síťové rozhraní"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:56
 msgid "method"
-msgstr ""
+msgstr "metoda"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:90
 msgid "ip address"
-msgstr ""
+msgstr "ip adresa"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:91
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:66
@@ -3002,9 +3059,8 @@ msgstr "Host"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:90
 #: ../../main/network/src/templates/diag.mas:31
-#, fuzzy
 msgid "Broadcast address"
-msgstr "Místní(local) adresa"
+msgstr "Adresa všesměrového vysílání"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:95
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:103
@@ -3017,12 +3073,12 @@ msgstr "MAC adresa"
 
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:43
 msgid "virtual interface action"
-msgstr ""
+msgstr "akce virtuálního rozhraní"
 
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:67
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:75
 msgid "virtual interface name"
-msgstr ""
+msgstr "název virtuálního rozhraní"
 
 #: ../../main/network/src/EBox/Network/CGI/Ifaces.pm:29
 #: ../../main/network/src/EBox/Network.pm:3249
@@ -3053,7 +3109,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:177
 msgid "Interface connected to this gateway"
-msgstr ""
+msgstr "Rozhraní, připojené k této bráně"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:181
 msgid "Default"
@@ -3070,20 +3126,23 @@ msgid ""
 "configure interfaces as DHCP or PPPoE their gateways are added here "
 "automatically."
 msgstr ""
+"Můžete uvést tolik bran, kolik chcete. Hodí se pro rozdělení Internetového "
+"provozu mezi vícero linek. Poznamenejme, že pokud nastavíte rozhraní na DHCP "
+"nebo PPPoE, brány jim budou přiděleny automaticky."
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:209
 msgid "gateway"
 msgstr "brána"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:247
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway address {ip} is already the address of the local interface {iface}"
-msgstr "Port {port} se již používá v modulu {mod}"
+msgstr "Adresa brány {ip} je již používána na místních rozhraní {iface}"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:272
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
-msgstr ""
+msgstr "Pro rozhraní s DHCP či PPPoE nelze bránu přidat ručně"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:274
 #, perl-brace-format
@@ -3091,51 +3150,57 @@ msgid ""
 "Gateway {gw} must be in the same network that a static interface. Currently "
 "it belongs to the network of {iface} which is not static"
 msgstr ""
+"Brána {gw} se musí nacházet na stejné síti, jako rozhraní se statickou "
+"adresou. V současnosti náleží do sítě {iface}, které není statické"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:285
 msgid "Since you have not gateways you should add the first one as default"
 msgstr ""
+"Protože nemáte určeny žádné brány, měli byste nějakou přidat jako výchozí"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:306
 msgid ""
 "You cannot remove the default attribute, if you want to change it assign it "
 "to another gaterway"
 msgstr ""
+"Výchozí atribut nelze odebrat, pokud jej chcete změnit, přiřaďte jej jiné "
+"bráně"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:314
 msgid "Automatically added gateways can not be manually deleted"
-msgstr ""
+msgstr "Automaticky přidané brány nelze ručně mazat"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:529
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The gateway '{name}' is being used by {mod}"
-msgstr "Port {port} se již používá v modulu {mod}"
+msgstr "Brána {name} je používána {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:547
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:556
-#, fuzzy
 msgid "Gateway name"
-msgstr "Interní"
+msgstr "Název brány"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:549
 msgid "Gateways names cannot begin or end with '-'"
-msgstr ""
+msgstr "Názvy bran nemohou začínat či končit na znak „-“ (rozdělovník)"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:558
 msgid ""
 "Gateways names can only be composed of lowercase ASCII english letters, "
 "digits and '-'"
 msgstr ""
+"Názvy bran se mohou skládat pouze z malých písmen z anglické ASCI tabulky, "
+"arabských číslic a „-“ (rozdělovník)"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:99
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr ""
+msgstr "IP adresa DNS serveru, který Zentyal server používá pro překlad názvů."
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:104
 #: ../../main/network/src/templates/wizard/network.mas:72
 #: ../../main/network/src/templates/wizard/network.mas:74
 msgid "Domain Name Server"
-msgstr ""
+msgstr "Doménový jmenný server"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:118
 msgid "Domain Name Server Resolver List"
@@ -3143,7 +3208,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:124
 msgid "name server"
-msgstr ""
+msgstr "jmenný server"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:142
 msgid ""
@@ -3151,18 +3216,19 @@ msgid ""
 "p><p>Note that these settings may be overriden if you have any network "
 "interface configured via DHCP</p>"
 msgstr ""
+"<p>Sem je možné zadat name server resolvery, které Zentyal server bude "
+"používat.</p><p>Poznamenejme, že v případě nastavení rozhraní přes DHCP "
+"budou tato nastavení přebita</p>"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:194
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "This action is incompatible with the module {mod} configuration"
-msgstr ""
-"Transparentní proxy není kompatibilní s přístupovou politikou nalezenou v "
-"některých přístupových pravidlech uživatelských skupin"
+msgstr "Tato akce je neslučitelná s nastavením modulu {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:223
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The nameserver '{name}' is being used by {mod}"
-msgstr "Port {port} se již používá v modulu {mod}"
+msgstr "Jmenný server {name} je používán {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:268
 #: ../../main/core/src/EBox/RemoteServices.pm:72
@@ -3182,6 +3248,11 @@ msgid ""
 "be sent to the {ohref}configured forwarders{chref} in first place, and if "
 "they does not answer the query root DNS servers will be used."
 msgstr ""
+"DNS modul serveru Zentyal je nainstalován a zapnut, takže pro překlad dotazů "
+"bude použit pouze místní DNS server. Dotazy, pro které tento server není "
+"autoritativní a nemá na ně odpověď ve vyrovnávací paměti, budou odeslány "
+"nejprve na {ohref}nastavené přeposílače{chref}, a v případě, že ty "
+"nozodpoví, pak na kořenové DNS servery."
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:75
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:220
@@ -3223,24 +3294,26 @@ msgid ""
 "This settings will be used to allow Zentyal to access the Internet if an "
 "HTTP proxy is needed."
 msgstr ""
+"Tato nastavení budou použita k přístupu Zentyal serveru k Internetu v "
+"případě, že je zapotřebí HTTP proxy."
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:131
 msgid "Proxy username and password will be visible by all system users."
 msgstr ""
+"Uživatelské jméno a heslo pro proxy bude viditelné všem uživatelům systému."
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:146
 #, perl-brace-format
 msgid "Proxy {addr} is invalid because it is the address of the interface {if}"
-msgstr ""
+msgstr "Proxy {addr} je neplatná, protože se jedná o adresu rozhraní {if}"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:158
-#, fuzzy
 msgid ""
 "The username input contains invalid characters. All alphanumeric characters, "
 "plus these non alphanumeric chars: \\/.?&+:-@ and spaces are allowed."
 msgstr ""
-"Vstup obsahuje neplatné znaky. Povolené jsou všechny alfanumerické znaky, "
-"tyto znaky: /.?&+:-@ a mezerník."
+"Zadání uživatelského jména obsahuje neplatné znaky. Dovolena jsou písmena a "
+"číslice, plus následující znaky: \\/.?&+:-@ a mezery."
 
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:84
 msgid "Search Domain"
@@ -3251,6 +3324,8 @@ msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
 msgstr ""
+"Tato doména bude připojena v případě, kdy první pokus o překlad názvu stroje "
+"bez této domény nebyl úspěšný."
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:75
 #, perl-brace-format
@@ -3258,18 +3333,20 @@ msgid ""
 "Gateway {gw} is already defined in the gateway table. Use a multi gateway "
 "rule instead"
 msgstr ""
+"Brána {gw} je již definována v tabulce bran. Namísto toho použijte pravidlo "
+"vícero bran"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:97
 #, perl-brace-format
 msgid ""
 "Network {addr} is invalid because it is the address of the interface {if}"
-msgstr ""
+msgstr "Síť {addr} je neplatná, protože se jedná o adresu rozhraní {if}"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:104
 #, perl-brace-format
 msgid ""
 "Gateway {addr} is invalid because it is the address of the interface {if}"
-msgstr ""
+msgstr "Brána {addr} je neplatná, protože se jedná o adresu rozhraní {if}"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:115
 #, perl-brace-format
@@ -3277,6 +3354,8 @@ msgid ""
 "Not needed to add a route to {ip} because is reacheable directly by "
 "interface {if}"
 msgstr ""
+"Pro {ip} není třeba přidávat trasu, protože je pro rozhraní {if} dosažitelná "
+"přímo"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:187
 #: ../../main/network/src/EBox/Network.pm:110
@@ -3292,11 +3371,11 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:196
 msgid "Gateway used to reach the above network  address"
-msgstr ""
+msgstr "Brána sloužící k dosažení výše uvedené síťové adresy"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:204
 msgid "Optional description for this route"
-msgstr ""
+msgstr "Nepovinný popis této trasy"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:210
 msgid "Static Routes List"
@@ -3317,42 +3396,47 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:219
 msgid "static route"
-msgstr ""
+msgstr "Neměnná trasa"
 
 #: ../../main/network/src/EBox/Network.pm:127
 msgid "Add default routers to the default table"
-msgstr ""
+msgstr "Přidat výchozí směrovače do výchozí tabulky"
 
 #: ../../main/network/src/EBox/Network.pm:128
 msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
 msgstr ""
+"Toto je třeba pro práci s nastavením pro více bran. Poznamenejme, že pro "
+"vypsání výchozích tras je třeba spustit: "
 
 #: ../../main/network/src/EBox/Network.pm:134
 msgid "Enable Zentyal DHCP hook"
-msgstr ""
+msgstr "Zapnout DHCP háček Zentyal serveru"
 
 #: ../../main/network/src/EBox/Network.pm:135
 msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
 msgstr ""
+"Postará se o přidání výchozí brány dané DHCP serverem do výchozí směrovací "
+"tabulky. "
 
 #: ../../main/network/src/EBox/Network.pm:140
-#, fuzzy
 msgid "Disable IPv6"
-msgstr "Vypnutý"
+msgstr "Vypnout IPv6"
 
 #: ../../main/network/src/EBox/Network.pm:141
 msgid ""
 "Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
 "can cause problems on some services"
 msgstr ""
+"Zentyal server zatím neumí IPv6, přiřazení adres v6 rozhraním může způsobit "
+"problémy některým službám"
 
 #: ../../main/network/src/EBox/Network.pm:160
 msgid "Zentyal will set your network configuration"
-msgstr ""
+msgstr "Zentyal se postará o nastavení sítě"
 
 #: ../../main/network/src/EBox/Network.pm:165
 #, fuzzy
@@ -3362,35 +3446,33 @@ msgstr "Zentyal bude potřebovat toto schéma na ukládání uživatelů jabber-
 #: ../../main/network/src/EBox/Network.pm:170
 #: ../../main/network/src/EBox/Network.pm:175
 #: ../../main/network/src/EBox/Network.pm:180
-#, fuzzy
 msgid "Zentyal will set the resolvconf configuration"
-msgstr "Nastavení RADIUS serveru"
+msgstr "Zentyal provede nastavení resolvconf"
 
 #: ../../main/network/src/EBox/Network.pm:185
 msgid "Zentyal will set your DHCP client configuration"
-msgstr ""
+msgstr "Zentyal nastaví DHCP klienta"
 
 #: ../../main/network/src/EBox/Network.pm:190
 msgid "Zentyal will disable IPV6 on this system"
-msgstr ""
+msgstr "Zentyal na tomto systému vypne IPv6"
 
 #: ../../main/network/src/EBox/Network.pm:198
 msgid "Zentyal will set HTTP proxy for all users"
-msgstr ""
+msgstr "Zentyal nastaví HTTP proxy pro všechny uživatele"
 
 #: ../../main/network/src/EBox/Network.pm:201
 msgid "Zentyal will set HTTP proxy for APT"
-msgstr ""
+msgstr "Zentyal nastaví HTTP prox pro APT"
 
 #: ../../main/network/src/EBox/Network.pm:692
-#, fuzzy
 msgid "Argument must be a IP address"
-msgstr "Rozhraní IP adresy"
+msgstr "Je třeba, aby argument byl IP adresa"
 
 #: ../../main/network/src/EBox/Network.pm:923
 #: ../../main/network/src/EBox/Network.pm:927
 msgid "Virtual interface name"
-msgstr ""
+msgstr "Název virtuálního rozhraní"
 
 #: ../../main/network/src/EBox/Network.pm:926
 #: ../../main/network/src/EBox/Network.pm:1297
@@ -3402,48 +3484,55 @@ msgid "Netmask"
 msgstr "Maska sítě"
 
 #: ../../main/network/src/EBox/Network.pm:932
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Address {ip} is already in use by interface {iface}"
-msgstr "Port {port} se již používá v modulu {mod}"
+msgstr "Adresa {ip} je již používána rozhraním {iface}"
 
 #: ../../main/network/src/EBox/Network.pm:1098
 #, perl-brace-format
 msgid "There is already an interface called {al}"
-msgstr ""
+msgstr "Již zde existuje rozhraní nazvané {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1110
 #, perl-brace-format
 msgid "There is already a interface with the alias {al}"
-msgstr ""
+msgstr "Již zde existuje rozhraní s alternativním názvem {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1118
 msgid ""
 "Cannot set an alias with the character \":\". This character is reserved for "
 "virtual interfaces"
 msgstr ""
+"Alternativní název nemůže obsahovat znak „:“ (dvojtečka). Tento znak je "
+"vyhrazen pro virtuální rozhraní"
 
 #: ../../main/network/src/EBox/Network.pm:1322
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP {ip} is already assigned to interface {iface}"
-msgstr "Port {port} se již používá v modulu {mod}"
+msgstr "IP adresa {ip} je již přiřazena rozhraní {iface}"
 
 #: ../../main/network/src/EBox/Network.pm:1448
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot use the address {addr} because interface {if} has already an address "
 "in the same network"
 msgstr ""
-"Nelze přidat alias {al} protože je již ve virtuální doméně se stejným názvem"
+"Nelze použít adresu {addr}, protože rozhraní {if} má již adresu na stejné "
+"síti"
 
 #: ../../main/network/src/EBox/Network.pm:1479
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
+"Toto rozhraní nelze přepnout do režimu trunk, protože se jedná o vlan "
+"zařízení."
 
 #: ../../main/network/src/EBox/Network.pm:1534
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
+"Toto rozhraní se nachází v režimu trunk, měli byste zrušit veškerá vlan "
+"rozhraní v tomto trunku, než bude měnit jeho režim nastavení."
 
 #: ../../main/network/src/EBox/Network.pm:1578
 msgid ""
@@ -3457,11 +3546,16 @@ msgid ""
 "routes to become unreachable. Please remove it first if you really want to "
 "make this change."
 msgstr ""
+"Požadovaná operace způsobí, že jedna z nastavených bran nebo statických tras "
+"přestane být dostupná. Pokud tuto změnu opravdu chcete udělat, bude třeba "
+"ji nejprve odebrat."
 
 #: ../../main/network/src/EBox/Network.pm:2836
 #, perl-brace-format
 msgid "Gateway {gw} must be in the same network that a static interface"
 msgstr ""
+"Brána {gw} se musí nacházet ve stejné síti, jako rozhraní se statickým "
+"nastavením"
 
 #: ../../main/network/src/EBox/Network.pm:2839
 #, perl-brace-format
@@ -3469,10 +3563,12 @@ msgid ""
 "Gateway {gw} must be in the same network that static interface. Currently it "
 "belongs to the network of {iface} which is not static"
 msgstr ""
+"Brána {gw} musí být na stejné síti, jako rozhraní se statickým nastavením. "
+"Nyní přísluší k síti rozhraním {iface}, které nemá statické nastavení"
 
 #: ../../main/network/src/EBox/Network.pm:3173
 msgid "down"
-msgstr ""
+msgstr "Dole"
 
 #: ../../main/network/src/EBox/Network.pm:3178
 #: ../../main/core/src/templates/report/raid.mas:228
@@ -3489,19 +3585,19 @@ msgstr "interní"
 
 #: ../../main/network/src/EBox/Network.pm:3191
 msgid "link ok"
-msgstr ""
+msgstr "v pořádku spojeno"
 
 #: ../../main/network/src/EBox/Network.pm:3193
 msgid "no link"
-msgstr ""
+msgstr "bez spojení"
 
 #: ../../main/network/src/EBox/Network.pm:3228
 msgid "Tx bytes"
-msgstr ""
+msgstr "Odesláno bajtů"
 
 #: ../../main/network/src/EBox/Network.pm:3238
 msgid "Rx bytes"
-msgstr ""
+msgstr "Přijato bajtů"
 
 #: ../../main/network/src/EBox/Network.pm:3273
 #: ../../main/network/src/EBox/Network.pm:3723
@@ -3524,9 +3620,8 @@ msgid "Objects"
 msgstr "Objekty"
 
 #: ../../main/objects/src/EBox/Objects.pm:118
-#, fuzzy
 msgid "network object"
-msgstr "Síťové objekty"
+msgstr "síťový objekt"
 
 #: ../../main/objects/src/EBox/Objects.pm:178
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:156
@@ -3572,9 +3667,8 @@ msgstr ""
 "se předešlo záměnám."
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:73
-#, fuzzy
 msgid "Range"
-msgstr "Rozsahy"
+msgstr "Rozsah"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:98
 msgid ""
@@ -3582,6 +3676,9 @@ msgid ""
 "the first and last addresses of a range that will also include all the IP "
 "addresses between them."
 msgstr ""
+"IP adresy můžete zadávat v CIDR zápisu (adresa/maska) nebo zadat první a "
+"poslední adresy rozsahu, který též bude obsahovat všechny IP adresy mezi "
+"nimi."
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:99
 msgid "member"
@@ -3589,7 +3686,7 @@ msgstr "člen"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:125
 msgid "Only network addresses can end with a zero"
-msgstr ""
+msgstr "Pouze adresy sítí mohou končit nulou"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:130
 msgid "You can only use MAC addresses with hosts"
@@ -3605,14 +3702,14 @@ msgid "{ip} overlaps with the address or another object's member"
 msgstr "{ip} koliduje s adresou, nebo jiným členem objektu"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:101
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{server} configuration file"
-msgstr "Konfigurace služby"
+msgstr "{server} soubor s nastaveními"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:106
 #, perl-brace-format
 msgid "AppArmor profile for {server} daemon"
-msgstr ""
+msgstr "AppArmor profil pro {server} službu"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:131
 msgid "Trivial File Transfer Protocol"
@@ -3625,7 +3722,7 @@ msgstr "Dynamic Host Configuration Protocol"
 #: ../../main/dhcp/src/EBox/DHCP.pm:197
 #, perl-brace-format
 msgid "Disable {server} init script"
-msgstr ""
+msgstr "Vypnout inicializační skript {server}"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:355 ../../main/dhcp/src/EBox/DHCP.pm:391
 #: ../../main/dhcp/src/EBox/DHCP.pm:441 ../../main/dhcp/src/EBox/DHCP.pm:487
@@ -3652,9 +3749,8 @@ msgid "DHCP"
 msgstr "DHCP"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:1107
-#, fuzzy
 msgid "DHCP leases"
-msgstr "DHCP rozsahy"
+msgstr "DHCP zápůjčky"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/General.pm:57
 #, perl-brace-format
@@ -3667,9 +3763,8 @@ msgstr ""
 "sítovém modulu"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:45
-#, fuzzy
 msgid "DHCP Configuration"
-msgstr "Nastavení"
+msgstr "Nastavení DHCP"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:47
 msgid ""
@@ -3684,12 +3779,16 @@ msgid ""
 "This interface is not enabled. DHCP server will not serve addresses in this "
 "interface"
 msgstr ""
+"Toto rozhraní není zapnuto. DHCP server nebude obsluhovat adresy na tomto "
+"rozhraní"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:135
 msgid ""
 "Mising interface parameter. Please, navigate again to this page starting "
 "from the DHCP main page"
 msgstr ""
+"Chybějící parametr rozhraní. Vraťte se na tuto stránku znovu počínaje z DHCP "
+"hlavní stránky"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/AdvancedOptions.pm:66
 msgid "Advanced options"
@@ -3760,16 +3859,18 @@ msgstr ""
 "Rozsah {newFrom}-{newTo} se překrývá s rozsahem '{range}': {oldFrom}-{oldTo}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:140
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Range {from}-{to} includes fixed address from the object member \"{name}\": "
 "{fixedIP}"
-msgstr "Rozsah {from}-{to} zahrnuje pevnou adresu '{name}': {fixedIP}"
+msgstr ""
+"Rozsah {from}-{to} zahrnuje pevnou adresu z účastnícího se objektu {name}: "
+"{fixedIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:160
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
-msgstr "Rozsah {from}-{to} obsahuje rozhraní s IP adresou: {ifaceIP}"
+msgstr "Rozsah {from}-{to} obsahuje IP adresu vysoké dostupnosti: {ifaceIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/mail/src/EBox/Mail.pm:1681
@@ -3780,15 +3881,8 @@ msgstr "Od"
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
 #: ../../main/mail/src/EBox/Mail.pm:1682
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
-#, fuzzy
 msgid "To"
-msgstr ""
-"#-#-#-#-#  cs.po (libebox 1.5)  #-#-#-#-#\n"
-"Do\n"
-"#-#-#-#-#  cs.po (ebox-dhcp 1.5)  #-#-#-#-#\n"
-"Na\n"
-"#-#-#-#-#  cs.po (ebox-mail 1.4.2)  #-#-#-#-#\n"
-"Adresát"
+msgstr "Do"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:212
 msgid "Ranges"
@@ -3804,22 +3898,19 @@ msgstr "Další server"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:156
 msgid "Thin Client server as seen by the clients."
-msgstr ""
+msgstr "Server tenkých klientů, jak je viděn klienty."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:162
-#, fuzzy
 msgid "File path"
-msgstr "Název souboru"
+msgstr "Umístění souboru"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:165
-#, fuzzy
 msgid "Thin client file path"
-msgstr "Tenký klient"
+msgstr "Umístění souboru tenkého klienta"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:171
-#, fuzzy
 msgid "Thin client / External TFTP-Server"
-msgstr "Externí NTP servery"
+msgstr "Tenký klient / externí TFTP server"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:176
 #, perl-brace-format
@@ -3831,9 +3922,8 @@ msgstr ""
 "že zahrnete všechny soubory do cesty {path} adresáře"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:182
-#, fuzzy
 msgid "thin client option"
-msgstr "Tenký klient"
+msgstr "volba tenkého klienta"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:116
 #, perl-brace-format
@@ -3844,15 +3934,21 @@ msgstr "{gateway} není v této síti"
 msgid ""
 "DNS module must be enabled to be able to select Zentyal as primary DNS server"
 msgstr ""
+"DNS modul musí být zapnut, aby bylo možné udělat ze Zentyal hlavní DNS "
+"server"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:138
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
 msgstr ""
+"Aby Zentyal server mohl sloužit jako NTP server, je třeba zapnout jeho NTP "
+"modul."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:149
 msgid ""
 "Samba module must be enabled to be able to select Zentyal as WINS server"
 msgstr ""
+"Aby Zentyal server mohl sloužit jako WINS server, je třeba zapnout jeho "
+"SAMBA modul."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:332
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:367
@@ -3866,24 +3962,20 @@ msgid "None"
 msgstr "Žádný"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:345
-#, fuzzy
 msgid "Zentyal domain"
-msgstr "Hledat domény"
+msgstr "Zentyal domény"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:354
-#, fuzzy
 msgid "local Zentyal DNS"
-msgstr "lokální eBox DNS"
+msgstr "místní Zentyal DNS"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:375
-#, fuzzy
 msgid "local Zentyal NTP"
-msgstr "lokální eBox DNS"
+msgstr "místní Zentyal NTP"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:393
-#, fuzzy
 msgid "local Zentyal"
-msgstr "lokální eBox DNS"
+msgstr "místní Zentyal"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:405
 msgid "Default gateway"
@@ -3902,12 +3994,16 @@ msgid ""
 "Setting \"Zentyal\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
+"Nastavení výchozí brány na hodnotu „Zentyal“ nastaví IP adresu rozhraní jako "
+"bránu"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:440
 msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
+"Vybraná doména dokončí na vašich klientech ty DNS dotazy, které nejsou plně "
+"specifikované"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:445
 msgid "Primary nameserver"
@@ -3918,61 +4014,63 @@ msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
+"Pokud je přítomno a označeno „Zentyal DNS“, Zentyal server bude působit jako "
+"vyrovnávací DNS server"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:453
 msgid "Secondary nameserver"
 msgstr "Sekundární nameserver"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:459
-#, fuzzy
 msgid "NTP server"
-msgstr "Další server"
+msgstr "NTP server"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:462
 msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
 msgstr ""
+"Pokud je přítomno a označeno „Zentyal NTP“, Zentyal server bude působit jako "
+"vyrovnávací NTP server pro DHCP klienty"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:470
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for DHCP clients"
 msgstr ""
+"Pokud je přítomno a označeno „Zentyal Samba“, Zentyal server bude působit "
+"jako WINS server pro DHCP klienty"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:477
 msgid "Common options"
 msgstr "Časté volby"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:482
-#, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
 "configured gateways. As \"search domain\" value, one of the configured DNS "
 "domains on Zentyal might be chosen. All fields are optionals setting its "
 "value as \"None\" or leaving blank."
 msgstr ""
-"Nastavení \"eBoxu\" jako výchozí bránu bude nastaven jako výchozí brána "
-"rozhraní adres. Pokud nastavíte \"name\", můžete zvolit jednu "
-"nakonfigurovánou bránu. Jako \"search domain\" hodnota, jeden z nastavených "
-"DNS domény na eBoxu může být vybrán. Pokud nastavíte \"Primary nameserver\" "
-"\"eBox DNS\" pokud je služba nainstalována, může eBox server sloužit jako "
-"server DNS cache. Všechna pole jsou Volitelná použijte hodnoty  \"None\" "
-"nebo je nechte nevyplněné."
+"Pokud je jako výchozí brána nataveno „nastavené“, můžete zvolit jednu z "
+"nastavených bran. Coby Jako \"search domain\" hodnota, může být vybrána jedna "
+"z nastavených DNS domén na Zentyal serveru. Výchozí hodnoty všech polí "
+"odpovídají hodnotám  \"None\" nebo nevyplněným."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:87
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The object contains the IP address {ip} which is also the address of the "
 "interface"
-msgstr "Port {port} se již používá v modulu {mod}"
+msgstr "Objekt obsahuje IP adresu {ip}, která je též adresou rozhraní"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:97
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The object contains an IP address {ip} which also is in the range '{range}': "
 "{from}-{to}"
-msgstr "IP adresa {ip} je v rozsahu '{range}': {from}-{to}"
+msgstr ""
+"Objekt obsahuje IP adresu {ip} která je též v rozsahu {range}: {from}-{to}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:171
 msgid "Fixed addresses"
@@ -3984,7 +4082,7 @@ msgstr "pevná adresa"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:203
 msgid "Not object added for fixed addresses"
-msgstr ""
+msgstr "Objekt nepřidán pro pevné adresy"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:206
 msgid ""
@@ -3992,12 +4090,17 @@ msgid ""
 "IP address is not used by the available range and whose name is unique as "
 "fixed address will be used"
 msgstr ""
+"Pouze ti členové objektu, jejih IP adresa je host (/32), platnou MAC adresu, "
+"IP adresu není použita dostupným rozsahem a jehož název je jedinečný jako "
+"pevná adresa bude použito"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:209
 msgid ""
 "Members whose name is not a valid hostname will be modified to become a "
 "valid domain name."
 msgstr ""
+"Členové, jejihž jméno není platný název stroje, budou upraveni tak, aby se "
+"stalo platným doménovým názvem."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeInfo.pm:82
 msgid "Interface IP address"
@@ -4018,70 +4121,81 @@ msgstr "DHCP rozsahy"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:76
 msgid "You need at least one static interface to serve DHCP"
 msgstr ""
+"Pro poskytování DHCP služby je zapotřebí alespoň jednoho rozhraní se "
+"statickou IP adresou"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:147
 msgid ""
 "Here you can configure the DHCP server for each internal interface, and "
 "enable or disable them"
 msgstr ""
+"Tady můžete nastavit DHCP server pro každé z vestavěných rozhraní a zapnout "
+"nebo vypnout je"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:164
 msgid "No interfaces enabled.  The DHCP server  will not serve any address"
 msgstr ""
+"Nebylo zapnuto žádné rozhraní. DHCP server nebude poskytovat žádné adresy"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:166
 msgid ""
 "The enabled interfaces have not any range or fixed address configured.  The "
 "DHCP server  will not serve any address"
 msgstr ""
+"Zapnuté rozhraní nemá nastaven žádný rozsah či pevnou adresu. DHCP server "
+"nebude poskytovat žádné adresy"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:102
 msgid "DNS module must be configured to work with this feature"
-msgstr ""
+msgstr "DNS modul musí být pro práci této funkce nastaven"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:105
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
 msgstr ""
+"Aby tuto funkci bylo možné používat, musí být nainstalován balíček {pkg}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:128
 msgid "DNS module must be enabled to make this feature work."
-msgstr ""
+msgstr "Aby tato funkce byla dostupná, musí být zapnutý DNS modul."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:193
 #, perl-brace-format
 msgid ""
 "Dynamic DNS feature has been disabled in DHCP module in {iface} interface."
-msgstr ""
+msgstr "Funkce dynamické DNS byla vypnuta v DHCP modulu na rozhraní {iface}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:221
 msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
 msgstr ""
+"Doménový název, připojený k názvu stroje z těch klientů, jejichž zapůjčené "
+"IP adresy pocházejí z rozsahu"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:229
-#, fuzzy
 msgid "Static domain"
-msgstr "Hledat domény"
+msgstr "Statická doména"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:231
 msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
 msgstr ""
+"Název domény, připojený k názvu stroje z těchto klientů s pevným mapováním "
+"adres"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:236
 msgid "Same as Dynamic Domain"
-msgstr ""
+msgstr "Stejné jako Dynamická doména"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:251
 msgid "Dynamic DNS Options"
-msgstr ""
+msgstr "Možnosti dynamické DNS"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:256
 msgid "The domains will be added automatically to DNS module in read-only mode"
-msgstr ""
+msgstr "Domény budou přidány automaticky k DNS modulu v režimu pouze pro čtení"
 
 #: ../../main/core/src/EBox/Types/Int.pm:134
 msgid "Enter an integer number"
@@ -4111,24 +4225,24 @@ msgstr "Heslo by mělo mít většinou {maxLength} znaků"
 
 #: ../../main/core/src/EBox/Types/Password.pm:190
 msgid "Password mismatch, make sure passwords are identical"
-msgstr ""
+msgstr "Zadání hesla se neshodují, zajistěte, aby byla"
 
 #: ../../main/core/src/EBox/Types/IPRange.pm:161
 msgid "Begin of IP range"
-msgstr ""
+msgstr "Počátek IP rozsahu"
 
 #: ../../main/core/src/EBox/Types/IPRange.pm:162
 msgid "End of IP range"
-msgstr ""
+msgstr "Konec IP rozsahu"
 
 #: ../../main/core/src/EBox/Types/IPRange.pm:173
 msgid "End of range address should be smaller than start of range address"
-msgstr ""
+msgstr "Konec rozsahu adres by měl být nižší než počátek rozsahu adres"
 
 #: ../../main/core/src/EBox/Types/IPRange.pm:191
 #, perl-brace-format
 msgid "The IP range contained {size} addresses, the maximum is {max} addresses"
-msgstr ""
+msgstr "IP rozsah obsahuje {size} adres, maximem je {max} adres"
 
 #: ../../main/core/src/EBox/Types/Service.pm:183
 #: ../../main/core/src/EBox/Types/PortRange.pm:289
@@ -4143,30 +4257,23 @@ msgstr "Jakýkoli"
 
 #: ../../main/core/src/EBox/Types/Date.pm:244
 msgid "Not a leap year."
-msgstr ""
+msgstr "Nejedná se  přestupný rok."
 
 #: ../../main/core/src/EBox/Types/Date.pm:255
-#, fuzzy
 msgid "This month does not have 31 days."
-msgstr "Tento protokol nepoužívá porty"
+msgstr "Tento měsíc nemá 31 dnů."
 
 #: ../../main/core/src/EBox/Types/PortRange.pm:141
-#, fuzzy
 msgid "any"
-msgstr ""
-"#-#-#-#-#  cs.po (ebox-services 1.5)  #-#-#-#-#\n"
-"jakýkoli\n"
-"#-#-#-#-#  cs.po (ebox-ebox 1.5)  #-#-#-#-#\n"
-"jakákoliv"
+msgstr "jakékoli"
 
 #: ../../main/core/src/EBox/Types/PortRange.pm:293
-#, fuzzy
 msgid "Single port"
-msgstr "Vybrat zprávu"
+msgstr "Jediný port"
 
 #: ../../main/core/src/EBox/Types/PortRange.pm:297
 msgid "Port range"
-msgstr ""
+msgstr "Rozsah portů"
 
 #: ../../main/core/src/EBox/Types/PortRange.pm:396
 #, perl-brace-format
@@ -4177,12 +4284,12 @@ msgstr "Hodnota \"Od\" {from} musí být větší než hodnota \"Do\" {to}"
 #: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:96
 #: ../../main/samba/src/EBox/Samba/Types/KrbRealm.pm:87
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "IP adresy zde není možné použít"
 
 #: ../../main/core/src/EBox/Types/InverseMatchSelect.pm:50
 #: ../../main/core/src/EBox/Types/InverseMatchUnion.pm:50
 msgid "Not"
-msgstr ""
+msgstr "Ne"
 
 #: ../../main/core/src/EBox/Types/Select.pm:349
 #, perl-brace-format
@@ -7413,17 +7520,16 @@ msgid "share name"
 msgstr "název sdílení"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:54
-#, fuzzy
 msgid "Group share renamed"
-msgstr "Server {name}"
+msgstr "Skupinové sdílení bylo přejmenováno"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:56
 msgid "Group share added"
-msgstr ""
+msgstr "Skupinové sdílení bylo přidáno"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:61
 msgid "Group share removed"
-msgstr ""
+msgstr "Skupinové sdílení bylo odebráno"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:64
 msgid "Group share set"
@@ -7442,24 +7548,23 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/CGI/AddOU.pm:49
-#, fuzzy
 msgid "OU name"
-msgstr "jméno"
+msgstr "Název organizační jednotky (OU)"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
 #: ../../main/samba/src/EBox/Samba.pm:1960
 msgid "LDAP Settings"
-msgstr "LDAP nastavení"
+msgstr "Nastavení LDAP"
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:44
 msgid ""
 "These configuration options are used when a new user account is created."
-msgstr ""
+msgstr "Tato nastavení jsou použita při vytváření nového uživatelského účtu."
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
 #: ../../main/samba/src/EBox/Samba.pm:1956
 msgid "User Template"
-msgstr "Uživatelské šablony"
+msgstr "Šablona uživatele"
 
 #: ../../main/samba/src/EBox/Samba/Composite/RecycleBin.pm:58
 msgid "Recycle Bin"
@@ -7472,7 +7577,7 @@ msgstr "Sdílení souborů"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:39
 msgid "File sharing options"
-msgstr ""
+msgstr "Možnosti sdílení souborů"
 
 #: ../../main/samba/src/EBox/Samba/OrganizationalPerson.pm:230
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:398
@@ -7544,13 +7649,12 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:882
-#, fuzzy
 msgid "Group E-mail"
-msgstr "Webmail"
+msgstr "Skupinový e-mail"
 
 #: ../../main/samba/src/EBox/Samba/OU.pm:61
 msgid "Organization Unit"
-msgstr "Organizační jednotky"
+msgstr "Organizační jednotka"
 
 #: ../../main/samba/src/EBox/Samba/OU.pm:126
 msgid "Error on group LDAP entry creation:"
@@ -7559,7 +7663,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/OU.pm:150
 #: ../../main/samba/src/templates/addobject.mas:10
 msgid "Organizational Unit"
-msgstr ""
+msgstr "Organizační jednotka"
 
 #: ../../main/samba/src/EBox/Samba/OU.pm:179
 msgid ""
@@ -7569,11 +7673,11 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:188
 msgid "Windows account names cannot end with a dot"
-msgstr ""
+msgstr "Názvy Windows účtů nemohou končit tečkou"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:190
 msgid "Windows account names cannot start with a dash"
-msgstr ""
+msgstr "Názvy Windows účtů nemohou začínat pomlčkou"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:192
 msgid ""
@@ -7582,9 +7686,9 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:197
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Account name must not be longer than {maxLength} characters"
-msgstr "Vstup obsahuje neplatné znaky"
+msgstr "Název účtu nemůže být delší než {maxLength} znaků"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:217
 #: ../../main/mail/src/templates/createaccount.mas:19
@@ -7603,7 +7707,7 @@ msgstr "Tam je hostname se stejným názvem \"{name}\" ve stejné doméně"
 #: ../../main/samba/src/EBox/Samba/Contact.pm:173
 #: ../../main/samba/src/EBox/Samba/User.pm:533
 msgid "Error on person LDAP entry creation:"
-msgstr ""
+msgstr "Chyba při vytváření LDAP položky pro osobu:"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:112
 #, perl-brace-format
@@ -7978,7 +8082,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:479
 #, perl-brace-format
 msgid "Error getting filesystem format in {m}"
-msgstr ""
+msgstr "Chyba při zjišťování formátu souborového systému v {m}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:484
 #, perl-brace-format
@@ -9589,7 +9693,7 @@ msgstr "Tato skupina má mailový alias"
 
 #: ../../main/mail/src/EBox/MailUserLdap.pm:386
 msgid "This user has a mail account"
-msgstr "Tento uživatel má mailový účet"
+msgstr "Tento uživatel má e-mailový účet"
 
 #: ../../main/mail/src/EBox/MailUserLdap.pm:450
 msgid "Mail account"
@@ -9646,7 +9750,7 @@ msgstr ""
 
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:103
 msgid "Internal"
-msgstr "Interní"
+msgstr "Vnitřní"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:106
 msgid ""
@@ -9659,9 +9763,8 @@ msgstr ""
 "právě používají."
 
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:112
-#, fuzzy
 msgid "Internal name"
-msgstr "Interní"
+msgstr "Vnitřní název"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:149
 msgid "List of services"
@@ -9676,53 +9779,44 @@ msgstr ""
 "použité v ostatních modulech, např.: firewall, traffic shaping ..."
 
 #: ../../main/services/src/EBox/Services.pm:89
-#, fuzzy
 msgid "Any protocol and port"
-msgstr "jakýkoliv protokol a port"
+msgstr "Libovolný protokol a port"
 
 #: ../../main/services/src/EBox/Services.pm:96
-#, fuzzy
 msgid "Any UDP"
-msgstr "jakýkoli UDP"
+msgstr "Libovolný UDP"
 
 #: ../../main/services/src/EBox/Services.pm:97
-#, fuzzy
 msgid "Any UDP port"
-msgstr "libovolný UDP port"
+msgstr "Libovolný UDP port"
 
 #: ../../main/services/src/EBox/Services.pm:104
-#, fuzzy
 msgid "Any TCP"
-msgstr "jakýkoli TCP"
+msgstr "Libovolný TCP"
 
 #: ../../main/services/src/EBox/Services.pm:105
-#, fuzzy
 msgid "Any TCP port"
-msgstr "každý TCP port"
+msgstr "Libovolný TCP port"
 
 #: ../../main/services/src/EBox/Services.pm:112
-#, fuzzy
 msgid "Any ICMP"
-msgstr "jakýkoli TCP"
+msgstr "Libovolný ICMP"
 
 #: ../../main/services/src/EBox/Services.pm:113
-#, fuzzy
 msgid "Any ICMP packet"
-msgstr "každý TCP port"
+msgstr "Libovolný ICMP paket"
 
 #: ../../main/services/src/EBox/Services.pm:129
-#, fuzzy
 msgid "Secure Shell"
-msgstr "Výchozí bezpečně"
+msgstr ""
 
 #: ../../main/services/src/EBox/Services.pm:137
 msgid "HyperText Transport Protocol"
-msgstr "HyperText Transport Protocol "
+msgstr ""
 
 #: ../../main/services/src/EBox/Services.pm:145
-#, fuzzy
 msgid "HyperText Transport Protocol over SSL"
-msgstr "HyperText Transport Protocol "
+msgstr "HyperText Transport Protocol přes SSL"
 
 #: ../../main/common/src/EBox/Sudo.pm:291
 #, perl-brace-format
@@ -9751,17 +9845,17 @@ msgstr "{data} je prázdná."
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:37
 #, perl-brace-format
 msgid "The requested action cannot be performed. Reason: {r}"
-msgstr ""
+msgstr "Požadovanou akci není možné provést. Důvod: {r}"
 
 #: ../../main/common/src/EBox/Exceptions/MissingArgument.pm:43
 #, perl-brace-format
 msgid "Missing argument: {data}"
-msgstr ""
+msgstr "Chybějící argument: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/InvalidArgument.pm:44
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Invalid argument: {data}"
-msgstr "Neplatný typ poštovní schránky: {type}"
+msgstr "Neplatný argument: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/DataExists.pm:48
 #, perl-brace-format
@@ -9777,7 +9871,7 @@ msgstr "{data} {value} neexistuje."
 #: ../../main/common/src/EBox/FileSystem.pm:398
 #, perl-brace-format
 msgid "Directory not found: {d}"
-msgstr "Složka nenalezena: {d}"
+msgstr "Složka nebyla nalezena: {d}"
 
 #: ../../main/common/src/EBox/Validate.pm:453
 #: ../../main/common/src/EBox/Validate.pm:467
@@ -9843,7 +9937,6 @@ msgstr ""
 "Nezapomeňte nastavit své časové pásmo, aby se synchronizace chovala správně."
 
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:56
-#, fuzzy
 msgid "NTP Servers"
 msgstr "NTP servery"
 
@@ -9865,7 +9958,7 @@ msgstr ""
 
 #: ../../main/ntp/src/EBox/NTP.pm:104
 msgid "NTP configuration file"
-msgstr "NTP konfigurační soubor"
+msgstr "soubor s nastaveními pro NTP"
 
 #: ../../main/ntp/src/EBox/NTP.pm:134
 msgid "Network Time Protocol"
@@ -9927,11 +10020,11 @@ msgstr "Heslo k certifikační autoritě"
 #: ../../main/ca/src/templates/index.mas:163
 #: ../../main/ca/src/templates/forceRenew.mas:26
 msgid "Renew"
-msgstr ""
+msgstr "Obnovit"
 
 #: ../../main/ca/src/templates/formRenew.mas:29
 msgid "Renew a certificate"
-msgstr ""
+msgstr "Obnovit certifikát"
 
 #: ../../main/ca/src/templates/formRenew.mas:31
 msgid ""
@@ -9942,7 +10035,7 @@ msgstr ""
 #: ../../main/ca/src/templates/formRenew.mas:45
 #: ../../main/ca/src/templates/formRevoke.mas:29
 msgid "Expiration Date"
-msgstr ""
+msgstr "Datum skončení platnosti"
 
 #: ../../main/ca/src/templates/formRenew.mas:58
 #: ../../main/ca/src/templates/index.mas:58
@@ -9950,7 +10043,7 @@ msgstr ""
 #: ../../main/ca/src/templates/formReissue.mas:39
 #: ../../main/ca/src/templates/formRevoke.mas:42
 msgid "Subject Alternative Names"
-msgstr ""
+msgstr "Alternativní názvy subjektu"
 
 #: ../../main/ca/src/templates/index.mas:59
 #, perl-brace-format
@@ -9976,9 +10069,8 @@ msgid "Issue the Certification Authority Certificate"
 msgstr ""
 
 #: ../../main/ca/src/templates/index.mas:88
-#, fuzzy
 msgid "Issue a New Certificate"
-msgstr "Vytvořte certifikáty"
+msgstr "Vydat nový certifikát"
 
 #: ../../main/ca/src/templates/index.mas:95
 msgid "Current Certificate List"
@@ -9999,47 +10091,46 @@ msgid "Valid"
 msgstr ""
 
 #: ../../main/ca/src/templates/index.mas:125
-#, fuzzy
 msgid "Expired"
-msgstr "vypršela v"
+msgstr "Platnost končila"
 
 #: ../../main/ca/src/templates/index.mas:127
 msgid "Revoked"
-msgstr ""
+msgstr "Platnost odvolána"
 
 #: ../../main/ca/src/templates/index.mas:132
 #, perl-brace-format
 msgid "Reason: {reason}"
-msgstr ""
+msgstr "Důvod: {reason}"
 
 #: ../../main/ca/src/templates/index.mas:155
 #: ../../main/ca/src/templates/index.mas:182
 #: ../../main/ca/src/templates/forceRevoke.mas:37
 #: ../../main/ca/src/templates/formRevoke.mas:75
 msgid "Revoke"
-msgstr ""
+msgstr "Odvolat platnost"
 
 #: ../../main/ca/src/templates/index.mas:159
 #: ../../main/ca/src/templates/index.mas:184
 msgid "Download Key(s) and Certificate"
-msgstr ""
+msgstr "Stáhnout klíče a certifikát"
 
 #: ../../main/ca/src/templates/index.mas:170
 #: ../../main/ca/src/templates/formReissue.mas:26
 msgid "Reissue"
-msgstr ""
+msgstr "Vydat znovu"
 
 #: ../../main/ca/src/templates/index.mas:186
 msgid "Renew or reissue"
-msgstr ""
+msgstr "Obnovit nebo vydat znovu"
 
 #: ../../main/ca/src/templates/forceRevoke.mas:14
 msgid "Revoking CA certificate"
-msgstr ""
+msgstr "Odvolávání platnosti certifikátu certifikační autority…"
 
 #: ../../main/ca/src/templates/forceRevoke.mas:16
 msgid "Revoking certificate"
-msgstr ""
+msgstr "Odvolávání platnosti certifikátu…"
 
 #: ../../main/ca/src/templates/forceRevoke.mas:22
 #, perl-brace-format
@@ -10059,17 +10150,15 @@ msgstr ""
 
 #: ../../main/ca/src/templates/formReissue.mas:32
 msgid "Reissue a certificate"
-msgstr ""
+msgstr "Znovu vydat certifikát"
 
 #: ../../main/ca/src/templates/forceRenew.mas:42
-#, fuzzy
 msgid "Renewing CA certificate"
-msgstr "Vytvořte certifikáty"
+msgstr "Obnovování certifikátu cert. autority…"
 
 #: ../../main/ca/src/templates/forceRenew.mas:44
-#, fuzzy
 msgid "Renewing certificate"
-msgstr "Vytvořte certifikáty"
+msgstr "Obnovování certifikátu…"
 
 #: ../../main/ca/src/templates/forceRenew.mas:50
 #, perl-brace-format
@@ -10089,7 +10178,7 @@ msgstr ""
 
 #: ../../main/ca/src/templates/formRevoke.mas:11
 msgid "Revoke a Certificate"
-msgstr ""
+msgstr "Odvolat platnost certifikátu"
 
 #: ../../main/ca/src/templates/formRevoke.mas:13
 msgid ""
@@ -10099,7 +10188,7 @@ msgstr ""
 
 #: ../../main/ca/src/templates/formRevoke.mas:19
 msgid "Revoke the selected certificate"
-msgstr ""
+msgstr "Odvolat platnost vybraného certifikátu"
 
 #: ../../main/network/src/templates/confirmremove.mas:11
 #: ../../main/network/src/templates/confirm.mas:14
@@ -10143,7 +10232,7 @@ msgstr ""
 #: ../../main/samba/src/templates/wizard/users.mas:107
 #: ../../main/mail/src/templates/createaccount.mas:22
 msgid "Domain name"
-msgstr "Doménové jméno"
+msgstr "Doménový název"
 
 #: ../../main/network/src/templates/diag.mas:26
 msgid "Lookup"
@@ -10155,7 +10244,7 @@ msgstr "Probudit v LAN"
 
 #: ../../main/network/src/templates/diag.mas:50
 msgid "Other..."
-msgstr ""
+msgstr "Jiné…"
 
 #: ../../main/network/src/templates/diag.mas:64
 msgid "Wake"
@@ -10171,7 +10260,7 @@ msgstr ""
 #: ../../main/network/src/templates/wizard/network.mas:31
 #: ../../main/network/src/templates/wizard/interfaces.mas:7
 msgid "Network interfaces"
-msgstr ""
+msgstr "Sítová rozhraní"
 
 #: ../../main/network/src/templates/wizard/network.mas:34
 msgid "Configure network for external interfaces"
@@ -10188,16 +10277,15 @@ msgstr "Metoda"
 
 #: ../../main/network/src/templates/wizard/network.mas:41
 msgid "Don't configure"
-msgstr ""
+msgstr "Nenastavovat"
 
 #: ../../main/network/src/templates/wizard/network.mas:70
 msgid "Gateway"
 msgstr "Brána"
 
 #: ../../main/network/src/templates/wizard/interfaces.mas:11
-#, fuzzy
 msgid "Configure interface types"
-msgstr "Rozhraní (mn.č.)"
+msgstr "Nastavit typy rozhraní"
 
 #: ../../main/network/src/templates/wizard/interfaces.mas:11
 msgid ""
@@ -10248,11 +10336,11 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:53
 #: ../../main/network/src/templates/ifaces.mas:54
 msgid "Not set"
-msgstr ""
+msgstr "Nenastaveno"
 
 #: ../../main/network/src/templates/ifaces.mas:64
 msgid "External (WAN)"
-msgstr "Externí (WAN)"
+msgstr "Vnější (WAN)"
 
 #: ../../main/network/src/templates/ifaces.mas:65
 msgid ""
@@ -10264,7 +10352,7 @@ msgstr ""
 
 #: ../../main/network/src/templates/ifaces.mas:108
 msgid "VLAN List"
-msgstr ""
+msgstr "Seznam VLAN"
 
 #: ../../main/network/src/templates/ifaces.mas:147
 msgid "Virtual Interfaces"
@@ -10272,7 +10360,7 @@ msgstr "Virtuální Rozhraní"
 
 #: ../../main/core/src/templates/login/index.mas:42
 msgid "Warning: Caps Lock is enabled"
-msgstr "Upozornění: máte zaplý Caps Lock"
+msgstr "Upozornění: máte zapnutý Caps Lock"
 
 #: ../../main/core/src/templates/login/index.mas:44
 #, perl-brace-format
@@ -10296,7 +10384,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/login/index.mas:59
 msgid "Enter"
-msgstr "Enter"
+msgstr ""
 
 #: ../../main/core/src/templates/finish.mas:14
 msgid "The following changes are pending. You can save or discard them."
@@ -10714,9 +10802,8 @@ msgid "Operation speed"
 msgstr "Operační mód"
 
 #: ../../main/core/src/templates/report/raid.mas:221
-#, fuzzy
 msgid "RAID device number"
-msgstr "Prosinec"
+msgstr "číslo RAID zařízení"
 
 #: ../../main/core/src/templates/report/raid.mas:222
 #, fuzzy
@@ -10724,18 +10811,16 @@ msgid "Device"
 msgstr "Služba"
 
 #: ../../main/core/src/templates/report/raid.mas:229
-#, fuzzy
 msgid "failure"
-msgstr "selhal"
+msgstr "selhání"
 
 #: ../../main/core/src/templates/report/raid.mas:230
 msgid "spare"
-msgstr ""
+msgstr "náhradní"
 
 #: ../../main/core/src/templates/report/raid.mas:231
-#, fuzzy
 msgid "Failure on spare"
-msgstr "Volné místo"
+msgstr "Selhání na náhradním"
 
 #: ../../main/core/src/templates/report/raid.mas:259
 msgid "No unused RAID devices"
@@ -10743,12 +10828,11 @@ msgstr ""
 
 #: ../../main/core/src/templates/report/raid.mas:262
 msgid "Unused RAID arrays"
-msgstr ""
+msgstr "Nepoužívaná RAID pole"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:25
-#, fuzzy
 msgid "Register your server"
-msgstr "Zentyal FTP Server"
+msgstr "Zaregistrovat tento server"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:27
 #, fuzzy
@@ -10757,7 +10841,7 @@ msgstr "e-mailová adresa"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:40
 msgid "Register"
-msgstr ""
+msgstr "Zaregistrovat"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:62
 #, fuzzy
@@ -10765,9 +10849,8 @@ msgid "Choose a server edition"
 msgstr "port tiskového serveru"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:67
-#, fuzzy
 msgid "Assigned to"
-msgstr "omezena na"
+msgstr "Přiřazeno k"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:67
 #: ../../main/core/src/templates/remoteservices/index.mas:85
@@ -10780,9 +10863,8 @@ msgid "End date"
 msgstr "Datum ukončení"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:82
-#, fuzzy
 msgid "Email Address"
-msgstr "mailová adresa"
+msgstr "E-mailová adresa"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:86
 #, fuzzy
@@ -10790,9 +10872,8 @@ msgid "Renovation date"
 msgstr "Popis"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:87
-#, fuzzy
 msgid "Messages"
-msgstr "ID Zprávy"
+msgstr "Zprávy"
 
 #: ../../main/core/src/templates/remoteservices/subscriptionSlotsTbody.mas:25
 msgid "Free"
@@ -10801,9 +10882,8 @@ msgstr "Volný"
 #: ../../main/core/src/templates/remoteservices/subscriptionSlotsTbody.mas:43
 #: ../../main/software/src/templates/welcome.mas:10
 #: ../../main/software/src/templates/ebox.mas:327
-#, fuzzy
 msgid "Select"
-msgstr "Vybrat zprávu"
+msgstr "Vybrat"
 
 #: ../../main/core/src/templates/remoteservices/NoConnection.mas:8
 msgid ""
@@ -10821,7 +10901,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/remoteservices/NoConnection.mas:14
 msgid "Your computer has not a correct system date"
-msgstr ""
+msgstr "Systémové datum vašeho počítače není správné"
 
 #: ../../main/core/src/templates/remoteservices/NoConnection.mas:15
 msgid "This server has been removed from your registered ones"
@@ -10850,20 +10930,17 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:70
-#, fuzzy
 msgid "Remote Backup: "
-msgstr "Vzdálené zálohování systému"
+msgstr "Zálohování na vzdálený systém:"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:104
-#, fuzzy
 msgid "Back up"
-msgstr "Zálohování"
+msgstr "Zazálohovat"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:134
 #: ../../main/core/src/templates/remoteservices/Backup/unsubscribed.mas:12
-#, fuzzy
 msgid "Back up the current configuration state"
-msgstr "Aktuální konfigurace"
+msgstr "Zazálohovat stávající stav nastavení"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:137
 #: ../../main/core/src/templates/backup.mas:44
@@ -10880,19 +10957,16 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:163
-#, fuzzy
 msgid "Restore configuration backup"
-msgstr "Záloha konfigurace"
+msgstr "Obnovit nastavení ze zálohy"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:164
-#, fuzzy
 msgid "Download configuration backup"
-msgstr "Konfigurace logů"
+msgstr "Stáhnout si zálohu nastavení"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:165
-#, fuzzy
 msgid "Delete configuration backup"
-msgstr "Záloha konfigurace"
+msgstr "Smazat zálohu nastavení"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:171
 #: ../../main/core/src/templates/backup.mas:200

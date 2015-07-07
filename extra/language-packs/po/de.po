@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2015-06-09 17:54+0200\n"
-"Last-Translator: Robert <lang@lang-ingenieure.de>\n"
+"PO-Revision-Date: 2015-07-02 14:35+0200\n"
+"Last-Translator: didi <d.weiss@web.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -5477,7 +5477,6 @@ msgid "Moreover, some upgraded packages require a reboot to take effect"
 msgstr "Einige aktualisierte Pakete erfordern einen Neustart um wirksam werden"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:121
-#, fuzzy
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
 "In production environments we recommend using the Commercial Edition: "
@@ -5487,7 +5486,8 @@ msgstr ""
 "Achtung: Dies sind ungetestete Community Updates, die Ihr System beschädigen "
 "könnten. In Produktionsumgebungen empfehlen wir die Verwendung der "
 "Professional, Business oder Premium Edition: kommerzielle Zentyal Server "
-"Editionen vollständig durch Zentyal SL unterstützt mit Canonical/Ubuntu."
+"Editionen werden vollständig durch Zentyal SL und Canonical/Ubuntu "
+"unterstützt."
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:126
 #: ../../main/software/src/templates/updateNote.mas:11
@@ -6011,9 +6011,8 @@ msgid "Trial"
 msgstr "Test"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:78
-#, fuzzy
 msgid "Commercial"
-msgstr "Gemeinsame Optionen"
+msgstr "kommerziell"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:79
 msgid "Enterprise"
@@ -6575,9 +6574,8 @@ msgid ""
 msgstr "Dieses Addon betrifft nur Benutzern im Standard 'Users'-Ordner"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:292
-#, fuzzy
 msgid "This group has a openchange account."
-msgstr "Dieser Benutzer hat ein E-Mail Konto."
+msgstr "Diese Gruppe hat ein Openchange-Konto."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:52
 msgid "CA name"
@@ -6954,13 +6952,12 @@ msgid "Enable OpenChange account"
 msgstr "Aktiviere OpenChange Konto"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:44
-#, fuzzy
 msgid ""
 "This affects both new users and groups with mail account in a managed mail "
 "domain"
 msgstr ""
-"Dieser Benutzer hat ein Email Konto, das nicht zu einer verwalteten Mail-"
-"Domäne gehört"
+"Dies betrifft neue Benutzer und Gruppen mit einem Mail-Konto in einer "
+"verwalteten Mail-Domäne."
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:121
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
