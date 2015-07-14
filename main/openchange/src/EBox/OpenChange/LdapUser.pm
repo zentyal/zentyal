@@ -106,8 +106,16 @@ sub setAccountEnabled
     }
     $cmd .= " '$samAccountName' ";
     EBox::Sudo::root($cmd);
+}
 
-    return 0;
+sub deleteAccount
+{
+    my ($self, $user) = @_;
+    my $samAccountName = $user->get('samAccountName');
+
+    my $cmd = 'openchange_newuser --delete ';
+    $cmd .= " '$samAccountName' ";
+    EBox::Sudo::root($cmd);
 }
 
 sub _addUser
@@ -224,12 +232,20 @@ sub setGroupAccountEnabled
         $cmd .= ' --delete ';
     }
     if (defined $mail and length $mail) {
-        $cmd .= " --mail $mail ";
+        if ($enabled) {
+            $cmd .= " --mail $mail ";
+        }
     }
     $cmd .= " '$samAccountName' ";
     EBox::Sudo::root($cmd);
 
     return 0;
+}
+
+sub deleteGroupAccount
+{
+    my ($self, $group) = @_;
+    $self->setGroupAccountEnabled($group, 0);
 }
 
 sub _addGroup
