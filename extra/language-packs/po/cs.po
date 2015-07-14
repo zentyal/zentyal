@@ -457,12 +457,11 @@ msgid ""
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
 "{openpar}Zde můžete nastavit OpenVPN servery, prostřednictvím kterých se pak "
-"snadno připojí pobočky a uživatelé mimo "
-"kancelář.{closepar}{openpar}Klikněte na{openit}Nastavení{closeit} a nastavte "
-"parametry VPN.{closepar}{openpar}{openit}Nabízené sítě {closeit} jsou ty, "
-"které chcete zpřístupnit uživatelům na dálku.{openpar}Až budete s "
-"nastavováním hotovi, stáhněte si balíčky s nastavením pro konkrétní operační "
-"systémy strojů, používaných klienty."
+"snadno připojí pobočky a uživatelé mimo kancelář.{closepar}{openpar}Klikněte "
+"na{openit}Nastavení{closeit} a nastavte parametry VPN.{closepar}{openpar}"
+"{openit}Nabízené sítě {closeit} jsou ty, které chcete zpřístupnit uživatelům "
+"na dálku.{openpar}Až budete s nastavováním hotovi, stáhněte si balíčky s "
+"nastavením pro konkrétní operační systémy strojů, používaných klienty."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:49
@@ -1066,8 +1065,8 @@ msgstr "Spojení se serverem bylo přerušeno"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1527
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr ""
-"Položku insecure_rip_conf je třeba nastavit na hodnotu „yes“ (ano) nebo „no“ "
-"(ne)"
+"Položku insecure_rip_conf je třeba nastavit na hodnotu „yes“ (ano) nebo "
+"„no“ (ne)"
 
 #: ../../main/dns/src/EBox/DNS.pm:283 ../../main/dns/src/EBox/DNS.pm:363
 #: ../../main/dns/src/EBox/DNS.pm:391 ../../main/dns/src/EBox/DNS.pm:1663
@@ -1359,8 +1358,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
 msgstr ""
-"Zadaný název stroje není úplný doménový název (FQDN). Máte na mysli "
-"{srv}.{name}?"
+"Zadaný název stroje není úplný doménový název (FQDN). Máte na mysli {srv}."
+"{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:321
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:108
@@ -1432,8 +1431,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "mx.{name}?"
 msgstr ""
-"Zadaný název stroje není úplný doménový název (FQDN). Máte na mysli "
-"mx.{name}?"
+"Zadaný název stroje není úplný doménový název (FQDN). Máte na mysli mx."
+"{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:189
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:217
@@ -7577,8 +7576,7 @@ msgstr "název účtu"
 #: ../../main/samba/src/EBox/Samba/Group.pm:179
 msgid "Windows group names cannot be only spaces, numbers and dots"
 msgstr ""
-"Názvy Windows skupiny nemohou být tvořeny pouze mezerami, číslicemi a "
-"tečkami"
+"Názvy Windows skupiny nemohou být tvořeny pouze mezerami, číslicemi a tečkami"
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:280
 #, perl-brace-format
@@ -7799,8 +7797,7 @@ msgstr "Zadaný doménový řadič {x} není dostupný."
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
-"Je třeba, aby místní kerberos oblast {x} byla shodná s oblastí AD serveru "
-"{y}"
+"Je třeba, aby místní kerberos oblast {x} byla shodná s oblastí AD serveru {y}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:815
 #, perl-brace-format
@@ -8477,8 +8474,8 @@ msgid ""
 "DNS query failed: {x} (using nameservers {y}, /etc/resolv.conf was\n"
 "'{z}'"
 msgstr ""
-"DNS dotaz se nezdařil: {x} (s použitím jmenných serverů {y}, "
-"/etc/resolv.conf bylo\n"
+"DNS dotaz se nezdařil: {x} (s použitím jmenných serverů {y}, /etc/resolv."
+"conf bylo\n"
 "{z}"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:147
@@ -8533,8 +8530,7 @@ msgstr ""
 msgid ""
 "Zentyal needs this organizational units to add users and groups into them."
 msgstr ""
-"Zentyal tyto organizační jednotky potřebuje pro přidávání uživatelů a "
-"skupin."
+"Zentyal tyto organizační jednotky potřebuje pro přidávání uživatelů a skupin."
 
 #: ../../main/samba/src/EBox/Samba.pm:282
 msgid "Create Samba home directory for shares and groups"
