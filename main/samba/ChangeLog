@@ -1,4 +1,6 @@
 HEAD
+	+ Forwardport https://github.com/Zentyal/zentyal/commit/
+        632eb89435a40ddc282356b753460009102fc775
 	+ Corrected name for default containers
 	+ Added EBox::LdapUserBase::objectInDefaultContainer
 	+ Added debug options to stub (commented)

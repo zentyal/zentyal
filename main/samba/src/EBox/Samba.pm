@@ -2836,7 +2836,7 @@ sub writeSambaConfig
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
     push (@array, 'shares' => 1);
 
-    if (EBox::Config::boolean('listen_all') eq 'no') {
+    unless (EBox::Config::boolean('listen_all')) {
         my $interfaces = join (',', @{$self->sambaInterfaces()});
         push (@array, 'ifaces' => $interfaces);
     }
