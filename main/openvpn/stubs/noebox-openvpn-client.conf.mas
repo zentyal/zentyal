@@ -133,7 +133,7 @@ key  <% qq{"$key"} %>
 
 # Verify server certificate by common name
 % if (defined $tlsRemote) {
-tls-remote <% $tlsRemote %>
+verify-x509-name <% $tlsRemote %> name
 % }
 
 
