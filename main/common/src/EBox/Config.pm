@@ -43,7 +43,16 @@ my %cachedFiles;
 
 sub refreshConfFiles
 {
-     @confFiles = glob (EBox::Config::etc() . '*.conf');
+     @confFiles = glob(EBox::Config::etc() . '*.conf');
+}
+
+# Function: flushConfigkeys
+#
+#  Flushes all the cached config keys
+#
+sub flushConfigkeys
+{
+    %cachedFiles = ();
 }
 
 sub etc

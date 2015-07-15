@@ -29,6 +29,7 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Password;
+use EBox::Config;
 
 use TryCatch::Lite;
 
@@ -379,10 +380,10 @@ sub checkForProvision
             if ($adc) {
                 $errMsg = __('The PDC server either has been already provisioned or has Exchange Server installed');
             } else {
-                $errMsg = __('The PDC server has been already provisioned');                
+                $errMsg = __('The PDC server has been already provisioned');
             }
         } else {
-            $errMsg = __x('Server cannot be provisioned: {err}', err => $exError);            
+            $errMsg = __x('Server cannot be provisioned: {err}', err => $exError);
         }
 
 
@@ -470,6 +471,13 @@ sub provision
                 throw EBox::Exceptions::Internal("Missing user and/or password for provision");
             }
             $cmd .= " --user='$admin' --password='$adminPassword'";
+        }
+
+        # since this a critical one-time operation we
+        # bypass configkeys cache to minimize human errors
+        EBox::Config::flushConfigkeys();
+        if (EBox::Config::boolean('provision_ignore_aready_exists')) {
+            $cmd .= '  --ignore-already-exists';
         }
 
         my $output = EBox::Sudo::root($cmd);
@@ -645,8 +653,8 @@ sub customActionClickedJS
              provision_params['orgName'] = \$('#Provision_organizationname').val();
              provision_params['admin'] = \$('#Provision_admin').val();
              provision_params['adminPassword'] = \$('#Provision_adminPassword').val();
-             \$.ajax('/OpenChange/CheckForProvision', { 
-                   data: provision_params, 
+             \$.ajax('/OpenChange/CheckForProvision', {
+                   data: provision_params,
                    dataType: 'json',
                    async: false,
                    success: function(response) {
@@ -721,4 +729,3 @@ JS
 
 
 1;
-
