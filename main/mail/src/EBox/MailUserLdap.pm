@@ -211,13 +211,13 @@ sub delUserAccount
 
     EBox::Sudo::root(@cmds);
 
-    # disable openchange account if exists. We don't implement and observer
+    # delete openchange account if exists. We don't implement and observer
     # notifier interface bz only one module is to be notifier
     if ((not $user->isSystem()) and ($self->openchangeAccountEnabled($user))) {
-        my $openchange =  EBox::Global->modInstance('openchange');
+        my $openchange = EBox::Global->modInstance('openchange');
         my $userOc = $openchange->_ldapModImplementation();
         if ($userOc->enabled($user)) {
-            $userOc->setAccountEnabled($user, 0);
+            $userOc->deleteAccount($user, $usermail);
         }
     }
 }
@@ -312,6 +312,16 @@ sub delGroupAccount
     }
 
     $group->delete('mail');
+
+    # delete openchange account if exists. We don't implement and observer
+    # notifier interface bz only one module is to be notifier
+    my $openchange = EBox::Global->modInstance('openchange');
+    if ($openchange and not $group->isSystem()) {
+        my $userOc = $openchange->_ldapModImplementation();
+        if ($userOc->groupEnabled($group)) {
+            $userOc->deleteGroupAccount($group);
+        }
+    }
 }
 
 # Method: _addUser
