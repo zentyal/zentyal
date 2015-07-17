@@ -1,4 +1,5 @@
 HEAD
+	+ Replaced deprecated tls-remote parameter by successor verify-x509-name
 	+ Corrected typo when referring to Second Nameserver
 4.1.1
 	+ Fix wrong call to etherIface after PPPoE removal
