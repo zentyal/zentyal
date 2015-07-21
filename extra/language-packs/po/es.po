@@ -1919,8 +1919,8 @@ msgstr "Autoridad de certificación"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:158
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:64
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:63
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:430
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:64
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:431
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -3316,7 +3316,7 @@ msgstr "Usuario"
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:224
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:100
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:101
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
@@ -6496,7 +6496,7 @@ msgstr "OpenChange"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:58
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:67
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:186
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:194
 msgid "OpenChange Account"
 msgstr "Cuenta de OpenChange"
 
@@ -6505,11 +6505,11 @@ msgstr "Cuenta de OpenChange"
 msgid "Unknown value for {control}: {x}"
 msgstr "Valor desconocido para {control}: {x}"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:147
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:155
 msgid "This user has a openchange account."
 msgstr "Este usuario tiene una cuenta de OpenChange."
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:189
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:197
 #, fuzzy
 msgid ""
 "The OpenChange account is only available to groups in the default 'Groups' "
@@ -6518,7 +6518,7 @@ msgstr ""
 "Este complemento se aplica sólo a los usuarios en el contenedor por defecto "
 "'Usuarios'"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:292
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:308
 #, fuzzy
 msgid "This group has a openchange account."
 msgstr "Este usuario tiene una cuenta de OpenChange."
@@ -6558,7 +6558,7 @@ msgstr "El módulo {x} necesita ser configurado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:371
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:226
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:227
 #, perl-brace-format
 msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
@@ -6730,49 +6730,49 @@ msgstr ""
 "Se necesita activar la opción de webmail HTTPS en cualquier dominio virtual "
 "de correo para activar ActiveSync"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:72
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:73
 msgid "Organization name"
 msgstr "Nombre de Organización"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:78
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:79
 msgid "Enable OpenChange account for all existing users"
 msgstr "Cuenta de OpenChange para todos los usuarios existentes"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:94
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:95
 msgid "Administrator user"
 msgstr "Usuario administrador"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:96
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:97
 msgid "Domain user belonging to the Schema Admins group"
 msgstr ""
 "Usuario del dominio perteneciente al grupo de Administradores de Esquema"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:102
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:103
 msgid "Password of the administrator user"
 msgstr "Contraseña del usuario administrador"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:114
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:115
 msgid "Unconfigure"
 msgstr "Desconfigurar"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:116
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:117
 msgid "Database unconfigured"
 msgstr "Base de datos sin configurar"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:122
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:134
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:123
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:135
 msgid "Setup"
 msgstr "Puesta en marcha"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:124
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:125
 msgid "Database configured"
 msgstr "Base de datos configurada"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:135
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:136
 msgid "OpenChange Server Provision"
 msgstr "Servidor de aprovisionamiento OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:139
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:140
 msgid ""
 "Provision the OpenChange Groupware server. This will extend and initialize "
 "the required values in the LDAP schema."
@@ -6780,7 +6780,7 @@ msgstr ""
 "Configura el servidor de groupware OpenChange. Se extenderá e inicializará "
 "los valores requeridos en el esquema de LDAP."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:201
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:202
 #, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
@@ -6789,7 +6789,7 @@ msgstr ""
 "Debes activar el módulo {x} en la sección de estado de los módulos antes de "
 "configurar por primera vez la base de datos del módulo {y}."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:219
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:220
 #, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
@@ -6798,7 +6798,7 @@ msgstr ""
 "El dominio virtual {x} no está definido. Puedes añadirlo en la {ohref}página "
 "de Dominios Virtuales{chref}."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:232
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:233
 msgid ""
 "There are unsaved changes. Please save them be able to provision the "
 "OpenChange database."
@@ -6806,7 +6806,7 @@ msgstr ""
 "Hay cambios sin guardar. Por favor, guárdalos antes de configurar la base de "
 "datos de OpenChange."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:236
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:237
 #, perl-brace-format
 msgid ""
 "{op}There are unsaved changes. Please save them to be able to provision the "
@@ -6815,7 +6815,7 @@ msgstr ""
 "{op}Hay cambios sin guardar. Por favor, guárdalos para poder configurar la "
 "base de datos de OpenChange.{cp}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:241
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
 #, perl-brace-format
 msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
@@ -6824,11 +6824,11 @@ msgstr ""
 "{op}No existe una Autoridad Certificadora disponible. Debes {oh}crearla o "
 "renovarla{ch}{cp}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:363
 msgid "Missing user and/or password for provision"
 msgstr "Falta usuario o contraseña para la provisión"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:380
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:381
 msgid ""
 "The PDC server either has been already provisioned or has Exchange Server "
 "installed"
@@ -6836,16 +6836,16 @@ msgstr ""
 "El controlador de dominio ha sido ya provisionado o tiene Exchange Server "
 "instalado"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:382
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:383
 msgid "The PDC server has been already provisioned"
 msgstr "El controlador de dominio ha sido ya provisionado"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:385
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:386
 #, perl-brace-format
 msgid "Server cannot be provisioned: {err}"
 msgstr "Falló la provisión del servidor: {err}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:398
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:399
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
@@ -6854,21 +6854,21 @@ msgstr ""
 "Para provisionar OpenChange se necesita primero {oh}crear un dominio de "
 "correo virtual{oc}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:495
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:503
 msgid "Invalid administrator user name or password"
 msgstr "Nombre de usuario administrador o contraseña inválidos"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:497
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:505
 #, perl-brace-format
 msgid "Error provisioning: {error}"
 msgstr "Error en la provisión: {err}"
 
 # Is a product. Same name.
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:638
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:646
 msgid "Provision OpenChange"
 msgstr "Provisionar OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:639
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:647
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
@@ -6876,16 +6876,16 @@ msgstr ""
 "Provisionar OpenChange activará el guardado de todos los cambios sin guardar "
 "pendientes"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:640
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:648
 msgid "Saving changes after provision"
 msgstr "Guardando cambios tras la provisión"
 
 # Is a product. Same name.
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:686
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:694
 msgid "Deprovision OpenChange"
 msgstr "Desconfigurar OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:687
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:695
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
@@ -6893,7 +6893,7 @@ msgstr ""
 "Desconfigurar OpenChange activará el guardado de todos los cambios sin "
 "guardar pendientes"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:688
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:696
 msgid "Saving changes after deprovision"
 msgstr "Guardando cambios tras desconfigurar"
 
@@ -9925,32 +9925,32 @@ msgstr "alias de cuenta de correo"
 msgid "mail account"
 msgstr "cuenta de correo"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:362
+#: ../../main/mail/src/EBox/MailUserLdap.pm:372
 msgid "This group has a mail alias"
 msgstr "Este grupo tiene una cuenta alias de correo"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:386
+#: ../../main/mail/src/EBox/MailUserLdap.pm:396
 msgid "This user has a mail account"
 msgstr "Este usuario tiene cuenta de correo"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:450
+#: ../../main/mail/src/EBox/MailUserLdap.pm:460
 msgid "Mail account"
 msgstr "Cuenta de correo"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:452
+#: ../../main/mail/src/EBox/MailUserLdap.pm:462
 #: ../../main/mail/src/templates/createaccount.mas:13
 msgid "Create mail account"
 msgstr "Crear cuenta de correo"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:454
+#: ../../main/mail/src/EBox/MailUserLdap.pm:464
 msgid "Mail account settings"
 msgstr "Características de la cuenta de correo"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:493
+#: ../../main/mail/src/EBox/MailUserLdap.pm:503
 msgid "Mail alias settings"
 msgstr "Características del alias de la cuenta de correo"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:803
+#: ../../main/mail/src/EBox/MailUserLdap.pm:813
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
 "La cuota sólo puede ser un número positivo, o cero para una cuota ilimitada"
@@ -10146,12 +10146,12 @@ msgstr "La ruta de archivo debe ser absoluta"
 msgid "Error on regular expression: {err}"
 msgstr "Expresión regular incorrecta: {err}"
 
-#: ../../main/common/src/EBox/Config.pm:171
+#: ../../main/common/src/EBox/Config.pm:180
 #, perl-brace-format
 msgid "Could not open the config file {file}."
 msgstr "No se pudo abrir el fichero de configuración {file}"
 
-#: ../../main/common/src/EBox/Config.pm:181
+#: ../../main/common/src/EBox/Config.pm:190
 msgid "The ebox user has not been set in the config file."
 msgstr ""
 "El usuario de ebox no ha sido establecido en el fichero de configuración."

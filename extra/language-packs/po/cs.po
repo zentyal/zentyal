@@ -671,9 +671,9 @@ msgid ""
 "selected value will be able to connect."
 msgstr ""
 "Je-li vypnuto, bude se schopen připojit jakýkoli klient, který má certifikát "
-"vydaný certifikační autoritou tohoto Zentyal serveru. Pokud je zapnuto, "
-"bude se možné připojit pouze pomocí certifikátů, jejichž atribut obecný "
-"název (CN) začíná na hodnotu, která je tímto Zentyal serverem přijímána."
+"vydaný certifikační autoritou tohoto Zentyal serveru. Pokud je zapnuto, bude "
+"se možné připojit pouze pomocí certifikátů, jejichž atribut obecný název "
+"(CN) začíná na hodnotu, která je tímto Zentyal serverem přijímána."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:101
 msgid "Network Address Translation"
@@ -1898,8 +1898,8 @@ msgstr "Certifikační autorita"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:158
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:64
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:63
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:430
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:64
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:431
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -3270,7 +3270,7 @@ msgstr "Uživatelské jméno"
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:224
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:100
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:101
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
@@ -4488,7 +4488,8 @@ msgstr "Smazat"
 msgid ""
 "Please confirm that you want to overwrite the following remote backup with a "
 "new one"
-msgstr "Potvrďte, že chcete přepsat následující zálohu na vzdálené straně novou"
+msgstr ""
+"Potvrďte, že chcete přepsat následující zálohu na vzdálené straně novou"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:117
 msgid "Overwrite"
@@ -5205,7 +5206,8 @@ msgstr "Pro ruční vyplnění hlášení následujte tyto pokyny:"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:141
 msgid "Create a new ticket in the Zentyal bug tracker by clicking "
-msgstr "Vytvořte nový případ v systému hlášení chyb projektu Zentyal kliknutím "
+msgstr ""
+"Vytvořte nový případ v systému hlášení chyb projektu Zentyal kliknutím "
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:143
 #: ../../main/core/src/EBox/View/StackTrace.pm:147
@@ -5574,7 +5576,8 @@ msgstr "Doména stroje"
 msgid ""
 "DNS names can contain only alphabetical characters (a-z), numeric characters "
 "(0-9) and the minus sign (-)"
-msgstr "DNS názvy mohou obsahovat pouze písmena, číslice a znak „-“ (spojovník)"
+msgstr ""
+"DNS názvy mohou obsahovat pouze písmena, číslice a znak „-“ (spojovník)"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Halt.pm:48
 msgid "Halt"
@@ -5661,8 +5664,8 @@ msgstr ""
 "Nalezeno hlášení o pádu! Klikněte na toto tlačítko, pokud chcete tyto "
 "soubory anonymně odeslat vývojářům a pomoci tak s nápravou problému: {p}. "
 "Ačkoli s těmito informacemi budou vývojáři Zentyal zacházet s dobrými "
-"úmysly, zkontrolujte, zda neobsahují nějaké pro vás citlivé informace. "
-"{oc}{obs}Odeslat hlášení{cb} {obd}Zahodit{cb}{cc}"
+"úmysly, zkontrolujte, zda neobsahují nějaké pro vás citlivé informace. {oc}"
+"{obs}Odeslat hlášení{cb} {obd}Zahodit{cb}{cc}"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:208
 #: ../../main/core/src/templates/formTable.mas:75
@@ -5691,8 +5694,8 @@ msgid ""
 "report{cb}"
 msgstr ""
 "Děkujeme za vaši ochotu poslat hlášení o pádu. Pokud si přejete být "
-"informováni o vývoji stavu tohoto případu, zadejte svůj e-mail: "
-"{form}{obs}Odeslat hlášení o pádu{cb}"
+"informováni o vývoji stavu tohoto případu, zadejte svůj e-mail: {form}{obs}"
+"Odeslat hlášení o pádu{cb}"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:234
 #, perl-brace-format
@@ -6072,8 +6075,7 @@ msgid ""
 msgstr ""
 "Nelze obnovit ze zálohy kvůli nesouladu verzí systému, ve kterém byla "
 "pořízena a verzí stávající instalace. Záloha byla pořízena v Zentyal verze "
-"{bv}, zatímco tento systém může obnovit ze zálohy pouze ze Zentyal verze "
-"{wv}"
+"{bv}, zatímco tento systém může obnovit ze zálohy pouze ze Zentyal verze {wv}"
 
 #: ../../main/core/src/EBox/Backup.pm:1153
 msgid "Installing Zentyal packages in backup..."
@@ -6404,7 +6406,7 @@ msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:58
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:67
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:186
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:194
 msgid "OpenChange Account"
 msgstr "OpenChange účet"
 
@@ -6413,11 +6415,11 @@ msgstr "OpenChange účet"
 msgid "Unknown value for {control}: {x}"
 msgstr "Neznámá hodnota pro {control}: {x}"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:147
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:155
 msgid "This user has a openchange account."
 msgstr "Tento uživatel má účet v OpenChange."
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:189
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:197
 msgid ""
 "The OpenChange account is only available to groups in the default 'Groups' "
 "container"
@@ -6425,7 +6427,7 @@ msgstr ""
 "OpenChange účet je k dispozici pouze skupinám, nacházejícím se ve výchozím "
 "kontejneru „Groups“ (skupiny)"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:292
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:308
 msgid "This group has a openchange account."
 msgstr "Tato skupina má účet v OpenChange."
 
@@ -6464,7 +6466,7 @@ msgstr "Modul {x} je třeba vybavit"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:371
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:226
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:227
 #, perl-brace-format
 msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
@@ -6634,50 +6636,50 @@ msgstr ""
 "Pro zapnutí ActiveSync je třeba zapnout HTTPS webmail na jakékoli virtuální "
 "doméně"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:72
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:73
 msgid "Organization name"
 msgstr "Název organizace"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:78
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:79
 msgid "Enable OpenChange account for all existing users"
 msgstr "Přidat OpenChange účet všem stávajícím uživatelům"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:94
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:95
 msgid "Administrator user"
 msgstr "Účet správce"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:96
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:97
 msgid "Domain user belonging to the Schema Admins group"
 msgstr ""
 "Doménový účet uživatele, náležejícího do skupiny Schema Admins (správci "
 "schématu)"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:102
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:103
 msgid "Password of the administrator user"
 msgstr "Heslo k účtu správce"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:114
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:115
 msgid "Unconfigure"
 msgstr "Zrušit nastavení"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:116
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:117
 msgid "Database unconfigured"
 msgstr "Nastavení databáze bylo zrušeno"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:122
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:134
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:123
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:135
 msgid "Setup"
 msgstr "Nastavení"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:124
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:125
 msgid "Database configured"
 msgstr "Databáze byla nastavena"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:135
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:136
 msgid "OpenChange Server Provision"
 msgstr "Vybavení OpenChange serveru"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:139
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:140
 msgid ""
 "Provision the OpenChange Groupware server. This will extend and initialize "
 "the required values in the LDAP schema."
@@ -6685,7 +6687,7 @@ msgstr ""
 "Vybavit OpenChange Groupware server. Toto rozšíří a nastaví počáteční "
 "hodnoty v LDAP schématu."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:201
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:202
 #, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
@@ -6694,7 +6696,7 @@ msgstr ""
 "Než bude možné vybavit databázi modulu {y}, je třeba ve Stav modulu zapnout "
 "modul {x}."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:219
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:220
 #, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
@@ -6703,7 +6705,7 @@ msgstr ""
 "Virtuální doména {x} není definována. Můžete ji přidat na {ohref}stránce "
 "Virtuální domény{chref}."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:232
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:233
 msgid ""
 "There are unsaved changes. Please save them be able to provision the "
 "OpenChange database."
@@ -6711,7 +6713,7 @@ msgstr ""
 "Jsou zde neuložené změny. Aby bylo možné vybavit databázi OpenChange, je "
 "třeba tyto změny nejprve uložit."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:236
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:237
 #, perl-brace-format
 msgid ""
 "{op}There are unsaved changes. Please save them to be able to provision the "
@@ -6720,7 +6722,7 @@ msgstr ""
 "{op}Jsou zde neuložené změny. Aby bylo možné vybavit databázi OpenChange, je "
 "třeba tyto změny nejprve uložit.{cp}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:241
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
 #, perl-brace-format
 msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
@@ -6729,11 +6731,11 @@ msgstr ""
 "{op}Není zde k dispozici certifikační autorita. Je třeba ji {oh}vytvořit "
 "nebo obnovit{ch}{cp}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:363
 msgid "Missing user and/or password for provision"
 msgstr "Chybějící uživatelské jméno a/nebo heslo pro vybavení"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:380
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:381
 msgid ""
 "The PDC server either has been already provisioned or has Exchange Server "
 "installed"
@@ -6741,16 +6743,16 @@ msgstr ""
 "Server hlavního řadiče domény buď již byl vybaven nebo je na něm "
 "nainstalovaný Exchange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:382
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:383
 msgid "The PDC server has been already provisioned"
 msgstr "Hlavní řadič domény již byl vybaven"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:385
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:386
 #, perl-brace-format
 msgid "Server cannot be provisioned: {err}"
 msgstr "Server nemůže být vybaven: {err}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:398
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:399
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
@@ -6759,20 +6761,20 @@ msgstr ""
 "Aby bylo možné vybavit OpenChange, je třeba nejprve {oh}vytvořit e-mailovou "
 "virtuální doménu{oc}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:495
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:503
 msgid "Invalid administrator user name or password"
 msgstr "Neplatné uživatelské jméno správce nebo heslo"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:497
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:505
 #, perl-brace-format
 msgid "Error provisioning: {error}"
 msgstr "Chyba při vybavování: {error}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:638
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:646
 msgid "Provision OpenChange"
 msgstr "Vybavit OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:639
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:647
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
@@ -6780,15 +6782,15 @@ msgstr ""
 "Vybavení OpenChange spustí promítnutí případných dosud neuložených změn v "
 "nastaveních"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:640
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:648
 msgid "Saving changes after provision"
 msgstr "Ukládání změn po vybavení…"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:686
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:694
 msgid "Deprovision OpenChange"
 msgstr "Zrušit vybavení OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:687
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:695
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
@@ -6796,7 +6798,7 @@ msgstr ""
 "Zrušení vybavení OpenChange spustí promítnutí případných dosud neuložených "
 "změn v nastaveních"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:688
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:696
 msgid "Saving changes after deprovision"
 msgstr "Ukládání změn po zrušení vybavení…"
 
@@ -7544,9 +7546,9 @@ msgid ""
 "creating it again with a shorter username"
 msgstr ""
 "Vytvořili jste uživatelské jméno dlouhé 20 a více znaků. Mějte na paměti, že "
-"některé verze systému Windows na klientech takovou délku neumí. Pokud má "
-"být tento uživatelský účet používán na počítači s Windows, zvažte jeho "
-"smazání a znovuvytvoření s kratším uživatelským jménem"
+"některé verze systému Windows na klientech takovou délku neumí. Pokud má být "
+"tento uživatelský účet používán na počítači s Windows, zvažte jeho smazání a "
+"znovuvytvoření s kratším uživatelským jménem"
 
 #: ../../main/samba/src/EBox/Samba/CGI/AddOU.pm:49
 msgid "OU name"
@@ -7764,9 +7766,9 @@ msgid ""
 "<br/>You can add it in the {ohref}IP addresses page for {host}{chref}"
 msgstr ""
 "Samba nemůže být vybavena, dokud nejsou pro stroj {host} nastaveny nějaké IP "
-"adresy.<br/>Zajistěte, aby síťovému rozhraní byla přiřazena alespoň jedna "
-"IP adresa a tato adresa byla přiřazena doméně {dom} a stroji "
-"{host}.<br/>Přidat ji můžete na {ohref}stránce IP adresy pro {host}{chref}"
+"adresy.<br/>Zajistěte, aby síťovému rozhraní byla přiřazena alespoň jedna IP "
+"adresa a tato adresa byla přiřazena doméně {dom} a stroji {host}.<br/>Přidat "
+"ji můžete na {ohref}stránce IP adresy pro {host}{chref}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:250
 #, perl-brace-format
@@ -7777,9 +7779,9 @@ msgid ""
 ">You can assign it in the {ohref}IP addresses page for {dom}{chref}"
 msgstr ""
 "Samba nemůže být vybavena, dokud nejsou pro doménu {dom} nastaveny nějaké IP "
-"adresy.<br/>Zajistěte, aby síťovému rozhraní byla přiřazena alespoň jedna "
-"IP adresa a tato adresa byla přiřazena doméně {dom} a místnímu stroji "
-"{host}.<br/>Přidat ji můžete na {ohref}stránce IP adresy pro {dom}{chref}"
+"adresy.<br/>Zajistěte, aby síťovému rozhraní byla přiřazena alespoň jedna IP "
+"adresa a tato adresa byla přiřazena doméně {dom} a místnímu stroji {host}."
+"<br/>Přidat ji můžete na {ohref}stránce IP adresy pro {dom}{chref}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:377
 #, perl-brace-format
@@ -8542,8 +8544,8 @@ msgstr "Chyba při nahrávání LDIF. Chybové hlášení: {x}, řádky s chybam
 #: ../../main/samba/src/EBox/LdapUserBase.pm:391
 msgid "This addon applies only to users in the default 'Users' container"
 msgstr ""
-"Tento doplněk bude použit pouze na uživatele ve výchozím kontejneru „Users“ "
-"(uživatelé)"
+"Tento doplněk bude použit pouze na uživatele ve výchozím kontejneru "
+"„Users“ (uživatelé)"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:107
 #, perl-brace-format
@@ -8734,9 +8736,9 @@ msgid ""
 "Delete or rename this user and try again"
 msgstr ""
 "Nelze pokračovat obnovením LDAP databáze, protože se v ní nachází "
-"uživatelský účet {user}, který koliduje se stejnojmenným účtem ve stávajícím "
-"/etc/passwd. Tedy jej z tohoto souboru odstraňte (nebo přejmenujte) a "
-"zkuste spustit obnovení ze zálohy znovu."
+"uživatelský účet {user}, který koliduje se stejnojmenným účtem ve "
+"stávajícím /etc/passwd. Tedy jej z tohoto souboru odstraňte (nebo "
+"přejmenujte) a zkuste spustit obnovení ze zálohy znovu."
 
 #: ../../main/samba/src/EBox/Samba.pm:2135
 #, perl-brace-format
@@ -9760,8 +9762,8 @@ msgstr "skupinový alias"
 #, perl-brace-format
 msgid "Cannot create alias because group {name} does not mail acocunt set"
 msgstr ""
-"Nelze vytvořit alternativní název protože skupina {name} nemá nastaven "
-"e-mailový účet"
+"Nelze vytvořit alternativní název protože skupina {name} nemá nastaven e-"
+"mailový účet"
 
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:174
 #, perl-brace-format
@@ -9798,32 +9800,32 @@ msgstr "mail alias účet"
 msgid "mail account"
 msgstr "mailový účet"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:362
+#: ../../main/mail/src/EBox/MailUserLdap.pm:372
 msgid "This group has a mail alias"
 msgstr "Tato skupina má mailový alias"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:386
+#: ../../main/mail/src/EBox/MailUserLdap.pm:396
 msgid "This user has a mail account"
 msgstr "Tento uživatel má e-mailový účet"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:450
+#: ../../main/mail/src/EBox/MailUserLdap.pm:460
 msgid "Mail account"
 msgstr "Mailový účet"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:452
+#: ../../main/mail/src/EBox/MailUserLdap.pm:462
 #: ../../main/mail/src/templates/createaccount.mas:13
 msgid "Create mail account"
 msgstr "Vytvořit poštovní účet"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:454
+#: ../../main/mail/src/EBox/MailUserLdap.pm:464
 msgid "Mail account settings"
 msgstr "Nastavení Mail účtu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:493
+#: ../../main/mail/src/EBox/MailUserLdap.pm:503
 msgid "Mail alias settings"
 msgstr "Nastavení Mailového aliasu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:803
+#: ../../main/mail/src/EBox/MailUserLdap.pm:813
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr "Kvóta může být pouze kladné číslo nebo nula pro neomezené kvóty"
 
@@ -10017,12 +10019,12 @@ msgstr "Cesta k souboru musí být absolutní"
 msgid "Error on regular expression: {err}"
 msgstr "Chyba v regulárním výrazu: {err}"
 
-#: ../../main/common/src/EBox/Config.pm:171
+#: ../../main/common/src/EBox/Config.pm:180
 #, perl-brace-format
 msgid "Could not open the config file {file}."
 msgstr "Nejde otevřít konfigurační soubor {file}."
 
-#: ../../main/common/src/EBox/Config.pm:181
+#: ../../main/common/src/EBox/Config.pm:190
 msgid "The ebox user has not been set in the config file."
 msgstr "Uživatel nebyl nastavený v konfiguračním souboru."
 
@@ -10436,8 +10438,7 @@ msgid ""
 msgstr ""
 "Vnější rozhraní spojují se sítěmi, které nejsou pod vaší správou (typicky "
 "Internet), provoz přicházející z vnějších sítí není ve výchozím stavu "
-"důvěryhodný, proto se nejste schopní tudy připojit ke správní stránce "
-"Zentyal"
+"důvěryhodný, proto se nejste schopní tudy připojit ke správní stránce Zentyal"
 
 #: ../../main/network/src/templates/confirmVlanDel.mas:9
 msgid ""
@@ -10617,8 +10618,7 @@ msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console: {cmd}"
 msgstr ""
-"Pro vyřešení této situace, zkuste v konzoli spustit následující příkaz: "
-"{cmd}"
+"Pro vyřešení této situace, zkuste v konzoli spustit následující příkaz: {cmd}"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:22
 msgid "Official Community documentation in English and Spanish."
@@ -11048,8 +11048,7 @@ msgstr "Tento stroj nemá funkční připojení k Internetu"
 #: ../../main/core/src/templates/remoteservices/NoConnection.mas:13
 msgid "Firewall is blocking the connection. Try to restart firewall module"
 msgstr ""
-"Spojení je blokováno branou firewall. Zkuste restartovat modul Brána "
-"firewall"
+"Spojení je blokováno branou firewall. Zkuste restartovat modul Brána firewall"
 
 #: ../../main/core/src/templates/remoteservices/NoConnection.mas:14
 msgid "Your computer has not a correct system date"
@@ -11085,8 +11084,8 @@ msgid ""
 "them manually they reside under '/var/vmail'"
 msgstr ""
 "E-mailové správy uživatelů touto procedurou nejsou zálohovány, ani je touto "
-"cestou nelze obnovit. Pokud je chcete zálohovat ručně, nacházejí se v "
-"/var/vmail"
+"cestou nelze obnovit. Pokud je chcete zálohovat ručně, nacházejí se v /var/"
+"vmail"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:70
 msgid "Remote Backup: "
@@ -11937,8 +11936,7 @@ msgid ""
 "in a console to see the problem: sudo apt-get update</p>"
 msgstr ""
 "Při aktualizaci seznamu balíčků došlo k chybě.<p>Zkuste v konzoli spustit "
-"následující příkaz a všímejte si případného problému: sudo apt-get "
-"update</p>"
+"následující příkaz a všímejte si případného problému: sudo apt-get update</p>"
 
 #: ../../main/software/src/templates/updates.mas:86
 msgid "Updates are available for the following system components"
@@ -12024,7 +12022,8 @@ msgstr ""
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
-msgstr "Pro vyřešení této situace, zkuste v konzoli spustit následující příkaz:"
+msgstr ""
+"Pro vyřešení této situace, zkuste v konzoli spustit následující příkaz:"
 
 #: ../../main/software/src/templates/ebox.mas:116
 #, perl-brace-format
@@ -12306,7 +12305,8 @@ msgstr "Odebrat e-mailový účet"
 
 #: ../../main/samba/src/templates/edituser.mas:128
 msgid "This action removes the mail account and its associated data."
-msgstr "Tato akce povede k odebrání e-mailového účtu a s ním souvisejících dat."
+msgstr ""
+"Tato akce povede k odebrání e-mailového účtu a s ním souvisejících dat."
 
 #: ../../main/samba/src/templates/edituser.mas:131
 msgid "Replace mail account"
@@ -12427,8 +12427,8 @@ msgstr "Alternativní e-mail"
 #: ../../main/mail/src/templates/groupalias.mas:68
 msgid "Group aliases cannot be created for a group without mail account"
 msgstr ""
-"Alternativní názvy skupiny nemohou být vytvořeny pro skupinu, která nemá "
-"e-mailový účet"
+"Alternativní názvy skupiny nemohou být vytvořeny pro skupinu, která nemá e-"
+"mailový účet"
 
 #: ../../main/mail/src/templates/groupalias.mas:69
 msgid ""
@@ -12523,8 +12523,7 @@ msgid ""
 "domains."
 msgstr ""
 "E-mailový účet je nedostupný protože buď zde neexistuje jakákoli virtuální\n"
-"e-mailová doména nebo je třeba uložit změny, aby byla nová doména "
-"aktivována."
+"e-mailová doména nebo je třeba uložit změny, aby byla nová doména aktivována."
 
 #: ../../main/mail/src/templates/account.mas:49
 msgid "Click here to create a new mail virtual domain"
