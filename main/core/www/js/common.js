@@ -18,7 +18,7 @@ if (!('Zentyal' in  window)) {
 
             return nsObject;
         },
-        LeftMenu: {},
+        LeftMenu: {}
     };
 }
 
@@ -32,6 +32,41 @@ function assert(condition, text) {
         throw exText;
     }
 }
+
+Zentyal._httpQueryEscapes = {
+    '<':'%3C',
+    '>':'%3E',
+    '#':'%23',
+    '%':'%25',
+    '{':'%7B',
+    '}':'%7D',
+    '|':'%7C',
+    '\\':'%5C',
+    '^':'%5E',
+    '~':'%7E',
+    '[':'%5B',
+    ']':'%5D',
+    '`':'%60',
+    ';':'%3B',
+    '@':'%40',
+    '$':'%24',
+    '+':'%2B',
+    '"':'%22',
+    ' ':'%20'
+};
+
+Zentyal._httpQueryEscaper = /[^\w=?&\/:-]/g;
+
+Zentyal.escapeHTTPQuery = function(query) {
+    query = '' + query;
+    return query.replace(Zentyal._httpQueryEscaper, function(match) {
+        if (match in Zentyal._httpQueryEscapes) {
+            return Zentyal._httpQueryEscapes[match];
+        } else {
+            return match;
+        }
+  });
+};
 
 Zentyal.escapeSelector = function(selector) {
     return  selector.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
@@ -177,6 +212,6 @@ Zentyal.HA.replicate = function(node) {
                 alert(response.responseJSON.error);
             }
             window.location.reload();
-        },
+        }
     });
 };
