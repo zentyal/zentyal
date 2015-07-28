@@ -1770,7 +1770,7 @@ msgstr "Nyomtató neve"
 #: ../../main/core/src/templates/backup.mas:49
 #: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:48
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:101
 #: ../../main/samba/src/templates/addgroup.mas:15
 #: ../../main/samba/src/templates/editgroup.mas:32
@@ -11929,7 +11929,7 @@ msgstr "A következő csomagok lesznek telepítve"
 msgid "The following packages will be removed"
 msgstr "A következő csomagok el leszek távolítva"
 
-#: ../../main/software/src/templates/updates.mas:69
+#: ../../main/software/src/templates/updates.mas:71
 msgid ""
 "Software updates are being handled automatically. They will be installed\n"
 "automatically as scheduled"
@@ -11937,12 +11937,12 @@ msgstr ""
 "A szoftverfrissítések kezelése automatikus. Az ütemezésnek megfelelően\n"
 "automatikusan kerülnek telepítésre."
 
-#: ../../main/software/src/templates/updates.mas:77
+#: ../../main/software/src/templates/updates.mas:79
 #: ../../main/software/src/templates/ebox.mas:359
 msgid "Package list updated successfully"
 msgstr "A csomaglista sikeresen frissítve"
 
-#: ../../main/software/src/templates/updates.mas:80
+#: ../../main/software/src/templates/updates.mas:82
 #: ../../main/software/src/templates/ebox.mas:366
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
@@ -11951,46 +11951,46 @@ msgstr ""
 "Hiba történt a csomaglista frissítésekor.<p>A hibaüzenet láthatóvá tétele "
 "érdekében futtassa a következő parancsot a konzolban: sudo apt-get update</p>"
 
-#: ../../main/software/src/templates/updates.mas:86
+#: ../../main/software/src/templates/updates.mas:88
 msgid "Updates are available for the following system components"
 msgstr "A következő rendszerkomponensekhez érhetők el frissítések"
 
-#: ../../main/software/src/templates/updates.mas:87
+#: ../../main/software/src/templates/updates.mas:89
 msgid "Community updates are available for the following system components"
 msgstr "A következő rendszerkomponensekhez érhetők el közösségi frissítések"
 
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:43
 #: ../../main/software/src/templates/ebox.mas:64
 #: ../../main/software/src/templates/ebox.mas:101
 msgid "Component"
 msgstr "Komponens"
 
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:101
 msgid "Version"
 msgstr "Verzió"
 
-#: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/updates.mas:141
+#: ../../main/software/src/templates/updates.mas:95
+#: ../../main/software/src/templates/updates.mas:143
 #: ../../main/software/src/templates/ebox.mas:66
 #: ../../main/software/src/templates/ebox.mas:184
 msgid "Update"
 msgstr "Frissítés"
 
-#: ../../main/software/src/templates/updates.mas:101
+#: ../../main/software/src/templates/updates.mas:103
 msgid "Security update"
 msgstr "Biztonsági frissítés"
 
-#: ../../main/software/src/templates/updates.mas:104
+#: ../../main/software/src/templates/updates.mas:106
 msgid "Zentyal QA update"
 msgstr "Zentyal QA frissítés"
 
-#: ../../main/software/src/templates/updates.mas:126
+#: ../../main/software/src/templates/updates.mas:128
 msgid "Update all packages"
 msgstr "Minden csomag frissítése"
 
-#: ../../main/software/src/templates/updates.mas:137
+#: ../../main/software/src/templates/updates.mas:139
 #, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
@@ -11999,11 +11999,11 @@ msgstr ""
 "A művelet eltarthat egy ideig, ne aggódjon ha a Zentyal nem válaszol a "
 "Frissítés gomb megnyomása után."
 
-#: ../../main/software/src/templates/updates.mas:141
+#: ../../main/software/src/templates/updates.mas:143
 msgid "Upgrading system packages"
 msgstr "Rendszercsomagok frissítése"
 
-#: ../../main/software/src/templates/updates.mas:142
+#: ../../main/software/src/templates/updates.mas:144
 #: ../../main/software/src/templates/ebox.mas:297
 msgid "Update list"
 msgstr "Lista frissítése"

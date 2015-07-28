@@ -1805,7 +1805,7 @@ msgstr "Imprimantă"
 #: ../../main/core/src/templates/backup.mas:49
 #: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:48
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:101
 #: ../../main/samba/src/templates/addgroup.mas:15
 #: ../../main/samba/src/templates/editgroup.mas:32
@@ -12176,18 +12176,18 @@ msgstr "Următoarele pachete vor fi instalate"
 msgid "The following packages will be removed"
 msgstr "Următoarele pachete vor fi DEZinstalate"
 
-#: ../../main/software/src/templates/updates.mas:69
+#: ../../main/software/src/templates/updates.mas:71
 msgid ""
 "Software updates are being handled automatically. They will be installed\n"
 "automatically as scheduled"
 msgstr ""
 
-#: ../../main/software/src/templates/updates.mas:77
+#: ../../main/software/src/templates/updates.mas:79
 #: ../../main/software/src/templates/ebox.mas:359
 msgid "Package list updated successfully"
 msgstr "Lista pachetelor a fost actualizată cu succes"
 
-#: ../../main/software/src/templates/updates.mas:80
+#: ../../main/software/src/templates/updates.mas:82
 #: ../../main/software/src/templates/ebox.mas:366
 #, fuzzy
 msgid ""
@@ -12197,46 +12197,46 @@ msgstr ""
 "Eroare la actualizarea listei pachetelor. Pentru a vedea detalii despre "
 "problemă executați într-o consolă comanda: sudo apt-get update"
 
-#: ../../main/software/src/templates/updates.mas:86
+#: ../../main/software/src/templates/updates.mas:88
 msgid "Updates are available for the following system components"
 msgstr "Există actualizări pentru următoarele componente de sistem"
 
-#: ../../main/software/src/templates/updates.mas:87
+#: ../../main/software/src/templates/updates.mas:89
 msgid "Community updates are available for the following system components"
 msgstr "Există actualizări comunitare pentru următoarele componente de sistem"
 
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:43
 #: ../../main/software/src/templates/ebox.mas:64
 #: ../../main/software/src/templates/ebox.mas:101
 msgid "Component"
 msgstr "Componentă"
 
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:101
 msgid "Version"
 msgstr "Versiune"
 
-#: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/updates.mas:141
+#: ../../main/software/src/templates/updates.mas:95
+#: ../../main/software/src/templates/updates.mas:143
 #: ../../main/software/src/templates/ebox.mas:66
 #: ../../main/software/src/templates/ebox.mas:184
 msgid "Update"
 msgstr "Actualizare"
 
-#: ../../main/software/src/templates/updates.mas:101
+#: ../../main/software/src/templates/updates.mas:103
 msgid "Security update"
 msgstr "Actualizări de securitate"
 
-#: ../../main/software/src/templates/updates.mas:104
+#: ../../main/software/src/templates/updates.mas:106
 msgid "Zentyal QA update"
 msgstr "Actualizare Zentyal QA (Asigurarea calităţii)"
 
-#: ../../main/software/src/templates/updates.mas:126
+#: ../../main/software/src/templates/updates.mas:128
 msgid "Update all packages"
 msgstr "Actualizarea tuturor pachetelor"
 
-#: ../../main/software/src/templates/updates.mas:137
+#: ../../main/software/src/templates/updates.mas:139
 #, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
@@ -12245,12 +12245,12 @@ msgstr ""
 "Această operaţiune poate dura, nu vă îngrijoraţi dacă Zentyal pare blocat "
 "după apăsarea butonului Actualizare."
 
-#: ../../main/software/src/templates/updates.mas:141
+#: ../../main/software/src/templates/updates.mas:143
 #, fuzzy
 msgid "Upgrading system packages"
 msgstr "Se instalează pachetele"
 
-#: ../../main/software/src/templates/updates.mas:142
+#: ../../main/software/src/templates/updates.mas:144
 #: ../../main/software/src/templates/ebox.mas:297
 msgid "Update list"
 msgstr "Actualizare listă"

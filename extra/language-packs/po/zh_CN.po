@@ -1670,7 +1670,7 @@ msgstr "打印机名"
 #: ../../main/core/src/templates/backup.mas:49
 #: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:48
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:101
 #: ../../main/samba/src/templates/addgroup.mas:15
 #: ../../main/samba/src/templates/editgroup.mas:32
@@ -11335,7 +11335,7 @@ msgstr "以下软件包将被安装"
 msgid "The following packages will be removed"
 msgstr "以下软件包将被删除"
 
-#: ../../main/software/src/templates/updates.mas:69
+#: ../../main/software/src/templates/updates.mas:71
 msgid ""
 "Software updates are being handled automatically. They will be installed\n"
 "automatically as scheduled"
@@ -11343,12 +11343,12 @@ msgstr ""
 "软件更新会自动处理。它们会如预期\n"
 "自动安装"
 
-#: ../../main/software/src/templates/updates.mas:77
+#: ../../main/software/src/templates/updates.mas:79
 #: ../../main/software/src/templates/ebox.mas:359
 msgid "Package list updated successfully"
 msgstr "软件包列表更新成功"
 
-#: ../../main/software/src/templates/updates.mas:80
+#: ../../main/software/src/templates/updates.mas:82
 #: ../../main/software/src/templates/ebox.mas:366
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
@@ -11357,46 +11357,46 @@ msgstr ""
 "软件包列表更新错误。<p>请在控制台手工执行命令: sudo apt-get update，检查出现"
 "的错误</p>"
 
-#: ../../main/software/src/templates/updates.mas:86
+#: ../../main/software/src/templates/updates.mas:88
 msgid "Updates are available for the following system components"
 msgstr "以下系统组件有升级包"
 
-#: ../../main/software/src/templates/updates.mas:87
+#: ../../main/software/src/templates/updates.mas:89
 msgid "Community updates are available for the following system components"
 msgstr "以下系统组件由社团升级包"
 
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:43
 #: ../../main/software/src/templates/ebox.mas:64
 #: ../../main/software/src/templates/ebox.mas:101
 msgid "Component"
 msgstr "组件"
 
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:101
 msgid "Version"
 msgstr "版本"
 
-#: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/updates.mas:141
+#: ../../main/software/src/templates/updates.mas:95
+#: ../../main/software/src/templates/updates.mas:143
 #: ../../main/software/src/templates/ebox.mas:66
 #: ../../main/software/src/templates/ebox.mas:184
 msgid "Update"
 msgstr "升级"
 
-#: ../../main/software/src/templates/updates.mas:101
+#: ../../main/software/src/templates/updates.mas:103
 msgid "Security update"
 msgstr "安全升级"
 
-#: ../../main/software/src/templates/updates.mas:104
+#: ../../main/software/src/templates/updates.mas:106
 msgid "Zentyal QA update"
 msgstr "Zentyal QA升级"
 
-#: ../../main/software/src/templates/updates.mas:126
+#: ../../main/software/src/templates/updates.mas:128
 msgid "Update all packages"
 msgstr "升级所有软件包"
 
-#: ../../main/software/src/templates/updates.mas:137
+#: ../../main/software/src/templates/updates.mas:139
 #, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
@@ -11405,11 +11405,11 @@ msgstr ""
 "该项操作需要一些时间，如果点击升级按钮之后，Zentyal看起来没有响应，请不要担"
 "心。"
 
-#: ../../main/software/src/templates/updates.mas:141
+#: ../../main/software/src/templates/updates.mas:143
 msgid "Upgrading system packages"
 msgstr "正在升级系统软件包"
 
-#: ../../main/software/src/templates/updates.mas:142
+#: ../../main/software/src/templates/updates.mas:144
 #: ../../main/software/src/templates/ebox.mas:297
 msgid "Update list"
 msgstr "更新列表"

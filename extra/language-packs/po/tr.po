@@ -1849,7 +1849,7 @@ msgstr "Yazıcı"
 #: ../../main/core/src/templates/backup.mas:49
 #: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:48
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:101
 #: ../../main/samba/src/templates/addgroup.mas:15
 #: ../../main/samba/src/templates/editgroup.mas:32
@@ -12470,67 +12470,67 @@ msgstr "Aşağıdaki paketler kurulacak"
 msgid "The following packages will be removed"
 msgstr "Aşağıdaki paketler silinecek"
 
-#: ../../main/software/src/templates/updates.mas:69
+#: ../../main/software/src/templates/updates.mas:71
 msgid ""
 "Software updates are being handled automatically. They will be installed\n"
 "automatically as scheduled"
 msgstr ""
 
-#: ../../main/software/src/templates/updates.mas:77
+#: ../../main/software/src/templates/updates.mas:79
 #: ../../main/software/src/templates/ebox.mas:359
 msgid "Package list updated successfully"
 msgstr ""
 
-#: ../../main/software/src/templates/updates.mas:80
+#: ../../main/software/src/templates/updates.mas:82
 #: ../../main/software/src/templates/ebox.mas:366
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
 msgstr ""
 
-#: ../../main/software/src/templates/updates.mas:86
+#: ../../main/software/src/templates/updates.mas:88
 msgid "Updates are available for the following system components"
 msgstr "Aşağıdaki sistem bileşenleri için güncelleme mevcut"
 
-#: ../../main/software/src/templates/updates.mas:87
+#: ../../main/software/src/templates/updates.mas:89
 #, fuzzy
 msgid "Community updates are available for the following system components"
 msgstr "Aşağıdaki sistem bileşenleri için güncelleme mevcut"
 
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:43
 #: ../../main/software/src/templates/ebox.mas:64
 #: ../../main/software/src/templates/ebox.mas:101
 msgid "Component"
 msgstr "Bileşen"
 
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:101
 msgid "Version"
 msgstr ""
 
-#: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/updates.mas:141
+#: ../../main/software/src/templates/updates.mas:95
+#: ../../main/software/src/templates/updates.mas:143
 #: ../../main/software/src/templates/ebox.mas:66
 #: ../../main/software/src/templates/ebox.mas:184
 msgid "Update"
 msgstr "Güncelle"
 
-#: ../../main/software/src/templates/updates.mas:101
+#: ../../main/software/src/templates/updates.mas:103
 #, fuzzy
 msgid "Security update"
 msgstr "Sistem güncellemeleri"
 
-#: ../../main/software/src/templates/updates.mas:104
+#: ../../main/software/src/templates/updates.mas:106
 #, fuzzy
 msgid "Zentyal QA update"
 msgstr "Güvenlik duvarı"
 
-#: ../../main/software/src/templates/updates.mas:126
+#: ../../main/software/src/templates/updates.mas:128
 msgid "Update all packages"
 msgstr "Bütün paketleri güncelle"
 
-#: ../../main/software/src/templates/updates.mas:137
+#: ../../main/software/src/templates/updates.mas:139
 #, fuzzy
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
@@ -12539,12 +12539,12 @@ msgstr ""
 "Bu işlem uzun sürebilir. eBox uzun bir süre size cevap vermez ise sakın "
 "heyacana kapılmayın."
 
-#: ../../main/software/src/templates/updates.mas:141
+#: ../../main/software/src/templates/updates.mas:143
 #, fuzzy
 msgid "Upgrading system packages"
 msgstr "Güncelleniyor"
 
-#: ../../main/software/src/templates/updates.mas:142
+#: ../../main/software/src/templates/updates.mas:144
 #: ../../main/software/src/templates/ebox.mas:297
 #, fuzzy
 msgid "Update list"

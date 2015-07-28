@@ -1771,7 +1771,7 @@ msgstr "Nome da impressora"
 #: ../../main/core/src/templates/backup.mas:49
 #: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:48
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:101
 #: ../../main/samba/src/templates/addgroup.mas:15
 #: ../../main/samba/src/templates/editgroup.mas:32
@@ -11984,7 +11984,7 @@ msgstr "Os seguintes pacotes serão instalados"
 msgid "The following packages will be removed"
 msgstr "Os seguintes pacotes serão removidos"
 
-#: ../../main/software/src/templates/updates.mas:69
+#: ../../main/software/src/templates/updates.mas:71
 msgid ""
 "Software updates are being handled automatically. They will be installed\n"
 "automatically as scheduled"
@@ -11993,12 +11993,12 @@ msgstr ""
 "serão instalados\n"
 "automaticamente, como programado"
 
-#: ../../main/software/src/templates/updates.mas:77
+#: ../../main/software/src/templates/updates.mas:79
 #: ../../main/software/src/templates/ebox.mas:359
 msgid "Package list updated successfully"
 msgstr "Lista de pacote atualizada com sucesso"
 
-#: ../../main/software/src/templates/updates.mas:80
+#: ../../main/software/src/templates/updates.mas:82
 #: ../../main/software/src/templates/ebox.mas:366
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
@@ -12007,48 +12007,48 @@ msgstr ""
 "Erro ao atualizar a lista de pacotes.<p>Por favor, tente executar o seguinte "
 "comando em um console para ver o problema: sudo apt-get update</p>"
 
-#: ../../main/software/src/templates/updates.mas:86
+#: ../../main/software/src/templates/updates.mas:88
 msgid "Updates are available for the following system components"
 msgstr "Atualizações disponíveis para os seguintes componentes do sistema"
 
-#: ../../main/software/src/templates/updates.mas:87
+#: ../../main/software/src/templates/updates.mas:89
 msgid "Community updates are available for the following system components"
 msgstr ""
 "Atualizações da comunidade disponíveis para os seguintes componentes do "
 "sistema"
 
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:43
 #: ../../main/software/src/templates/ebox.mas:64
 #: ../../main/software/src/templates/ebox.mas:101
 msgid "Component"
 msgstr "Componente"
 
-#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/updates.mas:95
 #: ../../main/software/src/templates/ebox.mas:101
 msgid "Version"
 msgstr "Versão"
 
-#: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/updates.mas:141
+#: ../../main/software/src/templates/updates.mas:95
+#: ../../main/software/src/templates/updates.mas:143
 #: ../../main/software/src/templates/ebox.mas:66
 #: ../../main/software/src/templates/ebox.mas:184
 msgid "Update"
 msgstr "Atualizar"
 
-#: ../../main/software/src/templates/updates.mas:101
+#: ../../main/software/src/templates/updates.mas:103
 msgid "Security update"
 msgstr "Atualizações de segurança"
 
-#: ../../main/software/src/templates/updates.mas:104
+#: ../../main/software/src/templates/updates.mas:106
 msgid "Zentyal QA update"
 msgstr "Atualização QA Zentyal"
 
-#: ../../main/software/src/templates/updates.mas:126
+#: ../../main/software/src/templates/updates.mas:128
 msgid "Update all packages"
 msgstr "Atualizar todos os pacotes"
 
-#: ../../main/software/src/templates/updates.mas:137
+#: ../../main/software/src/templates/updates.mas:139
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Update button."
@@ -12056,11 +12056,11 @@ msgstr ""
 "Esta operação pode demorar algum tempo, não se preocupe se Zentyal parecer "
 "não responder após pressionar o botão Atualizar."
 
-#: ../../main/software/src/templates/updates.mas:141
+#: ../../main/software/src/templates/updates.mas:143
 msgid "Upgrading system packages"
 msgstr "Atualizando pacotes do sistema"
 
-#: ../../main/software/src/templates/updates.mas:142
+#: ../../main/software/src/templates/updates.mas:144
 #: ../../main/software/src/templates/ebox.mas:297
 msgid "Update list"
 msgstr "Atualizar lista"
