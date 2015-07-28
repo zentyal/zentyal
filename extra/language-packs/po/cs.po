@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-07-20 15:52+0200\n"
+"PO-Revision-Date: 2015-07-21 16:31+0200\n"
 "Last-Translator: pavelb <pavel.borecki@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -469,7 +469,7 @@ msgstr ""
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:61
 #: ../../main/mail/src/templates/externalAccounts.mas:15
 msgid "Server"
-msgstr ""
+msgstr "server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:64
@@ -2110,8 +2110,9 @@ msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"Vstup obsahuje neplatné znaky. Dovolena jsou písmena a čísla, plus "
-"následující znaky: .?&+:-@* a mezery."
+"Vstup obsahuje neplatné znaky. Přípustná jsou písmena a čísla, plus tyto "
+"následující znaky: „.“ (tečka), „?“ (otazník), „&“ (ampersand), „+“ (plus), "
+"„:“ (dvojtečeka), „-“ (spojovník), „@“ (zavináč), „*“ (hvězdička) a mezery."
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:75
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:477
@@ -2635,13 +2636,15 @@ msgstr "Je třeba, aby tato hodnota byla číslo (může být i desetinné)"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:338
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
-msgstr "spam práh nemůže být vyšší než jeho Autolearn práh"
+msgstr "Práh nevyžádané pošty nemůže být vyšší než jeho práh samoučení"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:342
 msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
-msgstr "spam práh nemůže být nižší nebo stejný než jeho práh samoučení ham"
+msgstr ""
+"Práh nevyžádané pošty nemůže být nižší nebo stejný než jeho práh samoučení "
+"vyžádané pošty"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:379
 msgid ""
