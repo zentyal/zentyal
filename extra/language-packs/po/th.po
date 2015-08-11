@@ -409,9 +409,8 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
-"ไม่สามารถสร้างเซิร์ฟเวอร์ชื่อ {name} เนื่องจากมีใบอนุญาตชื่อ {certName} "
-"ในสถานะ (state} อยู่ <br/> โปรดเลือกใช้ชื่ออื่นที่ไม่เหลมือกับใบอนุญาตชื่อ "
-"{certName}"
+"ไม่สามารถสร้างเซิร์ฟเวอร์ชื่อ {name} เนื่องจากมีใบอนุญาตชื่อ {certName} ในสถานะ (state} "
+"อยู่ <br/> โปรดเลือกใช้ชื่ออื่นที่ไม่เหลมือกับใบอนุญาตชื่อ {certName}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
