@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-12-24 09:48+0200\n"
-"Last-Translator: kitisak <kitisakt@gmail.com>\n"
+"PO-Revision-Date: 2015-08-11 03:47+0200\n"
+"Last-Translator: kwintim <bundit@servit.co.th>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
@@ -409,6 +409,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"ไม่สามารถสร้างเซิร์ฟเวอร์ชื่อ {name} เนื่องจากมีใบอนุญาตชื่อ {certName} "
+"ในสถานะ (state} อยู่ <br/> โปรดเลือกใช้ชื่ออื่นที่ไม่เหลมือกับใบอนุญาตชื่อ "
+"{certName}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -468,7 +471,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:136
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "คำสั่งที่ต้องการให้ปฏิบัติหลังจากมีการตั้งค่าเร้าเตอร์"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:146
 msgid "Client configuration"
@@ -1046,7 +1049,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm:1689
 msgid "hostname"
-msgstr ""
+msgstr "ชื่อโฮสต์"
 
 #: ../../main/dns/src/EBox/DNS.pm:1694
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
