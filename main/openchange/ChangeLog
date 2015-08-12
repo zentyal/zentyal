@@ -1,4 +1,5 @@
 HEAD
+	+ Added memcached dependency
 	+ Added provision_ignore_already_exists configuration key to skip
 	  existent elements on provision
 	+ Added methods to remove OpenChange accounts attributes
