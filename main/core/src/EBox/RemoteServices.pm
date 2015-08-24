@@ -75,12 +75,14 @@ my %i18nLevels = ( '-1' => __('Unknown'),
                    '6'  => __('Professional'),
                    '7'  => __('Business'),
                    '8'  => __('Trial'),
+                   '9'  => __('Commercial'),
                    '10' => __('Enterprise'),
                    '20' => __('Premium'));
 my %codenameLevels = ( 'basic'        => SUBSCRIPTION_LEVEL_COMMUNITY,
                        'professional' => 6,
                        'business'     => 7,
                        'trial'        => 8,
+                       'commercial'   => 9,
                        'premium'      => 20 );
 
 
@@ -154,6 +156,7 @@ sub aroundRestoreConfig
 #          6 - professional
 #          7 - business
 #          8 - trial
+#          9 - commercial
 #          20 - premium
 #
 sub subscriptionLevel
@@ -796,6 +799,7 @@ sub i18nServerEdition
 #         business
 #         enterprise
 #         trial
+#         commercial
 #
 sub subscriptionCodename
 {
@@ -1459,51 +1463,6 @@ sub _downgrade
     } catch ($e) {
         EBox::error('These packages ' . join(' ', @packages) . ' cannot be uninstalled: ' . $e->stringify());
     }
-}
-
-# Method: initialSetup
-#
-# Overrides:
-#   EBox::Module::Base::initialSetup
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    # Migrate from 3.2
-    if (defined ($version) and (EBox::Util::Version::compare($version, '4.0') < 0)) {
-        $self->_migrateTo40();
-    }
-}
-
-sub _migrateTo40
-{
-    my ($self) = @_;
-
-    my ($jsonFile) = glob ('/var/lib/zentyal/conf/remoteservices/subscription/*/server-info.json');
-
-    return unless ($jsonFile);
-
-    my $json = decode_json(read_file($jsonFile));
-
-    my $state = $self->get_state();
-    my $userFile = '/var/lib/zentyal/conf/remoteservices/username';
-    if (-f $userFile) {
-        my $username = read_file($userFile);
-        chomp ($username);
-        $state->{username} = $username;
-    }
-
-    my $server_uuid = $json->{uuid};
-    $server_uuid =~ s/-//g;
-
-    $state->{subscription_credentials} = {
-        password => $json->{password},
-        name => $json->{name},
-        server_uuid => $server_uuid,
-    };
-
-    $self->set_state($state);
 }
 
 1;
