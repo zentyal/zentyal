@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-07-21 16:31+0200\n"
+"PO-Revision-Date: 2015-08-18 11:04+0200\n"
 "Last-Translator: pavelb <pavel.borecki@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -9457,7 +9457,8 @@ msgstr "Smarthost k odesílání emailů"
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:74
 msgid "The format is host[:port] being port set to 25 if none is supplied"
 msgstr ""
-"Formát je host[:port] pokud žádný port není zadán, je nastaven na port 25"
+"Formát je host[:port] pokud žádný port není zadán, je nastaven na port "
+"25Formát je stroj[:port] . Pokud není nic zadáno, je použit port 25"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:81
 msgid "Smarthost authentication"
@@ -10038,7 +10039,7 @@ msgstr ""
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:47
 msgid "Enable synchronization with external servers"
-msgstr "Povolení synchronizace času s NTP externími servery"
+msgstr "Synchronizovat čas s NTP externími servery"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:60
 msgid ""
@@ -12472,7 +12473,7 @@ msgid ""
 "Mail retrieval from external accounts service is not enabled; until you {ub}"
 "enable it{ue} your changes won't have any effect."
 msgstr ""
-"Stahování správ z účtů na vnějších službách není zapnuto. Dokud {ub}jej "
+"Stahování zpráv z účtů na vnějších službách není zapnuto. Dokud {ub}jej "
 "nezapnete{ue}, provedené změny nebudou mít žádný efekt."
 
 #: ../../main/mail/src/templates/alias.mas:26
