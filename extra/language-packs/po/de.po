@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2015-07-02 14:35+0200\n"
+"PO-Revision-Date: 2015-08-25 09:48+0200\n"
 "Last-Translator: didi <d.weiss@web.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
@@ -6567,11 +6567,12 @@ msgid "This user has a openchange account."
 msgstr "Dieser Benutzer hat ein E-Mail Konto."
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:197
-#, fuzzy
 msgid ""
 "The OpenChange account is only available to groups in the default 'Groups' "
 "container"
-msgstr "Dieses Addon betrifft nur Benutzern im Standard 'Users'-Ordner"
+msgstr ""
+"Das OpenChange-Konto ist nur für Gruppen im Standard-'Groups'-Container "
+"verfügbar"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:308
 msgid "This group has a openchange account."
@@ -11831,10 +11832,11 @@ msgid "Account status"
 msgstr "Kontoname"
 
 #: ../../main/openchange/src/templates/openchange.mas:27
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oc} account could not be enabled until the user has an email account"
 msgstr ""
-"{oc} Konto konnte nicht aktiviert werden, da der User kein Email Konto hat"
+"{oc} Das Konto konnte nicht aktiviert werden, da der Benutzer noch kein "
+"Email Konto hat"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:7
 msgid "Migration finished!"
@@ -12068,10 +12070,11 @@ msgid "activate mailbox"
 msgstr "aktiviere Mailkasten"
 
 #: ../../main/openchange/src/templates/openchange_group.mas:27
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oc} account could not be enabled until the group has an email account"
 msgstr ""
-"{oc} Konto konnte nicht aktiviert werden, da der User kein Email Konto hat"
+"{oc} Konto konnte nicht aktiviert werden, da die Gruppe noch kein Email "
+"Konto hat"
 
 #: ../../main/openchange/src/templates/wizard/provision.mas:8
 msgid "Set up OpenChange Mail services"
@@ -12086,7 +12089,7 @@ msgid "Certification Authority details"
 msgstr "Details der Zertifizierungsstelle"
 
 #: ../../main/software/src/templates/updateNote.mas:14
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
 "In production environments we recommend using the {oh}Commercial "
@@ -12094,9 +12097,9 @@ msgid ""
 "L. and Canonical/Ubuntu."
 msgstr ""
 "Warnung: Das sind ungetestete Community Updates, welche Ihr System "
-"beschädigen können. In Produktionsumgebungen empfehlen wir die Nutzung von "
-"{oh}Professional, Business oder Premium Versionen{ch}: Voll unterstützte "
-"kommerzielle Zentyal Server sind Zentyal S.L. und Canonical/Ubuntu."
+"beschädigen können. In Produktivumgebungen empfehlen wir die Nutzung der "
+"{oh}Professional Version{ch}: Die Professional Versionen werden von Zentyal "
+"S.L. und Canonical/Ubuntu vollständig unterstützt."
 
 #: ../../main/software/src/templates/welcome.mas:9
 msgid ""
