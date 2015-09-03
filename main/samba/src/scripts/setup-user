@@ -1,0 +1,95 @@
+#!/usr/bin/perl
+# Copyright (C) 2015 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+use EBox;
+use EBox::Global;
+use EBox::Samba::User;
+use TryCatch::Lite;
+
+my @usersToImport;
+my $allUsers = 0;
+
+if (not @ARGV) {
+    my $usage = "This script sets up imported users to Zentyal, in order to use them as if they were natively created.\n";
+    $usage .= "The exception is home directories and roaming profiles which are left untouched.\n\n";
+    $usage .= "Usage:\n$0 [user]...\n";
+    die $usage;
+}
+@usersToImport = @ARGV;
+
+EBox::init();
+my $samba = EBox::Global->modInstance('samba');
+if (not $samba) {
+    die "Users and computers module not installed";
+} elsif (not $samba->isEnabled()) {
+    die "Users and computers module not enabled";
+}
+
+foreach my $user (@usersToImport) {
+    _importUser($user);
+}
+
+# home directory not touched by import process
+# useraccountcontrol
+sub _importUser
+{
+    my ($samAccountName) = @_;
+    my $user = EBox::Samba::User->new(samAccountName => $samAccountName);
+    if (not $user) {
+        print STDERR "error: cannot found user wth samAccountName $samAccountName\n";
+        return;
+    }
+    my $uidNumber = $user->get('uidNumber');
+    if ($uidNumber == 0) {
+        print STDERR "error: user $samAccountName is UNIX a superuser\n";
+        return;
+    } elsif (not $uidNumber) {
+        print STDERR "error: user $samAccountName has not uid number\n";
+        return;
+    }
+
+    if (not $user->hasObjectClass('posixAccount')) {
+        $user->add('objectClass', 'posixAccount');
+    }
+    if (not $user->hasObjectClass('systemQuotas')) {
+        $user->add('objectClass', 'systemQuotas');
+
+        my $quota = $user->defaultQuota();
+        $user->add('quota', $quota);
+        try {
+            $user->_setFilesystemQuota($quota);
+        } catch ($ex) {
+            print STDERR "Error setting filesystem quota for user $samAccountName\n";
+        }
+    }
+
+    $user->setupUidMapping($uidNumber);
+
+    # Dont call init user becuase we do not want to create homedir
+#    $samba->initUser($res);
+
+    # Call modules initialization
+    try {
+        $samba->notifyModsLdapUserBase(
+            'addUser', [ $user ], $user->{ignoreMods});
+    } catch ($ex) {
+        print STDERR "Error on module initialization of user $samAccountName";
+    }
+}
+
+1;

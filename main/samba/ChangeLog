@@ -1,4 +1,5 @@
 HEAD
+	+ Added setup-user script
 	+ Added GlusterFS as fs with acl and extended attributes by default
 	+ Corrected check for value of listen_all config key
 	+ Corrected name for default containers
