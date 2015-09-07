@@ -398,7 +398,7 @@ __x('Accounts from the domain {d} cannot train the bayesian filter',
   my $typeArg  = $params{isSpam} ? '--spam' : '--ham';
   my $input = $params{input};
 
-  my $cmd =  q{su } . BAYES_DB_USER . qq{ -c 'sa-learn $typeArg  $input'};
+  my $cmd =  q{su } . BAYES_DB_USER . qq{ -c 'sa-learn --mbox --max-size=0 $typeArg  $input'};
   EBox::Sudo::root($cmd);
 }
 

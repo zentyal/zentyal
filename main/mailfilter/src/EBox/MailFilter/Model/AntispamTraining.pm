@@ -53,6 +53,7 @@ sub _table
            new EBox::Types::File(
                                  fieldName => 'mailbox',
                                  printableName => __('Mailbox'),
+                                 help => __('mbox format expected'),
                                  filePath   => EBox::Config::tmp() . '/trainSpam',
                                  editable => 1,
                                 ),
