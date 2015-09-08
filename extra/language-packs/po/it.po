@@ -2993,31 +2993,35 @@ msgstr "Estensioni che non sono inserite sotto sono permesse"
 msgid "Mailbox"
 msgstr "Casella di posta"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:61
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:56
+msgid "mbox format expected"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:62
 msgid "Mailbox contains"
 msgstr "La casella contiene"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:71
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:72
 msgid "Train bayesian spam filter"
 msgstr "Metti il filtro spam bayesiano in modalità di apprendimento"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:77
 msgid "Learned from messages"
 msgstr "Appreso dalla posta transitata"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:78
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:79
 msgid "Train"
 msgstr "Allena"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:87
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
 msgid "spam"
 msgstr "spam"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:89
 msgid "ham"
 msgstr "posta valida"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:115
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:116
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
 msgstr "Tipo di casella non valido: {type}"

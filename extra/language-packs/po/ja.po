@@ -2941,31 +2941,35 @@ msgstr "以下に記載されていない拡張機能が許可されています
 msgid "Mailbox"
 msgstr "メールボックス"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:61
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:56
+msgid "mbox format expected"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:62
 msgid "Mailbox contains"
 msgstr "メールボックス内容"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:71
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:72
 msgid "Train bayesian spam filter"
 msgstr "ベイジアンスパムフィルタをトレーニング"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:77
 msgid "Learned from messages"
 msgstr "メッセージから学習"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:78
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:79
 msgid "Train"
 msgstr "学習"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:87
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
 msgid "spam"
 msgstr "迷惑メール"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:89
 msgid "ham"
 msgstr "通常メール"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:115
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:116
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
 msgstr "無効なメールボックス形式です: {type}"

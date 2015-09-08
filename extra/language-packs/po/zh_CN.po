@@ -2803,31 +2803,35 @@ msgstr "下面未列出的扩展名是被允许的"
 msgid "Mailbox"
 msgstr "Mailbox"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:61
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:56
+msgid "mbox format expected"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:62
 msgid "Mailbox contains"
 msgstr "Mailbox 包含"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:71
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:72
 msgid "Train bayesian spam filter"
 msgstr "训练贝叶斯垃圾邮件过滤器"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:77
 msgid "Learned from messages"
 msgstr "从邮件学习"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:78
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:79
 msgid "Train"
 msgstr "训练"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:87
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
 msgid "spam"
 msgstr "垃圾邮件"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:89
 msgid "ham"
 msgstr "正常邮件"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:115
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:116
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
 msgstr "无效的 mailbox 类型：{type}"

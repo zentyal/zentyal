@@ -2934,33 +2934,37 @@ msgstr ""
 msgid "Mailbox"
 msgstr "Correu"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:61
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:56
+msgid "mbox format expected"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:62
 #, fuzzy
 msgid "Mailbox contains"
 msgstr "Carauteristicas d'o serbizio de correu"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:71
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:72
 msgid "Train bayesian spam filter"
 msgstr ""
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:77
 #, fuzzy
 msgid "Learned from messages"
 msgstr "Mensaches satisfautorios"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:78
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:79
 msgid "Train"
 msgstr ""
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:87
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
 msgid "spam"
 msgstr ""
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:89
 msgid "ham"
 msgstr ""
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:115
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:116
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
 msgstr ""

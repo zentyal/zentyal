@@ -1386,7 +1386,9 @@ msgid ""
 "Automatic reverse resolution is done. If you repeat an IP address in another "
 "domain, only first match will be used by reverse resolution. Dynamic zones "
 "may erase your manual reverse resolution."
-msgstr "自動反解已完成。假如您在別的網域有重覆的 IP 位址，反解只會使用第一個符合的。動態區域會刪除您手動反解。"
+msgstr ""
+"自動反解已完成。假如您在別的網域有重覆的 IP 位址，反解只會使用第一個符合的。"
+"動態區域會刪除您手動反解。"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:214
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:79
@@ -1442,8 +1444,9 @@ msgid ""
 "record. Moreover, the same IP addresses have been assigned to this new "
 "domain. You can always rename it or create alias for it."
 msgstr ""
-"網域已新增。此主機名稱 {nshost} 已這個網域並有他的 IP 位址 {ips}，這個主機名稱也會設定名稱伺服器紀錄。還有，相同的 IP "
-"位址已會分配給新的網域。您可以重新命名或建立別名。"
+"網域已新增。此主機名稱 {nshost} 已這個網域並有他的 IP 位址 {ips}，這個主機名"
+"稱也會設定名稱伺服器紀錄。還有，相同的 IP 位址已會分配給新的網域。您可以重新"
+"命名或建立別名。"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:606
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
@@ -1523,8 +1526,8 @@ msgid ""
 "different hostnames with aliases  (A and CNAME) and other special records "
 "(MX, NS, TXT and SRV)."
 msgstr ""
-"追裡您可以新增網域給這個 DNS 伺服器。每個網域可以有不同的主機名稱及別名  (A 和 CNAME) 和其他的紀錄 (MX, NS, TXT 和 "
-"SRV)。"
+"追裡您可以新增網域給這個 DNS 伺服器。每個網域可以有不同的主機名稱及別名  (A "
+"和 CNAME) 和其他的紀錄 (MX, NS, TXT 和 SRV)。"
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:78
 #, perl-brace-format
@@ -1708,7 +1711,9 @@ msgstr "群組"
 msgid ""
 "Prior to configure printers you need to enable the module in the {openref}"
 "Module Status{closeref}  section and save changes after that."
-msgstr "在配置印表機之前您需要啟用在 {openref}模組狀態{closeref}  部份模組然後儲存變更。"
+msgstr ""
+"在配置印表機之前您需要啟用在 {openref}模組狀態{closeref}  部份模組然後儲存變"
+"更。"
 
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:129
 msgid "Listen"
@@ -2921,31 +2926,35 @@ msgstr "允許不在以下列表的副檔名"
 msgid "Mailbox"
 msgstr "郵件信箱"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:61
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:56
+msgid "mbox format expected"
+msgstr ""
+
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:62
 msgid "Mailbox contains"
 msgstr "信箱內容"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:71
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:72
 msgid "Train bayesian spam filter"
 msgstr "訓練貝氏(bayesian)垃圾信過濾"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:77
 msgid "Learned from messages"
 msgstr "從郵件中學習"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:78
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:79
 msgid "Train"
 msgstr ""
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:87
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
 msgid "spam"
 msgstr "垃圾信"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:88
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:89
 msgid "ham"
 msgstr "非垃圾信"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:115
+#: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:116
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
 msgstr "無效的信箱類型: {type}"
@@ -7971,7 +7980,8 @@ msgstr "本機網域 {x} 必須符合 AD 伺服器網域 {y}。"
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
-msgstr "此 DC {x} 不能解析到這個 IP 位址。請檢查指定的伺服器名稱和 DNS 伺服器。"
+msgstr ""
+"此 DC {x} 不能解析到這個 IP 位址。請檢查指定的伺服器名稱和 DNS 伺服器。"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:876
 #, perl-brace-format
@@ -8000,7 +8010,8 @@ msgstr "AD 架構佇列錯誤:"
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
-msgstr "此網域架構不支援 RFC 2307。您必須升級到 Windows Server 2003 R2 或更高。"
+msgstr ""
+"此網域架構不支援 RFC 2307。您必須升級到 Windows Server 2003 R2 或更高。"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:964
 msgid ""
@@ -8018,7 +8029,9 @@ msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
 "problems with kerberos authentication, please sync both clocks with an "
 "external NTP source and try again."
-msgstr "時間跟 AD 伺服器有差且高出超過2分鐘。這會造成 kerberos 驗證發生問題，請與外部 NTP 來源同步兩邊的時間然後再試一次。"
+msgstr ""
+"時間跟 AD 伺服器有差且高出超過2分鐘。這會造成 kerberos 驗證發生問題，請與外"
+"部 NTP 來源同步兩邊的時間然後再試一次。"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1049
 #, fuzzy, perl-brace-format
@@ -8212,7 +8225,9 @@ msgstr "目錄不是空的.您確定要移除嗎?"
 msgid ""
 "Domain guest account should be enabled for guest access to shares. You can "
 "enable it in the {oh}users and groups manager{ch}."
-msgstr "網域訪客帳號應該啟用給訪客存取分享使用。您可以啟用它在 {oh}使用者和群組管理{ch}。"
+msgstr ""
+"網域訪客帳號應該啟用給訪客存取分享使用。您可以啟用它在 {oh}使用者和群組管理"
+"{ch}。"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:421
 #, fuzzy, perl-brace-format
@@ -8254,14 +8269,18 @@ msgstr "讀取掛載選項時錯誤 {m}"
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'acl' option. This is "
 "required for permissions to work properly."
-msgstr "此掛載點 '{mountPoint}' 必須掛載在有 'acl' 的選項。這是權限管理能正常的必須要素。"
+msgstr ""
+"此掛載點 '{mountPoint}' 必須掛載在有 'acl' 的選項。這是權限管理能正常的必須要"
+"素。"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:508
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'user_xattr' option. "
 "This is required for permissions to work properly."
-msgstr "此掛載點 '{mountPoint}' 必須掛載在有 'user_xattr' 的選項。這是權限管理能正常的必須要素。"
+msgstr ""
+"此掛載點 '{mountPoint}' 必須掛載在有 'user_xattr' 的選項。這是權限管理能正常"
+"的必須要素。"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
 #: ../../main/samba/src/EBox/Samba.pm:1946
@@ -8276,8 +8295,9 @@ msgid ""
 "multiple OU support is partial, some modules may only work with users and "
 "groups in the default Users and Groups OUs."
 msgstr ""
-"這裡您可以管理組織單位、使用者、群組和聯絡人。假如使用 Samba 您也可以看到網域裡的電腦。請注意多 OU "
-"的支援是部份的，許多模組可能只支援在預設使用者和群組 OU 裡面的使用者和群組。"
+"這裡您可以管理組織單位、使用者、群組和聯絡人。假如使用 Samba 您也可以看到網域"
+"裡的電腦。請注意多 OU 的支援是部份的，許多模組可能只支援在預設使用者和群組 "
+"OU 裡面的使用者和群組。"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:166
 #, fuzzy
@@ -8516,7 +8536,9 @@ msgstr "該憑證已經換新"
 msgid ""
 "Shares access control lists (ACLs) are in unmanaged mode. To change this "
 "mode, edit {file} and restart this module"
-msgstr "網芳管理控制列表 (ACLs) 在未管理模式。要變更這個模式，編輯 {file} 然後重新啟動這個模組"
+msgstr ""
+"網芳管理控制列表 (ACLs) 在未管理模式。要變更這個模式，編輯 {file} 然後重新啟"
+"動這個模組"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:344
 #, fuzzy
@@ -8762,8 +8784,9 @@ msgid ""
 "you have not received leases. Saving changes if network module has just been "
 "configured or waiting for a lease can solve this situation"
 msgstr ""
-"無法啟用使用者和電腦模組因為您的系統沒有可用的 IP。即使您有 dhcp 介面 ({ifaces}) 這也可能讓您接收不到。假如網路模組已設置或是等待 "
-"dhcp 回應並儲存變更後可以解決這個情形"
+"無法啟用使用者和電腦模組因為您的系統沒有可用的 IP。即使您有 dhcp 介面 "
+"({ifaces}) 這也可能讓您接收不到。假如網路模組已設置或是等待 dhcp 回應並儲存變"
+"更後可以解決這個情形"
 
 #: ../../main/samba/src/EBox/Samba.pm:403
 #, perl-brace-format
@@ -8771,7 +8794,9 @@ msgid ""
 "Cannot enable Users and Computers module because your system does not have "
 "available IPs. {oh}Configuring network interfaces{ch} and saving changes can "
 "solve this situation"
-msgstr "無法啟用使用者和電腦模組因為您的系統沒有可用的 IP。{oh}設置網路介面{ch} 然後儲存變更可以解決這個情形"
+msgstr ""
+"無法啟用使用者和電腦模組因為您的系統沒有可用的 IP。{oh}設置網路介面{ch} 然後"
+"儲存變更可以解決這個情形"
 
 #: ../../main/samba/src/EBox/Samba.pm:1025
 #, perl-brace-format
@@ -8787,7 +8812,8 @@ msgstr "在檔案上設定安全描述時發生錯誤 {x}{y}: {z}"
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
-msgstr "在設定 samba 分享的 ACLs 時發生這些錯誤，請確認 zentyal 的紀錄了解狀況。"
+msgstr ""
+"在設定 samba 分享的 ACLs 時發生這些錯誤，請確認 zentyal 的紀錄了解狀況。"
 
 #: ../../main/samba/src/EBox/Samba.pm:1610
 #, perl-brace-format
@@ -8809,14 +8835,18 @@ msgstr "設置"
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
-msgstr "為了能夠還原這個備份主機名稱應該要先設定為 {hn}。不然的話 samba 資料可能不能還原。"
+msgstr ""
+"為了能夠還原這個備份主機名稱應該要先設定為 {hn}。不然的話 samba 資料可能不能"
+"還原。"
 
 #: ../../main/samba/src/EBox/Samba.pm:2118
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
-msgstr "因為 LDAP 使用者 {user} 已存在於 /etc/passwd 使用者所以不能還原。刪除或改名這個使用者然後重試"
+msgstr ""
+"因為 LDAP 使用者 {user} 已存在於 /etc/passwd 使用者所以不能還原。刪除或改名這"
+"個使用者然後重試"
 
 #: ../../main/samba/src/EBox/Samba.pm:2135
 #, perl-brace-format
@@ -9442,7 +9472,9 @@ msgstr "這個欄位只可用於從使用者的應用程式。"
 msgid ""
 "Password change is only available in master or standalone servers. You need "
 "to change your password from the user corner of your master server."
-msgstr "密碼變更只可用於伺服器是主要或獨立的。您必須從您的主要伺服器來變更使用者密碼。"
+msgstr ""
+"密碼變更只可用於伺服器是主要或獨立的。您必須從您的主要伺服器來變更使用者密"
+"碼。"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:86
 msgid ""
@@ -9518,7 +9550,9 @@ msgid ""
 "This allow users to retrieve mail for external accounts, the mail would be "
 "delivered to their local account. External accounts must be configured for "
 "each user."
-msgstr "這個允許使用者接收從外部帳號來的郵件，此郵件會寄送到他的本機帳號。外部帳號必須設置在每個使用者。"
+msgstr ""
+"這個允許使用者接收從外部帳號來的郵件，此郵件會寄送到他的本機帳號。外部帳號必"
+"須設置在每個使用者。"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:90
 msgid "Manage Sieve scripts"
@@ -9528,7 +9562,9 @@ msgstr "Manage Sieve 程式"
 msgid ""
 "This service allows to a user to manage his Sieve mail filtering scripts "
 "from a local client which speaks the ManageSieve protocol"
-msgstr "這個服務允許使用者徙本機客戶端並透過 ManageSieve 通訊協定去管理他的 Sieve 郵件過濾程式"
+msgstr ""
+"這個服務允許使用者徙本機客戶端並透過 ManageSieve 通訊協定去管理他的 Sieve 郵"
+"件過濾程式"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:100
 msgid "Mail retrieval services"
@@ -9675,7 +9711,9 @@ msgstr "所選擇的郵件名稱不是完整的主機名稱。"
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
-msgstr "沒有完整主機名稱可能導致一些郵件主機拒絕由系統使用者所發出的郵件和不正確的回覆位址"
+msgstr ""
+"沒有完整主機名稱可能導致一些郵件主機拒絕由系統使用者所發出的郵件和不正確的回"
+"覆位址"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:54
 msgid "Aliases"
@@ -9733,7 +9771,8 @@ msgstr "郵件別名"
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain or virtual "
 "domain alias managed by this server"
-msgstr "因為網域 {vd} 不是這台伺服器所管理的虛擬網域或是虛擬網域別名所以不能新增別名"
+msgstr ""
+"因為網域 {vd} 不是這台伺服器所管理的虛擬網域或是虛擬網域別名所以不能新增別名"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:170
 #, fuzzy, perl-brace-format
@@ -10258,7 +10297,8 @@ msgstr "主旨備用名稱"
 msgid ""
 "Multi-value separated by commas, only valid types are: {dns}, {ip} and "
 "{email}. For instance, {example}"
-msgstr "多個數值以逗號分開，有效的類型是: {dns}, {ip} 和 {email}. 例如, {example}"
+msgstr ""
+"多個數值以逗號分開，有效的類型是: {dns}, {ip} 和 {email}. 例如, {example}"
 
 #: ../../main/ca/src/templates/index.mas:73
 msgid "Issue"
@@ -10530,7 +10570,9 @@ msgid ""
 "(typically the Internet), traffic coming from external networks is not "
 "trusted by default, thus, you will not be able to connect to Zentyal "
 "administration page through them"
-msgstr "外網介面連到網路並不在您的控制下 (通常是網際網路)，預設從外部網路進來的流量是不受信任的，您不能讓他們連線到 Zentyal 管理頁面"
+msgstr ""
+"外網介面連到網路並不在您的控制下 (通常是網際網路)，預設從外部網路進來的流量是"
+"不受信任的，您不能讓他們連線到 Zentyal 管理頁面"
 
 #: ../../main/network/src/templates/confirmVlanDel.mas:9
 #, fuzzy
@@ -10562,8 +10604,9 @@ msgid ""
 "{openhref}Filtering rules from external networks to Zentyal{closehref} to "
 "allow access to the Zentyal administration port, SSH, ..."
 msgstr ""
-"您正透過這個介面連到 Zentyal。假如您在外網設定防火牆會封鎖連外的部份，除非您新增防火牆的規則到 {openhref}過濾從外部網路連到 "
-"Zentyal{closehref} 來允許存取 Zentyal 管理連接埠、SSH、..."
+"您正透過這個介面連到 Zentyal。假如您在外網設定防火牆會封鎖連外的部份，除非您"
+"新增防火牆的規則到 {openhref}過濾從外部網路連到 Zentyal{closehref} 來允許存"
+"取 Zentyal 管理連接埠、SSH、..."
 
 #: ../../main/network/src/templates/ifaces.mas:37
 #: ../../main/network/src/templates/ifaces.mas:38
@@ -10589,7 +10632,8 @@ msgstr "外部"
 msgid ""
 "Check this if you are using Zentyal as a gateway and this interface is "
 "connected to your Internet router."
-msgstr "假如您要使用 Zentyal 當路由器和這個介面來連線到您的網路路由的話請勾選這個。"
+msgstr ""
+"假如您要使用 Zentyal 當路由器和這個介面來連線到您的網路路由的話請勾選這個。"
 
 #: ../../main/network/src/templates/ifaces.mas:108
 msgid "VLAN List"
@@ -10622,7 +10666,9 @@ msgid ""
 "Warning: You are using a browser which is not {url}, the only one officially "
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on Zentyal UI."
-msgstr "警告: 您使用的瀏覽器不是 {url}, 只有一個是官方支援的。請考慮當您在瀏覽 Zentyal 介面時可能會遇到一些問題。"
+msgstr ""
+"警告: 您使用的瀏覽器不是 {url}, 只有一個是官方支援的。請考慮當您在瀏覽 "
+"Zentyal 介面時可能會遇到一些問題。"
 
 #: ../../main/core/src/templates/login/index.mas:59
 msgid "Enter"
@@ -10638,7 +10684,9 @@ msgstr "在一或多個模組中有未儲存的變更，您可以儲存或放棄
 msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
 "need to enable them go to {openref}Module Status{closeref}."
-msgstr "以下的模組尚未儲存但是已 <b>停用</b>。假如您需要啟用他們請到 {openref}模組狀態{closeref}。"
+msgstr ""
+"以下的模組尚未儲存但是已 <b>停用</b>。假如您需要啟用他們請到 {openref}模組狀"
+"態{closeref}。"
 
 #: ../../main/core/src/templates/finish.mas:23
 msgid ""
@@ -11200,7 +11248,8 @@ msgstr "設置備份將會每天自動備份。也會自動循環"
 msgid ""
 "User mail messages are neither backed up or restored. If you want to back up "
 "them manually they reside under '/var/vmail'"
-msgstr "使用者的郵件沒有備份或還原。假如您想要手動備份他們，他們儲存在 '/var/vmail'"
+msgstr ""
+"使用者的郵件沒有備份或還原。假如您想要手動備份他們，他們儲存在 '/var/vmail'"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:70
 #, fuzzy
@@ -11230,7 +11279,9 @@ msgid ""
 "Please note that you have reached the maximum number of manual remote "
 "configuration backup. If you make a new configuration backup, the oldest "
 "backup will be overwritten."
-msgstr "請注意您已經達到最大數量的手動遠端設置備份。假如您要建立新的設置備份，舊的備份會被覆蓋。"
+msgstr ""
+"請注意您已經達到最大數量的手動遠端設置備份。假如您要建立新的設置備份，舊的備"
+"份會被覆蓋。"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:163
 #, fuzzy
@@ -11297,7 +11348,8 @@ msgstr "外部郵件伺服器"
 msgid ""
 "You cannot make remote backups while unregistered. If you have valid "
 "credentials, go to the {oa}registration page.{ca}"
-msgstr "當未註冊時您不可以製作遠端備份。假如您有有效的憑證，請到 {oa}註冊頁面。{ca}"
+msgstr ""
+"當未註冊時您不可以製作遠端備份。假如您有有效的憑證，請到 {oa}註冊頁面。{ca}"
 
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:20
 #: ../../main/core/src/templates/confirm-backup.mas:23
@@ -11391,7 +11443,9 @@ msgid ""
 "If you have the file sharing module configured, all users having "
 "administration rights will be able to access the backup directory as a "
 "shared resource."
-msgstr "假如您有設置檔案分享模組，所有的使用者有管理權限將可以存取備份目錄如同分享的資源。"
+msgstr ""
+"假如您有設置檔案分享模組，所有的使用者有管理權限將可以存取備份目錄如同分享的"
+"資源。"
 
 #: ../../main/core/src/templates/backup.mas:105
 msgid "Restore Backup from File"
@@ -11891,7 +11945,8 @@ msgid ""
 "exist in Zentyal and its OpenChange account to be enabled prior the process "
 "starts."
 msgstr ""
-"此整合功能提供部份技術預覽翕允許您一次整合一個使用者。每次整合必須讓使用者存在 Zentyal 和 OpenChange 帳號且已啟用才能啟動。"
+"此整合功能提供部份技術預覽翕允許您一次整合一個使用者。每次整合必須讓使用者存"
+"在 Zentyal 和 OpenChange 帳號且已啟用才能啟動。"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:23
 #, fuzzy
@@ -11921,7 +11976,9 @@ msgstr "原來伺服器的憑證"
 msgid ""
 "You need either a user with Full privileges in Exchange with access to all "
 "mailboxes or the credentials of the user that is going to be migrated"
-msgstr "您必須要有任一使用者在 Exchange 有完整權限來存取所有信箱或有應證的使用者來整合"
+msgstr ""
+"您必須要有任一使用者在 Exchange 有完整權限來存取所有信箱或有應證的使用者來整"
+"合"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:30
 #, fuzzy
@@ -12049,8 +12106,9 @@ msgid ""
 "Edition{ch}: commercial Zentyal server editions fully supported by Zentyal S."
 "L. and Canonical/Ubuntu."
 msgstr ""
-"警告: 這些未測試的社群更新可能會傷害您的系統。此產品環境我們建議使用 {oh}社群版本{ch}: commercial Zentyal server "
-"editions fully supported by Zentyal S.L. 和 Canonical/Ubuntu."
+"警告: 這些未測試的社群更新可能會傷害您的系統。此產品環境我們建議使用 {oh}社群"
+"版本{ch}: commercial Zentyal server editions fully supported by Zentyal S.L. "
+"和 Canonical/Ubuntu."
 
 #: ../../main/software/src/templates/welcome.mas:9
 msgid ""
@@ -12119,7 +12177,9 @@ msgstr "套件列表更新成功"
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
-msgstr "更新套件列表有錯誤。<p>請試著在終端介面下執行以下指令來檢查問題: sudo apt-get update</p>"
+msgstr ""
+"更新套件列表有錯誤。<p>請試著在終端介面下執行以下指令來檢查問題: sudo apt-"
+"get update</p>"
 
 #: ../../main/software/src/templates/updates.mas:88
 msgid "Updates are available for the following system components"
@@ -12219,8 +12279,8 @@ msgid ""
 "persists, you can ask for help in the {ofhref}community forum{chref} or file "
 "a ticket in the {othref}Zentyal trac{chref}."
 msgstr ""
-"在以上的指令結束後您可以重新讀取頁面。假始問題仍在，您可以求助於 {ofhref}community 論壇{chref} 或發送問題單到 "
-"{othref}Zentyal trac{chref}。"
+"在以上的指令結束後您可以重新讀取頁面。假始問題仍在，您可以求助於 {ofhref}"
+"community 論壇{chref} 或發送問題單到 {othref}Zentyal trac{chref}。"
 
 #: ../../main/software/src/templates/ebox.mas:125
 msgid "View advanced mode"
@@ -12552,7 +12612,9 @@ msgid ""
 "{op}A hostname change will create a new certificate for the web "
 "administration connections. This means you will have to reload the page "
 "manually once the save change proccess ends.{cp}"
-msgstr "{op}變更主機名稱將會建立新的憑證用於網頁管理者連線。這個意思是說您要手動重新讀取網頁在儲存變更結束之後。{cp}"
+msgstr ""
+"{op}變更主機名稱將會建立新的憑證用於網頁管理者連線。這個意思是說您要手動重新"
+"讀取網頁在儲存變更結束之後。{cp}"
 
 #: ../../main/samba/src/templates/wizard/users.mas:12
 #, fuzzy
@@ -12686,7 +12748,8 @@ msgstr "從郵件中學習"
 msgid ""
 "Mail retrieval from external accounts service is not enabled; until you {ub}"
 "enable it{ue} your changes won't have any effect."
-msgstr "郵件恢復從外部帳號服務未啟用；直到您 {ub}啟用它{ue} 您的變更不會有任何影響。"
+msgstr ""
+"郵件恢復從外部帳號服務未啟用；直到您 {ub}啟用它{ue} 您的變更不會有任何影響。"
 
 #: ../../main/mail/src/templates/alias.mas:26
 msgid "Create mail aliases"
