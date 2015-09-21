@@ -1,4 +1,5 @@
 HEAD
+	+ Backport better mysqldump options from Zentyal 4.1
 	+ Add preliminary safe checks in release-upgrade script
 	+ Do not ask for license if already activated
 	+ Add activate-license script to enter license key via CLI
