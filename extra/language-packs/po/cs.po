@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-08-18 11:04+0200\n"
+"PO-Revision-Date: 2015-09-17 09:46+0200\n"
 "Last-Translator: pavelb <pavel.borecki@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -2958,7 +2958,7 @@ msgstr "Poštovní schránka"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:56
 msgid "mbox format expected"
-msgstr ""
+msgstr "očekáván formát mbox"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:62
 msgid "Mailbox contains"
