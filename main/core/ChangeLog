@@ -1,3 +1,6 @@
+HEAD
+	+ Fix possible redis corruption when deleting data table rows
+	  with ids sharing the same prefix
 3.0.33
 	+ Fix Stop/Start module without FirewallHelper
 	+ Better way to set MySQL password for all the root accounts

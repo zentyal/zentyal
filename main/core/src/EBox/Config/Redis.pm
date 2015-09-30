@@ -234,6 +234,10 @@ sub _keys
 
     my @keys = grep { not $deleted{$_} } $self->_redis_call('keys', $pattern);
 
+    if (($pattern =~ /\*$/) or ($pattern =~ /\/$/)) {
+        chop ($pattern);
+    }
+
     foreach my $name (keys %cache) {
         if ($name =~ /^$pattern/) {
             push (@keys, $name);
