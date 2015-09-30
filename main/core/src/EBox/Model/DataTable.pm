@@ -2633,7 +2633,8 @@ sub defaultPageSize
 # Parameters:
 #
 #     user - The user that requested this page size
-#     rows - number of rows per page
+#     rows - number of rows per page, '_all' for all elements or
+#            a zero for the default page size
 #
 # Returns:
 #
@@ -2649,11 +2650,11 @@ sub setPageSize
         throw EBox::Exceptions::MissingArgument("Missing field rows");
     }
 
-    if ($rows < 0) {
+    if (($rows ne '_all') and ($rows < 0)) {
         throw EBox::Exceptions::InvalidData(
             data => __('Page size'),
             value => $rows,
-            advice => __('Must be either a positive number or zero')
+            advice => __('Must be either a positive number or "_all" for all elements')
         );
     }
     EBox::WebAdmin::UserConfiguration::set($user, $self->contextName() . 'pageSize', $rows);

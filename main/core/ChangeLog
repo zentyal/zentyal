@@ -1,4 +1,5 @@
 HEAD
+	+ Remove non-numeric value warning in data table size control
 	+ Added skip-lock-tables, quick and single-transaction parameters to
 	  mysqldump command when dumping databases
 4.1.3
