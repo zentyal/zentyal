@@ -694,7 +694,7 @@ sub  dumpDB
     if ($onlySchema) {
         $args .= ' --no-data';
     }
-    $args .= " -h$dbhost";
+    $args .= " -h$dbhost --skip-lock-tables --quick --single-transaction";
     
     my $dumpCommand = "mysqldump $args $dbname > $tmpFile";
 
