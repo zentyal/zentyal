@@ -1,3 +1,6 @@
+HEAD
+	+ Fix possible redis corruption when deleting data table rows
+	  with ids sharing the same prefix
 4.1.4
 	+ Remove non-numeric value warning in data table size control
 	+ Added skip-lock-tables, quick and single-transaction parameters to
