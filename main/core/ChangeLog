@@ -1,4 +1,4 @@
-HEAD
+3.2.18
 	+ Fix possible redis corruption when deleting data table rows
 	  with ids sharing the same prefix
 	+ Added missing table-helper.js dependency to treeView template
