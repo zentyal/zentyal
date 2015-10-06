@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-09-17 09:46+0200\n"
+"PO-Revision-Date: 2015-10-05 08:38+0200\n"
 "Last-Translator: pavelb <pavel.borecki@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -4664,8 +4664,8 @@ msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: ={},/.?&+:-@ and spaces are allowed."
 msgstr ""
-"Vstup obsahuje neplatné znaky. Přípustné jsou písmena a čísla, dále znaky: "
-"={},/.?&+:-@ a mezery."
+"Vstup obsahuje neplatné znaky. Přípustná jsou písmena (bez diakritiky!) a "
+"čísla, dále znaky: ={},/.?&+:-@ a mezery."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:681
 msgid "No trace available for this error"
@@ -5869,11 +5869,11 @@ msgstr "Pro malé firmy a organizace"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:75
 msgid "Professional"
-msgstr ""
+msgstr "Pro profesionály"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:76
 msgid "Business"
-msgstr ""
+msgstr "Pro firmy a organizace"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:77
 msgid "Trial"
@@ -5885,12 +5885,12 @@ msgstr "Komerční"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:79
 msgid "Enterprise"
-msgstr "Podnikové"
+msgstr "Podniková"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:80
 #: ../../main/core/src/EBox/RemoteServices.pm:1328
 msgid "Premium"
-msgstr ""
+msgstr "Prémiová"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:106
 msgid "Zentyal Remote Client"
