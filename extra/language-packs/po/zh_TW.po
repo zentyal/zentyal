@@ -130,7 +130,7 @@ msgstr "用戶端 {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:91
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:351
-#: ../../main/core/src/EBox/Model/DataTable.pm:4298
+#: ../../main/core/src/EBox/Model/DataTable.pm:4299
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:127
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:73
 #: ../../main/core/src/templates/enable.mas:19
@@ -5595,7 +5595,7 @@ msgid "Enable bug report for daemon crashes"
 msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:63
-#: ../../main/core/src/EBox/Model/DataTable.pm:4125
+#: ../../main/core/src/EBox/Model/DataTable.pm:4126
 #: ../../main/network/src/templates/ifaces.mas:102
 #: ../../main/core/src/templates/enable.mas:23
 #: ../../main/core/src/templates/dataInUse.mas:33
@@ -6154,49 +6154,50 @@ msgstr "欄位"
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "從 {model}{br} 移除 {num} 行 {rowName} "
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2654
+#: ../../main/core/src/EBox/Model/DataTable.pm:2655
 msgid "Page size"
 msgstr "頁面大小"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2656
-msgid "Must be either a positive number or zero"
+#: ../../main/core/src/EBox/Model/DataTable.pm:2657
+#, fuzzy
+msgid "Must be either a positive number or \"_all\" for all elements"
 msgstr "必須為正數或 0"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2765
+#: ../../main/core/src/EBox/Model/DataTable.pm:2766
 #, fuzzy, perl-brace-format
 msgid "New {name}"
 msgstr "伺服器 {name}"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3090
+#: ../../main/core/src/EBox/Model/DataTable.pm:3091
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} 已新增"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3091
+#: ../../main/core/src/EBox/Model/DataTable.pm:3092
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} 已刪除"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3092
+#: ../../main/core/src/EBox/Model/DataTable.pm:3093
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} 已更新"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3536
+#: ../../main/core/src/EBox/Model/DataTable.pm:3537
 #, fuzzy
 msgid "Search rows term"
 msgstr "搜尋網域"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3538
+#: ../../main/core/src/EBox/Model/DataTable.pm:3539
 msgid "Must be a valid regular expression"
 msgstr ""
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4593
+#: ../../main/core/src/EBox/Model/DataTable.pm:4594
 #, fuzzy
 msgid "Page 1"
 msgstr "變更"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4595
+#: ../../main/core/src/EBox/Model/DataTable.pm:4596
 #, perl-brace-format
 msgid "Page {i} of {n}"
 msgstr ""

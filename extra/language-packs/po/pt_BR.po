@@ -148,7 +148,7 @@ msgstr "Cliente {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:91
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:351
-#: ../../main/core/src/EBox/Model/DataTable.pm:4298
+#: ../../main/core/src/EBox/Model/DataTable.pm:4299
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:127
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:73
 #: ../../main/core/src/templates/enable.mas:19
@@ -5641,7 +5641,7 @@ msgid "Enable bug report for daemon crashes"
 msgstr "Ativar relatório de bug para acidentes do daemon"
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:63
-#: ../../main/core/src/EBox/Model/DataTable.pm:4125
+#: ../../main/core/src/EBox/Model/DataTable.pm:4126
 #: ../../main/network/src/templates/ifaces.mas:102
 #: ../../main/core/src/templates/enable.mas:23
 #: ../../main/core/src/templates/dataInUse.mas:33
@@ -6195,47 +6195,48 @@ msgstr "campo"
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Remover {num} filas de {rowName} de {model}{br}"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2654
+#: ../../main/core/src/EBox/Model/DataTable.pm:2655
 msgid "Page size"
 msgstr "Tamanho da página"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2656
-msgid "Must be either a positive number or zero"
+#: ../../main/core/src/EBox/Model/DataTable.pm:2657
+#, fuzzy
+msgid "Must be either a positive number or \"_all\" for all elements"
 msgstr "Deve ser um número positivo ou zero"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2765
+#: ../../main/core/src/EBox/Model/DataTable.pm:2766
 #, perl-brace-format
 msgid "New {name}"
 msgstr "Novo {name}"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3090
+#: ../../main/core/src/EBox/Model/DataTable.pm:3091
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} adicionada"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3091
+#: ../../main/core/src/EBox/Model/DataTable.pm:3092
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} deletada"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3092
+#: ../../main/core/src/EBox/Model/DataTable.pm:3093
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} atualizada"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3536
+#: ../../main/core/src/EBox/Model/DataTable.pm:3537
 msgid "Search rows term"
 msgstr "Linhas termo de pesquisa"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3538
+#: ../../main/core/src/EBox/Model/DataTable.pm:3539
 msgid "Must be a valid regular expression"
 msgstr "Deve ser uma expressão regular válida"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4593
+#: ../../main/core/src/EBox/Model/DataTable.pm:4594
 msgid "Page 1"
 msgstr "Página 1"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4595
+#: ../../main/core/src/EBox/Model/DataTable.pm:4596
 #, perl-brace-format
 msgid "Page {i} of {n}"
 msgstr "Página {i} de {n}"

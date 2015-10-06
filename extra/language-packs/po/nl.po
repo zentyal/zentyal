@@ -149,7 +149,7 @@ msgstr "Cliënt {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:91
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:351
-#: ../../main/core/src/EBox/Model/DataTable.pm:4298
+#: ../../main/core/src/EBox/Model/DataTable.pm:4299
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:127
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:73
 #: ../../main/core/src/templates/enable.mas:19
@@ -5570,7 +5570,7 @@ msgid "Enable bug report for daemon crashes"
 msgstr "Activeer FTP SSL support voor geauthenticeerde gebruikers."
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:63
-#: ../../main/core/src/EBox/Model/DataTable.pm:4125
+#: ../../main/core/src/EBox/Model/DataTable.pm:4126
 #: ../../main/network/src/templates/ifaces.mas:102
 #: ../../main/core/src/templates/enable.mas:23
 #: ../../main/core/src/templates/dataInUse.mas:33
@@ -6115,50 +6115,50 @@ msgstr ""
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2654
+#: ../../main/core/src/EBox/Model/DataTable.pm:2655
 #, fuzzy
 msgid "Page size"
 msgstr "Pagina"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2656
-msgid "Must be either a positive number or zero"
+#: ../../main/core/src/EBox/Model/DataTable.pm:2657
+msgid "Must be either a positive number or \"_all\" for all elements"
 msgstr ""
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2765
+#: ../../main/core/src/EBox/Model/DataTable.pm:2766
 #, fuzzy, perl-brace-format
 msgid "New {name}"
 msgstr "Netbiosnaam"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3090
+#: ../../main/core/src/EBox/Model/DataTable.pm:3091
 #, fuzzy, perl-brace-format
 msgid "{row} added"
 msgstr "verwijderen"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3091
+#: ../../main/core/src/EBox/Model/DataTable.pm:3092
 #, fuzzy, perl-brace-format
 msgid "{row} deleted"
 msgstr "verwijderen"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3092
+#: ../../main/core/src/EBox/Model/DataTable.pm:3093
 #, fuzzy, perl-brace-format
 msgid "{row} updated"
 msgstr "Van datum:"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3536
+#: ../../main/core/src/EBox/Model/DataTable.pm:3537
 #, fuzzy
 msgid "Search rows term"
 msgstr "Zoek Domein"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3538
+#: ../../main/core/src/EBox/Model/DataTable.pm:3539
 msgid "Must be a valid regular expression"
 msgstr ""
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4593
+#: ../../main/core/src/EBox/Model/DataTable.pm:4594
 #, fuzzy
 msgid "Page 1"
 msgstr "Pagina"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4595
+#: ../../main/core/src/EBox/Model/DataTable.pm:4596
 #, perl-brace-format
 msgid "Page {i} of {n}"
 msgstr ""

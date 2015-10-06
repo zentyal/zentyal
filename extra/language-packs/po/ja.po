@@ -148,7 +148,7 @@ msgstr "クライアント {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:91
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:351
-#: ../../main/core/src/EBox/Model/DataTable.pm:4298
+#: ../../main/core/src/EBox/Model/DataTable.pm:4299
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:127
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:73
 #: ../../main/core/src/templates/enable.mas:19
@@ -5603,7 +5603,7 @@ msgid "Enable bug report for daemon crashes"
 msgstr "デーモンがクラッシュした際のバグレポートを有効にする"
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:63
-#: ../../main/core/src/EBox/Model/DataTable.pm:4125
+#: ../../main/core/src/EBox/Model/DataTable.pm:4126
 #: ../../main/network/src/templates/ifaces.mas:102
 #: ../../main/core/src/templates/enable.mas:23
 #: ../../main/core/src/templates/dataInUse.mas:33
@@ -6152,47 +6152,48 @@ msgstr "フィールド"
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "{model}{br} の {rowName} から {num} 行削除する"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2654
+#: ../../main/core/src/EBox/Model/DataTable.pm:2655
 msgid "Page size"
 msgstr "ページ·サイズ"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2656
-msgid "Must be either a positive number or zero"
+#: ../../main/core/src/EBox/Model/DataTable.pm:2657
+#, fuzzy
+msgid "Must be either a positive number or \"_all\" for all elements"
 msgstr "0以外の正の整数でなくてはなりません"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2765
+#: ../../main/core/src/EBox/Model/DataTable.pm:2766
 #, perl-brace-format
 msgid "New {name}"
 msgstr "新しい{name}"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3090
+#: ../../main/core/src/EBox/Model/DataTable.pm:3091
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} が追加されました"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3091
+#: ../../main/core/src/EBox/Model/DataTable.pm:3092
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} が削除されました"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3092
+#: ../../main/core/src/EBox/Model/DataTable.pm:3093
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} が更新されました"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3536
+#: ../../main/core/src/EBox/Model/DataTable.pm:3537
 msgid "Search rows term"
 msgstr "検索用語"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3538
+#: ../../main/core/src/EBox/Model/DataTable.pm:3539
 msgid "Must be a valid regular expression"
 msgstr "有効な正規表現でなければなりません"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4593
+#: ../../main/core/src/EBox/Model/DataTable.pm:4594
 msgid "Page 1"
 msgstr "ページ 1"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4595
+#: ../../main/core/src/EBox/Model/DataTable.pm:4596
 #, perl-brace-format
 msgid "Page {i} of {n}"
 msgstr "ページ {i}/{n}"
