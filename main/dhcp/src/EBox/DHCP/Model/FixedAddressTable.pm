@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2015 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -203,11 +203,11 @@ sub _message
         $msg = __('Not object added for fixed addresses') . '<p>';
     }
 
-    $msg .=  __('Only those object members whose IP address is a host (/32), a '
-              . 'valid MAC, the IP address is not used by the available range '
-              . 'and whose name is unique as fixed address will be used') . '. '
-         . __('Members whose name is not a valid hostname will be modified to '
-              . 'become a valid domain name.');
+    $msg .=  __('Only those object members whose IP address is a host (/32) '
+                . 'and is not used by the available range; it has a valid MAC '
+                . 'and whose name is unique as fixed address, will be used.') . ' '
+             . __('Members whose name is not a valid hostname will be modified to '
+                  . 'become a valid domain name.');
 }
 
 sub addresses
