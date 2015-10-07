@@ -17,7 +17,7 @@ Zentyal is the Outlook-compatible, Exchange alternative on Linux
 
 Download
 --------
-[Download](http://www.zentyal.org/server) our latest CD installer.
+[Download](http://www.zentyal.org/server) our latest installer.
 
 
 Development
