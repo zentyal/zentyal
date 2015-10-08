@@ -516,7 +516,6 @@ sub provisionDC
         my $sysinfo = EBox::Global->modInstance('sysinfo');
         my $cmd = 'samba-tool domain provision ' .
             " --domain='" . $usersModule->workgroup() . "'" .
-            " --workgroup='" . $usersModule->workgroup() . "'" .
             " --realm='" . $usersModule->kerberosRealm() . "'" .
             " --dns-backend=BIND9_DLZ" .
             " --use-xattrs=yes " .
