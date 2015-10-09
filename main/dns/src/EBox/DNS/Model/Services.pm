@@ -284,8 +284,11 @@ sub checkService
     if (exists $changedFields->{service_name} or
         exists $changedFields->{protocol} or
         exists $changedFields->{port} ) {
-        my $nMatch = grep { ($_->{name} eq $allFields->{service_name}->value()) and
-                            ($_->{protocol} eq $allFields->{protocol}->value()) } @{$services};
+        my $serviceName = $allFields->{service_name}->value();
+        $serviceName =~ s/^_//;
+        my $serviceProtocol = $allFields->{protocol}->value();
+        my $nMatch = grep { ($_->{name} eq $serviceName) and
+                            ($_->{protocol} eq $serviceProtocol) } @{$services};
         if ($nMatch < 1) {
             throw EBox::Exceptions::External(
                 __x("Service '{srv}' is not present in {file}",
