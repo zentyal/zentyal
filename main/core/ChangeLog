@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid XSS on search when entering JS code
 4.0.11
 	+ Fix possible redis corruption when deleting data table rows
 	  with ids sharing the same prefix

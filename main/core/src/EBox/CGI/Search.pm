@@ -1,4 +1,4 @@
-# Copyright (C) 2014 Zentyal S.L.
+# Copyright (C) 2014-2015 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Search;
 use EBox::Gettext;
 use TryCatch::Lite;
+use URI::Escape;
 
 sub new
 {
@@ -54,7 +55,7 @@ sub _process
 
     my $matches = [];
     if (length($searchString) < 3) {
-        $self->setError(__('The search term should have a lenght of at least 3 characters'));
+        $self->setError(__('The search term should have a length of, at least, 3 characters'));
     } else {
         try {
               $matches = EBox::Search::search($searchString);
@@ -62,6 +63,9 @@ sub _process
             $self->setError("$ex");
         }
     }
+
+    # Avoid XSS attack as searchString is returned as GET parameter
+    $searchString = uri_escape($searchString);
 
     $self->{params} = [
          searchString => $searchString,
