@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-10-05 08:38+0200\n"
+"PO-Revision-Date: 2015-10-07 13:48+0200\n"
 "Last-Translator: pavelb <pavel.borecki@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -6167,9 +6167,10 @@ msgid "Page size"
 msgstr "Velikost stránky"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:2657
-#, fuzzy
 msgid "Must be either a positive number or \"_all\" for all elements"
-msgstr "Je třeba, aby bylo kladné číslo nebo 0 (nula)"
+msgstr ""
+"Je třeba, aby bylo buď kladné číslo nebo, jako vyjádření pro veškeré prvky, "
+"klíčové slovo „_all“"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:2766
 #, perl-brace-format
