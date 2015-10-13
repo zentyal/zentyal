@@ -4107,10 +4107,11 @@ msgid "Not object added for fixed addresses"
 msgstr ""
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:206
+#, fuzzy
 msgid ""
-"Only those object members whose IP address is a host (/32), a valid MAC, the "
-"IP address is not used by the available range and whose name is unique as "
-"fixed address will be used"
+"Only those object members whose IP address is a host (/32) and is not used "
+"by the available range; it has a valid MAC and whose name is unique as fixed "
+"address, will be used."
 msgstr ""
 "Unicament es faràn servir aquells objectes la IP dels quals sigui un host "
 "(/32), tenguin una MAC vàlida, una direcció IP no utilitzada per cap "

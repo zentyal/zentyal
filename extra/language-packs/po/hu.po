@@ -4108,10 +4108,11 @@ msgid "Not object added for fixed addresses"
 msgstr "Nem került felvételre objektum rögzített címekhez"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:206
+#, fuzzy
 msgid ""
-"Only those object members whose IP address is a host (/32), a valid MAC, the "
-"IP address is not used by the available range and whose name is unique as "
-"fixed address will be used"
+"Only those object members whose IP address is a host (/32) and is not used "
+"by the available range; it has a valid MAC and whose name is unique as fixed "
+"address, will be used."
 msgstr ""
 "Azon objektumtagok esetén, amelyek IP-címe gépé (/32), érvényes MAC, IP-"
 "címét nem használja az elérhető tartomány, és amelyek neve egyedi, rögzített "

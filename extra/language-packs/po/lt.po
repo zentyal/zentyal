@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -4057,10 +4057,11 @@ msgid "Not object added for fixed addresses"
 msgstr ""
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:206
+#, fuzzy
 msgid ""
-"Only those object members whose IP address is a host (/32), a valid MAC, the "
-"IP address is not used by the available range and whose name is unique as "
-"fixed address will be used"
+"Only those object members whose IP address is a host (/32) and is not used "
+"by the available range; it has a valid MAC and whose name is unique as fixed "
+"address, will be used."
 msgstr ""
 "Tik tie objektu nariai kurių IP adresai yra (/32) ir teisingas MAC, IP "
 "adresai nenaudojami pasiekiamuose rėžiuose ir unikalus vardai su fiksuotais "

@@ -4099,10 +4099,11 @@ msgid "Not object added for fixed addresses"
 msgstr "Objekt nepřidán pro pevné adresy"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:206
+#, fuzzy
 msgid ""
-"Only those object members whose IP address is a host (/32), a valid MAC, the "
-"IP address is not used by the available range and whose name is unique as "
-"fixed address will be used"
+"Only those object members whose IP address is a host (/32) and is not used "
+"by the available range; it has a valid MAC and whose name is unique as fixed "
+"address, will be used."
 msgstr ""
 "Pouze ti členové objektu, jejih IP adresa je host (/32), platnou MAC adresu, "
 "IP adresu není použita dostupným rozsahem a jehož název je jedinečný jako "

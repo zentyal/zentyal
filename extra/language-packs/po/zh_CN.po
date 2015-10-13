@@ -3877,10 +3877,11 @@ msgid "Not object added for fixed addresses"
 msgstr "没有对象添加了固定地址（Not object added for fixed addresses）"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:206
+#, fuzzy
 msgid ""
-"Only those object members whose IP address is a host (/32), a valid MAC, the "
-"IP address is not used by the available range and whose name is unique as "
-"fixed address will be used"
+"Only those object members whose IP address is a host (/32) and is not used "
+"by the available range; it has a valid MAC and whose name is unique as fixed "
+"address, will be used."
 msgstr ""
 "只有那些 IP 地址为主机地址（/32）的对象成员，一个有效的 MAC 地址，该 IP 地址"
 "未被用于某个可用范围，作为固定地址其名称是唯一的，这样的对象成员才会被使用。"

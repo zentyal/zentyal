@@ -4155,9 +4155,9 @@ msgstr "Nessun oggetto aggiunto per indirizzi statici"
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:206
 #, fuzzy
 msgid ""
-"Only those object members whose IP address is a host (/32), a valid MAC, the "
-"IP address is not used by the available range and whose name is unique as "
-"fixed address will be used"
+"Only those object members whose IP address is a host (/32) and is not used "
+"by the available range; it has a valid MAC and whose name is unique as fixed "
+"address, will be used."
 msgstr ""
 "Solo i membri di oggetti il cui indirizzo IP è un host ( / 32 ) , un MAC "
 "valido , il cui indirizzo IP non è già utilizzato nella gamma disponibile e "
