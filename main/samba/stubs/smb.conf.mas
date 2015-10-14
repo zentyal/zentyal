@@ -24,9 +24,7 @@ use EBox::Gettext;
     server string = <% $description %>
     server role = <% $mode %>
     server role check:inhibit = yes
-    server services = rpc, nbt, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate, smb
-    dcerpc endpoint servers = epmapper wkssvc rpcecho samr netlogon lsarpc spoolss drsuapi dssetup unixinfo browser eventlog6 backupkey
-
+    server services = -dns
     server signing = auto
     dsdb:schema update allowed = yes
     drs:max object sync = 1200
