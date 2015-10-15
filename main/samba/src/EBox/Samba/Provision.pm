@@ -330,10 +330,7 @@ sub provision
     # Check environment
     my $provisionIP = $self->checkEnvironment(2);
 
-    # Remove SSS caches
     my @cmds;
-    push (@cmds, 'rm -f /var/lib/sss/db/*');
-
     # Remove extracted keytab
     my $conf = EBox::Config::conf();
     my $keytab = "$conf/samba.keytab";
@@ -516,7 +513,6 @@ sub provisionDC
         my $sysinfo = EBox::Global->modInstance('sysinfo');
         my $cmd = 'samba-tool domain provision ' .
             " --domain='" . $usersModule->workgroup() . "'" .
-            " --workgroup='" . $usersModule->workgroup() . "'" .
             " --realm='" . $usersModule->kerberosRealm() . "'" .
             " --dns-backend=BIND9_DLZ" .
             " --use-xattrs=yes " .
