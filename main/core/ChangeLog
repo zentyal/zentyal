@@ -1,4 +1,4 @@
-HEAD
+3.2.19
 	+ Move EBox::CGI::Downloader::* modules  to EBox::Downloader to
 	  make file downloads work again
 3.2.18
