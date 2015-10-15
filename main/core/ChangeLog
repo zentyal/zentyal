@@ -1,4 +1,5 @@
 HEAD
+	+ Set proper motd after edition name changes
 	+ Avoid XSS on search when entering JS code
 4.1.5
 	+ Fix possible redis corruption when deleting data table rows
