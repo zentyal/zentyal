@@ -2792,6 +2792,7 @@ sub writeSambaConfig
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
+    push (@array, 'loginShell' => $self->model('PAM')->login_shellValue());
     push (@array, 'shares' => 1);
 
     if (not EBox::Config::boolean('listen_all')) {
