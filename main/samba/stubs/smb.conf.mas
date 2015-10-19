@@ -31,6 +31,9 @@ use EBox::Gettext;
 
     idmap_ldb:use rfc2307 = yes
 
+    template shell = /bin/bash
+    template homedir = /home/%U
+
 % if ($ifaces) {
     interfaces = <% $ifaces %>
     bind interfaces only = yes
