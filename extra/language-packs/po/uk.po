@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -1291,19 +1291,19 @@ msgstr ""
 msgid "{srv} record"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:291
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:294
 #, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:309
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:312
 #, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:321
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:324
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:108
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:90
 msgid ""
@@ -3779,7 +3779,7 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:379
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:388
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:421
-#: ../../main/core/src/EBox/CGI/Search.pm:48
+#: ../../main/core/src/EBox/CGI/Search.pm:49
 #: ../../main/core/src/EBox/RemoteServices.pm:1310
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
@@ -4518,19 +4518,19 @@ msgstr ""
 msgid "Upgrade to Zentyal 4.0"
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Search.pm:29
+#: ../../main/core/src/EBox/CGI/Search.pm:30
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
 #: ../../main/core/src/templates/ajax/treeView.mas:40
 #: ../../main/software/src/templates/ebox.mas:319
 msgid "Search"
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Search.pm:46
+#: ../../main/core/src/EBox/CGI/Search.pm:47
 msgid "No search term"
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/Search.pm:57
-msgid "The search term should have a lenght of at least 3 characters"
+#: ../../main/core/src/EBox/CGI/Search.pm:58
+msgid "The search term should have a length of, at least, 3 characters"
 msgstr ""
 
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:167

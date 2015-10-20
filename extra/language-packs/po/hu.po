@@ -1350,12 +1350,12 @@ msgstr ""
 msgid "{srv} record"
 msgstr "{srv} rekord"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:291
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:294
 #, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
 msgstr "A szolgáltatás („{srv}”) nincs jelen ebben: {file}"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:309
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:312
 #, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
@@ -1364,7 +1364,7 @@ msgstr ""
 "A megadott gépnév nem egy teljes képzésű tartománynév (FQDN). Erre gondolt: "
 "{srv}.{name}?"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:321
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:324
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:108
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:90
 msgid ""
@@ -3979,7 +3979,7 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:379
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:388
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:421
-#: ../../main/core/src/EBox/CGI/Search.pm:48
+#: ../../main/core/src/EBox/CGI/Search.pm:49
 #: ../../main/core/src/EBox/RemoteServices.pm:1310
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
@@ -4766,21 +4766,21 @@ msgstr ""
 msgid "Upgrade to Zentyal 4.0"
 msgstr "Frissítés a Zentyal 3.4-re"
 
-#: ../../main/core/src/EBox/CGI/Search.pm:29
+#: ../../main/core/src/EBox/CGI/Search.pm:30
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
 #: ../../main/core/src/templates/ajax/treeView.mas:40
 #: ../../main/software/src/templates/ebox.mas:319
 msgid "Search"
 msgstr "Keresés"
 
-#: ../../main/core/src/EBox/CGI/Search.pm:46
+#: ../../main/core/src/EBox/CGI/Search.pm:47
 #, fuzzy
 msgid "No search term"
 msgstr "Kifejezés keresése sorokban"
 
-#: ../../main/core/src/EBox/CGI/Search.pm:57
+#: ../../main/core/src/EBox/CGI/Search.pm:58
 #, fuzzy
-msgid "The search term should have a lenght of at least 3 characters"
+msgid "The search term should have a length of, at least, 3 characters"
 msgstr "A jelszó minimális hossza {minLength} karakter"
 
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:167
