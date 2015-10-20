@@ -11,13 +11,12 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-network
 Architecture: all
-Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2),
+Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3),
          zentyal-common, zentyal-objects, zentyal-services,
          iproute, vlan, net-tools, dnsutils, libnet-ip-perl, dhcp3-client,
          iptables, libnet-arp-perl, wget, traceroute,
          libio-interface-perl, debconf, wakeonlan,
          resolvconf, ${misc:Depends}
-Breaks: zentyal-firewall (<< 4.1.0.1), zentyal-samba (<< 4.1.2.1)
 Description: Zentyal - Network Configuration
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

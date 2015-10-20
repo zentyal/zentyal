@@ -11,7 +11,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-ca
 Architecture: all
-Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2),
+Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3),
          libdate-calc-xs-perl, libfile-copy-recursive-perl, zip,
          ${misc:Depends}
 Description: Zentyal - Certification Authority

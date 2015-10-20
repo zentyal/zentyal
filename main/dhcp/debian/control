@@ -12,7 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-dhcp
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2), zentyal-firewall,
+Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3), zentyal-firewall,
          isc-dhcp-server, tftpd-hpa, libtext-dhcpleases-perl, ${misc:Depends}
 Suggests: pxe, etherboot
 Description: Zentyal - DHCP Server

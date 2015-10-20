@@ -7,7 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-antivirus
 Architecture: all
-Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2), zentyal-firewall,
+Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3), zentyal-firewall,
          clamav, clamav-daemon, clamav-freshclam, libclamav-xs-perl,
          libdate-calc-xs-perl, libfile-readbackwards-perl, ${misc:Depends}
 Description: Zentyal - Antivirus

@@ -12,7 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-printers
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2), zentyal-samba,
+Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3), zentyal-samba,
          cups, libexporter-cluster-perl, libnet-cups-perl, foomatic-db,
          foomatic-db-engine, foomatic-filters, adduser, hplip, ${misc:Depends}
 Description: Zentyal - Printers

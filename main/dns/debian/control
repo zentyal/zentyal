@@ -11,7 +11,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-dns
 Architecture: all
-Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2), zentyal-firewall,
+Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3), zentyal-firewall,
          libdigest-hmac-perl, bind9 (>= 2:9.9.5.dfsg-3+zentyal),
          ${misc:Depends}
 Description: Zentyal - DNS Server
