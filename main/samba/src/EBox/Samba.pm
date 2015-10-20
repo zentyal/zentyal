@@ -361,11 +361,6 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
-
-    # Clean old cron file when upgrading from 4.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '4.1') < 0)) {
-        EBox::Sudo::root('rm -f /etc/cron.d/zentyal-users');
-    }
 }
 
 sub _checkEnableIPs
