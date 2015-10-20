@@ -379,6 +379,8 @@ sub provision
 
     # Disable expiration on administrator account
     EBox::Sudo::root('samba-tool user setexpiry administrator --noexpiry');
+    # Clean cache
+    EBox::Sudo::root('net cache flush');
 
     # dns needs to be restarted after save changes to write proper bind conf with the DLZ
     $global->addModuleToPostSave('dns');
