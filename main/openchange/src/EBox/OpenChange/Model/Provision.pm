@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S. L.
+# Copyright (C) 2013-2015 Zentyal S. L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -476,7 +476,7 @@ sub provision
         # since this a critical one-time operation we
         # bypass configkeys cache to minimize human errors
         EBox::Config::flushConfigkeys();
-        if (EBox::Config::boolean('provision_ignore_aready_exists')) {
+        if (EBox::Config::boolean('provision_ignore_already_exists')) {
             $cmd .= '  --ignore-already-exists';
         }
 
