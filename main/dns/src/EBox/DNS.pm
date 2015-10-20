@@ -97,8 +97,14 @@ sub appArmorProfiles
                 'local'  => 1,
                 'file'   => 'dns/apparmor-named.local.mas',
                 'params' => \@params,
+            },
+            {
+                'binary' => 'usr.sbin.mysqld',
+                'local'  => 1,
+                'file'   => 'dns/apparmor-mysqld.local.mas',
+                'params' => \@params,
             }
-           ];
+    ];
 }
 
 # Method: addDomain

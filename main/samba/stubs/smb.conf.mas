@@ -8,6 +8,7 @@
     $roamingProfiles => 0
     $profilesPath
     $sysvolPath
+    $loginShell
     $ifaces => undef
 
     $print => 0
@@ -24,12 +25,15 @@ use EBox::Gettext;
     server string = <% $description %>
     server role = <% $mode %>
     server role check:inhibit = yes
-    server services = -dns
+    server services = -dns +winbind
     server signing = auto
     dsdb:schema update allowed = yes
     drs:max object sync = 1200
 
     idmap_ldb:use rfc2307 = yes
+
+    template shell = <% $loginShell %>
+    template homedir = /home/%U
 
 % if ($ifaces) {
     interfaces = <% $ifaces %>

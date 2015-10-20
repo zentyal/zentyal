@@ -1,4 +1,5 @@
 HEAD
+	+ Adapt apparmor profiles for Samba 4.3
 	+ Make service records accept '_' prefix in their names
 4.1
 	+ Remove external AD integration

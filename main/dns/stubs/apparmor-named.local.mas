@@ -26,13 +26,14 @@
 /usr/lib/i386-linux-gnu/samba/bind9/*.so m,
 /usr/lib/i386-linux-gnu/samba/gensec/*.so m,
 /usr/lib/i386-linux-gnu/ldb/modules/ldb/*.so m,
-/usr/lib/i386-linux-gnu/krb5/plugins/authdata/sssd_pac_plugin.so m,
 
 /usr/lib/x86_64-linux-gnu/samba/ldb/*.so m,
 /usr/lib/x86_64-linux-gnu/samba/bind9/dlz_bind9_9.so m,
 /usr/lib/x86_64-linux-gnu/samba/gensec/*.so m,
 /usr/lib/x86_64-linux-gnu/ldb/modules/ldb/*.so m,
-/usr/lib/x86_64-linux-gnu/krb5/plugins/authdata/sssd_pac_plugin.so m,
 
 # RW access to session key, to allow SDLZ driver read it
 /{,var/}run/named/session.key rw,
+
+# Access to Samba winbind pipe
+/run/samba/winbindd/pipe rw,
