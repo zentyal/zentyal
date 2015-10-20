@@ -1013,7 +1013,7 @@ sub _updateMotd
          (subscribed => $self->eBoxSubscribed())
         );
     if ($self->eBoxSubscribed() ) {
-        push(@tmplParams, (editionMsg => __sx('This is a Zentyal Server {edition} edition.',
+        push(@tmplParams, (editionMsg => __sx('This is a Zentyal Server ({edition}).',
                                                 edition => $self->i18nServerEdition())));
     }
     EBox::Module::Base::writeConfFileNoCheck(
