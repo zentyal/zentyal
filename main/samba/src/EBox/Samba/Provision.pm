@@ -517,6 +517,7 @@ sub provisionDC
             " --dns-backend=BIND9_DLZ" .
             " --use-xattrs=yes " .
             " --use-rfc2307 " .
+            " --function-level=2003 " .
             " --server-role='" . $usersModule->dcMode() . "'" .
             " --host-name='" . $sysinfo->hostName() . "'" .
             " --host-ip='" . $provisionIP . "'";
