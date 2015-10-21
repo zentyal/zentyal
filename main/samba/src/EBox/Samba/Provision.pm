@@ -330,7 +330,10 @@ sub provision
     # Check environment
     my $provisionIP = $self->checkEnvironment(2);
 
+    # Remove SSS caches
     my @cmds;
+    push (@cmds, 'rm -f /var/lib/sss/db/*');
+
     # Remove extracted keytab
     my $conf = EBox::Config::conf();
     my $keytab = "$conf/samba.keytab";

@@ -156,6 +156,9 @@ use constant KRB5_CONF_FILE => '/var/lib/samba/private/krb5.conf';
 use constant SYSTEM_WIDE_KRB5_CONF_FILE => '/etc/krb5.conf';
 use constant SYSTEM_WIDE_KRB5_KEYTAB => '/etc/krb5.keytab';
 
+# SSSD conf
+use constant SSSD_CONF_FILE => '/etc/sssd/sssd.conf';
+
 use constant OBJECT_EXISTS => 1;
 use constant OBJECT_EXISTS_AND_HIDDEN_SID => 2;
 
@@ -318,6 +321,12 @@ sub usedFiles
         {
             'file' => '/etc/fstab',
             'reason' => __('To add quota support to /home partition.'),
+            'module' => 'samba'
+        },
+        {
+            'file' => SSSD_CONF_FILE,
+            'reason' => __('To configure System Security Services Daemon to manage remote'
+                           . ' authentication mechanisms'),
             'module' => 'samba'
         },
         {
@@ -1086,6 +1095,7 @@ sub _setupNSSPAM
 
     my $PAMModule = $self->model('PAM');
     my $enablePAM = $PAMModule->enable_pamValue();
+    $self->_setupSSSd($PAMModule->login_shellValue());
 
     my $cmd;
     if ($enablePAM) {
@@ -1094,6 +1104,23 @@ sub _setupNSSPAM
         $cmd = 'auth-client-config -a -p zentyal-nokrb';
     }
     EBox::Sudo::root($cmd);
+}
+
+# Set up SSS daemon
+sub _setupSSSd
+{
+    my ($self, $defaultShell) = @_;
+
+    my $sysinfo = $self->global()->modInstance('sysinfo');
+    my @params = ('fqdn'   => $sysinfo->fqdn(),
+                  'domain' => $sysinfo->hostDomain(),
+                  'defaultShell' => $defaultShell,
+                  'keyTab' => SECRETS_KEYTAB);
+
+    # SSSd conf file must be owned by root and only rw by him
+    $self->writeConfFile(SSSD_CONF_FILE, 'samba/sssd.conf.mas',
+                         \@params,
+                         {'mode' => '0600', uid => 0, gid => 0});
 }
 
 # Method: editableMode
@@ -1123,7 +1150,7 @@ sub _daemons
             name => 'samba-ad-dc',
         },
         {
-            name => 'winbind',
+            name => 'sssd',
         },
         {
             name => 'zentyal.sysvol-sync',
@@ -1202,6 +1229,19 @@ sub _startService
     EBox::Sudo::root("setfacl -b " . SAMBA_PRIVILEGED_SOCKET);
 
     $self->SUPER::_startService();
+
+    # Wait for sss to open the NSS pipe
+    my $tries = 300;
+    my $sleep = 0.1;
+    my $socket = undef;
+    while (not defined $socket and $tries > 0) {
+        $socket = new IO::Socket::UNIX(
+            Type => SOCK_STREAM,
+            Peer => '/var/lib/sss/pipes/nss');
+        last if $socket;
+        $tries--;
+        Time::HiRes::sleep($sleep);
+    }
 }
 
 # Method: groupDn
