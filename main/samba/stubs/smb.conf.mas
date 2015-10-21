@@ -17,9 +17,6 @@
 </%args>
 <%init>
 use EBox::Gettext;
-# FIXME: temporal workaround to avoid winbind problems with openchange, reimplement better
-my $openchangeMod = EBox::Global->modInstance('openchange');
-my $disableWinbind = (defined($openchangeMod) and $openchangeMod->isProvisioned());
 </%init>
 [global]
     workgroup = <% $workgroup %>
@@ -28,11 +25,7 @@ my $disableWinbind = (defined($openchangeMod) and $openchangeMod->isProvisioned(
     server string = <% $description %>
     server role = <% $mode %>
     server role check:inhibit = yes
-% if ($disableWinbind) {
-    server services = -dns -winbindd -s3fs +smb
-% } else {
-    server services = -dns
-% }
+    server services = -dns +winbind
     server signing = auto
     dsdb:schema update allowed = yes
     drs:max object sync = 1200
