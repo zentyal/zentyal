@@ -249,10 +249,6 @@ sub deleteObject
 
     # TODO Remove this user from shares ACLs
 
-    # Clean cache
-    # TODO remove only user entry
-    EBox::Sudo::silentRoot("net cache flush");
-
     # Call super implementation
     $self->SUPER::deleteObject(@params);
 }
