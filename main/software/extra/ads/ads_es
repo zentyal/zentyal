@@ -2,8 +2,8 @@
   {
     "title": "&iexcl;Gracias por elegir Zentyal Server!",
     "paragraphs": [
-      "Zentyal Server implementa los protocolos de Microsoft® Exchange y Active Directory® en Linux de manera nativa. ¿Buscas una versi&oacute;n experimental para probar el producto? ¡Zentyal Server Development Edition es para ti! Si buscas una versi&oacute;n para tu entorno de produci&oacute;n, elige una de las ediciones comerciales.",
-      "Para obtener ayuda de comunidad, echa un vistazo a la documentaci&oacute;n oficial y el Foro Oficial de Zentyal!"
+      "Zentyal Server implementa los protocolos de Microsoft® Exchange y Active Directory® en Linux de forma nativa. ¿Buscas una versi&oacute;n experimental para probar el producto? ¡Zentyal Server Development Edition es para ti! Si buscas una versi&oacute;n para tu entorno de produci&oacute;n, elige la edición comercial.",
+      "Para obtener ayuda de la comunidad, echa un vistazo a la documentaci&oacute;n oficial y al Foro Oficial de Zentyal!"
     ],
     "links": [
       "http://wiki.zentyal.org/",
@@ -11,15 +11,15 @@
     ]
   },
   {
-    "title": "Ediciones Comerciales de Zentyal",
+    "title": "Edición Comercial de Zentyal",
     "paragraphs": [
-      "&iexcl;Listas para usar en un entorno de produci&oacute;n!"
+      "&iexcl;Lista para usar en un entorno de produci&oacute;n!"
     ],
     "items": [
       "Soporte oficial ilimitado",
-      "Completamente testeado y estable",
-      "Verificación de calidad sobre las actualizaciones",
-      "Soportadas durante 4.5 años"
+      "Completamente verificado y estable",
+      "Aseguramiento de calidad sobre las actualizaciones",
+      "Soportada durante 4.5 años"
     ],
     "endText": "&iexcl;Pide tu trial gratuito en www.zentyal.com/es/zentyal-server!"
   },
@@ -29,10 +29,10 @@
       "&iexcl;Integración transparente en entornos Microsoft Outlook®!"
     ],
     "items": [
-      "Soporte para Microsoft Outlook® 2007, 2010, 2013",
+      "Soporte para Microsoft Outlook® 2007 y 2010",
+      "Correo y Groupware (Contactos y Calendarios)",
       "&iexcl;No es necesario instalar plug-ins o conectores en los clientes de correo!",
-      "Configuraci&oacute;n automática del servidor con el servicio Autodiscover",
-      "Soporte para migraci&oacute;n de buzones de Microsoft Outlook® (Importaci&oacute;n de archivos PST)"
+      "Configuraci&oacute;n automática del servidor con el servicio Autodiscover"
     ],
     "endText": "&iexcl;Aprende m&aacute;s en wiki.zentyal.org!"
   },
