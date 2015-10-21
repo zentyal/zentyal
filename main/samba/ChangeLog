@@ -1,6 +1,5 @@
 4.2
 	+ Integrate Samba 4.3
-	+ Use winbind instead of sss for NSS/PAM
 4.1.5
 	+ Added setup-user script
 	+ Added GlusterFS as fs with acl and extended attributes by default
