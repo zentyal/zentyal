@@ -2,7 +2,7 @@
   {
     "title": "Thank you for choosing Zentyal Server!",
     "paragraphs": [
-              "Zentyal Server offers native Microsoft® Exchange protocols implementation and Active Directory interoperability on Linux. Are you looking for a version to experiment with? The Development Edition is for you! Are you looking for the production version? Choose one of the commercial editions.",
+              "Zentyal Server offers native Microsoft® Exchange protocols implementation and Active Directory interoperability on Linux. Are you looking for a version to experiment with? The Development Edition is for you! Are you looking for the production version? Choose the commercial edition.",
               "For community help on the development edition, check out the official documentation and the Zentyal Forum!"
              ],
     "links": [ "http://wiki.zentyal.org/", "http://forum.zentyal.org" ]
@@ -21,13 +21,13 @@
   },
 
   {
-    "title": "Native compatibility with Microsoft® Exchange Server protocols",
-    "paragraphs": [ "Transparent integration in Microsoft Outlook® environments" ],
+    "title": "Native Microsoft® Exchange protocols implementation",
+    "paragraphs": [ "Full native Microsoft® Outlook Compatibility" ],
     "items": [
-              "Support for Microsoft Outlook® 2007, 2010, 2013",
+              "Support for Microsoft® Outlook 2007 and 2010",
+              "Mail and Groupware (Calendars & Contacts)",
               "No need to install plug-ins or connectors on mail clients!",
-              "Automatic configuration of server settings (Autodiscover service)",
-              "Support for Microsoft Outlook® mailbox migration (PST-file import)"
+              "Automatic configuration of server settings (Autodiscover service)"
              ],
     "endText": "Learn more at wiki.zentyal.org!"
   },
