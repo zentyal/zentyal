@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-03-26 11:53+0200\n"
-"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
+"PO-Revision-Date: 2015-10-21 11:19+0200\n"
+"Last-Translator: mburillo <mburillo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -741,7 +741,6 @@ msgid "First nameserver"
 msgstr "Servidor de nombres primario"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-#, fuzzy
 msgid "Second nameserver"
 msgstr "Servidor de nombres secundario"
 
@@ -2989,7 +2988,7 @@ msgstr "Buzón"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:56
 msgid "mbox format expected"
-msgstr ""
+msgstr "se esperaba formato mbox"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:62
 msgid "Mailbox contains"
@@ -4161,7 +4160,6 @@ msgid "Not object added for fixed addresses"
 msgstr "Objrto non Añadido fijado en red"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:206
-#, fuzzy
 msgid ""
 "Only those object members whose IP address is a host (/32) and is not used "
 "by the available range; it has a valid MAC and whose name is unique as fixed "
@@ -4831,7 +4829,6 @@ msgid "No search term"
 msgstr "No hay criterio de búsqueda"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:58
-#, fuzzy
 msgid "The search term should have a length of, at least, 3 characters"
 msgstr "El criterio de búsqueda debe tener una longitud de mínimo 3 caracteres"
 
@@ -5431,7 +5428,6 @@ msgstr ""
 "Además, algunos paqeutes actualizados requieren un reinicio para aplicarse"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:121
-#, fuzzy
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
 "In production environments we recommend using the Commercial Edition: "
@@ -5441,7 +5437,7 @@ msgstr ""
 "Aviso: Estas actualizaciones son actualizaciones no probadas de comunidad y "
 "pueden dañar tu sistema. En entornos de producción recomendamos usar la "
 "Edición Professional, Business o Premium: ediciones comerciales del Servidor "
-"Zentyal, con soporte completo de Zentyal S.L. y Canonical/ Ubuntu."
+"Zentyal, con soporte completo de Zentyal S.L. y Canonical/Ubuntu."
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:126
 #: ../../main/software/src/templates/updateNote.mas:11
@@ -5961,9 +5957,8 @@ msgid "Trial"
 msgstr "Trial"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:78
-#, fuzzy
 msgid "Commercial"
-msgstr "Ediciones Comerciales"
+msgstr "Comercial"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:79
 msgid "Enterprise"
@@ -6254,9 +6249,8 @@ msgid "Page size"
 msgstr "Tamaño de página"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:2657
-#, fuzzy
 msgid "Must be either a positive number or \"_all\" for all elements"
-msgstr "Debe ser un número positivo o cero"
+msgstr "Debe ser un número positivo o \"_all\" para todos los elementos"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:2766
 #, perl-brace-format
@@ -6517,18 +6511,16 @@ msgid "This user has a openchange account."
 msgstr "Este usuario tiene una cuenta de OpenChange."
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:197
-#, fuzzy
 msgid ""
 "The OpenChange account is only available to groups in the default 'Groups' "
 "container"
 msgstr ""
-"Este complemento se aplica sólo a los usuarios en el contenedor por defecto "
-"'Usuarios'"
+"Las cuentas de OpenChange solo están disponibles para grupos pertenecientes "
+"al contenedor 'Groups'"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:308
-#, fuzzy
 msgid "This group has a openchange account."
-msgstr "Este usuario tiene una cuenta de OpenChange."
+msgstr "Este grupo tiene una cuenta de OpenChange."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:52
 msgid "CA name"
@@ -6909,13 +6901,12 @@ msgid "Enable OpenChange account"
 msgstr "Activar cuenta de OpenChange"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:44
-#, fuzzy
 msgid ""
 "This affects both new users and groups with mail account in a managed mail "
 "domain"
 msgstr ""
-"Este usuario tiene una cuenta de correo que no corresponde a ningún dominio "
-"de correo gestionado por Zentyal"
+"Esto afectará tanto a los nuevos usuarios como a los grupos con una cuenta "
+"de correo en un dominio de correo que esté siendo gestionado"
 
 # Hace referencia a activar o habilitar los modulos antes dichos en el archivo de configuración de Apache "httpd.conf"
 #: ../../main/openchange/src/EBox/OpenChange.pm:121
@@ -11753,7 +11744,7 @@ msgid "Account status"
 msgstr "Estado de la cuenta"
 
 #: ../../main/openchange/src/templates/openchange.mas:27
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oc} account could not be enabled until the user has an email account"
 msgstr ""
 "La cuenta {oc} no se puede activar hasta que el usuario tenga una cuenta de "
@@ -12002,7 +11993,7 @@ msgid "activate mailbox"
 msgstr "activa buzón de correo"
 
 #: ../../main/openchange/src/templates/openchange_group.mas:27
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oc} account could not be enabled until the group has an email account"
 msgstr ""
 "La cuenta {oc} no se puede activar hasta que el usuario tenga una cuenta de "
@@ -12021,7 +12012,7 @@ msgid "Certification Authority details"
 msgstr "Detalles de la Autoridad de Certificación"
 
 #: ../../main/software/src/templates/updateNote.mas:14
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
 "In production environments we recommend using the {oh}Commercial "
@@ -12030,9 +12021,8 @@ msgid ""
 msgstr ""
 "Aviso: Estas actualizaciones son actualizaciones no probadas de comunidad y "
 "pueden dañar su sistema. En entornos de producción recomendamos usar la "
-"edición {oh}Profesional,  Business o Enterprise{ch}: ediciones comerciales "
-"del servidor Zentyal, con soporte completo de Zentyal S.L. y Canonical/"
-"Ubuntu."
+"edición {oh}Comercial{ch} con soporte completo de Zentyal S.L. y "
+"Canonical/Ubuntu."
 
 #: ../../main/software/src/templates/welcome.mas:9
 msgid ""

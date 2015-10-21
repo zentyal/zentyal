@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-08-09 13:11+0200\n"
-"Last-Translator: Cirion <gonzito@online.no>\n"
+"PO-Revision-Date: 2015-10-20 11:46+0200\n"
+"Last-Translator: wayshot <asle@leknes.info>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "deaktivert"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr "Servers adresse"
+msgstr "Serverens adresse"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
@@ -35,7 +35,7 @@ msgstr "Du må oppgi minst en adresse for server {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:142
 msgid "The client certificate can't be the same than the server's one"
-msgstr "Klient sertifikatet kan ikke være det samme som serverens"
+msgstr "Klientsertifikatet kan ikke være det samme som serverens"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:140
 msgid ""
