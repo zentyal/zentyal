@@ -21,6 +21,9 @@ then
     chown g+w $DISASTER_FILE
 fi
 
+# Force update of grub before reboot
+dpkg-reconfigure zenbuntu-core
+
 ### CUSTOM_ACTION ###
 
 sync
