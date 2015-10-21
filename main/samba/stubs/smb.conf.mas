@@ -8,7 +8,6 @@
     $roamingProfiles => 0
     $profilesPath
     $sysvolPath
-    $loginShell
     $ifaces => undef
 
     $print => 0
@@ -32,7 +31,7 @@ use EBox::Gettext;
 
     idmap_ldb:use rfc2307 = yes
 
-    template shell = <% $loginShell %>
+    template shell = /bin/bash
     template homedir = /home/%U
 
 % if ($ifaces) {
