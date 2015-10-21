@@ -17,9 +17,19 @@ then
 
     if [ -f /etc/default/grub ]
     then
+        update="no"
+        if ! grep -q ifnames /etc/default/grub
+        then
+            sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 net.ifnames=1 biosdevname=0"/' /etc/default/grub
+            update="yes"
+        fi
         if ! grep -q splash /etc/default/grub
         then
             sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 splash"/' /etc/default/grub
+            update="yes"
+        fi
+        if [ "$update" == "yes" ]
+        then
             update-grub
         fi
     fi
