@@ -989,9 +989,9 @@ msgstr "Procesy služby OpenVPN"
 #: ../../main/dhcp/src/EBox/DHCP.pm:979
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:787
-#: ../../main/samba/src/EBox/Samba.pm:3218
-#: ../../main/samba/src/EBox/Samba.pm:3238
-#: ../../main/samba/src/EBox/Samba.pm:3249
+#: ../../main/samba/src/EBox/Samba.pm:3214
+#: ../../main/samba/src/EBox/Samba.pm:3234
+#: ../../main/samba/src/EBox/Samba.pm:3245
 #: ../../main/mail/src/EBox/Mail.pm:1679
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
@@ -1016,7 +1016,7 @@ msgstr "Událost"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3243
+#: ../../main/samba/src/EBox/Samba.pm:3239
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1071,78 +1071,78 @@ msgstr ""
 "Položku insecure_rip_conf je třeba nastavit na hodnotu „yes“ (ano) nebo "
 "„no“ (ne)"
 
-#: ../../main/dns/src/EBox/DNS.pm:283 ../../main/dns/src/EBox/DNS.pm:363
-#: ../../main/dns/src/EBox/DNS.pm:391 ../../main/dns/src/EBox/DNS.pm:1663
+#: ../../main/dns/src/EBox/DNS.pm:289 ../../main/dns/src/EBox/DNS.pm:369
+#: ../../main/dns/src/EBox/DNS.pm:397 ../../main/dns/src/EBox/DNS.pm:1669
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:709
 msgid "domain"
 msgstr "doména"
 
-#: ../../main/dns/src/EBox/DNS.pm:495
+#: ../../main/dns/src/EBox/DNS.pm:501
 msgid "Zentyal will set the required environment variables for bind9 daemon"
 msgstr ""
 "Zentyal nastaví potřebné proměnné prostředí pro systémovou službu bind9"
 
-#: ../../main/dns/src/EBox/DNS.pm:500
+#: ../../main/dns/src/EBox/DNS.pm:506
 msgid "main bind9 configuration file"
 msgstr "hlavní soubor s nastaveními pro bind9"
 
-#: ../../main/dns/src/EBox/DNS.pm:505
+#: ../../main/dns/src/EBox/DNS.pm:511
 msgid "bind9 options configuration file"
 msgstr "soubor s nastaveními předvoleb pro bind9"
 
-#: ../../main/dns/src/EBox/DNS.pm:510
+#: ../../main/dns/src/EBox/DNS.pm:516
 msgid "local bind9 configuration file"
 msgstr "místní soubor s nastaveními pro bind9"
 
-#: ../../main/dns/src/EBox/DNS.pm:515
+#: ../../main/dns/src/EBox/DNS.pm:521
 msgid "Keys configuration file"
 msgstr "Soubor s nastaveními klíčů"
 
-#: ../../main/dns/src/EBox/DNS.pm:530
+#: ../../main/dns/src/EBox/DNS.pm:536
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr "Změna oprávnění pro {dir} povolit zapisovat bind skupině"
 
-#: ../../main/dns/src/EBox/DNS.pm:532
+#: ../../main/dns/src/EBox/DNS.pm:538
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "Umožnit dynamickou aktualizaci systémové služby bind"
 
-#: ../../main/dns/src/EBox/DNS.pm:536
+#: ../../main/dns/src/EBox/DNS.pm:542
 msgid "Remove bind9 init script link"
 msgstr "Odstranit odkaz na inicializační skript bind9"
 
-#: ../../main/dns/src/EBox/DNS.pm:537 ../../main/ntp/src/EBox/NTP.pm:82
+#: ../../main/dns/src/EBox/DNS.pm:543 ../../main/ntp/src/EBox/NTP.pm:82
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "Zentyal se postará o spouštění a zastavování služeb."
 
-#: ../../main/dns/src/EBox/DNS.pm:542
+#: ../../main/dns/src/EBox/DNS.pm:548
 msgid "Override named apparmor profile"
 msgstr "Přebít pojmenovaný apparmor profil"
 
-#: ../../main/dns/src/EBox/DNS.pm:543
+#: ../../main/dns/src/EBox/DNS.pm:549
 msgid "To allow samba daemon load Active Directory zone"
 msgstr "Pro umožnění toho, aby služba samba nahrála zónu Active Directory"
 
-#: ../../main/dns/src/EBox/DNS.pm:568
+#: ../../main/dns/src/EBox/DNS.pm:574
 msgid "Domain Name Service"
 msgstr "Doménová jmenná služba (DNS)"
 
-#: ../../main/dns/src/EBox/DNS.pm:946
+#: ../../main/dns/src/EBox/DNS.pm:952
 #, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
 msgstr "položka {key} v souboru s nastaveními {value}"
 
-#: ../../main/dns/src/EBox/DNS.pm:1689
+#: ../../main/dns/src/EBox/DNS.pm:1695
 msgid "hostname"
 msgstr "název stroje"
 
-#: ../../main/dns/src/EBox/DNS.pm:1694
+#: ../../main/dns/src/EBox/DNS.pm:1700
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2634
+#: ../../main/samba/src/EBox/Samba.pm:2630
 msgid "alias"
 msgstr "alternativní název"
 
-#: ../../main/dns/src/EBox/DNS.pm:1910
+#: ../../main/dns/src/EBox/DNS.pm:1916
 #, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
 msgstr "Název stroje {x} je již definován v doméně {y}"
@@ -1226,7 +1226,7 @@ msgstr "Zapnout transparentní DNS mezipaměť"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:1939
+#: ../../main/samba/src/EBox/Samba.pm:1935
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
@@ -1487,7 +1487,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1933
+#: ../../main/samba/src/EBox/Samba.pm:1929
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "Doména"
@@ -1671,9 +1671,9 @@ msgstr "V případě umožnění přístupu hostům je jakékoli řízen příst
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3220
-#: ../../main/samba/src/EBox/Samba.pm:3240
-#: ../../main/samba/src/EBox/Samba.pm:3251
+#: ../../main/samba/src/EBox/Samba.pm:3216
+#: ../../main/samba/src/EBox/Samba.pm:3236
+#: ../../main/samba/src/EBox/Samba.pm:3247
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2122,7 +2122,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3221
+#: ../../main/samba/src/EBox/Samba.pm:3217
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -5899,8 +5899,8 @@ msgid "Zentyal Remote Client"
 msgstr "Zentyal vzdálený klient"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1016
-#, perl-brace-format
-msgid "This is a Zentyal Server {edition} edition."
+#, fuzzy, perl-brace-format
+msgid "This is a Zentyal Server ({edition})."
 msgstr "Toto je {edition} varianta Zentyal serveru."
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1223
@@ -7566,7 +7566,7 @@ msgid "OU name"
 msgstr "Název organizační jednotky (OU)"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:1960
+#: ../../main/samba/src/EBox/Samba.pm:1956
 msgid "LDAP Settings"
 msgstr "Nastavení LDAP"
 
@@ -7576,7 +7576,7 @@ msgid ""
 msgstr "Tato nastavení jsou použita při vytváření nového uživatelského účtu."
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:1956
+#: ../../main/samba/src/EBox/Samba.pm:1952
 msgid "User Template"
 msgstr "Šablona účtu uživatele"
 
@@ -7585,7 +7585,7 @@ msgid "Recycle Bin"
 msgstr "Koš"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:1970
+#: ../../main/samba/src/EBox/Samba.pm:1966
 msgid "File Sharing"
 msgstr "Sdílení souborů"
 
@@ -7799,25 +7799,25 @@ msgstr ""
 msgid "The mode {mode} is not supported"
 msgstr "Režim {mode} není podporován"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:432
-#: ../../main/samba/src/EBox/Samba/Provision.pm:456
-#: ../../main/samba/src/EBox/Samba/Provision.pm:485
+#: ../../main/samba/src/EBox/Samba/Provision.pm:434
+#: ../../main/samba/src/EBox/Samba/Provision.pm:458
+#: ../../main/samba/src/EBox/Samba/Provision.pm:487
 #, perl-brace-format
 msgid "Unexpected number of entries. Got {x}, expected 1."
 msgstr "Neočekávaný počet položek. Obdrženo {x}, očekávána 1."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:630
+#: ../../main/samba/src/EBox/Samba/Provision.pm:632
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr "Nelze zjistit doménu zadaného serveru Active Directory {x}."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:650
+#: ../../main/samba/src/EBox/Samba/Provision.pm:652
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr ""
 "Nelze zjistit kerberos oblast (realm) zadaného serveru Active Directory {x}."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:671
+#: ../../main/samba/src/EBox/Samba/Provision.pm:673
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
@@ -7825,7 +7825,7 @@ msgstr ""
 "Nelze se spojit s LDAP databází serveru Active Directory ({x}). Zkontrolujte "
 "zadané přihlašovací údaje."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:720
+#: ../../main/samba/src/EBox/Samba/Provision.pm:722
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -7841,11 +7841,11 @@ msgstr ""
 "„ForestDnsZones“ a zkuste to znovu. Informace k přesunu zón naleznete zde "
 "{link}. "
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:758
+#: ../../main/samba/src/EBox/Samba/Provision.pm:760
 msgid "Could not retrieve the domain information."
 msgstr "Nelze získat informace o doméně."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:767
+#: ../../main/samba/src/EBox/Samba/Provision.pm:769
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
@@ -7853,26 +7853,26 @@ msgstr ""
 "Strom domény Active Directory obsahuje více než jednu doménu. Samba "
 "podporuje pouze jednu doménu na strom."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:787
+#: ../../main/samba/src/EBox/Samba/Provision.pm:789
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr "Zadaný doménový řadič {x} není dostupný."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:806
+#: ../../main/samba/src/EBox/Samba/Provision.pm:808
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
 "Je třeba, aby místní kerberos oblast (realm) {x} byla shodná s oblastí "
 "Active Directory serveru {y}"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:815
+#: ../../main/samba/src/EBox/Samba/Provision.pm:817
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
 "Je třeba, aby se místní doména {x} shodovala s doménou serveru Active "
 "Directory {y}."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:850
+#: ../../main/samba/src/EBox/Samba/Provision.pm:852
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
@@ -7881,7 +7881,7 @@ msgstr ""
 "Nepodařilo se přeložit název doménového řadiče {x} na jeho IP adresu. "
 "Zkontrolujte správnost zadání názvu serveru a DNS server."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:876
+#: ../../main/samba/src/EBox/Samba/Provision.pm:878
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
@@ -7890,7 +7890,7 @@ msgstr ""
 "Zadaný server Active Directory je v místní DNS zaregistrován jako {x}, což "
 "se shoduje s místním názvem stroje."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:897
+#: ../../main/samba/src/EBox/Samba/Provision.pm:899
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
@@ -7898,7 +7898,7 @@ msgstr ""
 "Je třeba, aby úroveň funkcí doménového lesa (forest) byla Windows Server "
 "2003 nebo vyšší. Zvyšte úroveň funkcí."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:903
+#: ../../main/samba/src/EBox/Samba/Provision.pm:905
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
@@ -7906,11 +7906,11 @@ msgstr ""
 "Je třeba, aby úroveň funkcí domény byla nastavena přinejmenším na Windows "
 "Server 2003 nebo vyšší. Zvyšte úroveň funkcí."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:930
+#: ../../main/samba/src/EBox/Samba/Provision.pm:932
 msgid "Error querying AD schema:"
 msgstr "Chyba při dotazu na schéma Active Directory:"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:937
+#: ../../main/samba/src/EBox/Samba/Provision.pm:939
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
@@ -7918,7 +7918,7 @@ msgstr ""
 "Schéma domény neodpovídá normě RFC 2307. Bude třeba přejít na Windows Server "
 "2003 R2 a novější."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:964
+#: ../../main/samba/src/EBox/Samba/Provision.pm:966
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
@@ -7926,12 +7926,12 @@ msgstr ""
 "Doména, ke které se pokoušíte připojit, má nastaveno uznávání účtů mezi "
 "doménami (trust). To zatím není v Samba podporováno."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:997
+#: ../../main/samba/src/EBox/Samba/Provision.pm:999
 #, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "Nedaří se synchronizovat čas (NTP) se severem Active Directory {x}."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1010
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1012
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
 "problems with kerberos authentication, please sync both clocks with an "
@@ -7941,26 +7941,26 @@ msgstr ""
 "problémy při kerberos ověřování. Sjednoťte čas na obou stranách pomocí "
 "vnějšího zdroje přesného času (NTP serveru) a zkuste to znovu."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1049
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1051
 #, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "Zadané místo (site) {x} v doméně neexistuje."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1061
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1063
 msgid "Could not determine the site of the specified server"
 msgstr "Nelze zjistit místo (site) zadaného serveru"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1095
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1097
 msgid "Could not determine the netbios domain name."
 msgstr "Nelze zjistit netbios název domény."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1099
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1101
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr "NetBIOS název {x} nebyl nalezen. Zkontrolujte správnost zadání."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1453
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1455
 msgid "Error on group container LDAP entry creation:"
 msgstr "Chyba při vytváření LDAP položky pro kontejner skupiny:"
 
@@ -8206,7 +8206,7 @@ msgstr ""
 "Důvodem je zajištění správného fungování přístupových oprávnění."
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:1946
+#: ../../main/samba/src/EBox/Samba.pm:1942
 msgid "Users and Computers"
 msgstr "Uživatelé a počítače"
 
@@ -8672,7 +8672,7 @@ msgstr "Pro zapnutí rozšířených atributů a seznamů řízení přístupu (
 msgid "Domain and File sharing protocols"
 msgstr "Protokoly pro doménu a sdílení souborů"
 
-#: ../../main/samba/src/EBox/Samba.pm:399
+#: ../../main/samba/src/EBox/Samba.pm:394
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8687,7 +8687,7 @@ msgstr ""
 "Síť a ještě nebyly uloženy. Jejich uložení a/nebo vyčkání na zápůjčku IP "
 "adres může tuto situaci vyřešit"
 
-#: ../../main/samba/src/EBox/Samba.pm:403
+#: ../../main/samba/src/EBox/Samba.pm:398
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8698,17 +8698,17 @@ msgstr ""
 "nastaveny IP adresy. {oh}Nastavení síťových rozhraní{ch} (a uložení tam "
 "provedených změn) může tuto situaci vyřešit"
 
-#: ../../main/samba/src/EBox/Samba.pm:1025
+#: ../../main/samba/src/EBox/Samba.pm:1020
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr "Chyba při nastavování popisovače zabezpečení na sdílení {x}: {y}"
 
-#: ../../main/samba/src/EBox/Samba.pm:1047
+#: ../../main/samba/src/EBox/Samba.pm:1042
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr "Chyba při nastavování popisovače zabezpečení na souboru {x}{y}: {z}"
 
-#: ../../main/samba/src/EBox/Samba.pm:1070
+#: ../../main/samba/src/EBox/Samba.pm:1065
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
@@ -8716,22 +8716,22 @@ msgstr ""
 "Při nastavování seznamů řízení přístupu (ACL) na Samba sdíleních došlo k "
 "chybám. Podrobnosti jsou uvedeny v záznamu událostí."
 
-#: ../../main/samba/src/EBox/Samba.pm:1610
+#: ../../main/samba/src/EBox/Samba.pm:1606
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 "Pro skupinu {name} bylo nalezeno {count} výsledků, očekáván byl ale pouze "
 "jeden."
 
-#: ../../main/samba/src/EBox/Samba.pm:1952
+#: ../../main/samba/src/EBox/Samba.pm:1948
 msgid "Manage"
 msgstr "Spravovat"
 
-#: ../../main/samba/src/EBox/Samba.pm:1964
+#: ../../main/samba/src/EBox/Samba.pm:1960
 msgid "Configure mode"
 msgstr "Režim nastavování"
 
-#: ../../main/samba/src/EBox/Samba.pm:2102
+#: ../../main/samba/src/EBox/Samba.pm:2098
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
@@ -8740,7 +8740,7 @@ msgstr ""
 "Aby bylo možné obnovit z této zálohy, měl by nejprve být název stroje "
 "nastaven na {hn}. Jinak totiž nebude možné obnovit data ze Samba."
 
-#: ../../main/samba/src/EBox/Samba.pm:2118
+#: ../../main/samba/src/EBox/Samba.pm:2114
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -8751,7 +8751,7 @@ msgstr ""
 "stávajícím /etc/passwd. Tedy jej z tohoto souboru odstraňte (nebo "
 "přejmenujte) a zkuste spustit obnovení ze zálohy znovu."
 
-#: ../../main/samba/src/EBox/Samba.pm:2135
+#: ../../main/samba/src/EBox/Samba.pm:2131
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8762,7 +8762,7 @@ msgstr ""
 "chybou:\n"
 "{ex}"
 
-#: ../../main/samba/src/EBox/Samba.pm:2145
+#: ../../main/samba/src/EBox/Samba.pm:2141
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
@@ -8770,7 +8770,7 @@ msgstr ""
 "Obnovení z této zálohy Zentyal serveru je možné provést pouze v případě, že "
 "v lese (forest) domén neexistuje žádný další takový doménový řadič"
 
-#: ../../main/samba/src/EBox/Samba.pm:2409
+#: ../../main/samba/src/EBox/Samba.pm:2405
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
@@ -8778,91 +8778,91 @@ msgstr ""
 "Název stroje nebo domény nemůže být změněn v případě, že je Zentyal nastaven "
 "coby další z doménových řadičů."
 
-#: ../../main/samba/src/EBox/Samba.pm:2502
+#: ../../main/samba/src/EBox/Samba.pm:2498
 msgid "Users data and Filesystem shares"
 msgstr "Data uživatelů a sdílené složky"
 
-#: ../../main/samba/src/EBox/Samba.pm:2645
+#: ../../main/samba/src/EBox/Samba.pm:2641
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "Adresa {addr} je již používána {type} {name}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3219
-#: ../../main/samba/src/EBox/Samba.pm:3239
-#: ../../main/samba/src/EBox/Samba.pm:3250
+#: ../../main/samba/src/EBox/Samba.pm:3215
+#: ../../main/samba/src/EBox/Samba.pm:3235
+#: ../../main/samba/src/EBox/Samba.pm:3246
 msgid "Client address"
 msgstr "Adresa klienta"
 
-#: ../../main/samba/src/EBox/Samba.pm:3222
+#: ../../main/samba/src/EBox/Samba.pm:3218
 msgid "Resource"
 msgstr "Prostředek"
 
-#: ../../main/samba/src/EBox/Samba.pm:3226
+#: ../../main/samba/src/EBox/Samba.pm:3222
 msgid "Connect"
 msgstr "Připojit"
 
-#: ../../main/samba/src/EBox/Samba.pm:3227
+#: ../../main/samba/src/EBox/Samba.pm:3223
 msgid "Access to directory"
 msgstr "Přístup ke složce"
 
-#: ../../main/samba/src/EBox/Samba.pm:3228
+#: ../../main/samba/src/EBox/Samba.pm:3224
 msgid "Read file"
 msgstr "Číst obsah souboru"
 
-#: ../../main/samba/src/EBox/Samba.pm:3229
+#: ../../main/samba/src/EBox/Samba.pm:3225
 msgid "Write file"
 msgstr "Zapisovat do souboru"
 
-#: ../../main/samba/src/EBox/Samba.pm:3230
+#: ../../main/samba/src/EBox/Samba.pm:3226
 msgid "Disconnect"
 msgstr "Odpojit"
 
-#: ../../main/samba/src/EBox/Samba.pm:3231
+#: ../../main/samba/src/EBox/Samba.pm:3227
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Odstranit"
 
-#: ../../main/samba/src/EBox/Samba.pm:3232
+#: ../../main/samba/src/EBox/Samba.pm:3228
 msgid "Create directory"
 msgstr "Vytvořit složku"
 
-#: ../../main/samba/src/EBox/Samba.pm:3233
+#: ../../main/samba/src/EBox/Samba.pm:3229
 msgid "Remove directory"
 msgstr "Odstranit složku"
 
-#: ../../main/samba/src/EBox/Samba.pm:3234
+#: ../../main/samba/src/EBox/Samba.pm:3230
 msgid "Rename"
 msgstr "Přejmenovat"
 
-#: ../../main/samba/src/EBox/Samba.pm:3241
-#: ../../main/samba/src/EBox/Samba.pm:3252
+#: ../../main/samba/src/EBox/Samba.pm:3237
+#: ../../main/samba/src/EBox/Samba.pm:3248
 msgid "File name"
 msgstr "Název souboru"
 
+#: ../../main/samba/src/EBox/Samba.pm:3238
 #: ../../main/samba/src/EBox/Samba.pm:3242
-#: ../../main/samba/src/EBox/Samba.pm:3246
 msgid "Virus"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3253
+#: ../../main/samba/src/EBox/Samba.pm:3249
 msgid "Quarantined file name"
 msgstr "Název souboru v karanténě"
 
-#: ../../main/samba/src/EBox/Samba.pm:3254
-#: ../../main/samba/src/EBox/Samba.pm:3257
+#: ../../main/samba/src/EBox/Samba.pm:3250
+#: ../../main/samba/src/EBox/Samba.pm:3253
 msgid "Quarantine"
 msgstr "Karanténa"
 
-#: ../../main/samba/src/EBox/Samba.pm:3260
+#: ../../main/samba/src/EBox/Samba.pm:3256
 msgid "Samba access"
 msgstr "Samba přístup"
 
-#: ../../main/samba/src/EBox/Samba.pm:3271
+#: ../../main/samba/src/EBox/Samba.pm:3267
 msgid "Samba virus"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3282
+#: ../../main/samba/src/EBox/Samba.pm:3278
 msgid "Samba quarantine"
 msgstr "Samba karanténa"
 

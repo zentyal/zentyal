@@ -945,9 +945,9 @@ msgstr "OpenVPN 伺服程式"
 #: ../../main/dhcp/src/EBox/DHCP.pm:979
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:787
-#: ../../main/samba/src/EBox/Samba.pm:3218
-#: ../../main/samba/src/EBox/Samba.pm:3238
-#: ../../main/samba/src/EBox/Samba.pm:3249
+#: ../../main/samba/src/EBox/Samba.pm:3214
+#: ../../main/samba/src/EBox/Samba.pm:3234
+#: ../../main/samba/src/EBox/Samba.pm:3245
 #: ../../main/mail/src/EBox/Mail.pm:1679
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
@@ -972,7 +972,7 @@ msgstr "事件"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3243
+#: ../../main/samba/src/EBox/Samba.pm:3239
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1025,82 +1025,82 @@ msgstr "伺服器連線已結束"
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr "您必須將 insecure_rip_conf 設定為 yes 或 no"
 
-#: ../../main/dns/src/EBox/DNS.pm:283 ../../main/dns/src/EBox/DNS.pm:363
-#: ../../main/dns/src/EBox/DNS.pm:391 ../../main/dns/src/EBox/DNS.pm:1663
+#: ../../main/dns/src/EBox/DNS.pm:289 ../../main/dns/src/EBox/DNS.pm:369
+#: ../../main/dns/src/EBox/DNS.pm:397 ../../main/dns/src/EBox/DNS.pm:1669
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:709
 msgid "domain"
 msgstr "網域"
 
-#: ../../main/dns/src/EBox/DNS.pm:495
+#: ../../main/dns/src/EBox/DNS.pm:501
 msgid "Zentyal will set the required environment variables for bind9 daemon"
 msgstr "Zentyal 將會針對 bind9 服務設定必要的環境參數"
 
-#: ../../main/dns/src/EBox/DNS.pm:500
+#: ../../main/dns/src/EBox/DNS.pm:506
 msgid "main bind9 configuration file"
 msgstr "bind9 主要設置檔"
 
-#: ../../main/dns/src/EBox/DNS.pm:505
+#: ../../main/dns/src/EBox/DNS.pm:511
 msgid "bind9 options configuration file"
 msgstr "bind9 options 設置檔"
 
-#: ../../main/dns/src/EBox/DNS.pm:510
+#: ../../main/dns/src/EBox/DNS.pm:516
 msgid "local bind9 configuration file"
 msgstr "bind9 local 設置檔"
 
-#: ../../main/dns/src/EBox/DNS.pm:515
+#: ../../main/dns/src/EBox/DNS.pm:521
 #, fuzzy
 msgid "Keys configuration file"
 msgstr "金鑰設置檔"
 
-#: ../../main/dns/src/EBox/DNS.pm:530
+#: ../../main/dns/src/EBox/DNS.pm:536
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr "修改 {dir} 的權限, 讓 bind 群組可作寫入"
 
-#: ../../main/dns/src/EBox/DNS.pm:532
+#: ../../main/dns/src/EBox/DNS.pm:538
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "讓 bind 服務可作動態更新"
 
-#: ../../main/dns/src/EBox/DNS.pm:536
+#: ../../main/dns/src/EBox/DNS.pm:542
 #, fuzzy
 msgid "Remove bind9 init script link"
 msgstr "移除 ntp init script 連結"
 
-#: ../../main/dns/src/EBox/DNS.pm:537 ../../main/ntp/src/EBox/NTP.pm:82
+#: ../../main/dns/src/EBox/DNS.pm:543 ../../main/ntp/src/EBox/NTP.pm:82
 #, fuzzy
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "eBox 會注意服務的啟動和停止"
 
-#: ../../main/dns/src/EBox/DNS.pm:542
+#: ../../main/dns/src/EBox/DNS.pm:548
 msgid "Override named apparmor profile"
 msgstr "覆寫名稱伺服器的 apparmor 設定"
 
-#: ../../main/dns/src/EBox/DNS.pm:543
+#: ../../main/dns/src/EBox/DNS.pm:549
 msgid "To allow samba daemon load Active Directory zone"
 msgstr "允許 samba 服飾讀取 Active Directory 區域"
 
-#: ../../main/dns/src/EBox/DNS.pm:568
+#: ../../main/dns/src/EBox/DNS.pm:574
 #, fuzzy
 msgid "Domain Name Service"
 msgstr "名稱伺服器"
 
-#: ../../main/dns/src/EBox/DNS.pm:946
+#: ../../main/dns/src/EBox/DNS.pm:952
 #, fuzzy, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
 msgstr "收集的主要組態檔案"
 
-#: ../../main/dns/src/EBox/DNS.pm:1689
+#: ../../main/dns/src/EBox/DNS.pm:1695
 #, fuzzy
 msgid "hostname"
 msgstr "主機名稱"
 
-#: ../../main/dns/src/EBox/DNS.pm:1694
+#: ../../main/dns/src/EBox/DNS.pm:1700
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2634
+#: ../../main/samba/src/EBox/Samba.pm:2630
 msgid "alias"
 msgstr "別名"
 
-#: ../../main/dns/src/EBox/DNS.pm:1910
+#: ../../main/dns/src/EBox/DNS.pm:1916
 #, fuzzy, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
 msgstr "同一個網域, 有一個主機使用相同的名稱 \"{name}\""
@@ -1184,7 +1184,7 @@ msgstr "啟用通透的 DNS 快取"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:1939
+#: ../../main/samba/src/EBox/Samba.pm:1935
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
@@ -1456,7 +1456,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1933
+#: ../../main/samba/src/EBox/Samba.pm:1929
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 #, fuzzy
 msgid "Domain"
@@ -1662,9 +1662,9 @@ msgstr "假如允許訪客存取則所有權限控制將停用。"
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3220
-#: ../../main/samba/src/EBox/Samba.pm:3240
-#: ../../main/samba/src/EBox/Samba.pm:3251
+#: ../../main/samba/src/EBox/Samba.pm:3216
+#: ../../main/samba/src/EBox/Samba.pm:3236
+#: ../../main/samba/src/EBox/Samba.pm:3247
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2131,7 +2131,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3221
+#: ../../main/samba/src/EBox/Samba.pm:3217
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -5889,9 +5889,9 @@ msgid "Zentyal Remote Client"
 msgstr "eBox 元件"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1016
-#, perl-brace-format
-msgid "This is a Zentyal Server {edition} edition."
-msgstr ""
+#, fuzzy, perl-brace-format
+msgid "This is a Zentyal Server ({edition})."
+msgstr "NTP 伺服器"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1223
 #, fuzzy
@@ -7705,7 +7705,7 @@ msgid "OU name"
 msgstr "使用者名稱"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:1960
+#: ../../main/samba/src/EBox/Samba.pm:1956
 msgid "LDAP Settings"
 msgstr ""
 
@@ -7715,7 +7715,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:1956
+#: ../../main/samba/src/EBox/Samba.pm:1952
 #, fuzzy
 msgid "User Template"
 msgstr "使用者名稱"
@@ -7725,7 +7725,7 @@ msgid "Recycle Bin"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:1970
+#: ../../main/samba/src/EBox/Samba.pm:1966
 msgid "File Sharing"
 msgstr "檔案分享"
 
@@ -7917,30 +7917,30 @@ msgstr ""
 msgid "The mode {mode} is not supported"
 msgstr "使用者 {u} 不存在"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:432
-#: ../../main/samba/src/EBox/Samba/Provision.pm:456
-#: ../../main/samba/src/EBox/Samba/Provision.pm:485
+#: ../../main/samba/src/EBox/Samba/Provision.pm:434
+#: ../../main/samba/src/EBox/Samba/Provision.pm:458
+#: ../../main/samba/src/EBox/Samba/Provision.pm:487
 #, perl-brace-format
 msgid "Unexpected number of entries. Got {x}, expected 1."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:630
+#: ../../main/samba/src/EBox/Samba/Provision.pm:632
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:650
+#: ../../main/samba/src/EBox/Samba/Provision.pm:652
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:671
+#: ../../main/samba/src/EBox/Samba/Provision.pm:673
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:720
+#: ../../main/samba/src/EBox/Samba/Provision.pm:722
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -7950,33 +7950,33 @@ msgid ""
 "try again. Check {link} for help on how to do that."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:758
+#: ../../main/samba/src/EBox/Samba/Provision.pm:760
 #, fuzzy
 msgid "Could not retrieve the domain information."
 msgstr "您不可在網域前加上www"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:767
+#: ../../main/samba/src/EBox/Samba/Provision.pm:769
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr "此 AD 樹容器有一個以上的網域。Samba 只支援每個樹系一個網域。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:787
+#: ../../main/samba/src/EBox/Samba/Provision.pm:789
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr "指定的網域控制站 {x} 無法使用。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:806
+#: ../../main/samba/src/EBox/Samba/Provision.pm:808
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr "本機 kerberos realm {x} 必須符合 AD 伺服器 realm {y}。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:815
+#: ../../main/samba/src/EBox/Samba/Provision.pm:817
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr "本機網域 {x} 必須符合 AD 伺服器網域 {y}。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:850
+#: ../../main/samba/src/EBox/Samba/Provision.pm:852
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
@@ -7984,48 +7984,48 @@ msgid ""
 msgstr ""
 "此 DC {x} 不能解析到這個 IP 位址。請檢查指定的伺服器名稱和 DNS 伺服器。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:876
+#: ../../main/samba/src/EBox/Samba/Provision.pm:878
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr "指定的 AD 伺服器已註冊在本機 DNS {x}，符合本機主機名稱。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:897
+#: ../../main/samba/src/EBox/Samba/Provision.pm:899
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr "此樹系層級必須是 Windows Server 2003 或更高。請提高您的樹系層級。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:903
+#: ../../main/samba/src/EBox/Samba/Provision.pm:905
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr "此網域層級必須是 Windows Server 2003 或更高。請提高您的網域層級。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:930
+#: ../../main/samba/src/EBox/Samba/Provision.pm:932
 msgid "Error querying AD schema:"
 msgstr "AD 架構佇列錯誤:"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:937
+#: ../../main/samba/src/EBox/Samba/Provision.pm:939
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
 "此網域架構不支援 RFC 2307。您必須升級到 Windows Server 2003 R2 或更高。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:964
+#: ../../main/samba/src/EBox/Samba/Provision.pm:966
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr "此網域您試著加入已有的信任關係定義。此刻 samba 是不支援的。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:997
+#: ../../main/samba/src/EBox/Samba/Provision.pm:999
 #, fuzzy, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "您不可在網域前加上www"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1010
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1012
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
 "problems with kerberos authentication, please sync both clocks with an "
@@ -8034,26 +8034,26 @@ msgstr ""
 "時間跟 AD 伺服器有差且高出超過2分鐘。這會造成 kerberos 驗證發生問題，請與外"
 "部 NTP 來源同步兩邊的時間然後再試一次。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1049
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1051
 #, fuzzy, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "憑證 {cn} 不存在"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1061
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1063
 msgid "Could not determine the site of the specified server"
 msgstr "無法確定指定伺服器的站台"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1095
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1097
 msgid "Could not determine the netbios domain name."
 msgstr "無法確定 netbios 網域名稱。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1099
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1101
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr "NetBIOS 名稱 {x} 可能沒找到。請檢查指定的值。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1453
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1455
 msgid "Error on group container LDAP entry creation:"
 msgstr "在建立 LDAP 群組容器時發生錯誤:"
 
@@ -8284,7 +8284,7 @@ msgstr ""
 "的必須要素。"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:1946
+#: ../../main/samba/src/EBox/Samba.pm:1942
 #, fuzzy
 msgid "Users and Computers"
 msgstr "使用者和群組"
@@ -8777,7 +8777,7 @@ msgstr "啟用延伸屬性和權限"
 msgid "Domain and File sharing protocols"
 msgstr "檔案分享(Samba)通訊協定"
 
-#: ../../main/samba/src/EBox/Samba.pm:399
+#: ../../main/samba/src/EBox/Samba.pm:394
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8789,7 +8789,7 @@ msgstr ""
 "({ifaces}) 這也可能讓您接收不到。假如網路模組已設置或是等待 dhcp 回應並儲存變"
 "更後可以解決這個情形"
 
-#: ../../main/samba/src/EBox/Samba.pm:403
+#: ../../main/samba/src/EBox/Samba.pm:398
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8799,39 +8799,39 @@ msgstr ""
 "無法啟用使用者和電腦模組因為您的系統沒有可用的 IP。{oh}設置網路介面{ch} 然後"
 "儲存變更可以解決這個情形"
 
-#: ../../main/samba/src/EBox/Samba.pm:1025
+#: ../../main/samba/src/EBox/Samba.pm:1020
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr "在分享上設定安全描述時發生錯誤 '{x}': {y}"
 
-#: ../../main/samba/src/EBox/Samba.pm:1047
+#: ../../main/samba/src/EBox/Samba.pm:1042
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr "在檔案上設定安全描述時發生錯誤 {x}{y}: {z}"
 
-#: ../../main/samba/src/EBox/Samba.pm:1070
+#: ../../main/samba/src/EBox/Samba.pm:1065
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
 msgstr ""
 "在設定 samba 分享的 ACLs 時發生這些錯誤，請確認 zentyal 的紀錄了解狀況。"
 
-#: ../../main/samba/src/EBox/Samba.pm:1610
+#: ../../main/samba/src/EBox/Samba.pm:1606
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr "找到 {count} 結果為 '{name}' 群組，預期只有一個。"
 
-#: ../../main/samba/src/EBox/Samba.pm:1952
+#: ../../main/samba/src/EBox/Samba.pm:1948
 #, fuzzy
 msgid "Manage"
 msgstr "唯讀"
 
-#: ../../main/samba/src/EBox/Samba.pm:1964
+#: ../../main/samba/src/EBox/Samba.pm:1960
 #, fuzzy
 msgid "Configure mode"
 msgstr "設置"
 
-#: ../../main/samba/src/EBox/Samba.pm:2102
+#: ../../main/samba/src/EBox/Samba.pm:2098
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
@@ -8840,7 +8840,7 @@ msgstr ""
 "為了能夠還原這個備份主機名稱應該要先設定為 {hn}。不然的話 samba 資料可能不能"
 "還原。"
 
-#: ../../main/samba/src/EBox/Samba.pm:2118
+#: ../../main/samba/src/EBox/Samba.pm:2114
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -8849,7 +8849,7 @@ msgstr ""
 "因為 LDAP 使用者 {user} 已存在於 /etc/passwd 使用者所以不能還原。刪除或改名這"
 "個使用者然後重試"
 
-#: ../../main/samba/src/EBox/Samba.pm:2135
+#: ../../main/samba/src/EBox/Samba.pm:2131
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8859,104 +8859,104 @@ msgstr ""
 "我們不可以重建從備份裡的 samba 資料裡的規則因為我們發生這個錯誤:\n"
 "{ex}"
 
-#: ../../main/samba/src/EBox/Samba.pm:2145
+#: ../../main/samba/src/EBox/Samba.pm:2141
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr "假如伺服器是獨立網域控制站的樹目錄時還原是唯一可以做的"
 
-#: ../../main/samba/src/EBox/Samba.pm:2409
+#: ../../main/samba/src/EBox/Samba.pm:2405
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr "假如 Zentyal 是設置成額外網域控制站的話主機名稱或網域不能變更。"
 
-#: ../../main/samba/src/EBox/Samba.pm:2502
+#: ../../main/samba/src/EBox/Samba.pm:2498
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "檔案系統使用量"
 
-#: ../../main/samba/src/EBox/Samba.pm:2645
+#: ../../main/samba/src/EBox/Samba.pm:2641
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "連接埠 {port} 已經被 {mod} 模組使用"
 
-#: ../../main/samba/src/EBox/Samba.pm:3219
-#: ../../main/samba/src/EBox/Samba.pm:3239
-#: ../../main/samba/src/EBox/Samba.pm:3250
+#: ../../main/samba/src/EBox/Samba.pm:3215
+#: ../../main/samba/src/EBox/Samba.pm:3235
+#: ../../main/samba/src/EBox/Samba.pm:3246
 msgid "Client address"
 msgstr "客戶端位址"
 
-#: ../../main/samba/src/EBox/Samba.pm:3222
+#: ../../main/samba/src/EBox/Samba.pm:3218
 msgid "Resource"
 msgstr "資源"
 
-#: ../../main/samba/src/EBox/Samba.pm:3226
+#: ../../main/samba/src/EBox/Samba.pm:3222
 msgid "Connect"
 msgstr "連線"
 
-#: ../../main/samba/src/EBox/Samba.pm:3227
+#: ../../main/samba/src/EBox/Samba.pm:3223
 msgid "Access to directory"
 msgstr "存取目錄"
 
-#: ../../main/samba/src/EBox/Samba.pm:3228
+#: ../../main/samba/src/EBox/Samba.pm:3224
 msgid "Read file"
 msgstr "讀取檔案"
 
-#: ../../main/samba/src/EBox/Samba.pm:3229
+#: ../../main/samba/src/EBox/Samba.pm:3225
 msgid "Write file"
 msgstr "寫入檔案"
 
-#: ../../main/samba/src/EBox/Samba.pm:3230
+#: ../../main/samba/src/EBox/Samba.pm:3226
 msgid "Disconnect"
 msgstr "中斷連線"
 
-#: ../../main/samba/src/EBox/Samba.pm:3231
+#: ../../main/samba/src/EBox/Samba.pm:3227
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "移除"
 
-#: ../../main/samba/src/EBox/Samba.pm:3232
+#: ../../main/samba/src/EBox/Samba.pm:3228
 msgid "Create directory"
 msgstr "建立目錄"
 
-#: ../../main/samba/src/EBox/Samba.pm:3233
+#: ../../main/samba/src/EBox/Samba.pm:3229
 msgid "Remove directory"
 msgstr "移除目錄"
 
-#: ../../main/samba/src/EBox/Samba.pm:3234
+#: ../../main/samba/src/EBox/Samba.pm:3230
 msgid "Rename"
 msgstr "重新命名"
 
-#: ../../main/samba/src/EBox/Samba.pm:3241
-#: ../../main/samba/src/EBox/Samba.pm:3252
+#: ../../main/samba/src/EBox/Samba.pm:3237
+#: ../../main/samba/src/EBox/Samba.pm:3248
 msgid "File name"
 msgstr "檔案名稱"
 
+#: ../../main/samba/src/EBox/Samba.pm:3238
 #: ../../main/samba/src/EBox/Samba.pm:3242
-#: ../../main/samba/src/EBox/Samba.pm:3246
 msgid "Virus"
 msgstr "病毒"
 
-#: ../../main/samba/src/EBox/Samba.pm:3253
+#: ../../main/samba/src/EBox/Samba.pm:3249
 msgid "Quarantined file name"
 msgstr "隔離的檔案名稱"
 
-#: ../../main/samba/src/EBox/Samba.pm:3254
-#: ../../main/samba/src/EBox/Samba.pm:3257
+#: ../../main/samba/src/EBox/Samba.pm:3250
+#: ../../main/samba/src/EBox/Samba.pm:3253
 msgid "Quarantine"
 msgstr "隔離"
 
-#: ../../main/samba/src/EBox/Samba.pm:3260
+#: ../../main/samba/src/EBox/Samba.pm:3256
 msgid "Samba access"
 msgstr "Samba 存取"
 
-#: ../../main/samba/src/EBox/Samba.pm:3271
+#: ../../main/samba/src/EBox/Samba.pm:3267
 msgid "Samba virus"
 msgstr "Samba 防毒"
 
-#: ../../main/samba/src/EBox/Samba.pm:3282
+#: ../../main/samba/src/EBox/Samba.pm:3278
 msgid "Samba quarantine"
 msgstr "Samba 隔離"
 
