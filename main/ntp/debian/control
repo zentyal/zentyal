@@ -11,7 +11,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-ntp
 Architecture: all
-Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2), zentyal-firewall,
+Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3), zentyal-firewall,
          ntp, ntpdate, ${misc:Depends}
 Description: Zentyal - NTP Service
  Zentyal is a Linux small business server that can act as

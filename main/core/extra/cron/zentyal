@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Check latest version
-URL="http://update.zentyal.org/last-4.1.txt"
+URL="http://update.zentyal.org/last-4.2.txt"
 TIMEOUT="300"
 DEST="/var/lib/zentyal/latestversion"
 wget --timeout $TIMEOUT $URL -O $DEST >/dev/null 2>&1

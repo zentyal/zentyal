@@ -12,7 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-core
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-common (>= 4.1), zentyal-common (<< 4.2),
+Depends: zentyal-common (>= 4.2), zentyal-common (<< 4.3),
          adduser, apport, anacron, cracklib-runtime, cron, curl, dbus, debconf, gpgv,
          libapt-pkg-perl, libauthen-simple-pam-perl,
          libcgi-emulate-psgi-perl, libclass-singleton-perl, libclone-fast-perl,
@@ -30,7 +30,6 @@ Depends: zentyal-common (>= 4.1), zentyal-common (<< 4.2),
          openssl, redis-server (>= 2:2.8.4), update-notifier-common, uwsgi-plugin-psgi,
          apt-transport-https, libdate-calc-xs-perl, screen, at,
          ${misc:Depends}
-Breaks: zentyal-samba (<< 4.0~1), openchangeserver (<< 3:2.3-zentyal1)
 Description: Zentyal - Core
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

@@ -11,7 +11,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-services
 Architecture: all
-Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2), ${misc:Depends}
+Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3), ${misc:Depends}
 Description: Zentyal - Network Services
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

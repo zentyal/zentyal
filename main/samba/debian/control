@@ -11,21 +11,20 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-samba
 Architecture: all
-Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2),
+Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3),
          zentyal-firewall, zentyal-dns, zentyal-ntp,
-         libsamba-perl (>= 0.11~1), libxs-object-magic-perl,
+         libsamba-perl (>= 0.12), libxs-object-magic-perl,
          libparse-recdescent-perl,
-         samba (>= 2:4.1.13), samba-vfs-modules, sssd, ldb-tools,
+         samba (>= 3:4.3.1), winbind, samba-vfs-modules, sssd, ldb-tools,
          apache2-utils, libnet-ldap-perl, adduser, quota, acl,
          libgssapi3-heimdal, libsasl2-modules-gssapi-heimdal, heimdal-clients,
          libquota-perl, liburi-encode-perl, libnss-sss, libpam-sss, sssd-tools,
-         libsys-filesystem-perl, libgssapi-perl, auth-client-config,
-         libauthen-sasl-perl, libnet-ntp-perl, libnet-dns-perl, libnet-ping-perl,
-         rsync, libdate-calc-xs-perl, libnet-dns-perl,
+         libpam-pwquality, libsys-filesystem-perl, libgssapi-perl,
+         auth-client-config, libauthen-sasl-perl, libnet-ntp-perl,
+         libnet-dns-perl, libnet-ping-perl, rsync, libdate-calc-xs-perl,
          libclamav-client-perl, libnet-ntp-perl, libuuid-perl,
          libdata-hexdumper-perl, libsys-filesystem-perl, libfile-libmagic-perl,
          libauthen-krb5-easy-perl (>= 0.90-6), libdate-calc-xs-perl, ${misc:Depends}
-Breaks: zentyal-mail (<< 4.0~1), zentyal-squid (<< 4.0~1)
 Description: Zentyal - Domain Controller and File Sharing
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

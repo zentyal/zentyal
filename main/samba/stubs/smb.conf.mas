@@ -24,7 +24,7 @@ use EBox::Gettext;
     server string = <% $description %>
     server role = <% $mode %>
     server role check:inhibit = yes
-    server services = -dns
+    server services = -dns -winbindd +winbind
     server signing = auto
     dsdb:schema update allowed = yes
     drs:max object sync = 1200

@@ -7,7 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-software
 Architecture: all
-Depends: zentyal-core (>= 4.1.3), zentyal-core (<< 4.2),
+Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3),
          libapt-pkg-perl, ${misc:Depends}
 Description: Zentyal - Software Management
  Zentyal is a Linux small business server that can act as

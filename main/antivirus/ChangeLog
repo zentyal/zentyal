@@ -1,3 +1,5 @@
+4.2
+	+ Update version to 4.2
 4.1
 	+ Fix start of clamd that could take up to one hour to start working
 	+ Modify apparmor local profile for freshclam to add /proc/*/status

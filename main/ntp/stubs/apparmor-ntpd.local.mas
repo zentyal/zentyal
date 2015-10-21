@@ -11,3 +11,5 @@
 
 /usr/local/sbin/ r,
 /usr/local/bin/ r,
+
+/run/samba/winbindd/pipe rw,

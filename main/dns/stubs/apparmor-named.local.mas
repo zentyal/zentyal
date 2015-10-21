@@ -36,3 +36,6 @@
 
 # RW access to session key, to allow SDLZ driver read it
 /{,var/}run/named/session.key rw,
+
+# Access to Samba winbind pipe
+/run/samba/winbindd/pipe rw,

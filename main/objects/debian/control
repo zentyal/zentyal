@@ -11,7 +11,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-objects
 Architecture: all
-Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2),
+Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3),
          libnet-ip-perl, ${misc:Depends}
 Description: Zentyal - Network Objects
  Zentyal is a Linux small business server that can act as

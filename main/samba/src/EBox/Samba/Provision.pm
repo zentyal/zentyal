@@ -379,6 +379,8 @@ sub provision
 
     # Disable expiration on administrator account
     EBox::Sudo::root('samba-tool user setexpiry administrator --noexpiry');
+    # Clean cache
+    EBox::Sudo::root('net cache flush');
 
     # dns needs to be restarted after save changes to write proper bind conf with the DLZ
     $global->addModuleToPostSave('dns');
@@ -516,11 +518,11 @@ sub provisionDC
         my $sysinfo = EBox::Global->modInstance('sysinfo');
         my $cmd = 'samba-tool domain provision ' .
             " --domain='" . $usersModule->workgroup() . "'" .
-            " --workgroup='" . $usersModule->workgroup() . "'" .
             " --realm='" . $usersModule->kerberosRealm() . "'" .
             " --dns-backend=BIND9_DLZ" .
             " --use-xattrs=yes " .
             " --use-rfc2307 " .
+            " --function-level=2003 " .
             " --server-role='" . $usersModule->dcMode() . "'" .
             " --host-name='" . $sysinfo->hostName() . "'" .
             " --host-ip='" . $provisionIP . "'";

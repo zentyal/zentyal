@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-mail
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 4.1), zentyal-core (<< 4.2),
+Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3),
          zentyal-firewall, zentyal-openchange,
          postfix, postfix-ldap, postfix-pcre, ssl-cert, libsasl2-modules, dovecot-common,
          dovecot-imapd, dovecot-pop3d, dovecot-sieve, dovecot-managesieved, dovecot-ldap,
