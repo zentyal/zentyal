@@ -2,11 +2,11 @@ default install
 label install
   menu label ^Install Zentyal VERSION (delete all disk)
   kernel /install/vmlinuz
-  append  file=/cdrom/preseed/ubuntu-server-auto.seed vga=788 initrd=/install/initrd.gz quiet --
+  append  file=/cdrom/preseed/ubuntu-server-auto.seed vga=788 initrd=/install/initrd.gz net.ifnames=1 biosdevname=0 quiet --
 label expert
   menu label ^Install Zentyal VERSION (expert mode)
   kernel /install/vmlinuz
-  append  file=/cdrom/preseed/ubuntu-server.seed vga=788 initrd=/install/initrd.gz quiet --
+  append  file=/cdrom/preseed/ubuntu-server.seed vga=788 initrd=/install/initrd.gz net.ifnames=1 biosdevname=0 quiet --
 #label disaster
 #  menu label ^Recover from a disaster (delete all disk)
 #  kernel /install/vmlinuz
