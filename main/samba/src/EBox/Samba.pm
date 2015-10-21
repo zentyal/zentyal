@@ -1123,6 +1123,9 @@ sub _daemons
             name => 'samba-ad-dc',
         },
         {
+            name => 'winbind',
+        },
+        {
             name => 'zentyal.sysvol-sync',
             precondition => \&_sysvolSyncCond,
         },
@@ -1157,7 +1160,6 @@ sub _daemonsToDisable
     return [
         { 'name' => 'smbd', 'type' => 'upstart' },
         { 'name' => 'nmbd', 'type' => 'upstart' },
-        { 'name' => 'winbind', 'type' => 'upstart' },
     ];
 }
 
