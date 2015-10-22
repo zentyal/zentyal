@@ -82,8 +82,8 @@ do
 
         # FIXME: workaround until https://bugs.launchpad.net/ubuntu/+source/curl/+bug/1312241 is fixed
         UDEB_DIR=$CD_BUILD_DIR/pool/main/c/curl
-        cp ~/build/curl-udeb_7.35.0-1ubuntu2.3_amd64.udeb $UDEB_DIR/curl-udeb_7.35.0-1ubuntu2.3_amd64.udeb
-        cp ~/build/libcurl3-udeb_7.35.0-1ubuntu2.3_amd64.udeb $UDEB_DIR/libcurl3-udeb_7.35.0-1ubuntu2.3_amd64.udeb
+        cp ~/build/curl-udeb_7.35.0-1ubuntu2.3_amd64.udeb $UDEB_DIR/curl-udeb_7.35.0-1ubuntu2.5_amd64.udeb
+        cp ~/build/libcurl3-udeb_7.35.0-1ubuntu2.3_amd64.udeb $UDEB_DIR/libcurl3-udeb_7.35.0-1ubuntu2.5_amd64.udeb
     fi
 
     # Add zinstaller-headless udeb
