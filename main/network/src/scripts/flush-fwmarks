@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in $(ip rule ls | cut -d: -f 1); do 
+for i in $(timeout 5 ip rule ls | cut -d: -f 1 | uniq); do 
 	if [ $i -gt 0 -a $i -le 32765 ]; then
 		ip rule del pref $i; 
 	fi; 
