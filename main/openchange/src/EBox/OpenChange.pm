@@ -302,8 +302,7 @@ sub _setConf
 
     $self->_setOCSManagerConf();
 
-    # FIXME: this may cause unexpected samba restarts during save changes, etc
-    #$self->_writeCronFile();
+    $self->_writeCronFile();
 
     $self->_setupActiveSync();
 }
@@ -360,8 +359,12 @@ sub _writeCronFile
 
     my $cronfile = '/etc/cron.d/zentyal-openchange';
     if ($self->isEnabled()) {
-        my $checkScript = '/usr/share/zentyal-openchange/check_oc.py';
-        my $crontab = "* * * * * root $checkScript || /sbin/restart samba-ad-dc";
+        my $accountScript = EBox::Config::scripts() . $self->name() . '/account';
+        my ($randHour, $randMin) = (int(rand(24)), int(rand(60)));
+        my $crontab = "$randMin $randHour * * * root $accountScript 2> /dev/null";
+        # FIXME: this may cause unexpected samba restarts during save changes, etc
+        # my $checkScript = '/usr/share/zentyal-openchange/check_oc.py';
+        # $crontab .= "* * * * * root $checkScript || /sbin/restart samba-ad-dc";
         EBox::Sudo::root("echo '$crontab' > $cronfile");
     } else {
         EBox::Sudo::root("rm -f $cronfile");
