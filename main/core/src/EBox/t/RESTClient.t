@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 #
-# Copyright (C) 2014 Zentyal S.L.
+# Copyright (C) 2014-2015 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -33,7 +33,7 @@ use Test::Exception;
 use Test::MockModule;
 use Test::MockObject;
 use Test::MockObject::Extends;
-use Test::More tests => 31;
+use Test::More tests => 34;
 
 sub setUpConfiguration : Test(startup)
 {
@@ -98,6 +98,22 @@ sub test_verify_opts : Test(2)
     $self->{agent}->called_args_pos_is(4, 2, 'SSL_verify_mode');
     $self->{agent}->clear();
 
+}
+
+sub test_uri_construct : Test(3)
+{
+    my ($self) = @_;
+
+    my $cl = new EBox::RESTClient(uri => 'http://clan.es:4433');
+
+    $self->{agent}->mock('request', sub { new HTTP::Response(200, 'OK', undef, 'foo') });
+
+    my $res;
+    lives_ok {
+        $res = $cl->GET('/mission');
+    } 'Check with no credentials using URI';
+    isa_ok($res, 'EBox::RESTClient::Result');
+    cmp_ok($res->as_string(), 'eq', 'foo');
 }
 
 sub test_isa_ok : Test(2)
