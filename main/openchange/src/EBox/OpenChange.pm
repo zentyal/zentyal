@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2014 Zentyal S.L.
+# Copyright (C) 2013-2015 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -684,6 +684,33 @@ sub setProvisioned
     my $state = $self->get_state();
     $state->{isProvisioned} = $provisioned;
     $self->set_state($state);
+}
+
+# Method: usersNum
+#
+#     Return the number of users using OpenChange, that is, the MAPI users
+#
+# Returns:
+#
+#     Int - 0 if not provisioned, a natural number otherwise
+#
+sub usersNum
+{
+    my ($self) = @_;
+
+    if (not $self->isProvisioned()) {
+        return 0;
+    }
+
+    my $dbEngine = new EBox::OpenChange::DBEngine($self);
+    $dbEngine->connect();
+
+    my $count = 0;
+    my $ret =  $dbEngine->query_hash({'select' => 'COUNT(*)', 'from' => 'mailboxes'});
+    if ($ret) {
+        $count = $ret->[0]->{'COUNT(*)'};
+    }
+    return $count;
 }
 
 sub _mysqlDumpFile

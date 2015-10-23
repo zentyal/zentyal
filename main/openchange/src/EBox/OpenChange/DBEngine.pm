@@ -1,4 +1,4 @@
-# Copyright (C) 2014 Zentyal S.L.
+# Copyright (C) 2014-2015 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,6 +26,16 @@ sub new
     $self->{openchange} = $openchange;
     bless($self,$class);
     return $self;
+}
+
+# Method: connect
+#
+#      Connect to the database as the constructor does not.
+#
+sub connect
+{
+    my ($self) = @_;
+    $self->_connect();
 }
 
 sub _dbname
