@@ -97,4 +97,28 @@ sub _table
     return $dataTable;
 }
 
+# Method: validateTypedRow
+#
+# Override to forbid adding loopback addresses to forwarder list
+#
+# Overrides:
+#
+#    <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    return unless (exists $changedFields->{forwarder});
+
+    my $forwarder = $changedFields->{forwarder}->value();
+    if ($forwarder =~ m/^127\./) {
+        throw EBox::Exceptions::External(
+            __x('Forwarder cannot be a loopback address like {forw}',
+                forw => $forwarder
+               )
+           );
+    }
+}
+
 1;
