@@ -5,9 +5,11 @@ $searchString
 <%init>
 use EBox::Gettext;
 use EBox::Global;
+use URI::Escape;
+my $searchTerm = uri_unescape($searchString);
 my $title = __x('Matches for {oem}{search}{cem}',
                oem => '<em class="green">',
-               search => $searchString,
+               search => $searchTerm,
                cem => '</em>'
            );
 
