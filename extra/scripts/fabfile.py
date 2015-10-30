@@ -50,6 +50,15 @@ def script_copy(path):
     script_target_path = "/usr/share/zentyal-%s" % module_name
     sudo('mv ~/%s %s' % (bname, script_target_path))
 
+def tmpl_copy(path):
+    """ Copy the script file to the target host """
+    bname = os.path.basename(path)
+    template_path = '/'.join(os.path.dirname(path).split('/')[3:])
+    put(path, '~')
+    script_target_path = "/usr/share/zentyal/templates/%s" % template_path
+    sudo('mv ~/%s %s' % (bname, script_target_path))
+    sudo('/etc/init.d/zentyal webadmin restart')
+
 # Private functions
 def __get_version(pkg):
     output = local('head -n 1 %s/debian/changelog | grep -o -P " \((.*?)\)" | tr -d "()[:space:]"' % pkg, capture=True)
