@@ -173,7 +173,16 @@ sub masonParameters
                     oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", ch => '</a>',
                     ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>') };
         push (@params, 'message' => $msg);
-     }
+    } else {
+        my $rs = EBox::Global->modInstance('remoteservices');
+        if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
+            $showMessage = 0;
+            # Re-check for changes
+            $rs->checkAdMessages();
+            my $rsMsg = $rs->adMessages();
+            push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
+        }
+    }
 
 #    if ($showMessage) {
 #        my $state = $sysinfo->get_state();
