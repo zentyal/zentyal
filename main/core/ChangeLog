@@ -1,4 +1,5 @@
 HEAD
+	+ Upgrade to Zentyal 4.2 button in dashboard
 	+ Set proper motd after edition name changes
 	+ Avoid XSS on search when entering JS code
 4.1.5

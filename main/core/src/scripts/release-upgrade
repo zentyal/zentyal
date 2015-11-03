@@ -29,61 +29,22 @@ sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 echo; echo "Upgrading your current system to the latest packages..."; echo
 upgrade
 
-# Stop modules to avoid conflicts in listening ports
-for module in usercorner captiveportal webserver
-do
-    service zentyal $module stop > /dev/null 2>&1
-done
+echo; echo "Upgrading from Zentyal 4.1 to Zentyal 4.2..."; echo
+sed -ri '/zentyal(.)4.1/d' /etc/apt/sources.list
+echo 'deb http://archive.zentyal.org/zentyal 4.2 main extra' > /etc/apt/sources.list.d/zentyal-archive.list
+sed -i 's/zentyal-qa-4.1/zentyal-qa-4.2/g' /etc/apt/sources.list.d/zentyal-qa.list
+# Workaround to avoid dependency problems when packages are hold
+for e in `grep -R "a=zentyal-qa" /etc/apt | cut -f1 -d:`; do rm -f $e; done
 
-# Copy samba data to new destination and re-create hardlinks
-service zentyal samba stop
-SAMBA_PID=$(cat /var/run/samba/samba.pid)
-kill $SAMBA_PID
-sleep 1
-pkill -9 samba
-pkill -9 smbd
-mkdir -p /var/lib/samba
-cp -r /opt/samba4/private /var/lib/samba/
-cp -r /opt/samba4/var/locks/* /var/lib/samba/
-ln -f /var/lib/samba/private/sam.ldb.d/DC*FORESTDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
-ln -f /var/lib/samba/private/sam.ldb.d/DC*DOMAINDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
-ln -f /var/lib/samba/private/sam.ldb.d/metadata.tdb /var/lib/samba/private/dns/sam.ldb.d/
-chown -R root:bind /var/lib/samba/private/dns
-chmod -R g+rw /var/lib/samba/private/dns
-service zentyal samba restart
-
-echo; echo "Upgrading from Ubuntu 12.04 to 13.10 with Zentyal 3.4..."; echo
-sed -i 's/precise/saucy/g' /etc/apt/sources.list
-sed -ri 's/zentyal(.)3.3/zentyal\13.4/g' /etc/apt/sources.list
 upgrade
-
-for i in `seq 1 3`
-do
-    echo; echo "Forcing pending packages installation..."; echo
-    apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
-    rm -f /var/lib/dpkg/info/suricata.prerm
-    for pkg in freeradius-ldap suricata rabbitmq-server
-    do
-        rm -f /var/lib/dpkg/info/${pkg}.postinst
-    done
-    dpkg --configure -a --force-confdef
-    apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
-    if [ $? == 0 ]
-    then
-        echo; echo "Nothing more pending to upgrade"; echo
-        break
-    fi
-done
 
 if apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 then
-    /usr/share/zentyal/global-action --action saveAllModules
-
-    # Purge all no longer needed running services like haproxy, collectd, etc
+    # Purge all no longer needed running services
+    dpkg -l | grep 'zentyal-' | cut -d' ' -f3 | xargs apt-mark manual
     apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 
-    # Restart regular webserver, Zentyal UI and logs
-    service apache2 restart
+    # Restart Zentyal UI
     service zentyal webadmin restart
 
     echo; echo "Zentyal upgrade finished!"
