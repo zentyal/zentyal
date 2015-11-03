@@ -1942,25 +1942,17 @@ sub menu
                                         text => __('Users and Computers'),
                                         tag => 'main',
                                         order => 1);
-    if ($self->configured()) {
-        $folder->add(new EBox::Menu::Item(
-            'url'  => 'Samba/Tree/Manage',
-            'text' => __('Manage'), order => 10));
+    $folder->add(new EBox::Menu::Item(
+        'url'  => 'Samba/Tree/Manage',
+        'text' => __('Manage'), order => 10));
 
-        $folder->add(new EBox::Menu::Item(
-            'url'  => 'Samba/Composite/UserTemplate',
-            'text' => __('User Template'), order => 30));
+    $folder->add(new EBox::Menu::Item(
+        'url'  => 'Samba/Composite/UserTemplate',
+        'text' => __('User Template'), order => 30));
 
-        $folder->add(new EBox::Menu::Item(
-            'url'  => 'Samba/Composite/Settings',
-            'text' => __('LDAP Settings'), order => 50));
-    } else {
-        $folder->add(new EBox::Menu::Item(
-            'url'       => 'Samba/View/Mode',
-            'text'      => __('Configure mode'),
-            'section'   => 3,
-            'order'     => 0));
-    }
+    $folder->add(new EBox::Menu::Item(
+        'url'  => 'Samba/Composite/Settings',
+        'text' => __('LDAP Settings'), order => 50));
     $root->add($folder);
 
     $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
