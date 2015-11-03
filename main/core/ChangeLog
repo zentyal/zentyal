@@ -1,4 +1,5 @@
 HEAD
+	+ Display a UTF8 search term properly by decoding
 	+ Avoid XSS on search when entering JS code
 4.0.11
 	+ Fix possible redis corruption when deleting data table rows

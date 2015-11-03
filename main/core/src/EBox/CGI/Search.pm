@@ -65,7 +65,11 @@ sub _process
     }
 
     # Avoid XSS attack as searchString is returned as GET parameter
-    $searchString = uri_escape($searchString);
+    try {
+        $searchString = uri_escape($searchString);
+    } catch {
+        $searchString = uri_escape_utf8($searchString);
+    }
 
     $self->{params} = [
          searchString => $searchString,
