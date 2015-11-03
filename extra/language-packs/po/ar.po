@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2015-04-15 15:58+0200\n"
-"Last-Translator: PhilippG <plg741@gmail.com>\n"
+"PO-Revision-Date: 2015-10-31 13:27+0200\n"
+"Last-Translator: akram <sahrynajd@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/mail/src/EBox/Mail.pm:1565
 msgid "disabled"
-msgstr "تعطيلallah akhubar"
+msgstr "تعطيل"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
@@ -75,16 +75,16 @@ msgstr "ملف شهادة CA's غير موجود {p}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr ""
+msgstr "ملف شهادة العميل غير موجود {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr ""
+msgstr "ملف شهادة المفتاح الخاص غير موجود"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "ملف توريد شهادة CA's غير ساري المفعول"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
@@ -92,13 +92,13 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "ملف توريد المفتاح الخاص للعميل غير ساري المفعول"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
-msgstr ""
+msgstr "ملف توريد شهادة العميل لايطابق مع ملف توريد شهادة CA's "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:131
 msgid ""
@@ -112,6 +112,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
 msgstr ""
+"عميل VPN لايجب ان يتم اعدداة للاتصال بعنوان {addr}لانة نفس عنوان الهوست "
+"المحلي"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:337
 #, perl-brace-format
@@ -119,11 +121,13 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
+"عميل VPN لايجب ان يتم اعدداة للاتصال بعنوان {addr}لانة نفس عنوان واجهة "
+"الشبكة المحلية"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
 msgid "Client {name}"
-msgstr ""
+msgstr "العميل{الاسم}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:890
@@ -172,65 +176,65 @@ msgstr "خدمة"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:893
 #: ../../main/core/src/EBox/SysInfo.pm:465
 msgid "Running"
-msgstr ""
+msgstr "تشغيل"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:893
 #: ../../main/core/src/EBox/SysInfo.pm:470
 msgid "Stopped"
-msgstr ""
+msgstr "ايقاف"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 msgid "Daemon status"
-msgstr ""
+msgstr "الوضع الخفي"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:566
 msgid "Connection target"
-msgstr ""
+msgstr "الاتصال بالهدف"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:570
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:918
 msgid "VPN interface address"
-msgstr ""
+msgstr "واجهة عنوان VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:917
 msgid "No active"
-msgstr ""
+msgstr "غير نشط"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:137
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr ""
+msgstr "بورت (P)/(pro) قيد الاستخدام"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:233
 #, perl-brace-format
 msgid "The certificate {cn} does not exist"
-msgstr ""
+msgstr "الشهادة(cn) غير موجودة"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:236
 #, perl-brace-format
 msgid "The certificate {cn} has expired"
-msgstr ""
+msgstr "الشهادة(cn) منتهيةالصلاحية"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:239
 #, perl-brace-format
 msgid "The certificate {cn} has been revoked"
-msgstr ""
+msgstr "الشهادة(cn) تم الغائها"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:257
 #, perl-brace-format
 msgid "The server {name} does not have certificate assigned"
-msgstr ""
+msgstr "السيرفر (الاسم) لايملك شهادة مخصصة"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:278
 #, perl-brace-format
 msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
-msgstr ""
+msgstr "لا يمكن الحصول على مفتاح السيرفر {الاسم} بسبب عدم وجود شهادة مخصصة"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:495
 #, perl-brace-format
