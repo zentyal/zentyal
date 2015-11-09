@@ -208,6 +208,9 @@ sub technicalSupport
             $subscriptionInfo = $self->subscriptionInfo;
         }
         $level = $subscriptionInfo->{features}->{technical_support}->{level};
+        unless (defined($level)) {
+            $level = -1;
+        }
     } catch ($ex) {
         EBox::error("Error getting technical support level: $ex");
     }
