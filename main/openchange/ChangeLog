@@ -1,5 +1,6 @@
 HEAD
 	+ Added accounting script
+	+ Fix typo for provision_ignore_already_exists in conf file
 4.2
 	+ Fix typo for provision_ignore_already_exists that made the
 	  feature not work
