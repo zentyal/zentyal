@@ -1,5 +1,6 @@
 HEAD
 	+ Improvements in RESTClient
+	+ Fix warning on server edition widget from registered users
 4.2
 	+ Set proper motd after edition name changes
 	+ Avoid XSS on search when entering JS code
