@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-openchange
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 4.2), zentyal-core (<< 4.3),
+Depends: zentyal-core (>= 4.2.1), zentyal-core (<< 4.3),
          zentyal-samba, zentyal-mail,
          zentyal-ca, zentyal-dns,
          openchangeserver (>= 3:2.4-zentyal9),

@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2014 Zentyal S.L.
+# Copyright (C) 2012-2015 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -83,8 +83,8 @@ use constant JOURNAL_OPS_DIR => EBox::Config::conf() . 'ops-journal/';
 #   timeout - *(Optional)* Default value
 #
 #   Note about default timeout:
-#    this valeus is chosen to avoid 504 gateway erros from nginx
-#    now the timeout is limiTed by the keepalive_timeout nginx
+#    these values are chosen to avoid 504 gateway erros from nginx
+#    now the timeout is limited by the keepalive_timeout nginx
 #    parameter but if nginx configuration changes it could be
 #    limited by other thing
 sub new
@@ -111,7 +111,9 @@ sub new
         $self->{verifyPeer} = 1;
     }
 
-    unless (defined($params{uri})) {
+    if (defined($params{uri})) {
+        $self->{server} = $self->{uri}->as_string();
+    } else {
         my $scheme = $params{scheme};
         $scheme = 'https' unless defined($scheme);
         $self->setScheme($scheme);
@@ -306,7 +308,7 @@ sub request {
     $ua->proxy('https', $ENV{HTTP_PROXY}) if (exists $ENV{HTTP_PROXY});
 
     my $req = HTTP::Request->new( $method => $self->{server} . $path );
-    if ( exists $self->{credentials} ) {
+    if ($self->{credentials}) {
         $req->authorization_basic($self->{credentials}->{username}, $self->{credentials}->{password});
     }
 

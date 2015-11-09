@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2014 Zentyal S.L.
+# Copyright (C) 2013-2015 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -302,8 +302,7 @@ sub _setConf
 
     $self->_setOCSManagerConf();
 
-    # FIXME: this may cause unexpected samba restarts during save changes, etc
-    #$self->_writeCronFile();
+    $self->_writeCronFile();
 
     $self->_setupActiveSync();
 }
@@ -360,8 +359,12 @@ sub _writeCronFile
 
     my $cronfile = '/etc/cron.d/zentyal-openchange';
     if ($self->isEnabled()) {
-        my $checkScript = '/usr/share/zentyal-openchange/check_oc.py';
-        my $crontab = "* * * * * root $checkScript || /sbin/restart samba-ad-dc";
+        my $accountScript = EBox::Config::scripts() . $self->name() . '/account';
+        my ($randHour, $randMin) = (int(rand(24)), int(rand(60)));
+        my $crontab = "$randMin $randHour * * * root $accountScript 2> /dev/null";
+        # FIXME: this may cause unexpected samba restarts during save changes, etc
+        # my $checkScript = '/usr/share/zentyal-openchange/check_oc.py';
+        # $crontab .= "* * * * * root $checkScript || /sbin/restart samba-ad-dc";
         EBox::Sudo::root("echo '$crontab' > $cronfile");
     } else {
         EBox::Sudo::root("rm -f $cronfile");
@@ -684,6 +687,33 @@ sub setProvisioned
     my $state = $self->get_state();
     $state->{isProvisioned} = $provisioned;
     $self->set_state($state);
+}
+
+# Method: usersNum
+#
+#     Return the number of users using OpenChange, that is, the MAPI users
+#
+# Returns:
+#
+#     Int - 0 if not provisioned, a natural number otherwise
+#
+sub usersNum
+{
+    my ($self) = @_;
+
+    if (not $self->isProvisioned()) {
+        return 0;
+    }
+
+    my $dbEngine = new EBox::OpenChange::DBEngine($self);
+    $dbEngine->connect();
+
+    my $count = 0;
+    my $ret =  $dbEngine->query_hash({'select' => 'COUNT(*)', 'from' => 'mailboxes'});
+    if ($ret) {
+        $count = $ret->[0]->{'COUNT(*)'};
+    }
+    return $count;
 }
 
 sub _mysqlDumpFile

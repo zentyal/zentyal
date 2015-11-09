@@ -1,3 +1,5 @@
+HEAD
+	+ Improvements in RESTClient
 4.2
 	+ Set proper motd after edition name changes
 	+ Avoid XSS on search when entering JS code
