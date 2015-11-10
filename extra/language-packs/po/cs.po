@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-10-07 13:48+0200\n"
+"PO-Revision-Date: 2015-11-10 10:32+0200\n"
 "Last-Translator: pavelb <pavel.borecki@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -42,16 +42,16 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
-"Toto není platný Zentyal-Zentyal nastavovací balíček. (Není možné ho "
-"rozbalit)"
+"Toto není platný nastavovací balíček pro tunel Zentyal-Zentyal (nedaří se ho "
+"rozbalit)."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
-"Toto není platný Zentyal-Zentyal nastavovací balíček. (Chybí soubor s "
-"nastaveními pro server)"
+"Toto není platný nastavovací balíček pro tunel Zentyal-Zentyal (chybí soubor "
+"s nastaveními pro server)."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
 msgid ""
@@ -290,7 +290,7 @@ msgstr "Místní adresa"
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:43
 #: ../../main/mail/src/templates/externalAccounts.mas:16
 msgid "Port"
-msgstr "Port"
+msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:911
 msgid "VPN subnet"
@@ -1448,7 +1448,7 @@ msgstr "Přednost"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:220
 msgid "Mail exchangers"
-msgstr "Mail exchangers"
+msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:226
 #, perl-brace-format
@@ -1502,7 +1502,7 @@ msgstr "Názvy strojů"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:632
 msgid "Mail Exchangers"
-msgstr "Mail Exchangers"
+msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:640
 msgid "Name Servers"
@@ -2732,7 +2732,7 @@ msgstr "Použití Bayesovského klasifikátoru"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:79
 msgid "Auto-whitelist"
-msgstr "Auto-whitelist"
+msgstr "Automatické zařazení na seznam přijímaných (whitelist)"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:82
 msgid "Change the score of mail according to the sender history"
@@ -2907,12 +2907,12 @@ msgstr "zásada odesílatele"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:96
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:90
 msgid "whitelist"
-msgstr "whitelist"
+msgstr "seznam přijímaných (whitelist)"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:97
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:91
 msgid "blacklist"
-msgstr "blacklist"
+msgstr "seznam odmítaných (blacklist)"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:92
@@ -3726,11 +3726,11 @@ msgstr "AppArmor profil pro {server} službu"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:131
 msgid "Trivial File Transfer Protocol"
-msgstr "Trivial File Transfer Protocol"
+msgstr ""
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:145
 msgid "Dynamic Host Configuration Protocol"
-msgstr "Dynamic Host Configuration Protocol"
+msgstr ""
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:197
 #, perl-brace-format
@@ -4037,7 +4037,7 @@ msgstr "Sekundární nameserver"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:459
 msgid "NTP server"
-msgstr "NTP server"
+msgstr ""
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:462
 msgid ""
@@ -4099,15 +4099,14 @@ msgid "Not object added for fixed addresses"
 msgstr "Objekt nepřidán pro pevné adresy"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:206
-#, fuzzy
 msgid ""
 "Only those object members whose IP address is a host (/32) and is not used "
 "by the available range; it has a valid MAC and whose name is unique as fixed "
 "address, will be used."
 msgstr ""
-"Pouze ti členové objektu, jejih IP adresa je host (/32), platnou MAC adresu, "
-"IP adresu není použita dostupným rozsahem a jehož název je jedinečný jako "
-"pevná adresa bude použito"
+"Budou použiti pouze ti členové objektu, jejichž IP adresa je host (/32) a "
+"není použita v dostupném rozsahu, mají platnou MAC adresu a jejich název i "
+"pevná IP adresa jsou jedinečné."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:209
 msgid ""
@@ -4762,7 +4761,6 @@ msgid "No search term"
 msgstr "Výraz, který nehledat"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:58
-#, fuzzy
 msgid "The search term should have a length of, at least, 3 characters"
 msgstr "Vyhledávaný pojem by měl být alespoň tři znaky dlouhý"
 
@@ -5899,9 +5897,9 @@ msgid "Zentyal Remote Client"
 msgstr "Zentyal vzdálený klient"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1016
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "This is a Zentyal Server ({edition})."
-msgstr "Toto je {edition} varianta Zentyal serveru."
+msgstr "Toto je Zentyal Server (varianta {edition})."
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1223
 msgid "Server Edition"
@@ -9024,7 +9022,7 @@ msgstr "Virtuální mailové domény"
 
 #: ../../main/mail/src/EBox/Mail.pm:1631
 msgid "Greylist"
-msgstr "Greylist"
+msgstr "Seznam pozdržených (greylist)"
 
 #: ../../main/mail/src/EBox/Mail.pm:1638
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
@@ -9056,7 +9054,7 @@ msgstr "Velikost (bajtů)"
 
 #: ../../main/mail/src/EBox/Mail.pm:1686
 msgid "Relay"
-msgstr "Relay"
+msgstr "Předávání (relay)"
 
 #: ../../main/mail/src/EBox/Mail.pm:1687
 msgid "Message type"
@@ -9096,7 +9094,7 @@ msgstr "Chyba při ověřování"
 
 #: ../../main/mail/src/EBox/Mail.pm:1708
 msgid "Greylisted"
-msgstr "Greylisted"
+msgstr "Pozdrženo (greylist)"
 
 #: ../../main/mail/src/EBox/Mail.pm:1709
 msgid "Relay rejected by the smarthost"
@@ -9208,7 +9206,7 @@ msgstr "Nastavení kvóty složky s poštou"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:48
 msgid "maildrop"
-msgstr "maildrop"
+msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:48
 msgid "group alias mail"
@@ -9236,7 +9234,7 @@ msgstr "Místní e-mailový účet"
 #: ../../main/mail/src/EBox/Mail/Composite/General.pm:48
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:135
 msgid "Mail server"
-msgstr "Mail server"
+msgstr "E-mailový server"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:252
 msgid "Mail server port"
@@ -9482,11 +9480,11 @@ msgstr "Ověření"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:124
 msgid "Server mailname"
-msgstr "Server mailname"
+msgstr "E-mailový název serveru"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:128
 msgid "FQDN hostname"
-msgstr "FQDN hostname"
+msgstr "úplný doménový název (FQDN) stroje"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:140
 msgid "Postmaster address"
