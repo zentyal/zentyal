@@ -165,7 +165,7 @@ msgstr "Habilitado"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
 #: ../../main/core/src/EBox/SysInfo.pm:480
-#: ../../main/core/src/EBox/RemoteServices.pm:1310
+#: ../../main/core/src/EBox/RemoteServices.pm:1313
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
 #: ../../main/core/src/templates/enable.mas:19
@@ -995,9 +995,9 @@ msgstr "Demonios OpenVPN"
 #: ../../main/dhcp/src/EBox/DHCP.pm:979
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:787
-#: ../../main/samba/src/EBox/Samba.pm:3214
-#: ../../main/samba/src/EBox/Samba.pm:3234
-#: ../../main/samba/src/EBox/Samba.pm:3245
+#: ../../main/samba/src/EBox/Samba.pm:3206
+#: ../../main/samba/src/EBox/Samba.pm:3226
+#: ../../main/samba/src/EBox/Samba.pm:3237
 #: ../../main/mail/src/EBox/Mail.pm:1679
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
@@ -1022,7 +1022,7 @@ msgstr "Evento"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3239
+#: ../../main/samba/src/EBox/Samba.pm:3231
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1144,7 +1144,7 @@ msgstr "nombre de máquina"
 
 #: ../../main/dns/src/EBox/DNS.pm:1700
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2630
+#: ../../main/samba/src/EBox/Samba.pm:2622
 msgid "alias"
 msgstr "alias"
 
@@ -1688,9 +1688,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3216
-#: ../../main/samba/src/EBox/Samba.pm:3236
-#: ../../main/samba/src/EBox/Samba.pm:3247
+#: ../../main/samba/src/EBox/Samba.pm:3208
+#: ../../main/samba/src/EBox/Samba.pm:3228
+#: ../../main/samba/src/EBox/Samba.pm:3239
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2141,7 +2141,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3217
+#: ../../main/samba/src/EBox/Samba.pm:3209
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:112
@@ -2905,8 +2905,8 @@ msgid "Notify of non-spam problematic messages"
 msgstr "Notificar los mensajes problemáticos que no son spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
-#: ../../main/core/src/EBox/RemoteServices.pm:508
-#: ../../main/core/src/EBox/RemoteServices.pm:549
+#: ../../main/core/src/EBox/RemoteServices.pm:511
+#: ../../main/core/src/EBox/RemoteServices.pm:552
 msgid "mail address"
 msgstr "dirección de correo"
 
@@ -3288,8 +3288,8 @@ msgstr "El servidor de nombres '{name}' está siendo usado por el módulo {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:268
 #: ../../main/core/src/EBox/RemoteServices.pm:72
-#: ../../main/core/src/EBox/RemoteServices.pm:783
-#: ../../main/core/src/EBox/RemoteServices.pm:1323
+#: ../../main/core/src/EBox/RemoteServices.pm:786
+#: ../../main/core/src/EBox/RemoteServices.pm:1326
 #: ../../main/core/src/EBox/Backup.pm:460
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
 msgid "Unknown"
@@ -4031,7 +4031,7 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:388
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:421
 #: ../../main/core/src/EBox/CGI/Search.pm:49
-#: ../../main/core/src/EBox/RemoteServices.pm:1310
+#: ../../main/core/src/EBox/RemoteServices.pm:1313
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
 msgstr "Ninguno"
@@ -4453,7 +4453,7 @@ msgstr "Servidor no encontrado"
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:194
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:36
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:176
-#: ../../main/core/src/EBox/RemoteServices.pm:1359
+#: ../../main/core/src/EBox/RemoteServices.pm:1362
 msgid "Configuration backup"
 msgstr "Backup de configuración"
 
@@ -4814,7 +4814,8 @@ msgstr ""
 "\"{y}\""
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:32
-msgid "Upgrade to Zentyal 4.0"
+#, fuzzy
+msgid "Upgrade to Zentyal 4.2"
 msgstr "Actualizar a Zentyal 4.0"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:30
@@ -4908,7 +4909,7 @@ msgstr ""
 msgid "Revoking changes"
 msgstr "Revocando cambios"
 
-#: ../../main/core/src/EBox/RESTClient.pm:388
+#: ../../main/core/src/EBox/RESTClient.pm:390
 #, perl-brace-format
 msgid ""
 "The verification of the certificate of server {server} failed. The "
@@ -4920,7 +4921,7 @@ msgstr ""
 "Compruebe también la configuración horaria de su sistema para evitar una "
 "expiración falsa"
 
-#: ../../main/core/src/EBox/RESTClient.pm:438
+#: ../../main/core/src/EBox/RESTClient.pm:440
 msgid "User and password do not match."
 msgstr "El usuario o la contraseña no coinciden."
 
@@ -5017,7 +5018,7 @@ msgid "Module Status"
 msgstr "Estado de los Módulos"
 
 #: ../../main/core/src/EBox/SysInfo.pm:105
-#: ../../main/core/src/EBox/RemoteServices.pm:1218
+#: ../../main/core/src/EBox/RemoteServices.pm:1221
 msgid "System"
 msgstr "Sistema"
 
@@ -5965,7 +5966,7 @@ msgid "Enterprise"
 msgstr "Empresarial"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:80
-#: ../../main/core/src/EBox/RemoteServices.pm:1328
+#: ../../main/core/src/EBox/RemoteServices.pm:1331
 msgid "Premium"
 msgstr "Premium"
 
@@ -5973,83 +5974,83 @@ msgstr "Premium"
 msgid "Zentyal Remote Client"
 msgstr "Cliente de Zentyal Remote"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1016
+#: ../../main/core/src/EBox/RemoteServices.pm:1019
 #, fuzzy, perl-brace-format
 msgid "This is a Zentyal Server ({edition})."
 msgstr "Esto es un servidor Zentyal edición {edition}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1223
+#: ../../main/core/src/EBox/RemoteServices.pm:1226
 msgid "Server Edition"
 msgstr "Edición de servidor"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1240
+#: ../../main/core/src/EBox/RemoteServices.pm:1243
 msgid "Not subscribed"
 msgstr "No suscrito"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1242
+#: ../../main/core/src/EBox/RemoteServices.pm:1245
 msgid "Subscribed"
 msgstr "Suscrito"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1292
+#: ../../main/core/src/EBox/RemoteServices.pm:1295
 msgid "Server Information"
 msgstr "Información del servidor"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1312
+#: ../../main/core/src/EBox/RemoteServices.pm:1315
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "Deshabilitado - {oh}Habilitar{ch}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1325
+#: ../../main/core/src/EBox/RemoteServices.pm:1328
 msgid "Standard 2 days"
 msgstr "Estándar 2 dias "
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1326
+#: ../../main/core/src/EBox/RemoteServices.pm:1329
 msgid "Standard 1 day"
 msgstr "Estándar 1 día"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1327
+#: ../../main/core/src/EBox/RemoteServices.pm:1330
 msgid "Standard 4 hours"
 msgstr "Estándar 4 Horas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1331
+#: ../../main/core/src/EBox/RemoteServices.pm:1334
 msgid "Configuration backup enabled"
 msgstr "Backup de configuración habilitado"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1336
+#: ../../main/core/src/EBox/RemoteServices.pm:1339
 #: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:155
 msgid "none"
 msgstr "ninguno"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1339
+#: ../../main/core/src/EBox/RemoteServices.pm:1342
 msgid "unknown"
 msgstr "desconocido"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1341
+#: ../../main/core/src/EBox/RemoteServices.pm:1344
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "El último backup de configuración fue: {date}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1343
+#: ../../main/core/src/EBox/RemoteServices.pm:1346
 #, perl-brace-format
 msgid "{oh}Register to store your backups in the cloud{ch}"
 msgstr "{oh}Regístrese para almacenar las copias de seguridad en la nube{ch}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1348
+#: ../../main/core/src/EBox/RemoteServices.pm:1351
 #: ../../main/core/src/templates/remoteservices/index.mas:35
 #: ../../main/core/src/templates/remoteservices/index.mas:83
 msgid "Server name"
 msgstr "Nombre del Servidor"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1350
+#: ../../main/core/src/EBox/RemoteServices.pm:1353
 #: ../../main/core/src/templates/remoteservices/index.mas:84
 msgid "Server edition"
 msgstr "Edición de servidor"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1353
+#: ../../main/core/src/EBox/RemoteServices.pm:1356
 msgid "Technical support"
 msgstr "Soporte Técnico"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1356
+#: ../../main/core/src/EBox/RemoteServices.pm:1359
 msgid "Registered e-mail"
 msgstr "Dirección de correo registrada"
 
@@ -6942,7 +6943,7 @@ msgstr "Para que el SOGo webmail sea accesible"
 msgid "To make autodiscovery service available"
 msgstr "Para activar el servicio de autodiscovery"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:628
+#: ../../main/openchange/src/EBox/OpenChange.pm:631
 #: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1550
 #: ../../main/mail/src/EBox/Mail.pm:1714
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
@@ -7656,7 +7657,7 @@ msgid "OU name"
 msgstr "Nombre de la OU"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:1956
+#: ../../main/samba/src/EBox/Samba.pm:1955
 msgid "LDAP Settings"
 msgstr "Opciones de configuración de LDAP."
 
@@ -7668,7 +7669,7 @@ msgstr ""
 "usuario."
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:1952
+#: ../../main/samba/src/EBox/Samba.pm:1951
 msgid "User Template"
 msgstr "Plantilla de Usuario"
 
@@ -7677,7 +7678,7 @@ msgid "Recycle Bin"
 msgstr "Papelera de Reciclaje"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:1966
+#: ../../main/samba/src/EBox/Samba.pm:1958
 msgid "File Sharing"
 msgstr "Compartición de Ficheros"
 
@@ -8826,15 +8827,11 @@ msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 "Encontrados {count} resultados para el grupo '{name}', sólo se esperaba uno."
 
-#: ../../main/samba/src/EBox/Samba.pm:1948
+#: ../../main/samba/src/EBox/Samba.pm:1947
 msgid "Manage"
 msgstr "Gestionar"
 
-#: ../../main/samba/src/EBox/Samba.pm:1960
-msgid "Configure mode"
-msgstr "Configurar modo"
-
-#: ../../main/samba/src/EBox/Samba.pm:2098
+#: ../../main/samba/src/EBox/Samba.pm:2090
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
@@ -8844,7 +8841,7 @@ msgstr ""
 "primero a {hn}. De lo contrario, los datos de Samba no podrán ser "
 "restaurados."
 
-#: ../../main/samba/src/EBox/Samba.pm:2114
+#: ../../main/samba/src/EBox/Samba.pm:2106
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -8853,7 +8850,7 @@ msgstr ""
 "No se puede restaurar porque el usuario {user} del LDAP ya existe como "
 "usuario de sistema. Debe borrarse o renombrarse antes de intentar de nuevo."
 
-#: ../../main/samba/src/EBox/Samba.pm:2131
+#: ../../main/samba/src/EBox/Samba.pm:2123
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8864,7 +8861,7 @@ msgstr ""
 "este error:\n"
 "{ex}"
 
-#: ../../main/samba/src/EBox/Samba.pm:2141
+#: ../../main/samba/src/EBox/Samba.pm:2133
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
@@ -8872,7 +8869,7 @@ msgstr ""
 "Solo se puede restaurar si el servidor es el único controlador de dominio "
 "del bosque"
 
-#: ../../main/samba/src/EBox/Samba.pm:2405
+#: ../../main/samba/src/EBox/Samba.pm:2397
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
@@ -8880,91 +8877,91 @@ msgstr ""
 "El nombre de equipo o dominio no pueden ser modificados si Zentyal está "
 "configurado como un controlador adicional del dominio."
 
-#: ../../main/samba/src/EBox/Samba.pm:2498
+#: ../../main/samba/src/EBox/Samba.pm:2490
 msgid "Users data and Filesystem shares"
 msgstr "Datos de usuarios y comparticiones del sistema de archivos"
 
-#: ../../main/samba/src/EBox/Samba.pm:2641
+#: ../../main/samba/src/EBox/Samba.pm:2633
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "La dirección {addr} ya está siendo usada por el {type} {name}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3215
-#: ../../main/samba/src/EBox/Samba.pm:3235
-#: ../../main/samba/src/EBox/Samba.pm:3246
+#: ../../main/samba/src/EBox/Samba.pm:3207
+#: ../../main/samba/src/EBox/Samba.pm:3227
+#: ../../main/samba/src/EBox/Samba.pm:3238
 msgid "Client address"
 msgstr "Dirección del cliente"
 
-#: ../../main/samba/src/EBox/Samba.pm:3218
+#: ../../main/samba/src/EBox/Samba.pm:3210
 msgid "Resource"
 msgstr "Recurso"
 
-#: ../../main/samba/src/EBox/Samba.pm:3222
+#: ../../main/samba/src/EBox/Samba.pm:3214
 msgid "Connect"
 msgstr "Conexión"
 
-#: ../../main/samba/src/EBox/Samba.pm:3223
+#: ../../main/samba/src/EBox/Samba.pm:3215
 msgid "Access to directory"
 msgstr "Acceso a directorio"
 
-#: ../../main/samba/src/EBox/Samba.pm:3224
+#: ../../main/samba/src/EBox/Samba.pm:3216
 msgid "Read file"
 msgstr "Lectura de fichero"
 
-#: ../../main/samba/src/EBox/Samba.pm:3225
+#: ../../main/samba/src/EBox/Samba.pm:3217
 msgid "Write file"
 msgstr "Escritura de fichero"
 
-#: ../../main/samba/src/EBox/Samba.pm:3226
+#: ../../main/samba/src/EBox/Samba.pm:3218
 msgid "Disconnect"
 msgstr "Desconexión"
 
-#: ../../main/samba/src/EBox/Samba.pm:3227
+#: ../../main/samba/src/EBox/Samba.pm:3219
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Eliminar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3228
+#: ../../main/samba/src/EBox/Samba.pm:3220
 msgid "Create directory"
 msgstr "Crear directorio"
 
-#: ../../main/samba/src/EBox/Samba.pm:3229
+#: ../../main/samba/src/EBox/Samba.pm:3221
 msgid "Remove directory"
 msgstr "Borrar directorio"
 
-#: ../../main/samba/src/EBox/Samba.pm:3230
+#: ../../main/samba/src/EBox/Samba.pm:3222
 msgid "Rename"
 msgstr "Renombrar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3237
-#: ../../main/samba/src/EBox/Samba.pm:3248
+#: ../../main/samba/src/EBox/Samba.pm:3229
+#: ../../main/samba/src/EBox/Samba.pm:3240
 msgid "File name"
 msgstr "Nombre de fichero"
 
-#: ../../main/samba/src/EBox/Samba.pm:3238
-#: ../../main/samba/src/EBox/Samba.pm:3242
+#: ../../main/samba/src/EBox/Samba.pm:3230
+#: ../../main/samba/src/EBox/Samba.pm:3234
 msgid "Virus"
 msgstr "Virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:3249
+#: ../../main/samba/src/EBox/Samba.pm:3241
 msgid "Quarantined file name"
 msgstr "Fichero en cuarentena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3250
-#: ../../main/samba/src/EBox/Samba.pm:3253
+#: ../../main/samba/src/EBox/Samba.pm:3242
+#: ../../main/samba/src/EBox/Samba.pm:3245
 msgid "Quarantine"
 msgstr "Cuarentena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3256
+#: ../../main/samba/src/EBox/Samba.pm:3248
 msgid "Samba access"
 msgstr "Accesos a Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3267
+#: ../../main/samba/src/EBox/Samba.pm:3259
 msgid "Samba virus"
 msgstr "Virus en Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3278
+#: ../../main/samba/src/EBox/Samba.pm:3270
 msgid "Samba quarantine"
 msgstr "Cuarentena de Samba"
 
@@ -12754,6 +12751,9 @@ msgid ""
 msgstr ""
 "Las siguientes opciones sólo tendrán efecto cuando el módulo correo está "
 "habilitado"
+
+#~ msgid "Configure mode"
+#~ msgstr "Configurar modo"
 
 #~ msgid "bridge"
 #~ msgstr "puente de red"
