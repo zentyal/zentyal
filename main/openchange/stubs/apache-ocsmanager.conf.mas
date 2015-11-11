@@ -51,7 +51,7 @@ WSGIScriptAlias /rpcwithcert/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcpr
     ############################
     #### Autodiscover begin ####
     ############################
-    ProxyPass /autodiscover http://127.0.0.1:5000/autodiscover
+    ProxyPassMatch /[Aa]utodiscover(.*)$ http://127.0.0.1:5000/autodiscover$1
 %   }
 
 %   if ($ews) {
