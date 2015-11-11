@@ -28,6 +28,7 @@ sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 
 echo; echo "Upgrading your current system to the latest packages..."; echo
 upgrade
+apt-get install -y --force-yes linux-image-generic-lts-vivid
 
 echo; echo "Upgrading from Zentyal 4.1 to Zentyal 4.2..."; echo
 sed -ri '/zentyal(.)4.1/d' /etc/apt/sources.list
