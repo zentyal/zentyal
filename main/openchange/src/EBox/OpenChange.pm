@@ -359,8 +359,12 @@ sub _writeCronFile
 
     my $cronfile = '/etc/cron.d/zentyal-openchange';
     if ($self->isEnabled()) {
-        my $accountScript = EBox::Config::scripts() . $self->name() . '/account';
-        my ($randHour, $randMin) = (int(rand(24)), int(rand(60)));
+        my $accountScript = EBox::Config::scripts($self->name()) . 'account';
+        unless ($self->st_entry_exists('cron_rand_hour') and $self->st_entry_exists('cron_rand_min')) {
+            $self->st_set_int('cron_rand_hour', int(rand(24)));
+            $self->st_set_int('cron_rand_min', int(rand(60)));
+        }
+        my ($randHour, $randMin) = ($self->st_get_int('cron_rand_hour'), $self->st_get_int('cron_rand_min'));
         my $crontab = "$randMin $randHour * * * root $accountScript 2> /dev/null";
         # FIXME: this may cause unexpected samba restarts during save changes, etc
         # my $checkScript = '/usr/share/zentyal-openchange/check_oc.py';
