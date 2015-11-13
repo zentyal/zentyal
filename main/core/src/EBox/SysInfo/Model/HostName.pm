@@ -139,6 +139,9 @@ sub _readResolv
     for my $line (<$resolvFH>) {
         $line =~ s/^\s+//g;
         my @toks = split (/\s+/, $line);
+        if (@toks < 2) {
+            next;
+        }
         if ($toks[0] eq 'nameserver') {
             push (@dns, $toks[1]);
         } elsif ($toks[0] eq 'search') {
