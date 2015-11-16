@@ -86,7 +86,7 @@ sub ids
 sub row
 {
     my ($self, $id) = @_;
-    if (not $id) {
+    if (not defined $id) {
         throw EBox::Exceptions::MissingArgument('id');
     }
     my $username = getpwuid($id);
@@ -125,11 +125,11 @@ sub addTypedRow
         my $userNotExists = $?;
         if ($userNotExists) {
             _rootWithExternalEx("adduser --disabled-password --gecos '' $user");
-            
+
             my $password = $params->{password}->value();
             $self->_changePassword($user, $password);
         }
-        
+
         unless ($self->_userIsAdmin($user)) {
             _rootWithExternalEx("adduser $user $ADMIN_GROUP");
             my $audit = EBox::Global->modInstance('audit');
@@ -145,7 +145,7 @@ sub addTypedRow
                        user => $user);
         } else {
             $msg = __x('User "{user}" granted Zentyal administrative permissions',
-                       user => $user);            
+                       user => $user);
         }
         $self->setMessage($msg);
 
@@ -166,19 +166,19 @@ sub setTypedRow
 
         my $user = $params->{username}->value();
         my $oldName = getpwuid($id);
-        
+
         if ($user ne $oldName) {
             _rootWithExternalEx("usermod -l $user $oldName");
             my $audit = EBox::Global->modInstance('audit');
             $audit->logAction('System', 'General', 'changeLogin', "$oldName -> $user", 0);
         }
 
-        
+
         my $password = $params->{password}->value();
         if ($password) {
             $self->_changePassword($user, $password);
         }
-        
+
         $self->SUPER::setTypedRow($id, $params);
     } catch ($ex) {
         EBox::Exceptions::Base::rethrowSilently($ex);
