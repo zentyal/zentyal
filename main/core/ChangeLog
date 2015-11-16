@@ -1,3 +1,6 @@
+HEAD
+	+ Fix error while visiting System -> General as root user
+	+ Fix empty lines in /etc/resolv.conf
 4.2.1
 	+ Improvements in RESTClient
 	+ Fix warning on server edition widget from registered users
