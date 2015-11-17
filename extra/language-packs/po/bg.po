@@ -1207,6 +1207,11 @@ msgstr ""
 msgid "forwarder"
 msgstr ""
 
+#: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:117
+#, perl-brace-format
+msgid "Forwarder cannot be a loopback address like {forw}"
+msgstr ""
+
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:132
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:122
 msgid "Service name"
@@ -1325,7 +1330,7 @@ msgstr "Вече има псевдоним \"{name}\" за \"{hostname}\" в с�
 #: ../../main/network/src/EBox/Network.pm:3048
 #: ../../main/network/src/EBox/Network.pm:3069
 #: ../../main/dhcp/src/EBox/DHCP.pm:1079
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:167
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:170
 #: ../../main/dns/src/templates/edit.mas:18
 msgid "Host name"
 msgstr "Име на хост"
@@ -5442,20 +5447,20 @@ msgstr ""
 msgid "{op}Are you sure you want to change the hostname to {new}?.{cp}"
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:169
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:182
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:172
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:185
 #, fuzzy, perl-brace-format
 msgid "The length must be between {min} and {max} characters"
 msgstr "Число между {min} и {max}"
 
 # #-#-#-#-#  bg.po (ebox-dhcp 0.12)  #-#-#-#-#
 # Име на компютър
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:180
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:183
 #, fuzzy
 msgid "Host domain"
 msgstr "Име на хост"
 
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:210
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:213
 msgid ""
 "DNS names can contain only alphabetical characters (a-z), numeric characters "
 "(0-9) and the minus sign (-)"
@@ -6710,7 +6715,7 @@ msgstr ""
 msgid "To make autodiscovery service available"
 msgstr "Настройване на гласовата поща"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:631
+#: ../../main/openchange/src/EBox/OpenChange.pm:635
 #: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1550
 #: ../../main/mail/src/EBox/Mail.pm:1714
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68

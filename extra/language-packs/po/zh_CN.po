@@ -1197,6 +1197,11 @@ msgstr "服务器会首先将请求进行转发，如果没有回应它将试图
 msgid "forwarder"
 msgstr "转发"
 
+#: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:117
+#, perl-brace-format
+msgid "Forwarder cannot be a loopback address like {forw}"
+msgstr ""
+
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:132
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:122
 msgid "Service name"
@@ -1314,7 +1319,7 @@ msgstr "在这个域中，\"{hostname}\"已有一个\"{name}\"的别名"
 #: ../../main/network/src/EBox/Network.pm:3048
 #: ../../main/network/src/EBox/Network.pm:3069
 #: ../../main/dhcp/src/EBox/DHCP.pm:1079
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:167
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:170
 #: ../../main/dns/src/templates/edit.mas:18
 msgid "Host name"
 msgstr "主机名"
@@ -5275,17 +5280,17 @@ msgstr "此外，用一个以“.local”结尾的域，会和 zeroconf 等其�
 msgid "{op}Are you sure you want to change the hostname to {new}?.{cp}"
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:169
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:182
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:172
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:185
 #, perl-brace-format
 msgid "The length must be between {min} and {max} characters"
 msgstr "长度应该在 {min} 和 {max}之间"
 
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:180
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:183
 msgid "Host domain"
 msgstr "主机域"
 
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:210
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:213
 msgid ""
 "DNS names can contain only alphabetical characters (a-z), numeric characters "
 "(0-9) and the minus sign (-)"
@@ -6504,7 +6509,7 @@ msgstr ""
 msgid "To make autodiscovery service available"
 msgstr "配置自动发现服务"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:631
+#: ../../main/openchange/src/EBox/OpenChange.pm:635
 #: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1550
 #: ../../main/mail/src/EBox/Mail.pm:1714
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
