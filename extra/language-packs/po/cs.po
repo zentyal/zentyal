@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-11-10 10:32+0200\n"
-"Last-Translator: pavelb <pavel.borecki@gmail.com>\n"
+"PO-Revision-Date: 2015-11-11 16:42+0200\n"
+"Last-Translator: Josef <skurek.j@makovec.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -116,7 +116,7 @@ msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
-"Předložený certifikát klienta a soukromá část klíče k němu si nodpovídají"
+"Předložený certifikát klienta a soukromá část klíče k němu si neodpovídají"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:320
 #, perl-brace-format
@@ -270,7 +270,7 @@ msgstr "Nepodporovaný typ klienta: {ct}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:888
 #, perl-brace-format
 msgid "Server {name}"
-msgstr ""
+msgstr "Server {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:899
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:246
@@ -290,7 +290,7 @@ msgstr "Místní adresa"
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:43
 #: ../../main/mail/src/templates/externalAccounts.mas:16
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:911
 msgid "VPN subnet"
@@ -372,7 +372,7 @@ msgstr "VPN servery"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:189
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:57
 msgid "server"
-msgstr ""
+msgstr "server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:160
 #, perl-brace-format
@@ -744,7 +744,7 @@ msgstr "Hledat v doméně"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:173
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:467
 msgid "WINS server"
-msgstr ""
+msgstr "WINS server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:183
 msgid "Server configuration"
@@ -884,7 +884,7 @@ msgstr "Nahrát balíček s nastaveními pro {na}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:73
 msgid "VPN"
-msgstr ""
+msgstr "VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:118
 msgid "To configure Quagga to run ripd and zebra"
@@ -1447,8 +1447,9 @@ msgid "Preference"
 msgstr "Přednost"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:220
+#, fuzzy
 msgid "Mail exchangers"
-msgstr ""
+msgstr "Poštovní servery"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:226
 #, perl-brace-format
@@ -1501,8 +1502,9 @@ msgid "Hostnames"
 msgstr "Názvy strojů"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:632
+#, fuzzy
 msgid "Mail Exchangers"
-msgstr ""
+msgstr "Poštovní servery"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:640
 msgid "Name Servers"
@@ -1574,7 +1576,7 @@ msgstr "Vlastní vlastník"
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:168
 #, perl-brace-format
 msgid "{txt} data"
-msgstr ""
+msgstr "{txt} data"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:170
 msgid "Any data could be provided"
@@ -1702,7 +1704,7 @@ msgstr "Řízení přístupu"
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:237
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:334
 msgid "ACL"
-msgstr ""
+msgstr "ACL"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:250
 msgid " (user)"
@@ -1860,7 +1862,7 @@ msgstr "Síťové tiskárny"
 
 #: ../../main/printers/src/EBox/Printers.pm:116
 msgid "Internet Printing Protocol (CUPS)"
-msgstr ""
+msgstr "Tiskový protokol Internetu (CUPS)"
 
 #: ../../main/printers/src/EBox/Printers.pm:393
 msgid "Job ID"
@@ -2267,7 +2269,7 @@ msgstr ""
 #: ../../main/core/src/templates/login/index.mas:15
 #: ../../main/core/src/templates/headerWithRefresh.mas:14
 msgid "Zentyal"
-msgstr ""
+msgstr "Zentyal"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:275
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:78
@@ -2336,7 +2338,7 @@ msgstr "Status Aktualizace databáze"
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:403
 #: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:59
 msgid "Antivirus"
-msgstr ""
+msgstr "Antivirus"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:151
 msgid ""
@@ -3293,15 +3295,15 @@ msgstr "Heslo"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:90
 msgid "Proxy server"
-msgstr ""
+msgstr "Proxy server"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:96
 msgid "Proxy port"
-msgstr ""
+msgstr "Port proxy"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:105
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:109
 msgid ""
@@ -3726,7 +3728,7 @@ msgstr "AppArmor profil pro {server} službu"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:131
 msgid "Trivial File Transfer Protocol"
-msgstr ""
+msgstr "Jednoduchý protokol pro přenos souborů (TFTP)"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:145
 msgid "Dynamic Host Configuration Protocol"
@@ -4426,7 +4428,7 @@ msgstr "Záloha nastavení"
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:211
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
-msgstr ""
+msgstr "Potvrď"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:76
 msgid "Making remote backup"
@@ -4746,9 +4748,8 @@ msgid ""
 msgstr "Kolonka {f} v {rowName} {r} byla změněna z {x} na {y}"
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:32
-#, fuzzy
 msgid "Upgrade to Zentyal 4.2"
-msgstr "Přejít na Zentyal 4.0"
+msgstr "Přejít na Zentyal 4.2"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:30
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
@@ -7493,7 +7494,7 @@ msgstr "typ skupiny"
 #: ../../main/samba/src/templates/editcontact.mas:28
 #: ../../main/samba/src/templates/addcontact.mas:30
 msgid "E-Mail"
-msgstr ""
+msgstr "E-Mail"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:90
 msgid "password"
@@ -8838,7 +8839,7 @@ msgstr "Název souboru"
 #: ../../main/samba/src/EBox/Samba.pm:3230
 #: ../../main/samba/src/EBox/Samba.pm:3234
 msgid "Virus"
-msgstr ""
+msgstr "Virus"
 
 #: ../../main/samba/src/EBox/Samba.pm:3241
 msgid "Quarantined file name"
