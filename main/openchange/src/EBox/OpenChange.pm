@@ -693,15 +693,17 @@ sub setProvisioned
     $self->set_state($state);
 }
 
-# Method: usersNum
+# Method: users
 #
-#     Return the number of users using OpenChange, that is, the MAPI users
+#     Return the users that has used OpenChange at least once, that
+#     is, the MAPI users
 #
 # Returns:
 #
-#     Int - 0 if not provisioned, a natural number otherwise
+#     Array ref - empty array if not provisioned, an array with
+#     usernames otherwise
 #
-sub usersNum
+sub users
 {
     my ($self) = @_;
 
@@ -712,12 +714,12 @@ sub usersNum
     my $dbEngine = new EBox::OpenChange::DBEngine($self);
     $dbEngine->connect();
 
-    my $count = 0;
-    my $ret =  $dbEngine->query_hash({'select' => 'COUNT(*)', 'from' => 'mailboxes'});
+    my @users;
+    my $ret =  $dbEngine->query_hash({'select' => 'name', 'from' => 'mailboxes'});
     if ($ret) {
-        $count = $ret->[0]->{'COUNT(*)'};
+        @users = map { $_->{'name'} } @{$ret};
     }
-    return $count;
+    return \@users;
 }
 
 sub _mysqlDumpFile

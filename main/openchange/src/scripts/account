@@ -75,12 +75,20 @@ sub _usersNum
 {
     my ($gl, $ocMod) = @_;
 
-    my $ocUsers = $ocMod->usersNum();
+    my $ocUsers = $ocMod->users();
     my $sambaMod = $gl->modInstance('samba');
 
-    my $realUsers = scalar(@{$sambaMod->realUsers()});
+    my $realUsers = $sambaMod->realUsers();
+    my %currentUsers = map { $_->name() => 1 } @{$realUsers};
+    my $ocUserNum = 0;
+    foreach my $username (@{$ocUsers}) {
+        if (exists $currentUsers{$username}) {
+            $ocUserNum++;
+        }
+    }
+    my $mailUsersNum = grep { defined ($_->get('mail')) } @{$realUsers};
 
-    return ($ocUsers, $realUsers - $ocUsers);
+    return ($ocUserNum, $mailUsersNum - $ocUserNum);
 }
 
 # Send accounted data to the server

@@ -1,4 +1,6 @@
 HEAD
+	+ Take into account MAPI users could have been deleted
+	+ Set the number of non-MAPI users properly
 	+ Fix registered UUID field for commercial edition
 4.1.6
 	+ Set same date for running account script and fix path
