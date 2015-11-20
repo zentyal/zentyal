@@ -108,7 +108,7 @@ sub _account
                         'product' => 'Server' };
     my $rs = $gl->modInstance('remoteservices');
     if ($rs and $rs->eBoxSubscribed()) {
-        $accountData->{registered_uuid} = $rs->subscribedUUID();
+        $accountData->{registered_server_uuid} = $rs->subscribedUUID();
         if ($rs->commercialEdition()) {
             $accountData->{edition} = $EDITION_NAMES{commercial};
         }
