@@ -75,7 +75,10 @@ sub _process
         } elsif ($quotaTypeSelected eq 'quota_size') {
             $quota = $self->param('User_quota_size');
         }
-        if (defined ($quota) and $user->hasValue('objectClass', 'systemQuotas')) {
+        if (defined $quota) {
+            if (not $user->hasValue('objectClass', 'systemQuotas')) {
+                $user->add('objectClass', 'systemQuotas');
+            }
             $user->set('quota', $quota, 1);
         }
 
