@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid race condition between saving changes and failover cron job
 4.0
 	+ Drop Zentyal-provided Dynamic DNS
 	+ WAN failover now uses cron instead of old events module

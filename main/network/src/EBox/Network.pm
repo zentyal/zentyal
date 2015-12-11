@@ -3771,11 +3771,11 @@ sub _daemonsToDisable
 sub _setConf
 {
     my ($self) = @_;
+    $self->_removeFailoverCron();
     $self->generateInterfaces();
     $self->_generatePPPConfig();
     $self->_generateDDClient();
     $self->_generateProxyConfig();
-    $self->_writeFailoverCron();
 }
 
 # Method: _enforceServiceState
@@ -3857,6 +3857,10 @@ sub _enforceServiceState
     EBox::Sudo::root('/sbin/ip route flush cache');
 
     $self->SUPER::_enforceServiceState();
+
+    # the failover proces should not start until we are sure all has been
+    # correctly initialized
+    $self->_writeFailoverCron();
 }
 
 # Method:  restoreConfig
@@ -3883,6 +3887,8 @@ sub _stopService
     my ($self) = @_;
 
     return unless ($self->configured());
+
+    $self->_removeFailoverCron();
 
     my @cmds;
     my $file = INTERFACES_FILE;
@@ -5147,6 +5153,13 @@ sub _failoverEnabled
 
     my $rules = $self->model('WANFailoverRules');
     return (@{$rules->enabledRows()} > 0);
+}
+
+sub _removeFailoverCron
+{
+    my ($self) = @_;
+    my $cronFile = FAILOVER_CRON_FILE;
+    EBox::Sudo::root("rm -f '$cronFile'");
 }
 
 sub _writeFailoverCron
