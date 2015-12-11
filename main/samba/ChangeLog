@@ -1,4 +1,5 @@
 HEAD
+	+ Add systemQuota object class when setting user quota
 	+ Added explicit check for full name in EBox::Samba::User::create
 	+ Add systemQuota object class when setting user quota
 4.2.1
