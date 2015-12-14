@@ -469,6 +469,9 @@ sub create
     my $name = $args{name};
     unless ($name) {
         $name = $class->generatedFullName(%args);
+        if (not $name) {
+            throw EBox::Exceptions::MissingArgument('name or at least one name component parameter (givenName, sn, initials))');
+        }
     }
     my $displayName = $args{displayName};
     unless ($displayName) {
