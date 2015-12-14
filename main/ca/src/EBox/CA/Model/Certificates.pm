@@ -57,15 +57,11 @@ sub new
     return $self;
 }
 
-# Method: precondition
+# Method: caAvailable
 #
 #   Check if CA has been created.
 #
-# Overrides:
-#
-#       <EBox::Model::DataTable::precondition>
-#
-sub precondition
+sub caAvailable
 {
     my ($self) = @_;
 
@@ -74,23 +70,24 @@ sub precondition
     return $ca->isAvailable();
 }
 
-# Method: preconditionFailMsg
-#
-#   Returns message to be shown on precondition fail.
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::preconditionFailMsg>
-#
-sub preconditionFailMsg
+sub permanentMessage
 {
     my ($self) = @_;
+    if ($self->caAvailable()) {
+        return undef;
+    }
 
-    return __x('You must create a Certification Authority first. '
+    return __x('This configuration will not be enforced until a new certification authority is created. '
               . 'Go to {openhref}Certification Authority{closehref} to do so',
               openhref  => qq{<a href='/CA/Index'>},
-              closehref => qq{</a>});
+              closehref => qq{</a>});    
 }
+
+sub permanentMessageType
+{
+    return 'warning';
+}
+   
 
 # Method: syncRows
 #
@@ -361,11 +358,33 @@ sub updatedRowNotify
         return;
     }
 
+    if (not $self->caAvailable()) {
+        return;
+    }
+
     my $modName = $row->valueByName('module');
     my $mod = EBox::Global->modInstance($modName);
     $mod->setAsChanged();
 }
 
+# Method: notifiyNewCA
+#
+# To be called to execute the needed actions when a new CA is created.
+# The needed actions are to mark modules with custom certificates as
+# changed, so they can set up the certificates.
+sub notifyNewCA
+{
+    my ($self) = @_;
+    for my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        if ($row->valueByName('enable')) {
+            my $modName = $row->valueByName('module');
+            my $mod = $self->global()->modInstance($modName);
+            $mod->setAsChanged();    
+        }
+    }
+}
+    
 sub _openchangeWarning
 {
     my ($self, $cn) = @_;
