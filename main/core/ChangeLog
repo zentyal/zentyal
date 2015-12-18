@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid crash in manage-logs script with undefined mods
 	+ Display a UTF8 search term properly by decoding
 	+ Avoid XSS on search when entering JS code
 4.0.11

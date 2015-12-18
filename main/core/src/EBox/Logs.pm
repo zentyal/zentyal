@@ -313,6 +313,9 @@ sub getTableInfo
 sub getModTableInfos
 {
     my ($self, $mod) = @_;
+
+    return [] unless defined $mod;
+
     my @tableInfos;
 
     my $ti = $mod->tableInfo();
