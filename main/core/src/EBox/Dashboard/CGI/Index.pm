@@ -172,7 +172,10 @@ sub masonParameters
         my $msg = { name => 'upgrade', text =>__sx('{oh}Zentyal 4.2{ch} is available! {ob}Upgrade now{cb}',
                     oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", ch => '</a>',
                     ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>') };
-        push (@params, 'message' => $msg);
+        my $arch = `arch`; chomp($arch);
+        if ($arch eq 'x86_64') {
+            push (@params, 'message' => $msg);
+        }
     } else {
         my $rs = EBox::Global->modInstance('remoteservices');
         if (defined ($rs) and $rs->subscriptionLevel() >= 0) {

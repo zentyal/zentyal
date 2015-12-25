@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ `arch` != "x86_64" ]
+then
+    echo "Upgrade to Zentyal 4.2 is only supported in 64bit architecture"
+    exit 1
+fi
+
 UPGRADE_FILE=/var/lib/zentyal/.upgrade-finished
 
 rm -f $UPGRADE_FILE
