@@ -112,7 +112,6 @@ use IO::Socket::UNIX;
 
 
 use constant SAMBA_DIR            => '/home/samba/';
-use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant SHARESCONFFILE       => '/etc/samba/shares.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
@@ -661,20 +660,6 @@ sub _services
                 'description' => 'Microsoft global catalog over SSL',
             },
         ];
-}
-
-
-# Generate, store in the given file and return a password
-sub _genPassword
-{
-    my ($self, $file) = @_;
-
-    my $pass = EBox::Util::Random::generate(20);
-    my ($login,$password,$uid,$gid) = getpwnam('ebox');
-    EBox::Module::Base::writeFile($file, $pass,
-            { mode => '0600', uid => $uid, gid => $gid });
-
-    return $pass;
 }
 
 # Method: wizardPages
