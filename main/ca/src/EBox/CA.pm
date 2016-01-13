@@ -327,6 +327,8 @@ sub createCA
     #unlink (CAREQ);
     $self->_setPasswordRequired(defined($self->{caKeyPassword}));
 
+    $self->model('Certificates')->notifyNewCA();    
+
     return 1;
 }
 
