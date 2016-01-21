@@ -147,8 +147,10 @@ sub syncRows
     foreach my $printerName (keys %cupsPrinters) {
         my $p = $cupsPrinters{$printerName};
         my $desc = $p->getDescription();
+        defined $desc or $desc = '';
         utf8::decode($desc);
         my $loc = $p->getLocation();
+        defined $loc or $loc = '';
         utf8::decode($loc);
 
         my $existentId = exists $currentPrinters{$printerName} ?
