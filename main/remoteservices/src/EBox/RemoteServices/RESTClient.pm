@@ -36,6 +36,7 @@ use LWP::UserAgent;
 use Error qw(:try);
 
 use EBox::Gettext;
+use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::RemoteServices::Configuration;
@@ -259,7 +260,19 @@ sub request {
     $ua->agent("ZentyalServer $version");
     $ua->ssl_opts('verify_hostname' => EBox::Config::boolean('rs_verify_servers'));
     # Set HTTP proxy if it is globally set as environment variable
-    $ua->proxy('https', $ENV{HTTP_PROXY}) if (exists $ENV{HTTP_PROXY});
+
+    my $proxy =  $ENV{HTTP_PROXY};
+    if (not $proxy) {
+        # check that if we have proxy set in network RO
+        my $network = EBox::Global->getInstance(1)->modInstance('network');
+        $proxy = $network->proxySettings(1);
+    }
+
+    if ($proxy) {
+        #  change protocol to use LWP::Protocol::connect;
+        $proxy =~ s/^http/connect/;
+        $ua->proxy(['https'], $proxy);
+    }
 
     my $req = HTTP::Request->new( $method => $self->{server} . $path );
     if ( exists $self->{credentials} ) {
