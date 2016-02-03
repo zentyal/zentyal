@@ -1,4 +1,4 @@
-HEAD
+4.2.2
 	+ Allow upgrade of packages that are not present in QA repo
 	+ Avoid crash in manage-logs script with undefined mods
 	+ Fix error while visiting System -> General as root user
