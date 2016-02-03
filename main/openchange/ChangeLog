@@ -1,4 +1,4 @@
-HEAD
+4.2.4
 	+ Take into account MAPI users could have been deleted
 	+ Set the number of non-MAPI users properly
 	+ Fix registered UUID field for commercial edition
