@@ -24,7 +24,3 @@ Pin-Priority: 500
 Package: linux-firmware
 Pin: release *
 Pin-Priority: 500
-
-Package: *
-Pin: release *
-Pin-Priority: 50
