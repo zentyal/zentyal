@@ -37,7 +37,6 @@ use constant RESOLVCONF_INTERFACE_ORDER => '/etc/resolvconf/interface-order';
 use constant RESOLVCONF_BASE => '/etc/resolvconf/resolv.conf.d/base';
 use constant RESOLVCONF_HEAD => '/etc/resolvconf/resolv.conf.d/head';
 use constant RESOLVCONF_TAIL => '/etc/resolvconf/resolv.conf.d/tail';
-use constant FAILOVER_CRON_FILE => '/etc/cron.d/zentyal-network';
 
 use Net::IP;
 use IO::Interface::Simple;
@@ -2614,7 +2613,6 @@ sub _postServiceHook
 sub _setConf
 {
     my ($self) = @_;
-    $self->_removeFailoverCron();
     $self->generateInterfaces();
     $self->_generateProxyConfig();
 }
@@ -2687,10 +2685,6 @@ sub _enforceServiceState
     EBox::Sudo::root('/sbin/ip route flush cache');
 
     $self->SUPER::_enforceServiceState();
-
-    # the failover proces should not start until we are sure all has been
-    # correctly initialized
-    $self->_writeFailoverCron();
 }
 
 # Method:  restoreConfig
@@ -2717,8 +2711,6 @@ sub _stopService
     my ($self) = @_;
 
     return unless ($self->configured());
-
-    $self->_removeFailoverCron();
 
     my @cmds;
     my $file = INTERFACES_FILE;
@@ -3784,42 +3776,6 @@ sub _vlanSearchMatch
     }
 
     return \@matches;
-}
-
-sub _failoverEnabled
-{
-    my ($self) = @_;
-
-    my $rules = $self->model('WANFailoverRules');
-    return (@{$rules->enabledRows()} > 0);
-}
-
-sub _removeFailoverCron
-{
-    my ($self) = @_;
-    my $cronFile = FAILOVER_CRON_FILE;
-    EBox::Sudo::root("rm -f '$cronFile'");
-}
-
-sub _writeFailoverCron
-{
-    my ($self) = @_;
-
-    my $cronFile = FAILOVER_CRON_FILE;
-
-    if ($self->_failoverEnabled()) {
-        my $failoverOptions = $self->model('WANFailoverOptions');
-        my $minutes = $failoverOptions->value('period');
-        EBox::Module::Base::writeConfFileNoCheck($cronFile, 'network/failover-checker.cron.mas',
-                                                 [ minutes => $minutes ],
-                                                 {
-                                                  uid  => 'root',
-                                                  gid  => 'root',
-                                                  mode =>  '0644'
-                                                 });
-    } else {
-        EBox::Sudo::root("rm -f $cronFile");
-    }
 }
 
 1;
