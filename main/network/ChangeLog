@@ -1,4 +1,4 @@
-HEAD
+4.2.2
 	+ Fix regression in initial modules enable after last change
 4.2.1
 	+ Avoid race condition between saving changes and failover cron job
