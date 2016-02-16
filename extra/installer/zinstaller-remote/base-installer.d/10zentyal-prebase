@@ -28,10 +28,6 @@ Pin-Priority: 900
 Package: *
 Pin: release a=now
 Pin-Priority: 500
-
-Package: *
-Pin: release *
-Pin-Priority: 50
 EOF
 
 CONF_DIR=/target/etc/apt/apt.conf.d/
