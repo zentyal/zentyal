@@ -1086,7 +1086,12 @@ sub dhcpLeasesWidget
         my $lease = $leases->{$id};
         if($lease->binding_state() eq 'active') {
             my $hostname = $lease->client_hostname();
-            $hostname =~ s/"//g;
+            if ($hostname) {
+                $hostname =~ s/"//g;
+            } else {
+                $hostname = __('Unknown');
+            }
+
             push(@{$ids}, $id);
             $rows->{$id} = [$lease->ip_address(),$lease->mac_address(),
                             $hostname];
