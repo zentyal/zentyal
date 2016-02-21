@@ -29,7 +29,7 @@ use EBox::AuditLogging;
 use EBox::Gettext;
 
 use Perl6::Junction qw(any);
-use TryCatch::Lite;
+use TryCatch;
 
 # Method: usedFiles
 #

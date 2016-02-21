@@ -23,7 +23,7 @@ use warnings;
 package EBox::SysInfo::Model::DateTime;
 use base 'EBox::Model::DataForm';
 
-use TryCatch::Lite;
+use TryCatch;
 
 use EBox::Gettext;
 use EBox::Types::Date;

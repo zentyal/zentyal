@@ -25,7 +25,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Html;
 
-use TryCatch::Lite;
+use TryCatch;
 
 
 sub _process

@@ -50,7 +50,7 @@ use EBox::Util::Random;
 # Dependencies
 use Digest::HMAC_MD5;
 use MIME::Base64;
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 

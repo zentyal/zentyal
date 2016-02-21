@@ -25,7 +25,7 @@ use EBox::Exceptions::External;
 use EBox::Gettext;
 
 use Authen::Simple::PAM;
-use TryCatch::Lite;
+use TryCatch;
 
 
 # Method: checkValidUser

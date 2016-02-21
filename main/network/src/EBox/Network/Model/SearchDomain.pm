@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::DomainName;
 use EBox::Types::Text;
-use TryCatch::Lite;
+use TryCatch;
 
 # Dependencies
 

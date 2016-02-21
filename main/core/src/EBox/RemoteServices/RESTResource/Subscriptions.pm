@@ -28,7 +28,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 

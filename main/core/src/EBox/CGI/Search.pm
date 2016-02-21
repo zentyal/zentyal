@@ -21,7 +21,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Search;
 use EBox::Gettext;
-use TryCatch::Lite;
+use TryCatch;
 use URI::Escape;
 
 sub new

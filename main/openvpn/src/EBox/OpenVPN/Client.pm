@@ -31,7 +31,7 @@ use EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 
-use TryCatch::Lite;
+use TryCatch;
 use File::Temp;
 use Params::Validate qw(validate_pos SCALAR);
 

@@ -23,7 +23,7 @@ use EBox::Exceptions::Internal;
 use JSON::RPC::Legacy::Client;
 use MIME::Base64;
 use File::Slurp;
-use TryCatch::Lite;
+use TryCatch;
 
 # Milestone must be in format 'x.y[.z]'. The first two version numbers as
 # separated by dots are used to create the issue in the bug tracker.

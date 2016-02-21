@@ -43,7 +43,7 @@ use EBox::WebAdmin::UserConfiguration;
 
 use Clone::Fast;
 use Encode;
-use TryCatch::Lite;
+use TryCatch;
 use POSIX qw(ceil INT_MAX);
 use Perl6::Junction qw(all any);
 use List::Util;

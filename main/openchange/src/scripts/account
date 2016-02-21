@@ -30,7 +30,7 @@ use EBox::RESTClient;
 use JSON::XS;
 use Getopt::Long;
 use Pod::Usage;
-use TryCatch::Lite;
+use TryCatch;
 
 # Edition names
 my %EDITION_NAMES = ('commercial' => 'Commercial',

@@ -22,7 +22,7 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use File::stat qw();
-use TryCatch::Lite;
+use TryCatch;
 use Params::Validate;
 use Perl6::Junction;
 use File::Temp qw(tempfile);

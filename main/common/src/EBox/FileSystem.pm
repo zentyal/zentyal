@@ -29,7 +29,7 @@ use EBox::Sudo;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
-use TryCatch::Lite;
+use TryCatch;
 
 use constant FSTAB_PATH => '/etc/fstab';
 use constant MTAB_PATH => '/etc/mtab';

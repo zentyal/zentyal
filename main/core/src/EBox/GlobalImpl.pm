@@ -28,7 +28,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
-use TryCatch::Lite;
+use TryCatch;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::ProgressIndicator;

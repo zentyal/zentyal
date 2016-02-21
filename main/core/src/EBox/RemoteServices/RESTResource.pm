@@ -27,7 +27,7 @@ use EBox::Gettext;
 use EBox::RESTClient;
 use EBox::RemoteServices::Configuration;
 
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 

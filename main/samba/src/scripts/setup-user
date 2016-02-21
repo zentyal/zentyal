@@ -19,7 +19,7 @@ use warnings;
 use EBox;
 use EBox::Global;
 use EBox::Samba::User;
-use TryCatch::Lite;
+use TryCatch;
 
 my @usersToImport;
 my $allUsers = 0;

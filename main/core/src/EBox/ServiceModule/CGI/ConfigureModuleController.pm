@@ -27,7 +27,7 @@ use EBox::ServiceManager;
 use EBox::Global;
 use EBox::Gettext;
 
-use TryCatch::Lite;
+use TryCatch;
 use EBox::Exceptions::Base;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;

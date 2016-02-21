@@ -30,7 +30,7 @@ use Fcntl qw(:flock);
 use JSON::XS;
 use Plack::Request;
 use Plack::Util::Accessor qw( app_name );
-use TryCatch::Lite;
+use TryCatch;
 use URI;
 
 # By now, the expiration time for session is hardcoded here

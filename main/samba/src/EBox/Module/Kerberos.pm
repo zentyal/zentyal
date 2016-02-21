@@ -22,7 +22,7 @@ use base qw(
     EBox::Module::LDAP
 );
 
-use TryCatch::Lite;
+use TryCatch;
 use Net::LDAP;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use File::Slurp;

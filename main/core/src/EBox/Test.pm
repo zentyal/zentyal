@@ -29,7 +29,7 @@ use base 'Exporter';
 use Test::More;
 use Test::Builder;
 
-use TryCatch::Lite;
+use TryCatch;
 use Params::Validate;
 
 our @EXPORT_OK = ('checkModuleInstantiation', @deprecatedSubs);

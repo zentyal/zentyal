@@ -41,7 +41,7 @@ use HTML::Mason::Exceptions;
 use JSON::XS;
 use Perl6::Junction qw(all any);
 use POSIX qw(setlocale LC_ALL);
-use TryCatch::Lite;
+use TryCatch;
 use URI;
 
 ## arguments

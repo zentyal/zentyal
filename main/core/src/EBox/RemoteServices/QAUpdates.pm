@@ -31,7 +31,7 @@ use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
 use Data::UUID;
 
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 

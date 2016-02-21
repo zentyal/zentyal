@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Util::Certificate;
 
-use TryCatch::Lite;
+use TryCatch;
 use EBox::Sudo;
 use EBox::Exceptions::External;
 

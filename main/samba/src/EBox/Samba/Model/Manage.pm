@@ -25,7 +25,7 @@ use EBox::Samba;
 use EBox::Types::Action;
 use Net::LDAP::Util qw( ldap_explode_dn );
 
-use TryCatch::Lite;
+use TryCatch;
 
 sub _tree
 {

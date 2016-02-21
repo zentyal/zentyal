@@ -33,7 +33,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::ComponentNotExists;
 
 use Encode;
-use TryCatch::Lite;
+use TryCatch;
 use POSIX qw(getuid);
 
 # Method: parentModule

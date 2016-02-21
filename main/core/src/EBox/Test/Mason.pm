@@ -29,7 +29,7 @@ use File::Slurp;
 use File::Basename;
 use HTML::Mason;
 use Test::More;
-use TryCatch::Lite;
+use TryCatch;
 use Dir::Self;
 use Cwd 'abs_path';
 

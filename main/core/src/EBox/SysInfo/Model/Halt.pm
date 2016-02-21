@@ -23,7 +23,7 @@ use EBox::Gettext;
 use EBox::Types::Action;
 use EBox::DBEngineFactory;
 use EBox::Util::Lock;
-use TryCatch::Lite;
+use TryCatch;
 
 my $haltInProgress;
 

@@ -19,7 +19,7 @@ package EBox::RemoteServices::Backup;
 
 
 use Digest::SHA;
-use TryCatch::Lite;
+use TryCatch;
 use EBox::Backup;
 use EBox::Config;
 use EBox::Exceptions::DataNotFound;

@@ -26,7 +26,7 @@ use EBox::TraceStorable;
 use Devel::StackTrace;
 use Plack::Util::Accessor qw( force no_print_errors );
 use Scalar::Util;
-use TryCatch::Lite;
+use TryCatch;
 
 sub munge_error {
     my($err, $caller) = @_;

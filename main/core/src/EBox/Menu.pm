@@ -23,7 +23,7 @@ use EBox::Menu::Root;
 use EBox::CGI::Run;
 
 use Encode;
-use TryCatch::Lite;
+use TryCatch;
 use Storable qw(store);
 
 

@@ -33,7 +33,7 @@ use EBox::Gettext;
 use HTTP::Request;
 use HTTP::Status;
 use LWP::UserAgent;
-use TryCatch::Lite;
+use TryCatch;
 use Date::Calc;
 use URI;
 

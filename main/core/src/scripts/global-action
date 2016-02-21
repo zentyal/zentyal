@@ -9,7 +9,7 @@ use EBox::ProgressIndicator;
 use EBox::Exceptions::Internal;
 
 use Scalar::Util qw(blessed);
-use TryCatch::Lite;
+use TryCatch;
 
 EBox::init();
 

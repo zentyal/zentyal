@@ -23,7 +23,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate;
 use EBox::Exceptions::InvalidData;
-use TryCatch::Lite;
+use TryCatch;
 
 sub new # (error=?, msg=?, cgi=?)
 {

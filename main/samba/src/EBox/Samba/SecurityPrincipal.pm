@@ -30,7 +30,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 
-use TryCatch::Lite;
+use TryCatch;
 use Net::LDAP::Util qw(escape_filter_value);
 
 # Method: new

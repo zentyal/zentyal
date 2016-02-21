@@ -7,7 +7,7 @@ use Test::Exception;
 use lib '../../..';
 
 use EBox::TestStub;
-use TryCatch::Lite;
+use TryCatch;
 
 EBox::TestStub::fake();
 

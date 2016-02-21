@@ -25,7 +25,7 @@ package EBox::RESTClient::Result;
 
 use EBox;
 use EBox::Exceptions::MissingArgument;
-use TryCatch::Lite;
+use TryCatch;
 use JSON::XS;
 
 # Constructor: new

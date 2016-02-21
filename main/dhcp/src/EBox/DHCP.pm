@@ -43,7 +43,7 @@ use EBox::Dashboard::Section;
 use EBox::Dashboard::List;
 
 use Net::IP;
-use TryCatch::Lite;
+use TryCatch;
 use Perl6::Junction qw(any);
 use Text::DHCPLeases;
 use File::Slurp;

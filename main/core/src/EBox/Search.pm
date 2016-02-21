@@ -23,7 +23,7 @@ package EBox::Search;
 use EBox::Config::Redis;
 use EBox::Global;
 use EBox::Menu;
-use TryCatch::Lite;
+use TryCatch;
 use Storable qw(retrieve);
 
 sub search

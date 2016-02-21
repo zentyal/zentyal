@@ -34,7 +34,7 @@ use EBox::Exceptions::MissingArgument;
 
 use Net::LDAP::Entry;
 use Net::LDAP::Constant;
-use TryCatch::Lite;
+use TryCatch;
 
 # Method: mainObjectClass
 #

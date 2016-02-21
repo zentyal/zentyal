@@ -26,7 +26,7 @@ use EBox::Exceptions::External;
 use EBox::Html;
 use EBox::RemoteServices::Subscription::Validate;
 
-use TryCatch::Lite;
+use TryCatch;
 
 sub new
 {

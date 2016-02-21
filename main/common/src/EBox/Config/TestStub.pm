@@ -22,7 +22,7 @@ package EBox::Config::TestStub;
 use Test::MockObject;
 use Perl6::Junction qw(all);
 use EBox::Config;
-use TryCatch::Lite;
+use TryCatch;
 
 # XXX: Derivated paths are totally decoupled from their base path (datadir, sysconfdir, localstatedir, libdir)
 # possible solution 1: rewrite EBox::Config so the derivated elements use a sub to get the needed element

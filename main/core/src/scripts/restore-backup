@@ -9,7 +9,7 @@ use EBox::ProgressIndicator;
 use Getopt::Long;
 
 use English qw(-no-match-vars);
-use TryCatch::Lite;
+use TryCatch;
 
 EBox::init();
 

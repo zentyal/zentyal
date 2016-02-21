@@ -42,7 +42,7 @@ use EBox::Samba::User;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Perl6::Junction qw(any);
-use TryCatch::Lite;
+use TryCatch;
 
 use constant SYSMINGID      => 1900;
 use constant MINGID         => 2000;

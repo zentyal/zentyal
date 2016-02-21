@@ -42,7 +42,7 @@ use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
 
-use TryCatch::Lite;
+use TryCatch;
 use File::Temp;
 use File::Slurp;
 use Fcntl qw(:seek);

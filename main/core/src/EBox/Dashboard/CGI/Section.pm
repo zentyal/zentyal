@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Item;
-use TryCatch::Lite;
+use TryCatch;
 
 sub new # (error=?, msg=?, cgi=?)
 {

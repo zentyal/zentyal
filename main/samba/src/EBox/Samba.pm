@@ -61,7 +61,7 @@ use Digest::SHA;
 use Digest::MD5;
 use Sys::Hostname;
 
-use TryCatch::Lite;
+use TryCatch;
 use JSON::XS;
 use Net::LDAP::Control::Sort;
 use Net::LDAP::Util qw(ldap_explode_dn);

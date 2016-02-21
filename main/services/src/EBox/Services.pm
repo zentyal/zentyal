@@ -38,7 +38,7 @@ use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
 
-use TryCatch::Lite;
+use TryCatch;
 
 sub _create
 {

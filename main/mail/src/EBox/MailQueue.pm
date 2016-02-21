@@ -22,7 +22,7 @@ package EBox::MailQueue;
 use EBox::Config;
 use EBox::Sudo;
 use EBox::Gettext;
-use TryCatch::Lite;
+use TryCatch;
 
 BEGIN {
     use Exporter ();

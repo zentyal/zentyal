@@ -20,7 +20,7 @@ use strict;
 use EBox;
 use EBox::Config::Redis;
 use EBox::Sudo;
-use TryCatch::Lite;
+use TryCatch;
 
 my $dir = '';
 

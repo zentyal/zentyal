@@ -38,7 +38,7 @@ use EBox::Sudo;
 
 use Perl6::Junction qw( any );
 use Socket;
-use TryCatch::Lite;
+use TryCatch;
 
 my $statenew = " -m state --state NEW ";
 

@@ -17,7 +17,7 @@ package EBox::OpenChange::CGI::CheckForProvision;
 use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
-use TryCatch::Lite;
+use TryCatch;
 
 sub new
 {

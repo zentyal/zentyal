@@ -28,7 +28,7 @@ use EBox::Config::Redis;
 use EBox::Model::Manager;
 
 use File::Basename;
-use TryCatch::Lite;
+use TryCatch;
 
 sub _create
 {

@@ -20,7 +20,7 @@ use strict;
 use EBox::GlobalImpl;
 use EBox::Config;
 use Date::Format;
-use TryCatch::Lite;
+use TryCatch;
 
 use constant LOG_FILE => EBox::Config::log() . 'software.log';
 my $DPKG_RUNNING_FILE = EBox::GlobalImpl::DPKG_RUNNING_FILE;

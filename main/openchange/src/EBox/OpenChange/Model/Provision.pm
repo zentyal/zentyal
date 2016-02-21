@@ -31,7 +31,7 @@ use EBox::Types::Union;
 use EBox::Types::Password;
 use EBox::Config;
 
-use TryCatch::Lite;
+use TryCatch;
 
 # Method: new
 #

@@ -24,7 +24,7 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-use TryCatch::Lite;
+use TryCatch;
 
 use EBox;
 use EBox::Gettext;

@@ -34,7 +34,7 @@ use EBox::Printers::LogHelper;
 use EBox::Samba::Group;
 use Net::CUPS::Destination;
 use Net::CUPS;
-use TryCatch::Lite;
+use TryCatch;
 
 use constant CUPSD => '/etc/cups/cupsd.conf';
 use constant CUPSD_LOGROTATE_CONF => '/etc/logrotate.d/cups-daemon';

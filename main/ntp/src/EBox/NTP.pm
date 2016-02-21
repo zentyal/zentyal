@@ -30,7 +30,7 @@ use EBox::Menu::Folder;
 use EBox::Validate qw(:all);
 use EBox::Sudo;
 use Time::HiRes qw(usleep);
-use TryCatch::Lite;
+use TryCatch;
 
 # Constants
 use constant NTPCONFFILE      => '/etc/ntp.conf';

@@ -57,7 +57,7 @@ use File::Slurp;
 use JSON::XS;
 use POSIX;
 use YAML::XS;
-use TryCatch::Lite;
+use TryCatch;
 use Date::Calc;
 
 use constant COMMERCIAL_EDITION      => EBox::Config::home() . '.commercial-edition';

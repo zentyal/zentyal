@@ -23,7 +23,7 @@ use warnings;
 use EBox;
 use EBox::Global;
 use File::Temp;
-use TryCatch::Lite;
+use TryCatch;
 
 
 EBox::init();

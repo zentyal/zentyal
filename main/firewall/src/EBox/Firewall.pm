@@ -41,7 +41,7 @@ use EBox::FirewallLogHelper;
 use EBox::Objects;
 use EBox::Validate qw( :all );
 use EBox::Util::Lock;
-use TryCatch::Lite;
+use TryCatch;
 
 # Time in sec. to be blocked to work on iptables
 use constant BLOCKED_TIMEOUT => 10;

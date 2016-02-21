@@ -41,7 +41,7 @@ use EBox::Validate;
 use Sys::Filesystem;
 use File::Basename qw( dirname );
 use Cwd 'abs_path';
-use TryCatch::Lite;
+use TryCatch;
 
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
                              '/proc', '/run', '/sbin', '/sys', '/var', '/usr',

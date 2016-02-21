@@ -22,7 +22,7 @@ use EBox::Config;
 use EBox::GlobalImpl;
 use EBox::Sudo;
 use EBox::Util::SQL;
-use TryCatch::Lite;
+use TryCatch;
 
 my ($modname) = @ARGV;
 

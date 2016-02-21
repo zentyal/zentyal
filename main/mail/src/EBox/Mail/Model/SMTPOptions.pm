@@ -34,7 +34,7 @@ use EBox::Types::Union::Text;
 use EBox::Types::Port;
 use EBox::Types::Composite;
 use EBox::Types::MailAddress;
-use TryCatch::Lite;
+use TryCatch;
 
 use EBox::Exceptions::External;
 

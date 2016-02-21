@@ -37,7 +37,7 @@ use EBox::Exceptions::MissingArgument;
 use List::Util qw(first);
 use Params::Validate qw(validate_pos validate SCALAR ARRAYREF);
 use Perl6::Junction qw(any);
-use TryCatch::Lite;
+use TryCatch;
 
 sub new
 {

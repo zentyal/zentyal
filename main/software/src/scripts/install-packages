@@ -27,7 +27,7 @@ use EBox::Global;
 use EBox::ProgressIndicator;
 use EBox::Sudo;
 
-use TryCatch::Lite;
+use TryCatch;
 
 sub _regenSoftwareLists
 {

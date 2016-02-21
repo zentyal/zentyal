@@ -26,7 +26,7 @@ use base qw(
              EBox::CA::Observer);
 
 use Perl6::Junction qw(any);
-use TryCatch::Lite;
+use TryCatch;
 
 use EBox::Global;
 use EBox::Gettext;

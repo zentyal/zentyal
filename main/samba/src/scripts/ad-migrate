@@ -25,7 +25,7 @@ use EBox::Samba::FSMO;
 
 use Net::Ping;
 use Net::DNS;
-use TryCatch::Lite;
+use TryCatch;
 
 ##
 ##  Init Zentyal framework

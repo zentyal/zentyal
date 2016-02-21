@@ -31,7 +31,7 @@ use File::Slurp;
 use File::Basename;
 use Perl6::Junction qw(any);
 use JSON::XS;
-use TryCatch::Lite;
+use TryCatch;
 
 # Constants
 use constant REDIS_CONF => 'conf/redis.conf';

@@ -27,7 +27,7 @@ use base 'EBox::Model::DataForm';
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Types::Port;
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 

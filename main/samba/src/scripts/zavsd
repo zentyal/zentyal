@@ -23,7 +23,7 @@ use Thread::Queue;
 use IO::Socket::UNIX;
 use ClamAV::Client;
 use JSON::XS;
-use TryCatch::Lite;
+use TryCatch;
 use File::Temp qw(tempfile);
 use File::Slurp;
 use Time::HiRes;

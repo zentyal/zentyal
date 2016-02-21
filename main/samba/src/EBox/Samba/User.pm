@@ -44,7 +44,7 @@ use Net::LDAP::Control;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_ALREADY_EXISTS LDAP_LOCAL_ERROR);
 use Date::Calc;
-use TryCatch::Lite;
+use TryCatch;
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;

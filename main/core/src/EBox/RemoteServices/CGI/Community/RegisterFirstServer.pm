@@ -29,7 +29,7 @@ use EBox::RemoteServices::Subscription::Validate;
 use EBox::RemoteServices::Track;
 use EBox::Validate;
 
-use TryCatch::Lite;
+use TryCatch;
 
 sub new
 {

@@ -54,7 +54,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Lock;
 use EBox::Exceptions::DataNotFound;
-use TryCatch::Lite;
+use TryCatch;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::CounterGraph;

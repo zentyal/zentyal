@@ -42,7 +42,7 @@ use EBox::Samba;
 use EBox::Sudo;
 use EBox::Util::Certificate;
 
-use TryCatch::Lite;
+use TryCatch;
 use String::Random;
 use File::Basename;
 

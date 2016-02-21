@@ -44,7 +44,7 @@ use EBox::Sudo;
 
 # Core modules
 use File::Basename;
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 

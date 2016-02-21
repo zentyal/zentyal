@@ -36,7 +36,7 @@ use File::Slurp qw(read_file write_file);
 use File::Basename;
 use File::MMagic;
 
-use TryCatch::Lite;
+use TryCatch;
 use Digest::MD5;
 use EBox::Sudo;
 use POSIX qw(strftime);

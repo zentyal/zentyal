@@ -27,7 +27,7 @@ use EBox::Network;
 use Test::More;
 use Test::Exception;
 use Test::MockObject;
-use TryCatch::Lite;
+use TryCatch;
 
 use lib '../../../..';
 

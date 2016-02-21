@@ -28,7 +28,7 @@ use File::Slurp;
 use Getopt::Long;
 use JSON::XS qw(decode_json);
 use Pod::Usage;
-use TryCatch::Lite;
+use TryCatch;
 
 # Run pending jobs
 sub _runPendingOps

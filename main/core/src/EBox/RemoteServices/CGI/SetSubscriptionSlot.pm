@@ -29,7 +29,7 @@ use Cwd qw(realpath);
 use HTTP::Date;
 use Plack::Util;
 use Sys::Hostname;
-use TryCatch::Lite;
+use TryCatch;
 
 
 sub new

@@ -29,7 +29,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::MissingArgument;
-use TryCatch::Lite;
+use TryCatch;
 
 # Constant
 use constant MAX_INT => 32767;

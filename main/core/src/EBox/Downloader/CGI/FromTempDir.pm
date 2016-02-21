@@ -33,7 +33,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Internal;
 
 # Core modules
-use TryCatch::Lite;
+use TryCatch;
 use Cwd 'abs_path';
 
 # Group: Public methods

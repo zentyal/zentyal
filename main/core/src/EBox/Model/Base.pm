@@ -27,7 +27,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Sudo;
 
-use TryCatch::Lite;
+use TryCatch;
 
 # Method: modelName
 #

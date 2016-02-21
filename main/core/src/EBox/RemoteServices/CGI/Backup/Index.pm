@@ -27,7 +27,7 @@ use EBox::Exceptions::External;
 use EBox::RemoteServices::Track;
 use EBox::Util::FileSize;
 
-use TryCatch::Lite;
+use TryCatch;
 use URI;
 
 # Constant

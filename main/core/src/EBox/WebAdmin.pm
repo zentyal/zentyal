@@ -39,7 +39,7 @@ use English qw(-no_match_vars);
 use File::Basename;
 use File::Slurp;
 use POSIX qw(setsid setlocale LC_ALL);
-use TryCatch::Lite;
+use TryCatch;
 
 # Constants
 use constant NGINX_INCLUDE_KEY => 'nginxIncludes';

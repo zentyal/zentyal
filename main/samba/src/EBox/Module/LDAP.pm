@@ -37,7 +37,7 @@ use File::Temp;
 use File::Slurp;
 use Authen::SASL;
 
-use TryCatch::Lite;
+use TryCatch;
 
 # Method: _ldapModImplementation
 #

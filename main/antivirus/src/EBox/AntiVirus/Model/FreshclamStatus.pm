@@ -36,7 +36,7 @@ use EBox::Types::Boolean;
 
 use ClamAV::XS;
 use Date::Calc;
-use TryCatch::Lite;
+use TryCatch;
 
 use constant CLAMAV_LOG_FILE => '/var/log/clamav/clamav.log';
 use constant FRESHCLAM_LOG_FILE => '/var/log/clamav/freshclam.log';

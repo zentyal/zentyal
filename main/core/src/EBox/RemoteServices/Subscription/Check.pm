@@ -27,7 +27,7 @@ package EBox::RemoteServices::Subscription::Check;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Exceptions::NotCapable;
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 

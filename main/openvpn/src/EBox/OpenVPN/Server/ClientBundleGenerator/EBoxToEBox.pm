@@ -25,7 +25,7 @@ use EBox::Exceptions::External;
 use File::Copy;
 use File::Slurp qw(write_file read_file);
 
-use TryCatch::Lite;
+use TryCatch;
 
 sub bundleFilename
 {

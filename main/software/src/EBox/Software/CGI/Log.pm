@@ -22,7 +22,7 @@ use EBox;
 use EBox::Util::BugReport;
 use EBox::Gettext;
 use File::Slurp;
-use TryCatch::Lite;
+use TryCatch;
 
 use base 'EBox::CGI::ClientBase';
 

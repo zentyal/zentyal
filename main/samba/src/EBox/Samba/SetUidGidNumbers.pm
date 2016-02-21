@@ -26,7 +26,7 @@ use EBox::Ldap;
 use EBox::Samba::User;
 use EBox::Samba::Group;
 use Perl6::Junction qw(any);
-use TryCatch::Lite;
+use TryCatch;
 
 use constant DEBUG => 0;
 

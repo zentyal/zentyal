@@ -24,7 +24,7 @@ use EBox;
 use EBox::Global;
 
 # Core modules
-use TryCatch::Lite;
+use TryCatch;
 use Sys::Hostname;
 
 my ($username, $password, $name, $uuid, $mode) = @ARGV;

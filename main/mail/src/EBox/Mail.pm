@@ -61,7 +61,7 @@ use Samba::Security::Descriptor qw(
 use Samba::Security::AccessControlEntry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
-use TryCatch::Lite;
+use TryCatch;
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
 use File::Slurp;

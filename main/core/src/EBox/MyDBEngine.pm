@@ -37,7 +37,7 @@ use File::Copy;
 use File::Basename;
 use EBox::Util::SQLTypes;
 
-use TryCatch::Lite;
+use TryCatch;
 use Data::Dumper;
 
 use constant MYSQL_CUSTOM_CONF => '/etc/mysql/conf.d/zentyal.cnf';

@@ -57,7 +57,7 @@ use EBox::Types::HostIP;
 use EBox::Types::Text;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Internal;
-use TryCatch::Lite;
+use TryCatch;
 
 # Dependencies
 

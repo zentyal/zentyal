@@ -34,7 +34,7 @@ use EBox::Model::Manager;
 use EBox::Gettext;
 use EBox::Samba::User;
 use EBox::MailVDomainsLdap;
-use TryCatch::Lite;
+use TryCatch;
 
 use Perl6::Junction qw(any);
 
