@@ -28,7 +28,7 @@ package EBox::Firewall::IptablesRule;
 use warnings;
 use strict;
 
-use Clone::Fast;
+use Clone;
 
 use EBox::Validate qw( checkCIDR );
 use EBox::Model::Manager;
@@ -628,7 +628,7 @@ sub clone
     my @skipKeys = qw/services objects/;
     foreach my $key (keys %{$self}) {
         unless ($key eq any @skipKeys) {
-            $clonedRule->{$key} = Clone::Fast::clone($self->{$key});
+            $clonedRule->{$key} = Clone::clone($self->{$key});
         }
     }
     for my $key (@skipKeys) {

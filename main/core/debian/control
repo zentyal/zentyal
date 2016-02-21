@@ -15,7 +15,7 @@ Pre-Depends: mysql-server
 Depends: zentyal-common (>= 4.2), zentyal-common (<< 4.3),
          adduser, apport, anacron, cracklib-runtime, cron, curl, dbus, debconf, gpgv,
          libapt-pkg-perl, libauthen-simple-pam-perl,
-         libcgi-emulate-psgi-perl, libclass-singleton-perl, libmodule-pluggable-fast-perl,
+         libcgi-emulate-psgi-perl, libclass-singleton-perl, libclone-perl,
          libdatetime-timezone-perl,
          libdbd-mysql-perl, libfile-copy-recursive-perl, libfile-mmagic-perl,
          libfilesys-df-perl, libhttp-date-perl, libjson-perl,
