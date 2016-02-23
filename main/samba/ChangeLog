@@ -1,3 +1,5 @@
+HEAD
+	+ Use winbind instead of sssd
 4.2.2
 	+ Add systemQuota object class when setting user quota
 	+ Added explicit check for full name in EBox::Samba::User::create
