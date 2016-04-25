@@ -1,5 +1,6 @@
 HEAD
 	+ Use winbind instead of sssd
+4.2.3
 	+ Add cron to flush idmap cache to avoid auth issues
 4.2.2
 	+ Add systemQuota object class when setting user quota
