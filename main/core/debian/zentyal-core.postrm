@@ -28,6 +28,12 @@ case "$1" in
 
         # delete shared memory data
         rm -rf /run/shm/zentyal
+
+        # delete logs and temporal files
+        rm -rf /var/lib/zentyal/
+
+        # delete configuration files
+        rm -rf /etc/zentyal
     ;;
 esac
 

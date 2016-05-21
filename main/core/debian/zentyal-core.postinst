@@ -17,6 +17,9 @@ case "$1" in
     configure)
         ZENTYAL_LOGS_DIR=/var/log/zentyal
         ZENTYAL_BACKUPS_DIR=$ZENTYAL_HOME/conf/backups
+        STDERR_FILE=/var/lib/zentyal/tmp/stderr
+
+        touch $STDERR_FILE && chmod 0666 $STDERR_FILE
 
         # create log directory
         test -d $ZENTYAL_LOGS_DIR || mkdir $ZENTYAL_LOGS_DIR

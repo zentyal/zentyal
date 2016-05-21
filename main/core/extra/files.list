@@ -5,3 +5,4 @@ cron/zentyal /etc/cron.daily
 cron/90zentyal-manage-logs /etc/cron.hourly
 css /usr/share/zentyal/stubs
 mysql/zentyal.cnf /etc/mysql/conf.d
+eboxlog.conf /var/lib/zentyal/conf
