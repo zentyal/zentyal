@@ -1,7 +1,0 @@
-description "Clean Zentyal temp directory"
-
-start on filesystem
-
-task
-
-exec /bin/rm -rf /var/lib/zentyal/tmp/*

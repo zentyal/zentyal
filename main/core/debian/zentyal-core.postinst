@@ -105,9 +105,6 @@ case "$1" in
         if [ -z "$2" ]; then
             # Set Zentyal port only if it's the first time we install
             set_ebox_port
-
-            # Write redis configuration
-            service zentyal webadmin start || true
         fi
 
         # create logs & reports database
@@ -118,6 +115,9 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart logs $2
         /usr/share/zentyal/initial-setup --no-restart webadmin $2
         /usr/share/zentyal/initial-setup  remoteservices $2
+
+        # enable auto-start
+        systemctl enable zentyal
 
         dpkg-trigger --no-await zentyal-core
     ;;

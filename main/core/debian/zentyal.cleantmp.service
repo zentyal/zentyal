@@ -1,0 +1,10 @@
+[Unit]
+Description=Clean Zentyal temp directory
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/rm -rf /var/lib/zentyal/tmp/*
+
+[Install]
+WantedBy=multi-user.target

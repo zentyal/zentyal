@@ -105,8 +105,6 @@ sub _daemon
     $self->_manageNginx($action);
 
     if ($action eq 'stop') {
-        # Stop redis server
-        $self->{redis}->stopRedis();
         $self->setHardRestart(0) if $self->hardRestart();
     }
 }
@@ -115,8 +113,8 @@ sub _manageNginx
 {
     my ($self, $action) = @_;
 
-    EBox::Service::manage($self->_uwsgiUpstartName(), $action);
-    EBox::Service::manage($self->_nginxUpstartName(), $action);
+    EBox::Service::manage($self->_uwsgiSystemdName(), $action);
+    EBox::Service::manage($self->_nginxSystemdName(), $action);
 }
 
 sub setHardRestart
@@ -186,30 +184,30 @@ sub _nginxConfFile
     return '/var/lib/zentyal/conf/nginx.conf';
 }
 
-sub _nginxUpstartName
+sub _nginxSystemdName
 {
     return 'zentyal.webadmin-nginx';
 }
 
-sub _nginxUpstartFile
+sub _nginxSystemdFile
 {
     my ($self) = @_;
 
-    my $nginxUpstartName = $self->_nginxUpstartName();
-    return "/etc/init/$nginxUpstartName.conf";
+    my $nginxSystemdName = $self->_nginxSystemdName();
+    return "/lib/systemd/system/$nginxSystemdName.service";
 }
 
-sub _uwsgiUpstartName
+sub _uwsgiSystemdName
 {
     return 'zentyal.webadmin-uwsgi';
 }
 
-sub _uwsgiUpstartFile
+sub _uwsgiSystemdFile
 {
     my ($self) = @_;
 
-    my $uwsgiUpstartName = $self->_uwsgiUpstartName();
-    return "/etc/init/$uwsgiUpstartName.conf";
+    my $uwsgiSystemdName = $self->_uwsgiSystemdName();
+    return "/lib/systemd/system/$uwsgiSystemdName.service";
 }
 
 sub _writeNginxConfFile
@@ -252,7 +250,7 @@ sub _writeNginxConfFile
         force => 1,
     };
 
-    EBox::Module::Base::writeConfFileNoCheck($self->_nginxUpstartFile, 'core/upstart-nginx.mas', \@confFileParams, $permissions);
+    EBox::Module::Base::writeConfFileNoCheck($self->_nginxSystemdFile, 'core/upstart-nginx.mas', \@confFileParams, $permissions);
 
     my $upstartFile = 'core/upstart-uwsgi.mas';
     @confFileParams = ();
@@ -263,7 +261,7 @@ sub _writeNginxConfFile
     push (@confFileParams, user   => EBox::Config::user());
     push (@confFileParams, group  => EBox::Config::group());
     EBox::Module::Base::writeConfFileNoCheck(
-        $self->_uwsgiUpstartFile, $upstartFile, \@confFileParams, $permissions);
+        $self->_uwsgiSystemdFile, $upstartFile, \@confFileParams, $permissions);
 }
 
 sub _setLanguage

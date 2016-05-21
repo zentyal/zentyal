@@ -39,19 +39,19 @@ sub manage # (daemon,action)
 {
     my ($daemon, $action) = @_;
 
-    unless (-f "/etc/init/$daemon.conf") {
+    unless (-f "/lib/systemd/system/$daemon.service") {
         throw EBox::Exceptions::Internal("No such daemon: $daemon");
     }
 
     if ($action eq 'start') {
-        EBox::Sudo::root("/sbin/start '$daemon'");
+        EBox::Sudo::root("systemctl start '$daemon'");
     } elsif ($action eq 'stop') {
-        EBox::Sudo::root("/sbin/stop '$daemon'") if (running($daemon));
+        EBox::Sudo::root("systemctl stop '$daemon'") if (running($daemon));
     } elsif ($action eq 'restart') {
-        EBox::Sudo::root("/sbin/stop '$daemon'") if (running($daemon));
-        EBox::Sudo::root("/sbin/start '$daemon'");
+        EBox::Sudo::root("systemctl stop '$daemon'") if (running($daemon));
+        EBox::Sudo::root("systemctl start '$daemon'");
     } elsif ($action eq 'reload') {
-        EBox::Sudo::root("/sbin/reload '$daemon'") if (running($daemon));
+        EBox::Sudo::root("systemctl reload '$daemon'") if (running($daemon));
     } else {
         throw EBox::Exceptions::Internal("Bad argument: $action");
     }
@@ -73,12 +73,12 @@ sub running # (daemon)
 {
     my ($daemon) = @_;
 
-    unless (-f "/etc/init/$daemon.conf") {
+    unless (-f "/lib/systemd/system/$daemon.service") {
         throw EBox::Exceptions::Internal("No such daemon: $daemon");
     }
 
-    my $status = EBox::Sudo::silentRoot("/sbin/status '$daemon'");
-    return $status->[0] =~ m{^$daemon start/running};
+    my $status = EBox::Sudo::silentRoot("systemctl status '$daemon'");
+    return ($status->[0] =~ m{^$daemon active \(running\)});
 }
 
 1;

@@ -45,7 +45,7 @@ then
     apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 
     # Restart Zentyal UI
-    service zentyal webadmin restart
+    zs webadmin restart
 
     echo; echo "Zentyal upgrade finished!"
 else

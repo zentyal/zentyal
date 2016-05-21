@@ -2,27 +2,11 @@
     $conf
     $confDir
 </%args>
-# nginx - Zentyal WebAdmin server
+[Unit]
+Description=Nginx http daemon for Zentyal web admin
+After=network.target
 
-description     "Nginx http daemon for Zentyal web admin"
-author          "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
-
-start on (filesystem
-          and static-network-up
-          and runlevel [2345])
-stop on runlevel [016]
-
-env DAEMON=/usr/sbin/nginx
-env CONF=<% $conf %>
-
-respawn
-respawn limit 10 5
-
-pre-start script
-    $DAEMON -c $CONF -t
-    if [ $? -ne 0 ]; then
-        exit $?
-    fi
-end script
-
-exec $DAEMON -c $CONF
+[Service]
+ExecStart=/usr/sbin/nginx -c <% $conf %>
+Restart=on-failure
+RestartSec=5

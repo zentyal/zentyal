@@ -1,8 +1,7 @@
 PORT=8443
 
 stop_ebox_processes() {
-    stop ebox.redis 2>/dev/null || true
-    stop zentyal.webadmin-nginx || true
+    systemctl stop zentyal.webadmin-nginx || true
     pkill -9 -u ebox || true
 }
 

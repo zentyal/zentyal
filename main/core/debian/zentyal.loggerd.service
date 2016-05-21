@@ -1,0 +1,9 @@
+[Unit]
+Description=Zentyal redis daemon
+
+[Service]
+ExecStart=/usr/share/zentyal/loggerd
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

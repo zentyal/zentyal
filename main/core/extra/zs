@@ -33,7 +33,8 @@ sub main
         given($ARGV[0]) {
             when ('start') {
                 EBox::Util::Init::start();
-                EBox::Sudo::root('initctl emit zentyal-started');
+                # FIXME: adapt this to systemd
+                #EBox::Sudo::root('initctl emit zentyal-started');
             }
             when ('restart') {
                 EBox::Util::Init::stop();
@@ -44,7 +45,8 @@ sub main
                 EBox::Util::Init::start();
             }
             when ('stop') {
-                EBox::Sudo::root('initctl emit zentyal-stopped');
+                # FIXME: adapt this to systemd
+                #EBox::Sudo::root('initctl emit zentyal-stopped');
                 EBox::Util::Init::stop();
             }
             default {
