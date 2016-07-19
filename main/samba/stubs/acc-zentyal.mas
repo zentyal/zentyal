@@ -6,12 +6,12 @@
 # Zentyal LDB users and groups on the system.
 #
 # nokrb - No PAM activated
-# krb   - PAM activated with SSSd
+# krb   - PAM activated with winbindd
 [zentyal-nokrb]
-nss_passwd=passwd: compat sss
-nss_group=group: compat sss
-nss_shadow=shadow: compat sss
-nss_netgroup=netgroup: nis sss
+nss_passwd=passwd: compat winbind
+nss_group=group: compat winbind
+nss_shadow=shadow: compat
+nss_netgroup=netgroup: nis
 pam_account=account [success=1 new_authtok_reqd=done default=ignore]    pam_unix.so
             account requisite           pam_deny.so
             account required            pam_permit.so
@@ -19,7 +19,7 @@ pam_account=account [success=1 new_authtok_reqd=done default=ignore]    pam_unix
 pam_auth=auth    [success=1 default=ignore]  pam_unix.so nullok_secure
          auth    requisite           pam_deny.so
          auth    required            pam_permit.so
-         auth    optional            pam_cap.so         
+         auth    optional            pam_cap.so
 pam_password=password requisite                   pam_pwquality.so retry=3
              password [success=2 default=ignore]  pam_unix.so obscure use_authtok try_first_pass sha512
              password requisite                   pam_deny.so
@@ -32,23 +32,23 @@ pam_session=session [default=1] pam_permit.so
             session required    pam_mkhomedir.so skel=/etc/skel/ umask=<% $umask %>
 
 [zentyal-krb]
-nss_passwd=passwd: compat sss
-nss_group=group: compat sss
-nss_shadow=shadow: compat sss
-nss_netgroup=netgroup: nis sss
+nss_passwd=passwd: compat winbind
+nss_group=group: compat winbind
+nss_shadow=shadow: compat
+nss_netgroup=netgroup: nis
 pam_account=account [success=1 new_authtok_reqd=done default=ignore]    pam_unix.so
             account requisite           pam_deny.so
             account required            pam_permit.so
             account sufficient          pam_localuser.so
-            account [default=bad success=ok user_unknown=ignore]        pam_sss.so
+            account [default=bad success=ok user_unknown=ignore]        pam_winbind.so
 pam_auth=auth    [success=2 default=ignore]  pam_unix.so nullok_secure try_first_pass
-         auth    [success=1 default=ignore]  pam_sss.so use_first_pass
+         auth    [success=1 default=ignore]  pam_winbind.so use_first_pass
          auth    requisite           pam_deny.so
          auth    required            pam_permit.so
-         auth    optional            pam_cap.so         
+         auth    optional            pam_cap.so
 pam_password=password requisite                   pam_pwquality.so retry=3
              password    [success=2 default=ignore]  pam_unix.so obscure use_authtok try_first_pass sha512
-             password    sufficient          pam_sss.so use_authtok
+             password    sufficient          pam_winbind.so use_authtok
              password    requisite           pam_deny.so
              password    required            pam_permit.so
 pam_session=session [default=1]         pam_permit.so
@@ -56,6 +56,6 @@ pam_session=session [default=1]         pam_permit.so
             session required            pam_permit.so
             session optional            pam_umask.so
             session required            pam_unix.so
-            session optional            pam_sss.so
+            session optional            pam_winbind.so
             session optional            pam_systemd.so
             session required            pam_mkhomedir.so skel=/etc/skel/ umask=<% $umask %>

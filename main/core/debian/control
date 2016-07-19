@@ -12,7 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-core
 Architecture: all
 Pre-Depends: mysql-server
-Depends: adduser, apport, anacron, cracklib-runtime, cron, curl, dbus, debconf, gpgv,
+Depends: adduser, anacron, cracklib-runtime, cron, curl, dbus, debconf, gpgv,
          sudo, iproute, liblog-dispatch-perl, liblog-log4perl-perl,
          libhtml-mason-perl, liblocale-gettext-perl, libtrycatch-perl,
          libdevel-stacktrace-perl, libintl-perl, libnet-ip-perl, gettext,
@@ -33,7 +33,7 @@ Depends: adduser, apport, anacron, cracklib-runtime, cron, curl, dbus, debconf, 
          libsys-cpu-perl, libterm-readline-gnu-perl, libtest-deep-perl,
          libtime-piece-perl, liburi-encode-perl,
          libyaml-libyaml-perl, mysql-server, nginx, nmap,
-         openssl, redis-server (>= 2:2.8.4), update-notifier-common, uwsgi-plugin-psgi,
+         openssl, redis-server (>= 2:2.8.4), uwsgi-plugin-psgi,
          apt-transport-https, libdate-calc-xs-perl, screen, at,
          ${misc:Depends}
 Description: Zentyal - Core

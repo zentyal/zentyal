@@ -3,10 +3,6 @@
     $unmanagedAcls => 0
     $disableFullAudit => 0
 
-    $antivirus => 0
-    $antivirus_exceptions => {}
-    $antivirus_config => {}
-
     $recycle => 0
     $recycle_exceptions => {}
     $recycle_config => {}
@@ -24,14 +20,10 @@ use EBox::Gettext;
     browseable = no
     create mask = 0611
     directory mask = 0711
-% my $av = ($antivirus xor defined($antivirus_exceptions->{'users'}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'users'}));
 % my $objects = 'acl_xattr';
 % unless ($disableFullAudit) {
 %   $objects .= ' full_audit';
-% }
-% if ($av) {
-%   $objects .= ' scannedonly';
 % }
 % if ($rb) {
 %   $objects .= ' recycle';
@@ -39,12 +31,6 @@ use EBox::Gettext;
     vfs objects = <% $objects %>
     full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
     full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
-% if ($av) {
-%   foreach my $key (keys %{$antivirus_config}) {
-%       next unless $key;
-    scannedonly: <% $key %> = <% $antivirus_config->{$key} %>
-%   }
-% }
 % if ($rb) {
 %   foreach my $key (keys %{$recycle_config}) {
 %       next unless $key;
@@ -64,14 +50,10 @@ use EBox::Gettext;
 % if ($share->{guest}) {
     guest ok = yes
 % }
-% my $av = ($antivirus xor defined($antivirus_exceptions->{'share'}->{$share->{'share'}}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'share'}->{$share->{'share'}}));
 % my $objects = 'acl_xattr';
 % unless ($disableFullAudit) {
 %   $objects .= ' full_audit';
-% }
-% if ($av) {
-%   $objects .= ' scannedonly';
 % }
 % if ($rb) {
 %   $objects .= ' recycle';
@@ -80,12 +62,6 @@ use EBox::Gettext;
     acl_xattr:ignore system acls = <%  $unmanagedAcls ? 'no' : 'yes' %>
     full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
     full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
-% if ($av) {
-%   foreach my $key (keys %{$antivirus_config}) {
-%       next unless $key;
-    scannedonly: <% $key %> = <% $antivirus_config->{$key} %>
-%   }
-% }
 % if ($rb) {
 %   foreach my $key (keys %{$recycle_config}) {
 %       next unless $key;
@@ -93,12 +69,4 @@ use EBox::Gettext;
 %   }
 % }
 
-% }
-
-% if ($antivirus) {
-[<% $prefix %>-quarantine]
-    comment = "Quarantine"
-    path = <% $antivirus_config->{quarantine_dir} %>
-    browseable = Yes
-    read only = No
 % }

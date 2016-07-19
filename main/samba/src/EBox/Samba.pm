@@ -124,7 +124,6 @@ use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
-use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
 use constant COMPUTERSDN    => 'ou=Computers';
@@ -144,7 +143,6 @@ use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 
 use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
-use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
@@ -154,9 +152,6 @@ use constant KPASSWD_PORT => 464;
 use constant KRB5_CONF_FILE => '/var/lib/samba/private/krb5.conf';
 use constant SYSTEM_WIDE_KRB5_CONF_FILE => '/etc/krb5.conf';
 use constant SYSTEM_WIDE_KRB5_KEYTAB => '/etc/krb5.keytab';
-
-# SSSD conf
-use constant SSSD_CONF_FILE => '/etc/sssd/sssd.conf';
 
 use constant OBJECT_EXISTS => 1;
 use constant OBJECT_EXISTS_AND_HIDDEN_SID => 2;
@@ -320,12 +315,6 @@ sub usedFiles
         {
             'file' => '/etc/fstab',
             'reason' => __('To add quota support to /home partition.'),
-            'module' => 'samba'
-        },
-        {
-            'file' => SSSD_CONF_FILE,
-            'reason' => __('To configure System Security Services Daemon to manage remote'
-                           . ' authentication mechanisms'),
             'module' => 'samba'
         },
         {
@@ -744,8 +733,6 @@ sub _createDirectories
     my $gidNumber = $group->gidNumber();
     my $guest = $self->ldap->domainGuestUser();
     my $nobodyUidNumber = $guest->uidNumber();
-    my $avModel = $self->model('AntivirusDefault');
-    my $quarantine = $avModel->QUARANTINE_DIR();
 
     my @cmds;
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
@@ -770,10 +757,6 @@ sub _createDirectories
     push (@cmds, "setfacl -m u:$nobodyUidNumber:rx " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
 
-    push (@cmds, "mkdir -p '$quarantine'");
-    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
-    push (@cmds, "chmod 770 '$quarantine'");
-
     EBox::Sudo::root(@cmds);
 }
 
@@ -792,22 +775,6 @@ sub _sysvolSyncCond
     return ($self->isEnabled() and $self->getProvision->isProvisioned() and $self->_adcMode());
 }
 
-sub _antivirusEnabled
-{
-    my ($self) = @_;
-
-    my $avModule = EBox::Global->modInstance('antivirus');
-    unless (defined ($avModule) and $avModule->isEnabled()) {
-        return 0;
-    }
-
-    my $avModel = $self->model('AntivirusDefault');
-    my $enabled = $avModel->value('scan');
-
-    return $enabled;
-}
-
-
 sub _postServiceHook
 {
     my ($self, $enabled) = @_;
@@ -816,6 +783,7 @@ sub _postServiceHook
 
     return unless $self->isProvisioned();
 
+    # FIXME: is this needed after removing antivirus?
     # Fix permissions on samba dirs. Zentyal user needs access because
     # the antivirus daemon runs as 'ebox'
     $self->_createDirectories();
@@ -1034,12 +1002,6 @@ sub _postServiceHook
             $self->set_state($state);
         }
 
-        # Change group ownership of quarantine_dir to __USERS__
-        EBox::info("Fixing quarantine_dir permissions...");
-        if ($self->defaultAntivirusSettings()) {
-            $self->_setupQuarantineDirectory();
-        }
-
         # Write DNS update list
         EBox::info("Writing DNS update list...");
         $self->_writeDnsUpdateList();
@@ -1080,7 +1042,6 @@ sub _setupNSSPAM
 
     my $PAMModule = $self->model('PAM');
     my $enablePAM = $PAMModule->enable_pamValue();
-    $self->_setupSSSd($PAMModule->login_shellValue());
 
     my $cmd;
     if ($enablePAM) {
@@ -1089,23 +1050,6 @@ sub _setupNSSPAM
         $cmd = 'auth-client-config -a -p zentyal-nokrb';
     }
     EBox::Sudo::root($cmd);
-}
-
-# Set up SSS daemon
-sub _setupSSSd
-{
-    my ($self, $defaultShell) = @_;
-
-    my $sysinfo = $self->global()->modInstance('sysinfo');
-    my @params = ('fqdn'   => $sysinfo->fqdn(),
-                  'domain' => $sysinfo->hostDomain(),
-                  'defaultShell' => $defaultShell,
-                  'keyTab' => SECRETS_KEYTAB);
-
-    # SSSd conf file must be owned by root and only rw by him
-    $self->writeConfFile(SSSD_CONF_FILE, 'samba/sssd.conf.mas',
-                         \@params,
-                         {'mode' => '0600', uid => 0, gid => 0});
 }
 
 # Method: editableMode
@@ -1135,15 +1079,8 @@ sub _daemons
             name => 'samba-ad-dc',
         },
         {
-            name => 'sssd',
-        },
-        {
             name => 'zentyal.sysvol-sync',
             precondition => \&_sysvolSyncCond,
-        },
-        {
-            name => 'zentyal.zavsd',
-            precondition => \&_antivirusEnabled,
         },
         {
             name => 'zentyal.set-uid-gid-numbers',
@@ -1215,19 +1152,6 @@ sub _startService
     EBox::Sudo::root("setfacl -b " . SAMBA_PRIVILEGED_SOCKET);
 
     $self->SUPER::_startService();
-
-    # Wait for sss to open the NSS pipe
-    my $tries = 300;
-    my $sleep = 0.1;
-    my $socket = undef;
-    while (not defined $socket and $tries > 0) {
-        $socket = new IO::Socket::UNIX(
-            Type => SOCK_STREAM,
-            Peer => '/var/lib/sss/pipes/nss');
-        last if $socket;
-        $tries--;
-        Time::HiRes::sleep($sleep);
-    }
 }
 
 # Method: groupDn
@@ -2841,14 +2765,9 @@ sub writeSambaConfig
     push (@array, 'unmanagedAcls' => EBox::Config::boolean('unmanaged_acls'));
     push (@array, 'shares' => $self->shares());
 
-    push (@array, 'antivirus' => $self->defaultAntivirusSettings());
-    push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
-    push (@array, 'antivirus_config' => $self->antivirusConfig());
     push (@array, 'recycle' => $self->defaultRecycleSettings());
     push (@array, 'recycle_exceptions' => $self->recycleExceptions());
     push (@array, 'recycle_config' => $self->recycleConfig());
-
-    $self->_writeAntivirusConfig();
 
     $self->writeConfFile(SHARESCONFFILE, 'samba/shares.conf.mas', \@array,
                          { 'uid' => 'root', 'gid' => 'root', mode => '644' });
@@ -3011,66 +2930,6 @@ sub shares
     return \@shares;
 }
 
-sub defaultAntivirusSettings
-{
-    my ($self) = @_;
-
-    my $antivirus = $self->model('AntivirusDefault');
-    return $antivirus->value('scan');
-}
-
-sub antivirusExceptions
-{
-    my ($self) = @_;
-
-    my $model = $self->model('AntivirusExceptions');
-    my $exceptions = {
-        'share' => {},
-        'group' => {},
-    };
-
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $element = $row->elementByName('user_group_share');
-        my $type = $element->selectedType();
-        if ($type eq 'users') {
-            $exceptions->{'users'} = 1;
-        } else {
-            my $value = $element->printableValue();
-            $exceptions->{$type}->{$value} = 1;
-        }
-    }
-
-    return $exceptions;
-}
-
-sub antivirusConfig
-{
-    my ($self) = @_;
-
-    # Provide a default config and override with the conf file if exists
-    my $avModel = $self->model('AntivirusDefault');
-    my $conf = {
-        show_special_files       => 'True',
-        rm_hidden_files_on_rmdir => 'True',
-        recheck_time_open        => '50',
-        recheck_tries_open       => '100',
-        allow_nonscanned_files   => 'False',
-    };
-
-    foreach my $key (keys %{$conf}) {
-        my $value = EBox::Config::configkey($key);
-        $conf->{$key} = $value if $value;
-    }
-
-    # Hard coded settings
-    $conf->{quarantine_dir} = $avModel->QUARANTINE_DIR();
-    $conf->{domain_socket}  = 'True';
-    $conf->{socketname}     = $avModel->ZAVS_SOCKET();
-
-    return $conf;
-}
-
 sub defaultRecycleSettings
 {
     my ($self) = @_;
@@ -3133,55 +2992,6 @@ sub _writeDnsUpdateList
                          { 'uid' => '0', 'gid' => '0', mode => '644' });
 }
 
-sub _writeAntivirusConfig
-{
-    my ($self) = @_;
-
-    return unless EBox::Global->modExists('antivirus');
-
-    my $avModule = EBox::Global->modInstance('antivirus');
-    my $avModel = $self->model('AntivirusDefault');
-
-    my $conf = {};
-    $conf->{clamavSocket} = $avModule->CLAMD_SOCKET();
-    $conf->{quarantineDir} = $avModel->QUARANTINE_DIR();
-    $conf->{zavsSocket}  = $avModel->ZAVS_SOCKET();
-    $conf->{nThreadsConf} = EBox::Config::configkey('scanning_threads');
-
-    write_file(ANTIVIRUS_CONF, encode_json($conf));
-}
-
-sub _setupQuarantineDirectory
-{
-    my ($self) = @_;
-
-    my $zentyalUser = EBox::Config::user();
-    my $guest       = $self->ldap->domainGuestUser();
-    my $guestUidNumber = $guest->uidNumber();
-    my $avModel     = $self->model('AntivirusDefault');
-    my $quarantine  = $avModel->QUARANTINE_DIR();
-    my @cmds;
-    push (@cmds, "mkdir -p '$quarantine'");
-    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
-    push (@cmds, "chmod 770 '$quarantine'");
-    push (@cmds, "setfacl -R -m u:$guestUidNumber:rwx g:adm:rwx '$quarantine'");
-
-    # Grant access to domain admins
-    my $domainAdminsSid = $self->ldap->domainSID() . '-512';
-    my $domainAdminsGroup = new EBox::Samba::Group(sid => $domainAdminsSid);
-    if ($domainAdminsGroup->exists()) {
-        my @domainAdmins = $domainAdminsGroup->get('member');
-        foreach my $memberDN (@domainAdmins) {
-            my $user = new EBox::Samba::User(dn => $memberDN);
-            if ($user->exists()) {
-                my $uid = $user->get('samAccountName');
-                push (@cmds, "setfacl -m u:$uid:rwx '$quarantine'");
-            }
-        }
-    }
-    EBox::Sudo::silentRoot(@cmds);
-}
-
 # Implement LogHelper interface
 sub tableInfo
 {
@@ -3207,28 +3017,6 @@ sub tableInfo
         'rename' => __('Rename'),
     };
 
-    my $virus_titles = {
-        'timestamp' => __('Date'),
-        'client' => __('Client address'),
-        'username' => __('User'),
-        'filename' => __('File name'),
-        'virus' => __('Virus'),
-        'event' => __('Type'),
-    };
-    my @virus_order = qw(timestamp client username filename virus event);;
-    my $virus_events = { 'virus' => __('Virus') };
-
-    my $quarantine_titles = {
-        'timestamp' => __('Date'),
-        'client' => __('Client address'),
-        'username' => __('User'),
-        'filename' => __('File name'),
-        'qfilename' => __('Quarantined file name'),
-        'event' => __('Quarantine'),
-    };
-    my @quarantine_order = qw(timestamp client username filename qfilename event);
-    my $quarantine_events = { 'quarantine' => __('Quarantine') };
-
     return [{
         'name' => __('Samba access'),
         'tablename' => 'samba_access',
@@ -3238,28 +3026,6 @@ sub tableInfo
         'filter' => ['client', 'username', 'resource'],
         'types' => { 'client' => 'IPAddr' },
         'events' => $access_events,
-        'eventcol' => 'event'
-    },
-    {
-        'name' => __('Samba virus'),
-        'tablename' => 'samba_virus',
-        'titles' => $virus_titles,
-        'order' => \@virus_order,
-        'timecol' => 'timestamp',
-        'filter' => ['client', 'filename', 'virus'],
-        'types' => { 'client' => 'IPAddr' },
-        'events' => $virus_events,
-        'eventcol' => 'event'
-    },
-    {
-        'name' => __('Samba quarantine'),
-        'tablename' => 'samba_quarantine',
-        'titles' => $quarantine_titles,
-        'order' => \@quarantine_order,
-        'timecol' => 'timestamp',
-        'filter' => ['filename'],
-        'types' => { 'client' => 'IPAddr' },
-        'events' => $quarantine_events,
         'eventcol' => 'event'
     }];
 }
