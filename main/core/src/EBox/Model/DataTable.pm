@@ -1894,7 +1894,8 @@ sub message
 sub messageClass
 {
     my ($self, $action) = @_;
-    return $self->table()->{'messageClass'} or 'note';
+
+    $self->table()->{'messageClass'} or 'note';
 }
 
 # Method: popMessage

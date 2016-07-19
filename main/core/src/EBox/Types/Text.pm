@@ -110,9 +110,7 @@ sub _paramIsSet
     my ($self, $params) = @_;
 
     # Check if the parameter exist
-    my $param =  $params->{$self->fieldName()};
-
-    return defined ( $param ) and ($param ne '');
+    return defined ($params->{$self->fieldName()});
 }
 
 1;

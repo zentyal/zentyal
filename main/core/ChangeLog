@@ -1,6 +1,7 @@
 5.0
 	+ Distribution base is now Ubuntu 16.04 LTS
 	+ Use Clone instead of Clone::Fast
+	+ Some code adaptation to remove warnings with changes in Perl 5.2X
 4.2.2
 	+ Allow upgrade of packages that are not present in QA repo
 	+ Avoid crash in manage-logs script with undefined mods
