@@ -25,7 +25,7 @@
 use strict;
 use warnings;
 
-package EBox::Objects::Model::ObjectTable;
+package EBox::Network::Model::ObjectTable;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -73,8 +73,8 @@ sub _table
                                 'fieldName' => 'members',
                                 'printableName' => __('Members'),
                                 'foreignModel' => 'MemberTable',
-                                'view' => '/Objects/View/MemberTable',
-                                'backView' => '/Objects/View/MemberTable',
+                                'view' => '/Network/View/MemberTable',
+                                'backView' => '/Network/View/MemberTable',
                              )
 
           );
@@ -85,8 +85,8 @@ sub _table
             'pageTitle' => __('Objects'),
             'printableTableName' => __('Objects List'),
             'automaticRemove' => 1,
-            'defaultController' => '/Objects/Controller/ObjectTable',
-            'HTTPUrlView'   => 'Objects/View/ObjectTable',
+            'defaultController' => '/Network/Controller/ObjectTable',
+            'HTTPUrlView'   => 'Network/View/ObjectTable',
             'defaultActions' => ['add', 'del', 'editField', 'changeView', 'clone' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

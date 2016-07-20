@@ -13,13 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Services::Model::ServiceConfigurationTable
+# Class: EBox::Network::Model::ServiceConfigurationTable
 #
 #   This class describes the data model used to store services.
 #   That is, a set of abstractions for protocols and ports.
 #
 #   This model is intended to be used as 'hasMany' relationship
-#   with model <EBox::Services::Model::ServiceTable>.
+#   with model <EBox::Network::Model::ServiceTable>.
 #
 #   Let's see the data structure returned by printableValueRows()
 #
@@ -35,7 +35,7 @@
 use strict;
 use warnings;
 
-package EBox::Services::Model::ServiceConfigurationTable;
+package EBox::Network::Model::ServiceConfigurationTable;
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;
@@ -169,12 +169,12 @@ sub _table
                 'tableName' => 'ServiceConfigurationTable',
                 'printableTableName' => __('Service configuration'),
                 'defaultController' =>
-                        '/Services/Controller/ServiceConfigurationTable',
+                        '/Network/Controller/ServiceConfigurationTable',
                 'defaultActions' =>
                         ['add', 'del', 'move',  'editField', 'changeView', 'clone' ],
                 'tableDescription' => \@tableHead,
-                'menuNamespace' => 'Services/View/ServiceConfigurationTable',
-                'HTTPUrlView' => 'Services/View/ServiceConfigurationTable',
+                'menuNamespace' => 'Network/View/ServiceConfigurationTable',
+                'HTTPUrlView' => 'Network/View/ServiceConfigurationTable',
                 'class' => 'dataTable',
                 'rowUnique' => 1,
                 'printableRowName' => __('service'),

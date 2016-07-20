@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Objects::Model::MemberTable;
+package EBox::Network::Model::MemberTable;
 
 use EBox::Objects::Members;
 use EBox::Global;
@@ -91,7 +91,7 @@ sub _table
             'tableName' => 'MemberTable',
             'printableTableName' => __('Members'),
             'automaticRemove' => 1,
-            'defaultController' => '/Objects/Controller/MemberTable',
+            'defaultController' => '/Network/Controller/MemberTable',
             'defaultActions' => ['add', 'del', 'editField', 'changeView', 'clone' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
