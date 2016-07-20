@@ -20,7 +20,7 @@ use warnings;
 package EBox::Firewall;
 
 use base qw(EBox::Module::Service
-            EBox::ObjectsObserver
+            EBox::Objects::Observer
             EBox::NetworkObserver
             EBox::LogObserver);
 
@@ -105,7 +105,7 @@ sub initialSetup
         $self->setInternalService('zentyal_webadmin', 'accept');
         $self->setInternalService('ssh', 'accept');
 
-        my $services = EBox::Global->modInstance('services');
+        my $services = EBox::Global->modInstance('network');
         my $any = $services->serviceId('any');
 
         unless (defined $any) {
@@ -291,7 +291,7 @@ sub portUsedByService
     ($port ne "") or return undef;
     my $global = EBox::Global->getInstance($self->isReadOnly());
     my $network = $global->modInstance('network');
-    my $services = $global->modInstance('services');
+    my $services = $network;
 
     # if it's an internal interface, check all services
     unless ($iface &&
@@ -679,7 +679,7 @@ sub addServiceRules
 {
     my ($self, $services) = @_;
 
-    my $servicesMod = EBox::Global->modInstance('services');
+    my $servicesMod = EBox::Global->modInstance('network');
 
     foreach my $service (@{$services}) {
         my $name = $service->{'name'};

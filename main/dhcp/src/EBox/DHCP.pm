@@ -120,12 +120,12 @@ sub initialSetup
     # Create default services, rules and conf dir
     # only if installing the first time
     unless ($version) {
-        my $services = $self->global()->modInstance('services');
+        my $network = $self->global()->modInstance('network');
         my $firewall = $self->global()->modInstance('firewall');
 
         my $serviceName = 'tftp';
-        unless ($services->serviceExists(name => $serviceName)) {
-            $services->addMultipleService(
+        unless ($network->serviceExists(name => $serviceName)) {
+            $network->addMultipleService(
                 'name' => $serviceName,
                 'printableName' => 'TFTP',
                 'description' => __('Trivial File Transfer Protocol'),
@@ -138,8 +138,8 @@ sub initialSetup
         }
 
         $serviceName = 'dhcp';
-        unless ($services->serviceExists(name => $serviceName)) {
-            $services->addMultipleService(
+        unless ($network->serviceExists(name => $serviceName)) {
+            $network->addMultipleService(
                 'name' => $serviceName,
                 'printableName' => 'DHCP',
                 'description' => __('Dynamic Host Configuration Protocol'),

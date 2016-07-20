@@ -47,8 +47,8 @@ sub new
     $self->{'chain'} = delete $opts{'chain'};
     $self->{'source'} = [''];
     $self->{'destination'} = [''];
-    $self->{'objects'} = EBox::Global->modInstance('objects');
-    $self->{'services'} = EBox::Global->modInstance('services');
+    $self->{'objects'} = EBox::Global->modInstance('network');
+    $self->{'services'} = EBox::Global->modInstance('network');
     bless($self, $class);
     return $self;
 

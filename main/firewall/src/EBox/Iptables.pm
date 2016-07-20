@@ -57,8 +57,8 @@ sub new
     my $class = shift;
     my $self = {};
     $self->{firewall} = EBox::Global->modInstance('firewall');
-    $self->{objects} = EBox::Global->modInstance('objects');
     $self->{net} = EBox::Global->modInstance('network');
+    $self->{objects} = $self->{net};
 
     bless($self, $class);
     return $self;

@@ -6,7 +6,15 @@ models:
     - DNSResolver
     - SearchDomain
     - Proxy
+    - ObjectTable
+    - MemberTable
+    - ServiceTable
+    - ServiceConfigurationTable
 
 composites:
     Gateway: [GatewayTable, Proxy]
     DNS: [DNSResolver, SearchDomain]
+
+foreign:
+    ObjectTable: [MemberTable]
+    ServiceTable: [ServiceConfigurationTable]

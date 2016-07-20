@@ -86,7 +86,7 @@ sub _table
     (
      new EBox::Types::Select(
          fieldName     => 'object',
-         foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
+         foreignModel  => $self->modelGetter('network', 'ObjectTable'),
          foreignField  => 'name',
          foreignNextPageField => 'members',
 
@@ -135,7 +135,7 @@ sub allowedAddresses
 {
     my ($self) = @_;
 
-    my $objects = EBox::Global->modInstance('objects');
+    my $objects = EBox::Global->modInstance('network');
     my @addr = map {
         @{ $objects->objectAddresses($_)  }
     } @{ $self->_objectsByAllowPolicy(1)  };
@@ -150,7 +150,7 @@ sub _objectsByAllowPolicy
 
   my $rows_r  =  $self->findAll(allow => $allowPolicy);
 
-  my $objectsModel = $self->global()->modInstance('objects')->model('ObjectTable');
+  my $objectsModel = $self->global()->modInstance('network')->model('ObjectTable');
   my @objects = map {
       my $id  = $self->row($_)->elementByName('object')->value();
       $id
@@ -189,7 +189,7 @@ sub _findRowByObjectName
 {
     my ($self, $objectName) = @_;
 
-    my $objectModel = $self->global()->modInstance('objects')->model('ObjectTable');
+    my $objectModel = $self->global()->modInstance('network')->model('ObjectTable');
     my $objectRowId = $objectModel->findId(name => $objectName);
 
     my $row = $self->findRow(object => $objectRowId);

@@ -20,7 +20,7 @@ package EBox::Mail;
 
 use base qw(
     EBox::Module::Kerberos
-    EBox::ObjectsObserver
+    EBox::Objects::Observer
     EBox::FirewallObserver
     EBox::LogObserver
     EBox::SyncFolders::Provider

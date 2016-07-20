@@ -854,7 +854,7 @@ sub checkAdminPort
 
 # Method: updateAdminPortService
 #
-#    Update the admin port service used by services module, if available
+#    Update the admin port service used by network module, if available
 #
 # Parameters:
 #
@@ -864,8 +864,8 @@ sub updateAdminPortService
 {
     my ($self, $port) = @_;
     my $global = $self->global();
-    if ($global->modExists('services')) {
-        my $services = $global->modInstance('services');
+    if ($global->modExists('network')) {
+        my $services = $global->modInstance('network');
         $services->setAdministrationPort($port);
     }
 }

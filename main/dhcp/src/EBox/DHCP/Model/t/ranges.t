@@ -85,7 +85,7 @@ sub _ifaceMethod
 EBox::init();
 _fakeNetwork();
 my $manager = EBox::Model::Manager->instance();
-my $objMod  = EBox::Global->modInstance('objects');
+my $objMod  = EBox::Global->modInstance('network');
 my $dhcpMod = EBox::Global->modInstance('dhcp');
 
 my $rangeModel = $manager->model('/dhcp/RangeTable/eth0');

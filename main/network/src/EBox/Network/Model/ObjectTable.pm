@@ -109,7 +109,7 @@ sub warnIfIdUsed
 {
     my ($self, $id) = @_;
 
-    my $objects = EBox::Global->modInstance('objects');
+    my $objects = EBox::Global->modInstance('network');
 
     if ($objects->objectInUse($id)) {
         throw EBox::Exceptions::DataInUse(

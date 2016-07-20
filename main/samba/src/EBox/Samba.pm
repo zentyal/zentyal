@@ -340,7 +340,7 @@ sub initialSetup
     # Create default rules and services
     # only if installing the first time
     unless ($version) {
-        my $services = EBox::Global->modInstance('services');
+        my $services = EBox::Global->modInstance('network');
 
         my $serviceName = 'samba';
         unless($services->serviceExists(name => $serviceName)) {

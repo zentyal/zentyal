@@ -165,7 +165,7 @@ sub _fieldDescription
             new EBox::Types::InverseMatchSelect(
                 'fieldName' => 'service',
                 'printableName' => __('Service'),
-                'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
+                'foreignModel' => $self->modelGetter('network', 'ServiceTable'),
                 'foreignField' => 'printableName',
                 'foreignNextPageField' => 'configuration',
                 'editable' => 1,
@@ -238,7 +238,7 @@ sub validateTypedRow
         my $service = $params_r->{service};
         # don't allow inverse match of any service
         if ($service->inverseMatch()) {
-            my $serviceTable = $self->global()->modInstance('services')->model('ServiceTable');
+            my $serviceTable = $self->global()->modInstance('network')->model('ServiceTable');
             my $serviceId = $service->value();
               if ($serviceId eq $serviceTable->serviceForAnyConnectionId('tcp/udp')) {
                   throw EBox::Exceptions::External(

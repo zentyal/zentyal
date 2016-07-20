@@ -47,7 +47,7 @@ sub _process
 
     my $action = $self->param("action");
 
-    my $objects = EBox::Global->modInstance('objects');
+    my $objects = EBox::Global->modInstance('network');
     my @object_list;
 
     for my $object (@{$objects->objects()}) {

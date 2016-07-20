@@ -351,8 +351,8 @@ sub optionalOptionsCallback
 #
 sub objectModelCallback
 {
-    if (EBox::Global->modExists('objects')) {
-        return EBox::Global->modInstance('objects')->models()->[0];
+    if (EBox::Global->modExists('network')) {
+        return EBox::Global->modInstance('network')->models()->[0];
     } else {
         return undef;
     }

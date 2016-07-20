@@ -123,7 +123,7 @@ sub initialSetup
             $servers->add(server => "$i.pool.ntp.org");
         }
 
-        my $services = EBox::Global->modInstance('services');
+        my $services = EBox::Global->modInstance('network');
         my $fw = EBox::Global->modInstance('firewall');
 
         my $serviceName = 'ntp';
@@ -266,7 +266,7 @@ sub _setConf
     push(@array, 'servers'  => \@servers);
 
     my $samba = $self->global()->modInstance('samba');
-    if (EBox::Sudo::fileTest('-d', SAMBA_SOCKET_DIR) 
+    if (EBox::Sudo::fileTest('-d', SAMBA_SOCKET_DIR)
         and $samba
         and $samba->isEnabled()) {
         EBox::Sudo::root('chgrp ntp "' . SAMBA_SOCKET_DIR . '"');

@@ -289,7 +289,7 @@ sub optionalOptionsCallback
 sub objectModelCallback
   {
 
-      return EBox::Global->modInstance('objects')->models()->[0];
+      return EBox::Global->modInstance('network')->models()->[0];
 
   }
 

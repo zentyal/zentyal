@@ -17,7 +17,7 @@
 use strict;
 use warnings;
 
-package EBox::ObjectsObserver;
+package EBox::Objects::Observer;
 
 use EBox::Gettext;
 
