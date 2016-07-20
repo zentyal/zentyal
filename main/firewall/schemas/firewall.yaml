@@ -1,9 +1,7 @@
 class: 'EBox::Firewall'
 
 depends:
-    - objects
     - network
-    - services
 
 enabledepends:
     - network
@@ -20,23 +18,23 @@ models:
 
 modeldepends:
     ToInternetRuleTable:
-        services/ServiceTable: [service]
-        objects/ObjectTable: [source_object, destination_object]
+        network/ServiceTable: [service]
+        network/ObjectTable: [source_object, destination_object]
     InternalToEBoxRuleTable:
-        services/ServiceTable: [service]
-        objects/ObjectTable: [source_object]
+        network/ServiceTable: [service]
+        network/ObjectTable: [source_object]
     ExternalToEBoxRuleTable:
-        services/ServiceTable: [service]
-        objects/ObjectTable: [source_object]
+        network/ServiceTable: [service]
+        network/ObjectTable: [source_object]
     EBoxOutputRuleTable:
-        services/ServiceTable: [service]
-        objects/ObjectTable: [destination_object]
+        network/ServiceTable: [service]
+        network/ObjectTable: [destination_object]
     ExternalToInternalRuleTable:
-        services/ServiceTable: [service]
-        objects/ObjectTable: [source_object, destination_object]
+        network/ServiceTable: [service]
+        network/ObjectTable: [source_object, destination_object]
     RedirectsTable:
-        objects/ObjectTable: [origDest_object, source_object]
+        network/ObjectTable: [origDest_object, source_object]
     SNAT:
-        services/ServiceTable: [service]
-        objects/ObjectTable: [source_object, destination_object]
+        network/ServiceTable: [service]
+        network/ObjectTable: [source_object, destination_object]
 

@@ -38,7 +38,6 @@ use EBox::Firewall::Model::EBoxServicesRuleTable;
 use EBox::Firewall::Model::RedirectsTable;
 
 use EBox::FirewallLogHelper;
-use EBox::Objects;
 use EBox::Validate qw( :all );
 use EBox::Util::Lock;
 use TryCatch;

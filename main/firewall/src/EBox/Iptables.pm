@@ -29,7 +29,6 @@ use EBox::Firewall;
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Objects;
 use EBox::Network;
 use EBox::Firewall::IptablesHelper;
 use EBox::Exceptions::External;
