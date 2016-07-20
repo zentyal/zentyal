@@ -82,8 +82,7 @@ sub headTitle
 #
 sub _table
 {
-    my @tableDesc =
-        (
+    my @tableDesc = (
          new EBox::Types::Select(
                                  fieldName => 'externalFilter',
                                  printableName => __('Filter in use'),
@@ -161,43 +160,24 @@ sub _availableFilters
 
 sub validateTypedRow
 {
-  my ($self, $action, $params_r, $actual_r) = @_;
+    my ($self, $action, $params_r, $actual_r) = @_;
 
-  $self->_checkFWPort($action, $params_r, $actual_r);
+    $self->_checkFWPort($action, $params_r, $actual_r);
 }
 
 sub _checkFWPort
 {
-  my ($self, $action, $params_r, $actual_r) = @_;
+    my ($self, $action, $params_r, $actual_r) = @_;
 
-  if (not $params_r->{fwport}) {
-      return;
-  }
-
-  # check if port is available
-  my $firewall = EBox::Global->modInstance('firewall');
-  defined $firewall or
-      return;
-  $firewall->isEnabled() or
-      return;
-  $firewall->availablePort('tcp', $params_r->{fwport}->value());
-}
-
-sub precondition
-{
-    my ($self) = @_;
-    my $mailfilter = EBox::Global->modInstance('mailfilter');
-    if (not $mailfilter) {
-        return 1;
+    if (not $params_r->{fwport}) {
+        return;
     }
 
-    return not $mailfilter->isEnabled();
+    # check if port is available
+    my $firewall = EBox::Global->modInstance('firewall');
+    defined $firewall or
+        return;
+    $firewall->isEnabled() or
+        return;
+    $firewall->availablePort('tcp', $params_r->{fwport}->value());
 }
-
-sub preconditionFailMsg
-{
-    return __('As long mailfilter module is enabled the mail server will use the filter it provides');
-}
-
-1;
-

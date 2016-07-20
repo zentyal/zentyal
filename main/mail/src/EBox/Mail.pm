@@ -442,19 +442,6 @@ sub _addConfigurationContainers
     }
 }
 
-sub depends
-{
-    my ($self) = @_;
-    my @depends = @{ $self->SUPER::depends() };
-
-    my $mailfilter =  $self->global->modInstance('mailfilter');
-    if ($mailfilter and $mailfilter->configured()) {
-        push @depends, 'mailfilter';
-    }
-
-    return \@depends;
-}
-
 # Method: _getIfacesForAddress
 #
 #  This method returns all interfaces which ip address belongs
@@ -763,7 +750,7 @@ sub _setDovecotConf
     push @params, (firstValidGid => $gid);
     push @params, (mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
     push @params, (postmasterAddress => $self->postmasterAddress(0, 1));
-    push @params, (antispamPlugin => $self->_getDovecotAntispamPluginConf());
+    push @params, (antispamPlugin => 0);
     push @params, (keytabPath => KEYTAB_FILE);
     push @params, (gssapiHostname => $gssapiHostname);
     push @params, (openchange => $openchange);
@@ -793,28 +780,6 @@ sub _setDovecotConf
         push (@params, masterPassword => $openchangeMod->getImapMasterPassword());
         $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params, $restrictiveFilePermissions);
     }
-}
-
-sub _getDovecotAntispamPluginConf
-{
-    my ($self) = @_;
-
-    # FIXME: disabled until dovecot-antispam ubuntu package is fixed
-    return { enabled => 0};
-
-    my $global = EBox::Global->getInstance();
-    my @mods = grep {
-        $_->can('dovecotAntispamPluginConf')
-    } @{ $global->modInstances() };
-
-    if (@mods == 0) {
-        return { enabled => 0 };
-    } elsif (@mods > 0) {
-        EBox::warn('More than one module offers configuration for dovecot plugin. We will take the first one');
-    }
-
-    my $mod = shift @mods;
-    return $mod->dovecotAntispamPluginConf();
 }
 
 sub _setArchivemailConf
@@ -1105,10 +1070,6 @@ sub _postfixIsRunning
 sub externalFilter
 {
     my ($self) = @_;
-    my $mailfilter = EBox::Global->modInstance('mailfilter');
-    if ($mailfilter and $mailfilter->isEnabled()) {
-        return 'zentyal-mailfilter';
-    }
 
     my $filterModel = $self->model('ExternalFilter');
     return $filterModel->row()->valueByName('externalFilter');
@@ -1120,36 +1081,6 @@ sub customFilterInUse
     return $self->externalFilter() eq 'custom';
 }
 
-sub _zentyalMailfilterAttr
-{
-    my ($self, $attr) = @_;
-    my $mailfilter = EBox::Global->modInstance('mailfilter');
-    $mailfilter or
-        throw EBox::Exceptions::Internal('Mailfilter not installed');
-
-    my ($name, $attrs) = $mailfilter->mailFilter();
-    exists $attrs->{$attr}
-      or throw EBox::Exceptions::Internal("Attribute $attr does not exist");
-    return $attrs->{$attr};
-}
-
-# returns wether we must use the filter attr instead of the stored in the
-# module's cponfgiuration
-sub _useFilterAttr
-{
-    my ($self) = @_;
-
-    if (not $self->service('filter')) {
-        return 0;
-    }
-
-    if ($self->externalFilter() eq 'custom') {
-        return 0;
-    }
-
-    return 1;
-}
-
 # Method: ipfilter
 #
 #  This method returns the ip of the external filter
@@ -1157,10 +1088,6 @@ sub _useFilterAttr
 sub ipfilter
 {
     my ($self) = @_;
-
-    if ($self->_useFilterAttr) {
-        return $self->_zentyalMailfilterAttr('address');
-    }
 
     my $filterModel = $self->model('ExternalFilter');
     return $filterModel->ipfilter();
@@ -1174,10 +1101,6 @@ sub portfilter
 {
     my ($self) = @_;
 
-    if ($self->_useFilterAttr) {
-        return $self->_zentyalMailfilterAttr('port');
-    }
-
     my $filterModel = $self->model('ExternalFilter');
     return $filterModel->portfilter();
 }
@@ -1189,10 +1112,6 @@ sub portfilter
 sub fwport
 {
     my ($self) = @_;
-
-    if ($self->_useFilterAttr) {
-        return $self->_zentyalMailfilterAttr('forwardPort');
-    }
 
     my $filterModel = $self->model('ExternalFilter');
     return $filterModel->fwport();
@@ -1580,19 +1499,6 @@ sub _filterDashboardSection
             __('Custom')));
         my $address = $self->ipfilter() . ':' . $self->portfilter();
         $section->add(new EBox::Dashboard::Value(__('Address') => $address));
-    }else {
-        $section->add(
-                new EBox::Dashboard::Value(
-                    __('Filter type') => $self->_zentyalMailfilterAttr('prettyName')
-                    )
-                );
-
-# FIXME: this crashes, and maybe it's not needed
-#        my $global = EBox::Global->getInstance(1);
-#        my ($filterInstance) =
-#          grep {$_->mailFilterName eq $filter}
-#          @{  $global->modInstancesOfType('EBox::Mail::FilterProvider')  };
-#        $filterInstance->mailFilterDashboard($section);
     }
 
     return $section;
@@ -1639,16 +1545,6 @@ sub menu
                                       'order' => 5,
                  )
     );
-
-    # add filterproviders menu items
-    my $global = EBox::Global->getInstance(1);
-    my @mods = @{$global->modInstancesOfType('EBox::Mail::FilterProvider')};
-    foreach my $mod (@mods) {
-        my $menuItem = $mod->mailMenuItem();
-        defined $menuItem
-          or next;
-        $folder->add($menuItem);
-    }
 
     $root->add($folder);
 }
