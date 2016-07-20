@@ -3291,11 +3291,11 @@ sub menu
                                       'text' => 'DNS',
                                       'order' => 30));
 
-    $folder->add(new EBox::Menu::Item('url' => 'Network/View/Objects',
+    $folder->add(new EBox::Menu::Item('url' => 'Network/View/ObjectTable',
                                     'text' => __('Objects'),
                                     'order' => 40));
 
-    $folder->add(new EBox::Menu::Item('url' => 'Network/View/Services',
+    $folder->add(new EBox::Menu::Item('url' => 'Network/View/ServiceTable',
                                     'text' => __('Services'),
                                     'order' => 50));
 
