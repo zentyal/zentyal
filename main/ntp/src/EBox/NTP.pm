@@ -22,7 +22,6 @@ package EBox::NTP;
 use base qw(EBox::Module::Service);
 
 use EBox;
-use EBox::Objects;
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Menu::Item;

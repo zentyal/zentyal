@@ -31,7 +31,6 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
-use EBox::Objects;
 use EBox::Validate qw(:all);
 
 use EBox::Sudo;

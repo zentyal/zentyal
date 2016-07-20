@@ -117,7 +117,7 @@ sub _fieldDescription
     my $service =  new EBox::Types::InverseMatchSelect(
                 'fieldName' => 'service',
                 'printableName' => __('Service'),
-                'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
+                'foreignModel' => $self->modelGetter('network', 'ServiceTable'),
                 'foreignField' => 'printableName',
                 'foreignNextPageField' => 'configuration',
                 'editable' => 1,

@@ -133,7 +133,7 @@ sub restoreDependencies
 {
     my ($self) = @_;
 
-    return ['services'];
+    return ['network'];
 }
 
 # utility used by CGI
@@ -510,7 +510,7 @@ sub _setService
 {
     my ($self, $service, $decision, $internal) = @_;
 
-    my $serviceMod = EBox::Global->modInstance('services');
+    my $serviceMod = EBox::Global->modInstance('network');
 
     unless (defined($service)) {
         throw EBox::Exceptions::MissingArgument('service');
@@ -748,7 +748,7 @@ sub _addService
     exists $params{destinationPort} or
         $params{destinationPort} = 'any';
 
-    my $serviceMod = EBox::Global->modInstance('services');
+    my $serviceMod = EBox::Global->modInstance('network');
 
     if (not $serviceMod->serviceExists('name' => $params{name})) {
         $serviceMod->addService('name' => $params{name},

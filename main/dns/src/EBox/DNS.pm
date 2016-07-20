@@ -22,7 +22,6 @@ use base qw( EBox::Module::Service
              EBox::SysInfo::Observer
              EBox::NetworkObserver );
 
-use EBox::Objects;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Service;
