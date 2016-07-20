@@ -3702,14 +3702,14 @@ sub _interfaceSearchMatch
     my ($self, $searchStringRe) = @_;
     my @matches;
     my $interfaces = $self->get('interfaces', {});
-    while (my ($iface, $attrs) = each %{ $interfaces }) {
+    while (my ($iface, $attrs) = each %{$interfaces}) {
         my $ifMatchs = 0;
         if ($iface =~ m/$searchStringRe/) {
             $ifMatchs = 1;
         } else {
-            while ( my($attrName, $attr) = each %{ $attrs}) {
+            while (my ($attrName, $attr) = each %{$attrs}) {
                 if ($attrName eq 'virtual') {
-                    while (my ($vname, $vattrs) = each $attr) {
+                    while (my ($vname, $vattrs) = each %{$attr}) {
                         if ($vname =~ m/$searchStringRe/) {
                             $ifMatchs = 1;
                             last;
@@ -3718,7 +3718,7 @@ sub _interfaceSearchMatch
                             if ($vattrVal =~ m/$searchStringRe/) {
                                 $ifMatchs = 1;
                                 last;
-                        }
+                            }
                         }
                         if ($ifMatchs) {
                             last;
