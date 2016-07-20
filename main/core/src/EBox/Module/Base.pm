@@ -1227,33 +1227,6 @@ sub restoreFilesFromArchive
 }
 
 
-# Method: recoveryEnabled
-#
-#   Helper method to know if the module is configured for
-#   disaster recovery synchronization
-#
-# Returns:
-#
-#   boolean - true if synchronization for the specified module is enabled
-#
-sub recoveryEnabled
-{
-    my ($self) = @_;
-
-    # TODO: Remove it
-    return 0;
-
-    my $module = $self->{name};
-
-    my $rs = EBox::Global->modInstance('remoteservices');
-    unless (defined ($rs) and $rs->disasterRecoveryAvailable()) {
-        return 0;
-    }
-
-    my $model = $rs->model('DisasterRecoveryDomains');
-    return $model->moduleEnabled($module);
-}
-
 sub searchContents
 {
     my ($searchStringRe) = @_;

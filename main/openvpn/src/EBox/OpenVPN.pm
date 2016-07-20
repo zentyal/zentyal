@@ -52,8 +52,6 @@ use File::Slurp;
 
 use constant MAX_IFACE_NUMBER => 999999;  # this is the last number which prints
 # correctly in ifconfig
-use constant RESERVED_PREFIX => 'remoteservices_';
-
 use constant USER  => 'nobody';
 use constant GROUP => 'nogroup';
 
@@ -638,50 +636,6 @@ sub checkNewDaemonName
     } else {
         throw EBox::Exceptions::Internal("Bad daemon type: $daemonType");
     }
-
-    $self->_checkNamePrefix($name, $internal);
-}
-
-sub _checkNamePrefix
-{
-    my ($self, $name, $internalDaemon) = @_;
-
-    my $reservedPrefix = $self->reservedPrefix;
-    my $isReservedName   = ( $name =~ m/^$reservedPrefix/);
-
-    if ($isReservedName and (not $internalDaemon)) {
-        throw EBox::Exceptions::External(
-            __x(
-'Invalid name {name}. Name which begins with the prefix {pf} are reserved for internal use',
-                name => $name,
-                pf => $reservedPrefix,
-            )
-        );
-
-    }elsif (not $isReservedName and $internalDaemon) {
-        throw EBox::Exceptions::External(
-            __x(
-'Invalid name {name}. An internal daemon must have a name which begins with the prefix {pf}',
-                name => $name,
-                pf => $reservedPrefix,
-            )
-        );
-    }
-}
-
-#
-# Method: reservedPrefix
-#
-#    Returns the prefix used in the name of daemons for internal use.
-#    User's daemons cannot use it and internal daemons must use it.
-#
-# Returns:
-#
-#    String - the reserved prefix
-#
-sub reservedPrefix
-{
-    return RESERVED_PREFIX;
 }
 
 # Returns:
@@ -1437,30 +1391,6 @@ sub restoreConfig
     my @clients = $self->clients();
     foreach my $client (@clients) {
         $client->restoreCertificates($certificatesDir);
-    }
-
-    my $rsExcluded = 0;
-    if ($extraParams{modsToExclude}) {
-        $rsExcluded = grep {
-            $_ eq 'remoteservices'
-        } @{ $extraParams{modsToExclude} };
-    }
-
-    if ($rsExcluded) {
-        $self->removeRSClients();
-    }
-}
-
-sub removeRSClients
-{
-    my ($self) = @_;
-    my $prefix = 'R_D_SRVS_';
-    my @names = grep {
-        $_ =~ m/^$prefix/
-    } $self->clientsNames();
-
-    foreach my $name (@names) {
-        $self->deleteClient($name);
     }
 }
 

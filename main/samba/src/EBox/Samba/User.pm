@@ -483,22 +483,6 @@ sub create
     my $usersMod = EBox::Global->modInstance('samba');
     my $realm = $usersMod->kerberosRealm();
 
-    my $real_users = $usersMod->realUsers();
-
-    my $max_users = 0;
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $max_users = $rs->maxUsers();
-    }
-
-    if ($max_users) {
-        if ( scalar(@{$real_users}) > $max_users ) {
-            throw EBox::Exceptions::External(
-                    __sx('Please note that the maximum number of users for your edition is {max} '
-                        . 'and you currently have {nUsers}',
-                        max => $max_users, nUsers => scalar(@{$real_users})));
-        }
-    }
     my $uidNumber = defined $args{uidNumber} ?
                             $args{uidNumber} :
                             $class->_newUserUidNumber($isSystemUser);

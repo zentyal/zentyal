@@ -332,47 +332,6 @@ sub _setDHCP
     return [ pf("-A ointernal $statenew -o $interface -p udp --dport 67 -j oaccept") ];
 }
 
-# Method: _setRemoteServices
-#
-#       Set output rules required to remote services to work
-#
-#
-sub _setRemoteServices
-{
-    my ($self) = @_;
-
-    my @commands;
-
-    my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('remoteservices') ) {
-        my $rsMod = $gl->modInstance('remoteservices');
-        if ( $rsMod->eBoxSubscribed() ) {
-            try {
-                # Allow communications against the API
-                eval "use EBox::RemoteServices::Configuration";
-                my $APIEndPoint = EBox::RemoteServices::Configuration->APIEndPoint();
-                my ($h, undef, undef, undef, @addrs) = gethostbyname($APIEndPoint);
-                if ($h) {
-                    foreach my $packedIPAddr (@addrs) {
-                        # Public API servers to connect to
-                        my $ipAddr = inet_ntoa($packedIPAddr);
-                        push(@commands,
-                             pf("-A ointernal $statenew -p tcp -d $ipAddr --dport 443 -j oaccept || true")
-                            );
-                    }
-                }
-            } catch (EBox::Exceptions::External $e) {
-                # Cannot contact Zentyal Remote, no DNS?
-                my ($exc) = @_;
-                my $msg = "Cannot contact Zentyal Remote: $exc";
-                EBox::error($msg);
-                $gl->addSaveMessage($msg);
-            }
-        }
-    }
-    return \@commands;
-}
-
 # Method: _nospoof
 #
 #       Set no IP spoofing (forged) for the given addresses to the
@@ -486,8 +445,6 @@ sub start
             push(@commands, @{$self->_nospoof($ifc, $addrs)});
         }
     }
-
-    push(@commands, @{$self->_setRemoteServices()});
 
     push(@commands, @{$self->_redirects()});
     push (@commands, @{$self->_snat() });

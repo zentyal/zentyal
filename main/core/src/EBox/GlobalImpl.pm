@@ -52,11 +52,10 @@ use constant {
     POSTSAVE_SUBDIR => EBox::Config::etc() . 'post-save',
     TIMESTAMP_KEY   => 'saved_timestamp',
     FIRST_FILE => '/var/lib/zentyal/.first',
-    DISASTER_RECOVERY_FILE => '/var/lib/zentyal/.disaster-recovery',
     DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
-use constant CORE_MODULES => qw(sysinfo webadmin global logs audit remoteservices);
+use constant CORE_MODULES => qw(sysinfo webadmin global logs audit);
 
 my $lastDpkgStatusMtime = undef;
 my $_cache = undef;
@@ -1091,30 +1090,6 @@ sub deleteFirst
     }
 }
 
-# Method: disasterRecovery
-#
-#      Check if the file for disaster recovery exists
-#
-# Returns:
-#
-#       boolean - True if the file exists, false if not
-#
-sub disasterRecovery
-{
-    return (-f DISASTER_RECOVERY_FILE);
-}
-
-# Method: deleteDisasterRecovery
-#
-#      Delete the file for disaster recovery, if exists
-#
-sub deleteDisasterRecovery
-{
-    if (-f DISASTER_RECOVERY_FILE) {
-        unlink (DISASTER_RECOVERY_FILE);
-    }
-}
-
 # Method: appName
 #
 # Returns:
@@ -1204,13 +1179,7 @@ sub edition
 {
     my ($self, $ro) = @_;
 
-    if ($self->modExists('remoteservices')) {
-        my $rs = $self->modInstance($ro, 'remoteservices');
-        my $codename = $rs->subscriptionCodename();
-
-        return $codename if ($codename);
-    }
-
+    # TODO: implement commercial edition
     return 'community';
 }
 
@@ -1226,7 +1195,7 @@ sub communityEdition
 
     my $edition = $self->edition();
 
-    return (($edition eq 'community') or ($edition eq 'basic'));
+    return ($edition eq 'community');
 }
 
 # Method: addModuleToPostSave

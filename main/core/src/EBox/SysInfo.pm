@@ -280,12 +280,6 @@ sub generalWidget
     my $time = `$time_command`;
     utf8::decode($time);
 
-    my $qaUpdates = 0;
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $qaUpdates = $rs->subscriptionLevel() > 0;
-    }
-
     my $version = $self->version();
     my $ignore = EBox::Config::boolean('widget_ignore_updates');
     unless ($ignore or (not -f LATEST_VERSION)) {
@@ -297,7 +291,7 @@ sub generalWidget
         close ($fh);
 
         if (EBox::Util::Version::compare($lastVersion, $version) == 1) {
-            unless ($qaUpdates) {
+            if (EBox::Global->communityEdition()) {
                 my $available = __('available');
                 $version .=
                     " (<a target='_blank' href='$url'>$lastVersion $available</a>)";
@@ -346,7 +340,6 @@ sub linksWidget
     # Write the links widget using mason
     my $global = $self->global();
     my @params = (
-        rsPackage => $global->modExists('remoteservices'),
         softwarePackage => $global->modExists('software'),
         community => $global->communityEdition(),
         registered => ($global->edition() eq 'basic'),

@@ -53,11 +53,6 @@ sub _process
     my $qaUpdates = 0;
     my $ignore = EBox::Config::boolean('widget_ignore_updates');
 
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $qaUpdates = $rs->subscriptionLevel() > 0;
-    }
-
     my $updatesStr = __('No updates');
     my $updatesType = 'good';
     my $reboot = '/var/run/reboot-required';

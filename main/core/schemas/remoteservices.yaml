@@ -1,8 +1,0 @@
-class: EBox::RemoteServices
-
-models:
-    - Subscription
-    - QAUpdatesInfo
-
-composites:
-    General: []

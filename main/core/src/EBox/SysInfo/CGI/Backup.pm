@@ -148,11 +148,7 @@ sub masonParameters
     push @params, (selected => 'local');
 
     my $subscribed = 0;
-    if ($global->modExists('remoteservices')) {
-        my $rs = $global->modInstance('remoteservices');
-        $subscribed = $rs->eBoxSubscribed();
-    }
-    push @params, (openchange => $global->modExists('openchange'));
+    push @params, (openchange => 0));
     push @params, (subscribed => $subscribed);
 
     return \@params;
