@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Enable apache modules
+a2enmod proxy
+a2enmod proxy_http
+a2enmod headers
+
+exit 0
