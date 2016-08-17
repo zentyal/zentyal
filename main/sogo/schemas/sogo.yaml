@@ -1,6 +1,5 @@
 class: 'EBox::SOGO'
 
 enabledepends:
-    - openchange
-    - webserver
+    - mail
 

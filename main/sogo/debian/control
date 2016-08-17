@@ -7,12 +7,12 @@ Standards-Version: 3.9.2
 
 Package: zentyal-sogo
 Architecture: all
-Depends: zentyal-core (>= 3.5), zentyal-core (<< 4.0~1),
-         zentyal-openchange, zentyal-webserver, zip
-Description: Zentyal - OpenChange Web Mail
+Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
+         zentyal-mail, sogo, zip
+Description: Zentyal - Web Mail
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
- This module adds a MAPI webmail service to your Zentyal installation.
+ This module adds a webmail service to your Zentyal installation.
