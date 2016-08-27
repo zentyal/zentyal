@@ -1,4 +1,8 @@
 5.0
+	+ Remove perl bindings to use just samba upstream packages,
+	  current sysvol sync also deprecated, workaround at
+	  https://wiki.samba.org/index.php/Rsync_based_SysVol_replication_workaround
+	  this affects also ad-migrate script, currently it will not sync GPOs
 	+ Use winbind instead of sssd
 	+ Remove deprecated scannedonly integration
 4.2.3

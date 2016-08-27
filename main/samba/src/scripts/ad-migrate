@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+
 
 # Copyright (C) 2013 Zentyal S.L.
 #
@@ -20,7 +20,8 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use EBox::Samba::SysvolSync;
+# FIXME: removed as perl bindings are now deprecated
+#use EBox::Samba::SysvolSync;
 use EBox::Samba::FSMO;
 
 use Net::Ping;
@@ -78,13 +79,13 @@ unless ($provision->isProvisioned()) {
 ##
 ##  Transfer sysvol share
 ##
-print "\nSynchronizing sysvol share...\n";
-my $synchronizer = new EBox::Samba::SysvolSync();
-my $syncRet = $synchronizer->sync();
-if ($syncRet) {
-    print "ERROR: The sysvol share could not be synchronized. Check Zentyal log for details.\n";
-    exit 1;
-}
+#print "\nSynchronizing sysvol share...\n";
+#my $synchronizer = new EBox::Samba::SysvolSync();
+#my $syncRet = $synchronizer->sync();
+#if ($syncRet) {
+#    print "ERROR: The sysvol share could not be synchronized. Check Zentyal log for details.\n";
+#    exit 1;
+#}
 
 ##
 ##  Transfer FSMO roles

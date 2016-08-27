@@ -1,7 +1,0 @@
-description "Zentyal samba4 sysvol share synchronizer"
-author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
-
-normal exit 0
-
-exec /usr/bin/perl /usr/share/perl5/EBox/Samba/SysvolSync.pm
-respawn

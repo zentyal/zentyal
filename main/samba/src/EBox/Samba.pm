@@ -51,7 +51,6 @@ use EBox::Samba::NamingContext;
 use EBox::Samba::OU;
 use EBox::Samba::Provision;
 use EBox::Samba::SecurityPrincipal;
-use EBox::Samba::SmbClient;
 use EBox::Samba::User;
 use EBox::Util::Random qw( generate );
 use EBox::Util::Random;
@@ -73,38 +72,40 @@ use Perl6::Junction qw(any);
 use String::ShellQuote;
 use Fcntl qw(:flock);
 use Net::Ping;
-use Samba::Security::AccessControlEntry;
-use Samba::Security::Descriptor qw(
-    DOMAIN_RID_ADMINISTRATOR
-    SEC_ACE_FLAG_CONTAINER_INHERIT
-    SEC_ACE_FLAG_OBJECT_INHERIT
-    SEC_ACE_TYPE_ACCESS_ALLOWED
-    SEC_DESC_DACL_AUTO_INHERITED
-    SEC_DESC_DACL_PROTECTED
-    SEC_DESC_SACL_AUTO_INHERITED
-    SEC_FILE_EXECUTE
-    SEC_RIGHTS_FILE_ALL
-    SEC_RIGHTS_FILE_READ
-    SEC_RIGHTS_FILE_WRITE
-    SEC_STD_ALL
-    SEC_STD_DELETE
-    SECINFO_DACL
-    SECINFO_GROUP
-    SECINFO_OWNER
-    SECINFO_PROTECTED_DACL
-    SEC_STD_WRITE_OWNER
-    SEC_STD_READ_CONTROL
-    SEC_STD_WRITE_DAC
-    SEC_FILE_READ_ATTRIBUTE
-);
-use Samba::Smb qw(
-    FILE_ATTRIBUTE_NORMAL
-    FILE_ATTRIBUTE_ARCHIVE
-    FILE_ATTRIBUTE_DIRECTORY
-    FILE_ATTRIBUTE_HIDDEN
-    FILE_ATTRIBUTE_READONLY
-    FILE_ATTRIBUTE_SYSTEM
-);
+# FIXME: perl bindings to be deprecated
+#use EBox::Samba::SmbClient;
+#use Samba::Security::AccessControlEntry;
+#use Samba::Security::Descriptor qw(
+#    DOMAIN_RID_ADMINISTRATOR
+#    SEC_ACE_FLAG_CONTAINER_INHERIT
+#    SEC_ACE_FLAG_OBJECT_INHERIT
+#    SEC_ACE_TYPE_ACCESS_ALLOWED
+#    SEC_DESC_DACL_AUTO_INHERITED
+#    SEC_DESC_DACL_PROTECTED
+#    SEC_DESC_SACL_AUTO_INHERITED
+#    SEC_FILE_EXECUTE
+#    SEC_RIGHTS_FILE_ALL
+#    SEC_RIGHTS_FILE_READ
+#    SEC_RIGHTS_FILE_WRITE
+#    SEC_STD_ALL
+#    SEC_STD_DELETE
+#    SECINFO_DACL
+#    SECINFO_GROUP
+#    SECINFO_OWNER
+#    SECINFO_PROTECTED_DACL
+#    SEC_STD_WRITE_OWNER
+#    SEC_STD_READ_CONTROL
+#    SEC_STD_WRITE_DAC
+#    SEC_FILE_READ_ATTRIBUTE
+#);
+#use Samba::Smb qw(
+#    FILE_ATTRIBUTE_NORMAL
+#    FILE_ATTRIBUTE_ARCHIVE
+#    FILE_ATTRIBUTE_DIRECTORY
+#    FILE_ATTRIBUTE_HIDDEN
+#    FILE_ATTRIBUTE_READONLY
+#    FILE_ATTRIBUTE_SYSTEM
+#);
 use String::ShellQuote 'shell_quote';
 use Time::HiRes;
 use IO::Socket::INET;
@@ -836,182 +837,184 @@ sub _postServiceHook
         unless (defined $host and length $host) {
             throw EBox::Exceptions::Internal('Could not get DNS hostname');
         }
-        my $sambaShares = $self->model('SambaShares');
-        my $domainSID = $ldap->domainSID();
-        my $domainAdminSID = "$domainSID-500";
-        my $domainAdminsSID = "$domainSID-512";
-        my $builtinAdministratorsSID = 'S-1-5-32-544';
-        my $domainUsersSID = "$domainSID-513";
-        my $domainGuestSID = "$domainSID-501";
-        my $domainGuestsSID = "$domainSID-514";
-        my $systemSID = "S-1-5-18";
-        my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID,
-            $domainAdminsSID, $systemSID);
-        my $readRights = SEC_FILE_EXECUTE | SEC_RIGHTS_FILE_READ;
-        my $writeRights = SEC_RIGHTS_FILE_WRITE | SEC_STD_DELETE;
-        my $adminRights = SEC_STD_ALL | SEC_RIGHTS_FILE_ALL;
-        my $defaultInheritance = SEC_ACE_FLAG_CONTAINER_INHERIT | SEC_ACE_FLAG_OBJECT_INHERIT;
-        my $setDescriptorError;
-        for my $id (@{$sambaShares->ids()}) {
-            my $row = $sambaShares->row($id);
-            my $enabled     = $row->valueByName('enabled');
-            my $shareName   = $row->valueByName('share');
-            my $guestAccess = $row->valueByName('guest');
-            my $recursiveAcls = $row->valueByName('recursive_acls');
-
-            unless ($enabled) {
-                next;
-            }
-
-            my $state = $self->get_state();
-            unless (defined $state->{shares_set_rights} and $state->{shares_set_rights}->{$shareName}) {
-                # share permissions didn't change, nothing needs to be done for this share.
-                next;
-            }
-
-            EBox::info("Applying new permissions to the share '$shareName'...");
-
-            my $smb = new EBox::Samba::SmbClient(
-                target => $host, service => $shareName, RID => DOMAIN_RID_ADMINISTRATOR);
-
-            # Set the client to case sensitive mode. The directory listing can
-            # contain files inside folders with the same name but different
-            # casing, so when trying to open them the library failes with a
-            # NT_STATUS_OBJECT_NAME_NOT_FOUND error code. Setting the library
-            # to case sensitive avoids this problem.
-            $smb->case_sensitive(1);
-
-            my $sd = new Samba::Security::Descriptor();
-            my $sdControl = $sd->type();
-            # Inherite all permissions.
-            $sdControl |= SEC_DESC_DACL_AUTO_INHERITED;
-            $sdControl |= SEC_DESC_DACL_PROTECTED;
-            $sdControl |= SEC_DESC_SACL_AUTO_INHERITED;
-            $sd->type($sdControl);
-            # Set the owner and the group. We differ here from Windows because they just set the owner to
-            # builtin/Administrators but this other setting should be compatible and better looking when using Linux
-            # console.
-            $sd->owner($domainAdminSID);
-            $sd->group($builtinAdministratorsSID);
-
-            # Always, full control to Builtin/Administrators group, Users/Administrator and System users.
-            for my $superAdminSID (@superAdminSIDs) {
-                my $ace = new Samba::Security::AccessControlEntry(
-                    $superAdminSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $adminRights, $defaultInheritance);
-                $sd->dacl_add($ace);
-            }
-
-            if ($guestAccess) {
-                # Add read/write access for Domain Users
-                my $ace = new Samba::Security::AccessControlEntry(
-                    $domainUsersSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
-                $sd->dacl_add($ace);
-                # Add read/write access for Domain Guest user
-                my $ace2 = new Samba::Security::AccessControlEntry(
-                    $domainGuestSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
-                $sd->dacl_add($ace2);
-
-                # Add read/write access for Domain Guests group
-                my $ace3 = new Samba::Security::AccessControlEntry(
-                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
-                $sd->dacl_add($ace3);
-
-                # Add everybody read/write access
-                my $ace4 = new Samba::Security::AccessControlEntry(
-                    'S-1-1-0', SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
-                $sd->dacl_add($ace4);
-            } else {
-                for my $subId (@{$row->subModel('access')->ids()}) {
-                    my $subRow = $row->subModel('access')->row($subId);
-                    my $permissions = $subRow->elementByName('permissions');
-
-                    my $userType = $subRow->elementByName('user_group');
-                    my $account = $userType->value();
-                    my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
-                    next unless ($object->exists());
-
-                    my $sid = $object->sid();
-
-                    my $rights = undef;
-                    if ($permissions->value() eq 'readOnly') {
-                        $rights = $readRights;
-                    } elsif ($permissions->value() eq 'readWrite') {
-                        $rights = $readRights | $writeRights;
-                    } elsif ($permissions->value() eq 'administrator') {
-                        $rights = $adminRights;
-                    } else {
-                        my $type = $permissions->value();
-                        EBox::error("Unknown share permission type '$type'");
-                        next;
-                    }
-                    my $ace = new Samba::Security::AccessControlEntry(
-                        $sid, SEC_ACE_TYPE_ACCESS_ALLOWED, $rights, $defaultInheritance);
-                    $sd->dacl_add($ace);
-                }
-            }
-            my $relativeSharePath = '/';
-            EBox::info("Applying ACLs for top-level share $shareName");
-            my $sinfo = SECINFO_OWNER |
-                        SECINFO_GROUP |
-                        SECINFO_DACL |
-                        SECINFO_PROTECTED_DACL;
-            my $access_mask = SEC_STD_WRITE_OWNER |
-                              SEC_STD_READ_CONTROL |
-                              SEC_STD_WRITE_DAC |
-                              SEC_FILE_READ_ATTRIBUTE;
-            my $attributes = FILE_ATTRIBUTE_NORMAL |
-                             FILE_ATTRIBUTE_ARCHIVE |
-                             FILE_ATTRIBUTE_DIRECTORY |
-                             FILE_ATTRIBUTE_HIDDEN |
-                             FILE_ATTRIBUTE_READONLY |
-                             FILE_ATTRIBUTE_SYSTEM;
-            try {
-                EBox::debug("Setting NT ACL on file: $relativeSharePath");
-                $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
-            } catch ($ex) {
-                EBox::error(
-                    __x("Error setting security descriptor on share '{x}': {y}",
-                        x => $shareName, y => $ex));
-                $setDescriptorError = 1;
-            }
-
-            # Apply recursively the permissions.
-            my $shareContentList = $smb->list($relativeSharePath,
-                attributes => $attributes, recursive => 1);
-            # Reset the DACL_PROTECTED flag;
-            $sdControl = $sd->type();
-            $sdControl &= ~SEC_DESC_DACL_PROTECTED;
-            $sd->type($sdControl);
-            ## only replace ACLs for subdirs if recursiveAcls = 1
-            if ($recursiveAcls) {
-                foreach my $item (@{$shareContentList}) {
-                    my $itemName = $item->{name};
-                    $itemName =~ s/^\/\/(.*)/\/$1/s;
-                    try {
-                        EBox::debug("Replacing ACLs for $shareName$itemName");
-                        $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
-                    } catch ($ex) {
-                        EBox::error(
-                            __x("Error setting security descriptor on file {x}{y}: {z}",
-                                x => $shareName, y => $itemName, z => $ex));
-                        $setDescriptorError = 1;
-                    }
-                }
-            }
-            delete $state->{shares_set_rights}->{$shareName};
-            $self->set_state($state);
-        }
+# FIXME: setfacl if needed, try also with "map acl inherit = yes" in smb.conf
+#        my $sambaShares = $self->model('SambaShares');
+#        my $domainSID = $ldap->domainSID();
+#        my $domainAdminSID = "$domainSID-500";
+#        my $domainAdminsSID = "$domainSID-512";
+#        my $builtinAdministratorsSID = 'S-1-5-32-544';
+#        my $domainUsersSID = "$domainSID-513";
+#        my $domainGuestSID = "$domainSID-501";
+#        my $domainGuestsSID = "$domainSID-514";
+#        my $systemSID = "S-1-5-18";
+#        my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID,
+#            $domainAdminsSID, $systemSID);
+#        my $readRights = SEC_FILE_EXECUTE | SEC_RIGHTS_FILE_READ;
+#        my $writeRights = SEC_RIGHTS_FILE_WRITE | SEC_STD_DELETE;
+#        my $adminRights = SEC_STD_ALL | SEC_RIGHTS_FILE_ALL;
+#        my $defaultInheritance = SEC_ACE_FLAG_CONTAINER_INHERIT | SEC_ACE_FLAG_OBJECT_INHERIT;
+#        my $setDescriptorError;
+#        for my $id (@{$sambaShares->ids()}) {
+#            my $row = $sambaShares->row($id);
+#            my $enabled     = $row->valueByName('enabled');
+#            my $shareName   = $row->valueByName('share');
+#            my $guestAccess = $row->valueByName('guest');
+#            my $recursiveAcls = $row->valueByName('recursive_acls');
+#
+#            unless ($enabled) {
+#                next;
+#            }
+#
+#            my $state = $self->get_state();
+#            unless (defined $state->{shares_set_rights} and $state->{shares_set_rights}->{$shareName}) {
+#                # share permissions didn't change, nothing needs to be done for this share.
+#                next;
+#            }
+#
+#
+#            EBox::info("Applying new permissions to the share '$shareName'...");
+#
+#            my $smb = new EBox::Samba::SmbClient(
+#                target => $host, service => $shareName, RID => DOMAIN_RID_ADMINISTRATOR);
+#
+#            # Set the client to case sensitive mode. The directory listing can
+#            # contain files inside folders with the same name but different
+#            # casing, so when trying to open them the library failes with a
+#            # NT_STATUS_OBJECT_NAME_NOT_FOUND error code. Setting the library
+#            # to case sensitive avoids this problem.
+#            $smb->case_sensitive(1);
+#
+#            my $sd = new Samba::Security::Descriptor();
+#            my $sdControl = $sd->type();
+#            # Inherite all permissions.
+#            $sdControl |= SEC_DESC_DACL_AUTO_INHERITED;
+#            $sdControl |= SEC_DESC_DACL_PROTECTED;
+#            $sdControl |= SEC_DESC_SACL_AUTO_INHERITED;
+#            $sd->type($sdControl);
+#            # Set the owner and the group. We differ here from Windows because they just set the owner to
+#            # builtin/Administrators but this other setting should be compatible and better looking when using Linux
+#            # console.
+#            $sd->owner($domainAdminSID);
+#            $sd->group($builtinAdministratorsSID);
+#
+#            # Always, full control to Builtin/Administrators group, Users/Administrator and System users.
+#            for my $superAdminSID (@superAdminSIDs) {
+#                my $ace = new Samba::Security::AccessControlEntry(
+#                    $superAdminSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $adminRights, $defaultInheritance);
+#                $sd->dacl_add($ace);
+#            }
+#
+#            if ($guestAccess) {
+#                # Add read/write access for Domain Users
+#                my $ace = new Samba::Security::AccessControlEntry(
+#                    $domainUsersSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+#                $sd->dacl_add($ace);
+#                # Add read/write access for Domain Guest user
+#                my $ace2 = new Samba::Security::AccessControlEntry(
+#                    $domainGuestSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+#                $sd->dacl_add($ace2);
+#
+#                # Add read/write access for Domain Guests group
+#                my $ace3 = new Samba::Security::AccessControlEntry(
+#                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+#                $sd->dacl_add($ace3);
+#
+#                # Add everybody read/write access
+#                my $ace4 = new Samba::Security::AccessControlEntry(
+#                    'S-1-1-0', SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+#                $sd->dacl_add($ace4);
+#            } else {
+#                for my $subId (@{$row->subModel('access')->ids()}) {
+#                    my $subRow = $row->subModel('access')->row($subId);
+#                    my $permissions = $subRow->elementByName('permissions');
+#
+#                    my $userType = $subRow->elementByName('user_group');
+#                    my $account = $userType->value();
+#                    my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
+#                    next unless ($object->exists());
+#
+#                    my $sid = $object->sid();
+#
+#                    my $rights = undef;
+#                    if ($permissions->value() eq 'readOnly') {
+#                        $rights = $readRights;
+#                    } elsif ($permissions->value() eq 'readWrite') {
+#                        $rights = $readRights | $writeRights;
+#                    } elsif ($permissions->value() eq 'administrator') {
+#                        $rights = $adminRights;
+#                    } else {
+#                        my $type = $permissions->value();
+#                        EBox::error("Unknown share permission type '$type'");
+#                        next;
+#                    }
+#                    my $ace = new Samba::Security::AccessControlEntry(
+#                        $sid, SEC_ACE_TYPE_ACCESS_ALLOWED, $rights, $defaultInheritance);
+#                    $sd->dacl_add($ace);
+#                }
+#            }
+#            my $relativeSharePath = '/';
+#            EBox::info("Applying ACLs for top-level share $shareName");
+#            my $sinfo = SECINFO_OWNER |
+#                        SECINFO_GROUP |
+#                        SECINFO_DACL |
+#                        SECINFO_PROTECTED_DACL;
+#            my $access_mask = SEC_STD_WRITE_OWNER |
+#                              SEC_STD_READ_CONTROL |
+#                              SEC_STD_WRITE_DAC |
+#                              SEC_FILE_READ_ATTRIBUTE;
+#            my $attributes = FILE_ATTRIBUTE_NORMAL |
+#                             FILE_ATTRIBUTE_ARCHIVE |
+#                             FILE_ATTRIBUTE_DIRECTORY |
+#                             FILE_ATTRIBUTE_HIDDEN |
+#                             FILE_ATTRIBUTE_READONLY |
+#                             FILE_ATTRIBUTE_SYSTEM;
+#            try {
+#                EBox::debug("Setting NT ACL on file: $relativeSharePath");
+#                $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
+#            } catch ($ex) {
+#                EBox::error(
+#                    __x("Error setting security descriptor on share '{x}': {y}",
+#                        x => $shareName, y => $ex));
+#                $setDescriptorError = 1;
+#            }
+#
+#            # Apply recursively the permissions.
+#            my $shareContentList = $smb->list($relativeSharePath,
+#                attributes => $attributes, recursive => 1);
+#            # Reset the DACL_PROTECTED flag;
+#            $sdControl = $sd->type();
+#            $sdControl &= ~SEC_DESC_DACL_PROTECTED;
+#            $sd->type($sdControl);
+#            ## only replace ACLs for subdirs if recursiveAcls = 1
+#            if ($recursiveAcls) {
+#                foreach my $item (@{$shareContentList}) {
+#                    my $itemName = $item->{name};
+#                    $itemName =~ s/^\/\/(.*)/\/$1/s;
+#                    try {
+#                        EBox::debug("Replacing ACLs for $shareName$itemName");
+#                        $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
+#                    } catch ($ex) {
+#                        EBox::error(
+#                            __x("Error setting security descriptor on file {x}{y}: {z}",
+#                                x => $shareName, y => $itemName, z => $ex));
+#                        $setDescriptorError = 1;
+#                    }
+#                }
+#            }
+#            delete $state->{shares_set_rights}->{$shareName};
+#            $self->set_state($state);
+#        }
 
         # Write DNS update list
         EBox::info("Writing DNS update list...");
         $self->_writeDnsUpdateList();
 
-        # Show warning if error setting ACLs
-        if ($setDescriptorError) {
-            $self->global->addSaveMessage(
-                __("There were errors setting ACLs on samba shares, " .
-                    "please check the zentyal log for details."));
-        }
+#        # Show warning if error setting ACLs
+#        if ($setDescriptorError) {
+#            $self->global->addSaveMessage(
+#                __("There were errors setting ACLs on samba shares, " .
+#                    "please check the zentyal log for details."));
+#        }
     } else {
         EBox::debug("Ignoring Samba's _postServiceHook code because it was not invoked from the web application.");
     }
