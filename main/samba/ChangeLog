@@ -5,6 +5,7 @@
 	  this affects also ad-migrate script, currently it will not sync GPOs
 	+ Use winbind instead of sssd
 	+ Remove deprecated scannedonly integration
+	+ Adapt code to perl 5.22
 4.2.3
 	+ Add cron to flush idmap cache to avoid auth issues
 4.2.2
