@@ -25,7 +25,6 @@ use base qw(
 );
 
 use EBox::Service;
-use EBox::Objects;
 use EBox::Global;
 use EBox::Config;
 use EBox::Firewall;
@@ -51,7 +50,7 @@ use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Util::Version;
 use EBox;
-use TryCatch::Lite;
+use TryCatch;
 use HTML::Mason;
 use File::Basename;
 
@@ -650,7 +649,7 @@ sub _writeSquidConf
     if ($mode eq AUTH_MODE_INTERNAL) {
         push @writeParam, ('dn'       => $ldap->dn());
         push @writeParam, ('roDn'     => $self->_kerberosServiceAccountDN());
-        push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());        
+        push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());
     }  elsif ($mode eq AUTH_MODE_EXTERNAL_AD) {
         my $dc = $ldap->dcHostname();
         my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY,
@@ -697,7 +696,7 @@ sub _writeSquidExternalConf
         } @{ $network->ifaceAddresses($_) };
         @addrs;
     } @ifaces;
-     
+
     if (not @listenAddr) {
         throw EBox::Exceptions::Internal("No external interfaces addresses to listen found");
     }
@@ -1272,16 +1271,8 @@ sub _commercialMsg
 sub authenticationMode
 {
     my ($self) = @_;
-    my $users = $self->global()->modInstance('samba');
-    my $usersMode = $users->mode();
-    if ($usersMode eq $users->STANDALONE_MODE) {
-        return AUTH_MODE_INTERNAL;
-    } elsif ($usersMode eq $users->EXTERNAL_AD_MODE) {
-        return AUTH_MODE_EXTERNAL_AD;
-    } else {
-        EBox::warn("Unknown users mode: $usersMode. Falling back to squid internal authorization mode");
-        return AUTH_MODE_INTERNAL;
-    }
+
+    return AUTH_MODE_INTERNAL;
 }
 
 sub ifaceExternalChanged
@@ -1315,7 +1306,7 @@ sub ifaceMethodChanged
     if (not $noExternalMethod) {
         return 0;
     }
-        
+
     if (not $self->_externalIfacesAfterChange(0)) {
         return 1;
     }
@@ -1333,7 +1324,7 @@ sub changeIfaceExternalProperty
 sub freeIface
 {
     my ($self, $iface, $toExternal) = @_;
-    
+
     my $ifaceExternal = $self->global()->modInstance('network')->ifaceIsExternal($iface);
     if ($ifaceExternal) {
         $self->_ifaceChangeDone($iface, 0);

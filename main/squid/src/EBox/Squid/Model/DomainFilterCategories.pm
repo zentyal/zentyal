@@ -30,7 +30,7 @@ use EBox::Sudo;
 use EBox::Config;
 use EBox::Squid::Types::ListArchive;
 
-use TryCatch::Lite;
+use TryCatch;
 use File::Basename;
 
 my $categoriesFileDir = '/var/lib/zentyal/files/squid';

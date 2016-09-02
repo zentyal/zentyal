@@ -1,7 +1,6 @@
 class: 'EBox::Squid'
 
 depends:
-    - objects
     - network
     - samba
 
