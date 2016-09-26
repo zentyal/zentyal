@@ -14,7 +14,7 @@ Architecture: all
 Pre-Depends: zentyal-core
 Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
          zentyal-firewall, zentyal-samba,
-         squid3, dansguardian, adduser, adzapper, msktutil,
+         squid, dansguardian, adduser, adzapper, msktutil,
          libdata-hexdumper-perl, ${misc:Depends}
 Description: Zentyal - HTTP Proxy
  Zentyal is a Linux small business server that can act as
