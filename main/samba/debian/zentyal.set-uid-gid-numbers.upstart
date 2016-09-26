@@ -1,7 +1,0 @@
-description "Zentyal daemon to check uid and gid numbers"
-author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
-
-normal exit 0
-
-exec /usr/bin/perl /usr/share/perl5/EBox/Samba/SetUidGidNumbers.pm
-respawn
