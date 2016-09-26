@@ -1,4 +1,5 @@
 5.0
+	+ Use default systemd daemon instead of custom upstart one
 	+ Set version to 5.0
 4.2
 	+ Adapt apparmor profile for Samba 4.3

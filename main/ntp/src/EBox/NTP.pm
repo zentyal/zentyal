@@ -185,16 +185,7 @@ sub _preSetConf
 #
 sub _daemons
 {
-    return [ { name => 'ebox.ntpd' } ];
-}
-
-#  Method: _daemonsToDisable
-#
-#   Overrides <EBox::Module::Service::_daemonsToDisable>
-#
-sub _daemonsToDisable
-{
-    return [ { name => 'ntp', type => 'init.d' } ];
+    return [ { name => 'ntp' } ];
 }
 
 # Method: synchronized
