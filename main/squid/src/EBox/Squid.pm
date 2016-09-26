@@ -1107,15 +1107,16 @@ sub menu
 sub _daemons
 {
     return [
+# FIXME
+#        {
+#            name => 'zentyal.squid3-external'
+#        },
         {
-            name => 'zentyal.squid3-external'
-        },
-        {
-            name => 'ebox.dansguardian',
+            name => 'dansguardian',
             precondition => \&filterNeeded
         },
         {
-            name => 'squid3'
+            name => 'squid'
         }
     ];
 }
