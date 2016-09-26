@@ -769,13 +769,6 @@ sub _adcMode
     return ($settings->modeValue() eq $settings->MODE_ADC());
 }
 
-sub _sysvolSyncCond
-{
-    my ($self) = @_;
-
-    return ($self->isEnabled() and $self->getProvision->isProvisioned() and $self->_adcMode());
-}
-
 sub _postServiceHook
 {
     my ($self, $enabled) = @_;
@@ -1080,10 +1073,6 @@ sub _daemons
     return [
         {
             name => 'samba-ad-dc',
-        },
-        {
-            name => 'zentyal.sysvol-sync',
-            precondition => \&_sysvolSyncCond,
         },
         {
             name => 'zentyal.set-uid-gid-numbers',
