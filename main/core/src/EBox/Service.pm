@@ -39,7 +39,8 @@ sub manage # (daemon,action)
 {
     my ($daemon, $action) = @_;
 
-    unless (-f "/lib/systemd/system/$daemon.service") {
+    EBox::Sudo::silentRoot("systemctl status $daemon | grep 'Loaded: loaded'");
+    unless ($? == 0) {
         throw EBox::Exceptions::Internal("No such daemon: $daemon");
     }
 
@@ -73,7 +74,8 @@ sub running # (daemon)
 {
     my ($daemon) = @_;
 
-    unless (-f "/lib/systemd/system/$daemon.service") {
+    EBox::Sudo::silentRoot("systemctl status $daemon | grep 'Loaded: loaded'");
+    unless ($? == 0) {
         throw EBox::Exceptions::Internal("No such daemon: $daemon");
     }
 
