@@ -27,7 +27,7 @@ use Perl6::Junction qw(any);
 use EBox::Validate;
 use EBox::Sysfs;
 use IO::Socket::INET;
-use IO::Interface::Simple;
+use Net::Interface;
 
 BEGIN {
     use Exporter ();
@@ -80,7 +80,7 @@ sub iface_exists
 sub list_ifaces
 {
     unless (@ifaceList) {
-        @ifaceList = map { $_->{name} } IO::Interface::Simple->interfaces;
+        @ifaceList = map { $_->{name} } Net::Interface->interfaces();
         @ifaceList = grep (!/:/, @ifaceList);
         @ifaceList = sort @ifaceList;
     }
@@ -257,41 +257,6 @@ sub _ifaceShowAddress
     }  @output;
 
     return @addrs;
-}
-
-# Function: iface_destination_address
-#
-#   Returns the destination addresses for point-to-point interfaces
-#
-# Parameters:
-#
-#       interfaceName - Interface's name
-#
-# Returns:
-#
-#       A string with the destination address or undef if it's not a point-to-point interface
-#
-# Exceptions:
-#
-#       DataNotFound - If interface does not exists
-#
-sub iface_destination_address
-{
-    my ($interfaceName) = @_;
-
-    unless (iface_exists($interfaceName)) {
-        throw EBox::Exceptions::DataNotFound(
-                data => __('Interface'),
-                value => $interfaceName);
-    }
-
-    my $interface = IO::Interface::Simple->new($interfaceName);
-
-    if ($interface->is_pt2pt) {
-        return $interface->dstaddr;
-    } else {
-        return undef;
-    }
 }
 
 # Function: list_routes

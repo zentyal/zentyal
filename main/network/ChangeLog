@@ -1,5 +1,7 @@
 5.0
 	+ Integrate objects and services modules inside network
+	+ Use Net::Interface instead of IO::Interface::Simple, which
+	  seems buggy with new interface naming
 4.2.2
 	+ Fix regression in initial modules enable after last change
 4.2.1

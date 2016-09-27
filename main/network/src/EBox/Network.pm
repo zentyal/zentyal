@@ -39,7 +39,7 @@ use constant RESOLVCONF_HEAD => '/etc/resolvconf/resolv.conf.d/head';
 use constant RESOLVCONF_TAIL => '/etc/resolvconf/resolv.conf.d/tail';
 
 use Net::IP;
-use IO::Interface::Simple;
+use Net::Interface;
 use Perl6::Junction qw(any);
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
@@ -3500,7 +3500,7 @@ sub _defaultGatewayCommand
 
     my $method = $self->ifaceMethod($iface);
 
-    my $if = new IO::Interface::Simple($iface);
+    my $if = new Net::Interface($iface);
     return undef unless $if->address;
 
     return "ip route add table default default via $ip dev $iface";
