@@ -71,11 +71,6 @@ sub _create
     return $self;
 }
 
-sub serverroot
-{
-    return '/var/lib/zentyal';
-}
-
 # FIXME: is this still needed?
 # Method: cleanupForExec
 #
@@ -98,23 +93,26 @@ sub cleanupForExec
     open(STDIN, '/dev/null');
 }
 
-sub _daemon
+#  Method: _daemons
+#
+#   Overrides <EBox::Module::Service::_daemons>
+#
+sub _daemons
 {
-    my ($self, $action) = @_;
-
-    $self->_manageNginx($action);
-
-    if ($action eq 'stop') {
-        $self->setHardRestart(0) if $self->hardRestart();
-    }
+    return [
+        { name => 'zentyal.webadmin-uwsgi' },
+        { name => 'zentyal.webadmin-nginx' }
+    ];
 }
 
-sub _manageNginx
+sub _postServiceHook
 {
-    my ($self, $action) = @_;
+    my ($self, $enabled) = @_;
 
-    EBox::Service::manage($self->_uwsgiSystemdName(), $action);
-    EBox::Service::manage($self->_nginxSystemdName(), $action);
+    if ($self->hardRestart()) {
+        EBox::Sudo::silentRoot("systemctl restart zentyal.webadmin-uwsgi");
+        $self->setHardRestart(0);
+    }
 }
 
 sub setHardRestart
@@ -148,13 +146,6 @@ sub listeningPort
     return $self->model('AdminPort')->value('port');
 }
 
-sub _stopService
-{
-    my ($self) = @_;
-
-    $self->_daemon('stop');
-}
-
 sub _setConf
 {
     my ($self) = @_;
@@ -166,42 +157,11 @@ sub _setConf
     $self->enableRestartOnTrigger();
 }
 
-sub _nginxConfFile
-{
-    return '/var/lib/zentyal/conf/nginx.conf';
-}
-
-sub _nginxSystemdName
-{
-    return 'zentyal.webadmin-nginx';
-}
-
-sub _nginxSystemdFile
-{
-    my ($self) = @_;
-
-    my $nginxSystemdName = $self->_nginxSystemdName();
-    return "/lib/systemd/system/$nginxSystemdName.service";
-}
-
-sub _uwsgiSystemdName
-{
-    return 'zentyal.webadmin-uwsgi';
-}
-
-sub _uwsgiSystemdFile
-{
-    my ($self) = @_;
-
-    my $uwsgiSystemdName = $self->_uwsgiSystemdName();
-    return "/lib/systemd/system/$uwsgiSystemdName.service";
-}
-
 sub _writeNginxConfFile
 {
     my ($self) = @_;
 
-    my $nginxconf = $self->_nginxConfFile();
+    my $nginxconf = '/var/lib/zentyal/conf/nginx.conf';
     my $templateConf = 'core/nginx.conf.mas';
 
     my @confFileParams = ();
@@ -227,7 +187,7 @@ sub _writeNginxConfFile
     EBox::Module::Base::writeConfFileNoCheck($nginxconf, $templateConf, \@confFileParams, $permissions);
 
     @confFileParams = ();
-    push @confFileParams, (conf => $self->_nginxConfFile());
+    push @confFileParams, (conf => $nginxconf);
     push @confFileParams, (confDir => EBox::Config::conf());
 
     $permissions = {
@@ -237,9 +197,11 @@ sub _writeNginxConfFile
         force => 1,
     };
 
-    EBox::Module::Base::writeConfFileNoCheck($self->_nginxSystemdFile, 'core/upstart-nginx.mas', \@confFileParams, $permissions);
+    my $systemdPathPrefix = '/lib/systemd/system/zentyal.webadmin';
 
-    my $upstartFile = 'core/upstart-uwsgi.mas';
+    EBox::Module::Base::writeConfFileNoCheck("$systemdPathPrefix-nginx.service", 'core/systemd-nginx.mas', \@confFileParams, $permissions);
+
+    my $systemdFile = 'core/systemd-uwsgi.mas';
     @confFileParams = ();
     push (@confFileParams, socketpath => '/run/zentyal-' . $self->name());
     push (@confFileParams, socketname => 'webadmin.sock');
@@ -247,8 +209,7 @@ sub _writeNginxConfFile
     push (@confFileParams, module => $self->printableName());
     push (@confFileParams, user   => EBox::Config::user());
     push (@confFileParams, group  => EBox::Config::group());
-    EBox::Module::Base::writeConfFileNoCheck(
-        $self->_uwsgiSystemdFile, $upstartFile, \@confFileParams, $permissions);
+    EBox::Module::Base::writeConfFileNoCheck("$systemdPathPrefix-uwsgi.serivce", $systemdFile, \@confFileParams, $permissions);
 }
 
 sub _setLanguage
@@ -335,120 +296,6 @@ sub logs
     $log->{'types'} = \@types;
     push(@logs, $log);
     return \@logs;
-}
-
-# Method: setRestrictedResource
-#
-#   Set a restricted resource to the nginx configuration.
-#
-# Parameters:
-#
-#   resourceName - String the resource location to restrict.
-#   allowedIPs   - Array ref the set of IPs which allow the restricted resource to be accessed in CIDR
-#                  format or magic word 'all' or 'nobody'. The former all sources are allowed to see
-#                  that resourcename and the latter nobody is allowed to see this resource. 'all'
-#                  value has more priority than 'nobody' value.
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::MissingArgument> - thrown if any compulsory argument is missing.
-#   <EBox::Exceptions::InvalidType>     - thrown if the resource type is invalid.
-#   <EBox::Exceptions::Internal>        - thrown if any of the allowed IP addresses are not in CIDR format or no
-#                                         allowed IP is given.
-#
-sub setRestrictedResource
-{
-    my ($self, $resourceName, $allowedIPs) = @_;
-
-    unless (defined $resourceName) {
-        throw EBox::Exceptions::MissingArgument('resourceName');
-    }
-    unless (defined $allowedIPs) {
-        throw EBox::Exceptions::MissingArgument('allowedIPs');
-    }
-
-    my $allFound = grep { $_ eq 'all' } @{$allowedIPs};
-    my $nobodyFound = grep { $_ eq 'nobody' } @{$allowedIPs};
-    if ($allFound) {
-        $allowedIPs = ['all'];
-    } elsif ($nobodyFound) {
-        $allowedIPs = ['nobody'];
-    } else {
-        # Check the given list is a list of IPs
-        my $notIPs = grep { !checkCIDR($_) } @{$allowedIPs};
-        if ($notIPs > 0) {
-            throw EBox::Exceptions::Internal('Some of the given allowed IP addresses are not in CIDR format');
-        }
-        if ( @{$allowedIPs} == 0 ) {
-            throw EBox::Exceptions::Internal('Some allowed IP must be set');
-        }
-    }
-
-    my $resources = $self->get_list('restricted_resources');
-    if ($self->_restrictedResourceExists($resourceName)) {
-        my @deleted = grep { $_->{name} ne $resourceName } @{$resources};
-        $resources = \@deleted;
-    }
-    push (@{$resources}, { name => $resourceName, allowedIPs => $allowedIPs });
-    $self->set('restricted_resources', $resources);
-}
-
-# Method: delRestrictedResource
-#
-#   Remove a restricted resource from the list.
-#
-# Parameters:
-#
-#   resourcename - String the resource name which indexes which restricted resource is requested to be deleted.
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::MissingArgument> - thrown if any compulsory argument is missing.
-#   <EBox::Exceptions::DataNotFound>    - thrown if the given resource name is not in the list of restricted
-#                                         resources.
-#
-sub delRestrictedResource
-{
-    my ($self, $resourcename) = @_;
-
-    unless (defined $resourcename) {
-        throw EBox::Exceptions::MissingArgument('resourcename');
-    }
-
-    $resourcename =~ s:^/::;
-
-    my $resources = $self->get_list('restricted_resources');
-
-    unless ($self->_restrictedResourceExists($resourcename)) {
-        throw EBox::Exceptions::DataNotFound(data => 'resourcename', value => $resourcename);
-    }
-
-    my @deleted = grep { $_->{name} ne $resourcename} @{$resources};
-    $self->set('restricted_resources', \@deleted);
-}
-
-# Method: _restrictedResourceExists
-#
-#   Whether a restricted resource exists.
-#
-# Parameters:
-#
-#   resourcename - String the resource name which we want to check.
-#
-# Returns:
-#
-#   Boolean - Whether the given resource is registered or not.
-#
-sub _restrictedResourceExists
-{
-    my ($self, $resourcename) = @_;
-
-    foreach my $resource (@{$self->get_list('restricted_resources')}) {
-        if ($resource->{name} eq $resourcename) {
-            return 1;
-        }
-    }
-    return 0;
 }
 
 # Method: isEnabled
