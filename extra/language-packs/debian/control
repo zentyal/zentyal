@@ -18,7 +18,7 @@ Description: Zentyal translations for all supported languages
 
 Package: language-pack-zentyal-an
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Aragonese
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -29,7 +29,7 @@ Description: Zentyal translations for language Aragonese
 
 Package: language-pack-zentyal-ar
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Arabic
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -40,7 +40,7 @@ Description: Zentyal translations for language Arabic
 
 Package: language-pack-zentyal-bg
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Bengali
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -51,7 +51,7 @@ Description: Zentyal translations for language Bengali
 
 Package: language-pack-zentyal-bn
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Bulgarian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -62,7 +62,7 @@ Description: Zentyal translations for language Bulgarian
 
 Package: language-pack-zentyal-ca
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Catalan
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -73,7 +73,7 @@ Description: Zentyal translations for language Catalan
 
 Package: language-pack-zentyal-cs
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Czech
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -84,7 +84,7 @@ Description: Zentyal translations for language Czech
 
 Package: language-pack-zentyal-da
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Danish
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -95,7 +95,7 @@ Description: Zentyal translations for language Danish
 
 Package: language-pack-zentyal-de
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language German
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -106,7 +106,7 @@ Description: Zentyal translations for language German
 
 Package: language-pack-zentyal-el
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Greek
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -117,7 +117,7 @@ Description: Zentyal translations for language Greek
 
 Package: language-pack-zentyal-es
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Spanish
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -128,7 +128,7 @@ Description: Zentyal translations for language Spanish
 
 Package: language-pack-zentyal-et
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Estonian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -139,7 +139,7 @@ Description: Zentyal translations for language Estonian
 
 Package: language-pack-zentyal-eu
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Basque
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -150,7 +150,7 @@ Description: Zentyal translations for language Basque
 
 Package: language-pack-zentyal-fa
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Persian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -161,7 +161,7 @@ Description: Zentyal translations for language Persian
 
 Package: language-pack-zentyal-fi
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Finnish
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -172,7 +172,7 @@ Description: Zentyal translations for language Finnish
 
 Package: language-pack-zentyal-fr
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language French
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -183,7 +183,7 @@ Description: Zentyal translations for language French
 
 Package: language-pack-zentyal-gl
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Galician
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -194,7 +194,7 @@ Description: Zentyal translations for language Galician
 
 Package: language-pack-zentyal-he
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Hebrew
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -205,7 +205,7 @@ Description: Zentyal translations for language Hebrew
 
 Package: language-pack-zentyal-hu
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Hungarian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -216,7 +216,7 @@ Description: Zentyal translations for language Hungarian
 
 Package: language-pack-zentyal-id
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Indonesian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -227,7 +227,7 @@ Description: Zentyal translations for language Indonesian
 
 Package: language-pack-zentyal-it
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Italian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -238,7 +238,7 @@ Description: Zentyal translations for language Italian
 
 Package: language-pack-zentyal-ja
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Japanese
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -249,7 +249,7 @@ Description: Zentyal translations for language Japanese
 
 Package: language-pack-zentyal-lt
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Lithuanian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -260,7 +260,7 @@ Description: Zentyal translations for language Lithuanian
 
 Package: language-pack-zentyal-nb
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Norwegian Bokmål
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -271,7 +271,7 @@ Description: Zentyal translations for language Norwegian Bokmål
 
 Package: language-pack-zentyal-nl
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Dutch
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -282,7 +282,7 @@ Description: Zentyal translations for language Dutch
 
 Package: language-pack-zentyal-pl
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Polish
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -293,7 +293,7 @@ Description: Zentyal translations for language Polish
 
 Package: language-pack-zentyal-pt
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Portuguese
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -304,7 +304,7 @@ Description: Zentyal translations for language Portuguese
 
 Package: language-pack-zentyal-pt-br
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Portuguese (Brazil)
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -315,7 +315,7 @@ Description: Zentyal translations for language Portuguese (Brazil)
 
 Package: language-pack-zentyal-ro
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Romanian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -326,7 +326,7 @@ Description: Zentyal translations for language Romanian
 
 Package: language-pack-zentyal-ru
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Russian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -337,7 +337,7 @@ Description: Zentyal translations for language Russian
 
 Package: language-pack-zentyal-sk
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Slovak
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -348,7 +348,7 @@ Description: Zentyal translations for language Slovak
 
 Package: language-pack-zentyal-sr
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Serbian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -359,7 +359,7 @@ Description: Zentyal translations for language Serbian
 
 Package: language-pack-zentyal-sv
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Swedish
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -370,7 +370,7 @@ Description: Zentyal translations for language Swedish
 
 Package: language-pack-zentyal-th
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Thai
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -381,7 +381,7 @@ Description: Zentyal translations for language Thai
 
 Package: language-pack-zentyal-tr
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Turkish
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -392,7 +392,7 @@ Description: Zentyal translations for language Turkish
 
 Package: language-pack-zentyal-uk
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Ukrainian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -403,7 +403,7 @@ Description: Zentyal translations for language Ukrainian
 
 Package: language-pack-zentyal-yo
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Ukrainian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -414,7 +414,7 @@ Description: Zentyal translations for language Ukrainian
 
 Package: language-pack-zentyal-zh-cn
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Chinese (China)
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -425,7 +425,7 @@ Description: Zentyal translations for language Chinese (China)
 
 Package: language-pack-zentyal-zh-tw
 Architecture: all
-Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Chinese (Taiwan)
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
