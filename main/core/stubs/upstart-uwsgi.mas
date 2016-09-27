@@ -15,3 +15,6 @@ ExecStartPre=/bin/sh -c '[ -d <% $socketpath %> ] || install -m 755 -o <% $user 
 ExecStart=/usr/bin/uwsgi --ignore-sigpipe --buffer-size 10240 --plugins 0:psgi --uid <% $user %> --gid <% $group %> --umask 000 -s <% $socketpath %>/<% $socketname %> --psgi <% $script %>
 Restart=on-failure
 RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
