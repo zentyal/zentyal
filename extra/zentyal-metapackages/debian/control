@@ -16,7 +16,7 @@ Description: Zentyal - Core metapackage
 
 Package: zentyal-all
 Architecture: all
-Depends: zentyal, zentyal-samba, zentyal-openchange,
+Depends: zentyal, zentyal-samba, zentyal-squid,
          zentyal-openvpn, zentyal-mail, zentyal-dhcp, zentyal-printers
 Description: Zentyal - All Modules
  Zentyal is a drop-in replacement for Microsoft Small Business Server and
