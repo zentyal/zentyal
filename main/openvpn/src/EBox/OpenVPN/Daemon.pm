@@ -106,18 +106,18 @@ sub _configAttr
 }
 
 #
-# Method: upstartName
+# Method: systemdName
 #
 #  Returns:
-#    the name of the upstart service that controls the daemon
-sub upstartName
+#    the name of the systemd service that controls the daemon
+sub systemdName
 {
     my ($self)  = @_;
-    return __PACKAGE__->upstartNameForDaemon($self->name(), $self->type());
+    return __PACKAGE__->systemdNameForDaemon($self->name(), $self->type());
 }
 
 #
-# Method: upstartNameForDaemon
+# Method: systemdNameForDaemon
 #
 #  Parameters:
 #
@@ -125,8 +125,8 @@ sub upstartName
 #    $name  - daemons's name
 #
 #  Returns:
-#    the name of the upstart service for the daemon type and name given
-sub upstartNameForDaemon
+#    the name of the systemd service for the daemon type and name given
+sub systemdNameForDaemon
 {
     my ($class, $name, $type) = @_;
     $type
@@ -137,16 +137,16 @@ sub upstartNameForDaemon
     return 'ebox.openvpn.' . $type . '.' . $name;
 }
 
-sub _upstartFile
+sub _systemdFile
 {
     my ($self) = @_;
-    return __PACKAGE__->_upstartFileForDaemon($self->name(), $self->type());
+    return __PACKAGE__->_systemdFileForDaemon($self->name(), $self->type());
 }
 
-sub _upstartFileForDaemon
+sub _systemdFileForDaemon
 {
     my ($class, $name, $type) = @_;
-    return  UPSTART_DIR . '/' . $class->upstartNameForDaemon($name, $type) .
+    return  UPSTART_DIR . '/' . $class->systemdNameForDaemon($name, $type) .
         '.conf';
 }
 
@@ -493,7 +493,7 @@ sub setRipPasswd
 sub start
 {
     my ($self) = @_;
-    EBox::Service::manage($self->upstartName, 'start');
+    EBox::Service::manage($self->systemdName, 'start');
 }
 
 #
@@ -503,7 +503,7 @@ sub start
 sub stop
 {
     my ($self) = @_;
-    EBox::Service::manage($self->upstartName, 'stop');
+    EBox::Service::manage($self->systemdName, 'stop');
 }
 
 sub stopDeletedDaemon
@@ -514,14 +514,14 @@ sub stopDeletedDaemon
       or throw EBox::Exceptions::Internal(
                                       "$class is not a openvpn's daemon class");
 
-    # see if we have upstart service
-    my $upstartFile = $class->_upstartFileForDaemon($name, $type);
-    if (not -f $upstartFile) {
+    # see if we have systemd service
+    my $systemdFile = $class->_systemdFileForDaemon($name, $type);
+    if (not -f $systemdFile) {
         return;
     }
 
-    my $upstartService = $class->upstartNameForDaemon($name, $type);
-    EBox::Service::manage($upstartService, 'stop');
+    my $systemdService = $class->systemdNameForDaemon($name, $type);
+    EBox::Service::manage($systemdService, 'stop');
 }
 
 sub deletedDaemonCleanup
@@ -531,7 +531,7 @@ sub deletedDaemonCleanup
 
     try {
         $class->stopDeletedDaemon($name, $type);
-        $class->removeUpstartFileForDaemon($name, $type);
+        $class->removeSystemdFileForDaemon($name, $type);
 
         foreach my $file( $class->daemonFiles($name) ) {
             EBox::Sudo::root("rm -rf '$file'");
@@ -611,18 +611,18 @@ sub isRunning
 {
     my ($self) = @_;
 
-    if (not -f $self->_upstartFile()) {
+    if (not -f $self->_systemdFile()) {
         return undef;
     }
 
-    return EBox::Service::running($self->upstartName);
+    return EBox::Service::running($self->systemdName);
 }
 
-sub writeUpstartFile
+sub writeSystemdFile
 {
     my ($self) = @_;
 
-    my $path    = $self->_upstartFile();
+    my $path    = $self->_systemdFile();
     my $cmd     = $self->_rootCommandForStartDaemon();
     my $limited = $self->limitRespawn();
 
@@ -633,22 +633,22 @@ sub writeUpstartFile
     };
 
     EBox::Module::Base::writeConfFileNoCheck(
-        $path, '/openvpn/upstart.mas',
+        $path, '/openvpn/systemd.mas',
         [ cmd => $cmd, limited => $limited],
         $fileAttrs
        );
 
 }
 
-sub removeUpstartFile
+sub removeSystemdFile
 {
     my ($self) = @_;
 
-    my $path = $self->_upstartFile();
+    my $path = $self->_systemdFile();
     EBox::Sudo::root("rm -f '$path'");
 }
 
-sub removeUpstartFileForDaemon
+sub removeSystemdFileForDaemon
 {
     my ($class, $name, $type) = @_;
     $type
@@ -656,7 +656,7 @@ sub removeUpstartFileForDaemon
     $name
       or throw EBox::Exceptions::MissingArgument('name');
 
-    my $path = $class->_upstartFileForDaemon($name, $type);
+    my $path = $class->_systemdFileForDaemon($name, $type);
     EBox::Sudo::root("rm -f '$path'");
 }
 
@@ -678,8 +678,8 @@ sub toDaemonHash
 {
     my ($self) = @_;
     return {
-             type => 'upstart',
-             name => $self->upstartName(),
+             type => 'systemd',
+             name => $self->systemdName(),
              precondition => sub { $self->isEnabled },
            };
 }

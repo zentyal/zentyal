@@ -1,3 +1,5 @@
+5.0
+	+ Adapt to systemd instead of upstart
 4.2
 	+ Replaced deprecated tls-remote parameter by successor verify-x509-name
 	+ Corrected typo when referring to Second Nameserver

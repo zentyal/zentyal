@@ -11,8 +11,13 @@
 $cmd
 $limited => 0
 </%args>
-exec <% $cmd %>
+[Service]
+ExecStart=<% $cmd %>
+Restart=on-failure
 % if ($limited) {
-respawn limit 5 40
+RestartSec=40
+StartLimitBurst=5
 % }
-respawn
+
+[Install]
+WantedBy=multi-user.target
