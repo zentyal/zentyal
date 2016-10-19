@@ -25,6 +25,8 @@ sudo debootstrap --arch=$ARCH $DIST $CHROOT
 
 sudo cp sources.list $CHROOT/etc/apt/sources.list
 
+cat zenbuntu-core/zentyal-archive.asc | sudo chroot $CHROOT apt-key add -
+
 sudo chroot $CHROOT apt-get update
 
 test -r data/extra-packages.list || exit 1
