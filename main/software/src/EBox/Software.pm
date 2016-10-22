@@ -774,6 +774,12 @@ sub autoUpgradeStats
     }
 }
 
+# FIXME
+sub QAUpdates
+{
+    return 0;
+}
+
 # Group: Private methods
 
 sub _getInfoEBoxPkgs
@@ -885,9 +891,10 @@ sub _candidateVersion
         if ($file->{Archive} =~ /security/) {
             $security = 1;
         }
-        if ($file->{Archive}  eq QA_ARCHIVE) {
-            $qa = 1;
-        }
+        # FIXME: check if package comes from commercial repo
+        #if ($file->{Archive}  eq QA_ARCHIVE) {
+        #    $qa = 1;
+        #}
         if ($security and $qa) {
             last;
         }
