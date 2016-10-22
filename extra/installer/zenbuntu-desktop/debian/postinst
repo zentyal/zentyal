@@ -7,10 +7,11 @@ ln -sf /lib/plymouth/themes/zentyal/zentyal.grub /etc/alternatives/default.plymo
 
 if [ "$1" == "configure" ]
 then
-    echo 'manual' > /etc/init/lxdm.override
+    systemctl disable lxdm.service
 fi
 
 if [ -n "$2" ]
 then
-    rm -f /etc/init/lxdm.override
+    systemctl reenable lxdm.service
+    ln -sf '/lib/systemd/system/lxdm.service' '/etc/systemd/system/multi-user.target.wants/'
 fi
