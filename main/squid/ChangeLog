@@ -1,5 +1,6 @@
 5.0
 	+ Set version to 5.0
+	+ Remove no longer maintained Active Directory integration
 4.0.1
 	+ Fix configuration for external AD
 	+ Do not listen on internal interfaces

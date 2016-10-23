@@ -43,20 +43,6 @@ sub _table
                   editable => 1,
                   defaultValue => 0,
               ),
-#           new EBox::Types::Boolean(
-#                   fieldName => 'https',
-#                   printableName => __('HTTPS Proxy'),
-#                   hidden => \&_sslSupportNotAvailable,
-#                   editable => 1,
-#                   defaultValue => 0,
-#                   #help => __('FIXME: add help'),
-#               ),
-          new EBox::Types::Boolean(
-                  fieldName => 'kerberos',
-                  printableName => __('Enable Single Sign-On (Kerberos)'),
-                  editable => \&_kerberosEnabled,
-                  defaultValue => 0,
-              ),
           new EBox::Types::Boolean(
                   fieldName => 'removeAds',
                   printableName => __('Ad Blocking'),
@@ -101,55 +87,6 @@ sub validateTypedRow
     if (exists $params_r->{port}) {
         $self->_checkPortAvailable($params_r->{port}->value());
     }
-
-    my $trans = exists $params_r->{transparentProxy} ?
-                        $params_r->{transparentProxy}->value() :
-                        $actual_r->{transparentProxy}->value() ;
-    if ($trans) {
-        if ($self->parentModule()->authNeeded()) {
-            throw EBox::Exceptions::External(
-                __('Transparent proxy is incompatible with the users group authorization policy found in some access rules')
-               );
-        }
-
-        my $kerberos =  exists $params_r->{kerberos} ?
-                         $params_r->{kerberos}->value() :
-                         $actual_r->{kerberos}->value() ;
-        if ($kerberos) {
-            throw EBox::Exceptions::External(
-                __('Transparent proxy is incompatible with Kerberos authentication')
-               );
-        }
-#         my $https =  exists $params_r->{https} ?
-#                          $params_r->{https}->value() :
-#                          $actual_r->{https}->value() ;
-#         if ($https) {
-#             throw EBox::Exceptions::External(
-#                 __('Transparent proxy is incompatible with HTTPS proxy')
-#                );
-#         }
-
-    }
-}
-
-# Method: row
-#
-#   Overrided to enable the kerberos authentication when using
-#   external AD authentication
-#
-sub row
-{
-    my ($self) = @_;
-
-    my $row = $self->SUPER::row();
-    my $mode = $self->parentModule->authenticationMode();
-    if ($mode eq $self->parentModule->AUTH_MODE_EXTERNAL_AD()) {
-        my $elem = $row->elementByName('kerberos');
-        unless ($elem->value()) {
-            $elem->setValue(1);
-        }
-    }
-    return $row;
 }
 
 sub _checkPortAvailable
@@ -168,31 +105,10 @@ sub _checkPortAvailable
     }
 }
 
-sub _transparentHelp
-{
-    return  __('Note that you cannot proxy HTTPS ' .
-               'transparently. You will need to add ' .
-               'a firewall rule if you enable this mode.');
-}
-
 sub _commercialMsg
 {
     return __sx('Want to remove ads from the websites your users browse? Get the {oh}Commercial editions{ch} that will keep your Ad blocking rules always up-to-date.',
                 oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
-}
-
-sub _sslSupportNotAvailable
-{
-    return system('ldd /usr/sbin/squid3 | grep -q libssl') != 0;
-}
-
-sub _kerberosEnabled
-{
-    my $mod = EBox::Global->modInstance('squid');
-    my $mode = $mod->authenticationMode();
-
-    return 0 if ($mode eq $mod->AUTH_MODE_EXTERNAL_AD());
-    return 1;
 }
 
 1;

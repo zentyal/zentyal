@@ -2,17 +2,14 @@ class: 'EBox::Squid'
 
 depends:
     - network
-    - samba
 
 enabledepends:
     - firewall
-    - samba
 
 models:
     - GeneralSettings
     - AccessRules
     - NoCacheDomains
-    - NoAuthDomains
     - TransparentExceptions
     - FilterProfiles
     - ContentFilterThreshold
@@ -21,13 +18,12 @@ models:
     - DomainFilter
     - DomainFilterCategories
     - DomainFilterSettings
-    - AntiVirus
     - DelayPools
     - CategorizedLists
 
 composites:
-    General: [GeneralSettings, NoCacheDomains, NoAuthDomains, TransparentExceptions]
-    FilterSettings: [ContentFilterThreshold, AntiVirus]
+    General: [GeneralSettings, NoCacheDomains, TransparentExceptions]
+    FilterSettings: [ContentFilterThreshold]
     Domains: [DomainFilterSettings, DomainFilter]
     ProfileConfiguration: [FilterSettings, Domains, DomainFilterCategories, MIME, Extensions]
 

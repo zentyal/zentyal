@@ -18,7 +18,7 @@ use warnings;
 package EBox::Squid;
 
 use base qw(
-    EBox::Module::Kerberos
+    EBox::Module::Service
     EBox::FirewallObserver
     EBox::LogObserver
     EBox::NetworkObserver
@@ -101,44 +101,6 @@ sub _create
     $self->{logger} = EBox::logger();
     bless ($self, $class);
     return $self;
-}
-
-sub _kerberosServicePrincipals
-{
-    return [ 'HTTP' ];
-}
-
-sub _kerberosKeytab
-{
-    return {
-        path => KEYTAB_FILE,
-        user => 'root',
-        group => 'proxy',
-        mode => '440',
-    };
-}
-
-sub _externalServiceKerberosKeytab
-{
-    my ($self) = @_;
-    my $keytab = $self->_kerberosKeytab();
-    $keytab->{service} = 'http';
-    $keytab->{principals} = $self->_kerberosServicePrincipals();
-    $keytab->{module} = $self->name();
-    return $keytab;
-}
-
-# Method: _kerberosSetup
-#
-#   Override to skip setup if authentication mode is not internal
-#
-sub _kerberosSetup
-{
-    my $self = shift;
-
-    if ($self->authenticationMode() eq AUTH_MODE_INTERNAL) {
-        $self->SUPER::_kerberosSetup(@_);
-    }
 }
 
 # Method: initialSetup
@@ -280,11 +242,6 @@ sub usedFiles
              'reason' => __('Configuration of adzapper'),
             },
             {
-             'file' => SQUID3_DEFAULT_FILE,
-             'module' => 'squid',
-             'reason' => __('Set the kerberos keytab path'),
-            },
-            {
              'file' => KEYTAB_FILE,
              'module' => 'squid',
              'reason' => __('Extract the service principal key'),
@@ -366,21 +323,6 @@ sub transproxy
 
     return $self->model('GeneralSettings')->value('transparentProxy');
 }
-
-# # Method: https
-# #
-# #       Returns if the https mode is enabled
-# #
-# # Returns:
-# #
-# #       boolean - true if enabled, otherwise undef
-# #
-# sub https
-# {
-#     my ($self) = @_;
-
-#     return $self->model('GeneralSettings')->value('https');
-# }
 
 # Method: setPort
 #
@@ -498,18 +440,6 @@ sub filterNeeded
     return 0;
 }
 
-sub authNeeded
-{
-    my ($self) = @_;
-
-    unless ($self->isEnabled()) {
-        return 0;
-    }
-
-    my $rules = $self->model('AccessRules');
-    return $rules->rulesUseAuth();
-}
-
 # Function: usesPort
 #
 #       Implements EBox::FirewallObserver interface
@@ -533,24 +463,12 @@ sub usesPort
     return undef;
 }
 
-sub _configureAuthenticationMode
-{
-    my ($self) = @_;
-
-    my $mode = $self->authenticationMode();
-    if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        my $ad = $self->global()->modInstance('samba')->ldap();
-        $ad->initKeyTabs();
-    }
-}
-
 sub _setConf
 {
     my ($self) = @_;
 
     my $filter = $self->filterNeeded();
 
-    $self->_configureAuthenticationMode();
     $self->_writeDefaultConf();
     $self->_writeSquidConf($filter);
     $self->_writeSquidExternalConf();
@@ -621,13 +539,10 @@ sub _writeSquidConf
     my $squidFilterProfiles = $accesRulesModel->squidFilterProfiles();
 
     my $generalSettings = $self->model('GeneralSettings');
-    my $kerberos = $generalSettings->kerberosValue();
 
     my $global  = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
-    my $users = $global->modInstance('samba');
-    my $krbRealm = $kerberos ? $users->kerberosRealm() : '';
-    my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
+    my $network = $global->modInstance('network');
 
     my @writeParam = ();
     push @writeParam, ('filter' => $filter);
@@ -638,35 +553,35 @@ sub _writeSquidConf
     push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
     push @writeParam, ('hostfqdn' => $sysinfo->fqdn());
-    push @writeParam, ('auth' => $self->authNeeded());
-    push @writeParam, ('principal' => $krbPrincipal);
-    push @writeParam, ('realm'     => $krbRealm);
-    push @writeParam, ('noAuthDomains' => $self->_noAuthDomains());
 
-
-    my $ldap = $users->ldap();
-    my $mode = $self->authenticationMode();
-    if ($mode eq AUTH_MODE_INTERNAL) {
-        push @writeParam, ('dn'       => $ldap->dn());
-        push @writeParam, ('roDn'     => $self->_kerberosServiceAccountDN());
-        push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());
-    }  elsif ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        my $dc = $ldap->dcHostname();
-        my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY,
-            SQUID_ZCONF_FILE);
-        my $adNegativeAclTtl =
-            EBox::Config::configkeyFromFile(
-                AUTH_AD_NEGATIVE_ACL_TTL_KEY, SQUID_ZCONF_FILE);
-        my $adPrincipal = $ldap->hostSamAccountName();
-
-        push (@writeParam, (authModeExternalAD => 1));
-        push (@writeParam, (adDC        => $dc));
-        push (@writeParam, (adAclTTL    => $adAclTtl));
-        push (@writeParam, (adNegativeAclTTL => $adNegativeAclTtl));
-        push (@writeParam, (adPrincipal => $adPrincipal));
-    } else {
-        throw EBox::Exceptions::Internal("Invalid authentication mode: $mode");
+    if ($generalSettings->removeAdsValue()) {
+        push (@writeParam, urlRewriteProgram => BLOCK_ADS_PROGRAM);
+        my @adsParams = ();
+        push (@adsParams, postMatch => $self->getAdBlockPostMatch());
+        $self->writeConfFile(ADZAPPER_CONF, 'squid/adzapper.conf.mas', \@adsParams);
     }
+
+    my $append_domain = $network->model('SearchDomain')->domainValue();
+    push (@writeParam, append_domain => $append_domain);
+
+    push (@writeParam, memory => $self->_cache_mem());
+    push (@writeParam, max_object_size => $self->_max_object_size());
+
+    my $cacheDirSize = $generalSettings->cacheDirSizeValue();
+    push (@writeParam, cacheDirSize => $cacheDirSize);
+    push (@writeParam, nameservers => $network->nameservers());
+
+    my $cache_host   = $network->model('Proxy')->serverValue();
+    my $cache_port   = $network->model('Proxy')->portValue();
+    my $cache_user   = $network->model('Proxy')->usernameValue();
+    my $cache_passwd = $network->model('Proxy')->passwordValue();
+    push (@writeParam, cache_host   => $cache_host);
+    push (@writeParam, cache_port   => $cache_port);
+    push (@writeParam, cache_user   => $cache_user);
+    push (@writeParam, cache_passwd => $cache_passwd);
+
+    push (@writeParam, notCachedDomains => $self->_notCachedDomains());
+    push (@writeParam, objectsDelayPools => $self->_objectsDelayPools());
 
     $self->writeConfFile(SQUID_CONF_FILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});
     if (EBox::Config::boolean('debug')) {
@@ -674,75 +589,6 @@ sub _writeSquidConf
     }
 
     $self->writeConfFile(SQUID_LOGROTATE_CONF, 'squid/squid3.logrotate.mas', []);
-}
-
-sub _writeSquidExternalConf
-{
-    my ($self) = @_;
-
-    my $globalRO = EBox::Global->getInstance(1);
-    my $global  = $self->global();
-    my $network = $global->modInstance('network');
-    my $users   = $global->modInstance('samba');
-    my $sysinfo = $global->modInstance('sysinfo');
-    my $generalSettings = $self->model('GeneralSettings');
-
-    my $writeParam = [];
-
-    my @ifaces = @{ $network->ExternalIfaces() };
-    my @listenAddr = map {
-        my @addrs = map {
-            ($_->{address})
-        } @{ $network->ifaceAddresses($_) };
-        @addrs;
-    } @ifaces;
-
-    if (not @listenAddr) {
-        throw EBox::Exceptions::Internal("No external interfaces addresses to listen found");
-    }
-    push @{$writeParam}, listenAddr => \@listenAddr;
-
-    push (@{$writeParam}, port => SQUID_EXTERNAL_PORT);
-    push (@{$writeParam}, hostfqdn => $sysinfo->fqdn());
-
-    if ($generalSettings->kerberosValue()) {
-        push (@{$writeParam}, realm => $users->kerberosRealm);
-    }
-
-    if ($generalSettings->removeAdsValue()) {
-        push (@{$writeParam}, urlRewriteProgram => BLOCK_ADS_PROGRAM);
-        my @adsParams = ();
-        push (@adsParams, postMatch => $self->getAdBlockPostMatch());
-        $self->writeConfFile(ADZAPPER_CONF, 'squid/adzapper.conf.mas', \@adsParams);
-    }
-
-    my $append_domain = $network->model('SearchDomain')->domainValue();
-    push (@{$writeParam}, append_domain => $append_domain);
-
-    push (@{$writeParam}, memory => $self->_cache_mem());
-    push (@{$writeParam}, max_object_size => $self->_max_object_size());
-
-    my $cacheDirSize = $generalSettings->cacheDirSizeValue();
-    push (@{$writeParam}, cacheDirSize => $cacheDirSize);
-    push (@{$writeParam}, nameservers => $network->nameservers());
-
-    my $cache_host   = $network->model('Proxy')->serverValue();
-    my $cache_port   = $network->model('Proxy')->portValue();
-    my $cache_user   = $network->model('Proxy')->usernameValue();
-    my $cache_passwd = $network->model('Proxy')->passwordValue();
-    push (@{$writeParam}, cache_host   => $cache_host);
-    push (@{$writeParam}, cache_port   => $cache_port);
-    push (@{$writeParam}, cache_user   => $cache_user);
-    push (@{$writeParam}, cache_passwd => $cache_passwd);
-
-    push (@{$writeParam}, notCachedDomains => $self->_notCachedDomains());
-    push (@{$writeParam}, objectsDelayPools => $self->_objectsDelayPools());
-
-    $self->writeConfFile(SQUID_EXTERNAL_CONF_FILE, 'squid/squid-external.conf.mas',
-                         $writeParam, { mode => '0640'});
-    if (EBox::Config::boolean('debug')) {
-        $self->_checkSquidFile(SQUID_EXTERNAL_CONF_FILE);
-    }
 }
 
 sub _checkSquidFile
@@ -860,14 +706,8 @@ sub _writeCronFile
     my $times;
     my @cronTimes;
 
-    my $usingExternalAD = ($self->authenticationMode() eq $self->AUTH_MODE_EXTERNAL_AD());
-    my $usingExternalADGroups = 0;
-
     my $rules = $self->model('AccessRules');
     foreach my $profile (@{$rules->filterProfiles()}) {
-        if ($usingExternalAD and exists($profile->{users})) {
-            $usingExternalADGroups = 1;
-        }
         next unless $profile->{usesFilter} and $profile->{timePeriod};
         if ($profile->{policy} eq 'deny') {
             # this is managed in squid, we don't need to rewrite DG files for it
@@ -893,11 +733,6 @@ sub _writeCronFile
         my ($hour, $min) = split (':', $time);
         my $days = join (',', sort (keys %{$times->{$time}}));
         push (@cronTimes, { days => $days, hour => $hour, min => $min });
-    }
-
-    # Synchronise AD groups every 30min
-    if ($usingExternalADGroups) {
-        push(@cronTimes, { days => '*', hour => '*', min => '*/30' });
     }
 
     $self->writeConfFile(CRONFILE, 'squid/zentyal-squid.cron.mas', [ times => \@cronTimes ]);
@@ -956,16 +791,8 @@ sub writeDgGroups
         }
     }
 
-    my $generalSettings = $self->model('GeneralSettings');
-    my $realm = '';
-    if ($generalSettings->kerberosValue()) {
-        my $users = $self->global()->modInstance('samba');
-        $realm = '@' . $users->kerberosRealm();
-    }
-
     my @writeParams = ();
     push (@writeParams, groups => \@groups);
-    push (@writeParams, realm => $realm);
     $self->writeConfFile(DGLISTSDIR . '/filtergroupslist',
                          'squid/filtergroupslist.mas',
                          \@writeParams, { mode => '0644'});
@@ -1020,14 +847,6 @@ sub _notCachedDomains
     my $model = $self->model('NoCacheDomains');
     return $model->notCachedDomains();
 }
-sub _noAuthDomains
-{
-    my ($self) = @_;
-
-    my $model = $self->model('NoAuthDomains');
-    return $model->noAuthDomains();
-}
-
 sub _dgProfiles
 {
     my ($self) = @_;
