@@ -1163,7 +1163,7 @@ sub _sslRetrievalServices
 {
     my ($self) = @_;
     my $retrievalServices = $self->model('RetrievalServices');
-    return $retrievalServices->pop3sValue() or $retrievalServices->imapsValue();
+    return $retrievalServices->pop3sValue() || $retrievalServices->imapsValue();
 }
 
 #
@@ -1328,11 +1328,11 @@ sub service
         return $self->isEnabled();
     }
     elsif ($service eq 'pop') { # that e
-        return $self->model('RetrievalServices')->pop3Value() or
+        return $self->model('RetrievalServices')->pop3Value() ||
             $self->model('RetrievalServices')->pop3sValue();
     }
     elsif ($service eq 'imap') {
-        return $self->model('RetrievalServices')->imapValue() or
+        return $self->model('RetrievalServices')->imapValue() ||
             $self->model('RetrievalServices')->imapsValue();
     }
     elsif ($service eq 'filter') {
