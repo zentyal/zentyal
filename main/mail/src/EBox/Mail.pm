@@ -50,15 +50,15 @@ use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 use EBox::SyncFolders::Folder;
 use EBox::Samba::User;
-use Samba::Security::Descriptor qw(
-    SEC_ACE_TYPE_ACCESS_ALLOWED
-    SEC_ACE_FLAG_CONTAINER_INHERIT
-    SEC_ADS_READ_PROP
-    SEC_ADS_LIST
-    SEC_ADS_LIST_OBJECT
-    SEC_STD_READ_CONTROL
-);
-use Samba::Security::AccessControlEntry;
+#use Samba::Security::Descriptor qw(
+#    SEC_ACE_TYPE_ACCESS_ALLOWED
+#    SEC_ACE_FLAG_CONTAINER_INHERIT
+#    SEC_ADS_READ_PROP
+#    SEC_ADS_LIST
+#    SEC_ADS_LIST_OBJECT
+#    SEC_STD_READ_CONTROL
+#);
+#use Samba::Security::AccessControlEntry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use TryCatch;
@@ -184,8 +184,6 @@ sub usedFiles
 {
     my ($self) = @_;
 
-    my @greylistFiles =   @{ $self->greylist()->usedFiles() };
-
     return [
             {
               'file' => MAILMAINCONFFILE,
@@ -240,7 +238,6 @@ sub usedFiles
                 reason => __('To let dovecot authenticate users using PAM'),
                 module => 'mail',
             },
-            @greylistFiles
     ];
 }
 
@@ -389,32 +386,33 @@ sub setupLDAP
                 dn => $param->{base}, count => $result->count()));
     }
 
-    my $entry = $result->entry(0);
-    my $sdBlob = $entry->get_value('nTSecurityDescriptor');
-    my $sd = new Samba::Security::Descriptor();
-    $sd->unmarshall($sdBlob, length($sdBlob));
+    # FIXME: is this needed or can be workarounded without perl bindings?
+    #my $entry = $result->entry(0);
+    #my $sdBlob = $entry->get_value('nTSecurityDescriptor');
+    #my $sd = new Samba::Security::Descriptor();
+    #$sd->unmarshall($sdBlob, length($sdBlob));
 
-    my $accessMask = SEC_ADS_READ_PROP |
-                     SEC_ADS_LIST |
-                     SEC_ADS_LIST_OBJECT |
-                     SEC_STD_READ_CONTROL;
-    my $ace = new Samba::Security::AccessControlEntry($sid,
-        SEC_ACE_TYPE_ACCESS_ALLOWED, $accessMask,
-        SEC_ACE_FLAG_CONTAINER_INHERIT);
-    $sd->dacl_add($ace);
-    $entry->replace(nTSecurityDescriptor => $sd->marshall);
-    $result = $entry->update($ldap->connection());
-    if ($result->is_error()) {
-        unless ($result->code() == LDAP_LOCAL_ERROR and
-                $result->error() eq 'No attributes to update')
-        {
-            throw EBox::Exceptions::LDAP(
-                message => __('Error on LDAP entry creation:'),
-                result => $result,
-                opArgs => EBox::Samba::LdapObject->entryOpChangesInUpdate($entry),
-            );
-        }
-    }
+    #my $accessMask = SEC_ADS_READ_PROP |
+    #                 SEC_ADS_LIST |
+    #                 SEC_ADS_LIST_OBJECT |
+    #                 SEC_STD_READ_CONTROL;
+    #my $ace = new Samba::Security::AccessControlEntry($sid,
+    #    SEC_ACE_TYPE_ACCESS_ALLOWED, $accessMask,
+    #    SEC_ACE_FLAG_CONTAINER_INHERIT);
+    #$sd->dacl_add($ace);
+    #$entry->replace(nTSecurityDescriptor => $sd->marshall);
+    #$result = $entry->update($ldap->connection());
+    #if ($result->is_error()) {
+    #    unless ($result->code() == LDAP_LOCAL_ERROR and
+    #            $result->error() eq 'No attributes to update')
+    #    {
+    #        throw EBox::Exceptions::LDAP(
+    #            message => __('Error on LDAP entry creation:'),
+    #            result => $result,
+    #            opArgs => EBox::Samba::LdapObject->entryOpChangesInUpdate($entry),
+    #        );
+    #    }
+    #}
 
     # vdomains should be regnenerated to setup user correctly
     $self->{vdomains}->regenConfig();
