@@ -162,12 +162,12 @@ sub _create_system_stuff
 
     unless (-f '/etc/zentyal/zentyal.conf') {
         system ("sudo mkdir /etc/zentyal");
-        system ("sudo cp common/conf/zentyal.conf /etc/zentyal/");
+        system ("sudo cp core/conf/zentyal.conf /etc/zentyal/");
     }
 
     unless (-f '/var/lib/zentyal/conf/eboxlog.conf') {
         system ("sudo mkdir -p /var/lib/zentyal/conf");
-        system ("sudo cp common/extra/eboxlog.conf /var/lib/zentyal/conf/");
+        system ("sudo cp core/extra/eboxlog.conf /var/lib/zentyal/conf/");
     }
 
     unless (-d '/var/log/zentyal') {

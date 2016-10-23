@@ -2,7 +2,6 @@
   @backups => ()
   $modulesChanged => 1
   $subscribed => undef
-  $openchange => 0
 </%args>
 <%init>
 use EBox::Gettext;

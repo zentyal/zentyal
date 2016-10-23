@@ -148,7 +148,6 @@ sub masonParameters
     push @params, (selected => 'local');
 
     my $subscribed = 0;
-    push @params, (openchange => 0));
     push @params, (subscribed => $subscribed);
 
     return \@params;
