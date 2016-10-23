@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-sogo
 Architecture: all
 Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
-         zentyal-mail, sogo, zip
+         zentyal-mail, sogo, sogo-activesync, zip
 Description: Zentyal - Web Mail
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

@@ -7,6 +7,6 @@ a2enmod headers
 
 a2enmod ssl
 
-service apache2 restart
+systemctl restart apache2
 
 exit 0
