@@ -1,5 +1,5 @@
 [Unit]
-Description=Zentyal redis daemon
+Description=Zentyal logger daemon
 
 [Service]
 ExecStart=/usr/share/zentyal/loggerd
