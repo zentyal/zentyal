@@ -3,6 +3,7 @@
 	+ Use Clone instead of Clone::Fast
 	+ Some code adaptation to remove warnings with changes in Perl 5.2X
 	+ Remove deprecated 'remoteservices' internal module
+	+ Get list of interfaces from /sys/class/net
 4.2.2
 	+ Allow upgrade of packages that are not present in QA repo
 	+ Avoid crash in manage-logs script with undefined mods

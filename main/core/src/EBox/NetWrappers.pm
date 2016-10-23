@@ -27,7 +27,7 @@ use Perl6::Junction qw(any);
 use EBox::Validate;
 use EBox::Sysfs;
 use IO::Socket::INET;
-use Net::Interface;
+use File::Slurp qw(read_dir);
 
 BEGIN {
     use Exporter ();
@@ -80,7 +80,7 @@ sub iface_exists
 sub list_ifaces
 {
     unless (@ifaceList) {
-        @ifaceList = map { $_->{name} } Net::Interface->interfaces();
+        @ifaceList = @{read_dir('/sys/class/net')};
         @ifaceList = grep (!/:/, @ifaceList);
         @ifaceList = sort @ifaceList;
     }
