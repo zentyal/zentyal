@@ -23,6 +23,7 @@ if (not $component) {
     $component =  $tabs{$selected}->{component};
 }
 </%init>
+<!-- Tabs are disabled
 <ul class='tabs'>
 % foreach my $tab (@tabsOrder) {
 %     if($selected eq $tab) {
@@ -33,5 +34,6 @@ if (not $component) {
 % }
 
 </ul>
+-->
 <& $component, %args &>
 
