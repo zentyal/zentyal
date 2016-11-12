@@ -471,7 +471,7 @@ sub _isDaemonRunning
         return 1;
     }
 
-    if (daemon_type($daemon) eq 'upstart') {
+    if (daemon_type($daemon) eq 'systemd') {
         try {
             return EBox::Service::running($dname);
         } catch (EBox::Exceptions::Internal $e) {
@@ -497,7 +497,7 @@ sub _isDaemonRunning
             return 0;
         }
     } else {
-        throw EBox::Exceptions::Internal("Service type must be either 'upstart' or 'init.d'");
+        throw EBox::Exceptions::Internal("Service type must be either 'systemd' or 'init.d'");
     }
 }
 
@@ -507,7 +507,7 @@ sub _isDaemonRunning
 #
 #   Modules with complex service management must
 #   override this method to carry out their custom checks which can
-#   involve checking an upstart script, an existing PID...
+#   involve checking an systemd script, an existing PID...
 #
 #   By default it returns true if all the system services specified in
 #   daemons are running
@@ -643,7 +643,7 @@ sub daemon_type
     if($daemon->{'type'}) {
         return $daemon->{'type'};
     } else {
-        return 'upstart';
+        return 'systemd';
     }
 }
 
@@ -712,7 +712,7 @@ sub saveReload
 # Returns:
 #
 #   An array of hashes containing keys 'name' and 'type', 'name' being the
-#   name of the service and 'type' either 'upstart' or 'init.d', depending
+#   name of the service and 'type' either 'systemd' or 'init.d', depending
 #   on how the module should be managed.
 #
 #   If the type is 'init.d' an extra 'pidfiles' key is needed with the paths
@@ -735,11 +735,11 @@ sub saveReload
 #    return [
 #        {
 #            'name' => 'ebox.jabber.jabber-router',
-#            'type' => 'upstart'
+#            'type' => 'systemd'
 #        },
 #        {
 #            'name' => 'ebox.jabber.jabber-resolver',
-#            'type' => 'upstart',
+#            'type' => 'systemd',
 #            'precondition' => \&externalConnection
 #        }
 #    ];
@@ -775,12 +775,12 @@ sub _manageDaemon
     my $dname = $daemon->{name};
     my $type = daemon_type($daemon);
 
-    if ($type eq 'upstart') {
+    if ($type eq 'systemd') {
         EBox::Service::manage($dname, $action);
     } elsif ($type eq 'init.d') {
         EBox::Sudo::root("service $dname $action");
     } else {
-        throw EBox::Exceptions::Internal("Service type must be either 'upstart' or 'init.d'");
+        throw EBox::Exceptions::Internal("Service type must be either 'systemd' or 'init.d'");
     }
 }
 

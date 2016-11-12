@@ -208,7 +208,7 @@ sub _writeConfFiles
     foreach my $daemon (@daemons) {
         $daemon->createDirectories();
         $daemon->writeConfFile($confDir);
-        $daemon->writeUpstartFile();
+        $daemon->writeSystemdFile();
     }
 }
 

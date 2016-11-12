@@ -30,7 +30,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::NotImplemented;
 
-use constant UPSTART_DIR => '/etc/init';
+use constant SYSTEMD_DIR => '/lib/systemd/system';
 use constant RUN_DIR     => '/var/run/';
 
 sub new
@@ -146,8 +146,7 @@ sub _systemdFile
 sub _systemdFileForDaemon
 {
     my ($class, $name, $type) = @_;
-    return  UPSTART_DIR . '/' . $class->systemdNameForDaemon($name, $type) .
-        '.conf';
+    return  SYSTEMD_DIR . '/' . $class->systemdNameForDaemon($name, $type) .  '.service';
 }
 
 sub ifaceNumber
