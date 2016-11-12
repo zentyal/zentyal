@@ -1099,9 +1099,9 @@ sub _uidSyncEnabled
 sub _daemonsToDisable
 {
     return [
-        { 'name' => 'smbd', 'type' => 'upstart' },
-        { 'name' => 'nmbd', 'type' => 'upstart' },
-        { 'name' => 'winbind', 'type' => 'upstart' },
+        { 'name' => 'smbd', 'type' => 'init.d' },
+        { 'name' => 'nmbd', 'type' => 'init.d' },
+        { 'name' => 'winbind', 'type' => 'init.d' },
     ];
 }
 
