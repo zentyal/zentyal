@@ -611,8 +611,7 @@ sub _daemons
 {
     return [
         {
-            'name' => 'bind9',
-            'type' => 'init.d'
+            'name' => 'bind9'
         }
     ];
 }
