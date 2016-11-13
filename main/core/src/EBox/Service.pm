@@ -79,8 +79,8 @@ sub running # (daemon)
         throw EBox::Exceptions::Internal("No such daemon: $daemon");
     }
 
-    my $status = EBox::Sudo::silentRoot("systemctl status '$daemon'");
-    return ($status->[0] =~ m{^$daemon active \(running\)});
+    EBox::Sudo::silentRoot("systemctl status '$daemon' | grep 'Active: active (running)'");
+    return ($? == 0);
 }
 
 1;
