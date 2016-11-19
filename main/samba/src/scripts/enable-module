@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Unmask/enable systemd service
+systemctl unmask samba-ad-dc
+systemctl enable samba-ad-dc
+
 # Remount filesystem with user_xattr and acl options
 /usr/share/zentyal-samba/setup-filesystem
 
