@@ -1,4 +1,5 @@
 5.0
+	+ Integrate Samba 4.4
 	+ Remove perl bindings to use just samba upstream packages,
 	  current sysvol sync also deprecated, workaround at
 	  https://wiki.samba.org/index.php/Rsync_based_SysVol_replication_workaround
