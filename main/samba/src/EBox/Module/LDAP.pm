@@ -195,7 +195,7 @@ sub _connectToSchemaMaster
     my $masterBind = $masterLdap->bind(sasl => $saslClient);
     if ($masterBind->is_error()) {
         throw EBox::Exceptions::LDAP(
-            message => __('Error binding to schama master LDAP:'),
+            message => __('Error binding to schema master LDAP:'),
             result => $masterBind);
     }
 
