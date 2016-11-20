@@ -1137,20 +1137,14 @@ sub _overrideDaemons
 
     my @cmds;
     foreach my $daemon (@daemons) {
-        my $name = $daemon->{name};
-        push (@cmds, "service $name stop");
+        push (@cmds, "systemctl stop $daemon->{name}");
     }
     EBox::Sudo::silentRoot(@cmds);
 
     @cmds = ();
     push (@daemons, @{$self->_daemons()});
     foreach my $daemon (@daemons) {
-        my $name = $daemon->{name};
-        if (($daemon->{type}) and ($daemon->{type} eq 'init.d')) {
-            push (@cmds, "update-rc.d $name disable");
-        } else {
-            push (@cmds, "echo manual > /etc/init/$name.override");
-        }
+        push (@cmds, "systemctl disable $daemon->{name}");
     }
     EBox::Sudo::silentRoot(@cmds);
 }
