@@ -616,20 +616,6 @@ sub _daemons
     ];
 }
 
-# Method: _daemonsToDisable
-#
-#  Overrides <EBox::Module::Service::_daemonsToDisable>
-#
-sub _daemonsToDisable
-{
-    return [
-        {
-            'name' => 'bind9',
-            'type' => 'init.d'
-        }
-    ];
-}
-
 # Method: _preSetConf
 #
 #
