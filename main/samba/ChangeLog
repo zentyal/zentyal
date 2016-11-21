@@ -7,6 +7,8 @@
 	+ Use winbind instead of sssd
 	+ Remove deprecated scannedonly integration
 	+ Adapt code to perl 5.22
+	+ Enforce dependency on libnet-ldap-perl 0.58 (package from trusty copied
+	  to zentyal archive), as 0.65 version from xenial has regressions
 4.2.3
 	+ Add cron to flush idmap cache to avoid auth issues
 4.2.2
