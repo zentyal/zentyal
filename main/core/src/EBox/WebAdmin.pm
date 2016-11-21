@@ -209,7 +209,7 @@ sub _writeNginxConfFile
     push (@confFileParams, module => $self->printableName());
     push (@confFileParams, user   => EBox::Config::user());
     push (@confFileParams, group  => EBox::Config::group());
-    EBox::Module::Base::writeConfFileNoCheck("$systemdPathPrefix-uwsgi.serivce", $systemdFile, \@confFileParams, $permissions);
+    EBox::Module::Base::writeConfFileNoCheck("$systemdPathPrefix-uwsgi.service", $systemdFile, \@confFileParams, $permissions);
 }
 
 sub _setLanguage
