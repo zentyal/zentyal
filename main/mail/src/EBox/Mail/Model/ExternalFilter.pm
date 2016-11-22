@@ -181,3 +181,5 @@ sub _checkFWPort
         return;
     $firewall->availablePort('tcp', $params_r->{fwport}->value());
 }
+
+1;
