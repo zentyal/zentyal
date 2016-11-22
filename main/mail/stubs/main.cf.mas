@@ -30,8 +30,6 @@
     $greylist
     $greylistAddr
     $greylistPort
-
-    $openchangeProvisioned
 </%args>
 <%init>
 use EBox::Gettext;

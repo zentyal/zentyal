@@ -2,8 +2,6 @@
     $uid
     $gid
 
-    $openchange
-    $notificationsReady
     %protocols
 
     $firstValidUid
@@ -21,7 +19,7 @@ my @protocolsReduced;
 if ($protocols{pop3} or $protocols{pop3s}) {
     push @protocolsReduced, 'pop3';
 }
-if ($openchange or $protocols{imap} or $protocols{imaps}) {
+if ($protocols{imap} or $protocols{imaps}) {
     push @protocolsReduced, 'imap';
 }
 if ($protocols{managesieve}) {
@@ -83,13 +81,6 @@ passdb {
     driver = ldap
     args = /etc/dovecot/dovecot-ldap.conf
 }
-
-% if ($openchange) {
-passdb {
-    driver = sql
-    args = /etc/dovecot/dovecot-sql.conf
-}
-% }
 
 disable_plaintext_auth = yes
 
@@ -182,9 +173,8 @@ mail_home     = <% $mailboxesDir %>/%d/%u
 ##
 ## dbox-specific settings
 ##
-% if ($openchange or $protocols{'imap'} or $protocols{'imaps'}) {
+% if ($protocols{'imap'} or $protocols{'imaps'}) {
    <& .imap,
-      openchange => $openchange,
       imap => $protocols{'imap'},
       imaps => $protocols{'imaps'},
       antispamPlugin => $antispamPlugin,
@@ -215,14 +205,7 @@ protocol lda {
 
   # Enabling Sieve plugin for server-side mail filtering and quota for quota
   # support
-% my $ldaPlugins = "sieve quota";
-
-% if ($notificationsReady) {
-    mail_plugins = <% $ldaPlugins %> notify openchange
-% } else {
-    mail_plugins = <% $ldaPlugins %>
-% }
-
+  mail_plugins = sieve quota
 }
 
 ##
@@ -255,16 +238,15 @@ plugin {
 
 <%def .imap>
 <%args>
-$openchange
 $imap
 $imaps
 $antispamPlugin
 </%args>
 <%init>
 my $imapAddress = $imap ? '*' : '127.0.0.1';
-my $imapPort = ($imap or $openchange) ? 143: 0;
+my $imapPort = $imap ? 143: 0;
 my $imapsAddress = $imaps ? '*' : '127.0.0.1';
-my $imapsPort = ($imaps or $openchange) ? 993: 0;
+my $imapsPort = $imaps ? 993: 0;
 my @imapPlugins = qw(quota imap_quota);
 push @imapPlugins, 'antispam' if $antispamPlugin->{enabled};
 </%init>

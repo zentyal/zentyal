@@ -562,7 +562,6 @@ sub _setMailConf
     push @args, ('greylist' =>     $greylist->isEnabled() );
     push @args, ('greylistAddr' => $greylist->address());
     push @args, ('greylistPort' => $greylist->port());
-    push @args, ('openchangeProvisioned' => $self->openchangeProvisioned());
     $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@args, $filePermissions);
 
     @args = ();
@@ -719,18 +718,6 @@ sub _setDovecotConf
     my $gid = scalar(getgrnam('ebox'));
     my $gssapiHostname = $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
-    my $openchange = 0;
-    my $notificationsReady = 0;
-    my $openchangeMod;
-
-    if ($self->global->modExists('openchange')) {
-        $openchangeMod = $self->global->modInstance('openchange');
-        if ($openchangeMod->isEnabled() and $openchangeMod->isProvisioned()) {
-            $openchange = 1;
-            $notificationsReady = $openchangeMod->notificationsReady();
-        }
-    }
-
     my $filePermissions = {
         uid => 0,
         gid => 0,
@@ -749,8 +736,6 @@ sub _setDovecotConf
     push @params, (antispamPlugin => 0);
     push @params, (keytabPath => KEYTAB_FILE);
     push @params, (gssapiHostname => $gssapiHostname);
-    push @params, (openchange => $openchange);
-    push @params, (notificationsReady => $notificationsReady);
 
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas", \@params, $filePermissions);
 
@@ -770,12 +755,6 @@ sub _setDovecotConf
     push @params, (bindDNPwd    => $self->_kerberosServiceAccountPassword());
 
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params, $restrictiveFilePermissions);
-
-    if ($openchange) {
-        @params = ();
-        push (@params, masterPassword => $openchangeMod->getImapMasterPassword());
-        $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params, $restrictiveFilePermissions);
-    }
 }
 
 sub _setArchivemailConf
@@ -1773,19 +1752,6 @@ sub reprovisionLDAP
 
     # regenerate mail ldap tree
 #    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
-}
-
-sub openchangeProvisioned
-{
-    my ($self) = @_;
-
-    my $globalInstance = $self->global();
-    if ( $globalInstance->modExists('openchange') ) {
-        my $openchange = $globalInstance->modInstance('openchange');
-        return ($openchange->isEnabled() and $openchange->isProvisioned());
-    }
-
-    return 0;
 }
 
 # Method: checkMailNotInUse

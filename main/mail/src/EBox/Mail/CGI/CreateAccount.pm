@@ -60,7 +60,6 @@ sub _process
     my $newAccount = $lhs . '@' .$vdomain;
     $self->{json}->{msg} = __x('{acc} account created', acc => $newAccount);
     $self->{json}->{mail} = $newAccount;
-    $self->{json}->{ocEnabled} = $mail->{musers}->openchangeAccountEnabled($user);
     $self->{json}->{success} = 1;
 }
 
