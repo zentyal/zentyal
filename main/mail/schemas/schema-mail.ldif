@@ -9,7 +9,6 @@ description: The absolute path to the mailbox for a mail account in a non-defaul
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
--
 
 dn: CN=mailquota,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -22,7 +21,6 @@ description: A string that represents the quota on a mailbox
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
--
 
 dn: CN=clearPassword,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -35,7 +33,6 @@ description: A separate text that stores the mail account password in clear text
 attributeSyntax: 2.5.5.10
 oMSyntax: 4
 isSingleValued: FALSE
--
 
 dn: CN=maildrop,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -48,7 +45,6 @@ description: RFC822 Mailbox - mail alias
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: FALSE
--
 
 dn: CN=mailsource,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -61,7 +57,6 @@ description: Message source
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: FALSE
--
 
 dn: CN=virtualdomain,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -74,7 +69,6 @@ description: A mail domain
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: FALSE
--
 
 dn: CN=virtualdomainuser,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -87,7 +81,6 @@ description: Mailbox that receives mail for a mail domain
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: FALSE
--
 
 dn: CN=defaultdelivery,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -100,13 +93,11 @@ description: Default mail delivery instructions
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: FALSE
--
 
 dn:
 changetype: modify
 replace: schemaupdatenow
 schemaupdatenow: 1
--
 
 dn: CN=CourierMailAlias,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -123,13 +114,11 @@ mayContain: mailsource
 mayContain: description
 defaultObjectCategory: CN=CourierMailAlias,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 possSuperiors: top
--
 
 dn:
 changetype: modify
 replace: schemaupdatenow
 schemaupdatenow: 1
--
 
 # governsID is the same that CourierDomailAlias, must change it
 dn: CN=CourierVirtualDomain,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
@@ -145,10 +134,8 @@ mustContain: virtualdomain
 mayContain: description
 defaultObjectCategory: CN=CourierVirtualDomain,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 possSuperiors: top
--
 
 dn:
 changetype: modify
 replace: schemaupdatenow
 schemaupdatenow: 1
--
