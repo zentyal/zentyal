@@ -733,7 +733,6 @@ sub _setDovecotConf
     push @params, (firstValidGid => $gid);
     push @params, (mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
     push @params, (postmasterAddress => $self->postmasterAddress(0, 1));
-    push @params, (antispamPlugin => 0);
     push @params, (keytabPath => KEYTAB_FILE);
     push @params, (gssapiHostname => $gssapiHostname);
 
