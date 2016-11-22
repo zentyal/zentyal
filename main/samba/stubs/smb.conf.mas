@@ -27,6 +27,7 @@ use EBox::Gettext;
     server services = -dns
     server signing = auto
     dsdb:schema update allowed = yes
+    ldap server require strong auth = no
     drs:max object sync = 1200
 
     idmap_ldb:use rfc2307 = yes
