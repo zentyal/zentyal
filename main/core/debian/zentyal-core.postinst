@@ -98,9 +98,9 @@ case "$1" in
         # create Zentyal webadmin certificates
         /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl `hostname --fqdn` > /dev/null 2>&1
 
-        # stop disable default nginx init.d script
-        service nginx stop > /dev/null 2>&1
-        update-rc.d nginx disable > /dev/null 2>&1
+        # stop and disable default nginx
+        systemctl stop nginx > /dev/null 2>&1
+        systemctl disable nginx > /dev/null 2>&1
 
         if [ -z "$2" ]; then
             # Set Zentyal port only if it's the first time we install
