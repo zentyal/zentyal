@@ -13,7 +13,7 @@ Package: zentyal-dhcp
 Architecture: all
 Pre-Depends: zentyal-core
 Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1), zentyal-firewall,
-         isc-dhcp-server, tftpd-hpa, libtext-dhcpleases-perl, ${misc:Depends}
+         isc-dhcp-server, libtext-dhcpleases-perl, ${misc:Depends}
 Suggests: pxe, etherboot
 Description: Zentyal - DHCP Server
  Zentyal is a Linux small business server that can act as

@@ -218,22 +218,12 @@ sub _daemons
             'name' => DHCP_SERVICE,
             'precondition' => $preSub
         },
-        {
-            'name' => TFTP_SERVICE,
-            'precondition' => $preSub
-        }
+       # FIXME
+       # {
+       #     'name' => TFTP_SERVICE,
+       #     'precondition' => $preSub
+       # }
     ];
-}
-
-# Method: _daemonsToDisable
-#
-# Overrides:
-#
-#   <EBox::Module::Service::_daemonsToDisable>
-#
-sub _daemonsToDisable
-{
-    return [ { 'name' => 'isc-dhcp-server', 'type' => 'init.d' } ];
 }
 
 sub _dhcpDaemonNeeded
@@ -255,7 +245,8 @@ sub _setConf
 {
     my ($self) = @_;
     $self->_setDHCPConf();
-    $self->_setTFTPDConf();
+    # FIXME
+    #$self->_setTFTPDConf();
 }
 
 # Method: menu
