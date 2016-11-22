@@ -75,12 +75,10 @@ use constant MAILBOX_CF_FILE          => '/etc/postfix/mailbox.cf';
 use constant VDOMAINS_CF_FILE         => '/etc/postfix/vdomains.cf';
 use constant LOGIN_CF_FILE            => '/etc/postfix/login.cf';
 
-use constant MASTER_PID_FILE          => '/var/spool/postfix/pid/master.pid';
 use constant MAIL_ALIAS_FILE          => '/etc/aliases';
 use constant DOVECOT_CONFFILE         => '/etc/dovecot/dovecot.conf';
 use constant DOVECOT_LDAP_CONFFILE    =>  '/etc/dovecot/dovecot-ldap.conf';
 use constant DOVECOT_SQL_CONFFILE     =>  '/etc/dovecot/dovecot-sql.conf';
-use constant MAILINIT                 => 'postfix';
 use constant BYTES                    => '1048576';
 use constant DOVECOT_SERVICE          => 'dovecot';
 use constant TRANSPORT_FILE           => '/etc/postfix/transport';
@@ -88,7 +86,7 @@ use constant SASL_PASSWD_FILE         => '/etc/postfix/sasl_passwd';
 use constant MAILNAME_FILE            => '/etc/mailname';
 use constant VDOMAINS_MAILBOXES_DIR   => '/var/vmail';
 use constant ARCHIVEMAIL_CRON_FILE    => '/etc/cron.daily/archivemail';
-use constant FETCHMAIL_SERVICE        => 'ebox.fetchmail';
+use constant FETCHMAIL_SERVICE        => 'fetchmail';
 use constant ALWAYS_BCC_TABLE_FILE    => '/etc/postfix/alwaysbcc';
 use constant SIEVE_SCRIPTS_DIR        => '/var/vmail/sieve';
 use constant BOUNCE_ADDRESS_KEY       => 'SMTPOptions/bounceReturnAddress';
@@ -1009,12 +1007,10 @@ sub _daemons
 
     my $daemons = [
         {
-            'name' => MAILINIT,
-            'type' => 'init.d',
-            'pidfiles' => [MASTER_PID_FILE],
+            name => 'postfix',
         },
         {
-         name => DOVECOT_SERVICE,
+            name => DOVECOT_SERVICE,
         },
         {
             name => FETCHMAIL_SERVICE,
@@ -1299,8 +1295,6 @@ sub _preSetConf
         my $vdomainsLdap = new EBox::MailVDomainsLdap;
         $vdomainsLdap->regenConfig();
     }
-
-    $self->greylist()->writeUpstartFile();
 }
 
 # Method: service
@@ -1817,6 +1811,5 @@ sub checkMailNotInUse
         );
     }
 }
-
 
 1;

@@ -42,8 +42,8 @@ use MIME::Base64;
 
 use constant {
  FETCHMAIL_DN        => 'ou=fetchmail,ou=postfix',
- FETCHMAIL_CONF_FILE => '/etc/ebox-fetchmail.rc',
- FETCHMAIL_SERVICE   => 'ebox.fetchmail',
+ FETCHMAIL_CONF_FILE => '/etc/zentyal-fetchmail.rc',
+ FETCHMAIL_SERVICE   => 'fetchmail',
  FETCHMAIL_CRON_FILE => '/etc/cron.d/ebox-mail',
 };
 
@@ -432,6 +432,18 @@ sub writeConf
                          'mail/fetchmail-update.cron.mas',
                          [
                           binPath => EBox::Config::share() . 'zentyal-mail/fetchmail-update',
+                         ],
+                         {
+                             uid  => 'root',
+                             gid  => 'root',
+                             mode =>  '0644',
+                         }
+                        );
+
+    EBox::Module::Base::writeConfFileNoCheck('/etc/default/fetchmail',
+                         '/mail/fetchmail.mas',
+                         [
+                          enabled => $self->fetchmailMustRun()
                          ],
                          {
                              uid  => 'root',

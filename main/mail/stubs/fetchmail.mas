@@ -1,0 +1,20 @@
+<%args>
+$enabled => 0
+</%args>
+# This file will be used to declare some vars for fetchmail
+#
+# Uncomment the following if you don't want localized log messages
+# export LC_ALL=C
+
+# If you want to specify any additional OPTION to the start
+# scripts specify them here
+OPTIONS=-f /etc/zentyal-fetchmail.rc
+
+# Declare here if we want to start fetchmail. 'yes' or 'no'
+% if ($enabled) {
+START_DAEMON=yes
+% } else {
+START_DAEMON=no
+% }
+
+

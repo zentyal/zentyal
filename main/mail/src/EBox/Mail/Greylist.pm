@@ -27,10 +27,7 @@ use EBox::Module::Base;
 use EBox::Global;
 use EBox::Dashboard::ModuleStatus;
 
-use constant {
-    UPSTART_DIR       => '/etc/init',
-    GREYLIST_SERVICE => 'ebox.postgrey',
-};
+use constant GREYLIST_SERVICE => 'postgrey';
 
 sub new
 {
@@ -62,11 +59,6 @@ sub isRunning
     my ($self) = @_;
 
     unless (EBox::Global->modInstance('mail')->configured()) {
-        return undef;
-    }
-
-    my $upstartFile = $self->upstartFile();
-    if (not -e $upstartFile) {
         return undef;
     }
 
@@ -104,66 +96,23 @@ sub _confAttr
     return $row->valueByName($attr);
 }
 
-sub writeUpstartFile
-{
-  my ($self) = @_;
-  my $path = $self->upstartFile();
-
-    my $fileAttrs    = {
-                        uid  => 0,
-                        gid  => 0,
-                        mode => '0644',
-                       };
-
-   EBox::Module::Base::writeConfFileNoCheck(
-                                    $path,
-                                    '/mail/ebox.postgrey.mas',
-                                    [
-                                     address  => $self->address(),
-                                     port => $self->port(),
-
-                                     delay       => $self->delay(),
-                                     maxAge      => $self->maxAge(),
-                                     retryWindow => $self->retryWindow(),
-                                    ],
-
-                                    $fileAttrs
-                                   );
-}
-
-sub upstartFile
-{
-    return UPSTART_DIR . '/' . GREYLIST_SERVICE . '.conf';
-}
-
 sub writeConf
 {
     my ($self) = @_;
 
-    my $network =  EBox::Global->modInstance('network');
-    my @internalIf = @{ $network->InternalIfaces()  };
-    my @internalNets = map {
-        my $if  = $_;
-        my $net =  $network->ifaceNetwork($if);
+    EBox::Module::Base::writeConfFileNoCheck(
+        '/etc/default/postgrey',
+        '/mail/postgrey.mas',
+        [
+         address  => $self->address(),
+         port => $self->port(),
 
-        if ($net) {
-            my $mask = $network->ifaceNetmask($if);
-            EBox::NetWrappers::to_network_with_mask($net, $mask);
-        }
-        else {
-            ()
-        }
-
-    } @internalIf;
-
-    my $mail = EBox::Global->modInstance('mail');
-    my $allowedAddresses = $mail->allowedAddresses();
-
-    my $fileAttrs    = {
-                        uid  => 0,
-                        gid  => 0,
-                        mode => '0644',
-                       };
+         delay       => $self->delay(),
+         maxAge      => $self->maxAge(),
+         retryWindow => $self->retryWindow(),
+        ],
+        { uid  => 0, gid  => 0, mode => '0644' }
+    );
 }
 
 sub port
