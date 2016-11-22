@@ -1146,6 +1146,20 @@ sub _startService
     EBox::Sudo::root("setfacl -b " . SAMBA_PRIVILEGED_SOCKET);
 
     $self->SUPER::_startService();
+
+    # Wait for samba to open the ldapi socket
+    # TODO: wait also for winbind pipe?
+    my $tries = 300;
+    my $sleep = 0.1;
+    my $socket = undef;
+    while (not defined $socket and $tries > 0) {
+        $socket = new IO::Socket::UNIX(
+            Type => SOCK_STREAM,
+            Peer => '/var/lib/samba/private/ldap_priv/ldapi');
+        last if $socket;
+        $tries--;
+        Time::HiRes::sleep($sleep);
+    }
 }
 
 # Method: groupDn
