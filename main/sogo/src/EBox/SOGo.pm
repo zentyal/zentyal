@@ -16,11 +16,13 @@
 use strict;
 use warnings;
 
-package EBox::SOGO;
+package EBox::SOGo;
 
 use base qw(EBox::Module::Service);
 
 use EBox::Config;
+use EBox::DBEngineFactory;
+use EBox::SOGo::DBEngine;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
@@ -29,16 +31,9 @@ use EBox::Sudo;
 
 use TryCatch;
 
-use constant SOGO_PORT => 20000;
 use constant SOGO_DEFAULT_PREFORK => 3;
-use constant SOGO_APACHE_CONF => '/etc/apache2/conf-available/sogo.conf';
-
 use constant SOGO_DEFAULT_FILE => '/etc/default/sogo';
 use constant SOGO_CONF_FILE => '/etc/sogo/sogo.conf';
-use constant SOGO_PID_FILE => '/var/run/sogo/sogo.pid';
-use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
-
-use constant APACHE_PORTS_FILE => '/etc/apache2/ports.conf';
 
 # Group: Protected methods
 
@@ -77,25 +72,14 @@ sub _setConf
     my ($self) = @_;
 
     if ($self->isEnabled()) {
-        my $global = $self->global();
-        my $sysinfoMod = $global->modInstance('sysinfo');
-
-        my @params = ();
-        push (@params, hostname => $sysinfoMod->fqdn());
-        # FIXME: customize port via sogo.conf or modify apache conf directly and not even set this
-        push (@params, sslPort  => 443);
-        $self->writeConfFile(SOGO_APACHE_CONF, "sogo/zentyal-sogo.mas", \@params);
-
         $self->_writeSOGoDefaultFile();
         $self->_writeSOGoConfFile();
         $self->_setupSOGoDatabase();
 
-#FIXME        $self->_setApachePortsConf();
-
         $self->_setupActiveSync();
 
         try {
-            EBox::Sudo::root("a2enconf zentyal-sogo");
+            EBox::Sudo::root("a2enconf SOGo");
         } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
             if ($e->exitValue() != 1) {
@@ -104,7 +88,7 @@ sub _setConf
         }
     } else {
         try {
-            EBox::Sudo::root("a2disconf zentyal-sogo");
+            EBox::Sudo::root("a2disconf SOGo");
         } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already disabled?
             if ($e->exitValue() != 1) {
@@ -179,44 +163,13 @@ sub usedFiles
         reason => __('To configure sogo parameters'),
         module => 'sogo'
     });
-    push (@files, {
-        file => SOGO_APACHE_CONF,
-        reason => __('To make SOGo webmail available'),
-        module => 'sogo'
-    });
 
     return \@files;
 }
 
 sub _daemons
 {
-    return [ { 'name' => 'sogo', 'type' => 'init.d' } ];
-}
-
-# Method: initialSetup
-#
-# Overrides:
-#
-#        <EBox::Module::Base::initialSetup>
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    if ((defined ($version)) and (EBox::Util::Version::compare($version, '3.4.1') < 0)) {
-        try {
-            EBox::Sudo::root("a2dissite zentyal-sogo");
-        } catch (EBox::Exceptions::Sudo::Command $e) {
-            # Already disabled?
-            if ($e->exitValue() != 1) {
-                $e->throw();
-            }
-        }
-        EBox::Sudo::silentRoot("rm -f /etc/apache2/sites-available/zentyal-sogo.conf");
-
-        # Force a configuration dump
-        $self->save();
-    }
+    return [ { 'name' => 'sogo' } ];
 }
 
 sub _postServiceHook
@@ -231,20 +184,6 @@ sub _postServiceHook
         EBox::Sudo::root('systemctl restart apache2');
     }
 }
-
-# FIXME: is this needed?
-#sub _setApachePortsConf
-#{
-#    my ($self) = @_;
-#
-#    my $params = [];
-#    push (@{$params}, bindAddress => '0.0.0.0');
-#    push (@{$params}, port        => APACHE_PORT_HTTP);
-#    push (@{$params}, sslPort     => APACHE_PORT_HTTPS);
-#    $self->writeConfFile(APACHE_PORTS_FILE,
-#                         'openchange/apache-ports.conf.mas',
-#                         $params);
-#}
 
 sub _setupActiveSync
 {
@@ -276,7 +215,7 @@ sub _writeSOGoDefaultFile
     }
     push (@{$array}, prefork => $prefork);
     $self->writeConfFile(SOGO_DEFAULT_FILE,
-        'openchange/sogo.mas',
+        'sogo/sogo.mas',
         $array, { uid => 0, gid => 0, mode => '755' });
 }
 
@@ -286,21 +225,19 @@ sub _writeSOGoConfFile
 
     my $array = [];
 
-    my $sysinfo = $self->global->modInstance('sysinfo');
+    my $global = $self->global();
+    my $sysinfo = $global->modInstance('sysinfo');
     my $timezoneModel = $sysinfo->model('TimeZone');
     my $sogoTimeZone = $timezoneModel->row->printableValueByName('timezone');
 
-    my $users = $self->global->modInstance('samba');
-    my $dcHostName = $users->ldap()->rootDse->get_value('dnsHostName');
+    my $ldap = $global->modInstance('samba')->ldap();
+    my $dcHostName = $ldap->rootDse->get_value('dnsHostName');
     my (undef, $sogoMailDomain) = split (/\./, $dcHostName, 2);
 
-    push (@{$array}, sogoPort => SOGO_PORT);
-    push (@{$array}, sogoLogFile => SOGO_LOG_FILE);
-    push (@{$array}, sogoPidFile => SOGO_PID_FILE);
     push (@{$array}, sogoTimeZone => $sogoTimeZone);
     push (@{$array}, sogoMailDomain => $sogoMailDomain);
 
-    my $mail = $self->global->modInstance('mail');
+    my $mail = $global->modInstance('mail');
     my $retrievalServices = $mail->model('RetrievalServices');
     my $sieveEnabled = $retrievalServices->value('managesieve');
     my $sieveServer = ($sieveEnabled ? 'sieve://127.0.0.1:4190' : '');
@@ -320,20 +257,43 @@ sub _writeSOGoConfFile
     push (@{$array}, dbHost => '127.0.0.1');
     push (@{$array}, dbPort => 3306);
 
-    my $baseDN = $self->ldap->dn();
-    if (EBox::Config::boolean('openchange_disable_multiou')) {
-        $baseDN = "ou=Users,$baseDN";
-    }
-
-    push (@{$array}, sambaBaseDN => $users->ldap()->dn());
-    push (@{$array}, sambaBindDN => $self->_kerberosServiceAccountDN());
-    push (@{$array}, sambaBindPwd => $self->_kerberosServiceAccountPassword());
-    push (@{$array}, sambaHost => "ldap://127.0.0.1"); #FIXME? not working using $users->ldap()->url()
+    push (@{$array}, sambaBaseDN => $ldap->dn());
+    push (@{$array}, sambaBindDN => $mail->_kerberosServiceAccountDN());
+    push (@{$array}, sambaBindPwd => $mail->_kerberosServiceAccountPassword());
+    push (@{$array}, sambaHost => "ldap://127.0.0.1");
 
     my (undef, undef, undef, $gid) = getpwnam('sogo');
     $self->writeConfFile(SOGO_CONF_FILE,
-        'openchange/sogo.conf.mas',
+        'sogo/sogo.conf.mas',
         $array, { uid => 0, gid => $gid, mode => '640' });
+}
+
+sub _setupSOGoDatabase
+{
+    my ($self) = @_;
+
+    my $sogoDB = $self->_sogoDBEngine();
+    my $dbUser = $sogoDB->_dbuser();
+    my $dbPass = $sogoDB->_dbpass();
+    my $dbName = $sogoDB->_dbname();
+    my $dbHost = '127.0.0.1';
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+    $db->updateMysqlConf();
+    $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");
+    $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " .
+                               "IDENTIFIED BY \"$dbPass\";");
+    $db->sqlAsSuperuser(sql => 'flush privileges;');
+}
+
+sub _sogoDBEngine
+{
+    my ($self) = @_;
+    if (not $self->{'_sogoDBengine'}) {
+        $self->{'_sogoDBengine'} = EBox::SOGo::DBEngine->new();
+    }
+
+    return $self->{'_sogoDBengine'};
 }
 
 sub _sogoDumpFile
@@ -374,6 +334,31 @@ sub restoreConfig
     }
 
     $self->_startService();
+}
+
+# Method: menu
+#
+#   Add an entry to the menu with this module.
+#
+sub menu
+{
+    my ($self, $root) = @_;
+
+    my $folder = new EBox::Menu::Folder(
+        'name' => 'Mail',
+        'icon' => 'mail',
+        'text' => __('Mail'),
+        'tag' => 'main',
+        'order' => 4
+    );
+
+    $folder->add(new EBox::Menu::Item(
+        url => 'Mail/ActiveSync',
+        text => __('ActiveSync®'),
+        order => 3)
+    );
+
+    $root->add($folder);
 }
 
 1;
