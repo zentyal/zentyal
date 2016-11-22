@@ -29,10 +29,10 @@ composites:
 
 modeldepends:
     AccessRules:
-        objects/ObjectTable: [object]
+        network/ObjectTable: [object]
         squid/FilterProfiles: [profile]
     DelayPools:
-        objects/ObjectTable: [acl_object]
+        network/ObjectTable: [acl_object]
 
 foreign:
     FilterProfiles: [ProfileConfiguration]
