@@ -489,9 +489,11 @@ sub _internalServerEnableActions
     # Execute enable-module script
     $self->SUPER::enableActions();
 
+    # FIXME: temporary disabled until reload of webadmin properly
+    #        implemented with SIGHUP or uwsgi master FIFO
     # mark webAdmin as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
-    EBox::Global->modInstance('webadmin')->setAsChanged();
+    #EBox::Global->modInstance('webadmin')->setAsChanged();
 }
 
 sub enableService
