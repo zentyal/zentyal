@@ -59,8 +59,9 @@ use EBox::Gettext;
 %   $objects .= ' recycle';
 % }
     vfs objects = <% $objects %>
-    acl_xattr:ignore system acls = <%  $unmanagedAcls ? 'no' : 'yes' %>
-    full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
+% if ($unmanagedAcls) {
+    acl_xattr:ignore system acls = yes
+% }
     full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
 % if ($rb) {
 %   foreach my $key (keys %{$recycle_config}) {

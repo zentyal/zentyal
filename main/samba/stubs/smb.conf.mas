@@ -40,6 +40,8 @@ use EBox::Gettext;
     bind interfaces only = yes
 % }
 
+    map to guest = Bad User
+
     log level = 3
     log file = /var/log/samba/samba.log
     max log size = 100000

@@ -261,6 +261,12 @@ sub xidNumber
 sub unixId
 {
     my ($self, $rid) = @_;
+
+    # map Guest to nobody
+    if ($rid == 501) {
+        return 65534;
+    }
+
     # Let 1000 users for UNIX
     return 2000 + $rid;
 }

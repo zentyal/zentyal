@@ -721,8 +721,6 @@ sub _setConf
 
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
-    # Create shares
-    $self->model('SambaShares')->createDirs();
 }
 
 sub _createDirectories
@@ -784,8 +782,10 @@ sub _postServiceHook
     # the antivirus daemon runs as 'ebox'
     $self->_createDirectories();
 
-    my $ldap = $self->ldap();
+    # Create shares
+    $self->model('SambaShares')->createDirs();
 
+    my $ldap = $self->ldap();
     # Execute the hook actions *only* if Samba module is enabled and we were invoked from the web application, this will
     # prevent that we execute this code with every service restart or on server boot delaying such processes.
     if ($enabled and ($0 =~ /\/global-action$/)) {
