@@ -5,6 +5,7 @@
 	  https://wiki.samba.org/index.php/Rsync_based_SysVol_replication_workaround
 	  this affects also ad-migrate script, currently it will not sync GPOs
 	+ Use winbind instead of sssd
+	+ DNS updates now done via GSS-TSIG no longer require custom samba patch
 	+ Remove deprecated scannedonly integration
 	+ Adapt code to perl 5.22
 	+ Enforce dependency on libnet-ldap-perl 0.58 (package from trusty copied
