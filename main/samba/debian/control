@@ -13,14 +13,14 @@ Package: zentyal-samba
 Architecture: all
 Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
          zentyal-firewall, zentyal-dns, zentyal-ntp,
-         samba (>= 4.4), samba-vfs-modules, winbind, ldb-tools,
-         apache2-utils, libnet-ldap-perl (= 1:0.5800-1), adduser, quota, acl,
+         samba (>= 4.5), samba-vfs-modules, winbind, ldb-tools,
+         apache2-utils, adduser, quota, acl,
          libgssapi3-heimdal, libsasl2-modules-gssapi-heimdal, heimdal-clients,
          libquota-perl, liburi-encode-perl, libnss-winbind, libpam-winbind,
          libpam-pwquality, libsys-filesystem-perl, libgssapi-perl,
          auth-client-config, libauthen-sasl-perl, libnet-ntp-perl,
          libnet-dns-perl, libnet-ping-perl, rsync, libdate-calc-xs-perl,
-         libnet-ntp-perl, libuuid-perl,
+         libnet-ldap-perl, libnet-ntp-perl, libuuid-perl,
          libdata-hexdumper-perl, libsys-filesystem-perl, libfile-libmagic-perl,
          libauthen-krb5-easy-perl, libdate-calc-xs-perl, ${misc:Depends}
 Conflicts: sssd, libnss-sss, libpam-sss
