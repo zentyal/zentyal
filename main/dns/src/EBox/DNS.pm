@@ -624,9 +624,6 @@ sub _preSetConf
     my ($self) = @_;
 
     my $runResolvConf = 1;
-    if ($self->global->modExists('samba')) {
-        my $usersModule = $self->global->modInstance('samba');
-    }
     my $array = [];
     push (@{$array}, runResolvConf => $runResolvConf);
     $self->writeConfFile(BIND9DEFAULTFILE, 'dns/bind9.mas', $array,
@@ -902,7 +899,9 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
-    if ($enabled) {
+    my $samba = $self->global->modInstance('samba');
+    # TODO: separate regular nsupdateCmds with -l from dlz ones with -g
+    if ($enabled and $samba and $samba->provisioned()) {
         # Wait max of 5 seconds until named is listening
         my $nTry = 0;
         do {
