@@ -80,6 +80,7 @@ if ($popup) {
 
 <div class="headcontainer">
 % foreach my $pkg (@actpkginfo) {
+%   next if ($pkg->{name} eq 'zentyal-groupware');
     <div id="<% $pkg->{name} %>" class="package">
        <div><img src="/data/images/package-icons/<% $pkg->{name} %>.png"
              onerror='this.onerror = null; this.src="/data/images/package-icons/generic.png"' /></div>
