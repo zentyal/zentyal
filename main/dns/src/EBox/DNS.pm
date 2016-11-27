@@ -901,7 +901,7 @@ sub _postServiceHook
 
     my $samba = $self->global->modInstance('samba');
     # TODO: separate regular nsupdateCmds with -l from dlz ones with -g
-    if ($enabled and $samba and $samba->provisioned()) {
+    if ($enabled and $samba and $samba->isProvisioned()) {
         # Wait max of 5 seconds until named is listening
         my $nTry = 0;
         do {
