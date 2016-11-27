@@ -48,6 +48,7 @@ use constant CAS_KEY => 'cas';
 use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
 use constant CA_CERT_FILE  => CA_CERT_PATH . 'nginx-ca.pem';
 use constant CERT_FILE     => EBox::Config::conf() . 'ssl/ssl.pem';
+use constant RELOAD_FILE   => '/var/lib/zentyal/webadmin.reload';
 use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'webadmin_no_restart_on_trigger';
 
 # Constructor: _create
@@ -105,32 +106,6 @@ sub _daemons
     ];
 }
 
-sub _postServiceHook
-{
-    my ($self, $enabled) = @_;
-
-    if ($self->hardRestart()) {
-        EBox::Sudo::silentRoot("systemctl restart zentyal.webadmin-uwsgi");
-        $self->setHardRestart(0);
-    }
-}
-
-sub setHardRestart
-{
-    my ($self, $reload) = @_;
-    my $state = $self->get_state;
-    $state->{hardRestart} = $reload;
-    $self->set_state($state);
-}
-
-# return wether we should reload the page after saving changes
-sub hardRestart
-{
-    my ($self) = @_;
-    my $state = $self->get_state;
-    return $state->{hardRestart};
-}
-
 # Method: listeningPort
 #
 #     Return the listening port for the webadmin.
@@ -155,6 +130,17 @@ sub _setConf
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
     $self->enableRestartOnTrigger();
+}
+
+sub _enforceServiceState
+{
+    my ($self, %params) = @_;
+
+    if ($params{'restart'} and $self->isRunning()) {
+        EBox::Sudo::root('touch ' . RELOAD_FILE);
+    } else {
+        $self->SUPER::_enforceServiceState(%params);
+    }
 }
 
 sub _writeNginxConfFile
@@ -205,10 +191,10 @@ sub _writeNginxConfFile
     @confFileParams = ();
     push (@confFileParams, socketpath => '/run/zentyal-' . $self->name());
     push (@confFileParams, socketname => 'webadmin.sock');
-    push (@confFileParams, script => EBox::Config::psgi() . 'zentyal.psgi');
-    push (@confFileParams, module => $self->printableName());
-    push (@confFileParams, user   => EBox::Config::user());
-    push (@confFileParams, group  => EBox::Config::group());
+    push (@confFileParams, script     => EBox::Config::psgi() . 'zentyal.psgi');
+    push (@confFileParams, reloadfile => RELOAD_FILE);
+    push (@confFileParams, user       => EBox::Config::user());
+    push (@confFileParams, group      => EBox::Config::group());
     EBox::Module::Base::writeConfFileNoCheck("$systemdPathPrefix-uwsgi.service", $systemdFile, \@confFileParams, $permissions);
 }
 

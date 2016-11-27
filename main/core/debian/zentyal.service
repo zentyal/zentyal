@@ -3,8 +3,10 @@ Description=Zentyal start/stop task
 After=network.target
 
 [Service]
+Type=oneshot
 ExecStart=/usr/bin/zs start
 ExecStop=/usr/bin/zs stop
+RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target

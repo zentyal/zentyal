@@ -18,6 +18,3 @@ Restart=on-failure
 RestartSec=40
 StartLimitBurst=5
 % }
-
-[Install]
-WantedBy=multi-user.target

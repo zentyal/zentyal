@@ -108,13 +108,4 @@ sub _populateLanguages
     return \@array;
 }
 
-sub updatedRowNotify
-{
-    my ($self, $row, $oldRow) = @_;
-
-    my $global = $self->global();
-    my $webAdmin = $global->modInstance('webadmin');
-    $webAdmin->setHardRestart(1);
-}
-
 1;
