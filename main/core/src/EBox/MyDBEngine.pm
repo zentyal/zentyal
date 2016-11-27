@@ -100,7 +100,7 @@ sub _enableInnoDB
 {
     my ($self) = @_;
 
-    return EBox::Global->modExists('openchange');
+    return EBox::Global->modExists('sogo');
 }
 
 # Method: _innoDbValueHasChanged
@@ -695,7 +695,7 @@ sub  dumpDB
         $args .= ' --no-data';
     }
     $args .= " -h$dbhost --skip-lock-tables --quick --single-transaction";
-    
+
     my $dumpCommand = "mysqldump $args $dbname > $tmpFile";
 
     $self->commandAsSuperuser($dumpCommand);

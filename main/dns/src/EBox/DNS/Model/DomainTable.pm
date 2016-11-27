@@ -543,37 +543,6 @@ sub addedRowNotify
                           . 'nameserver record. Moreover, the same IP addresses have been assigned '
                           . 'to this new domain. You can always rename it or create alias for it.',
                           nshost => $nsHost, ips => $addrs));
-
-    # Invalidate domains cache in openchange module
-    if (EBox::Global->modExists('openchange')) {
-        my $oc = EBox::Global->modInstance('openchange');
-        my $model = $oc->model('VDomains');
-        $model->invalidateCache();
-    }
-}
-
-sub updatedRowNotify
-{
-    my ($self, $row, $oldRow, $force) = @_;
-
-    # Invalidate domains cache in openchange module
-    if (EBox::Global->modExists('openchange')) {
-        my $oc = EBox::Global->modInstance('openchange');
-        my $model = $oc->model('VDomains');
-        $model->invalidateCache();
-    }
-}
-
-sub deletedRowNotify
-{
-    my ($self, $row, $force) = @_;
-
-    # Invalidate domains cache in openchange module
-    if (EBox::Global->modExists('openchange')) {
-        my $oc = EBox::Global->modInstance('openchange');
-        my $model = $oc->model('VDomains');
-        $model->invalidateCache();
-    }
 }
 
 # Method: viewCustomizer

@@ -80,14 +80,14 @@ sub permanentMessage
     return __x('This configuration will not be enforced until a new certification authority is created. '
               . 'Go to {openhref}Certification Authority{closehref} to do so',
               openhref  => qq{<a href='/CA/Index'>},
-              closehref => qq{</a>});    
+              closehref => qq{</a>});
 }
 
 sub permanentMessageType
 {
     return 'warning';
 }
-   
+
 
 # Method: syncRows
 #
@@ -350,8 +350,6 @@ sub validateTypedRow
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
-    my $cn = $row->valueByName('cn');
-    $self->_openchangeWarning($cn);
 
     if ($row->isEqualTo($oldRow)) {
         # no need to set module as changed
@@ -380,21 +378,8 @@ sub notifyNewCA
         if ($row->valueByName('enable')) {
             my $modName = $row->valueByName('module');
             my $mod = $self->global()->modInstance($modName);
-            $mod->setAsChanged();    
+            $mod->setAsChanged();
         }
-    }
-}
-    
-sub _openchangeWarning
-{
-    my ($self, $cn) = @_;
-    my $openchange = $self->parentModule()->global()->modInstance('openchange');
-    if ($openchange and $openchange->certificateIsReserved($cn)) {
-        my $warnMsg = __x('The CN {cn} is reserved by OpenChange and cannot be generated automatically. You can issue it from the {oh}OpenChange virtual domains interface.{ch}', 
-                   cn => $cn,
-                   oh => "<a href='/Mail/OpenChange'>",
-                   ch => '</a>');
-        $self->setMessage($warnMsg, 'warning');
     }
 }
 

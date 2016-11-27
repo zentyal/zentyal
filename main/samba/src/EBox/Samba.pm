@@ -697,13 +697,6 @@ sub _setConf
 
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
-        if (EBox::Global->modExists('openchange')) {
-            my $openchangeMod = EBox::Global->modInstance('openchange');
-            if ($openchangeMod->isProvisioned()) {
-                # Set OpenChange as not provisioned.
-                $openchangeMod->setProvisioned(0);
-            }
-        }
         if ($self->get('need_reprovision')) {
             $self->_cleanModulesForReprovision();
             # Current provision is not useful, change back status to not provisioned.
@@ -2744,14 +2737,6 @@ sub writeSambaConfig
     if (not EBox::Config::boolean('listen_all')) {
         my $interfaces = join (',', @{$self->sambaInterfaces()});
         push (@array, 'ifaces' => $interfaces);
-    }
-
-    if ($self->global()->modExists('openchange')) {
-        my $openchangeMod = $self->global()->modInstance('openchange');
-        if ($openchangeMod->isEnabled() and $openchangeMod->isProvisioned()) {
-            push (@array, 'openchange' => 1);
-            $openchangeMod->writeSambaConfig();
-        }
     }
 
     if ($self->global()->modExists('printers')) {
