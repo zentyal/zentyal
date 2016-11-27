@@ -47,7 +47,7 @@ sub validateRow
     if ($params{acl_object} and ($params{acl_object} ne '_addNew')) {
         # check objects have members
         my $srcObjId = $params{acl_object};
-        my $objects = EBox::Global->modInstance('objects');
+        my $objects = EBox::Global->modInstance('network');
         unless (@{$objects->objectAddresses($srcObjId)} > 0) {
             throw EBox::Exceptions::External(
                     __x('Object {object} has no members. Please add at ' .
@@ -136,7 +136,7 @@ sub _table
         new EBox::Types::Select(
             fieldName     => 'acl_object',
             printableName => __('Network object'),
-            foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
+            foreignModel  => $self->modelGetter('network', 'ObjectTable'),
             foreignField  => 'name',
             foreignNextPageField => 'members',
             editable      => 1,
@@ -217,7 +217,7 @@ sub delayPools
 {
     my ($self) = @_;
 
-    my $objects = EBox::Global->modInstance('objects');
+    my $objects = EBox::Global->modInstance('network');
 
     my @pools;
 

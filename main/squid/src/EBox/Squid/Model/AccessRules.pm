@@ -57,7 +57,7 @@ sub _table
             subtypes => [
                 new EBox::Types::Select(
                     fieldName     => 'object',
-                    foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
+                    foreignModel  => $self->modelGetter('network', 'ObjectTable'),
                     foreignField  => 'name',
                     foreignNextPageField => 'members',
                     printableName => __('Network Object'),
@@ -209,7 +209,7 @@ sub rules
 {
     my ($self) = @_;
 
-    my $objectMod = $self->global()->modInstance('objects');
+    my $objectMod = $self->global()->modInstance('network');
 
     # we dont use row ids to make rule id shorter bz squid limitations with id length
     my $number = 0;
@@ -278,7 +278,7 @@ sub filterProfiles
     my $filterProfilesModel = $self->parentModule()->model('FilterProfiles');
     my %profileIdByRowId = %{ $filterProfilesModel->idByRowId() };
 
-    my $objectMod = $self->global()->modInstance('objects');
+    my $objectMod = $self->global()->modInstance('network');
 
     my @profiles;
     foreach my $id (@{$self->ids()}) {
