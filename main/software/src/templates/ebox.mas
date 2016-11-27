@@ -23,8 +23,8 @@ my @advUpdatePkgs;
 my @advRemovePkgs;
 foreach my $pkg (@allpkgs) {
   next if ($pkg->{name} eq 'zentyal-all');
+  next if ($pkg->{name} eq 'zentyal-groupware');
   next if ($pkg->{name} eq 'zentyal-ids');
-  next if ($pkg->{name} eq 'zentyal-squid'); # skip 2.3 package in universe repo
   next if ($pkg->{name} eq 'zentyal-users'); # skip 2.3 package in universe repo
   ($pkg->{description} =~ m/Suite/) and next;
   ($pkg->{description} =~ m/^transitional/) and next;
