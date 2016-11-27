@@ -49,8 +49,7 @@ sub manage # (daemon,action)
     } elsif ($action eq 'stop') {
         EBox::Sudo::root("systemctl stop '$daemon'") if (running($daemon));
     } elsif ($action eq 'restart') {
-        EBox::Sudo::root("systemctl stop '$daemon'") if (running($daemon));
-        EBox::Sudo::root("systemctl start '$daemon'");
+        EBox::Sudo::root("systemctl restart '$daemon'");
     } elsif ($action eq 'reload') {
         EBox::Sudo::root("systemctl reload '$daemon'") if (running($daemon));
     } else {
