@@ -71,7 +71,7 @@ sub _process
 
     my @bigpkgs = ($pkgs{'zentyal-samba'}, $pkgs{'zentyal-groupware'});
     my @mediumpkgs = ($pkgs{'zentyal-dns'}, $pkgs{'zentyal-dhcp'}, $pkgs{'zentyal-firewall'});
-    my %filterpkgs = map { ("zentyal-$_") => 1 } qw(samba mail sogo dns dhcp firewall network objects services ntp users cloud-prof);
+    my %filterpkgs = map { ("zentyal-$_") => 1 } qw(samba mail sogo groupware dns dhcp firewall network objects services ntp users cloud-prof);
 
     my @array = ();
     push(@array, 'bigpkgs'     => \@bigpkgs);
