@@ -107,7 +107,7 @@ sub _process
                 push(@array, 'target' => $mac);
                 push(@array, 'output' => $output);
             } else {
-                my $objects = EBox::Global->modInstance('objects');
+                my $objects = EBox::Global->modInstance('network');
                 my @macs;
                 for my $member (@{$objects->objectMembers($id)}) {
                     push(@macs, $member->{macaddr});

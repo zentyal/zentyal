@@ -191,7 +191,7 @@ sub objectModelGetter
 
     my $global = $self->global();
     return sub {
-        return $global->modInstance('objects')->model('ObjectTable');
+        return $global->modInstance('network')->model('ObjectTable');
     };
 }
 

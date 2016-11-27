@@ -16,7 +16,7 @@ models:
 
 modeldepends:
     ExposedNetworks:
-        objects/ObjectTable: [object]
+        network/ObjectTable: [object]
 
 foreign:
     Clients: [ClientConfiguration, ClientExposedNetworks, UploadClientBundle]
