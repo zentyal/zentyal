@@ -664,46 +664,6 @@ sub showModuleStatus
     return 1;
 }
 
-# Method: saveReload
-#
-#   Mimesitise what <EBox::Module::Base::save> does but instead of
-#   restarting the daemon, it reloads it.
-#
-#   For now, it is a separated method, as it is called programatically
-#   only when it is right to call. No issues due to reloading instead
-#   of restarting.
-#
-sub saveReload
-{
-    my ($self, @params) = @_;
-
-    $self->_lock();
-    my $global = $self->global();
-    my $log    = EBox::logger();
-    $log->info('Reloading service for module: ' . $self->name());
-    try {
-        $self->_saveConfig();
-        # Mimetise <EBox::Module::Service::_regenConfig>
-        if ( $self->configured() ) {
-            $self->SUPER::_regenConfig(@params);
-            my $enabled = ($self->isEnabled() or 0);
-            if ($enabled) {
-                $self->setNeedsSaveAfterConfig(0);
-            }
-            $self->_preServiceHook($enabled);
-            $self->_enforceServiceState(reload => 1);
-            $self->_postServiceHook($enabled);
-        }
-    } catch ($e) {
-        $global->modRestarted($self->name());
-        $self->_unlock();
-        $e->throw();
-    }
-    # Mark as changes has been saved
-    $global->modRestarted($self->name());
-    $self->_unlock();
-}
-
 # Method: _daemons
 #
 #   This method must be overriden to return the services required by this
