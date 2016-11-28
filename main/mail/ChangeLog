@@ -1,6 +1,7 @@
 5.0
 	+ Remove OpenChange integration as project is not stable yet
 	+ Use system daemons instead of old custom upstart ones
+	+ Update configuration to work with Postfix 3.1
 	+ Integration only with external mailfilter
 4.2
 	+ Update version to 4.2
