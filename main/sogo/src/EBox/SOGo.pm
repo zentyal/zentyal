@@ -59,6 +59,27 @@ sub _create
     return $self;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    unless ($version) {
+        my $firewall = $self->global()->modInstance('firewall');
+        $firewall->setInternalService('HTTPS', 'accept');
+        $firewall->saveConfigRecursive();
+    }
+
+    if ($self->changed()) {
+        $self->saveConfigRecursive();
+    }
+}
+
 # Method: _setConf
 #
 #        Regenerate the configuration
