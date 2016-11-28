@@ -121,6 +121,11 @@ sub listeningPort
     return $self->model('AdminPort')->value('port');
 }
 
+sub reload
+{
+    EBox::Sudo::root('touch ' . RELOAD_FILE);
+}
+
 sub _setConf
 {
     my ($self) = @_;
@@ -136,8 +141,8 @@ sub _enforceServiceState
 {
     my ($self, %params) = @_;
 
-    if ($params{'restart'} and $self->isRunning()) {
-        EBox::Sudo::root('touch ' . RELOAD_FILE);
+    if ((not $params{'stop'}) and $self->isRunning()) {
+        $self->reload();
     } else {
         $self->SUPER::_enforceServiceState(%params);
     }
@@ -603,7 +608,7 @@ sub _CAs
 #   ignore it and do nothing
 sub disableRestartOnTrigger
 {
-    system 'touch ' . NO_RESTART_ON_TRIGGER;
+    system ('touch ' . NO_RESTART_ON_TRIGGER);
     if ($? != 0) {
         EBox::warn('Canot create "webadmin no restart on trigger" file');
     }
@@ -624,7 +629,7 @@ sub enableRestartOnTrigger
 #  restart themselves when the script is executed
 sub restartOnTrigger
 {
-    return not EBox::Sudo::fileTest('-e', NO_RESTART_ON_TRIGGER);
+    return (not EBox::Sudo::fileTest('-e', NO_RESTART_ON_TRIGGER));
 }
 
 sub usesPort
