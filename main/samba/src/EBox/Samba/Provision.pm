@@ -514,7 +514,16 @@ sub provisionDC
 
     my $usersModule = EBox::Global->modInstance('samba');
     my $passwdFile;
+    my $dnsFile = undef;
     try {
+        # Set the domain DNS as the primary resolver.
+        # We need this to have kerberos working for dns updates via GSS-TSIG
+        EBox::debug("Setting local DNS server as the primary resolver");
+        $dnsFile = new File::Temp(TEMPLATE => 'resolvXXXXXX', DIR  => EBox::Config::tmp());
+        EBox::Sudo::root("cp /etc/resolvconf/interface-order $dnsFile",
+                         'echo zentyal.temp > /etc/resolvconf/interface-order',
+                         "echo 'nameserver 127.0.0.1' | resolvconf -a zentyal.temp");
+
         $usersModule->writeSambaConfig();
 
         my $sysinfo = EBox::Global->modInstance('sysinfo');
@@ -549,6 +558,11 @@ sub provisionDC
     } catch ($e) {
         if ($passwdFile) {
             unlink $passwdFile;
+        }
+        if (defined $dnsFile and -f $dnsFile) {
+            EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
+                             'resolvconf -d zentyal.temp');
+            unlink $dnsFile;
         }
         $self->setProvisioned(0);
         $self->setupKerberos();
