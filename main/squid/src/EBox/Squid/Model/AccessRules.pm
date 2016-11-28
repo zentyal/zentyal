@@ -30,12 +30,6 @@ use EBox::Types::Union::Text;
 use EBox::Squid::Types::TimePeriod;
 
 use TryCatch;
-use Net::LDAP;
-use Net::LDAP::Control::Sort;
-use Net::LDAP::Control::Paged;
-use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR LDAP_CONTROL_PAGED LDAP_SUCCESS);
-use Net::LDAP::Util qw(escape_filter_value canonical_dn);
-use Authen::SASL qw(Perl);
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
 

@@ -38,7 +38,6 @@ use EBox::Exceptions::Sudo::Command;
 
 use EBox::Squid::Firewall;
 use EBox::Squid::LogHelper;
-use EBox::Squid::LdapUserImplementation;
 use EBox::Squid::Types::ListArchive;
 
 use EBox::DBEngineFactory;
@@ -55,10 +54,6 @@ use HTML::Mason;
 use File::Basename;
 
 use EBox::NetWrappers qw(to_network_with_mask);
-
-use Net::LDAP;
-use Net::Ping;
-use Net::DNS;
 
 # Module local conf stuff
 use constant SQUID_CONF_FILE => '/etc/squid/squid.conf';
@@ -997,12 +992,6 @@ sub aroundRestoreConfig
     $categorizedLists->beforeRestoreConfig();
     $self->SUPER::aroundRestoreConfig($dir, %options);
     $categorizedLists->afterRestoreConfig();
-}
-
-# LdapModule implementation
-sub _ldapModImplementation
-{
-    return new EBox::Squid::LdapUserImplementation();
 }
 
 # Method: regenGatewaysFailover
