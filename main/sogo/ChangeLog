@@ -1,6 +1,7 @@
 5.0
 	+ Integrate SOGo 3.2.1
 	+ New standalone sogo module independent from old openchange module
+	+ Install memcached as dependency so SOGo can use it for caching
 3.5.4
 	+ Fix depends to allow uninstall when upgrading to 4.0
 3.5.3
