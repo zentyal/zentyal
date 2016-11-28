@@ -75,7 +75,7 @@ sub updateMysqlConf
 
     if ($self->_innoDbValueHasChanged($nextInnoDbValue)) {
         EBox::Module::Base::writeConfFileNoCheck(MYSQL_CUSTOM_CONF, 'core/zentyal.cnf.mas', \@confParams);
-        EBox::Sudo::rootWithoutException('restart mysql');
+        EBox::Sudo::rootWithoutException('systemctl restart mysql');
     }
 }
 
