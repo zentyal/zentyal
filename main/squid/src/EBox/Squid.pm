@@ -59,38 +59,26 @@ use EBox::NetWrappers qw(to_network_with_mask);
 use Net::LDAP;
 use Net::Ping;
 use Net::DNS;
-use Net::NTP qw(get_ntp_response);
-use Authen::Krb5::Easy qw{kinit_pwd kdestroy kerror};
 
 # Module local conf stuff
-use constant SQUID_CONF_FILE => '/etc/squid3/squid.conf';
+use constant SQUID_CONF_FILE => '/etc/squid/squid.conf';
 use constant SQUID_PORT => '3128';
 
 use constant DGDIR => '/etc/dansguardian';
 use constant DGPORT => '3129';
 
-use constant SQUID_EXTERNAL_CONF_FILE  => '/etc/squid3/squid-external.conf';
-use constant SQUID_EXTERNAL_PORT => '3130';
-
-use constant SQUIDCSSFILE => '/etc/squid3/errorpage.css';
+use constant SQUIDCSSFILE => '/etc/squid/errorpage.css';
 use constant MAXDOMAINSIZ => 255;
 use constant DGLISTSDIR => DGDIR . '/lists';
 use constant DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian';
-use constant SQUID_LOGROTATE_CONF => '/etc/logrotate.d/squid3';
 use constant CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf';
 use constant BLOCK_ADS_PROGRAM => '/usr/bin/adzapper.wrapper';
 use constant BLOCK_ADS_EXEC_FILE => '/usr/bin/adzapper';
 use constant ADZAPPER_CONF => '/etc/adzapper.conf';
 use constant KEYTAB_FILE => '/etc/squid3/HTTP.keytab';
-use constant SQUID3_DEFAULT_FILE => '/etc/default/squid3';
 use constant CRONFILE => '/etc/cron.d/zentyal-squid';
 
 use constant SQUID_ZCONF_FILE => '/etc/zentyal/squid.conf';
-use constant AUTH_MODE_KEY    => 'auth_mode';
-use constant AUTH_AD_ACL_TTL_KEY   => 'auth_ad_acl_ttl';
-use constant AUTH_AD_NEGATIVE_ACL_TTL_KEY   => 'auth_ad_negative_acl_ttl';
-use constant AUTH_MODE_INTERNAL    => 'internal';
-use constant AUTH_MODE_EXTERNAL_AD => 'external_ad';
 
 sub _create
 {
@@ -140,16 +128,6 @@ sub usedFiles
              'file' => SQUID_CONF_FILE,
              'module' => 'squid',
              'reason' => __('Front HTTP Proxy configuration file')
-            },
-            {
-             'file' => SQUID_EXTERNAL_CONF_FILE,
-             'module' => 'squid',
-             'reason' => __('Back HTTP Proxy configuration file')
-            },
-            {
-             'file' => SQUID_LOGROTATE_CONF,
-             'module' => 'squid',
-             'reason' => __(q{Squid's log rotation configuration}),
             },
             {
              'file' => DGDIR . '/dansguardian.conf',
@@ -450,10 +428,9 @@ sub usesPort
 
     ($protocol eq 'tcp') or return undef;
 
-    # DGPORT and SQUID_EXTERNAL_PORT are hard-coded, they are reported as used even
+    # DGPORT is hard-coded, they are reported as used even
     # if the services are disabled.
     ($port eq DGPORT) and return 1;
-    ($port eq SQUID_EXTERNAL_PORT) and return 1;
 
     # the port selected by the user (by default SQUID_PORT) is only reported
     # if the service is enabled
@@ -469,9 +446,7 @@ sub _setConf
 
     my $filter = $self->filterNeeded();
 
-    $self->_writeDefaultConf();
     $self->_writeSquidConf($filter);
-    $self->_writeSquidExternalConf();
     $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
 
     if ($filter) {
@@ -517,17 +492,6 @@ sub notifyAntivirusEnabled
         return;
 
     $self->setAsChanged();
-}
-
-sub _writeDefaultConf
-{
-    my ($self) = @_;
-
-    my $vars = [];
-    push (@{$vars}, 'keytab' => KEYTAB_FILE);
-    $self->writeConfFile(SQUID3_DEFAULT_FILE,
-        'squid/squid.default.mas', $vars,
-        { mode => '0644'});
 }
 
 sub _writeSquidConf
@@ -587,8 +551,6 @@ sub _writeSquidConf
     if (EBox::Config::boolean('debug')) {
         $self->_checkSquidFile(SQUID_CONF_FILE);
     }
-
-    $self->writeConfFile(SQUID_LOGROTATE_CONF, 'squid/squid3.logrotate.mas', []);
 }
 
 sub _checkSquidFile
@@ -624,7 +586,7 @@ sub _writeDgConf
 
     push(@writeParam, 'port' => DGPORT);
     push(@writeParam, 'lang' => $lang);
-    push(@writeParam, 'squidport' => SQUID_EXTERNAL_PORT);
+    push(@writeParam, 'squidport' => SQUID_PORT);
     push(@writeParam, 'weightedPhraseThreshold' => $self->_banThresholdActive);
     push(@writeParam, 'nGroups' => scalar @dgProfiles);
 
@@ -926,10 +888,6 @@ sub menu
 sub _daemons
 {
     return [
-# FIXME
-#        {
-#            name => 'zentyal.squid3-external'
-#        },
         {
             name => 'dansguardian',
             precondition => \&filterNeeded
@@ -937,21 +895,6 @@ sub _daemons
         {
             name => 'squid'
         }
-    ];
-}
-
-#  Method: _daemonsToDisable
-#
-#   Overrides <EBox::Module::Service::_daemonsToDisable>
-#
-sub _daemonsToDisable
-{
-    # XXX: although squid3 is already listed in _daemons, we add it also here
-    #      to force its stop during enabled (it was done in the initial-setup script)
-    #      maybe we can double check if that's really necessary
-    return [
-        { name => 'dansguardian', type => 'init.d' },
-        { name => 'squid3', type => 'upstart' }
     ];
 }
 
@@ -1088,12 +1031,6 @@ sub _commercialMsg
                 oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
-sub authenticationMode
-{
-    my ($self) = @_;
-
-    return AUTH_MODE_INTERNAL;
-}
 
 sub ifaceExternalChanged
 {

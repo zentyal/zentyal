@@ -108,8 +108,6 @@ sub _rulesACLs
 {
   my %args = @_;
   my @rules = @{ $args{rules} };
-  my $realm = $args{realm};
-  my $authModeExternalAD = $args{authModeExternalAD};
   my %seenACL;
 
   foreach my $rule (@rules) {
@@ -206,11 +204,10 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
 <%def .rulesACLs>
 <%args>
     @rules
-    $realm
 </%args>
 % foreach my $rule (@rules) {
 %   if ($rule->{any}) {
-       <& .timeACLs, rule => $rule, id => $anyPrefix . $rule->{number} &>
+       <& .timeACLs, rule => $rule, id => 'any_src_' . $rule->{number} &>
 %      next;
 %   }
 %   my $object = $rule->{object};
@@ -219,13 +216,6 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
 %   my $aclName = _aclName($src);
 %   if ($object) {
 acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
-%   } else {
-%       # escape user names
-%       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
-%       if ($realm) {
-%           @users = map { $_ . '@' . $realm } @users;
-%       }
-acl <% $aclName %> proxy_auth <% join (' ', @users) %>
 %   }
    <& .timeACLs, rule => $rule, id => $src &>
 % }
@@ -298,7 +288,7 @@ snmp_access allow snmppublic from_localhost
 snmp_access deny all
 </%def>
 
-http_port 0.0.0.0:<% $port %> <% $transKey %>
+http_port 0.0.0.0:<% $port %> <% $transparent ? 'intercept' : '' %>
 
 visible_hostname <% $hostfqdn %>
 coredump_dir /var/spool/squid3
@@ -360,7 +350,7 @@ cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest <% $p
 url_rewrite_program <% $urlRewriteProgram %>
 % }
 
-<& .rulesACLs, rules => [ @objectsDelayPools ], realm => $realm &>
+<& .rulesACLs, rules => [ @objectsDelayPools ] &>
 acl_uses_indirect_client on
 acl authorized proxy_auth REQUIRED
 
@@ -437,12 +427,11 @@ always_direct allow to_localhost
 ##
 ## ACLs from model rules
 ##
-% _rulesACLs(rules => \@rules,  authModeExternalAD => $authModeExternalAD, realm => $realm );
+% _rulesACLs(rules => \@rules);
 ##
 ## Access
 ##
 <& .rulesAccess, rules => \@rules,
-                 authModeExternalAD => $authModeExternalAD,
                  profilesRulesStubs => $filterProfiles{rulesStubs}
 &>
 

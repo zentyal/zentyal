@@ -1,5 +1,0 @@
-<%args>
-    $keytab
-</%args>
-KRB5_KTNAME="<% $keytab %>"
-export KRB5_KTNAME

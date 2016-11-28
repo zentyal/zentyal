@@ -129,19 +129,17 @@ sub input
     my $sq = $global->modInstance('squid');
     my $net = $global->modInstance('network');
 
-    my $squidFrontPort = $sq->port();
+    my $squidPort = $sq->port();
     my $dansguardianPort = $sq->DGPORT();
-    my $squidBackPort = $sq->SQUID_EXTERNAL_PORT();
     my @rules = ();
 
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
         my $input = $self->_inputIface($ifc);
-        my $r = "-m state --state NEW $input -p tcp --dport $squidFrontPort -j iaccept";
+        my $r = "-m state --state NEW $input -p tcp --dport $squidPort -j iaccept";
         push (@rules, $r);
     }
     push (@rules, "-m state --state NEW -p tcp --dport $dansguardianPort -j DROP");
-    push (@rules, "-m state --state NEW -p tcp --dport $squidBackPort -j DROP");
     return \@rules;
 }
 
