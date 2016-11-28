@@ -30,8 +30,7 @@ use EBox::Global;
 use EBox::Validate;
 use POSIX qw(strftime);
 
-use constant EXTERNALSQUIDLOGFILE => '/var/log/squid3/external-access.log';
-use constant INTERNALSQUIDLOGFILE => '/var/log/squid3/access.log';
+use constant SQUIDLOGFILE => '/var/log/squid/access.log';
 use constant DANSGUARDIANLOGFILE => '/var/log/dansguardian/access.log';
 
 # TODO: Clear this periodically
@@ -60,7 +59,7 @@ sub new
 #
 sub logFiles
 {
-    return [EXTERNALSQUIDLOGFILE, INTERNALSQUIDLOGFILE, DANSGUARDIANLOGFILE];
+    return [SQUIDLOGFILE, DANSGUARDIANLOGFILE];
 }
 
 # Method: processLine
@@ -128,18 +127,15 @@ sub processLine # (file, line, logger)
         $temp{$url}->{mimetype} = $fields[9];
         $temp{$url}->{event} = $event;
     } else {
-        if ($file eq EXTERNALSQUIDLOGFILE) {
-            if ($self->{filterNeeded}) {
-                $temp{$url}->{bytes} = $fields[4];
-            } else {
-                $self->_fillExternalData($url, $event, @fields);
-            }
+        if ($self->{filterNeeded}) {
+            $temp{$url}->{bytes} = $fields[4];
         } else {
-            $temp{$url}->{rfc931} = $fields[7];
+            $self->_fillExternalData($url, $event, @fields);
+        }
+        $temp{$url}->{rfc931} = $fields[7];
 
-            if ($event eq 'denied') {
-                $self->_fillExternalData($url, $event, @fields);
-            }
+        if ($event eq 'denied') {
+            $self->_fillExternalData($url, $event, @fields);
         }
     }
     $self->_insertEvent($url, $dbengine);

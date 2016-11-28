@@ -2,8 +2,8 @@
 
 set -e
 
-# Stop squid3 daemon
-service squid3 stop || true
+# Stop squid daemon
+systemctl stop squid || true
 
 # add ebox to proxy to read squid logs
 adduser --quiet ebox proxy || true

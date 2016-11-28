@@ -291,17 +291,17 @@ snmp_access deny all
 http_port 0.0.0.0:<% $port %> <% $transparent ? 'intercept' : '' %>
 
 visible_hostname <% $hostfqdn %>
-coredump_dir /var/spool/squid3
+coredump_dir /var/spool/squid
 cache_effective_user proxy
 cache_effective_group proxy
 cache_mem <% $memory %> MB
-cache_dir ufs /var/spool/squid3 <% $cacheDirSize %> 16 256
+cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
 maximum_object_size <% $max_object_size %> MB
-access_log /var/log/squid3/access.log squid
-cache_log /var/log/squid3/cache.log
-cache_store_log /var/log/squid3/store.log
+access_log /var/log/squid/access.log squid
+cache_log /var/log/squid/cache.log
+cache_store_log /var/log/squid/store.log
 
-pid_filename /var/run/squid3.pid
+pid_filename /var/run/squid.pid
 
 % if (@nameservers) {
 %   my $dns_nameservers = '';
@@ -337,6 +337,10 @@ refresh_pattern .               0       20%     4320
 
 # end refresh patterns
 
+% if ($filter) {
+cache_peer 127.0.0.1 parent 3129 0 no-query proxy-only login=*:nopassword
+% }
+
 % if ($cache_host and $cache_port) {
 %   my $peerAuth = '';
 %   if ($cache_user and $cache_passwd) {
@@ -352,7 +356,6 @@ url_rewrite_program <% $urlRewriteProgram %>
 
 <& .rulesACLs, rules => [ @objectsDelayPools ] &>
 acl_uses_indirect_client on
-acl authorized proxy_auth REQUIRED
 
 # no cache domains acl
 % foreach my $domain (@notCachedDomains) {
@@ -406,12 +409,9 @@ http_access deny !Safe_ports
 
 http_access deny CONNECT !SSL_ports
 http_access allow from_localhost
-# FIXME: is this needed?
-#forwarded_for on
-#always_direct allow to_localhost
+forwarded_for on
+always_direct allow to_localhost
 
-# we use firewall to deny clients from the outside
-http_access allow all
 % if ($cache_host and $cache_port) {
 never_direct allow all
 % }
@@ -421,8 +421,6 @@ never_direct allow all
 % if ( $snmpEnabled ) {
 <& .snmp &>
 % }
-
-always_direct allow to_localhost
 
 ##
 ## ACLs from model rules

@@ -75,7 +75,6 @@ use constant CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf
 use constant BLOCK_ADS_PROGRAM => '/usr/bin/adzapper.wrapper';
 use constant BLOCK_ADS_EXEC_FILE => '/usr/bin/adzapper';
 use constant ADZAPPER_CONF => '/etc/adzapper.conf';
-use constant KEYTAB_FILE => '/etc/squid3/HTTP.keytab';
 use constant CRONFILE => '/etc/cron.d/zentyal-squid';
 
 use constant SQUID_ZCONF_FILE => '/etc/zentyal/squid.conf';
@@ -218,11 +217,6 @@ sub usedFiles
              'file' =>    ADZAPPER_CONF,
              'module' => 'squid',
              'reason' => __('Configuration of adzapper'),
-            },
-            {
-             'file' => KEYTAB_FILE,
-             'module' => 'squid',
-             'reason' => __('Extract the service principal key'),
             }
     ];
 }
@@ -558,7 +552,7 @@ sub _checkSquidFile
     my ($self, $confFile) = @_;
 
     try {
-        EBox::Sudo::root("squid3 -k parse $confFile");
+        EBox::Sudo::root("squid -k parse $confFile");
     } catch (EBox::Exceptions::Command $e) {
         my $error = join ' ', @{ $e->error() };
         throw EBox::Exceptions::Internal("Error in squid configuration file $confFile: $error");
