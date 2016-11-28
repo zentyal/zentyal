@@ -7,6 +7,7 @@ a2enmod headers
 a2enmod ssl
 
 a2enconf SOGo
+a2ensite default-ssl
 
 systemctl restart apache2
 
