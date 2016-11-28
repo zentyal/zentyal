@@ -24,6 +24,7 @@ use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::MissingArgument;
 use POSIX qw(setuid setgid setlocale LC_ALL LC_NUMERIC);
 use English;
+use File::Slurp;
 
 use constant LOGGER_CAT => 'EBox';
 
@@ -154,9 +155,7 @@ sub locale
         $locale = <$fh>;
         close ($fh);
     } elsif (-f '/etc/default/locale') {
-        open (my $fh, '/etc/default/locale');
-        $locale = <$fh>;
-        close ($fh);
+        $locale = read_file('/etc/default/locale');
         ($locale) = $locale =~ /LANG="(.+)"/;
     }
     unless ($locale) {
