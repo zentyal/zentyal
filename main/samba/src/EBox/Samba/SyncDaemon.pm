@@ -18,7 +18,7 @@
 use strict;
 use warnings;
 
-package EBox::Samba::SetUidGidNumbers;
+package EBox::Samba::SyncDaemon;
 
 use EBox;
 use EBox::Global;
@@ -208,7 +208,7 @@ if ($0 eq __FILE__) {
     EBox::init();
 
     # Run each 30 sec + random between (0,10) seconds
-    my $loop = new EBox::Samba::SetUidGidNumbers();
+    my $loop = new EBox::Samba::SyncDaemon();
     $loop->run(30, 10);
 }
 

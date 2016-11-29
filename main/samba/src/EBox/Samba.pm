@@ -1070,12 +1070,13 @@ sub _daemons
             name => 'samba-ad-dc',
         },
         {
-            name => 'zentyal.set-uid-gid-numbers',
+            name => 'zentyal.samba-sync',
             precondition => \&_uidSyncEnabled,
         },
     ];
 }
 
+# FIXME rename this precondition with OR condition for future async acl functionality
 sub _uidSyncEnabled
 {
     my ($self) = @_;

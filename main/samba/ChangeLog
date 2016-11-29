@@ -8,6 +8,8 @@
 	+ DNS updates now done via GSS-TSIG no longer require custom samba patch
 	+ Remove deprecated scannedonly integration
 	+ Adapt code to perl 5.22
+	+ zentyal.set-uid-gid-numbers renamed to zentyal.samba-sync to include
+	  more functionality in next versions
 4.2.3
 	+ Add cron to flush idmap cache to avoid auth issues
 4.2.2
