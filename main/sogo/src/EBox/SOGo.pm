@@ -34,6 +34,7 @@ use TryCatch;
 use constant SOGO_DEFAULT_PREFORK => 3;
 use constant SOGO_DEFAULT_FILE => '/etc/default/sogo';
 use constant SOGO_CONF_FILE => '/etc/sogo/sogo.conf';
+use constant SOGO_APACHE_FILE => '/etc/apache2/conf-available/SOGo.conf';
 
 # Group: Protected methods
 
@@ -95,6 +96,7 @@ sub _setConf
     if ($self->isEnabled()) {
         $self->_writeSOGoDefaultFile();
         $self->_writeSOGoConfFile();
+        $self->_writeSOGoApacheFile();
         $self->_setupSOGoDatabase();
 
         $self->_setupActiveSync();
@@ -238,6 +240,15 @@ sub _writeSOGoDefaultFile
     $self->writeConfFile(SOGO_DEFAULT_FILE,
         'sogo/sogo.mas',
         $array, { uid => 0, gid => 0, mode => '755' });
+}
+
+sub _writeSOGoApacheFile
+{
+    my ($self) = @_;
+
+    $self->writeConfFile(SOGO_APACHE_FILE,
+        'sogo/SOGo.conf.mas',
+        [], { uid => 0, gid => 0, mode => '755' });
 }
 
 sub _writeSOGoConfFile
