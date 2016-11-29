@@ -115,12 +115,13 @@ sub _table
             editable      => 1,
             defaultValue  => 0,
             help          => __('This share will not require authentication.')),
-        new EBox::Types::Boolean(
-            fieldName     => 'recursive_acls',
-            printableName => __('Apply ACLs recursively'),
-            editable      => 1,
-            defaultValue  => 1,
-            help          => __('ACL changes replace all permissions on subfolders of this share.')),
+# TODO: implement read-only status of asynchronous ACLs application
+#        new EBox::Types::Boolean(
+#            fieldName     => 'recursive_acls',
+#            printableName => __('Apply ACLs recursively'),
+#            editable      => 1,
+#            defaultValue  => 1,
+#            help          => __('ACL changes replace all permissions on subfolders of this share.')),
         new EBox::Types::HasMany(
             fieldName     => 'access',
             printableName => __('Access control'),
