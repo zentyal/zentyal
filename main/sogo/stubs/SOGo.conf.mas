@@ -1,3 +1,6 @@
+<%args>
+    $activesync => 0
+</%args>
 Alias /SOGo.woa/WebServerResources/ \
       /usr/lib/GNUstep/SOGo/WebServerResources/
 Alias /SOGo/WebServerResources/ \
@@ -6,7 +9,7 @@ Alias /SOGo/WebServerResources/ \
 <Directory /usr/lib/GNUstep/SOGo/>
     AllowOverride None
 
-    <IfVersion < 2.4>      
+    <IfVersion < 2.4>
         Order deny,allow
         Allow from all
     </IfVersion>
@@ -61,9 +64,11 @@ ProxyPreserveHost On
 # Note that you MUST have many sogod workers to use ActiveSync.
 # See the SOGo Installation and Configuration guide for more details.
 #
-#ProxyPass /Microsoft-Server-ActiveSync \
-# http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
-# retry=60 connectiontimeout=5 timeout=360
+% if ($activesync) {
+ProxyPass /Microsoft-Server-ActiveSync \
+ http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
+ retry=60 connectiontimeout=5 timeout=360
+% }
 
 ProxyPass /SOGo http://127.0.0.1:20000/SOGo retry=0
 

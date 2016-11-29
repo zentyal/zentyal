@@ -99,8 +99,6 @@ sub _setConf
         $self->_writeSOGoApacheFile();
         $self->_setupSOGoDatabase();
 
-        $self->_setupActiveSync();
-
         try {
             EBox::Sudo::root("a2enconf SOGo");
         } catch (EBox::Exceptions::Sudo::Command $e) {
@@ -208,25 +206,6 @@ sub _postServiceHook
     }
 }
 
-sub _setupActiveSync
-{
-    my ($self) = @_;
-
-    my $enabled = (-f '/etc/apache2/conf-enabled/zentyal-activesync.conf');
-    my $enable = $self->model('ActiveSync')->value('activesync');
-    if ($enabled xor $enable) {
-        if ($enable) {
-            EBox::Sudo::root('a2enconf zentyal-activesync');
-        } else {
-            EBox::Sudo::silentRoot('a2disconf zentyal-activesync');
-        }
-        my $global = $self->global();
-        if ($global->modExists('sogo')) {
-            $global->addModuleToPostSave('sogo');
-        }
-    }
-}
-
 sub _writeSOGoDefaultFile
 {
     my ($self) = @_;
@@ -246,9 +225,11 @@ sub _writeSOGoApacheFile
 {
     my ($self) = @_;
 
+    my $array = [];
+    push (@{$array}, activesync => $self->model('ActiveSync')->value('activesync'));
     $self->writeConfFile(SOGO_APACHE_FILE,
         'sogo/SOGo.conf.mas',
-        [], { uid => 0, gid => 0, mode => '755' });
+        $array, { uid => 0, gid => 0, mode => '755' });
 }
 
 sub _writeSOGoConfFile
