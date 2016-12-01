@@ -32,6 +32,10 @@ else
     mv /usr/share/zenbuntu-core/second-boot.sh /etc/rc.local
 
     plymouth --wait
+
+    sleep 60
+
+    plymouth --quit
 fi
 
 exit 0
