@@ -5,7 +5,7 @@ set_router() {
 
 
 # Do nothing if network module is disbled
-if service zentyal network status; then
+if zs network status; then
     case $reason in
         BOUND)
             set_router
