@@ -10,7 +10,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart squid $2
 
         # restart module
-        service zentyal squid restart || true
+        zs squid restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

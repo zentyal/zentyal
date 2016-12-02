@@ -1,3 +1,5 @@
+HEAD
+	+ Fix module restart in postinst
 5.0
 	+ Remove OpenChange integration as project is not stable yet
 	+ Use system daemons instead of old custom upstart ones

@@ -1,3 +1,5 @@
+HEAD
+	+ Fix module restart in postinst
 5.0
 	+ Integrate Samba 4.5
 	+ Remove perl bindings to use just samba upstream packages,

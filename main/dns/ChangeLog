@@ -1,3 +1,5 @@
+HEAD
+	+ Fix module restart in postinst
 5.0
 	+ DNS updates now done via GSS-TSIG no longer require custom samba patch
 	+ Set version to 5.0

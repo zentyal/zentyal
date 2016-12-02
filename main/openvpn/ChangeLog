@@ -1,3 +1,5 @@
+HEAD
+	+ Fix module restart in postinst and postrm
 5.0
 	+ Adapt to systemd instead of upstart
 4.2

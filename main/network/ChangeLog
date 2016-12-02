@@ -1,5 +1,6 @@
 HEAD
 	+ Fix DHCP hooks
+	+ Fix module restart in postinst
 5.0
 	+ Integrate objects and services modules inside network
 	+ Use Net::Interface instead of IO::Interface::Simple, which

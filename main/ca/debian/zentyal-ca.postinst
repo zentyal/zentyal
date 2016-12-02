@@ -10,7 +10,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart ca $2
 
         # restart module
-        service zentyal ca restart || true
+        zs ca restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;
