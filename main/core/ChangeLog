@@ -1,3 +1,5 @@
+HEAD
+	+ Fix unknown column 'password' error with MySQL 5.7
 5.0
 	+ Distribution base is now Ubuntu 16.04 LTS
 	+ Use Clone instead of Clone::Fast

@@ -44,7 +44,7 @@ create_db()
     echo "Creating the $db_name database"
     echo "CREATE DATABASE $db_name CHARACTER SET utf8 COLLATE utf8_unicode_ci;" | mysql --defaults-file=/etc/mysql/debian.cnf
     echo "GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$PASSWD\";" | mysql --defaults-file=/etc/mysql/debian.cnf
-    echo "UPDATE mysql.user SET Password=PASSWORD('$PASSWD') WHERE User='root';" | mysql --defaults-file=/etc/mysql/debian.cnf
+    echo "UPDATE mysql.user SET authentication_string=PASSWORD('$PASSWD') WHERE user='root';" | mysql --defaults-file=/etc/mysql/debian.cnf
     echo "FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 
     perl -MEBox -MEBox::Util::SQL -e'EBox::init(); EBox::Util::SQL::createCoreTables(); 1';
