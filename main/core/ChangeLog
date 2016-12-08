@@ -1,6 +1,7 @@
 HEAD
 	+ Fix unknown column 'password' error with MySQL 5.7
 	+ Fix webadmin stop taking more than 1 minute in uwsgi systemd unit
+	+ Depend on patched libhtml-mason-perl to avoid $dir_path warning
 5.0
 	+ Distribution base is now Ubuntu 16.04 LTS
 	+ Use Clone instead of Clone::Fast
