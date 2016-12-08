@@ -1,4 +1,4 @@
-HEAD
+5.0.1
 	+ Remove acl and user_xattr mount options related code as ext4 already
 	  has them enabled by default
 	+ Fix module restart in postinst
