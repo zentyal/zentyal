@@ -1,4 +1,4 @@
-HEAD
+5.0.1
 	+ Fix unknown column 'password' error with MySQL 5.7
 	+ Fix webadmin stop taking more than 1 minute in uwsgi systemd unit
 	+ Depend on patched libhtml-mason-perl to avoid $dir_path warning
