@@ -12,4 +12,5 @@ Description=uWSGI daemon for Zentyal webadmin
 [Service]
 ExecStartPre=/bin/sh -c '[ -d <% $socketpath %> ] || install -m 755 -o <% $user %> -g www-data -d <% $socketpath %>'
 ExecStart=/usr/bin/uwsgi --master --ignore-sigpipe --buffer-size 10240 --plugins 0:psgi --uid <% $user %> --gid <% $group %> --umask 000 -s <% $socketpath %>/<% $socketname %> --touch-reload /var/lib/zentyal/webadmin.reload --psgi <% $script %>
+KillSignal=SIGQUIT
 Restart=on-failure
