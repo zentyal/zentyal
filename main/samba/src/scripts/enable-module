@@ -4,9 +4,6 @@
 systemctl unmask samba-ad-dc
 systemctl enable samba-ad-dc
 
-# Remount filesystem with user_xattr and acl options
-/usr/share/zentyal-samba/setup-filesystem
-
 # enable quotas
 /usr/share/zentyal-samba/enable-quotas
 

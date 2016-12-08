@@ -551,8 +551,8 @@ sub _checkSystemShareMountOptions
         }
     }
 
-    # BTRFS, XFS and GlusterFS have acl and extended attributes by default
-    if (($type =~ m/btrfs/) or ($type =~ m/xfs/) or ($type =~ m/glusterfs/)) {
+    # ext4, BTRFS, XFS and GlusterFS have acl and extended attributes by default
+    if (($type =~ m/ext4/) or ($type =~ m/btrfs/) or ($type =~ m/xfs/) or ($type =~ m/glusterfs/)) {
         return 1;
     }
 
