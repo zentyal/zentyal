@@ -1,17 +1,9 @@
 #!/bin/bash
 
-LOG=/var/tmp/zentyal-installer.log
-
 ln -sf /lib/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.plymouth
 ln -sf /lib/plymouth/themes/zentyal/zentyal.grub /etc/alternatives/default.plymouth.grub
 
 if [ "$1" == "configure" ]
 then
     systemctl disable lxdm.service
-fi
-
-if [ -n "$2" ]
-then
-    systemctl reenable lxdm.service
-    ln -sf '/lib/systemd/system/lxdm.service' '/etc/systemd/system/multi-user.target.wants/'
 fi

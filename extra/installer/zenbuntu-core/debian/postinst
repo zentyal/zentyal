@@ -12,7 +12,6 @@ ln -sf /lib/plymouth/themes/zentyal-text/zentyal-text.plymouth /etc/alternatives
 
 if [ "$1" == "configure" ]
 then
-    cp /etc/rc.local /usr/share/zenbuntu-core/
     cp /usr/share/zenbuntu-core/first-boot.sh /etc/rc.local
 
     if [ -f /etc/default/grub ]

@@ -18,24 +18,12 @@ then
 
     /usr/share/zenbuntu-desktop/x11-setup >> $LOG 2>&1
 
-    mv /usr/share/zenbuntu-core/second-boot.sh /etc/rc.local
+    # Enable lxdm auto-startup for next boots
+    systemctl enable zentyal.lxdm
 
-    # Restore default lxdm auto-startup
-    systemctl reenable lxdm.service
-    ln -sf '/lib/systemd/system/lxdm.service' '/etc/systemd/system/multi-user.target.wants/'
-
-    systemctl start lxdm
-else
-    URL=$(/usr/share/zenbuntu-core/get-zentyal-url)
-    plymouth message --text="Zentyal interface at $URL (Alt+F2 for login shell)"
-
-    mv /usr/share/zenbuntu-core/second-boot.sh /etc/rc.local
-
-    plymouth --wait
-
-    sleep 60
-
-    plymouth --quit
+    systemctl start zentyal.lxdm
 fi
+
+cp /usr/share/zenbuntu-core/second-boot.sh /etc/rc.local
 
 exit 0

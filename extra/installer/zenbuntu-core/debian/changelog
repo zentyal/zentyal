@@ -1,3 +1,10 @@
+zenbuntu-core (5.0.2) xenial; urgency=medium
+
+  * Fix for LXDM starting after webadmin and rest of services
+  * Definitive fix for plymouth problems in expert mode
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 11 Dec 2016 12:32:58 +0100
+
 zenbuntu-core (5.0.1) xenial; urgency=medium
 
   * Quit plymouth 1 minute after finish to allow local login in expert mode 

@@ -1,3 +1,10 @@
+zenbuntu-desktop (5.0.1) xenial; urgency=medium
+
+  * Include custom zentyal.lxdm systemd service, fixes GUI starting
+    before webadmin and rest of services are ready
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 11 Dec 2016 17:19:13 +0100
+
 zenbuntu-desktop (5.0) xenial; urgency=medium
 
   * Package for 16.04

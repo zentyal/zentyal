@@ -1,0 +1,16 @@
+[Unit]
+Description=Zentyal LXDE Display Manager
+Documentation=man:lxdm(1)
+Conflicts=getty@tty7.service plymouth-quit.service
+After=systemd-user-sessions.service getty@tty7.service plymouth-quit.service zentyal.service
+
+[Service]
+# temporary safety check until all DMs are converted to correct
+# display-manager.service symlink handling
+ExecStartPre=/bin/sh -c '[ ! -f /etc/X11/default-display-manager -o "$(cat /etc/X11/default-display-manager 2>/dev/null)" = "/usr/sbin/lxdm" ]'
+ExecStart=/usr/sbin/lxdm
+Restart=always
+IgnoreSIGPIPE=no
+
+[Install]
+WantedBy=multi-user.target
