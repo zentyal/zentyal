@@ -2127,7 +2127,7 @@ sub _generateResolvconfConfig
         'network/resolvconf-base.mas', [],
         { mode => '0644', uid => 0, gid => 0 });
     $self->writeConfFile(RESOLVCONF_HEAD,
-        'network/resolvconf-head.mas', [],
+        'network/resolvconf-head.mas', [ samba => $self->global->modExists('samba') ],
         { mode => '0644', uid => 0, gid => 0 });
     $self->writeConfFile(RESOLVCONF_TAIL,
         'network/resolvconf-tail.mas', [],

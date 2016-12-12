@@ -1,3 +1,5 @@
+HEAD
+	+ Make sure 127.0.0.1 is always used as nameserver with zentyal-samba
 5.0.1
 	+ Fix DHCP hooks
 	+ Fix module restart in postinst
