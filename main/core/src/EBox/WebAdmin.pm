@@ -143,6 +143,13 @@ sub _enforceServiceState
 
     if ((not $params{'stop'}) and $self->isRunning()) {
         $self->reload();
+
+        my $state = $self->get_state();
+        if (exists $state->{port_changed}) {
+            delete $state->{port_changed};
+            $self->set_state($state);
+            EBox::Sudo::silentRoot("systemctl restart zentyal.webadmin-nginx");
+        }
     } else {
         $self->SUPER::_enforceServiceState(%params);
     }
@@ -706,6 +713,11 @@ sub updateAdminPortService
         my $services = $global->modInstance('network');
         $services->setAdministrationPort($port);
     }
+
+    # Enforce nginx restart
+    my $state = $self->get_state();
+    $state->{port_changed} = 1;
+    $self->set_state($state);
 }
 
 1;

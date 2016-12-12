@@ -1,3 +1,5 @@
+HEAD
+	+ Force nginx restart when webadmin port is changed
 5.0.1
 	+ Fix unknown column 'password' error with MySQL 5.7
 	+ Fix webadmin stop taking more than 1 minute in uwsgi systemd unit
