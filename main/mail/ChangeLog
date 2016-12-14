@@ -1,4 +1,5 @@
 HEAD
+	+ Fix error when retrieve mail for external accounts is enabled
 	+ Fix module restart in postinst
 5.0
 	+ Remove OpenChange integration as project is not stable yet

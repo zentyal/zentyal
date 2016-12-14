@@ -443,7 +443,7 @@ sub writeConf
     EBox::Module::Base::writeConfFileNoCheck('/etc/default/fetchmail',
                          '/mail/fetchmail.mas',
                          [
-                          enabled => $self->fetchmailMustRun()
+                          enabled => $self->daemonMustRun()
                          ],
                          {
                              uid  => 'root',
