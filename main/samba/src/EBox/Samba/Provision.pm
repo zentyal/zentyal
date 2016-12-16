@@ -374,9 +374,6 @@ sub provision
         throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
     }
 
-    # Disable expiration on administrator account
-    EBox::Sudo::root('samba-tool user setexpiry administrator --noexpiry');
-
     # Necessary to allow GSS-TSIG DNS updates via nsupdate -g in dns module
     my $hostname = $global->modInstance('sysinfo')->hostName();
     EBox::Sudo::root("samba-tool group addmembers DnsAdmins dns-$hostname");
@@ -614,6 +611,9 @@ sub provisionDC
         $self->setProvisioned(0);
         throw EBox::Exceptions::Internal($error);
     }
+
+    # Disable expiration on administrator account
+    EBox::Sudo::root('samba-tool user setexpiry administrator --noexpiry');
 }
 
 sub rootDseAttributes
