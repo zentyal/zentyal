@@ -1,4 +1,4 @@
-HEAD
+5.0.2
 	+ Definitive fix for fetchmail problems with custom systemd
 	  daemon, as default init.d script seems broken
 5.0.1
