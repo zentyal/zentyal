@@ -1,3 +1,6 @@
+HEAD
+	+ Definitive fix for fetchmail problems with custom systemd
+	  daemon, as default init.d script seems broken
 5.0.1
 	+ Fix error when retrieve mail for external accounts is enabled
 	+ Fix module restart in postinst

@@ -1,0 +1,6 @@
+[Unit]
+Description=Zentyal fetchmail daemon
+
+[Service]
+ExecStart=/bin/su fetchmail -c '/usr/bin/fetchmail --nodetach -f /etc/zentyal-fetchmail.rc'
+Restart=on-failure

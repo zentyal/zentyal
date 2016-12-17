@@ -424,7 +424,7 @@ sub writeConf
                          {
                              uid  => 'fetchmail',
                              gid  => 'nogroup',
-                             mode =>  '0710',
+                             mode =>  '0600',
                          }
                         );
 
@@ -440,17 +440,6 @@ sub writeConf
                          }
                         );
 
-    EBox::Module::Base::writeConfFileNoCheck('/etc/default/fetchmail',
-                         '/mail/fetchmail.mas',
-                         [
-                          enabled => $self->daemonMustRun()
-                         ],
-                         {
-                             uid  => 'root',
-                             gid  => 'root',
-                             mode =>  '0644',
-                         }
-                        );
 }
 
 sub daemonMustRun
