@@ -1,4 +1,5 @@
 HEAD
+	+ Apply ACLs recursively on background instead of blocking save changes
 	+ Set noexpiry of administrator account only in DC mode, prevents
 	  error when user exists with a different name like "administrador"
 5.0.1

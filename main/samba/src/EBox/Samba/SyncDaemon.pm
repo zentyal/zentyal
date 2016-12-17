@@ -21,12 +21,14 @@ use warnings;
 package EBox::Samba::SyncDaemon;
 
 use EBox;
+use EBox::Config;
 use EBox::Global;
 use EBox::Ldap;
 use EBox::Samba::User;
 use EBox::Samba::Group;
 use Perl6::Junction qw(any);
 use TryCatch;
+use String::ShellQuote;
 
 use constant DEBUG => 0;
 
@@ -159,11 +161,11 @@ sub checkGroups
     }
 }
 
-# Method: check
+# Method: syncUsersGroups
 #
 #   Retrieve containers and check users and groups inside them
 #
-sub check
+sub syncUsersGroups
 {
     my ($self, $debug) = @_;
 
@@ -184,6 +186,116 @@ sub check
     $self->checkUsers($ldap, $containers);
 }
 
+# Method: setACLs
+#
+#   Set ACLs for shares with pending changes
+#
+sub setACLs
+{
+    my ($self) = @_;
+
+    my $samba = EBox::Global->modInstance('samba');
+    my $domainSid = $samba->ldap()->domainSID();
+    my $domainAdminsSid = $domainSid . '-512';
+    my $domainUsersSid  = $domainSid . '-513';
+    my $sambaShares = $samba->model('SambaShares');
+
+    for my $id (@{$sambaShares->ids()}) {
+        my $row = $sambaShares->row($id);
+        my $enabled     = $row->valueByName('enabled');
+        my $shareName   = $row->valueByName('share');
+        my $pathType    = $row->elementByName('path');
+        my $guestAccess = $row->valueByName('guest');
+
+        unless ($enabled) {
+            next;
+        }
+
+        my $state = $samba->get_state();
+        unless (defined $state->{shares_set_rights} and $state->{shares_set_rights}->{$shareName}) {
+            # share permissions didn't change, nothing needs to be done for this share.
+            next;
+        }
+
+        my $path = undef;
+        if ($pathType->selectedType() eq 'zentyal') {
+            $path = $samba->SHARES_DIR() . '/' . $pathType->value();
+        } elsif ($pathType->selectedType() eq 'system') {
+            $path = $pathType->value();
+        } else {
+            EBox::error("Unknown share type on share '$shareName'");
+        }
+        unless (defined $path) {
+            next;
+        }
+
+        next if (EBox::Config::boolean('unmanaged_acls') and EBox::Sudo::fileTest('-d', $path));
+
+        EBox::info("Starting to apply recursive ACLs to share '$shareName'...");
+
+        my @cmds = ();
+        push (@cmds, "mkdir -p '$path'");
+        push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs
+        if ($guestAccess) {
+            push (@cmds, "chmod 0777 '$path'");
+            push (@cmds, "chown nobody:'domain users' '$path'");
+        } else {
+            push (@cmds, "chmod 0770 '$path'");
+            push (@cmds, "chown administrator:adm '$path'");
+        }
+        EBox::Sudo::root(@cmds);
+
+        # Posix ACL
+        my @posixACL;
+        push (@posixACL, 'u:administrator:rwx');
+        push (@posixACL, 'g:adm:rwx');
+        push (@posixACL, 'g:"domain admins":rwx');
+
+        for my $subId (@{$row->subModel('access')->ids()}) {
+            my $subRow = $row->subModel('access')->row($subId);
+            my $permissions = $subRow->elementByName('permissions');
+
+            my $userType = $subRow->elementByName('user_group');
+            my $perm;
+            if ($userType->selectedType() eq 'group') {
+                $perm = 'g:';
+            } elsif ($userType->selectedType() eq 'user') {
+                $perm = 'u:';
+            }
+            my $account = $userType->printableValue();
+            my $qobject = shell_quote($account);
+            $perm .= $qobject . ':';
+
+            if ($permissions->value() eq 'readOnly') {
+                $perm .= 'rx';
+            } elsif ($permissions->value() eq 'readWrite') {
+                $perm .= 'rwx';
+            } elsif ($permissions->value() eq 'administrator') {
+                $perm .= 'rwx';
+            } else {
+                my $type = $permissions->value();
+                EBox::error("Unknown share permission type '$type'");
+                next;
+            }
+            push (@posixACL, $perm);
+        }
+
+        if (@posixACL) {
+            try {
+                EBox::Sudo::root('setfacl -R -m d:' . join(',d:', @posixACL) ." '$path'");
+                EBox::Sudo::root('setfacl -R -m ' . join(',', @posixACL) . " '$path'");
+            } catch {
+                my $error = shift;
+                EBox::error("Couldn't enable POSIX ACLs for $path: $error")
+            }
+        }
+        EBox::info("Recursive set of ACLs to share '$shareName' finished.");
+
+        delete $state->{shares_set_rights}->{$shareName};
+        $samba->set_state($state);
+    }
+}
+
 # Method: run
 #
 #   Run the daemon. It never dies.
@@ -192,16 +304,21 @@ sub run
 {
     my ($self, $interval, $random) = @_;
 
-    EBox::info("Samba uid and gid number check daemon started");
+    EBox::info("Samba sync daemon started");
+
+    my $syncUsers = (not EBox::Config::boolean('disabled_uid_sync'));
 
     while (1) {
+        $self->setACLs();
+
         my $randomSleep = (DEBUG ? (3) : ($interval + int (rand ($random))));
         EBox::debug("Sleeping for $randomSleep seconds");
         sleep ($randomSleep);
-        $self->check(DEBUG);
+
+        $self->syncUsersGroups(DEBUG) if ($syncUsers);
     }
 
-    EBox::info("Samba uid and gid number check daemon stopped");
+    EBox::info("Samba sync daemon stopped");
 }
 
 if ($0 eq __FILE__) {

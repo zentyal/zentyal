@@ -41,7 +41,6 @@ use EBox::Validate;
 use Sys::Filesystem;
 use File::Basename qw( dirname );
 use Cwd 'abs_path';
-use String::ShellQuote;
 use TryCatch;
 
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
@@ -329,111 +328,6 @@ sub deletedRowNotify
 
     my $deletedModel = $self->parentModule->model('SambaDeletedShares');
     $deletedModel->addRow('path' => $path->value());
-}
-
-# Method: createDirs
-#
-#   This method is used to create the necessary directories for those
-#   shares which must live under /home/samba/shares
-#   We must set here both POSIX ACLs and native NT ACLs. If we only set
-#   POSIX ACLs, a user can change the permissions in the security tab
-#   of the share. To avoid it we set also native NT ACLs and set the
-#   owner of the share to 'Domain Admins'.
-#
-sub createDirs
-{
-    my ($self) = @_;
-
-    my $domainSid = $self->parentModule()->ldap()->domainSID();
-    my $domainAdminsSid = $domainSid . '-512';
-    my $domainUsersSid  = $domainSid . '-513';
-
-    for my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
-        my $enabled     = $row->valueByName('enabled');
-        my $shareName   = $row->valueByName('share');
-        my $pathType    = $row->elementByName('path');
-        my $guestAccess = $row->valueByName('guest');
-
-        unless ($enabled) {
-            next;
-        }
-
-        my $path = undef;
-        if ($pathType->selectedType() eq 'zentyal') {
-            $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
-        } elsif ($pathType->selectedType() eq 'system') {
-            $path = $pathType->value();
-        } else {
-            EBox::error("Unknown share type on share '$shareName'");
-        }
-        unless (defined $path) {
-            next;
-        }
-
-        # Don't do anything if the directory already exists and the option to manage ACLs
-        # only from Windows is set
-        next if (EBox::Config::boolean('unmanaged_acls') and EBox::Sudo::fileTest('-d', $path));
-
-        # FIXME: move this to external process to avoid blocking of save changes
-
-        my @cmds = ();
-        push (@cmds, "mkdir -p '$path'");
-        push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs
-        if ($guestAccess) {
-            push (@cmds, "chmod 0777 '$path'");
-            push (@cmds, "chown nobody:'domain users' '$path'");
-        } else {
-            push (@cmds, "chmod 0770 '$path'");
-            push (@cmds, "chown administrator:adm '$path'");
-        }
-        EBox::Sudo::root(@cmds);
-
-        # Posix ACL
-        my @posixACL;
-        push (@posixACL, 'u:administrator:rwx');
-        push (@posixACL, 'g:adm:rwx');
-        push (@posixACL, 'g:"domain admins":rwx');
-
-        for my $subId (@{$row->subModel('access')->ids()}) {
-            my $subRow = $row->subModel('access')->row($subId);
-            my $permissions = $subRow->elementByName('permissions');
-
-            my $userType = $subRow->elementByName('user_group');
-            my $perm;
-            if ($userType->selectedType() eq 'group') {
-                $perm = 'g:';
-            } elsif ($userType->selectedType() eq 'user') {
-                $perm = 'u:';
-            }
-            my $account = $userType->printableValue();
-            my $qobject = shell_quote($account);
-            $perm .= $qobject . ':';
-
-            if ($permissions->value() eq 'readOnly') {
-                $perm .= 'rx';
-            } elsif ($permissions->value() eq 'readWrite') {
-                $perm .= 'rwx';
-            } elsif ($permissions->value() eq 'administrator') {
-                $perm .= 'rwx';
-            } else {
-                my $type = $permissions->value();
-                EBox::error("Unknown share permission type '$type'");
-                next;
-            }
-            push (@posixACL, $perm);
-        }
-
-        if (@posixACL) {
-            try {
-                EBox::Sudo::root('setfacl -R -m d:' . join(',d:', @posixACL) ." '$path'");
-                EBox::Sudo::root('setfacl -R -m ' . join(',', @posixACL) . " '$path'");
-            } catch {
-                my $error = shift;
-                EBox::error("Couldn't enable POSIX ACLs for $path: $error")
-            }
-        }
-    }
 }
 
 # Method: viewCustomizer
