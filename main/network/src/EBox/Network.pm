@@ -2122,12 +2122,15 @@ sub _generateResolvconfConfig
 {
     my ($self) = @_;
 
+    my $samba = EBox::Global->modInstance('samba');
+    my $sambaDC = (defined ($samba) and ($samba->dcMode() ne 'adc'));
+
     # Generate base, head and tail
     $self->writeConfFile(RESOLVCONF_BASE,
         'network/resolvconf-base.mas', [],
         { mode => '0644', uid => 0, gid => 0 });
     $self->writeConfFile(RESOLVCONF_HEAD,
-        'network/resolvconf-head.mas', [ samba => $self->global->modExists('samba') ],
+        'network/resolvconf-head.mas', [ samba => $sambaDC ],
         { mode => '0644', uid => 0, gid => 0 });
     $self->writeConfFile(RESOLVCONF_TAIL,
         'network/resolvconf-tail.mas', [],
