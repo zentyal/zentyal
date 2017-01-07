@@ -16,6 +16,7 @@ Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
          iptables, libnet-arp-perl, wget, traceroute,
          libnet-interface-perl, debconf, wakeonlan,
          resolvconf, ${misc:Depends}
+Replaces: zentyal-services, zentyal-objects
 Description: Zentyal - Network Configuration
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -24,3 +25,15 @@ Description: Zentyal - Network Configuration
  .
  This module adds network configuration featuring interfaces, routes, domain
  servers set up.
+
+Package: zentyal-services
+Depends: zentyal-network, ${misc:Depends}
+Architecture: all
+Description: transitional dummy package
+  This is a transitional dummy package. It can safely be removed.
+
+Package: zentyal-objects
+Depends: zentyal-network, ${misc:Depends}
+Architecture: all
+Description: transitional dummy package
+  This is a transitional dummy package. It can safely be removed.
