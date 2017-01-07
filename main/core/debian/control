@@ -37,8 +37,15 @@ Depends: adduser, anacron, cracklib-runtime, cron, curl, dbus, debconf, gpgv,
          openssl, redis-server (>= 2:2.8.4), uwsgi-plugin-psgi,
          apt-transport-https, libdate-calc-xs-perl, screen, at,
          ${misc:Depends}
+Replaces: zentyal-common
 Description: Zentyal - Core
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
+
+Package: zentyal-common
+Depends: zentyal-core, ${misc:Depends}
+Architecture: all
+Description: transitional dummy package
+  This is a transitional dummy package. It can safely be removed.
