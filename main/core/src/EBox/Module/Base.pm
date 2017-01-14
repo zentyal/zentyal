@@ -417,7 +417,7 @@ sub restoreBackup # (dir, %options)
     my $backupDir = $self->backupDir($dir);
     (-d $backupDir) or throw EBox::Exceptions::Internal("$backupDir must be a directory");
 
-    if (not $options{dataRestore}) {
+    if ($options{dataRestore}) {
         $self->aroundRestoreConfig($backupDir, %options);
     }
 }
