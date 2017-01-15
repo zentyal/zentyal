@@ -11,6 +11,7 @@ Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
          zentyal-mail, sogo (>= 3.2.1), sogo-activesync (>= 3.2.1),
          apache2, sope4.9-gdl1-mysql, zip, libstring-random-perl,
          memcached
+Replaces: zentyal-openchange
 Description: Zentyal - Web Mail
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -18,3 +19,9 @@ Description: Zentyal - Web Mail
  single, easy-to-use platform to manage all your network services.
  .
  This module adds a webmail service to your Zentyal installation.
+
+Package: zentyal-openchange
+Depends: zentyal-sogo, ${misc:Depends}
+Architecture: all
+Description: transitional dummy package
+  This is a transitional dummy package. It can safely be removed.

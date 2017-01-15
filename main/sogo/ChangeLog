@@ -1,3 +1,5 @@
+HEAD
+	+ Provide transitional dummy openchange package to ease 4.X upgrade
 5.0
 	+ Integrate SOGo 3.2.1
 	+ New standalone sogo module independent from old openchange module
