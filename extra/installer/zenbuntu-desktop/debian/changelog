@@ -1,3 +1,9 @@
+zenbuntu-desktop (5.0.2) xenial; urgency=medium
+
+  * Avoid error in postinst when upgrading from 4.X
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 16 Jan 2017 23:55:49 +0100
+
 zenbuntu-desktop (5.0.1) xenial; urgency=medium
 
   * Include custom zentyal.lxdm systemd service, fixes GUI starting

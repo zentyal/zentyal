@@ -5,5 +5,5 @@ ln -sf /lib/plymouth/themes/zentyal/zentyal.grub /etc/alternatives/default.plymo
 
 if [ "$1" == "configure" ]
 then
-    systemctl disable lxdm.service
+    systemctl disable lxdm.service || true
 fi
