@@ -1,3 +1,5 @@
+HEAD
+	+ Migrate services and objects redis data when upgrading from 4.X
 5.0.3
 	+ Provide transitional dummy packages for services and objects
 	+ Fix regression enforcing 127.0.0.1 as nameserver in ADC mode

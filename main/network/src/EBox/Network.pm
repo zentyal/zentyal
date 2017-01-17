@@ -237,6 +237,20 @@ sub initialSetup
             EBox::warn('Network configuration import failed');
         }
     }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '5.0') < 0)) {
+        my $redis = $self->redis();
+        foreach my $mod (qw(services objects)) {
+            my @keys = $redis->_keys("$mod/*");
+            foreach my $key (@keys) {
+                next if ($key eq "$mod/state");
+                my $newkey = $key;
+                $newkey =~ s/^$mod/network/;
+                $redis->set($newkey, $redis->get($key));
+            }
+            $redis->unset(@keys);
+        }
+    }
 }
 
 # Method: enableActions
