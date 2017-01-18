@@ -12,7 +12,7 @@ function upgrade
 
     for i in `seq 1 10`
     do
-        if apt-get dist-upgrade -y --force-yes --download-only
+        if apt-get dist-upgrade -y --force-yes --download-only $@
         then
             break
         else
@@ -21,7 +21,7 @@ function upgrade
         fi
     done
 
-    apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+    apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef" $@
 }
 
 sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
@@ -67,18 +67,17 @@ Pin-Priority: 1001
 EOF
 
 # "Downgrade" samba first together with the dist-upgrade to avoid dependency problems
-if dpkg -l|grep ^ii|grep zentyal-samba
+if dpkg -l|grep ^ii|grep -q zentyal-samba
 then
-    apt-get update
     SAMBA_INSTALLED=$(apt-cache policy samba|grep Installed: | cut -d' ' -f4)
     dpkg -l|grep $SAMBA_INSTALLED|cut -d' ' -f3 > samba_packages.list
     echo libnss-winbind >> samba_packages.list
     echo libpam-winbind >> samba_packages.list
     echo zentyal-samba >> samba_packages.list
-    cat samba_packages.list | xargs apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef"
-else
-    upgrade
+    PACKAGES=$(cat samba_packages.list | xargs)
 fi
+
+upgrade $PACKAGES
 
 rm -f samba_packages.list
 rm -f /etc/apt/preferences
