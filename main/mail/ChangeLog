@@ -1,4 +1,4 @@
-HEAD
+4.2.2
 	+ Add explicit zentyal-samba depend after removing openchange one
 4.2.1
 	+ Remove openchange dependency to smooth upgrade to 5.0
