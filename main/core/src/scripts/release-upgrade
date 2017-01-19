@@ -36,6 +36,9 @@ cp /var/lib/zentyal/dump.rdb /var/lib/redis/dump.rdb
 service redis-server start
 sed -i 's/redis_port = 6380/redis_port = 6379/' /etc/zentyal/core.conf
 
+# Delete deprecated files
+rm -f /etc/cron.d/zentyal-samba
+
 # Prepare for upgrade of commercial edition if it's the case
 /usr/share/zentyal/shell '$global->communityEdition() or system("touch /var/lib/zentyal/.commercial-edition")'
 
