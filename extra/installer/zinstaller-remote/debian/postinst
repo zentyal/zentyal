@@ -2,20 +2,11 @@
 
 . /usr/share/debconf/confmodule
 
-URL=api.cloud.zentyal.com
+URL=archive.zentyal.com/zentyal-qa/
 
 DATA_DIR=/tmp/zinstaller-remote
 
 mkdir -p $DATA_DIR
-
-db_get netcfg/get_hostname
-SERVERNAME="$RET"
-if [ -z "$SERVERNAME" ]
-then
-    SERVERNAME=$HOSTNAME
-fi
-
-# TODO: validate server name (RemoteServices/Subscription/Validate.pm)
 
 while true
 do
@@ -33,8 +24,7 @@ do
     db_get zinstaller-remote/pass
     PASSWORD="$RET"
 
-    RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v2/auth/)
-    if [ $? -eq 0 ] && [ "$RESPONSE" != "Authorization Required" ]
+    if wget --user=$USERNAME --password=$PASSWORD $URL -O- | grep Index
     then
         break
     fi
@@ -43,87 +33,14 @@ do
     db_go
 done
 
-rm -f $DATA_DIR/BUNDLE_IDS
+db_input high zinstaller-remote/auth_ok
+db_go
 
-RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v2/subscriptions/list/)
-echo $RESPONSE | jq -r '.[] | .company["name"], .label, .server["name"], .uuid' |
-while read company ; read label; read server; read uuid; do
-    echo "Label: $company - $label"
-    echo "Server: $server"
-    echo "uuid: $uuid"
-    echo
+echo $USERNAME > $DATA_DIR/QA_USERNAME
+echo $PASSWORD > $DATA_DIR/QA_PASSWORD
+echo $USERNAME > $DATA_DIR/REGISTER_USERNAME
+echo $PASSWORD > $DATA_DIR/REGISTER_PASSWORD
 
-    if [ -n "$company" ]
-    then
-        echo "$uuid:$server:$company - $label" >> $DATA_DIR/BUNDLE_IDS
-    else
-        echo "$uiid:$server:$label" >> $DATA_DIR/BUNDLE_IDS
-    fi
-done
-
-NUM_BUNDLES=$(cut -d: -f2 $DATA_DIR/BUNDLE_IDS | sort | uniq | wc -l)
-if [ $NUM_BUNDLES -eq 0 ]
-then
-    db_input high zinstaller-remote/no_bundles
-    db_go
-
-    exit 0
-elif [ $NUM_BUNDLES -eq 1 ]
-then
-    BUNDLE_ID=$(head -1 $DATA_DIR/BUNDLE_IDS | cut -d: -f1)
-    db_input high zinstaller-remote/auth_ok
-    db_go
-else
-    choices=$(cut -d: -f3- $DATA_DIR/BUNDLE_IDS | sort | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
-    db_subst zinstaller-remote/select_bundle CHOICES "$choices"
-    db_input high zinstaller-remote/select_bundle
-    db_go
-
-    db_get zinstaller-remote/select_bundle
-    BUNDLE="$RET"
-    BUNDLE_ID=$(grep "$BUNDLE" $DATA_DIR/BUNDLE_IDS | head -1 | cut -d: -f1)
-fi
-
-
-SERVER=`grep "$BUNDLE" $DATA_DIR/BUNDLE_IDS | cut -d: -f2 | head -1`
-if [ "$SERVER" = "null" ] ; then
-    MODE=new
-elif [ "$SERVERNAME" = "$SERVER" ] ; then
-    MODE=associate
-else
-    MODE=overwrite
-fi
-
-# Get subscription data
-REQUEST_URL="https://$URL/v2/subscriptions/subscribe/"
-REQUEST_PARAMS="name=$SERVERNAME&subscription_uuid=$BUNDLE_ID&mode=$MODE"
-RESPONSE=$(curl -f -u $USERNAME:$PASSWORD -k --data "$REQUEST_PARAMS" $REQUEST_URL)
-if [ $? -eq 0 ]
-then
-    COMPANY=$(grep "$BUNDLE_ID" $DATA_DIR/BUNDLE_IDS | head -1 | cut -d: -f3 | cut -d' ' -f1)
-    QA_USERNAME="$COMPANY-$SERVERNAME"
-    QA_PASSWORD=$(echo $RESPONSE | jq -r '.server_uuid')
-
-    echo $QA_USERNAME > $DATA_DIR/QA_USERNAME
-    echo $QA_PASSWORD > $DATA_DIR/QA_PASSWORD
-
-    echo $USERNAME > $DATA_DIR/REGISTER_USERNAME
-    echo $PASSWORD > $DATA_DIR/REGISTER_PASSWORD
-    echo $SERVERNAME > $DATA_DIR/REGISTER_SERVERNAME
-    echo $BUNDLE_ID > $DATA_DIR/REGISTER_BUNDLE_ID
-    # In second stage we always associate as we've subscribed here already
-    echo associate > $DATA_DIR/REGISTER_MODE
-
-    touch $DATA_DIR/COMMERCIAL_EDITION
-else
-    # Repeat getting the error (without -f)
-    RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "$REQUEST_PARAMS" $REQUEST_URL)
-    echo $RESPONSE
-    echo "$RESPONSE" > $DATA_DIR/REGISTER_ERROR
-    lines=$(echo $RESPONSE | tr ']' "\n" | cut -d[ -s -f2)
-    db_subst zinstaller-remote/error_register ERROR "$lines"
-    db_input high zinstaller-remote/error_register
-    db_go
-fi
+touch $DATA_DIR/COMMERCIAL_EDITION
 
 exit 0

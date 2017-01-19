@@ -12,17 +12,17 @@ fi
 
 USERNAME=`cat $DATA_DIR/QA_USERNAME`
 PASSWORD=`cat $DATA_DIR/QA_PASSWORD`
-REPO=qa.cloud.zentyal.com
+REPO=archive.zentyal.com
 
 SOURCES_DIR=/target/etc/apt/sources.list.d
 mkdir -p $SOURCES_DIR
-echo "deb https://$USERNAME:$PASSWORD@$REPO/ zentyal-qa-5.0 main universe multiverse" >> $SOURCES_DIR/zentyal-qa.list
+echo "deb https://$USERNAME:$PASSWORD@$REPO/zentyal-qa 5.0 main" >> $SOURCES_DIR/zentyal-qa.list
 
 PREFERENCES_DIR=/target/etc/apt/preferences.d
 mkdir -p $PREFERENCES_DIR
 cat >> $PREFERENCES_DIR/01zentyal <<EOF
 Package: *
-Pin: release a=zentyal-qa
+Pin: origin "archive.zentyal.com"
 Pin-Priority: 900
 
 Package: *

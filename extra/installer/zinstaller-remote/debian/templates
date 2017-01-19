@@ -1,6 +1,6 @@
 Template: debian-installer/zinstaller-remote/title
 Type: text
-_Description: Choose Zentyal edition to install
+_Description: Validate commercial edition
 
 Template: zinstaller-remote/user
 Type: string
@@ -9,34 +9,16 @@ _Description: E-mail address:
 
 Template: zinstaller-remote/pass
 Type: password
-_Description: Password:
- Please enter the password associated with your e-mail address.
+_Description: License Key:
+ Please enter the license key for this server (associated with your e-mail address).
 
 Template: zinstaller-remote/auth_failed
 Type: note
-_Description: Authentication failed
- The provided account is not valid. Please try again.
-
-Template: zinstaller-remote/select_bundle
-Type: select
-Choices: ${CHOICES}
-_Description: Choose the server to install:
+_Description: License validation failed
+ License key cannot be validated. Please try again or check your Internet connection.
 
 Template: zinstaller-remote/auth_ok
 Type: note
 _Description: Congratulations!
- Your credentials have been validated.
+ Your license key has been validated.
  Zentyal installation will now continue.
-
-Template: zinstaller-remote/no_bundles
-Type: note
-_Description: Error
- Currently there are no available editions for your account.
- Please contact support.
-
-Template: zinstaller-remote/error_register
-Type: note
-_Description: Error
- A problem ocurred while trying to register your server. Please contact support.
- ${ERROR}
-
