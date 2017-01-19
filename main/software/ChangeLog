@@ -1,3 +1,5 @@
+HEAD
+	+ Proper check of QA updates after migration from old to new license
 4.1.1
 	+ Escape parameters in calls to install/upgrade/remove packages CGIs
 4.1

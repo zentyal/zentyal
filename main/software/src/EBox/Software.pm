@@ -286,7 +286,7 @@ sub listUpgradablePkgs
 
     my $file = $self->_packageListFile(0);
     my $alreadyGet = 0;
-    
+
     if (defined($clear) and ($clear == 1)) {
         unlink $file;
     } elsif (-f $file) {
@@ -776,6 +776,11 @@ sub autoUpgradeStats
     }
 }
 
+sub QAUpdates
+{
+    return (not EBox::Global->communityEdition());
+}
+
 # Group: Private methods
 
 sub _getInfoEBoxPkgs
@@ -887,7 +892,7 @@ sub _candidateVersion
         if ($file->{Archive} =~ /security/) {
             $security = 1;
         }
-        if ($file->{Archive}  eq QA_ARCHIVE) {
+        if ($file->{Archive} eq 'zentyal-qa') {
             $qa = 1;
         }
         if ($security and $qa) {
@@ -945,40 +950,6 @@ sub updateStatus
 
     my $stat = File::stat::stat($file);
     return $stat->mtime;
-}
-
-# Method: setQAUpdates
-#
-#     Set the software management system to be updated using QA
-#     updates.
-#
-#     This method must be called from zentyal-remoteservices when a
-#     subscription is done or released.
-#
-# Parameters:
-#
-#     value - boolean indicating if the QA updates are to be set or
-#             released
-#
-sub setQAUpdates
-{
-    my ($self, $value) = @_;
-    $self->set_bool('qa_updates', $value);
-}
-
-# Method: QAUpdates
-#
-#     Return if the management system is being updated using QA
-#     updates or not
-#
-# Returns:
-#
-#     Boolean -
-#
-sub QAUpdates
-{
-    my ($self) = @_;
-    return $self->get_bool('qa_updates');
 }
 
 sub _setConf
