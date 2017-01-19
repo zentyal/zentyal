@@ -774,10 +774,9 @@ sub autoUpgradeStats
     }
 }
 
-# FIXME
 sub QAUpdates
 {
-    return 0;
+    return (not EBox::Global->communityEdition());
 }
 
 # Group: Private methods
@@ -891,10 +890,9 @@ sub _candidateVersion
         if ($file->{Archive} =~ /security/) {
             $security = 1;
         }
-        # FIXME: check if package comes from commercial repo
-        #if ($file->{Archive}  eq QA_ARCHIVE) {
-        #    $qa = 1;
-        #}
+        if ($file->{Archive} eq 'zentyal-qa') {
+            $qa = 1;
+        }
         if ($security and $qa) {
             last;
         }

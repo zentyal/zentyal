@@ -1,4 +1,5 @@
 HEAD
+	+ Support for commercial editions via license keys
 	+ Postinst script do not fail during upgrade from Zentyal 4.X
 	+ Allow restore of configuration backups from Zentyal 4.X
 5.0.2

@@ -6,6 +6,7 @@ models:
     - HostName
     - ManageAdmins
     - Debug
+    - Edition
 
 composites:
     General: ['sysinfo/ManageAdmins', 'webadmin/Language','webadmin/AdminPort', 'sysinfo/HostName']

@@ -114,6 +114,13 @@ sub menu
                                       'text' => __('Date/Time'),
                                       'order' => 20));
 
+    if (-f '/var/lib/zentyal/.commercial-edition') {
+        $system->add(new EBox::Menu::Item('url'   => 'SysInfo/View/Edition',
+                                          'text'  => __('Server Edition'),
+                                          'order' => 30,
+                                         ));
+    }
+
     $system->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
                                       'text' => __('Configuration Backup'),
                                       'order' => 50));
@@ -121,6 +128,7 @@ sub menu
     $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Halt',
                                       'text' => __('Halt/Reboot'),
                                       'order' => 60));
+
     $root->add($system);
 }
 

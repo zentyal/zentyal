@@ -36,10 +36,12 @@ use EBox::Sudo;
 use EBox::Validate qw( :all );
 use File::Basename;
 use File::Glob;
+use File::Slurp;
 use YAML::XS;
 use Log::Log4perl;
 use POSIX qw(setuid setgid setlocale LC_ALL);
 use Perl6::Junction qw(any all);
+use Time::Piece;
 use EBox::Util::GPG;
 
 use Digest::MD5;
@@ -124,12 +126,12 @@ sub _readTheme
     my $custom = "$path/custom.theme";
     if (-f $custom) {
         # Check theme's signature
-        if (EBox::Util::GPG::checkSignature($custom)) {
+#        if (EBox::Util::GPG::checkSignature($custom)) {
             $theme = $custom;
             EBox::info('Using custom default.theme');
-        } else {
-            EBox::warn('Invalid signature in custom.theme, fallbacking to default.theme');
-        }
+#        } else {
+#            EBox::warn('Invalid signature in custom.theme, fallbacking to default.theme');
+#        }
     }
     my ($yaml) = YAML::XS::LoadFile($theme);
     return $yaml;
@@ -1179,8 +1181,24 @@ sub edition
 {
     my ($self, $ro) = @_;
 
-    # TODO: implement commercial edition
-    return 'community';
+    my $license = '/var/lib/zentyal/.license';
+
+    unless (-f $license) {
+        return 'community';
+    }
+
+    my $key = read_file($license);
+
+    my ($level, $users, $exp_date) = $self->_decodeLicense($key);
+
+    if (not defined ($level) or not defined ($exp_date)) {
+        return 'community';
+    } elsif (localtime > $exp_date) {
+        # FIXME: mark as expired?
+        return 'community';
+    } else {
+        return $level;
+    }
 }
 
 # Method: communityEdition
@@ -1362,6 +1380,53 @@ sub _assertNotChanges
         my $names = join ', ',  @unsaved;
         throw EBox::Exceptions::Internal("The following modules remain unsaved after save changes: $names");
     }
+}
+
+sub _base24to10
+{
+    my ($self, $str) = @_;
+
+    my @c = reverse(split(//, $str));
+    my $result = 0;
+    foreach my $i (0..scalar(@c)-1) {
+        $result += (24 ** $i) * (ord($c[$i]) - ord('A'));
+    }
+
+    return $result;
+}
+
+sub _decodeLicense
+{
+    my ($self, $key) = @_;
+
+    my @parts = split ('-', $key);
+
+    if (@parts != 4) {
+        return (undef, undef, undef);
+    }
+
+    my ($prefix, undef, $date, undef) = split ('-', $key);
+
+    my $level = substr($prefix, 0, 2);
+    if ($level eq'TR') {
+        $level = "trial";
+    } elsif ($level eq 'PF') {
+        $level = "professional";
+    } elsif ($level eq 'BS') {
+        $level = "business";
+    } elsif ($level eq 'PR') {
+        $level = "premium";
+    }
+
+    my $users = substr($prefix, 2, 3);
+    $users =~ s/Z//g;
+    $users = $self->_base24to10($users);
+
+    $date = $self->_base24to10(substr($date, 1, 4));
+    my $exp_date = Time::Piece->strptime("$date", "%y%m%d");
+    my $date_str = $exp_date->strftime("%Y-%m-%d");
+
+    return ($level, $users, $exp_date);
 }
 
 1;

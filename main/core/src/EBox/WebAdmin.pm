@@ -134,6 +134,7 @@ sub _setConf
     $self->_writeNginxConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
+    $self->_setEditionTheme();
     $self->enableRestartOnTrigger();
 }
 
@@ -718,6 +719,48 @@ sub updateAdminPortService
     my $state = $self->get_state();
     $state->{port_changed} = 1;
     $self->set_state($state);
+}
+
+sub _setEditionTheme
+{
+    my ($self, $rs) = @_;
+
+    my $themePath = EBox::Config::share() . 'zentyal/www';
+
+    # Check not to override the rebranded Zentyal
+    if (-r "$themePath/custom.theme.sig") {
+        my $content = File::Slurp::read_file("$themePath/custom.theme");
+        if ($content !~ /title-(ent|sb|comm|prof|business|premium|trial).png/) {
+            # Do not rebrand
+            EBox::debug("Custom logo images are not rebranded because there is already a rebranding");
+            return;
+        }
+    }
+
+    my $edition = $self->global()->edition();
+    if ($edition eq 'commercial') {
+        my @cmds = ("cp '$themePath/comm.theme' '$themePath/custom.theme'",
+                    "cp '$themePath/comm.theme.sig' '$themePath/custom.theme.sig'");
+        EBox::Sudo::root(@cmds);
+    } elsif ($edition eq 'professional') {
+        my @cmds = ("cp '$themePath/prof.theme' '$themePath/custom.theme'",
+                    "cp '$themePath/prof.theme.sig' '$themePath/custom.theme.sig'");
+        EBox::Sudo::root(@cmds);
+    } elsif ($edition eq 'business') {
+        my @cmds = ( "cp '$themePath/business.theme' '$themePath/custom.theme'",
+                     "cp '$themePath/business.theme.sig' '$themePath/custom.theme.sig'" );
+        EBox::Sudo::root(@cmds);
+    } elsif ($edition eq 'premium') {
+        my @cmds = ( "cp '$themePath/premium.theme' '$themePath/custom.theme'",
+                     "cp '$themePath/premium.theme.sig' '$themePath/custom.theme.sig'" );
+        EBox::Sudo::root(@cmds);
+    } elsif ($edition eq 'trial') {
+        my @cmds = ( "cp '$themePath/trial.theme' '$themePath/custom.theme'",
+                     "cp '$themePath/trial.theme.sig' '$themePath/custom.theme.sig'" );
+        EBox::Sudo::root(@cmds);
+    } else {
+        EBox::Sudo::root("rm -f '$themePath/custom.theme' '$themePath/custom.theme.sig'");
+    }
 }
 
 1;
