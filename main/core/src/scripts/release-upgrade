@@ -38,6 +38,8 @@ sed -i 's/redis_port = 6380/redis_port = 6379/' /etc/zentyal/core.conf
 
 # Delete deprecated files
 rm -f /etc/cron.d/zentyal-samba
+rm -f /etc/apache2/conf.d/ocsmanager.conf
+rm -f /etc/apache2/conf-enabled/*ocsmanager*
 
 # Prepare for upgrade of commercial edition if it's the case
 /usr/share/zentyal/shell '$global->communityEdition() or system("touch /var/lib/zentyal/.commercial-edition")'
@@ -66,24 +68,42 @@ for e in `grep -R "a=zentyal-qa" /etc/apt | cut -f1 -d:`; do rm -f $e; done
 cat <<EOF > /etc/apt/preferences
 Package: *
 Pin: origin "archive.zentyal.org"
+Pin-Priority: 1002
+
+Package: *
+Pin: origin "*.ubuntu.com"
 Pin-Priority: 1001
 EOF
 
-# "Downgrade" samba first together with the dist-upgrade to avoid dependency problems
-if dpkg -l|grep ^ii|grep -q zentyal-samba
-then
-    SAMBA_INSTALLED=$(apt-cache policy samba|grep Installed: | cut -d' ' -f4)
-    dpkg -l|grep $SAMBA_INSTALLED|cut -d' ' -f3 > samba_packages.list
-    echo libnss-winbind >> samba_packages.list
-    echo libpam-winbind >> samba_packages.list
-    echo zentyal-samba >> samba_packages.list
-    PACKAGES=$(cat samba_packages.list | xargs)
-fi
+# "Downgrade" bind9 and samba first together with the dist-upgrade to avoid dependency problems
+echo > packages.list
+for pkg in bind9 samba
+do
+    if dpkg -l|grep ^ii|grep -q $pkg
+    then
+        INSTALLED_VERSION=$(apt-cache policy $pkg|grep Installed: | cut -d' ' -f4)
+        dpkg -l|grep $INSTALLED_VERSION|cut -d' ' -f3 >> packages.list
+        if [ "$pkg" == "samba" ]
+        then
+            echo libnss-winbind >> packages.list
+            echo libpam-winbind >> packages.list
+            echo zentyal-samba >> packages.list
+        fi
+        PACKAGES=$(cat packages.list | xargs)
+    fi
+done
 
 upgrade $PACKAGES
 
-rm -f samba_packages.list
+rm -f packages.list
 rm -f /etc/apt/preferences
+
+# Workaround strange SOGo issue
+SOPE_PACKAGES=$(dpkg -l|grep ^ii|grep libsope|cut -d' ' -f3|xargs)
+if [ -n "$SOPE_PACKAGES" ]
+then
+    apt-get install --reinstall $SOPE_PACKAGES
+fi
 
 if apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 then
