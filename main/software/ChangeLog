@@ -1,3 +1,5 @@
+HEAD
+	+ Proper check of QA updates after migration from old to new license
 3.2.3
 	+ Send an alert if a restart is required after performing an automatic
 	  update with auto-updater
