@@ -8,7 +8,7 @@ _Description: E-mail address:
  Please enter your e-mail address now to validate your commercial edition.
 
 Template: zinstaller-remote/pass
-Type: password
+Type: string
 _Description: License Key:
  Please enter the license key for this server (associated with your e-mail address).
 
