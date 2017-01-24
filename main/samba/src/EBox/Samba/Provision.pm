@@ -375,8 +375,8 @@ sub provision
     }
 
     # Necessary to allow GSS-TSIG DNS updates via nsupdate -g in dns module
-    my $hostname = $global->modInstance('sysinfo')->hostName();
-    EBox::Sudo::root("samba-tool group addmembers DnsAdmins dns-$hostname");
+    my $netbiosName = $users->model('DomainSettings')->value('netbiosName');
+    EBox::Sudo::root("samba-tool group addmembers DnsAdmins dns-$netbiosName");
 
     # Clean cache
     EBox::Sudo::root('net cache flush');

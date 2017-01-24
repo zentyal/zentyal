@@ -1,3 +1,5 @@
+HEAD
+	+ Fix provision when netbios name and hostname are different
 5.0.2
 	+ Apply ACLs recursively on background instead of blocking save changes
 	+ Set noexpiry of administrator account only in DC mode, prevents

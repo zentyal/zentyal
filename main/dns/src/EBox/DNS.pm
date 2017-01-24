@@ -909,9 +909,16 @@ sub _postServiceHook
         } while (($nTry < 5) and (not $self->_isPortListening(53)));
         # Do nothing if Kerberos is not listening
         if (($nTry < 5) and $self->_isPortListening(88)) {
-            my $hostname = $self->global()->modInstance('sysinfo')->hostName();
             my $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
-            EBox::Sudo::root("kinit -k -t $keytabPath dns-$hostname");
+            my $hostname = $self->global()->modInstance('sysinfo')->hostName();
+            my $netbiosName = $samba->model('DomainSettings')->value('netbiosName');
+            foreach my $name ($hostname, $netbiosName, uc($netbiosName)) {
+                EBox::Sudo::silentRoot("samba-tool user list | grep ^dns-$name");
+                if ($? == 0) {
+                    EBox::Sudo::root("kinit -k -t $keytabPath dns-$name");
+                    last;
+                }
+            }
             foreach my $cmd (@{$self->{nsupdateCmds}}) {
                 EBox::Sudo::root($cmd);
                 my ($filename) = $cmd =~ m:\s(.*?)$:;

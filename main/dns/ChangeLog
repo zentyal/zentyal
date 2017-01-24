@@ -1,4 +1,5 @@
 HEAD
+	+ Fix samba provision when netbios name and hostname are different
 	+ Fix module restart in postinst
 5.0
 	+ DNS updates now done via GSS-TSIG no longer require custom samba patch
