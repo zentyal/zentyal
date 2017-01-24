@@ -1403,23 +1403,12 @@ sub provisionADC
         $self->setupKerberos();
         $self->setupDNS();
 
-        if (defined $dnsFile and -f $dnsFile) {
-            EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
-                             'resolvconf -d zentyal.temp');
-            unlink $dnsFile;
-        }
         if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
             unlink $adminAccountPwdFile;
         }
         EBox::Sudo::rootWithoutException('kdestroy');
 
         $e->throw();
-    }
-    # Revert primary resolver changes
-    if (defined $dnsFile and -f $dnsFile) {
-        EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
-                         'resolvconf -d zentyal.temp');
-        unlink $dnsFile;
     }
     # Remove stashed password
     if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
