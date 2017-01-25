@@ -1,4 +1,4 @@
-HEAD
+5.0.3
 	+ Fix wrong management of resolv.conf during ADC provision
 	+ Fix provision when netbios name and hostname are different
 5.0.2
