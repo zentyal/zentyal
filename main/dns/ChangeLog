@@ -1,4 +1,4 @@
-HEAD
+5.0.1
 	+ Fix samba provision when netbios name and hostname are different
 	+ Fix module restart in postinst
 5.0
