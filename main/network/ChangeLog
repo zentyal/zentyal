@@ -1,4 +1,4 @@
-HEAD
+5.0.4
 	+ Migrate services and objects redis data when upgrading from 4.X
 5.0.3
 	+ Provide transitional dummy packages for services and objects
