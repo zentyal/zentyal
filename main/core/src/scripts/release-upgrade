@@ -117,6 +117,9 @@ then
 
     systemctl enable zentyal
 
+    sed -i 's/net.ifnames=1/net.ifnames=0/g' /etc/default/grub
+    update-grub
+
     echo; echo "Zentyal upgrade finished! Please restart your server now."
 else
     echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
