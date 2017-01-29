@@ -57,6 +57,7 @@ mv /etc/zentyal/hooks /etc/zentyal/hooks.50upgrade.bak
 echo; echo "Upgrading from Ubuntu 14.04 to 16.04 with Zentyal 5.0..."; echo
 sed -i 's/trusty/xenial/g' /etc/apt/sources.list
 sed -ri '/zentyal(.)4.2/d' /etc/apt/sources.list
+sed -ri '/zentyal-packages/d' /etc/apt/sources.list
 echo 'deb http://archive.zentyal.org/zentyal 5.0 main' > /etc/apt/sources.list.d/zentyal-archive.list
 # FIXME: overwrite zentyal-qa.list with proper repo prompting license key on commandline if .commercial-edition
 #sed -i 's/zentyal-qa-4.2/zentyal-qa-5.0/g' /etc/apt/sources.list.d/zentyal-qa.list
@@ -75,21 +76,13 @@ Pin: origin "*.ubuntu.com"
 Pin-Priority: 1001
 EOF
 
-# "Downgrade" bind9 and samba first together with the dist-upgrade to avoid dependency problems
-echo > packages.list
-for pkg in bind9 samba
+# TODO: check if more packages need this
+PACKAGES=""
+for pkg in zentyal-samba
 do
     if dpkg -l|grep ^ii|grep -q $pkg
     then
-        INSTALLED_VERSION=$(apt-cache policy $pkg|grep Installed: | cut -d' ' -f4)
-        dpkg -l|grep $INSTALLED_VERSION|cut -d' ' -f3 >> packages.list
-        if [ "$pkg" == "samba" ]
-        then
-            echo libnss-winbind >> packages.list
-            echo libpam-winbind >> packages.list
-            echo zentyal-samba >> packages.list
-        fi
-        PACKAGES=$(cat packages.list | xargs)
+        PACKAGES="$pkg $PACKAGES"
     fi
 done
 
@@ -98,14 +91,7 @@ upgrade $PACKAGES
 rm -f packages.list
 rm -f /etc/apt/preferences
 
-# Workaround strange SOGo issue
-SOPE_PACKAGES=$(dpkg -l|grep ^ii|grep libsope|cut -d' ' -f3|xargs)
-if [ -n "$SOPE_PACKAGES" ]
-then
-    apt-get install --reinstall $SOPE_PACKAGES
-fi
-
-if apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+if dpkg --configure -a --force-confdef
 then
     # Purge all no longer needed running services
     dpkg -l | grep 'zentyal-' | cut -d' ' -f3 | xargs apt-mark manual
@@ -114,6 +100,13 @@ then
     apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
 
     dpkg --configure -a --force-confdef
+
+    ## Workaround strange SOGo issue
+    SOPE_PACKAGES=$(dpkg -l|grep ^ii|grep sope|cut -d' ' -f3|xargs)
+    if [ -n "$SOPE_PACKAGES" ]
+    then
+        apt-get install --reinstall sogo sogo-activesync $SOPE_PACKAGES
+    fi
 
     systemctl enable zentyal
 
