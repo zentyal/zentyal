@@ -1,4 +1,4 @@
-HEAD
+4.0.12
 	+ Upgrade to 5.0
 	+ Avoid crash in manage-logs script with undefined mods
 	+ Display a UTF8 search term properly by decoding
