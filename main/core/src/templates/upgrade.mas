@@ -24,7 +24,7 @@ use EBox::Gettext;
                 }
             }
         }).fail(function (jqXHR) {
-            if ((jqXHR.status == 404) && !aboutToFinish) {
+            if ((jqXHR.status >= 400) && !aboutToFinish) {
                 aboutToFinish = true;
                 $('#output').hide();
                 $('#webadmin_ko').show();
@@ -50,13 +50,13 @@ use EBox::Gettext;
 <div id="confirmation">
 
 <div class="note">
-<p>This will upgrade your Zentyal 4.1 to Zentyal 4.2 Development Edition.</p>
+<p>This will upgrade your Zentyal 4.1 to Zentyal 5.0 Development Edition.</p>
 <p>Close this dialog if you do not want to upgrade now.</p>
 </div>
 
 % if (@removedModules) {
 <div class="error">
-<p>The upgrade process will remove the following modules as they are no longer part of Zentyal 4.2 officially maintained modules (data related to these modules will be deleted):</p>
+<p>The upgrade process will remove the following modules as they are no longer part of Zentyal 5.0 officially maintained modules (data related to these modules will be deleted):</p>
 <ul>
 % foreach my $module (@removedModules) {
 <li><% $module %></li>
@@ -66,7 +66,7 @@ use EBox::Gettext;
 % }
 
 <div class="warning">
-<p>Before upgrading please read also carefully the <a target="_blank" href="http://wiki.zentyal.org/wiki/Zentyal_4.2_Announcement"><b>release notes</b></a>.</p>
+<p>Before upgrading please read also carefully the <a target="_blank" href="http://wiki.zentyal.org/wiki/Zentyal_5.0_Announcement"><b>release notes</b></a>.</p>
 </div>
 
 </div>
