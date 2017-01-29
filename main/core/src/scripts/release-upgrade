@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ `arch` != "x86_64" ]
+then
+    echo "Upgrade to Zentyal 5.0 is only supported in 64bit architecture"
+    exit 1
+fi
+
 UPGRADE_FILE=/var/lib/zentyal/.upgrade-finished
 
 rm -f $UPGRADE_FILE
@@ -12,7 +18,7 @@ function upgrade
 
     for i in `seq 1 10`
     do
-        if apt-get dist-upgrade -y --force-yes --download-only
+        if apt-get dist-upgrade -y --force-yes --download-only $@
         then
             break
         else
@@ -21,7 +27,7 @@ function upgrade
         fi
     done
 
-    apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+    apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef" $@
 }
 
 sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
@@ -29,21 +35,93 @@ sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 echo; echo "Upgrading your current system to the latest packages..."; echo
 upgrade
 
-echo; echo "Upgrading from Zentyal 4.0 to 4.1..."; echo
-sed -ri 's/zentyal(.)4.0/zentyal\14.1/g' /etc/apt/sources.list
-sed -i 's/zentyal-qa-4.0/zentyal-qa-4.1/g' /etc/apt/sources.list.d/zentyal-qa.list
-upgrade
+# Migrate redis data
+stop ebox.redis
+service redis-server stop
+cp /var/lib/zentyal/dump.rdb /var/lib/redis/dump.rdb
+service redis-server start
+sed -i 's/redis_port = 6380/redis_port = 6379/' /etc/zentyal/core.conf
 
-if apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+# Delete deprecated files
+rm -f /etc/cron.d/zentyal-samba
+rm -f /etc/apache2/conf.d/ocsmanager.conf
+rm -f /etc/apache2/conf-enabled/*ocsmanager*
+
+# Prepare for upgrade of commercial edition if it's the case
+/usr/share/zentyal/shell '$global->communityEdition() or system("touch /var/lib/zentyal/.commercial-edition")'
+
+# Stop services that are going to be deprecated
+for i in printers antivirus mailfilter
+do
+    service zentyal $i stop 2>/dev/null || true
+done
+
+#Move the stubs and hooks folder to a safer place so it can be recovered but don't interfere with the upgrade
+mv /etc/zentyal/stubs /etc/zentyal/stubs.50upgrade.bak
+mv /etc/zentyal/hooks /etc/zentyal/hooks.50upgrade.bak
+
+echo; echo "Upgrading from Ubuntu 14.04 to 16.04 with Zentyal 5.0..."; echo
+sed -i 's/trusty/xenial/g' /etc/apt/sources.list
+sed -ri '/zentyal(.)4.0/d' /etc/apt/sources.list
+sed -ri '/zentyal-packages/d' /etc/apt/sources.list
+echo 'deb http://archive.zentyal.org/zentyal 5.0 main' > /etc/apt/sources.list.d/zentyal-archive.list
+# FIXME: overwrite zentyal-qa.list with proper repo prompting license key on commandline if .commercial-edition
+#sed -i 's/zentyal-qa-4.0/zentyal-qa-5.0/g' /etc/apt/sources.list.d/zentyal-qa.list
+
+# Workaround to avoid dependency problems when packages are hold
+for e in `grep -R "a=zentyal-qa" /etc/apt | cut -f1 -d:`; do rm -f $e; done
+
+# FIXME: do it for QA repo instead (archive.zentyal.com) if upgrading commercial edition
+cat <<EOF > /etc/apt/preferences
+Package: *
+Pin: origin "archive.zentyal.org"
+Pin-Priority: 1002
+
+Package: *
+Pin: origin "*.ubuntu.com"
+Pin-Priority: 1001
+EOF
+
+PACKAGES=""
+for pkg in zentyal-samba
+do
+    if dpkg -l|grep ^ii|grep -q $pkg
+    then
+        PACKAGES="$pkg $PACKAGES"
+    fi
+done
+
+upgrade $PACKAGES
+
+rm -f /etc/apt/preferences
+
+if dpkg --configure -a --force-confdef
 then
-    # Purge all no longer needed running services like haproxy, collectd, etc
+    # Purge all no longer needed running services
+    dpkg -l | grep 'zentyal-' | cut -d' ' -f3 | xargs apt-mark manual
     apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 
-    # Restart regular webserver, Zentyal UI and logs
-    service apache2 restart
-    service zentyal webadmin restart
+    apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
 
-    echo; echo "Zentyal upgrade finished!"
+    dpkg --configure -a --force-confdef
+
+    ## Workaround strange SOGo issue
+    SOPE_PACKAGES=$(dpkg -l|grep ^ii|grep sope|cut -d' ' -f3|xargs)
+    if [ -n "$SOPE_PACKAGES" ]
+    then
+        apt-get install --reinstall sogo $SOPE_PACKAGES
+    fi
+    if dpkg -l|grep ^ii|grep sogo-activesync
+    then
+        apt-get install --reinstall sogo-activesync
+    fi
+
+    systemctl enable zentyal
+
+    sed -i 's/net.ifnames=1/net.ifnames=0/g' /etc/default/grub
+    update-grub
+
+    echo; echo "Zentyal upgrade finished! Please restart your server now."
 else
     echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
 fi
