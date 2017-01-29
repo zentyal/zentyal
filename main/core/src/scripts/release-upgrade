@@ -24,6 +24,17 @@ function upgrade
     apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef" $@
 }
 
+echo; echo "Uninstalling packages not supported for the upgrade..."; echo
+PACKAGES_TO_CHECK="amavisd-new libclamav7"
+for package in $PACKAGES_TO_CHECK; do
+     dpkg -l | grep $package > /dev/null
+     if [ $? -eq 0 ]
+     then
+        PACKAGES_TO_CLEAN="$package $PACKAGES_TO_CLEAN"
+     fi
+done
+apt-get remove --purge -y --force-yes -o DPkg::Options::="--force-confdef" $PACKAGES_TO_CLEAN
+
 sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 
 echo; echo "Upgrading your current system to the latest packages..."; echo
