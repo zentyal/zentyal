@@ -120,6 +120,7 @@ virtual_alias_maps = ldap:<% $valiasesCfFile %>,ldap:<% $userAliasesCfFile %>,ld
 # Virtual Domains
 dovecot_destination_recipient_limit = 1
 local_transport = dovecot
+virtual_transport = dovecot
 virtual_mailbox_base = <% $vmaildir %>
 virtual_mailbox_maps= ldap:<% $mailboxCfFile %>
 

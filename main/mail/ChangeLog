@@ -1,3 +1,5 @@
+HEAD
+	+ Add missing virtual_transport = dovecot in postfix main.cf
 5.0.2
 	+ Definitive fix for fetchmail problems with custom systemd
 	  daemon, as default init.d script seems broken
