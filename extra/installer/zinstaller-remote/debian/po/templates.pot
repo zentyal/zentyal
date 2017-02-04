@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zinstaller-remote\n"
 "Report-Msgid-Bugs-To: zinstaller-remote@packages.debian.org\n"
-"POT-Creation-Date: 2017-01-19 22:09+0100\n"
+"POT-Creation-Date: 2017-02-04 11:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,39 +26,24 @@ msgstr ""
 #. Type: string
 #. Description
 #: ../templates:2001
-msgid "E-mail address:"
+msgid "License Key:"
 msgstr ""
 
 #. Type: string
 #. Description
 #: ../templates:2001
-msgid ""
-"Please enter your e-mail address now to validate your commercial edition."
-msgstr ""
-
-#. Type: password
-#. Description
-#: ../templates:3001
-msgid "License Key:"
-msgstr ""
-
-#. Type: password
-#. Description
-#: ../templates:3001
-msgid ""
-"Please enter the license key for this server (associated with your e-mail "
-"address)."
+msgid "Please enter the license key for this server."
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates:4001
+#: ../templates:3001
 msgid "License validation failed"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates:4001
+#: ../templates:3001
 msgid ""
 "License key cannot be validated. Please try again or check your Internet "
 "connection."
@@ -66,13 +51,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates:5001
+#: ../templates:4001
 msgid "Congratulations!"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates:5001
+#: ../templates:4001
 msgid ""
 "Your license key has been validated. Zentyal installation will now continue."
 msgstr ""

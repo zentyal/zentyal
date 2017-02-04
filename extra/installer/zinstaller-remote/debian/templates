@@ -2,15 +2,10 @@ Template: debian-installer/zinstaller-remote/title
 Type: text
 _Description: Validate commercial edition
 
-Template: zinstaller-remote/user
-Type: string
-_Description: E-mail address:
- Please enter your e-mail address now to validate your commercial edition.
-
-Template: zinstaller-remote/pass
+Template: zinstaller-remote/license
 Type: string
 _Description: License Key:
- Please enter the license key for this server (associated with your e-mail address).
+ Please enter the license key for this server.
 
 Template: zinstaller-remote/auth_failed
 Type: note

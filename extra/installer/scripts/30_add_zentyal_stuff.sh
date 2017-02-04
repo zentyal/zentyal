@@ -28,6 +28,8 @@ then
     then
         echo zinstaller-remote >> $UDEB_INCLUDE
     fi
+
+    sed -i '/zentyal.org/d' $CD_BUILD_DIR/preseed/*.seed
 fi
 
 if ! grep -q zinstaller-headless $UDEB_INCLUDE

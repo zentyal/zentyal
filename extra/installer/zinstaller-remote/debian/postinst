@@ -10,21 +10,12 @@ mkdir -p $DATA_DIR
 
 while true
 do
-    db_input high zinstaller-remote/user
+    db_input high zinstaller-remote/license
     db_go
-    db_get zinstaller-remote/user
-    USERNAME="$RET"
-    if [ -z "$USERNAME" ]
-    then
-        exit 0
-    fi
+    db_get zinstaller-remote/license
+    LICENSE="$RET"
 
-    db_input high zinstaller-remote/pass
-    db_go
-    db_get zinstaller-remote/pass
-    PASSWORD="$RET"
-
-    if wget --user=$USERNAME --password=$PASSWORD $URL -O- | grep Index
+    if wget --user=$LICENSE --password=lk $URL -O- | grep Index
     then
         break
     fi
@@ -36,10 +27,8 @@ done
 db_input high zinstaller-remote/auth_ok
 db_go
 
-echo $USERNAME > $DATA_DIR/QA_USERNAME
-echo $PASSWORD > $DATA_DIR/QA_PASSWORD
-echo $USERNAME > $DATA_DIR/REGISTER_USERNAME
-echo $PASSWORD > $DATA_DIR/REGISTER_PASSWORD
+echo $LICENSE > $DATA_DIR/REGISTER_USERNAME
+echo $LICENSE > $DATA_DIR/REGISTER_PASSWORD
 
 touch $DATA_DIR/COMMERCIAL_EDITION
 
