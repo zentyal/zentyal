@@ -1,3 +1,9 @@
+zenbuntu-core (5.0.3) xenial; urgency=medium
+
+  * Fix postinst to not replace rc.local in upgrades
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 05 Feb 2017 00:16:10 +0100
+
 zenbuntu-core (5.0.2) xenial; urgency=medium
 
   * Fix for LXDM starting after webadmin and rest of services
