@@ -134,7 +134,7 @@ sub _setConf
     $self->_writeNginxConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
-    $self->_setEditionTheme();
+    $self->_setEdition();
     $self->enableRestartOnTrigger();
 }
 
@@ -721,7 +721,7 @@ sub updateAdminPortService
     $self->set_state($state);
 }
 
-sub _setEditionTheme
+sub _setEdition
 {
     my ($self, $rs) = @_;
 
@@ -737,31 +737,36 @@ sub _setEditionTheme
         }
     }
 
+    my @cmds;
     my $edition = $self->global()->edition();
+    my $expired = (rindex($edition, 'expired') != -1);
     $edition =~ s/-expired//;
     if ($edition eq 'commercial') {
-        my @cmds = ("cp '$themePath/comm.theme' '$themePath/custom.theme'",
-                    "cp '$themePath/comm.theme.sig' '$themePath/custom.theme.sig'");
-        EBox::Sudo::root(@cmds);
+        @cmds = ("cp '$themePath/comm.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/comm.theme.sig' '$themePath/custom.theme.sig'");
     } elsif ($edition eq 'professional') {
-        my @cmds = ("cp '$themePath/prof.theme' '$themePath/custom.theme'",
-                    "cp '$themePath/prof.theme.sig' '$themePath/custom.theme.sig'");
-        EBox::Sudo::root(@cmds);
+        @cmds = ("cp '$themePath/prof.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/prof.theme.sig' '$themePath/custom.theme.sig'");
     } elsif ($edition eq 'business') {
-        my @cmds = ( "cp '$themePath/business.theme' '$themePath/custom.theme'",
-                     "cp '$themePath/business.theme.sig' '$themePath/custom.theme.sig'" );
-        EBox::Sudo::root(@cmds);
+        @cmds = ("cp '$themePath/business.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/business.theme.sig' '$themePath/custom.theme.sig'");
     } elsif ($edition eq 'premium') {
-        my @cmds = ( "cp '$themePath/premium.theme' '$themePath/custom.theme'",
-                     "cp '$themePath/premium.theme.sig' '$themePath/custom.theme.sig'" );
-        EBox::Sudo::root(@cmds);
+        @cmds = ("cp '$themePath/premium.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/premium.theme.sig' '$themePath/custom.theme.sig'");
     } elsif ($edition eq 'trial') {
-        my @cmds = ( "cp '$themePath/trial.theme' '$themePath/custom.theme'",
-                     "cp '$themePath/trial.theme.sig' '$themePath/custom.theme.sig'" );
-        EBox::Sudo::root(@cmds);
+        @cmds = ("cp '$themePath/trial.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/trial.theme.sig' '$themePath/custom.theme.sig'");
     } else {
-        EBox::Sudo::root("rm -f '$themePath/custom.theme' '$themePath/custom.theme.sig'");
+        @cmds = ("rm -f '$themePath/custom.theme' '$themePath/custom.theme.sig'",
+                 "rm -f /etc/apt/sources.list.d/zentyal-qa.list");
     }
+    if ($expired) {
+        push (@cmds, "rm -f /etc/apt/sources.list.d/zentyal-qa.list");
+    } elsif ($edition ne 'community') {
+        push (@cmds, 'echo "deb https://`cat /var/lib/zentyal/.license`:lk@archive.zentyal.com/zentyal-qa 5.0 main" > /etc/apt/sources.list.d/zentyal-qa.list',
+                     'sed -i "/archive.zentyal.org/d" /etc/apt/sources.list');
+    }
+    EBox::Sudo::root(@cmds);
 }
 
 1;

@@ -33,11 +33,7 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableHead = (new EBox::Types::Text( fieldName     => 'user',
-                                            printableName => __('E-mail'),
-                                            size          => 24,
-                                            editable      => 1),
-                     new EBox::Types::Text( fieldName     => 'key',   # TODO: 4 separate fields for more usability?
+    my @tableHead = (new EBox::Types::Text( fieldName     => 'key',   # TODO: 4 separate fields for more usability?
                                             printableName => __('License Key'),
                                             size          => 24,
                                             editable      => 1));
@@ -46,6 +42,7 @@ sub _table
     {
         'tableName' => 'Edition',
         'printableTableName' => __('License Validation'),
+        'printableActionName' => __('Validate'),
         'modelDomain' => 'SysInfo',
         'defaultActions' => [ 'editField' ],
         'tableDescription' => \@tableHead,
@@ -58,10 +55,8 @@ sub validateTypedRow
 {
     my ($self, $action, $changed, $all) = @_;
 
-    my $user = defined $changed->{user} ? $changed->{user}->value() : $all->{user}->value();
     my $key = defined $changed->{key} ? $changed->{key}->value() : $all->{key}->value();
-
-    EBox::Sudo::silentRoot("wget --user=$user --password=$key archive.zentyal.com/zentyal-qa/ -O- | grep Index");
+    EBox::Sudo::silentRoot("wget --user=$key --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep Index");
     if ($? != 0) {
         throw EBox::Exceptions::External(__("License key cannot be validated. Please try again or check your Internet connection."));
     }
@@ -74,10 +69,8 @@ sub updatedRowNotify
         return;
     }
 
-    my $user = $self->row->valueByName('user');
     my $key = $self->row->valueByName('key');
 
-    EBox::Sudo::root("echo 'deb https://${user}:${key}\@archive.zentyal.com/zentyal-qa 5.0 main' >> /etc/apt/sources.list.d/zentyal-qa.list");
     EBox::Sudo::root("echo '$key' > /var/lib/zentyal/.license");
     EBox::Global->modInstance('webadmin')->setAsChanged();
 }
