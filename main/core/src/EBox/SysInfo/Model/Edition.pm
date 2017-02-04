@@ -27,13 +27,38 @@ use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Types::Text;
+use EBox::Types::HTML;
 use EBox::Exceptions::External;
+use File::Slurp;
+use TryCatch;
 
 sub _table
 {
     my ($self) = @_;
 
-    my @tableHead = (new EBox::Types::Text( fieldName     => 'key',   # TODO: 4 separate fields for more usability?
+    my @tableHead;
+
+    my $title = __('License Validation');
+    my ($edition, $users, $expiration);
+    try {
+        ($edition, $users, $expiration) = EBox::GlobalImpl->_decodeLicense(read_file('/var/lib/zentyal/.license'));
+    } catch {
+        $edition = 'community';
+    }
+    if ($edition ne 'community') {
+        $edition = ucfirst($edition);
+        $title = "Zentyal $edition Edition";
+        my $date = $expiration->strftime('%x');
+
+        my $html = '<p><label>' . __('Server edition') . "</label>$edition</p>";
+        $html .= '<p><label>' . __('Users') . "</label>$users</p>";
+        $html .= '<p><label>' . __('Renovation date') . "</label>$date</p>";
+
+        push (@tableHead, new EBox::Types::HTML(fieldName => 'info',
+                                                defaultValue => $html));
+    }
+
+    push (@tableHead, new EBox::Types::Text(fieldName     => 'key',
                                             printableName => __('License Key'),
                                             size          => 24,
                                             editable      => 1));
@@ -41,8 +66,8 @@ sub _table
     my $dataTable =
     {
         'tableName' => 'Edition',
-        'printableTableName' => __('License Validation'),
-        'printableActionName' => __('Validate'),
+        'printableTableName' => $title,
+        'printableActionName' => __('Validate License'),
         'modelDomain' => 'SysInfo',
         'defaultActions' => [ 'editField' ],
         'tableDescription' => \@tableHead,
@@ -65,13 +90,11 @@ sub validateTypedRow
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
-    if ($row->isEqualTo($oldRow)) {
-        return;
-    }
 
     my $key = $self->row->valueByName('key');
-
-    EBox::Sudo::root("echo '$key' > /var/lib/zentyal/.license");
+    EBox::Sudo::root("echo '$key' > /var/lib/zentyal/.license",
+                     "apt-key add /usr/share/zentyal/zentyal-qa.pub",
+                     "echo 'Acquire::https::archive.zentyal.com { Verify-Peer \"false\"; };' > /etc/apt/apt.conf.d/99zentyal");
     EBox::Global->modInstance('webadmin')->setAsChanged();
 }
 
