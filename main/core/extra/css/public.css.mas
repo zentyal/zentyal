@@ -215,6 +215,9 @@ Header
     right: 0;
     z-index: 10;
 }
+#hmenu .expired {
+    float: left;
+}
 #hmenu a {
     float:left;
     font-size: 11px;

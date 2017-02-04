@@ -738,6 +738,7 @@ sub _setEditionTheme
     }
 
     my $edition = $self->global()->edition();
+    $edition =~ s/-expired//;
     if ($edition eq 'commercial') {
         my @cmds = ("cp '$themePath/comm.theme' '$themePath/custom.theme'",
                     "cp '$themePath/comm.theme.sig' '$themePath/custom.theme.sig'");

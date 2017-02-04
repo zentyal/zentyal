@@ -1194,8 +1194,7 @@ sub edition
     if (not defined ($level) or not defined ($exp_date)) {
         return 'community';
     } elsif (localtime > $exp_date) {
-        # FIXME: mark as expired?
-        return 'community';
+        return "$level-expired";
     } else {
         return $level;
     }
