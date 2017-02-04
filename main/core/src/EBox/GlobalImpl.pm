@@ -1416,6 +1416,8 @@ sub _decodeLicense
         $level = "business";
     } elsif ($level eq 'PR') {
         $level = "premium";
+    } elsif ($level eq 'LC') {
+        $level = "commercial";
     }
 
     my $users = substr($prefix, 2, 3);
