@@ -5,17 +5,17 @@ DATA_DIR=/tmp/zinstaller-remote
 mkdir -p /target/var/lib/
 cp -r $DATA_DIR /target/var/lib/
 
-if ! [ -f $DATA_DIR/REGISTER_USERNAME ]
+if ! [ -f $DATA_DIR/LICENSE ]
 then
     exit 0
 fi
 
-USERNAME=`cat $DATA_DIR/REGISTER_USERNAME`
+LICENSE=`cat $DATA_DIR/LICENSE`
 REPO=archive.zentyal.com
 
 SOURCES_DIR=/target/etc/apt/sources.list.d
 mkdir -p $SOURCES_DIR
-echo "deb https://$USERNAME:lk@$REPO/zentyal-qa 5.0 main" > $SOURCES_DIR/zentyal-qa.list
+echo "deb https://$LICENSE:lk@$REPO/zentyal-qa 5.0 main" > $SOURCES_DIR/zentyal-qa.list
 
 CONF_DIR=/target/etc/apt/apt.conf.d/
 mkdir -p $CONF_DIR
@@ -27,5 +27,6 @@ EOF
 
 mkdir -p /target/var/lib/zentyal/
 touch /target/var/lib/zentyal/.commercial-edition
+echo $LICENSE > /target/var/lib/zentyal/.license
 
 exit 0

@@ -27,9 +27,6 @@ done
 db_input high zinstaller-remote/auth_ok
 db_go
 
-echo $LICENSE > $DATA_DIR/REGISTER_USERNAME
-echo $LICENSE > $DATA_DIR/REGISTER_PASSWORD
-
-touch $DATA_DIR/COMMERCIAL_EDITION
+echo $LICENSE > $DATA_DIR/LICENSE
 
 exit 0
