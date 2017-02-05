@@ -1,9 +1,0 @@
-#!/bin/bash
-
-REGISTER_DATA=/var/lib/zinstaller-remote
-
-if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
-then
-    USERNAME=`cat $REGISTER_DATA/REGISTER_USERNAME`
-    cp $REGISTER_DATA/REGISTER_PASSWORD /var/lib/zentyal/.license
-fi
