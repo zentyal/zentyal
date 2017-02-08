@@ -1,8 +1,0 @@
-# Zentyal reporter daemon
-#
-
-description     "Zentyal reporter daemon"
-author          "Zentyal S.L."
-
-respawn
-exec  /usr/share/zentyal-remoteservices/reporterd
