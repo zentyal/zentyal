@@ -1,3 +1,5 @@
+HEAD
+	+ Remove connection to Zentyal Remote services
 3.4.8
 	+ Adapted release-upgrade script for the 3.5 upgrade and show button
 	+ Remove duplicated code in EBox::Model::DataTable::removeRow
