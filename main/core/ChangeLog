@@ -1,3 +1,5 @@
+HEAD
+	+ Force uninstallation of old zentyal-remoteservices package
 3.5.6
 	+ Remove connection to Zentyal Remote services
 	+ Remove deprecated PSGI subapps on migration to 4.0
