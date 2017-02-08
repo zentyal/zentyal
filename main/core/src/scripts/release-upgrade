@@ -30,6 +30,29 @@ function upgrade
     apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef" $@
 }
 
+LICENSE=""
+if [ -f /var/lib/zentyal/.commercial-edition ]
+then
+    read -p "Please enter your Zentyal 5.0 license key: " LICENSE
+    if wget -q -o /dev/null --user=$LICENSE --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep -q Index
+    then
+        echo
+        echo "License key successfully validated. Upgrade will continue..."
+        echo
+        echo $LICENSE > /var/lib/zentyal/.license
+    else
+        echo
+        echo "License key cannot be validated."
+        echo
+        echo "If key is valid please check your connection and run $0 again."
+        echo "If you have checked and still have problems, please contact support."
+        exit 1
+    fi
+
+    echo "Removing deprecated Zentyal Remote package..."
+    apt-get remove --purge -y --force-yes -o DPkg::Options::="--force-confdef" zentyal-cloud-prof
+fi
+
 sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 
 echo; echo "Upgrading your current system to the latest packages..."; echo
@@ -47,9 +70,6 @@ rm -f /etc/cron.d/zentyal-samba
 rm -f /etc/apache2/conf.d/ocsmanager.conf
 rm -f /etc/apache2/conf-enabled/*ocsmanager*
 
-# Prepare for upgrade of commercial edition if it's the case
-/usr/share/zentyal/shell '$global->communityEdition() or system("touch /var/lib/zentyal/.commercial-edition")'
-
 # Stop services that are going to be deprecated
 for i in printers antivirus mailfilter
 do
@@ -64,17 +84,29 @@ echo; echo "Upgrading from Ubuntu 14.04 to 16.04 with Zentyal 5.0..."; echo
 sed -i 's/trusty/xenial/g' /etc/apt/sources.list
 sed -ri '/zentyal(.)4.1/d' /etc/apt/sources.list
 sed -ri '/zentyal-packages/d' /etc/apt/sources.list
-echo 'deb http://archive.zentyal.org/zentyal 5.0 main' > /etc/apt/sources.list.d/zentyal-archive.list
-# FIXME: overwrite zentyal-qa.list with proper repo prompting license key on commandline if .commercial-edition
-#sed -i 's/zentyal-qa-4.1/zentyal-qa-5.0/g' /etc/apt/sources.list.d/zentyal-qa.list
+rm -f /etc/apt/sources.list.d/zentyal*
+if [ -n "$LICENSE" ]
+then
+    ARCHIVE=archive.zentyal.com
+    CONF_DIR=/etc/apt/apt.conf.d/
+    mkdir -p $CONF_DIR
+    cat >> $CONF_DIR/99zentyal <<EOF
+Acquire::https::$ARCHIVE {
+    Verify-Peer "false";
+};
+EOF
+    echo "deb https://$LICENSE:lk@$ARCHIVE/zentyal-qa 5.0 main" > /etc/apt/sources.list.d/zentyal-qa.list
+else
+    ARCHIVE=archive.zentyal.org
+    echo "deb http://$ARCHIVE/zentyal 5.0 main" > /etc/apt/sources.list.d/zentyal-archive.list
+fi
 
 # Workaround to avoid dependency problems when packages are hold
 for e in `grep -R "a=zentyal-qa" /etc/apt | cut -f1 -d:`; do rm -f $e; done
 
-# FIXME: do it for QA repo instead (archive.zentyal.com) if upgrading commercial edition
 cat <<EOF > /etc/apt/preferences
 Package: *
-Pin: origin "archive.zentyal.org"
+Pin: origin "$ARCHIVE"
 Pin-Priority: 1002
 
 Package: *
