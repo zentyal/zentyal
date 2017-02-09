@@ -181,6 +181,8 @@ sub modExists
     #
     if ($name eq any((CORE_MODULES))) {
         return 1;
+    } elsif ($name eq 'remoteservices') {
+        return 0;
     } elsif ($DPKG_RUNNING) {
         return defined($self->_className($name));
     } else {
