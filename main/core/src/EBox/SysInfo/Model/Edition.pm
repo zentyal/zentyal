@@ -61,6 +61,7 @@ sub _table
     push (@tableHead, new EBox::Types::Text(fieldName     => 'key',
                                             printableName => __('License Key'),
                                             size          => 24,
+                                            defaultValue  => sub { return `cat /var/lib/zentyal/.license` },
                                             editable      => 1));
 
     my $dataTable =
