@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid false positive of zentyal-remoteservices installed
 3.5.8
 	+ Remove remoteservices leftovers in postinst
 3.5.7
