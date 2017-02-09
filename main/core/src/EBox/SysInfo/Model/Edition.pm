@@ -45,7 +45,7 @@ sub _table
     } catch {
         $edition = 'community';
     }
-    if ($edition ne 'community') {
+    if ($edition && ($edition ne 'community')) {
         $edition = ucfirst($edition);
         $title = "Zentyal $edition Edition";
         my $date = $expiration->strftime('%x');
