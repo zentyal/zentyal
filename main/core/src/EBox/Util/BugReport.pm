@@ -123,6 +123,9 @@ sub dumpLog
     $res .= "----------------------------\n\n";
     $res .= _joinLastLines(1000, @log);
 
+    # mask plaintext passwords in log errors
+    $res =~ s/password', '([^']*)'/password', '*****'/g;
+
     return $res;
 }
 
