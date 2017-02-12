@@ -33,7 +33,7 @@ use EBox::Exceptions::MissingArgument;
 use TryCatch;
 
 use constant {
-  SA_LEARN_SERVICE    => 'ebox.learnspamd',
+  SA_LEARN_SERVICE    => 'zentyal.learnspamd',
   SA_CONF_FILE       => '/etc/spamassassin/local.cf',
   SA_PASSWD_FILE     => '/var/lib/zentyal/conf/sa-mysql.passwd',
   CONF_USER          => 'amavis',
@@ -136,7 +136,7 @@ sub isEnabled
     my ($self) = @_;
 
     my $mailfilter = EBox::Global->modInstance('mailfilter');
-    return  $mailfilter->isEnabled() and $mailfilter->antispamNeeded();
+    return ($mailfilter->isEnabled() && $mailfilter->antispamNeeded());
 }
 
 sub setVDomainService

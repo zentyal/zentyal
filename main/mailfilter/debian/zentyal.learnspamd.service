@@ -1,0 +1,6 @@
+[Unit]
+Description=Zentyal learn spam daemon
+
+[Service]
+ExecStart=/usr/share/zentyal-mailfilter/learnspamd
+Restart=on-failure

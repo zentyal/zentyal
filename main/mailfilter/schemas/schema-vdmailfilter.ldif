@@ -8,13 +8,11 @@ description: right-hand portion of the mail user portion. Needed for amavis matc
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
--
 
 dn:
 changetype: modify
 replace: schemaupdatenow
 schemaupdatenow: 1
--
 
 dn: CN=vdmailfilter,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -28,11 +26,8 @@ subClassOf: top
 objectClassCategory: 3
 description: Filtering properties for a virtual domain
 mayContain: domainMailPortion
--
 
 dn:
 changetype: modify
 replace: schemaupdatenow
 schemaupdatenow: 1
--
-
