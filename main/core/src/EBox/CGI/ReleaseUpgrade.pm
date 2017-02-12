@@ -53,7 +53,7 @@ sub _process
         $self->{json} = { output => $output, finished => $finished };
     } else {
         my @removedModules;
-        foreach my $module (qw(antivirus mailfilter printers openchange)) {
+        foreach my $module (qw(printers openchange)) {
             if (EBox::GlobalImpl::_packageInstalled("zentyal-$module")) {
                 push (@removedModules, $module);
             }
