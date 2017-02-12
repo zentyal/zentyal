@@ -88,9 +88,7 @@ sub formSubmitted
         push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORTPROXY });
     }
 
-    my $servMod = EBox::Global->modInstance('services');
-
-    $servMod->setMultipleService(name => 'jabber', internal => 1, services => \@services);
+    EBox::Global->modInstance('network')->setMultipleService(name => 'jabber', internal => 1, services => \@services);
 }
 
 # Group: Protected methods

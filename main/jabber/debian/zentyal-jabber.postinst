@@ -1,9 +1,16 @@
 #!/bin/bash
 
+set -e
+
+#DEBHELPER#
+
 case "$1" in
 	configure)
-
+        # initial setup
         /usr/share/zentyal/initial-setup jabber $2
+
+        # restart module
+        zs jabber restart || true
 
 	    dpkg-trigger --no-await zentyal-core
         ;;

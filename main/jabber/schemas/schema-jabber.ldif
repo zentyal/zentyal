@@ -9,7 +9,6 @@ description: User has Jabber account
 attributeSyntax: 2.5.5.3
 oMSyntax: 27
 isSingleValued: TRUE
--
 
 dn: CN=jabberAdmin,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -22,13 +21,11 @@ description: User has administration Jabber account
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
--
 
 dn:
 changetype: modify
 replace: schemaupdatenow
 schemaupdatenow: 1
--
 
 dn: CN=userJabberAccount,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -43,10 +40,8 @@ mayContain: jabberUid
 mayContain: jabberAdmin
 defaultObjectCategory: CN=userJabberAccount,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 possSuperiors: top
--
 
 dn:
 changetype: modify
 replace: schemaupdatenow
 schemaupdatenow: 1
--

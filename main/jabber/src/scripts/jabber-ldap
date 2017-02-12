@@ -5,7 +5,7 @@ use warnings;
 
 use EBox::Global;
 use EBox::Samba;
-use TryCatch::Lite;
+use TryCatch;
 
 EBox::init();
 

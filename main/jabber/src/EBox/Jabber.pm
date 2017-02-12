@@ -28,9 +28,9 @@ use EBox::JabberLdapUser;
 use EBox::Exceptions::DataExists;
 use EBox::Samba::User;
 
-use TryCatch::Lite;
+use TryCatch;
 
-use constant EJABBERDCONFFILE => '/etc/ejabberd/ejabberd.cfg';
+use constant EJABBERDCONFFILE => '/etc/ejabberd/ejabberd.yml';
 use constant JABBERPORT => '5222';
 use constant JABBERPORTSSL => '5223';
 use constant JABBERPORTS2S => '5269';
@@ -91,7 +91,7 @@ sub initialSetup
     # Create default rules and services
     # only if installing the first time
     unless ($version) {
-        my $services = EBox::Global->modInstance('services');
+        my $services = EBox::Global->modInstance('network');
 
         my $serviceName = 'jabber';
         unless($services->serviceExists(name => $serviceName)) {
@@ -138,29 +138,13 @@ sub _services
     ];
 }
 
-# Method: enableActions
-#
-#   Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    my ($self) = @_;
-    $self->checkUsersMode();
-}
-
 #  Method: _daemons
 #
 #   Override <EBox::Module::Service::_daemons>
 #
 sub _daemons
 {
-    return [
-        {
-            'name' => 'ejabberd',
-            'type' => 'init.d',
-            'pidfiles' => ['/var/run/ejabberd/ejabberd.pid']
-        }
-    ];
+    return [ { 'name' => 'ejabberd' } ];
 }
 
 # overriden because ejabberd process could be up and not be running
@@ -233,7 +217,7 @@ sub _setConf
     push(@array, 'vcard' => $settings->vcardValue());
 
     $self->writeConfFile(EJABBERDCONFFILE,
-                 "jabber/ejabberd.cfg.mas",
+                 "jabber/ejabberd.yml.mas",
                  \@array, { 'uid' => $jabuid, 'gid' => $jabgid, mode => '640' });
 
     if ($self->_domainChanged($domain)) {

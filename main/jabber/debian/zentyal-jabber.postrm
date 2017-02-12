@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -e
+
+#DEBHELPER#
+
 case "$1" in
 	remove)
         dpkg-trigger --no-await zentyal-core
