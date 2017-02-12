@@ -18,12 +18,13 @@ models:
     - DomainFilter
     - DomainFilterCategories
     - DomainFilterSettings
+    - AntiVirus
     - DelayPools
     - CategorizedLists
 
 composites:
     General: [GeneralSettings, NoCacheDomains, TransparentExceptions]
-    FilterSettings: [ContentFilterThreshold]
+    FilterSettings: [ContentFilterThreshold, AntiVirus]
     Domains: [DomainFilterSettings, DomainFilter]
     ProfileConfiguration: [FilterSettings, Domains, DomainFilterCategories, MIME, Extensions]
 

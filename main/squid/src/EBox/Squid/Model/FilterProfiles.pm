@@ -153,6 +153,8 @@ sub dgProfiles
 
         my $policy = $row->elementByName('filterPolicy')->foreignModelInstance();
 
+        $group->{antivirus} = $policy->componentByName('AntiVirus', 1)->active(),
+
         $group->{threshold} = $policy->componentByName('ContentFilterThreshold', 1)->threshold();
 
         $group->{bannedExtensions} = $policy->componentByName('Extensions', 1)->banned();

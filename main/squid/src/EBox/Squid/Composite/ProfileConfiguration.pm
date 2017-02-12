@@ -98,7 +98,7 @@ sub squidRulesStubs
     return \@rules;
 }
 
-my @filterComponents = ('ContentFilterThreshold', 'DomainFilterSettings');
+my @filterComponents = ('ContentFilterThreshold', 'AntiVirus', 'DomainFilterSettings');
 sub usesFilter
 {
     my ($self) = @_;
