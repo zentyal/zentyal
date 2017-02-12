@@ -182,4 +182,20 @@ sub _checkFWPort
     $firewall->availablePort('tcp', $params_r->{fwport}->value());
 }
 
+sub precondition
+{
+    my ($self) = @_;
+    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    unless ($mailfilter) {
+        return 1;
+    }
+
+    return (not $mailfilter->isEnabled());
+}
+
+sub preconditionFailMsg
+{
+    return __('As long mailfilter module is enabled the mail server will use the filter it provides');
+}
+
 1;
