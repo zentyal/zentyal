@@ -71,7 +71,7 @@ rm -f /etc/apache2/conf.d/ocsmanager.conf
 rm -f /etc/apache2/conf-enabled/*ocsmanager*
 
 # Stop services that are going to be deprecated
-for i in printers antivirus mailfilter
+for i in printers
 do
     service zentyal $i stop 2>/dev/null || true
 done
@@ -126,6 +126,10 @@ done
 upgrade $PACKAGES
 
 rm -f /etc/apt/preferences
+
+# workaround ejabberd and amavisd-new upgrade
+rm -f /var/lib/dpkg/info/ejabberd.postinst
+rm -f /var/lib/dpkg/info/amavisd-new.postinst
 
 if dpkg --configure -a --force-confdef
 then
