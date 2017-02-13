@@ -15,7 +15,7 @@ Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
          iproute, vlan, net-tools, dnsutils, libnet-ip-perl, isc-dhcp-client,
          iptables, libnet-arp-perl, wget, traceroute,
          libnet-interface-perl, debconf, wakeonlan,
-         resolvconf, ${misc:Depends}
+         resolvconf, ifenslave, ethtool, ${misc:Depends}
 Replaces: zentyal-services, zentyal-objects
 Description: Zentyal - Network Configuration
  Zentyal is a Linux small business server that can act as

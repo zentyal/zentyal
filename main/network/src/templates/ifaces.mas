@@ -3,6 +3,7 @@
     @ifaces
     $iface
     @vlans => ()
+    @bonds => ()
     $externalWarning
 </%args>
 <%init>
@@ -35,6 +36,43 @@ use EBox::NetWrappers qw(:all);
     </div>
 %   }
 
+% if ($iface->{'name'} =~ /^bond/) {
+    <div id="bond_mode">
+            <label><% __('Bonding Mode') %>:</label>
+            <select name='bond_mode'>
+% if ($iface->{'bond_mode'} eq 'balance-rr') {
+                <option value='balance-rr' selected="true"><% __('Static') %> (<% __('default') %>)</option>
+% } else {
+                <option value='balance-rr'><% __('Static') %> (<% __('default') %>)</option>
+% }
+% if ($iface->{'bond_mode'} eq '802.3ad') {
+                <option value='802.3ad' selected="true">LACP/802.3ad</option>
+% } else {
+                <option value='802.3ad'>LACP/802.3ad</option>
+% }
+% if ($iface->{'bond_mode'} eq 'balance-alb') {
+                <option value='balance-alb' selected="true">Balance (alb)</option>
+% } else {
+                <option value='balance-alb'>Balance (alb)</option>
+% }
+% if ($iface->{'bond_mode'} eq 'balance-tlb') {
+                <option value='balance-tlb' selected="true">Balance (tlb)</option>
+% } else {
+                <option value='balance-tlb'>Balance (tlb)</option>
+% }
+% if ($iface->{'bond_mode'} eq 'active-backup') {
+                <option value='active-backup' selected="true"><% __('Backup') %></option>
+% } else {
+                <option value='active-backup'><% __('Backup') %></option>
+% }
+% if ($iface->{'bond_mode'} eq 'broadcast') {
+                <option value='broadcast' selected="true"><% __('Broadcast') %></option>
+% } else {
+                <option value='broadcast'><% __('Broadcast') %></option>
+% }
+            </select>
+    </div>
+% }
     <div>
             <label><%__('Method')%></label>
             <select name='method' id='method'>
@@ -55,6 +93,14 @@ use EBox::NetWrappers qw(:all);
                 <option selected value='trunk'><%__('Trunk (802.1q)')%></option>
 %   } else {
                 <option value='trunk'><%__('Trunk (802.1q)')%></option>
+%   }
+% }
+
+% unless ($iface->{'name'} =~ /^(vlan|bond)/) {
+%   if ($iface->{'method'} eq 'bundled') {
+                <option selected value='bundled'><% __('Bundled') %></option>
+%   } else {
+                <option value='bundled'><% __('Bundled') %></option>
 %   }
 % }
 
@@ -114,6 +160,21 @@ use EBox::NetWrappers qw(:all);
             </select>
     </div>
 
+% unless ($iface->{'name'} =~ /^vlan/) {
+    <div id="bundled">
+        <label><% __('Bonding') %>:</label>
+        <select name="bond">
+%   foreach my $bond ( @bonds ) {
+%       if ( $bond->{id} == $iface->{$bond} ) {
+                <option value='<% $bond->{id} %>' selected="true"><% $bond->{alias} %></option>
+%       } else {
+                <option value='<% $bond->{id} %>'><% $bond->{alias} %></option>
+%       }
+%   }
+                <option value='-1'>New bonding device</option>
+        </select>
+    </div>
+% }
     <div>
         <input class='inputButton' type='submit'
                 name='accept' value="<% __('Change') %>" />
@@ -272,7 +333,7 @@ use EBox::NetWrappers qw(:all);
 $('#method').change(function(event) {
     var selected = $(event.target).val();
 
-    if (selected === 'static' || selected === 'dhcp') {
+    if (selected === 'static' || selected === 'dhcp' || selected === 'bundled') {
         $('#external').show();
     } else {
         $('#external').hide();
@@ -283,5 +344,7 @@ $('#method').change(function(event) {
     $('#virtual').toggle(selected === 'static');
 
     $('#trunk').toggle(selected === 'trunk');
+
+    $('#bundled').toggle(selected === 'bundled');
  }).change();
 </script>
