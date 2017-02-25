@@ -14,14 +14,6 @@ case "$1" in
 
         dpkg-trigger --no-await zentyal-core
     ;;
-    triggered)
-        case "$2" in
-            "/usr/sbin/samba")
-                # Triggered when samba package upgrade, restart module
-                zs samba restart || true
-            ;;
-        esac
-    ;;
 esac
 
 exit 0
