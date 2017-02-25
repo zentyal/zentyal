@@ -1,4 +1,4 @@
-HEAD
+5.0.4
 	+ Depend on new Samba 4.5.4
 	+ Remove trigger that causes dpkg error on samba upgrade
 5.0.3
