@@ -1,4 +1,5 @@
 HEAD
+	+ Depend on new Samba 4.5.4
 	+ Remove trigger that causes dpkg error on samba upgrade
 5.0.3
 	+ Fix wrong management of resolv.conf during ADC provision
