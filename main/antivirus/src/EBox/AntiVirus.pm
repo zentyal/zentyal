@@ -194,22 +194,6 @@ sub localSocket
     return CLAMD_SOCKET;
 }
 
-# Method: _postSetConfHook
-#
-# Overrides:
-#
-#      <EBox::Module::Base::_postSetConfHook>
-#
-sub _postSetConfHook
-{
-    my ($self) = @_;
-
-    # Run Freshclam first time so it works right away
-    EBox::Sudo::silentRoot("/usr/bin/freshclam --quiet");
-
-    $self->SUPER::_postSetConfHook();
-}
-
 # Method: _setConf
 #
 # Overrides:
