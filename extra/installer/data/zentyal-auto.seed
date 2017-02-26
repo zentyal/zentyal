@@ -16,8 +16,9 @@ zinstaller-headless zinstaller-headless/question boolean false
 ## partitioning
 ##
 
-# single partition to avoid full /boot with kernel upgrades
-d-i partman-auto/method string regular
+## lvm auto
+#d-i partman-auto/disk string /dev/sda
+d-i partman-auto/method string lvm
 d-i partman-md/device_remove_md boolean true
 d-i partman-lvm/device_remove_lvm boolean true
 d-i partman-lvm/device_remove_lvm_span boolean true
