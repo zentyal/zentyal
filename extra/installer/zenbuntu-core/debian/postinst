@@ -13,23 +13,4 @@ ln -sf /lib/plymouth/themes/zentyal-text/zentyal-text.plymouth /etc/alternatives
 if [ -z "$2" ]
 then
     cp /usr/share/zenbuntu-core/first-boot.sh /etc/rc.local
-
-    if [ -f /etc/default/grub ]
-    then
-        update="no"
-        if ! grep -q ifnames /etc/default/grub
-        then
-            sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 net.ifnames=0 biosdevname=0"/' /etc/default/grub
-            update="yes"
-        fi
-        if ! grep -q splash /etc/default/grub
-        then
-            sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 splash"/' /etc/default/grub
-            update="yes"
-        fi
-        if [ "$update" == "yes" ]
-        then
-            update-grub
-        fi
-    fi
 fi

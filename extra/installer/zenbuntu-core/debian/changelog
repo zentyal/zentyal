@@ -1,3 +1,9 @@
+zenbuntu-core (5.0.4) xenial; urgency=medium
+
+  * Fix update of grub conf on first install
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 26 Feb 2017 18:27:20 +0100
+
 zenbuntu-core (5.0.3) xenial; urgency=medium
 
   * Fix postinst to not replace rc.local in upgrades
