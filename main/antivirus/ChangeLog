@@ -1,4 +1,4 @@
-HEAD
+5.0.1
 	+ Do not force execution of freshclam after restart as it takes
 	  a very long time to timeout when connection is not successful
 5.0
