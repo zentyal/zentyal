@@ -546,6 +546,7 @@ sub _setMailConf
     push @args, @ldapCommonParams;
     push @args, ('hostname' => $self->_fqdn());
     push @args, ('mailname' => $self->mailname());
+    push @args, ('vdomains' => $self->_vdomains());
 
     push @args, ('relay' => $self->relay());
     push @args, ('relayAuth' => $self->relayAuth());
@@ -1848,6 +1849,18 @@ sub checkMailNotInUse
                 __x('Address {addr} is in use as external alias', addr => $mail)
         );
     }
+}
+
+sub _vdomains
+{
+    my ($self) = @_;
+
+    my $model = $self->model('VDomains');
+    my @vdomains;
+    foreach my $id (@{$model->ids()}) {
+        push (@vdomains, $model->row($id)->valueByName('vdomain'));
+    }
+    return \@vdomains;
 }
 
 1;

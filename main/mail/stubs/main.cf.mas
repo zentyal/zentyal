@@ -4,6 +4,7 @@
     $hostname
     $mailname
     $ldapServer
+    @vdomains
 
     $valiasesCfFile
     $userAliasesCfFile
@@ -62,6 +63,8 @@ $submissionRecipientRestrictions .= 'permit_sasl_authenticated, permit_mynetwork
 my $certFile = '/etc/postfix/sasl/postfix.pem';
 my $keyFile  = '/etc/postfix/sasl/postfix.pem';
 </%init>
+compatibility_level = 2
+
 # require helo
 smtpd_delay_reject  = yes
 smtpd_helo_required = yes
@@ -80,7 +83,8 @@ append_dot_mydomain = no
 
 myorigin = /etc/mailname
 myhostname = <% $hostname %>
-mydestination = $myorigin,$myhostname,localhost,localhost.$mydomain,$mydomain
+mydestination = $myorigin,$myhostname,localhost,localhost.$mydomain,<% join(',', @vdomains) %>
+relay_domains = $mydestination
 smtp_helo_name = <% $mailname %>
 alias_maps = hash:/etc/aliases
 
@@ -104,6 +108,7 @@ smtp_sasl_mechanism_filter = login
 %   }
 % }
 
+mynetworks_style = subnet
 mynetworks = <% $allowed %>
 
 message_size_limit = <% $maxmsgsize %>

@@ -1,3 +1,6 @@
+HEAD
+	+ Explicit add of all virtual domains to mydestination in main.cf
+	+ Remove compatibility_level postfix warning setting main.cf accordingly
 5.0.4
 	+ Integration with mailfilter module
 5.0.3
