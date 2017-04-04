@@ -1,4 +1,5 @@
 HEAD
+	+ Depend on new Samba 4.5.8
 	+ Fix setting of ACLs for 'Domain Users' group
 5.0.5
 	+ Depend on new Samba 4.5.6
