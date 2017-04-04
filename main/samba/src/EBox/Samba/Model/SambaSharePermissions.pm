@@ -67,8 +67,7 @@ sub populateUser
     my $list = $samba->realUsers();
     foreach my $u (@{$list}) {
         my $gr = {};
-        $gr->{value} = $u->get('samAccountName');
-        $gr->{printableValue} = $u->name();
+        $gr->{value} = $gr->{printableValue} = $u->name();
         push (@users, $gr);
     }
     return \@users;
@@ -86,8 +85,7 @@ sub populateGroup
     my $list = $samba->realGroups();
     foreach my $g (@{$list}) {
         my $gr = {};
-        $gr->{value} = $g->get('cn');
-        $gr->{printableValue} = $g->name();
+        $gr->{value} = $gr->{printableValue} = $g->name();
         push (@groups, $gr);
     }
     return \@groups;

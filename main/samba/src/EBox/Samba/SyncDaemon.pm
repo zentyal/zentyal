@@ -262,7 +262,7 @@ sub setACLs
             } elsif ($userType->selectedType() eq 'user') {
                 $perm = 'u:';
             }
-            my $account = $userType->printableValue();
+            my $account = $userType->value();
             my $qobject = shell_quote($account);
             $perm .= $qobject . ':';
 
