@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2013 Zentyal S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,14 +16,27 @@
 use strict;
 use warnings;
 
-package EBox::Network::Composite::Gateway;
+package EBox::Network::Composite::WANFailover;
 
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Protected methods
+# Constructor: new
+#
+#         Constructor for the DNS composite
+#
+# Returns:
+
+sub new
+{
+    my ($class, @params) = @_;
+
+    my $self = $class->SUPER::new(@params);
+
+    return $self;
+}
 
 # Method: _description
 #
@@ -35,10 +48,10 @@ sub _description
 {
     my $description = {
         layout          => 'top-bottom',
-        printableName   => __('Gateways and Proxy'),
+        printableName   => __('WAN Failover'),
         headTitle       => undef,
         compositeDomain => 'Network',
-        name            => 'Gateway',
+        name            => 'WANFailover',
     };
 
     return $description;

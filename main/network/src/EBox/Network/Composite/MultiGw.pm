@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2013 Zentyal S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,12 +16,27 @@
 use strict;
 use warnings;
 
-package EBox::Network::Composite::Gateway;
+package EBox::Network::Composite::MultiGw;
 
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
 use EBox::Global;
+
+# Group: Public methods
+
+# Constructor: new
+#
+#         Constructor for the general byte rate composite
+#
+sub new
+{
+    my ($class, @params) = @_;
+
+    my $self = $class->SUPER::new(@params);
+
+    return $self;
+}
 
 # Group: Protected methods
 
@@ -34,14 +49,27 @@ use EBox::Global;
 sub _description
 {
     my $description = {
-        layout          => 'top-bottom',
-        printableName   => __('Gateways and Proxy'),
-        headTitle       => undef,
-        compositeDomain => 'Network',
-        name            => 'Gateway',
+       layout          => 'top-bottom',
+       printableName   => __('Balance Traffic'),
+       headTitle       => undef,
+       compositeDomain => 'Network',
+       name            => 'MultiGw',
     };
 
     return $description;
+}
+
+sub precondition
+{
+    my $network = EBox::Global->modInstance('network');
+    my $nGateways = @{$network->gateways()};
+    return $nGateways >= 2;
+}
+
+sub preconditionFailMsg
+{
+    return __x('To be able to use this feature you need at least two enabled gateways. You can add them {oa}here{ca} first.',
+               oa => '<a href="/Network/View/GatewayTable">', ca => '</a>');
 }
 
 1;
