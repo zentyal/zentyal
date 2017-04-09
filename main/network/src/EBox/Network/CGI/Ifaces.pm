@@ -78,8 +78,13 @@ sub masonParameters
             $iface->{'virtual'} = $net->vifacesConf($_);
         } elsif ($net->ifaceMethod($_) eq 'trunk') {
             $vlans = $net->ifaceVlans($_);
+        } elsif ($net->ifaceMethod($_) eq 'bridged') {
+            $iface->{'bridge'} = $net->ifaceBridge($_);
         } elsif ($net->ifaceMethod($_) eq 'bundled') {
             $iface->{'bond'} = $net->ifaceBond($_);
+        }
+        if ($net->ifaceIsBond($_)) {
+            $iface->{'bond_mode'} = $net->bondMode($_);
         }
     }
 

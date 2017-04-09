@@ -61,6 +61,7 @@ sub setIface
     my $method = $self->param('method');
     my $address  = '';
     my $netmask  = '';
+    my $bridge = '';
     my $bond = '';
     my $bond_mode = '';
     my $external = undef;
@@ -105,6 +106,12 @@ sub setIface
             $net->setIfaceTrunk($iface, $force);
 
             $audit->logAction('network', 'Interfaces', 'setIfaceTrunk', $iface, 1);
+        } elsif ($method eq 'bridged') {
+            $self->_requireParam('bridge', __('bridge'));
+            $bridge = $self->param('bridge');
+            $net->setIfaceBridged($iface, $external, $bridge, $force);
+
+            $audit->logAction('network', 'Interfaces', 'setIfaceBridged', "$iface, $bridge, $extStr", 1);
         } elsif ($method eq 'bundled') {
             $self->_requireParam('bond', __('bond'));
             $bond = $self->param('bond');
@@ -130,6 +137,7 @@ sub setIface
         push(@array, 'address' => $address);
         push(@array, 'netmask' => $netmask);
         push(@array, 'external' => $external);
+        push(@array, 'bridge' => $bridge);
         push(@array, 'bond' => $bond);
         push(@array, 'bond_mode' => $bond_mode);
         $self->{params} = \@array;

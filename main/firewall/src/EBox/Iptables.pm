@@ -436,6 +436,8 @@ sub start
 
     my @ifaces = @{$self->{net}->ifaces()};
     foreach my $ifc (@ifaces) {
+        next if ($self->{net}->ifaceMethod($ifc) eq 'bridged');
+
         if ($self->{net}->ifaceMethod($ifc) eq any('dhcp', 'ppp')) {
             push(@commands, @{$self->_setDHCP($ifc)});
         } else {
@@ -467,14 +469,27 @@ sub start
             my $addr = $self->{net}->ifaceAddress($if);
             my $src = $addr;
 
+            # If it's a bridge SNAT traffic out of the network
+            if ( $self->{net}->ifaceIsBridge($if) ) {
+                my $mask = $self->{net}->ifaceNetmask($if);
+                $src = "$addr/$mask";
+            }
             push(@commands,
                 pf("-t nat -A POSTROUTING ! -s $src $output " .
                    "-j SNAT --to $addr")
             );
         } elsif (($method eq 'dhcp') or ($method eq 'ppp')) {
-            push(@commands,
-                pf("-t nat -A POSTROUTING $output -j MASQUERADE")
-            );
+            if ( $self->{net}->ifaceIsBridge($if) ) {
+                push(@commands,
+                    pf("-t nat -A POSTROUTING $output -m physdev" .
+                       " ! --physdev-is-bridged -j MASQUERADE")
+                );
+            }
+            else {
+                push(@commands,
+                    pf("-t nat -A POSTROUTING $output -j MASQUERADE")
+                );
+            }
         }
     }
 
@@ -907,6 +922,7 @@ sub _log
 # Method: _outputIface
 #
 #   Returns iptables rule part for output interface selection
+#   Takes into account if the iface is part of a bridge
 #
 # Parameters:
 #
@@ -916,12 +932,18 @@ sub _outputIface # (iface)
 {
     my ($self, $iface) = @_;
 
-    return "-o $iface";
+    if ( $self->{net}->ifaceExists($iface) and
+         $self->{net}->ifaceMethod($iface) eq 'bridged' ) {
+        return  "-m physdev --physdev-out $iface";
+    } else {
+        return "-o $iface";
+    }
 }
 
 # Method: _inputIface
 #
 #   Returns iptables rule part for input interface selection
+#   Takes into account if the iface is part of a bridge
 #
 # Parameters:
 #
@@ -931,7 +953,12 @@ sub _inputIface # (iface)
 {
     my ($self, $iface) = @_;
 
-    return "-i $iface";
+    if ( $self->{net}->ifaceExists($iface) and
+         $self->{net}->ifaceMethod($iface) eq 'bridged' ) {
+        return  "-m physdev --physdev-in $iface";
+    } else {
+        return "-i $iface";
+    }
 }
 
 # Method: _natEnabled
