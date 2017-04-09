@@ -13,7 +13,7 @@ Package: zentyal-openvpn
 Architecture: all
 Pre-Depends: zentyal-core
 Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
-         zentyal-firewall, zentyal-ca,
+         zentyal-firewall (>= 5.0.1), zentyal-ca,
          openvpn, zip, quagga, openssl, ${misc:Depends}
 Description: Zentyal - VPN
  Zentyal is a Linux small business server that can act as

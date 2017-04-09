@@ -1,4 +1,5 @@
 HEAD
+	+ Support for PPPoE and bridged mode
 	+ Fix module restart in postinst
 5.0
 	+ Update version to 5.0
