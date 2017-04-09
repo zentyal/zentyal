@@ -14,6 +14,7 @@ push @autoIfaces, grep {
         my $ifMethod = $networkMod->ifaceMethod($_);
         ($ifMethod eq 'static') or
             ($ifMethod eq 'dhcp') or
+            ($ifMethod eq 'bridged') or
             (($ifMethod eq 'trunk') and ($networkMod->ifaceIsBond($_)))
    } @iflist;
 </%init>
@@ -34,6 +35,11 @@ $iface
 </%args>
 <%init>
 my $method = $networkMod->ifaceMethod($iface);
+my $bridgedVlan = 0;
+if (($method eq 'bridged') and ($iface =~ /^vlan/)) {
+    $bridgedVlan = 1;
+    $method = 'manual';
+}
 my $bondSlave = 0;
 if ($method eq 'bundled') {
     $bondSlave = 1;
@@ -47,6 +53,7 @@ if ($method eq 'trunk' and ($iface =~ /^bond/)) {
 # check if we should ignore the interface
 if (($method ne 'static') and
     ($method ne 'dhcp') and
+     (not $bridgedVlan) and
      (not $bondSlave) and
      (not $bondTrunk)) {
             return;
@@ -64,6 +71,12 @@ vlan-raw-device <% $vlan->{interface} %>
       address <% $networkMod->ifaceAddress($iface) %>
       netmask <% $networkMod->ifaceNetmask($iface) %>
       broadcast <% $networkMod->ifaceBroadcast($iface) %>
+% }
+% if ($networkMod->ifaceIsBridge($iface)) {
+%     my @bridgePorts = @{ $networkMod->bridgeIfaces($iface)};
+      bridge_ports <% "@bridgePorts" %>
+      bridge_stp off
+      bridge_waitport 5
 % }
 % if ($networkMod->ifaceMethod($iface) eq 'bundled') {
       bond-master bond<% $networkMod->ifaceBond($iface) %>

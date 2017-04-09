@@ -3,6 +3,7 @@
     @ifaces
     $iface
     @vlans => ()
+    @bridges => ()
     @bonds => ()
     $externalWarning
 </%args>
@@ -29,7 +30,7 @@ use EBox::NetWrappers qw(:all);
 % }
 <form action='Iface' method='post' class="formDiv">
     <input type="hidden" name="ifname" value="<% $iface->{"name"} %>"/>
-%   if (iface_exists($iface->{'name'})) {
+%   if (iface_exists($iface->{'name'}) or $iface->{'name'} =~ /^br/) {
     <div>
         <label class="ftitle"><%__('Name')%></label>
             <input type='text' name='ifalias' value='<% $iface->{'alias'} %>'/>
@@ -88,7 +89,7 @@ use EBox::NetWrappers qw(:all);
                 <option value='dhcp'>DHCP</option>
 % }
 
-% unless ($iface->{'name'} =~ /^(vlan)/) {
+% unless ($iface->{'name'} =~ /^(vlan|br)/) {
 %   if ($iface->{'method'} eq 'trunk') {
                 <option selected value='trunk'><%__('Trunk (802.1q)')%></option>
 %   } else {
@@ -96,7 +97,15 @@ use EBox::NetWrappers qw(:all);
 %   }
 % }
 
-% unless ($iface->{'name'} =~ /^(vlan|bond)/) {
+% unless ($iface->{'name'} =~ /^br/) {
+%   if ($iface->{'method'} eq 'bridged') {
+                <option selected value='bridged'><% __('Bridged') %></option>
+%   } else {
+                <option value='bridged'><% __('Bridged') %></option>
+%   }
+% }
+
+% unless ($iface->{'name'} =~ /^(vlan|br|bond)/) {
 %   if ($iface->{'method'} eq 'bundled') {
                 <option selected value='bundled'><% __('Bundled') %></option>
 %   } else {
@@ -111,6 +120,7 @@ use EBox::NetWrappers qw(:all);
 % }
             </select>
     </div>
+% unless ($iface->{'name'} =~ /^br/) {
     <div id="external">
         <label>
             <input type='checkbox'
@@ -126,6 +136,7 @@ use EBox::NetWrappers qw(:all);
 
 
     </div>
+% }
     <div id="ipaddr" class="inline-field">
         <label><% __('IP address') %></label>
         <input class='inputText' type='text' size='16' name='if_address'
@@ -158,6 +169,19 @@ use EBox::NetWrappers qw(:all);
                 <option value='255.255.0.0'>255.255.0.0</option>
                 <option value='255.0.0.0'>255.0.0.0</option>
             </select>
+    </div>
+    <div id="bridged">
+        <label><% __('Bridge') %></label>
+        <select name="bridge">
+%   foreach my $bridge ( @bridges ) {
+%       if ( $bridge->{id} == $iface->{bridge} ) {
+                <option value='<% $bridge->{id} %>' selected="true"><% $bridge->{alias} %></option>
+%       } else {
+                <option value='<% $bridge->{id} %>'><% $bridge->{alias} %></option>
+%       }
+%   }
+                <option value='-1'>New bridge</option>
+        </select>
     </div>
 
 % unless ($iface->{'name'} =~ /^vlan/) {
@@ -333,7 +357,8 @@ use EBox::NetWrappers qw(:all);
 $('#method').change(function(event) {
     var selected = $(event.target).val();
 
-    if (selected === 'static' || selected === 'dhcp' || selected === 'bundled') {
+    if (selected === 'static' || selected === 'dhcp' ||
+        selected === 'bridged' || selected === 'bundled') {
         $('#external').show();
     } else {
         $('#external').hide();
@@ -344,6 +369,8 @@ $('#method').change(function(event) {
     $('#virtual').toggle(selected === 'static');
 
     $('#trunk').toggle(selected === 'trunk');
+
+    $('#bridged').toggle(selected === 'bridged');
 
     $('#bundled').toggle(selected === 'bundled');
  }).change();

@@ -6,6 +6,7 @@
 	$address
 	$netmask
 	$external
+	$bridge
 	$bond
 	$bond_mode
 </%args>
@@ -26,6 +27,7 @@ use EBox::Gettext;
 	<input type="hidden" name="method"   value="<% $method %>"/>
 	<input type="hidden" name="if_address"  value="<% $address %>"/>
 	<input type="hidden" name="if_netmask"  value="<% $netmask %>"/>
+	<input type="hidden" name="bridge"  value="<% $bridge %>"/>
 	<input type="hidden" name="bond"  value="<% $bond %>"/>
 	<input type="hidden" name="bond_mode"  value="<% $bond_mode %>"/>
 % if (defined($external)) {
