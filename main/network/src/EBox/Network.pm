@@ -25,11 +25,14 @@ use base qw(EBox::Module::Service);
 
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
-use constant IGNOREIFACES => qw(sit tun tap lo irda virbr vboxnet vnet);
+use constant IGNOREIFACES => qw(sit tun tap lo irda ppp virbr vboxnet vnet);
 use constant IFNAMSIZ => 16; #Max length name for interfaces
 use constant INTERFACES_FILE => '/etc/network/interfaces';
 use constant RESOLV_FILE => '/etc/resolv.conf';
 use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
+use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
+use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
+use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
 use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy';
 use constant ENV_FILE       => '/etc/environment';
 use constant SYSCTL_FILE => '/etc/sysctl.conf';
@@ -193,6 +196,12 @@ sub usedFiles
         'module' => 'network'
     },
     );
+
+    foreach my $iface (@{$self->pppIfaces()}) {
+        push (@files, { 'file' => PPP_PROVIDER_FILE . $iface,
+                        'reason' => __('Zentyal will add a DSL provider configuration for PPPoE'),
+                        'module' => 'network' });
+    }
 
     my $proxy = $self->model('Proxy');
     if ($proxy->serverValue() and $proxy->portValue()) {
@@ -828,7 +837,7 @@ sub ifaceAddresses
                            netmask => $viface->{netmask},
                            name => $name });
         }
-    } elsif ($self->ifaceMethod($iface) eq 'dhcp') {
+    } elsif ($self->ifaceMethod($iface) eq any('dhcp', 'ppp')) {
         my $addr = $self->DHCPAddress($iface);
         my $mask = $self->DHCPNetmask($iface);
         if ($addr) {
@@ -987,6 +996,27 @@ sub dhcpIfaces
         }
     }
     return \@dhcpifaces;
+}
+
+# Method: pppIfaces
+#
+#       Returns the names for all the PPPoE interfaces.
+#
+# Returns:
+#
+#       an array ref - holding the name of the interfaces.
+#
+sub pppIfaces
+{
+    my ($self) = @_;
+    my @pppifaces;
+
+    foreach my $iface (@{$self->ifaces()}) {
+        if ($self->ifaceMethod($iface) eq 'ppp') {
+            push (@pppifaces, $iface);
+        }
+    }
+    return \@pppifaces;
 }
 
 # Method: allIfacesWithRemoved
@@ -1338,9 +1368,10 @@ sub ifaceAlias # (iface)
 #
 # Returns:
 #
-#   string - dhcp|static|notset|trunk|bridged|bundled
+#   string - dhcp|static|notset|trunk|ppp|bridged|bundled
 #           dhcp -> the interface is configured via dhcp
 #           static -> the interface is configured with a static ip
+#           ppp -> the interface is configured via PPP
 #           notset -> the interface exists but has not been
 #                 configured yet
 #           trunk -> vlan aware interface
@@ -1384,7 +1415,7 @@ sub setIfaceDHCP
                              value => $name);
 
     my $oldm = $self->ifaceMethod($name);
-    if ($oldm eq 'dhcp') {
+    if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'trunk') {
         $self->_trunkIfaceIsUsed($name);
@@ -1509,7 +1540,7 @@ sub setIfaceStatic
     # Check the interface IP  address is not a HA floating IP
     $self->_checkHAFloatingIPCollision($name, $address);
 
-    if ($oldm eq 'dhcp') {
+    if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name, $address, $netmask);
@@ -1653,6 +1684,102 @@ sub _checkStaticIP
     }
 }
 
+# Method: setIfacePPP
+#
+#   Configure with PPP method
+#
+# Parameters:
+#
+#   interface - the name of a network interface
+#   ppp_user - PPP user name
+#   ppp_pass - PPP password
+#   external - boolean to indicate if it's an external interface
+#   force - boolean to indicate if an exception should be raised when
+#           method is changed or it should be forced
+#
+sub setIfacePPP
+{
+    my ($self, $name, $ppp_user, $ppp_pass, $ext, $force) = @_;
+    defined $ext or $ext = 0;
+
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    my $oldm = $self->ifaceMethod($name);
+    my $olduser = $self->ifacePPPUser($name);
+    my $oldpass = $self->ifacePPPPass($name);
+    my $oldext = $self->ifaceIsExternal($name);
+
+    if (($oldm eq 'ppp') and
+        ($olduser eq $ppp_user) and
+        ($oldpass eq $ppp_pass) and
+        (! ($oldext xor $ext))) {
+        return;
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_trunkIfaceIsUsed($name);
+    } elsif ($oldm eq any('dhcp', 'ppp')) {
+        $self->DHCPCleanUp($name);
+    } elsif ($oldm eq 'static') {
+        $self->_routersReachableIfChange($name);
+    } elsif ($oldm eq 'bridged') {
+        $self->BridgedCleanUp($name);
+    } elsif ($oldm eq 'bundled') {
+        $self->BundledCleanUp($name);
+    }
+
+    # Calling observers
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+
+    if ($ext != $self->ifaceIsExternal($name) ) {
+        # Tell observers the interface way has changed
+        foreach my $obs (@observers) {
+            if ($obs->ifaceExternalChanged($name, $ext)) {
+                if ($force) {
+                    $obs->changeIfaceExternalProperty($name, $ext);
+                } else {
+                    throw EBox::Exceptions::DataInUse();
+                }
+            }
+        }
+    }
+
+    if ($oldm ne 'ppp') {
+            $self->_notifyChangedIface(
+                name => $name,
+                oldMethod => $oldm,
+                newMethod => 'ppp',
+                action => 'prechange',
+                force => $force,
+            );
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
+
+    my $ifaces = $self->get_hash('interfaces');
+    $ifaces->{$name}->{external} = $ext;
+    $ifaces->{$name}->{method} = 'ppp';
+    $ifaces->{$name}->{ppp_user} = $ppp_user;
+    $ifaces->{$name}->{ppp_pass} = $ppp_pass;
+    $ifaces->{$name}->{name}     = $name;
+    $ifaces->{$name}->{changed} = 1;
+    $self->set('interfaces', $ifaces);
+
+    if ($oldm ne 'ppp') {
+            $self->_notifyChangedIface(
+                name => $name,
+                oldMethod => $oldm,
+                newMethod => 'ppp',
+                action => 'postchange'
+            );
+    }
+}
+
 # Method: setIfaceTrunk
 #
 #   configures an interface in trunk mode, making it possible to create vlan
@@ -1682,7 +1809,7 @@ sub setIfaceTrunk # (iface, force)
 
     ($oldm eq 'trunk') and return;
 
-    if ($oldm eq 'dhcp') {
+    if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
@@ -1782,7 +1909,7 @@ sub setIfaceBridged
     }
 
     my $oldm = $self->ifaceMethod($name);
-    if ($oldm eq 'dhcp') {
+    if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'trunk') {
         $self->_trunkIfaceIsUsed($name);
@@ -2346,7 +2473,7 @@ sub unsetIface # (interface, force)
     }
 
     my $oldm = $self->ifaceMethod($name);
-    if ($oldm eq 'dhcp') {
+    if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'trunk') {
         $self->_trunkIfaceIsUsed($name);
@@ -2404,7 +2531,7 @@ sub unsetIface # (interface, force)
 #  Returns:
 #
 #   - For static interfaces: the configured IP Address of the interface.
-#   - For dhcp interfaces:
+#   - For dhcp and ppp interfaces:
 #       - the current address if the interface is up
 #       - undef if the interface is down
 #   - For bridged interfaces: its bridge ifaces address (static or dhcp)
@@ -2424,7 +2551,7 @@ sub ifaceAddress # (name)
     }
     if ($self->ifaceMethod($name) eq 'static') {
         return $self->get_hash('interfaces')->{$name}->{address};
-    } elsif ($self->ifaceMethod($name) eq 'dhcp') {
+    } elsif ($self->ifaceMethod($name) eq any('dhcp', 'ppp')) {
         return $self->DHCPAddress($name);
     } elsif ($self->ifaceMethod($name) eq 'bridged') {
         my $bridge = $self->ifaceBridge($name);
@@ -2438,6 +2565,60 @@ sub ifaceAddress # (name)
     #    }
     }
     return undef;
+}
+
+# Method: ifacePPPUser
+#
+#   Returns the configured username for a PPP interface
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For ppp interfaces: the configured user of the interface.
+#   - For the rest: undef
+#
+sub ifacePPPUser # (name)
+{
+    my ($self, $name) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    if ($self->ifaceMethod($name) eq 'ppp') {
+        return $self->get_hash('interfaces')->{$name}->{ppp_user};
+    } else {
+        return undef;
+    }
+}
+
+# Method: ifacePPPPass
+#
+#   Returns the configured password for a PPP interface
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For ppp interfaces: the configured password of the interface.
+#   - For the rest: undef
+#
+sub ifacePPPPass # (name)
+{
+    my ($self, $name) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    if ($self->ifaceMethod($name) eq 'ppp') {
+        return $self->get_hash('interfaces')->{$name}->{ppp_pass};
+    } else {
+        return undef;
+    }
 }
 
 # Method: ifaceBridge
@@ -2520,9 +2701,10 @@ sub bondMode # (name)
     return undef;
 }
 
-# Method: ifaceBond
+# Method: realIface
 #
-#   Returns the bond id for an interface
+#   Returns the associated PPP interface in case of a Ethernet
+#   interface configured for PPPoE, or the same value in any other case.
 #
 # Parameters:
 #
@@ -2530,47 +2712,45 @@ sub bondMode # (name)
 #
 #  Returns:
 #
-#   - For bundled interfaces: the bond id
-#   - For the rest: undef
+#   - For ppp interfaces: the associated interface, if it is up
+#   - For the rest: the unaltered name
 #
-sub ifaceBond # (name)
+sub realIface # (name)
 {
     my ($self, $name) = @_;
     $self->ifaceExists($name) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $name);
 
-    if ($self->ifaceMethod($name) eq 'bundled') {
-        return $self->get_hash('interfaces')->{$name}->{bond_id};
-    } else {
-        return undef;
+    if ($self->ifaceMethod($name) eq 'ppp') {
+        my $ppp_iface = $self->get_state()->{interfaces}->{$name}->{ppp_iface};
+        if ($ppp_iface) {
+            return $ppp_iface;
+        }
     }
+    return $name;
 }
 
-# Method: bondMode
+# Method: etherIface
 #
-#   Returns the bonding mode for a bond interface
+#   Returns the associated Ethernet interface in case of a ppp
+#   interface configured for PPPoE, or the same value in any other case.
 #
-# Parameters:
+#   This is somehow the inverse function of <EBox::Network::realIface>
+#   - For ppp interfaces: the associated Ethernet interface, if it is up
+#   - For the rest: the unaltered name
 #
-#   name - interface name
-#
-#  Returns:
-#
-#   - For bond: the bonding mode
-#   - For the rest: undef
-#
-sub bondMode # (name)
+sub etherIface # (name)
 {
     my ($self, $name) = @_;
-    $self->ifaceExists($name) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $name);
 
-    if ($self->ifaceIsBond($name)) {
-        return $self->get_hash('interfaces')->{$name}->{bond_mode};
+    for my $iface (@{$self->allIfaces()}) {
+        if ($self->ifaceMethod($iface) eq 'ppp') {
+            my $ppp_iface = $self->get_state()->{interfaces}->{$iface}->{ppp_iface};
+            return $iface if ($ppp_iface eq $name);
+        }
     }
-    return undef;
+    return $name;
 }
 
 # Method: ifaceNetmask
@@ -2603,7 +2783,7 @@ sub ifaceNetmask
     }
     if ($self->ifaceMethod($name) eq 'static') {
         return $self->get_hash('interfaces')->{$name}->{netmask};
-    } elsif ($self->ifaceMethod($name) eq 'dhcp') {
+    } elsif ($self->ifaceMethod($name) eq any('dhcp', 'ppp')) {
         return $self->DHCPNetmask($name);
     } elsif ($self->ifaceMethod($name) eq 'bridged') {
         my $bridge = $self->ifaceBridge($name);
@@ -3061,6 +3241,70 @@ sub proxySettings
     }
 }
 
+sub _generatePPPConfig
+{
+    my ($self) = @_;
+
+    my $pppSecrets = {};
+
+    my $usepeerdns = scalar (@{$self->nameservers()}) == 0;
+
+    # clear up PPP provide files
+    my $clearCmd = 'rm -f ' . PPP_PROVIDER_FILE . '*';
+    EBox::Sudo::root($clearCmd);
+
+    foreach my $iface (@{$self->pppIfaces()}) {
+        my $user = $self->ifacePPPUser($iface);
+        my $pass = $self->ifacePPPPass($iface);
+        $pppSecrets->{$user} = $pass;
+        $self->writeConfFile(PPP_PROVIDER_FILE . $iface,
+                             'network/dsl-provider.mas',
+                             [ iface => $iface,
+                               ppp_user => $user,
+                               usepeerdns => $usepeerdns
+                             ]);
+    }
+
+    $self->writeConfFile(PAP_SECRETS_FILE,
+                         'network/pap-secrets.mas',
+                         [ passwords  => $pppSecrets ],
+                         { mode => '0600' }
+                        );
+
+    # Do not overwrite the entire chap-secrets file every time
+    # to avoid conflicts with the PPTP module
+
+    my $file;
+    try {
+        $file = read_file(CHAP_SECRETS_FILE);
+    } catch {
+        # Write it with permissions for ebox if we can't read it
+        my $gid = getgrnam('ebox');
+        $self->writeConfFile(CHAP_SECRETS_FILE,
+                             'network/chap-secrets.mas', [],
+                             { mode => '0660', gid => $gid });
+        $file = read_file(CHAP_SECRETS_FILE);
+    }
+    my $pppoeConf = '';
+    foreach my $user (keys %{$pppSecrets}) {
+        $pppoeConf .= "$user * $pppSecrets->{$user}\n";
+    }
+
+    my $oldMark = '# PPPOE_CONFIG #';
+    my $mark    =  '# PPPOE_CONFIG - managed by Zentyal. Don not edit this section #';
+    my $endMark = '# End of PPPOE_CONFIG section #';
+    $file =~ s/$mark.*$mark/$mark\n$pppoeConf$mark/sm;
+    if ($file =~ m/$mark/sm) {
+        $file =~ s/$mark.*$endMark/$mark\n$pppoeConf$endMark/sm;
+    } elsif ($file =~ m/$oldMark/) {
+        # convert to new format
+        $file =~ s/$oldMark.*$oldMark/$mark\n$pppoeConf$endMark/sm;
+    } else {
+        $file .= $mark . "\n" . $pppoeConf . $endMark . "\n";
+    }
+    write_file(CHAP_SECRETS_FILE, $file);
+}
+
 sub generateInterfaces
 {
     my ($self) = @_;
@@ -3142,6 +3386,7 @@ sub _disableReversePath
     my %seen;
     for my $router ( reverse @{$routers} ) {
         my $iface = $router->{'interface'};
+        $iface = $self->realIface($iface);
         # remove viface portion
         $iface =~ s/:.*$//;
 
@@ -3212,6 +3457,8 @@ sub _multigwRoutes
         my $mark = $marks->{$router->{'id'}};
         my $table = 100 + $mark;
 
+        $iface = $self->realIface($iface);
+
         my $net = $self->ifaceNetwork($iface);
         my $address = $self->ifaceAddress($iface);
         unless ($address) {
@@ -3222,6 +3469,10 @@ sub _multigwRoutes
         }
 
         my $route = "via $ip dev $iface src $address";
+        if ($method eq 'ppp') {
+            $route = "dev $iface";
+            (undef, $ip) = split ('/', $ip);
+        }
 
         # Write mark rules first to avoid local output problems
         push(@cmds, "/sbin/ip route flush table $table");
@@ -3262,9 +3513,9 @@ sub _multigwRoutes
 
         my $mark = $marks->{$router->{'id'}};
 
-        # Match interface instead of mac for dhcp
+        # Match interface instead of mac for pppoe and dhcp
         my $mac = $router->{'mac'};
-        my $iface = $router->{'interface'};
+        my $iface = $self->realIface($router->{'interface'});
         my $origin;
         if ($mac) {
             # Skip unknown macs for static interfaces
@@ -3277,6 +3528,12 @@ sub _multigwRoutes
         push(@cmds, '/sbin/iptables -t mangle -A PREROUTING '
                   . "-m mark --mark 0/0xff $origin "
                   . "-j MARK --set-mark $mark");
+    }
+
+    push(@cmds, @{$self->_pppoeRules()});
+
+    for my $rule (@{$self->model('MultiGwRulesDataTable')->iptablesRules()}) {
+        push(@cmds, "/sbin/iptables $rule");
     }
 
     # send unmarked packets through default router
@@ -3371,8 +3628,12 @@ sub _preSetConf
                 my @cmds;
                 if ($self->ifaceExists($if)) {
                     my $ifname = $if;
-                    push (@cmds, "/sbin/ip address flush label $if");
-                    push (@cmds, "/sbin/ip address flush label $if:*");
+                    if ($self->ifaceMethod($if) eq 'ppp') {
+                        $ifname = "zentyal-ppp-$if";
+                    } else {
+                        push (@cmds, "/sbin/ip address flush label $if");
+                        push (@cmds, "/sbin/ip address flush label $if:*");
+                    }
                     if ($self->ifaceMethod($if) eq 'bundled') {
                         my $bond = $self->ifaceBond($if);
                         push (@cmds, "/sbin/ifenslave --force -d bond$bond $if");
@@ -3397,7 +3658,7 @@ sub _preSetConf
         # PPPoE it should be done by the dhcp, but sometimes
         # cruft is left
         if ($self->ifaceExists($if)) {
-            unless ($self->ifaceMethod($if) eq 'dhcp') {
+            unless ($self->ifaceMethod($if) eq any('dhcp', 'ppp')) {
                 $self->DHCPCleanUp($if);
             }
         }
@@ -3421,6 +3682,7 @@ sub _setConf
 {
     my ($self) = @_;
     $self->generateInterfaces();
+    $self->_generatePPPConfig();
     $self->_generateProxyConfig();
     $self->_writeFailoverCron();
 }
@@ -3448,6 +3710,10 @@ sub _enforceServiceState
             $dynIfaces = 1;
         }
         if ($self->_hasChanged($iface) or $dhcpIface or $restart) {
+            if ($self->ifaceMethod($iface) eq 'ppp') {
+                $iface = "zentyal-ppp-$iface";
+                $dynIfaces = 1;
+            }
             if ($self->ifaceIsBond($iface)) {
                 # ifup bond slaves first
                 my $bondIfaces = $self->bondIfaces($iface);
@@ -3533,8 +3799,12 @@ sub _stopService
     foreach my $if (@{$iflist}) {
         try {
             my $ifname = $if;
-            push @cmds, "/sbin/ip address flush label $if";
-            push @cmds, "/sbin/ip address flush label $if:*";
+            if ($self->ifaceMethod($if) eq 'ppp') {
+                $ifname = "zentyal-ppp-$if";
+            } else {
+                push @cmds, "/sbin/ip address flush label $if";
+                push @cmds, "/sbin/ip address flush label $if:*";
+            }
             push @cmds, "/sbin/ifdown --force -i $file $ifname";
         } catch (EBox::Exceptions::Internal $e) {
         }
@@ -3725,6 +3995,35 @@ sub setDHCPGateway # (iface, gateway)
     $self->set_state($state);
 }
 
+# Method: setRealPPPIface
+#
+#   Sets the real PPP interface associated with the Ethernet one.
+#
+# Parameters:
+#
+#   iface     - ethernet interface name
+#   ppp_iface - ppp interface name
+#   ppp_addr  - IP address of the ppp interface
+#
+sub setRealPPPIface # (iface, ppp_iface, ppp_addr)
+{
+    my ($self, $iface, $ppp_iface, $ppp_addr) = @_;
+
+   if (not $iface =~ m{^/dev/pts/}) {
+        $self->ifaceExists($iface) or
+            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                                 value => $iface);
+    }
+
+    my $state = $self->get_state();
+    $state->{interfaces}->{$iface}->{ppp_iface} = $ppp_iface;
+    $self->set_state($state);
+
+    checkIP($ppp_addr, __("IP address"));
+    $state->{interfaces}->{$iface}->{ppp_addr} = $ppp_addr;
+    $self->set_state($state);
+}
+
 # Method: DHCPCleanUp
 #
 #   Removes the dhcp configuration for a given interface
@@ -3746,6 +4045,7 @@ sub DHCPCleanUp # (interface)
 
     my $state = $self->get_state();
     delete $state->{dhcp}->{$iface};
+    delete $state->{interfaces}->{$iface}->{ppp_iface};
     $self->set_state($state);
 }
 
@@ -4304,6 +4604,10 @@ sub regenGateways
         push (@commands, $cmd);
     }
 
+    # Silently delete duplicated MTU rules for PPPoE interfaces and
+    # add them to the commands array
+    push(@commands, @{$self->_pppoeRules(1)});
+
     try {
         EBox::Sudo::root(@commands);
     } catch {
@@ -4366,6 +4670,39 @@ sub unsetFlagIfUp
 
 # Group: Other methods
 
+sub _pppoeRules
+{
+    my ($self, $flush) = @_;
+
+    my @add;
+
+    # Warning (if flush=1):
+    #   Delete rules are immediately executed, add rules are returned
+    #   this is for performance reasons, to allow to integrate them in other
+    #   arrays, but the delete ones need to be executed with silentRoot,
+    #   so they are executed separately.
+    my @delete;
+
+    # Special rule for PPPoE interfaces to avoid problems with large packets
+    foreach my $if (@{$self->pppIfaces()}) {
+        $if = $self->realIface($if);
+        my $cmd = '/sbin/iptables -t mangle';
+        my $params = "POSTROUTING -o $if -p tcp " .
+            "-m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu";
+
+        if ($flush) {
+            push (@delete, "$cmd -D $params");
+        }
+        push (@add, "$cmd -A $params");
+    }
+
+    if ($flush) {
+        EBox::Sudo::silentRoot(@delete);
+    }
+
+    return \@add;
+}
+
 sub _multipathCommand
 {
     my ($self) = @_;
@@ -4404,10 +4741,14 @@ sub _multipathCommand
         my $iface = $gw->{'interface'};
         my $method = $self->ifaceMethod($iface);
 
+        $iface = $self->realIface($iface);
         my $if = new Net::Interface($iface);
         next unless $if->address;
 
         my $route = "via $ip dev $iface";
+        if ($method eq 'ppp') {
+            $route = "dev $iface";
+        }
 
         $cmd .= " nexthop $route weight $gw->{'weight'}";
 

@@ -82,6 +82,9 @@ sub masonParameters
             $iface->{'bridge'} = $net->ifaceBridge($_);
         } elsif ($net->ifaceMethod($_) eq 'bundled') {
             $iface->{'bond'} = $net->ifaceBond($_);
+        } elsif ($net->ifaceMethod($_) eq 'ppp') {
+            $iface->{'ppp_user'} = $net->ifacePPPUser($_);
+            $iface->{'ppp_pass'} = $net->ifacePPPPass($_);
         }
         if ($net->ifaceIsBond($_)) {
             $iface->{'bond_mode'} = $net->bondMode($_);

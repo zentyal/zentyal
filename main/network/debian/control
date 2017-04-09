@@ -13,7 +13,7 @@ Package: zentyal-network
 Architecture: all
 Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
          iproute, vlan, net-tools, dnsutils, libnet-ip-perl, isc-dhcp-client,
-         iptables, libnet-arp-perl, wget, traceroute,
+         iptables, libnet-arp-perl, wget, traceroute, ppp,
          libnet-interface-perl, debconf, wakeonlan, bridge-utils,
          resolvconf, ifenslave, ethtool, ${misc:Depends}
 Replaces: zentyal-services, zentyal-objects

@@ -1,3 +1,5 @@
 zentyal-dhcp-enter /etc/dhcp/dhclient-enter-hooks.d
 zentyal-dhcp-exit /etc/dhcp/dhclient-exit-hooks.d
+zentyal-ppp-up /etc/ppp/ip-up.d
+zentyal-ppp-down /etc/ppp/ip-down.d
 zentyal-resolvconf /etc/resolvconf/update.d
