@@ -185,6 +185,9 @@ sub local
     # redis does not store undef values, with a undef key it returns ''
     if ($iface eq  '_ALL') {
         $iface = undef;
+    } else {
+        my $network = EBox::Global->modInstance('network');
+        $iface = $network->realIface($iface);
     }
 
     return $iface;
