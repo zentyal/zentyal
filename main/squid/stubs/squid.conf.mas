@@ -8,7 +8,6 @@
 <%args>
     $port
     $transparent => undef
-    $filter
 
     $hostfqdn
 
@@ -336,10 +335,6 @@ refresh_pattern -i (/cgi-bin/|\?) 0     0%      0
 refresh_pattern .               0       20%     4320
 
 # end refresh patterns
-
-% if ($filter) {
-cache_peer 127.0.0.1 parent 3129 0 no-query proxy-only login=*:nopassword
-% }
 
 % if ($cache_host and $cache_port) {
 %   my $peerAuth = '';

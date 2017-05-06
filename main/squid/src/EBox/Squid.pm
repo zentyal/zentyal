@@ -429,6 +429,17 @@ sub usesPort
     return undef;
 }
 
+sub _enforceServiceState
+{
+    my ($self, @params) = @_;
+
+    # We stop override this to stop first due to the listen port changes
+    $self->_stopService(@params);
+    if($self->isEnabled()) {
+        $self->_startService(@params);
+    }
+}
+
 sub _setConf
 {
     my ($self) = @_;
@@ -498,8 +509,7 @@ sub _writeSquidConf
     my $network = $global->modInstance('network');
 
     my @writeParam = ();
-    push @writeParam, ('filter' => $filter);
-    push @writeParam, ('port'  => $self->port());
+    push @writeParam, ('port'  => $filter ? DGPORT : $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
 
     push @writeParam, ('rules' => $rules);
@@ -573,9 +583,9 @@ sub _writeDgConf
 
     my @writeParam = ();
 
-    push(@writeParam, 'port' => DGPORT);
+    push(@writeParam, 'port' => $self->port());
     push(@writeParam, 'lang' => $lang);
-    push(@writeParam, 'squidport' => SQUID_PORT);
+    push(@writeParam, 'squidport' => DGPORT);
     push(@writeParam, 'weightedPhraseThreshold' => $self->_banThresholdActive);
     push(@writeParam, 'nGroups' => scalar @dgProfiles);
 
