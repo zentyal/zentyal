@@ -1,4 +1,5 @@
 HEAD
+	+ Add proper template shell and homedir in smb.conf
 	+ Support for bridged mode in sambaInterfaces method
 5.0.6
 	+ Depend on new Samba 4.5.8

@@ -2531,6 +2531,7 @@ sub writeSambaConfig
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
     push (@array, 'shares' => 1);
+    push (@array, 'shell' => $self->model('PAM')->value('login_shell'));
 
     if (not EBox::Config::boolean('listen_all')) {
         my $interfaces = join (',', @{$self->sambaInterfaces()});

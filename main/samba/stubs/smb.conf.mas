@@ -9,6 +9,7 @@
     $profilesPath
     $sysvolPath
     $ifaces => undef
+    $shell
 
     $print => 0
     $shares => 0
@@ -33,6 +34,8 @@ use EBox::Gettext;
 
     winbind enum users = yes
     winbind enum groups = yes
+    template shell = <% $shell %>
+    template homedir = /home/%U
 
 % if ($ifaces) {
     interfaces = <% $ifaces %>

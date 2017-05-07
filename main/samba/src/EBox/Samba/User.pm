@@ -1072,12 +1072,6 @@ sub _domainUsersGidNumber
     return $group->gidNumber();
 }
 
-sub _loginShell
-{
-    my $usersMod = EBox::Global->modInstance('samba');
-    return $usersMod->model('PAM')->login_shellValue();
-}
-
 sub quotaAvailable
 {
     return 1;
