@@ -1188,6 +1188,11 @@ sub edition
     }
 
     my $key = read_file($license);
+    chomp($key);
+
+    if ($key eq 'ACTIVATION-REQUIRED') {
+        return 'require-activation';
+    }
 
     my ($level, $users, $exp_date) = $self->_decodeLicense($key);
 

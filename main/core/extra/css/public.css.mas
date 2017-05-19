@@ -1494,6 +1494,38 @@ border-radius: 2px;
     text-shadow: 2px 2px 1px rgba(0,0,0,0.2);
 }
 
+#activation-required{
+    margin-top: -40px;
+    width: 450px;
+    text-align: center;
+    background-color: #eee;
+}
+#activation-required header img{
+    width: 200px
+}
+#activation-required h1{
+    font-size: 30px;
+    margin: 20px 0 30px 0;
+}
+#activation-required h3{
+    font-size: 1.2em;
+    line-height: 140%;
+    border-bottom: none;
+    font-weight: 100
+}
+#activation-required .btn-green{
+    width: 300px;
+    text-transform: none;
+    font-weight: normal;
+    letter-spacing: 0px;
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.2);
+}
+#activation-required #error{
+    border-color:<% $error_border %>;
+    background: <% $error_background %>;
+    color: <% $error_color %>;
+}
+
 body.first-install {
     max-width: 1200px;
 }
