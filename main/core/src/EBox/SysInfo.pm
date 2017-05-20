@@ -147,7 +147,7 @@ sub _setConf
     my $tz = $timezoneModel->row()->elementByName('timezone');
     my $tzStr = $tz->printableValue();
     EBox::Sudo::root("echo $tzStr > /etc/timezone",
-                     "cp -f /usr/share/zoneinfo/$tzStr /etc/localtime");
+                     "ln -sf /usr/share/zoneinfo/$tzStr /etc/localtime");
 
     # Host name
     my $hostNameModel = $self->model('HostName');
