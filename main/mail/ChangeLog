@@ -1,3 +1,6 @@
+HEAD
+	+ Fix reading of attributes from LDAP backend
+	+ Revert unnecessary previous changes in main.cf
 5.0.5
 	+ Explicit add of all virtual domains to mydestination in main.cf
 	+ Remove compatibility_level postfix warning setting main.cf accordingly

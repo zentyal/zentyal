@@ -50,15 +50,6 @@ use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 use EBox::SyncFolders::Folder;
 use EBox::Samba::User;
-#use Samba::Security::Descriptor qw(
-#    SEC_ACE_TYPE_ACCESS_ALLOWED
-#    SEC_ACE_FLAG_CONTAINER_INHERIT
-#    SEC_ADS_READ_PROP
-#    SEC_ADS_LIST
-#    SEC_ADS_LIST_OBJECT
-#    SEC_STD_READ_CONTROL
-#);
-#use Samba::Security::AccessControlEntry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use TryCatch;
@@ -263,6 +254,12 @@ sub initialSetup
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
     }
 
+    if (defined ($version) and (EBox::Util::Version::compare($version, '5.0.6') < 0)) {
+        if ($self->get_state()->{'_ldapSetup'}) {
+            $self->_setPrivilegedAccount();
+        }
+    }
+
     $self->{fetchmail}->initialSetup($version);
 
     if ($self->changed()) {
@@ -384,36 +381,20 @@ sub setupLDAP
                 dn => $param->{base}, count => $result->count()));
     }
 
-    # FIXME: is this needed or can be workarounded without perl bindings?
-    #my $entry = $result->entry(0);
-    #my $sdBlob = $entry->get_value('nTSecurityDescriptor');
-    #my $sd = new Samba::Security::Descriptor();
-    #$sd->unmarshall($sdBlob, length($sdBlob));
-
-    #my $accessMask = SEC_ADS_READ_PROP |
-    #                 SEC_ADS_LIST |
-    #                 SEC_ADS_LIST_OBJECT |
-    #                 SEC_STD_READ_CONTROL;
-    #my $ace = new Samba::Security::AccessControlEntry($sid,
-    #    SEC_ACE_TYPE_ACCESS_ALLOWED, $accessMask,
-    #    SEC_ACE_FLAG_CONTAINER_INHERIT);
-    #$sd->dacl_add($ace);
-    #$entry->replace(nTSecurityDescriptor => $sd->marshall);
-    #$result = $entry->update($ldap->connection());
-    #if ($result->is_error()) {
-    #    unless ($result->code() == LDAP_LOCAL_ERROR and
-    #            $result->error() eq 'No attributes to update')
-    #    {
-    #        throw EBox::Exceptions::LDAP(
-    #            message => __('Error on LDAP entry creation:'),
-    #            result => $result,
-    #            opArgs => EBox::Samba::LdapObject->entryOpChangesInUpdate($entry),
-    #        );
-    #    }
-    #}
+    $self->_setPrivilegedAccount();
 
     # vdomains should be regnenerated to setup user correctly
     $self->{vdomains}->regenConfig();
+}
+
+# This is needed for postfix virtual_alias_maps to work, otherwise
+# a regular user cannot read attributes from the extended schema using LDAP queries
+sub _setPrivilegedAccount
+{
+    my ($self) = @_;
+
+    my $netbiosName = EBox::Global->modInstance('samba')->model('DomainSettings')->value('netbiosName');
+    EBox::Sudo::root("samba-tool group addmembers 'Domain Admins' zentyal-mail-$netbiosName");
 }
 
 sub _addConfigurationContainers
@@ -546,7 +527,6 @@ sub _setMailConf
     push @args, @ldapCommonParams;
     push @args, ('hostname' => $self->_fqdn());
     push @args, ('mailname' => $self->mailname());
-    push @args, ('vdomains' => $self->_vdomains());
 
     push @args, ('relay' => $self->relay());
     push @args, ('relayAuth' => $self->relayAuth());
@@ -1849,18 +1829,6 @@ sub checkMailNotInUse
                 __x('Address {addr} is in use as external alias', addr => $mail)
         );
     }
-}
-
-sub _vdomains
-{
-    my ($self) = @_;
-
-    my $model = $self->model('VDomains');
-    my @vdomains;
-    foreach my $id (@{$model->ids()}) {
-        push (@vdomains, $model->row($id)->valueByName('vdomain'));
-    }
-    return \@vdomains;
 }
 
 1;

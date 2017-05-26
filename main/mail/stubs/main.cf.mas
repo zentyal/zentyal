@@ -4,7 +4,6 @@
     $hostname
     $mailname
     $ldapServer
-    @vdomains
 
     $valiasesCfFile
     $userAliasesCfFile
@@ -83,8 +82,7 @@ append_dot_mydomain = no
 
 myorigin = /etc/mailname
 myhostname = <% $hostname %>
-mydestination = $myorigin,$myhostname,localhost,localhost.$mydomain,<% join(',', @vdomains) %>
-relay_domains = $mydestination
+mydestination = $myorigin,$myhostname,localhost,localhost.$mydomain
 smtp_helo_name = <% $mailname %>
 alias_maps = hash:/etc/aliases
 
@@ -124,7 +122,6 @@ virtual_alias_maps = ldap:<% $valiasesCfFile %>,ldap:<% $userAliasesCfFile %>,ld
 
 # Virtual Domains
 dovecot_destination_recipient_limit = 1
-local_transport = dovecot
 virtual_transport = dovecot
 virtual_mailbox_base = <% $vmaildir %>
 virtual_mailbox_maps= ldap:<% $mailboxCfFile %>
