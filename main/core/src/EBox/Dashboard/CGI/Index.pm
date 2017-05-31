@@ -177,13 +177,22 @@ sub masonParameters
             push (@params, 'message' => $msg);
         }
     } else {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
-            $showMessage = 0;
-            # Re-check for changes
-            $rs->checkAdMessages();
-            my $rsMsg = $rs->adMessages();
-            push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
+        $showMessage = 0;
+
+        if ($showMessage) {
+            my $state = $sysinfo->get_state();
+            my $lastTime = $state->{lastMessageTime};
+            my $currentTime = time();
+            my $offset = ($currentTime - $lastTime) / 60 / 24;
+            foreach my $msg (@{_periodicMessages()}) {
+                my $name = $msg->{name};
+                next if ($state->{closedMessages}->{$name});
+                my $text = $msg->{text};
+                if ($offset >= $msg->{days}) {
+                    push (@params, 'message' => $msg);
+                    last;
+                }
+            }
         }
     }
 
