@@ -65,7 +65,7 @@ additional_footer_style: ""
 
 # images
 favicon: "/favicon.ico"
-image_title: "/data/images/title.png"
+image_title: "/data/images/title-business.png"
 image_note: "/data/images/msg.png"
 
 # login/index.mas
@@ -75,4 +75,3 @@ created_by_footer: "Created by <a href=\"http://www.zentyal.com/\">Zentyal S.L.<
 
 # footer.mas
 copyright_footer: "Created by <a href=\"http://www.zentyal.com/\">Zentyal S.L.</a>"
-

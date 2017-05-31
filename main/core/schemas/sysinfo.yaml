@@ -6,6 +6,7 @@ models:
     - DateTime
     - HostName
     - ManageAdmins
+    - Edition
 
 composites:
     General: []

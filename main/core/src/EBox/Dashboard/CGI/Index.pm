@@ -150,16 +150,7 @@ sub masonParameters
         push(@params, 'softwareInstalled' => 1);
     }
 
-    my $showMessage = 1;
-    my $rs = EBox::Global->modInstance('remoteservices');
-    if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
-        $showMessage = 0;
-        # Re-check for changes
-        $rs->checkAdMessages();
-        my $rsMsg = $rs->adMessages();
-        push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
-    }
-
+    my $showMessage = 0;
     if ($showMessage) {
         my $sysinfo = EBox::Global->modInstance('sysinfo');
         my $state = $sysinfo->get_state();

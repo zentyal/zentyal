@@ -110,6 +110,13 @@ sub menu
                                       'text' => __('General'),
                                       'order' => 10));
 
+    if (-f '/var/lib/zentyal/.commercial-edition') {
+        $system->add(new EBox::Menu::Item('url'   => 'SysInfo/View/Edition',
+                                          'text'  => __('Server Edition'),
+                                          'order' => 30,
+                                         ));
+    }
+
     $system->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
                                       'text' => __('Import/Export Configuration'),
                                       'order' => 50));
