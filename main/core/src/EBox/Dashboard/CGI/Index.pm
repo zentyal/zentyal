@@ -177,18 +177,7 @@ sub masonParameters
             push (@params, 'message' => $msg);
         }
     } else {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
-            $showMessage = 0;
-            try {
-                # Re-check for changes
-                $rs->checkAdMessages();
-                my $rsMsg = $rs->adMessages();
-                push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
-            } catch($ex) {
-                EBox::error("Error loading messages from remoteservices: $ex");
-            }
-        }
+        $showMessage = 0;
     }
 
 #    if ($showMessage) {

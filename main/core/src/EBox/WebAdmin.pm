@@ -165,6 +165,7 @@ sub _setConf
     $self->_writeNginxConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
+    $self->_setEdition();
     $self->enableRestartOnTrigger();
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
@@ -663,8 +664,6 @@ sub _nginxIncludes
     foreach my $incPath (@{ $includeList }) {
         if ((-f $incPath) and (-r $incPath)) {
             push @includes, $incPath;
-        } else {
-            EBox::warn("Ignoring nginx include $incPath: cannot read the file or it is not a regular file");
         }
     }
 
@@ -771,8 +770,6 @@ sub _CAs
     foreach my $ca (@{ $caList }) {
         if ((-f $ca) and (-r $ca)) {
             push @cas, $ca;
-        } else {
-            EBox::warn("Ignoring CA $ca: cannot read the file or not is a regular file");
         }
     }
 
@@ -883,6 +880,57 @@ sub updateAdminPortService
         my $services = $global->modInstance('services');
         $services->setAdministrationPort($port);
     }
+}
+
+sub _setEdition
+{
+    my ($self, $rs) = @_;
+
+    my $themePath = EBox::Config::share() . 'zentyal/www';
+
+    # Check not to override the rebranded Zentyal
+    if (-r "$themePath/custom.theme.sig") {
+        my $content = File::Slurp::read_file("$themePath/custom.theme");
+        if ($content !~ /title-(ent|sb|comm|prof|business|premium|trial).png/) {
+            # Do not rebrand
+            EBox::debug("Custom logo images are not rebranded because there is already a rebranding");
+            return;
+        }
+    }
+
+    my @cmds;
+    my $edition = $self->global()->edition();
+    my $expired = (rindex($edition, 'expired') != -1);
+    $edition =~ s/-expired//;
+    if ($edition eq 'commercial') {
+        @cmds = ("cp '$themePath/comm.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/comm.theme.sig' '$themePath/custom.theme.sig'");
+    } elsif ($edition eq 'professional') {
+        @cmds = ("cp '$themePath/prof.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/prof.theme.sig' '$themePath/custom.theme.sig'");
+    } elsif ($edition eq 'business') {
+        @cmds = ("cp '$themePath/business.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/business.theme.sig' '$themePath/custom.theme.sig'");
+    } elsif ($edition eq 'premium') {
+        @cmds = ("cp '$themePath/premium.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/premium.theme.sig' '$themePath/custom.theme.sig'");
+    } elsif ($edition eq 'trial') {
+        @cmds = ("cp '$themePath/trial.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/trial.theme.sig' '$themePath/custom.theme.sig'");
+    } elsif ($edition eq 'oldremote') {
+        return;
+    } else {
+        @cmds = ("rm -f '$themePath/custom.theme' '$themePath/custom.theme.sig'",
+                 "rm -f /etc/apt/sources.list.d/zentyal-qa.list");
+    }
+    if ($expired) {
+        push (@cmds, "rm -f /etc/apt/sources.list.d/zentyal-qa.list");
+    } elsif ($edition ne 'community') {
+        push (@cmds, 'echo "deb https://`cat /var/lib/zentyal/.license`:lk@archive.zentyal.com/zentyal-qa 4.2 main" > /etc/apt/sources.list.d/zentyal-qa.list',
+                     'sed -i "/archive.zentyal.org/d" /etc/apt/sources.list',
+                     'rm -f /etc/apt/sources.list.d/zentyal-archive.list');
+    }
+    EBox::Sudo::root(@cmds);
 }
 
 1;

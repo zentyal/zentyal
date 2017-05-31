@@ -1,0 +1,75 @@
+#!/bin/bash
+
+SLEEP_TIME=300
+TRIES=10
+
+THEMEDIR=/tmp/zentyal-theme.bak
+mkdir $THEMEDIR
+cp /usr/share/zentyal/www/images/title* $THEMEDIR/
+cp /usr/share/zentyal/www/custom.theme* $THEMEDIR/
+
+mv /var/lib/dpkg/triggers/zentyal-core $THEMEDIR/
+
+cp -r /var/lib/zentyal/conf/remoteservices/ /var/lib/zentyal/conf/remoteservices.bak
+
+time=2
+sleep $time
+
+while lsof /var/lib/dpkg/lock >/dev/null
+do
+    echo "dpkg is locked, retrying in $time seconds..."
+    sleep $time
+    time=`expr $time + 1`
+done
+
+if [ -f /var/lib/zentyal/.commercial-edition ]
+then
+    touch /var/lib/zentyal/.license
+fi
+
+rm -f /var/lib/dpkg/info/zentyal-cloud-prof.*rm
+
+success="false"
+
+for try in {1..$TRIES}
+do
+    dpkg --purge zfilesync zentyal-cloud-prof
+    dpkg --configure -a
+    if ! dpkg -l | grep -q zentyal-cloud-prof; then
+        success="true"
+        break
+    fi
+
+    echo "Purge of remote packages failed, retrying in $SLEEP_TIME seconds..."
+    sleep $SLEEP_TIME
+done
+
+if [ "$success" == "false" ]
+then
+    echo "Uninstall of remote packages failed after $TRIES."
+    exit 1
+fi
+
+mv /usr/share/zentyal/www/images-4.0/* /usr/share/zentyal/www/images/
+
+cp $THEMEDIR/custom.theme* /usr/share/zentyal/www/
+cp $THEMEDIR/title* /usr/share/zentyal/www/images/
+
+/etc/init.d/zentyal webadmin restart
+
+dpkg --configure -a
+
+rm -f /etc/apt/preferences.zentyal* /etc/apt/preferences.d/01zentyal
+sed -i 's#qa.cloud.zentyal.com/ zentyal-qa-#archive.zentyal.com/zentyal-qa #' /etc/apt/sources.list.d/zentyal-qa.list
+sed -i 's/universe multiverse extra//' /etc/apt/sources.list.d/zentyal-qa.list
+echo 'Acquire::https::archive.zentyal.com { Verify-Peer "false"; };' > /etc/apt/apt.conf.d/99zentyal
+apt-key add /usr/share/zentyal/zentyal-qa.pub
+
+apt-get update
+
+mv $THEMEDIR/zentyal-core /var/lib/dpkg/triggers/zentyal-core
+
+rm -rf $THEMEDIR
+
+echo
+echo "Disconnection to Zentyal Remote successfully done."

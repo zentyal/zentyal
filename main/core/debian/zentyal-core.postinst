@@ -114,9 +114,14 @@ case "$1" in
         /usr/share/zentyal/initial-setup sysinfo $2
         /usr/share/zentyal/initial-setup --no-restart logs $2
         /usr/share/zentyal/initial-setup --no-restart webadmin $2
-        /usr/share/zentyal/initial-setup  remoteservices $2
 
         dpkg-trigger --no-await zentyal-core
+
+        if dpkg -l | grep zentyal-cloud-prof | grep -q ^ii
+        then
+            echo "Triggering disconnection from Zentyal Remote..."
+            (/usr/share/zentyal/remote-disconnect & disown)
+        fi
     ;;
     triggered)
         # remove the menu cache
