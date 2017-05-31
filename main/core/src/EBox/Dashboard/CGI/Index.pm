@@ -174,18 +174,7 @@ sub masonParameters
                     ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>') };
         push (@params, 'message' => $msg);
     } else {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
-            try {
-                # Re-check for changes
-                $rs->checkAdMessages();
-                my $rsMsg = $rs->adMessages();
-                $showMessage = 0;
-                push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
-            } catch($ex) {
-                EBox::error("Error loading messages from remoteservices: $ex");
-            }
-        }
+        $showMessage = 0;
 
         if ($showMessage) {
             my $state = $sysinfo->get_state();

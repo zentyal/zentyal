@@ -28,7 +28,7 @@ Depends: zentyal-common (>= 4.0.1), zentyal-common (<< 4.1),
          libtime-piece-perl, liburi-encode-perl,
          libyaml-libyaml-perl, mysql-server, nginx, nmap,
          openssl, redis-server (>= 2:2.8.4), update-notifier-common, uwsgi-plugin-psgi,
-         apt-transport-https, libdate-calc-xs-perl, screen, at,
+         apt-transport-https, libdate-calc-xs-perl, screen, at, lsof,
          ${misc:Depends}
 Breaks: zentyal-samba (<< 4.0~1), openchangeserver (<< 3:2.3-zentyal1)
 Description: Zentyal - Core

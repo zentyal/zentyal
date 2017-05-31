@@ -1,0 +1,77 @@
+main_color: "#69BE28"
+main_color_darker: "#46962D"
+main_color_lighter: "#9fd575"
+secondary_color: "#ff7900"
+secondary_color_darker: "#c35F00"
+secondary_color_lighter: "#f7ad6d"
+third_color: "#00add0"
+third_color_darker: "#008745"
+third_color_lighter: "#4bd0eb"
+
+# login.css
+logo_style: "float: left;"
+body_background_color: "#eee"
+loginin_padding_style: "15px 30px 15px 30px"
+
+# public.css
+header_img_padding: "padding-top: 0; padding-left: 0;"
+
+hmenu_bg_color: "#46962D"
+hmenu_hover_bg_color: "#69BE28"
+
+footer_custom_style: "text-align: center;"
+
+data_table_border_color: "#69BE28"
+data_table_inner_border_color: "#eee"
+data_table_color: "#000"
+data_table_bg_color: "#fff"
+data_table_bg_even: "#fff"
+data_table_bg_highlight: "#FFC200"
+data_table_bg_highlight_hover: "#FFB800"
+
+msg_bg_color: "#06BC06"
+helpbutton_color: "#859E83"
+nav_li_color: "#333333"
+a_notchanged_hover_color: "#CBF23E"
+
+dashboard_thead_bg_color: "#808000"
+
+progress_bar_bg_color: "#69BE28"
+progress_bar_fg_color: "#white"
+
+# tooltips
+help_color:      "#00529B"
+help_background: "#BDE5F8"
+help_border:     "#00529B"
+
+note_color:      "#4F8A10"
+note_background: "#DFF2BF"
+note_border:     "#4F8A10"
+
+error_color:      "#D8000C"
+error_background: "#FFBABA"
+error_border:     "#D8000C"
+
+warn_color:      "#9F6000"
+warn_background: "#FEEFB3"
+warn_border:     "#9F6000"
+
+ad_color:       "#484554"
+ad_background:  "#dfef7a"
+ad_border:      "#a9c500"
+ad_extra_style: ""
+
+additional_footer_style: ""
+
+# images
+favicon: "/favicon.ico"
+image_title: "/data/images/title-trial.png"
+image_note: "/data/images/msg.png"
+
+# login/index.mas
+image_login_logo: "/data/images/title-login.png"
+alt_logo: "Zentyal Logo"
+created_by_footer: "Created by <a href=\"http://www.zentyal.com/\">Zentyal S.L.</a>"
+
+# footer.mas
+copyright_footer: "Created by <a href=\"http://www.zentyal.com/\">Zentyal S.L.</a>"

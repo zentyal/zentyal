@@ -123,6 +123,13 @@ sub menu
                                       'text' => __('Configuration Backup'),
                                       'order' => 50));
 
+    if (-f '/var/lib/zentyal/.commercial-edition') {
+        $system->add(new EBox::Menu::Item('url'   => 'SysInfo/View/Edition',
+                                          'text'  => __('Server Edition'),
+                                          'order' => 30,
+                                         ));
+    }
+
     if (EBox::Config::boolean('debug')) {
         $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Debug',
                                           'text' => __('Debug'),

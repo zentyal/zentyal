@@ -9,18 +9,6 @@ use EBox::Gettext;
 use EBox::Config;
 </%init>
 <div class="insideTab">
-<%doc>
-TODO: check what ad if any we want to shoe
-% if ($subscribed) {
-  <div class='ad'>
-        <% __sx('Thank you for registering your server! The configuration backup is checked on daily basis and stored automatically if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.', ohref => '<a href="https://remote.zentyal.com/services/backup/all" target="_blank">', chref => '</a>') %>
-  </div>
-% } else {
-  <div class='adwarning'>
-        <% __sx('{ohref}Register{chref} your Zentyal Server for free! And gain access to the following benefits: Remote configuration backup, customized zentyal.me subdomain, recorded webinars, whitepapers, trials and much more coming!', ohref => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription" target="_blank">', chref => '</a>') %>
-  </div>
-% }
-</%doc>
 % if ($openchange) {
   <div class='note'>
     <% __(q{User mail messages are neither backed up or restored. If you want to back up them manually they reside under '/var/vmail'} ) %>
@@ -134,7 +122,7 @@ ENDJS
   </form>
   <form class="force-right" action='ConfirmBackup' method='POST' enctype="multipart/form-data" id='<% $formId %>' >
       <input class="btn-green" type='submit' name='restoreFromFile' value="<% $title %>"
-                         onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'/>  
+                         onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'/>
   </form>
   </div>
 </%def>
