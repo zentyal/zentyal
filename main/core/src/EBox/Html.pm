@@ -47,23 +47,12 @@ sub title
         $finishClass = "notchanged";
     }
 
-    # Display control panel button only if the eBox is subscribed
-    my $remoteServicesURL = '';
-    if ($global->modExists('remoteservices')) {
-        my $remoteServicesMod = $global->modInstance('remoteservices');
-        if ($remoteServicesMod->eBoxSubscribed()) {
-            unless (EBox::Config::configkey('hide_cloud_link')) {
-                $remoteServicesURL = $remoteServicesMod->controlPanelURL();
-            }
-        }
-    }
     my $image_title = $global->theme()->{'image_title'};
 
     my $html = makeHtml('headTitle.mas',
                         save => $save,
                         logout => $logout,
                         finishClass => $finishClass,
-                        remoteServicesURL => $remoteServicesURL,
                         image_title => $image_title,
                         version => _htmlVersion());
     return $html;
@@ -138,12 +127,6 @@ sub header # (title)
 
     my $serverName = __('Zentyal');
     my $global = EBox::Global->getInstance();
-    if ( $global->modExists('remoteservices') ) {
-        my $remoteServicesMod = $global->modInstance('remoteservices');
-        if ( $remoteServicesMod->eBoxSubscribed() ) {
-            $serverName = $remoteServicesMod->eBoxCommonName();
-        }
-    }
 
     if ($title) {
         $title = "$serverName - $title";

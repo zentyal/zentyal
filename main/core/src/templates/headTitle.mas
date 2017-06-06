@@ -2,7 +2,6 @@
     $save => ''
     $logout => ''
     $finishClass => ''
-    $remoteServicesURL => ''
     $image_title
     $version
 </%args>
@@ -19,11 +18,6 @@ my $finishTitle = __('Save changes?');
           <span><% $version %></span>
         </div>
         <div id="hmenu">
-% if ( $remoteServicesURL ne '' ) {
-          <a id="remote_services_link" href="<% $remoteServicesURL %>">
-            <% __('Zentyal Remote') %>
-          </a>
-% }
 % if ( $logout ne '' ) {
 %
      <a id="m" href="#"

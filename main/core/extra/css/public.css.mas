@@ -5,8 +5,6 @@
     $header_img_padding
     $hmenu_bg_color
     $hmenu_hover_bg_color
-    $remote_svcs_bg_color
-    $remote_svcs_hover_bg_color
     $footer_custom_style
     $data_table_border_color
     $data_table_inner_border_color
@@ -88,19 +86,6 @@
     background-color: #E9E9E9;
 }
 #hmenu a:hover { background-color: #DFDFDF; }
-
-#hmenu #remote_services_link{
-    background:url("/data/images/remote.png") center 2px no-repeat ;
-    background-color: <% $remote_svcs_hover_bg_color %>;
-    display:block;
-    border-top: 1px solid  #A7BE56;
-    border-left: 1px solid  #A7BE56;
-    border-right: 2px solid  #A7BE56;
-    border-bottom: 2px solid  #A7BE56;
-}
-#hmenu #remote_services_link:hover {
-        background-color: <% $remote_svcs_bg_color %>;
-}
 
 #hmenu #m {
     background:url("/data/images/logout.gif") center 5px no-repeat white;

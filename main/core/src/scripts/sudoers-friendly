@@ -37,12 +37,6 @@ write_sudoers(( user => $user ));
 # Write full sudoers file:
 EBox::init();
 my @extraUsers;
-my $remoteServices = EBox::Global->modInstance('remoteservices');
-if (defined $remoteServices) {
-    if ($remoteServices->can('extraSudoerUsers')) {
-        push @extraUsers, $remoteServices->extraSudoerUsers();
-    }
-}
 
 EBox::Module::Base::writeConfFileNoCheck(SUDOERS_FILE . '.tmp',
              'core/sudo.mas',
