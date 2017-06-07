@@ -1,4 +1,4 @@
-HEAD
+5.0.8
 	+ Depend on new Samba 4.5.8+dfsg-2 (fixes CVE-2017-7494)
 5.0.7
 	+ Add proper template shell and homedir in smb.conf
