@@ -4,8 +4,7 @@ use EBox::Global;
 
 my %args = @_;
 
-my $selected = delete $args{selected};
-$selected or $selected = 'remote';
+my $selected = 'local';
 
 my %tabs = (
 	    local => {
@@ -13,13 +12,8 @@ my %tabs = (
 		      title     =>  __('Local'),
                       url       => '/SysInfo/Backup?selected=local',
 		     },
-	    remote => {
-		      component =>  '/remoteservices/Backup/index.mas',
-		      title     =>  __('Cloud'),
-                      url       => '/SysInfo/Cloud/Backup',
-		     },
 	   );
-my @tabsOrder= qw(remote local);
+my @tabsOrder = qw(local);
 if (not exists $tabs{$selected}) {
   $m->abort("bad selected value $selected");
 }
@@ -29,6 +23,7 @@ if (not $component) {
     $component =  $tabs{$selected}->{component};
 }
 </%init>
+<!-- Tabs are disabled
 <ul class='tabs'>
 % foreach my $tab (@tabsOrder) {
 %     if($selected eq $tab) {
@@ -39,5 +34,6 @@ if (not $component) {
 % }
 
 </ul>
+-->
 <& $component, %args &>
 
