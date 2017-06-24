@@ -92,12 +92,6 @@ then
     touch /var/lib/zentyal/.disaster-recovery
 fi
 
-if [ -f /var/lib/zinstaller-remote/REGISTER_USERNAME ]
-then
-    plymouth message --text="Registering your server... Please wait."
-    /usr/share/zenbuntu-core/remote-register
-fi
-
 if [ -d /usr/share/zentyal-custom/scripts ]
 then
     plymouth message --text="Running custom installer... Please wait."
