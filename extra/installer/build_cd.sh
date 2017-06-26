@@ -40,7 +40,6 @@ then
     # Build zinstaller-remote udeb
     cp -rL zinstaller-remote $TMPDIR/zinstaller-remote
     pushd $TMPDIR/zinstaller-remote
-    [ -f zinstaller-remote/jq ] || ./build-jq.sh
     dpkg-buildpackage
     popd
 fi
