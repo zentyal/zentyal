@@ -1,3 +1,5 @@
+HEAD
+	+ Fix nsupdate REFUSED errors with reverse zones
 5.0.1
 	+ Fix samba provision when netbios name and hostname are different
 	+ Fix module restart in postinst

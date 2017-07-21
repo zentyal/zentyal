@@ -1415,7 +1415,7 @@ sub _updateDynReverseZone
         unshift(@file, "zone $zone");
         push(@file, "send");
         untie(@file);
-        $self->_launchNSupdate($fh);
+        $self->_launchNSupdate($fh, 1);
     }
 }
 
@@ -1517,9 +1517,10 @@ sub _removeDeletedRR
 #
 sub _launchNSupdate
 {
-    my ($self, $fh) = @_;
+    my ($self, $fh, $reverse) = @_;
 
-    my $cmd = NS_UPDATE_CMD . ' -g -t 10 ' . $fh->filename();
+    my $auth = $reverse ? '-l' : '-g';
+    my $cmd = NS_UPDATE_CMD . " $auth -t 10 " . $fh->filename();
     $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
     push (@{$self->{nsupdateCmds}}, $cmd);
     $fh->unlink_on_destroy(0);
