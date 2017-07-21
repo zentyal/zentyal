@@ -1,3 +1,5 @@
+HEAD
+	+ Fix fetchmail daemon status in dashboard widget
 5.0.6
 	+ Fix reading of attributes from LDAP backend
 	+ Revert unnecessary previous changes in main.cf
