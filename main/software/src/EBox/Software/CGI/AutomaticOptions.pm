@@ -29,8 +29,6 @@ sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(@_);
-    $self->{chain} = 'Software/Config';
-    $self->{errorchain} = 'Software/Config';
     bless($self, $class);
     return $self;
 }
@@ -54,6 +52,15 @@ sub actuate
     my $time = $hour . ':' . $minute;
     my $software = EBox::Global->modInstance('software');
     $software->setAutomaticUpdatesTime($time);
+
+    $self->{redirect} = 'Software/Config';
+}
+
+# to avoid the <div id=content>
+sub _print
+{
+    my ($self) = @_;
+    $self->_printPopup();
 }
 
 1;
