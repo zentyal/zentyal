@@ -34,13 +34,9 @@ use EBox::Global;
 use EBox::Service;
 use EBox::Exceptions::Internal;
 
-use constant CLAMAV_PID_DIR => '/var/run/clamav/';
-
 use constant {
-  CLAMAVPIDFILE                 => CLAMAV_PID_DIR . 'clamd.pid',
-  CLAMD_INIT                    => 'clamav-daemon',
   CLAMD_CONF_FILE               => '/etc/clamav/clamd.conf',
-  CLAMD_SOCKET                  => CLAMAV_PID_DIR . 'clamd.ctl',
+  CLAMD_SOCKET                  => '/var/run/clamav/clamd.ctl',
 
   FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
@@ -168,13 +164,7 @@ sub usedFiles
 
 sub _daemons
 {
-    return [
-        {
-            name => CLAMD_INIT,
-            type => 'init.d',
-            pidfiles => [CLAMAVPIDFILE],
-        },
-    ];
+    return [ { name => 'clamav-daemon' } ];
 }
 
 # Method: _daemonsToDisable
