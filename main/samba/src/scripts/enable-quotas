@@ -44,8 +44,7 @@ if ($line) {
     my @fields = split(/[\t\s]+/, $fstab[$line]);
     $mount = $fields[1];
     if ($fstab[$line] =~ /usrquota/) {
-        print "Fstab already set up to use quotas\n";
-        exit 0;
+        print "Fstab already set up to use quotas, not overwriting...\n";
     } else {
         my $type = $fields[2];
         my $t = $fields[3];
@@ -54,19 +53,20 @@ if ($line) {
             $attrs .= ",acl";
         }
         $fstab[$line] =~ s/$t/$t,$attrs/;
+
+        open (FD, ">/etc/fstab") or die "Could not write on /etc/fstab";
+        print FD @fstab;
+        close (FD);
+
+        system ("/bin/mount -o remount $mount");
     }
 } else {
     print "Could not find / or /home mounting points";
     exit 1;
 }
 
-open (FD, ">/etc/fstab") or die "Could not write on /etc/fstab";
-print FD @fstab;
-close (FD);
-
-system ("/bin/mount -o remount $mount");
-
 # Enable quota
-system ("service quota restart");
+system ("quotacheck -cum $mount");
+system ("quotaon $mount");
 
 exit 0;
