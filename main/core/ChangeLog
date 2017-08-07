@@ -2,6 +2,7 @@ HEAD
 	+ Add preliminary safe checks in release-upgrade script
 	+ Do not ask for license if already activated
 	+ Add activate-license script to enter license key via CLI
+	+ Add dns user to DnsAdmins group when upgrading to 5.0
 4.1.14
 	+ Fix regression in configuration backup link
 4.1.13
