@@ -155,6 +155,13 @@ rm -f /etc/apt/preferences
 rm -f /var/lib/dpkg/info/ejabberd.postinst
 rm -f /var/lib/dpkg/info/amavisd-new.postinst
 
+# add dns-$HOSTNAME user to DnsAdmins if exist
+if [ -f /usr/bin/samba-tool ] && /usr/bin/samba-tool user list | grep -q "dns-$HOSTNAME"
+then
+    echo "Adding user dns-$HOSTNAME to DnsAdmins group..."
+    samba-tool group addmembers DnsAdmins "dns-$HOSTNAME"
+fi
+
 if dpkg --configure -a --force-confdef
 then
     # Purge all no longer needed running services
