@@ -1,18 +1,16 @@
  ZENTYAL
 ==========
-Zentyal Server is open source, released under the  GNU General Public License (GPL) and runs on top of Ubuntu GNU/Linux.
+Zentyal Server is open source small business server, released under the GNU General Public License (GPL) and runs on top of Ubuntu GNU/Linux.
 
 Features
 --------
-Zentyal is the Outlook-compatible, Exchange alternative on Linux
 
-* Native compatibility with Microsoft® Exchange Server Protocols
-* Support for Microsoft Outlook® 2007, 2010
-* Native compatibility with Microsoft Active Directory® 2008, 2008R2, 2012
-* Email, calendars, contacts
-* Synchronization with mobile devices (ActiveSync® support)
-* Antivirus and antispam
-* Packaged in an Ubuntu-based server, providing domain and directory, basic networking and firewall services
+Zentyal Server is an easy to use Linux server for small and medium businesses
+
+* Directory & Domain Server with native compatibility with Microsoft Active Directory
+* Mail Server with ActiveSync and webmail
+* Gateway with firewall and proxy
+* Infrastructure Server with DNS/DHCP server, Certification Authority and Virtual Private Networks
 
 
 Download
