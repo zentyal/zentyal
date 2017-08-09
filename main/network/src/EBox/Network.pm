@@ -3732,8 +3732,10 @@ sub _enforceServiceState
     if ((exists $ENV{USER}) or (exists $ENV{PLACK_ENV})) {
         EBox::Util::Lock::lock('ifup');
         foreach my $iface (@ifups) {
-            EBox::Sudo::root(EBox::Config::scripts() .
-                    "unblock-exec /sbin/ifup --force -i $file $iface");
+            EBox::Sudo::silentRoot("grep ^'iface $iface inet' $file");
+            if ($? == 0) {
+                EBox::Sudo::root(EBox::Config::scripts() . "unblock-exec /sbin/ifup --force -i $file $iface");
+            }
             unless ($self->isReadOnly()) {
                 $self->_unsetChanged($iface);
             }
