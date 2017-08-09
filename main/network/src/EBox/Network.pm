@@ -3638,7 +3638,10 @@ sub _preSetConf
                         my $bond = $self->ifaceBond($if);
                         push (@cmds, "/sbin/ifenslave --force -d bond$bond $if");
                     }
-                    push (@cmds, "/sbin/ifdown --force -i $file $ifname");
+                    EBox::Sudo::silentRoot("grep ^'iface $ifname inet' $file");
+                    if ($? == 0) {
+                        push (@cmds, "/sbin/ifdown --force -i $file $ifname");
+                    }
                     if ($self->ifaceMethod($if) eq 'bridged') {
                         push (@cmds, "/usr/sbin/brctl delbr $if");
                     }
@@ -3809,7 +3812,10 @@ sub _stopService
                 push @cmds, "/sbin/ip address flush label $if";
                 push @cmds, "/sbin/ip address flush label $if:*";
             }
-            push @cmds, "/sbin/ifdown --force -i $file $ifname";
+            EBox::Sudo::silentRoot("grep ^'iface $ifname inet' $file");
+            if ($? == 0) {
+                push @cmds, "/sbin/ifdown --force -i $file $ifname";
+            }
         } catch (EBox::Exceptions::Internal $e) {
         }
     }

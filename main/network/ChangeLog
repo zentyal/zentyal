@@ -2,6 +2,7 @@ HEAD
 	+ Avoid save changes error also for any iface not present in
 	  /etc/network/interfaces, for example trunk ifaces, this is
 	  a regression on ifup behavior on Ubuntu 16.04
+	+ Avoid errors also for ifdown when iface not present in file
 5.0.7
 	+ Fix error on save changes after configuring iface as non set
 5.0.6
