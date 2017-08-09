@@ -3705,6 +3705,8 @@ sub _enforceServiceState
     my @ifups = ();
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $iface (@{$iflist}) {
+        next if ($self->ifaceMethod($iface) eq 'notset');
+
         my $dhcpIface = $self->ifaceMethod($iface) eq 'dhcp';
         if ($dhcpIface) {
             $dynIfaces = 1;
