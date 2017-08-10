@@ -1,4 +1,4 @@
-HEAD
+5.0.8
 	+ Avoid save changes error also for any iface not present in
 	  /etc/network/interfaces, for example trunk ifaces, this is
 	  a regression on ifup behavior on Ubuntu 16.04
