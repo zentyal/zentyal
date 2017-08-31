@@ -24,8 +24,31 @@ function upgrade
     apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 }
 
+# Prepare for upgrade of commercial edition if it's the case
+/usr/share/zentyal/shell '$global->communityEdition() or system("touch /var/lib/zentyal/.commercial-edition")'
+
+LICENSE=""
+if [ -f /var/lib/zentyal/.commercial-edition ] && ! [ -f /var/lib/zentyal/.license ]
+then
+    read -p "Please enter your Zentyal license key: " LICENSE
+    if wget -q -o /dev/null --user=$LICENSE --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep -q Index
+    then
+        echo
+        echo "License key successfully validated. Upgrade will continue..."
+        echo
+        echo $LICENSE > /var/lib/zentyal/.license
+    else
+        echo
+        echo "License key cannot be validated."
+        echo
+        echo "If key is valid please check your connection and run $0 again."
+        echo "If you have checked and still have problems, please contact support."
+        exit 1
+    fi
+fi
+
 echo; echo "Uninstalling packages not supported for the upgrade..."; echo
-PACKAGES_TO_CHECK="sogo sogo-openchange sogo-activesync sogo-common zentyal-sogo openchangeserver openchange-ocsmanager openchangeproxy openchange-rpcproxy openchange-notification python-ocsmanager python-mapistore libmapistore0 libmapiproxy0 libmapi0 zentyal-openchange libsope-core4.9 libsope-xml4.9"
+PACKAGES_TO_CHECK="sogo sogo-openchange sogo-activesync sogo-common zentyal-sogo openchangeserver openchange-ocsmanager openchangeproxy openchange-rpcproxy openchange-notification python-ocsmanager python-mapistore libmapistore0 libmapiproxy0 libmapi0 zentyal-openchange libsope-core4.9 libsope-xml4.9 zentyal-remoteservices zentyal-cloud-prof"
 for package in $PACKAGES_TO_CHECK; do
      dpkg -l | grep $package > /dev/null
      if [ $? -eq 0 ]
@@ -45,9 +68,6 @@ echo; echo "Dumping OpenLDAP data..."; echo
 # Install samba if missing and replicate users with s4sync
 /usr/share/zentyal/migrate-users-to-samba
 
-# Prepare for upgrade of commercial edition if it's the case
-/usr/share/zentyal/shell '$global->communityEdition() or system("touch /var/lib/zentyal/.commercial-edition")'
-EDITOR=cat /usr/share/zentyal/redisvi remoteservices/state|grep username|cut -d'"' -f4 > /var/lib/zentyal/conf/remoteservices/username
 
 # Stop services that are going to be deprecated
 for i in users remoteservices monitor
