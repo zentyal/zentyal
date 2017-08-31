@@ -1,3 +1,5 @@
+HEAD
+	+ Add activate-license script to enter license key via CLI
 5.0.8
 	+ Avoid '/etc/localtime are the same file' errors using symlink
 	+ New activation-pending mode prompting for valid trial code before login
