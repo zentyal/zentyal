@@ -1,0 +1,23 @@
+#!/bin/bash
+
+LICENSE=""
+
+touch /var/lib/zentyal/.commercial-edition
+
+read -p "Please enter your Zentyal license key: " LICENSE
+if wget -q -o /dev/null --user=$LICENSE --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep -q Index
+then
+    echo
+    echo "License key successfully validated."
+    echo
+    echo $LICENSE > /var/lib/zentyal/.license
+else
+    echo
+    echo "License key cannot be validated."
+    echo
+    echo "If key is valid please check your connection and run $0 again."
+    echo "If you have checked and still have problems, please contact support."
+    exit 1
+fi
+
+service zentyal webadmin restart
