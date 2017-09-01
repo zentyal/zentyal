@@ -1,9 +1,33 @@
 #!/bin/bash
 
+# Preliminary checks
 if [ `arch` != "x86_64" ]
 then
     echo "Upgrade to Zentyal 5.0 is only supported in 64bit architecture"
     exit 1
+fi
+
+if [ $(df /boot | tail -1 | awk '{print $4}') -lt 51200 ];
+then
+    echo "low disk space on /boot"
+    exit 2
+fi
+
+for i in / /var
+do
+    if [ `df $i | tail -1 | awk '{print $4}'` -lt 358400 ];
+    then
+        echo -e "low disk space on $i"
+        exit 2
+    fi
+done
+
+SOURCES=/etc/apt/sources.list
+if ! grep -v "^#" $SOURCES | grep -q "ubuntu.com"
+then
+    echo "deb http://archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse" >> $SOURCES
+    echo "deb http://archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse" >> $SOURCES
+    echo "deb http://security.ubuntu.com/ubuntu/ trusty-security main restricted universe multiverse" >> $SOURCES
 fi
 
 UPGRADE_FILE=/var/lib/zentyal/.upgrade-finished
@@ -31,7 +55,7 @@ function upgrade
 }
 
 LICENSE=""
-if [ -f /var/lib/zentyal/.commercial-edition ]
+if [ -f /var/lib/zentyal/.commercial-edition ] && ! [ -f /var/lib/zentyal/.license ]
 then
     read -p "Please enter your Zentyal 5.0 license key: " LICENSE
     if wget -q -o /dev/null --user=$LICENSE --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep -q Index

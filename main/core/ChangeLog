@@ -1,4 +1,6 @@
 HEAD
+	+ Add preliminary safe checks in release-upgrade script
+	+ Do not ask for license if already activated
 	+ Add activate-license script to enter license key via CLI
 4.0.16
 	+ Fix regression in configuration backup link
