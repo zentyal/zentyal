@@ -1,10 +1,22 @@
 #!/bin/bash
 
-LICENSE=""
+LICENSE=$1
+
+if [ -z "$LICENSE" ]
+then
+    echo "Usage: $0 XXXXX-XXXXX-XXXXX-XXXXX"
+    exit 1
+fi
+
+if ! echo "$LICENSE" | grep -q "^[A-Z0-9]{5}-[A-Z0-9]{5}.[A-Z0-9]{5}-[A-Z0-9]{5}$"
+then
+    echo "Invalid key format."
+    echo "Make sure your license matchs the following format: XXXXX-XXXXX-XXXXX-XXXXX"
+    exit 1
+fi
 
 touch /var/lib/zentyal/.commercial-edition
 
-read -p "Please enter your Zentyal license key: " LICENSE
 if wget -q -o /dev/null --user=$LICENSE --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep -q Index
 then
     echo
