@@ -1,5 +1,31 @@
 #!/bin/bash
 
+# Preliminary checks
+
+if [ $(df /boot | tail -1 | awk '{print $4}') -lt 51200 ];
+then
+    echo "low disk space on /boot"
+	exit 2
+fi
+
+for i in / /var
+do
+    if [ `df $i | tail -1 | awk '{print $4}'` -lt 358400 ];
+    then
+        echo -e "low disk space on $i"
+        exit 2
+    fi
+done
+
+SOURCES=/etc/apt/sources.list
+if ! grep -v "^#" $SOURCES | grep -q "ubuntu.com"
+then
+    echo "deb http://archive.ubuntu.com/ubuntu/ precise main restricted universe multiverse" >> $SOURCES
+    echo "deb http://archive.ubuntu.com/ubuntu/ precise-updates main restricted universe multiverse" >> $SOURCES
+    echo "deb http://security.ubuntu.com/ubuntu/ precise-security main restricted universe multiverse" >> $SOURCES
+
+fi
+
 UPGRADE_FILE=/var/lib/zentyal/.upgrade-finished
 
 rm -f $UPGRADE_FILE

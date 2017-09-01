@@ -1,4 +1,5 @@
 HEAD
+	+ Add preliminary safe checks in release-upgrade script
 	+ Add activate-license script to enter license key via CLI
 3.2.22
 	+ Fix upgrade to 4.0 for new licensing system
