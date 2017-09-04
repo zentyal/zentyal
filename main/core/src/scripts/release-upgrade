@@ -189,7 +189,7 @@ then
         SOGODB='/usr/share/doc/sogo/sql-update-2.2.17_to_2.3.0-mysql.sh'
         cp $SOGODB $SOGODB.bk
         sed -i -e '/^read/d; s/$USER/sogo/g; s/-p/-p$defaultpasswd/g' -e "12idefaultpasswd=`cat /var/lib/zentyal/conf/sogo_db.passwd`" $SOGODB
-        if [ ps -ef | grep 'mysqld$' | wc -l -ne 1 ]; then service mysql restart; fi
+        if ! ps -ef | grep 'mysqld$'; then service mysql restart; fi
         $SOGODB
     fi
 
