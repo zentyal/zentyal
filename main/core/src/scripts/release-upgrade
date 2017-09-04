@@ -184,7 +184,7 @@ then
     if dpkg -l|grep ^ii|grep sogo
     then
         SOGODB='/usr/share/doc/sogo/sql-update-2.2.17_to_2.3.0-mysql.sh'
-        cp echo $SOGODB{,_bk}
+        cp $SOGODB $SOGODB.bk
         sed -i -e '/^read/d; s/$USER/sogo/g; s/-p/-p$defaultpasswd/g' -e "12idefaultpasswd=`cat /var/lib/zentyal/conf/sogo_db.passwd`" $SOGODB
         if ! ps -ef | grep 'mysqld$'; then service mysql restart; fi
         $SOGODB
