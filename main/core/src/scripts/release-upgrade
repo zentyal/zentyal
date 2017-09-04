@@ -4,15 +4,15 @@
 
 if [ $(df /boot | tail -1 | awk '{print $4}') -lt 51200 ];
 then
-    echo "low disk space on /boot"
-	exit 2
+    echo "Upgrade cannot be performed due to low disk space (less than 50MB available on /boot)"
+    exit 2
 fi
 
 for i in / /var
 do
     if [ `df $i | tail -1 | awk '{print $4}'` -lt 358400 ];
     then
-        echo -e "low disk space on $i"
+        echo -e "Upgrade cannot be performed due to low disk space (less than 350MB available on $i)"
         exit 2
     fi
 done
@@ -187,7 +187,13 @@ then
     service zentyal webadmin restart
     service zentyal logs restart
 
-    echo; echo "Zentyal upgrade finished!"
+    # Delete community repo if commercial is activated
+    if [ -f /var/lib/zentyal/.license ]
+    then
+        rm -f /etc/apt/sources.list.d/zentyal-archive.list
+    fi
+
+    echo; echo "Zentyal upgrade finished! Please restart your server now."
 else
     echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
 fi
