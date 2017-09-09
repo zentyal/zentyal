@@ -109,7 +109,6 @@ use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 
 use constant SHARES_DIR           => SAMBA_DIR . 'shares';
-use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
