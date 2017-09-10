@@ -8,7 +8,7 @@ then
     exit 1
 fi
 
-if ! echo "$LICENSE" | grep -q "^[A-Z0-9]{5}-[A-Z0-9]{5}.[A-Z0-9]{5}-[A-Z0-9]{5}$"
+if ! echo "$LICENSE" | grep -E -q "^[A-Z0-9]{5}-[A-Z0-9]{5}.[A-Z0-9]{5}-[A-Z0-9]{5}$"
 then
     echo "Invalid key format."
     echo "Make sure your license matchs the following format: XXXXX-XXXXX-XXXXX-XXXXX"
@@ -32,4 +32,6 @@ else
     exit 1
 fi
 
+apt-key add /usr/share/zentyal/zentyal-qa.pub
+echo 'Acquire::https::archive.zentyal.com { Verify-Peer "false"; };' > /etc/apt/apt.conf.d/99zentyal
 zs webadmin restart

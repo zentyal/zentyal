@@ -1,4 +1,5 @@
 HEAD
+	+ Remove warning in EBox::Util::Version
 	+ Add activate-license script to enter license key via CLI
 5.0.8
 	+ Avoid '/etc/localtime are the same file' errors using symlink
