@@ -2,4 +2,6 @@
 
 chmod g+w /etc/bind
 
+systemctl enable bind9-resolvconf
+
 exit 0
