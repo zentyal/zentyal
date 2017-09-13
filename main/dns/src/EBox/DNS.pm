@@ -909,6 +909,10 @@ sub _postServiceHook
         } while (($nTry < 5) and (not $self->_isPortListening(53)));
         # Do nothing if Kerberos is not listening
         if (($nTry < 5) and $self->_isPortListening(88)) {
+            my $dnsFile = new File::Temp(TEMPLATE => 'resolvXXXXXX', DIR => EBox::Config::tmp());
+            EBox::Sudo::root("cp /etc/resolvconf/interface-order $dnsFile",
+                             'echo zentyal.temp > /etc/resolvconf/interface-order',
+                             "echo 'nameserver 127.0.0.1' | resolvconf -a zentyaldns.temp");
             my $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
             my $hostname = $self->global()->modInstance('sysinfo')->hostName();
             my $netbiosName = $samba->model('DomainSettings')->value('netbiosName');
@@ -925,6 +929,8 @@ sub _postServiceHook
                 # Remove the temporary file
                 unlink ($filename) if -f $filename;
             }
+            EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
+                             'resolvconf -d zentyaldns.temp');
             delete $self->{nsupdateCmds};
         }
     }
