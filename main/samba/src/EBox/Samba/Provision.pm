@@ -1407,6 +1407,9 @@ sub provisionADC
     }
     # Destroy cached tickets
     EBox::Sudo::rootWithoutException('kdestroy');
+
+    # Restart network to regenerate original resolv.conf
+    EBox::Global->getInstance()->addModuleToPostSave('network');
 }
 
 # Method: _createGroupsContainer

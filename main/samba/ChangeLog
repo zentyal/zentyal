@@ -1,7 +1,7 @@
 HEAD
 	+ Remove manipulation or resolv.conf in standalone DC provision
 	  no longer required with the fix in zentyal-dns 5.0.3
-	+ Restore rollback of resolv.conf in ADC provision in case of fail
+	+ Always use 127.0.0.1 as resolver after ADC provision is finished
 5.0.9
 	+ Fix enable-quotas
 5.0.8
