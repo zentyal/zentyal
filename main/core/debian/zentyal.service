@@ -1,6 +1,6 @@
 [Unit]
 Description=Zentyal start/stop task
-After=network.target
+After=network.target redis-server.service
 
 [Service]
 Type=oneshot
