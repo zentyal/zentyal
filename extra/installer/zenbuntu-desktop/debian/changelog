@@ -1,3 +1,9 @@
+zenbuntu-desktop (5.0.4) xenial; urgency=medium
+
+  * Include all video drivers to avoid problems in specific hardware or Hyper-V
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 16 Sep 2017 15:51:45 +0200
+
 zenbuntu-desktop (5.0.3) xenial; urgency=medium
 
   * Do not disable lxdm on upgrades
