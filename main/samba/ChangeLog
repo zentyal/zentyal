@@ -1,4 +1,4 @@
-HEAD
+5.0.10
 	+ Integrate Samba 4.6
 	+ Remove manipulation or resolv.conf in standalone DC provision
 	  no longer required with the fix in zentyal-dns 5.0.3
