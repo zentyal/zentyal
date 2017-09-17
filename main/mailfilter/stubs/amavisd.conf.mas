@@ -1134,6 +1134,8 @@ $first_infected_stops_scan = 1;  # default is false, all scanners are called
     qr/^.*?: (?!Infected Archive)(.*) FOUND$/ ],
 );
 
+@bypass_virus_checks_maps = (
+   \%bypass_virus_checks, \@bypass_virus_checks_acl, \$bypass_virus_checks_re);
 </%def>
 
 
@@ -1159,6 +1161,8 @@ $spamSubject
 
 # anti-spam enabled
 
+@bypass_spam_checks_maps = (
+   \%bypass_spam_checks, \@bypass_spam_checks_acl, \$bypass_spam_checks_re);
 
 
 # SpamAssassin settings
