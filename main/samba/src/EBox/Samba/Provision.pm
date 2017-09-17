@@ -1299,6 +1299,10 @@ sub provisionADC
     # Check the netbios domain name
     my $adNetbiosDomain = $self->checkADNebiosName($adServerIp, $adUser, $adPwd, $netbiosDomain);
 
+    # Detect if we are joining to Windows or Zentyal
+    EBox::Sudo::silentRoot("nmap --script smb-os-discovery.nse -p 139 $adServerIp | grep Samba");
+    my $isZentyal = ($? == 0);
+
     my $dnsFile = undef;
     my $adminAccountPwdFile = undef;
     my $passwdFile;
@@ -1400,15 +1404,22 @@ sub provisionADC
 
         $e->throw();
     }
+
+    if ($isZentyal) {
+        EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
+                         'resolvconf -d zentyal.temp');
+        unlink $dnsFile;
+    } else {
+        # Restart network to regenerate original resolv.conf
+        EBox::Global->getInstance()->addModuleToPostSave('network');
+    }
+
     # Remove stashed password
     if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
         unlink $adminAccountPwdFile;
     }
     # Destroy cached tickets
     EBox::Sudo::rootWithoutException('kdestroy');
-
-    # Restart network to regenerate original resolv.conf
-    EBox::Global->getInstance()->addModuleToPostSave('network');
 }
 
 # Method: _createGroupsContainer

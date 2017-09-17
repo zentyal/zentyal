@@ -902,16 +902,16 @@ sub _postServiceHook
     my $samba = $self->global->modInstance('samba');
     # TODO: separate regular nsupdateCmds with -l from dlz ones with -g
     if ($enabled and defined($samba)) {
-        # Wait max of 5 seconds until named is listening
+        # Wait max of 30 seconds until named is listening
         my $nTry = 0;
         do {
             sleep(1);
-        } while (($nTry < 5) and (not $self->_isPortListening(53)));
+        } while (($nTry < 30) and (not $self->_isPortListening(53)));
         # Do nothing if Kerberos is not listening
         if (($nTry < 5) and $self->_isPortListening(88)) {
             my $dnsFile = new File::Temp(TEMPLATE => 'resolvXXXXXX', DIR => EBox::Config::tmp());
             EBox::Sudo::root("cp /etc/resolvconf/interface-order $dnsFile",
-                             'echo zentyal.temp > /etc/resolvconf/interface-order',
+                             'echo zentyaldns.temp > /etc/resolvconf/interface-order',
                              "echo 'nameserver 127.0.0.1' | resolvconf -a zentyaldns.temp");
             my $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
             my $hostname = $self->global()->modInstance('sysinfo')->hostName();

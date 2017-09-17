@@ -1,4 +1,5 @@
 HEAD
+	+ Wait for 30 seconds instead of 5 for named listening
 	+ Make sure 127.0.0.1 is used as resolver when launching nsupdate
 	+ Fix bind9-resolvconf regression in 16.04
 5.0.2
