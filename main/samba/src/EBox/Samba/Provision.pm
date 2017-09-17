@@ -519,7 +519,6 @@ sub provisionDC
             " --domain='" . $usersModule->workgroup() . "'" .
             " --realm='" . $usersModule->kerberosRealm() . "'" .
             " --dns-backend=BIND9_DLZ" .
-            " --use-xattrs=yes " .
             " --use-rfc2307 " .
             " --function-level=2003 " .
             " --server-role='" . $usersModule->dcMode() . "'" .
