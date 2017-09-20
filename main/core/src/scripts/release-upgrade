@@ -9,7 +9,7 @@ fi
 
 if [ $(df /boot | tail -1 | awk '{print $4}') -lt 51200 ];
 then
-    echo "low disk space on /boot"
+    echo "Upgrade cannot be performed due to low disk space (less than 50MB available on /boot)"
     exit 2
 fi
 
@@ -17,7 +17,7 @@ for i in / /var
 do
     if [ `df $i | tail -1 | awk '{print $4}'` -lt 358400 ];
     then
-        echo -e "low disk space on $i"
+        echo -e "Upgrade cannot be performed due to low disk space (less than 350MB available on $i)"
         exit 2
     fi
 done
@@ -189,10 +189,26 @@ then
         apt-get install --reinstall sogo sogo-activesync $SOPE_PACKAGES
     fi
 
+    ### Migrate SOGo database
+    if dpkg -l|grep ^ii|grep sogo
+    then
+        SOGODB='/usr/share/doc/sogo/sql-update-2.2.17_to_2.3.0-mysql.sh'
+        cp $SOGODB $SOGODB.bk
+        sed -i -e '/^read/d; s/$USER/sogo/g; s/-p/-p$defaultpasswd/g' -e "12idefaultpasswd=`cat /var/lib/zentyal/conf/sogo_db.passwd`" $SOGODB
+        if ! ps -ef | grep 'mysqld$'; then service mysql restart; fi
+        $SOGODB
+    fi
+
     systemctl enable zentyal
 
     sed -i 's/net.ifnames=1/net.ifnames=0/g' /etc/default/grub
     update-grub
+
+    # Delete community repo if commercial is activated
+    if [ -f /var/lib/zentyal/.license ]
+    then
+        rm -f /etc/apt/sources.list.d/zentyal-archive.list
+    fi
 
     echo; echo "Zentyal upgrade finished! Please restart your server now."
 else
