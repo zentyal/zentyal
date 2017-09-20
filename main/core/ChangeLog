@@ -1,4 +1,4 @@
-HEAD
+4.1.15
 	+ Remove warning on EBox::Util::Version
 	+ Migrate SOGo database when upgrading from 2.2 to 3.2
 	+ Add preliminary safe checks in release-upgrade script
