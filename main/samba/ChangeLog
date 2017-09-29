@@ -1,4 +1,4 @@
-HEAD
+4.0.11
 	+ Clear LDAP connection after restart daemon when migrating from 3.X
 	+ Corrected name for default containers
 4.0.10
