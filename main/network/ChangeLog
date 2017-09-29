@@ -1,3 +1,5 @@
+HEAD
+	+ Make DHCP hooks less error-prone and remove warnings
 5.0.9
 	+ Remove resolvconf workarounds in 5.0.2 and 5.0.3 now that
 	  proper fix is included in zentyal-dns 5.0.3
