@@ -1,4 +1,5 @@
 HEAD
+	+ Clear LDAP connection after restart daemon when migrating from 3.X
 	+ Corrected name for default containers
 4.0.10
 	+ Harcoded proxy group for keytab on External Ad Mode

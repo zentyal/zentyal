@@ -440,8 +440,10 @@ sub _migrateTo35
     # set samba conf to allow schemas updates
     $self->_setConf();
     EBox::Service::manage('samba-ad-dc', 'restart');
+    $self->clearLdapConn();
     $self->_performSetup();
     EBox::Service::manage('samba-ad-dc', 'restart');
+    $self->clearLdapConn();
 
     # Set gidNumbers to Domain Users, etc.
     $self->getProvision()->mapAccounts();
