@@ -53,9 +53,9 @@ sub compare
     my @v2sub = split(/\~/, $v2);
 
     my @v1 = ();
-    @v1 = split(/\./, $v1sub[0]) if @v1;
+    @v1 = split(/\./, $v1sub[0]) if @v1sub;
     my @v2 = ();
-    @v2 = split(/\./, $v2sub[0]) if @v2;
+    @v2 = split(/\./, $v2sub[0]) if @v2sub;
 
 
     my $min_len;

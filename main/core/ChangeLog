@@ -1,3 +1,5 @@
+HEAD
+	+ Fix regression in EBox::Util::Version
 4.2.10
 	+ Remove warning on EBox::Util::Version
 	+ Migrate SOGo database when upgrading from 2.2 to 3.2
