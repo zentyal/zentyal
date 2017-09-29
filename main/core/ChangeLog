@@ -1,3 +1,5 @@
+HEAD
+	+ Fix regression in EBox::Util::Version
 5.0.9
 	+ Wait for redis-server ready in systemd service
 	+ Remove warning in EBox::Util::Version
