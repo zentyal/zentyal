@@ -1,5 +1,8 @@
 class: 'EBox::SOGo'
 
+depends:
+    - mail
+
 enabledepends:
     - mail
 

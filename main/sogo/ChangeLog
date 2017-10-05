@@ -1,3 +1,5 @@
+HEAD
+	+ Use IMAPS if IMAP is disabled in mail retrieval services
 5.0.1
 	+ Users of non-default Organizational Units now work
 	+ Provide transitional dummy openchange package to ease 4.X upgrade
