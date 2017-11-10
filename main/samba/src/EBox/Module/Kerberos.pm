@@ -249,6 +249,9 @@ sub _kerberosCreateServiceAccount
     my $obj = new EBox::Samba::User(dn => $dn);
     $obj->setInAdvancedViewOnly(1, 0);
     $obj->setCritical(1, 0);
+
+    # Disable expiration on service account
+    EBox::Sudo::root("samba-tool user setexpiry $cn --noexpiry");
 }
 
 # Method: _kerberosSetSPNs
