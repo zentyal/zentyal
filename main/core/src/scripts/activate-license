@@ -15,6 +15,13 @@ then
     exit 1
 fi
 
+if dpkg -l | grep ^ii | grep -q zentyal-cloud-prof
+then
+    echo "Old Zentyal Remote packages detected, removing them before activating license..."
+    /usr/share/zentyal/remote-disconnect
+    echo
+fi
+
 touch /var/lib/zentyal/.commercial-edition
 
 if wget -q -o /dev/null --user=$LICENSE --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep -q Index
