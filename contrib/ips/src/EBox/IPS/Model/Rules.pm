@@ -68,29 +68,6 @@ sub new
 
 }
 
-# Method: viewCustomizer
-#
-#      To display a permanent message
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = $self->SUPER::viewCustomizer();
-
-    if ( $self->parentModule()->usingASU() ) {
-        my $rules = $self->parentModule()->rulesNum();
-        my $msg   = $self->_commercialMsg($rules);
-        $customizer->setPermanentMessage($msg);
-    }
-
-    return $customizer;
-}
-
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
@@ -115,14 +92,12 @@ sub syncRows
 
     my $modified = 0;
     my %currentNames;
-    my $asuRuleSet = $self->parentModule()->ASURuleSet();
-    my %asuRuleSet = map { $_ => 1 } @{$asuRuleSet};
     foreach my $id (@{$currentRows}) {
         my $currentRow  = $self->row($id);
         my $currentName = $currentRow->valueByName('name');
         $currentNames{$currentName} = 1;
         # Check if we need to change the source
-        if (exists $asuRuleSet{$currentName} and ($currentRow->valueByName('source') ne 'zentyal')) {
+        if (($currentRow->valueByName('source') ne 'zentyal')) {
             my $element = $currentRow->elementByName('source');
             $element->setValue('zentyal');
             $currentRow->store();
@@ -134,9 +109,6 @@ sub syncRows
     foreach my $name (@namesToAdd) {
         my $enabled = $self->{enableDefault}->{$name} or 0;
         my $source  = 'community';
-        if ( exists $asuRuleSet{$name} ) {
-            $source = 'zentyal';
-        }
         $self->add(name => $name, source => $source, enabled => $enabled, decision => 'log');
         $modified = 1;
     }
@@ -212,7 +184,6 @@ sub _table
             'printableName'  => __('Source'),
             'populate'       => \&_populateSource,
             'editable'       => 0,
-            'hidden'         => \&_hiddenUnlessASU,
             'hiddenOnSetter' => 1,
            ),
         new EBox::Types::Boolean (
@@ -234,7 +205,6 @@ sub _table
             'fieldName'     => 'manual',
             'printableName' => 'manual',
             'defaultValue'  => 0,
-            'hidden'        => 1,
             'editable'      => 0,
            ),
     );
@@ -271,22 +241,6 @@ sub _populateSource
         { value => 'community', printableValue => __('Community') },
         { value => 'zentyal',   printableValue => 'Zentyal Security Updates' },
        ];
-}
-
-# Return True if the IPS module is not using ASU
-sub _hiddenUnlessASU
-{
-    my $ips = EBox::Global->modInstance('ips');
-    return (not $ips->usingASU())
-}
-
-sub _commercialMsg
-{
-    my ($self, $rulesNum) = @_;
-
-    return __sx('Advanced Security Updates grants you to use daily updated {rules} rules',
-                rules => $rulesNum);
-
 }
 
 1;

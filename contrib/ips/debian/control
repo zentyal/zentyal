@@ -1,9 +1,9 @@
 Source: zentyal-ips
 Section: web
 Priority: optional
-Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
+Maintainer: José Antonio Calvo <jacalvo@zentyal.org>; Itamar Eduardo <3duardo.goncalves@gmail.com>
 Build-Depends: zbuildtools
-Standards-Version: 3.9.2
+Standards-Version: 5.0
 
 Package: zentyal-ips
 Architecture: all
