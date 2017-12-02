@@ -40,10 +40,10 @@ use POSIX;
 
 use constant SURICATA_CONF_FILE    => '/etc/suricata/suricata-debian.yaml';
 use constant SURICATA_DEFAULT_FILE => '/etc/default/suricata';
-use constant SURICATA_INIT_FILE    => '/etc/init/zentyal.suricata.conf';
+use constant SURICATA_INIT_FILE    => '/etc/init/suricata.conf';
 use constant SNORT_RULES_DIR       => '/etc/snort/rules';
 use constant SURICATA_RULES_DIR    => '/etc/suricata/rules';
-use constant SURICATA_UPSTART_JOB  => 'zentyal.suricata';
+use constant SURICATA_UPSTART_JOB  => 'suricata';
 use constant SURICATA_LOG_FILE     => '/var/log/upstart/' . SURICATA_UPSTART_JOB . '.log';
 
 # Group: Protected methods
@@ -327,21 +327,7 @@ sub tableInfo
             'filter' => ['priority', 'description', 'source', 'dest'],
             'consolidate' => $self->_consolidate(),
         } ];
-    if ($self->usingASU()) {
-        push(@{$tableInfos}, {
-            'name'      => __('IPS Rule Updates'),
-            'tablename' => 'ips_rule_updates',
-            'titles'    => { 'timestamp'      => __('Date'),
-                             'failure_reason' => __('Failure reason'),
-                             'event'          => __('Event') },
-            'order'     => [qw(timestamp event failure_reason)],
-            'timecol'   => 'timestamp',
-            'events'    => { 'success' => __('Success'), 'failure' => __('Failure') },
-            'eventcol'  => 'event',
-            'filter'    => [ 'failure_reason' ],
-           },
-            );
-    }
+
     return $tableInfos;
 }
 
@@ -363,91 +349,6 @@ sub _consolidate
 
     return { $table => $spec };
 }
-
-# Method: usingASU
-#
-#    Get if the module is using ASU or not.
-#
-#    If a parameter is given, then it sets the value
-#
-# Parameters:
-#
-#    usingASU - Boolean Set if we are using ASU or not
-#
-# Returns:
-#
-#    Boolean - indicating whether we are using ASU or not
-#
-sub usingASU
-{
-    my ($self, $usingASU) = @_;
-
-    my $state = $self->get_state();
-    my $key = 'using_asu';
-    if (defined($usingASU)) {
-        $state->{$key} = $usingASU;
-        $self->set_state($state);
-    } else {
-        if ( exists $state->{$key} ) {
-            $usingASU = $state->{$key};
-        } else {
-            # For now, checking emerging is in rules
-            my $rulesDir = SNORT_RULES_DIR . '/';
-            my @rules = <${rulesDir}emerging-*.rules>;
-            $usingASU = (scalar(@rules) > 0);
-        }
-    }
-    return $usingASU;
-}
-
-
-# Method: setASURuleSet
-#
-#    Set the rule set file names that ASU is using
-#
-#    This implies <usingASU> is set to True if the ruleset is not
-#    empty and False if the ruleset is empty or not defined.
-#
-# Parameters:
-#
-#    ruleSet - Array ref the rule set for ASU
-#              *(Optional)* If it is not provided, then it is removed
-#
-sub setASURuleSet
-{
-    my ($self, $ruleSet) = @_;
-
-    my $state = $self->get_state();
-    if ( (not defined($ruleSet)) or (scalar(@{$ruleSet}) == 0) ) {
-        delete $state->{asu_rule_set};
-    } else {
-        $state->{asu_rule_set} = $ruleSet;
-    }
-    $self->set_state($state);
-    $self->usingASU(exists $state->{asu_rule_set});
-}
-
-
-# Method: ASURuleSet
-#
-#    Get the rule set file names that ASU is using
-#
-# Returns:
-#
-#    Array ref - the rule set for ASU, empty array ref otherwise
-#
-sub ASURuleSet
-{
-    my ($self) = @_;
-
-    my $state = $self->get_state();
-    my $ruleSet = $state->{asu_rule_set};
-    unless (defined($ruleSet)) {
-        $ruleSet = [];
-    }
-    return $ruleSet;
-}
-
 
 # Method: rulesNum
 #

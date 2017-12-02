@@ -28,6 +28,20 @@ use base 'EBox::Model::Composite';
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
+# Group: Public methods
+
+# Constructor: new
+#
+#     Constructor for the Gateway composite.
+#
+sub new
+{
+    my ($class, @params) = @_;
+
+    my $self = $class->SUPER::new(@params);
+
+    return $self;
+}
 
 # Method: _description
 #
@@ -47,3 +61,5 @@ sub _description
 
     return $description;
 }
+
+1;
