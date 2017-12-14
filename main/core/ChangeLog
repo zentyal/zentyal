@@ -1,4 +1,4 @@
-HEAD
+4.2.12
 	+ Execute remote-disconnect if neeeded before activate-license
 4.2.11
 	+ Fix regression in EBox::Util::Version
