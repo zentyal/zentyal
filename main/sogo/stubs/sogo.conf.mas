@@ -16,6 +16,8 @@
     $sambaBindDN
     $sambaBindPwd
     $sambaHost
+
+    $activesync
 </%args>
 <%init>
 </%init>
@@ -128,6 +130,13 @@
   //SxVMemLimit = 384;
   //WOPidFile = "/var/run/sogo/sogo.pid";
   //SOGoMemcachedHost = "/var/run/memcached.sock";
+
+  /* ActiveSync performance tuning */
+% if ($activesync) {
+  SOGoMaximumPingInterval = 3540;
+  SOGoMaximumSyncInterval = 3540;
+  SOGoInternalSyncInterval = 30;
+% }
 
   /* Debug */
   //SOGoDebugRequests = YES;

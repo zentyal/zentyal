@@ -32,6 +32,7 @@ use EBox::Sudo;
 use TryCatch;
 
 use constant SOGO_DEFAULT_PREFORK => 3;
+use constant SOGO_ACTIVESYNC_PREFORK => 15;
 use constant SOGO_DEFAULT_FILE => '/etc/default/sogo';
 use constant SOGO_CONF_FILE => '/etc/sogo/sogo.conf';
 use constant SOGO_APACHE_FILE => '/etc/apache2/conf-available/SOGo.conf';
@@ -206,6 +207,13 @@ sub _postServiceHook
     }
 }
 
+sub _activeSyncEnabled
+{
+    my ($self) = @_;
+
+    return $self->model('ActiveSync')->value('activesync');
+}
+
 sub _writeSOGoDefaultFile
 {
     my ($self) = @_;
@@ -213,7 +221,7 @@ sub _writeSOGoDefaultFile
     my $array = [];
     my $prefork = EBox::Config::configkey('sogod_prefork');
     unless (length $prefork) {
-        $prefork = SOGO_DEFAULT_PREFORK;
+        $prefork = $self->_activeSyncEnabled() ? SOGO_ACTIVESYNC_PREFORK : SOGO_DEFAULT_PREFORK;
     }
     push (@{$array}, prefork => $prefork);
     $self->writeConfFile(SOGO_DEFAULT_FILE,
@@ -226,7 +234,7 @@ sub _writeSOGoApacheFile
     my ($self) = @_;
 
     my $array = [];
-    push (@{$array}, activesync => $self->model('ActiveSync')->value('activesync'));
+    push (@{$array}, activesync => $self->_activeSyncEnabled());
     $self->writeConfFile(SOGO_APACHE_FILE,
         'sogo/SOGo.conf.mas',
         $array, { uid => 0, gid => 0, mode => '755' });
@@ -274,6 +282,8 @@ sub _writeSOGoConfFile
     push (@{$array}, sambaBindDN => $mail->_kerberosServiceAccountDN());
     push (@{$array}, sambaBindPwd => $mail->_kerberosServiceAccountPassword());
     push (@{$array}, sambaHost => "ldap://127.0.0.1");
+
+    push (@{$array}, activesync => $self->_activeSyncEnabled());
 
     my (undef, undef, undef, $gid) = getpwnam('sogo');
     $self->writeConfFile(SOGO_CONF_FILE,
