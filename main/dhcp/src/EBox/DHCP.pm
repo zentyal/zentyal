@@ -218,11 +218,10 @@ sub _daemons
             'name' => DHCP_SERVICE,
             'precondition' => $preSub
         },
-       # FIXME
-       # {
-       #     'name' => TFTP_SERVICE,
-       #     'precondition' => $preSub
-       # }
+        {
+            'name' => TFTP_SERVICE,
+            'precondition' => $preSub
+        }
     ];
 }
 
@@ -245,8 +244,7 @@ sub _setConf
 {
     my ($self) = @_;
     $self->_setDHCPConf();
-    # FIXME
-    #$self->_setTFTPDConf();
+    $self->_setTFTPDConf();
 }
 
 # Method: menu

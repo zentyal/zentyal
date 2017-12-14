@@ -1,4 +1,5 @@
 HEAD
+	+ Add TFTP functionality again
 	+ Fix module restart in postinst
 5.0
 	+ Disable TFTP
