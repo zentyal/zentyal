@@ -1,3 +1,5 @@
+HEAD
+	+ Forbid creation of local administrator user if exists in samba
 5.0.10
 	+ Fix regression in EBox::Util::Version
 5.0.9
