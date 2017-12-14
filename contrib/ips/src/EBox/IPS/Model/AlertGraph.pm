@@ -21,7 +21,7 @@ package EBox::IPS::Model::AlertGraph;
 use base 'EBox::Logs::Model::Graph';
 
 use EBox::Gettext;
-use TryCatch::Lite;
+use TryCatch;
 
 sub new
 {

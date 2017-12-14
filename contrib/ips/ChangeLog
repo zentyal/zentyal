@@ -1,6 +1,6 @@
 5.0
-	+ Fix to Run at Zentyal 5
-HEAD
+	+ Use TryCatch instead of TryCatch::Lite
+	+ Merge PR to make it work in 5.0 by eduardogoncalves
 	+ Removed deprecated commercial message
 3.5
 	+ Set version to 3.5
