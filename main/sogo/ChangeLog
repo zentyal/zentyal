@@ -1,4 +1,5 @@
 HEAD
+	+ Allow to send mails using alias
 	+ Better default settings of performance tuning when using ActiveSync
 5.0.2
 	+ Use IMAPS if IMAP is disabled in mail retrieval services

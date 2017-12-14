@@ -48,6 +48,7 @@
   SOGoForceExternalLoginWithEmail = YES;
   SOGoMailSpoolPath = /var/spool/sogo;
   NGImap4ConnectionStringSeparator = "/";
+  SOGoMailCustomFromEnabled = YES;
 
   /* Notifications */
   SOGoAppointmentSendEMailNotifications = YES;
@@ -56,7 +57,6 @@
 
   /* Authentication */
   SOGoPasswordChangeEnabled = YES;
-
 
   /* LDAP authentication */
   SOGoUserSources = (
@@ -74,6 +74,7 @@
           bindPassword = "<% $sambaBindPwd %>";
           bindFields = (sAMAccountName, mail);
           filter = "(mail='*')";
+          MailFieldNames = (mail, otherMailbox);
       },
       {
           type = ldap;
@@ -89,6 +90,7 @@
           bindDN = "<% $sambaBindDN %>";
           bindPassword = "<% $sambaBindPwd %>";
           filter = "((NOT isCriticalSystemObject='TRUE') AND (mail=\'*\') AND (NOT objectClass=contact))";
+          MailFieldNames = (mail, otherMailbox);
       },
       {
           type = ldap;
@@ -107,6 +109,7 @@
           mapping = {
               displayname = ("cn");
           };
+          MailFieldNames = (mail, otherMailbox);
       }
   );
 
