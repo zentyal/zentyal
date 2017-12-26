@@ -28,5 +28,5 @@ connect-delay 5000
 %   if ($group) {
 require-mschap-v2
 plugin winbind.so
-ntlm_auth-helper '/usr/bin/ntlm_auth --helper-protocol=ntlm-server-1 --require-membership-of="<% $group %>"'
+ntlm_auth-helper "/usr/bin/ntlm_auth --helper-protocol=ntlm-server-1 --require-membership-of='<% $group %>'"
 %   }
