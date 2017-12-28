@@ -55,7 +55,7 @@ use constant MAX_IFACE_NUMBER => 999999;  # this is the last number which prints
 use constant USER  => 'nobody';
 use constant GROUP => 'nogroup';
 
-use constant DH_PATH => '/etc/openvpn/ebox-dh1024.pem';
+use constant DH_PATH => '/etc/openvpn/ebox-dh2048.pem';
 use constant OPENVPN_BIN => '/usr/sbin/openvpn';
 use constant CONF_DIR    => '/etc/openvpn';
 use constant LOG_DIR => '/var/log/openvpn';
