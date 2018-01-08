@@ -1,0 +1,25 @@
+#!/bin/bash
+
+USERNAME=$1
+JPG=$2
+
+if [ -z "$USERNAME" ] || [ -z "$JPG" ]
+then
+    echo "Usage: $0 <user> <jpg_file_absolute_path>"
+    exit 1
+fi
+
+LDIF=/tmp/set-thumbnail-$$.ldif
+
+# FIXME: use CN instead of samAccountName
+
+cat <<EOF > $LDIF
+dn: CN=Administrator,CN=Users,DC=samdom,DC=example,DC=com
+changetype: modify
+add: thumbnailPhoto
+thumbnailPhoto:< file://$JPG
+EOF
+
+ldbmodify -H /var/lib/samba/private/sam.ldb $LDIF
+
+rm -f $LDIF
