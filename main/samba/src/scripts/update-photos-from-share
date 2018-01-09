@@ -1,0 +1,17 @@
+#!/bin/bash
+
+SHARE=$1
+
+if [ -z "$SHARE" ]
+then
+    echo "Usage: $0 <share_name>"
+    exit 1
+fi
+
+shopt -s nocaseglob
+
+for i in /home/samba/$SHARE/*.jpg
+do
+    USERNAME=$(basename $i | sed 's/\.jpg$//')
+    /usr/share/zentyal-samba/set-thumbnail-photo $USERNAME $i
+done

@@ -1,4 +1,6 @@
 HEAD
+	+ Add settings to samba.conf to set thumbnailPhotos from share
+	  in commercial editions
 	+ Disable expiration for Kerberos service accounts
 	+ Add ZFS support for Samba Shares
 5.0.10
