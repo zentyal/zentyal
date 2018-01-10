@@ -1,25 +1,28 @@
-#!/bin/bash
+#!/usr/bin/perl
 
-USERNAME=$1
-JPG=$2
+use EBox;
+use EBox::Samba::User;
+use File::Slurp;
 
-if [ -z "$USERNAME" ] || [ -z "$JPG" ]
-then
-    echo "Usage: $0 <user> <jpg_file_absolute_path>"
-    exit 1
-fi
+EBox::init();
 
-LDIF=/tmp/set-thumbnail-$$.ldif
+my $MAXSIZE = '96x96';
 
-# FIXME: use CN instead of samAccountName
+my ($username, $file) = @ARGV;
 
-cat <<EOF > $LDIF
-dn: CN=Administrator,CN=Users,DC=samdom,DC=example,DC=com
-changetype: modify
-add: thumbnailPhoto
-thumbnailPhoto:< file://$JPG
-EOF
+unless ($username and $file) {
+    print "Usage: $0 <username> <jpg_file>";
+    exit(1);
+}
 
-ldbmodify -H /var/lib/samba/private/sam.ldb $LDIF
+my $tmpfile = "/var/lib/zentyal/tmp/profile-photo-$$.jpg";
 
-rm -f $LDIF
+system("convert $file -resize '$MAXSIZE^' -gravity center -crop $MAXSIZE+0+0 +repage $tmpfile");
+
+my $user = new EBox::Samba::User(samAccountName => $username);
+if ($user->exists()) {
+    my $jpg = read_file($tmpfile, binmode => ':raw');
+    $user->set('thumbnailPhoto', $jpg);
+} else {
+    die "User $username does not exist";
+}
