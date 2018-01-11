@@ -147,7 +147,7 @@
 % if (values(%options) > 0) {
                    next-server <% $options{nextServer} %>;
                    option tftp-server-name "<% $options{nextServer} %>";
-                   option voip-tftp-server "<% $options{nextServer} %>";
+                   option voip-tftp-server <% $options{nextServer} %>;
 % if ( $options{filename} ) {
                    filename    "<% $options{filename} %>";
 % }
