@@ -10,8 +10,8 @@ fi
 
 shopt -s nocaseglob
 
-for i in /home/samba/shares/$SHARE/*.jpg
+for i in /home/samba/shares/$SHARE/{*.jpg,*.jpeg}
 do
-    USERNAME=$(basename $i | sed 's/\.jpg$//')
+    USERNAME=$(basename $i | sed -r 's/\.jpe?g$//')
     /usr/share/zentyal-samba/set-thumbnail-photo $USERNAME $i
 done
