@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -e
+
+exec > /var/log/zentyal/remote-disconnect.log 2>&1
+
+THEMEDIR=/tmp/zentyal-theme.bak
+sudo mkdir $THEMEDIR
+sudo cp /usr/share/zentyal/www/images/title* $THEMEDIR/
+sudo cp /usr/share/zentyal/www/custom.theme* $THEMEDIR/
+
+time=2
+sleep $time
+
+while fuser /var/lib/dpkg/lock >/dev/null 2>&1
+do
+    echo "dpkg is still locked, retrying in $time seconds..."
+    sleep $time
+    time=`expr $time + 1`
+done
+
+sudo rm -f /var/lib/dpkg/info/zentyal-cloud-prof.*rm
+sudo DEBIAN_FRONTEND=noninteractive dpkg --purge zentyal-cloud-prof zentyal-security-updates zentyal-remoteservices
+
+sudo cp $THEMEDIR/custom.theme* /usr/share/zentyal/www/
+sudo cp $THEMEDIR/title* /usr/share/zentyal/www/images/
+
+sed -i 's/showMessage = 1/showMessage = 0/' /usr/share/perl5/EBox/CGI/Dashboard/Index.pm
+
+sudo /etc/init.d/zentyal apache restart
+
+sudo rm -rf $THEMEDIR
+
+echo "Disconnection to Zentyal Remote successfully done."
+
