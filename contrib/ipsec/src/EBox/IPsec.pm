@@ -93,7 +93,7 @@ sub _manageService
         my @deleted = @{ delete $state->{deleted_daemons} };
         foreach my $daemon (@deleted) {
             try {
-                EBox::Sudo::root("/sbin/stop '$daemon'")
+                EBox::Sudo::root("systemctl stop '$daemon'")
             } catch {
                 # we assume that it was already stopped
             }
@@ -156,14 +156,8 @@ sub _daemons
 {
     my ($self) = @_;
 
-    my @daemons = ();
-    push @daemons, {
-        'name' => 'ipsec',
-        'type' => 'init.d',
-        'pidfiles' => ['/var/run/pluto/pluto.pid'],
-    };
-    push @daemons, @{ $self->model('Connections')->l2tpDaemons()};
-
+    my @daemons = ({ 'name' => 'strongswan' });
+    push (@daemons, @{ $self->model('Connections')->l2tpDaemons()});
     return \@daemons;
 }
 
@@ -190,7 +184,7 @@ sub initialSetup
     my $global = $self->global();
 
     unless ($version) {
-        my $services = $global->modInstance('services');
+        my $services = $global->modInstance('network');
 
         my $serviceName = 'IPsec';
         unless($services->serviceExists(name => $serviceName)) {
@@ -305,9 +299,9 @@ sub _setXL2TPDConf
     my ($self) = @_;
     my $global = $self->global();
 
-    # Clean all upstart and configuration files, the current ones will be regenerated
+    # Clean all systemd and configuration files, the current ones will be regenerated
     EBox::Sudo::silentRoot(
-        "rm -rf /etc/init/zentyal-xl2tpd.*.conf",
+        "rm -rf /lib/systemd/system/zentyal-xl2tpd.*.conf",
         "rm -rf /etc/ppp/zentyal-xl2tpd.*",
         "rm -rf /etc/xl2tpd/zentyal-xl2tpd.*.conf"
     );
@@ -346,7 +340,7 @@ sub _setXL2TPDConf
         $self->writeConfFile(
             "/etc/ppp/$tunnel->{name}.options", "ipsec/options.xl2tpd.mas", \@params, $permissions);
         $self->writeConfFile(
-            "/etc/init/$tunnel->{name}.conf", "ipsec/upstart-xl2tpd.mas", \@params, $permissions);
+            "/lib/systemd/system/$tunnel->{name}.service", "ipsec/systemd-xl2tpd.mas", \@params, $permissions);
 
     }
 }

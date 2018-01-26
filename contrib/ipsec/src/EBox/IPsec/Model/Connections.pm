@@ -26,7 +26,7 @@ use EBox::Types::Select;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::InvalidType;
 
-use TryCatch::Lite;
+use TryCatch;
 no warnings 'experimental::smartmatch';
 use feature "switch";
 use Net::IP;
@@ -81,7 +81,7 @@ sub tunnels
                     given ($fieldName) {
                         when (/^right$/) {
                             if ($element->selectedType() eq 'right_any') {
-                                $fieldValue = '%any';
+                                $fieldValue = '1701';
                             } else {
                                 # Value returns array with (ip, netmask)
                                 $fieldValue = join ('/', $element->value());
@@ -159,7 +159,7 @@ sub l2tpDaemons
             ()
         } else {
             $tunnel->{name} = L2TP_PREFIX . $tunnel->{name};
-            $tunnel->{type} = 'upstart';
+            $tunnel->{type} = 'systemd';
             $tunnel->{precondition} = sub {
                 return $tunnel->{enabled};
             };

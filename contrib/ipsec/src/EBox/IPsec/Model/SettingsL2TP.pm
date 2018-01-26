@@ -282,7 +282,7 @@ sub _table
         )
     );
 
-    push ($dataTable->{tableDescription},
+    push (@{$dataTable->{tableDescription}},
         new EBox::Types::HostIP(
             fieldName => 'local_ip',
             printableName => __('Tunnel IP'),
@@ -292,7 +292,7 @@ sub _table
         )
     );
 
-    push ($dataTable->{tableDescription},
+    push (@{$dataTable->{tableDescription}},
         new EBox::Types::Union(
             fieldName  => 'primary_ns',
             printableName => __('Primary nameserver'),
@@ -301,7 +301,7 @@ sub _table
             help => __('If "Zentyal DNS" is present and selected, the Zentyal server will act as cache DNS server'),
         )
     );
-    push ($dataTable->{tableDescription},
+    push (@{$dataTable->{tableDescription}},
         new EBox::Types::HostIP(
             fieldName => 'secondary_ns',
             printableName => __('Secondary nameserver'),
@@ -309,7 +309,7 @@ sub _table
             optional => 1,
         )
     );
-    push ($dataTable->{tableDescription},
+    push (@{$dataTable->{tableDescription}},
         new EBox::Types::Union(
             fieldName => 'wins_server',
             printableName => __('WINS server'),

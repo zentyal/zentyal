@@ -37,7 +37,7 @@ use EBox::Validate;
 use EBox::Exceptions::External;
 use Net::IP;
 
-use TryCatch::Lite;
+use TryCatch;
 
 # Method: validateTypedRow
 #

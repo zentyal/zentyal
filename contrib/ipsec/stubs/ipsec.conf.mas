@@ -49,7 +49,7 @@ config setup
 #               right=10.12.12.1
 #               rightsubnet=192.168.0.0/24
 #               rightnexthop=10.101.102.103
-#               # To authorize this connection, but not actually start it, 
+#               # To authorize this connection, but not actually start it,
 #               # at startup, uncomment this.
 #               #auto=start
 
@@ -84,8 +84,9 @@ conn <% $tunnel->{'name'} %>
         keyingtries=3
         pfs=no
         leftprotoport=17/1701
-        rightprotoport=17/%any
+        rightprotoport=17/1701
 %   }
         authby=secret
         auto=start
 % }
+# FIXME: change auto=start to auto=add ?
