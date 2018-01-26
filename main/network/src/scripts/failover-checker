@@ -25,7 +25,7 @@ use EBox::Gettext;
 use EBox::Validate;
 use EBox::Exceptions::Lock;
 
-use TryCatch::Lite;
+use TryCatch;
 
 use constant PING_PATTERN => '7a6661696c6f76657274657374';
 use constant PING_PATTERN_TEXT => 'zfailovertest';
