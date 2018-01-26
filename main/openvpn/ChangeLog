@@ -1,3 +1,5 @@
+HEAD
+	+ Use 2048 instead of 1024 for DH file
 5.0.1
 	+ Support for PPPoE
 	+ Fix module restart in postinst and postrm
