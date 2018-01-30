@@ -65,13 +65,13 @@ sub usedFiles
     push (@conf_files, {
         'file' => IPSECCONFFILE,
         'module' => 'ipsec',
-        'reason' => __('To configure OpenSwan IPsec.')
+        'reason' => __('To configure Librewan IPsec.')
     });
 
     push (@conf_files, {
         'file' => IPSECSECRETSFILE,
         'module' => 'ipsec',
-        'reason' => __('To configure OpenSwan IPsec passwords.')
+        'reason' => __('To configure Libreswan IPsec passwords.')
     });
 
     push (@conf_files, {
@@ -156,7 +156,7 @@ sub _daemons
 {
     my ($self) = @_;
 
-    my @daemons = ({ 'name' => 'ipsec', 'type' => 'init.d' });
+    my @daemons = ({ 'name' => 'ipsec' });
     push (@daemons, @{ $self->model('Connections')->l2tpDaemons()});
     return \@daemons;
 }
