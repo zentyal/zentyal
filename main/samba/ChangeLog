@@ -1,4 +1,5 @@
 HEAD
+	+ Allow to execute ad-migrate directly
 	+ Disable expiration for Kerberos service accounts
 	+ Add ZFS support for Samba Shares
 5.0.10
