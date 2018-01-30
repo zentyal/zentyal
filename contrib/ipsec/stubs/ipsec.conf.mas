@@ -84,9 +84,8 @@ conn <% $tunnel->{'name'} %>
         keyingtries=3
         pfs=no
         leftprotoport=17/1701
-        rightprotoport=17/1701
+        rightprotoport=17/%any
 %   }
         authby=secret
-        auto=start
+        auto=add
 % }
-# FIXME: change auto=start to auto=add ?

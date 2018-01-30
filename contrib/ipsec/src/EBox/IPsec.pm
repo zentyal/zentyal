@@ -156,7 +156,7 @@ sub _daemons
 {
     my ($self) = @_;
 
-    my @daemons = ({ 'name' => 'strongswan' });
+    my @daemons = ({ 'name' => 'ipsec', 'type' => 'init.d' });
     push (@daemons, @{ $self->model('Connections')->l2tpDaemons()});
     return \@daemons;
 }

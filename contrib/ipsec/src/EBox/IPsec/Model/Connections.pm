@@ -81,7 +81,7 @@ sub tunnels
                     given ($fieldName) {
                         when (/^right$/) {
                             if ($element->selectedType() eq 'right_any') {
-                                $fieldValue = '1701';
+                                $fieldValue = '%any';
                             } else {
                                 # Value returns array with (ip, netmask)
                                 $fieldValue = join ('/', $element->value());
