@@ -28,6 +28,7 @@ use EBox::IPsec::FirewallHelper;
 use EBox::IPsec::LogHelper;
 use EBox::NetWrappers qw();
 use File::Slurp;
+use TryCatch;
 
 use constant IPSECCONFFILE => '/etc/ipsec.conf';
 use constant IPSECSECRETSFILE => '/etc/ipsec.secrets';
@@ -367,7 +368,8 @@ sub firewallHelper
     foreach my $tunnel (@activeTunnels) {
         if ($tunnel->{type} eq 'l2tp') {
             $hasL2TP = 1;
-            my @interfaces = EBox::NetWrappers::iface_by_address($tunnel->{local_ip});
+            my @interfaces = `ip a | grep 'inet $tunnel->{local_ip} peer' | sed 's/.* //'`;
+            chomp (@interfaces);
             if (@interfaces) {
                 push (@L2TPInterfaces, @interfaces);
             }

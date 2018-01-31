@@ -51,9 +51,9 @@ sub inputNoSpoof
 
     my @rules = ();
     foreach my $interface (@{$self->{L2TPInterfaces}}) {
-        my $clientAddress = EBox::NetWrappers::iface_destination_address($interface);
+        my $clientAddress = _if_dstaddr($interface);
         if ($clientAddress) {
-            push (@rules, "-s $clientAddress/32 -i $interface -j iaccept");
+            push (@rules, "-s $clientAddress -i $interface -j iaccept");
         }
     }
 
@@ -111,11 +111,10 @@ sub forwardNoSpoof
     my ($self) = @_;
 
     my @rules = ();
-    my $socket = IO::Socket::INET->new(Proto => 'udp');
     foreach my $interface (@{$self->{L2TPInterfaces}}) {
-        my $clientAddress = $socket->if_dstaddr($interface);
+        my $clientAddress = _if_dstaddr($interface);
         if ($clientAddress) {
-            push (@rules, "-s $clientAddress/32 -i $interface -j faccept");
+            push (@rules, "-s $clientAddress -i $interface -j faccept");
         }
     }
 
@@ -157,6 +156,16 @@ sub postrouting
     }
 
     return \@rules;
+}
+
+sub _if_dstaddr
+{
+    my ($interfaceName) = @_;
+
+    my $addr = `ip a | grep ' $interfaceName\$' | sed 's/.* peer//' | cut -d' ' -f2`;
+    chomp ($addr);
+
+    return $addr ? $addr : undef;
 }
 
 1;
