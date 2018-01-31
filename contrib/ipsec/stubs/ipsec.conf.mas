@@ -65,7 +65,6 @@ conn <% $tunnel->{'name'} %>
 %     } else {
         pfs=no
 %     }
-        auth=esp
         keyexchange=ike
 %     if ( $tunnel->{'ike-enc'} ne 'any' ) {
         ike=<% $tunnel->{'ike-enc'} %>-<% $tunnel->{'ike-auth'} %>

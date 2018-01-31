@@ -99,7 +99,7 @@ sub _table
 
     my $dataTable = $self->SUPER::_table(@_);
 
-    while (my ($index, $element) = each $dataTable->{tableDescription}) {
+    while (my ($index, $element) = each @{$dataTable->{tableDescription}}) {
         my $field = undef;
 
         if ($element->{fieldName} eq 'left_ipaddr') {
@@ -120,7 +120,7 @@ sub _table
         }
 
         if ($field) {
-            splice $dataTable->{tableDescription}, ($index + 1), 0, $field;
+            splice @{$dataTable->{tableDescription}}, ($index + 1), 0, $field;
         }
     }
 
