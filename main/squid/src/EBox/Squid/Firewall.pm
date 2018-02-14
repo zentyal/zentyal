@@ -39,7 +39,7 @@ sub prerouting
     my ($self) = @_;
 
     my $sq = $self->_global()->modInstance('squid');
-    if ( (not $sq->temporaryStopped()) and $sq->transproxy()) {
+    if ((not $sq->temporaryStopped()) and $sq->transproxy()) {
         return $self->_trans_prerouting();
     }
 

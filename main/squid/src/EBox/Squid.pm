@@ -509,8 +509,10 @@ sub _writeSquidConf
     my $network = $global->modInstance('network');
 
     my @writeParam = ();
-    push @writeParam, ('port'  => $filter ? DGPORT : $self->port());
-    push @writeParam, ('transparent'  => $self->transproxy());
+    push @writeParam, ('port' => $filter ? DGPORT : $self->port());
+    if ($self->transproxy() and not $filter) {
+        push @writeParam, ('mode' => 'intercept');
+    }
 
     push @writeParam, ('rules' => $rules);
     push @writeParam, ('filterProfiles' => $squidFilterProfiles);
