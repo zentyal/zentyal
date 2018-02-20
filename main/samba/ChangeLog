@@ -1,4 +1,6 @@
 HEAD
+	+ Add settings to samba.conf to set thumbnailPhotos from share
+	  in commercial editions
 	+ Allow to execute ad-migrate directly
 	+ Disable expiration for Kerberos service accounts
 	+ Add ZFS support for Samba Shares

@@ -1,0 +1,7 @@
+<%args>
+$share
+$hour
+$minute
+</%args>
+
+<% $minute %> <% $hour %> * * * root /usr/share/zentyal-samba/update-photos-from-share <% $share %>

@@ -112,6 +112,8 @@ use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
+use constant PROFILE_PHOTO_CRON_FILE => '/etc/cron.d/zentyal-profile-photo';
+
 # Kerberos constants
 use constant KERBEROS_PORT => 88;
 use constant KPASSWD_PORT => 464;
@@ -679,6 +681,10 @@ sub _setConf
 
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
+
+    unless ($self->global()->communityEdition()) {
+        $self->_installPhotoCronFile();
+    }
 }
 
 sub _createDirectories
@@ -796,6 +802,31 @@ sub _postServiceHook
     }
 
     return $self->SUPER::_postServiceHook($enabled);
+}
+
+sub _installPhotoCronFile
+{
+    my ($self) = @_;
+
+    my $share = EBox::Config::configkey('photo_share_path');
+
+    return unless ($share);
+
+    my $time = EBox::Config::configkey('photo_cron_time');
+    my ($hour, $minute) = split ':', $time;
+
+    # We cannot call writeConfFile since we are not
+    # EBox::Module::Service, we are not updating the digests
+    # but ebox-software script is not from other package
+    EBox::Module::Base::writeConfFileNoCheck(
+        PROFILE_PHOTO_CRON_FILE,
+        'samba/photo.cron',
+        [
+            hour => $hour,
+            minute => $minute,
+            share => $share,
+        ]
+    );
 }
 
 sub kerberosRealm
