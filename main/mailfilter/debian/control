@@ -6,14 +6,14 @@ Uploaders: José A. Calvo <jacalvo@zentyal.com>
 Build-Depends: zbuildtools
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
-Vcs-Browser: http://git.zentyal.org/zentyal.git/tree/HEAD:/main/squid
-Vcs-Git: git://git.zentyal.org/zentyal.git
+Vcs-Browser: https://github.com/zentyal/zentyal/tree/master/main/squid
+Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-mailfilter
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
-         zentyal-firewall, zentyal-mail (>= 5.0.4), zentyal-antivirus,
+Depends: zentyal-core (>= 5.1), zentyal-core (<< 6.0),
+         zentyal-firewall, zentyal-mail, zentyal-antivirus,
          amavisd-new, spamassassin, spamc, dovecot-antispam, libnet-dns-perl,
          arj, unrar-free, p7zip, razor, pyzor, libmail-spf-perl,
          libnet-libidn-perl, ${misc:Depends}

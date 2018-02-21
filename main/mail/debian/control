@@ -1,14 +1,18 @@
 Source: zentyal-mail
 Section: web
 Priority: optional
-Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Uploaders: José A. Calvo <jacalvo@zentyal.com>
 Build-Depends: zbuildtools
 Standards-Version: 3.9.2
+Homepage: http://www.zentyal.org/
+Vcs-Browser: https://github.com/zentyal/zentyal/tree/master/main/mail
+Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-mail
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1), zentyal-samba,
+Depends: zentyal-core (>= 5.1), zentyal-core (<< 6.0), zentyal-samba,
          postfix, postfix-ldap, postfix-pcre, ssl-cert, libsasl2-modules, dovecot-common,
          dovecot-imapd, dovecot-pop3d, dovecot-sieve, dovecot-managesieved, dovecot-ldap,
          dovecot-gssapi, dovecot-sqlite, postgrey, fetchmail, archivemail, libcrypt-rijndael-perl,

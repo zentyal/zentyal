@@ -1,4 +1,4 @@
-HEAD
+5.1
 	+ Fix module restart in postinst
 5.0
 	+ Use default systemd daemon instead of custom upstart one

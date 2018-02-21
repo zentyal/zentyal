@@ -6,12 +6,12 @@ Uploaders: José A. Calvo <jacalvo@zentyal.com>
 Build-Depends: zbuildtools
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
-Vcs-Browser: http://git.zentyal.org/zentyal.git/tree/HEAD:/main/ntp
-Vcs-Git: git://git.zentyal.org/zentyal.git
+Vcs-Browser: https://github.com/zentyal/zentyal/tree/master/main/ntp
+Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-ntp
 Architecture: all
-Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1), zentyal-firewall,
+Depends: zentyal-core (>= 5.1), zentyal-core (<< 6.0), zentyal-firewall,
          ntp, ntpdate, ${misc:Depends}
 Description: Zentyal - NTP Service
  Zentyal is a Linux small business server that can act as

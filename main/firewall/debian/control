@@ -6,14 +6,14 @@ Uploaders: José A. Calvo <jacalvo@zentyal.com>
 Build-Depends: zbuildtools
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
-Vcs-Browser: http://git.zentyal.org/zentyal.git/tree/HEAD:/main/firewall
-Vcs-Git: git://git.zentyal.org/zentyal.git
+Vcs-Browser: https://github.com/zentyal/zentyal/tree/master/main/firewall
+Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-firewall
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
-         zentyal-network (>= 5.0.6), iptables, ${misc:Depends}
+Depends: zentyal-core (>= 5.1), zentyal-core (<< 6.0),
+         zentyal-network, iptables, ${misc:Depends}
 Description: Zentyal - Firewall
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

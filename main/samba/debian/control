@@ -6,13 +6,13 @@ Uploaders: José A. Calvo <jacalvo@zentyal.com>
 Build-Depends: zbuildtools, libtest-net-ldap-perl (>= 0.02)
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
-Vcs-Browser: http://git.zentyal.org/zentyal.git/tree/HEAD:/main/users
-Vcs-Git: git://git.zentyal.org/zentyal.git
+Vcs-Browser: https://github.com/zentyal/zentyal/tree/master/main/samba
+Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-samba
 Architecture: all
-Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
-         zentyal-firewall (>= 5.0.1), zentyal-dns (>= 5.0.3), zentyal-ntp,
+Depends: zentyal-core (>= 5.1), zentyal-core (<< 6.0),
+         zentyal-firewall, zentyal-dns, zentyal-ntp,
          samba (>= 2:4.6.7+dfsg-1), samba-vfs-modules, samba-dsdb-modules,
          winbind, ldb-tools, apache2-utils, adduser, quota, acl, imagemagick,
          libgssapi3-heimdal, libsasl2-modules-gssapi-heimdal, heimdal-clients,
@@ -30,5 +30,5 @@ Description: Zentyal - Domain Controller and File Sharing
  Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
- This module adds a LDAP server to your Zentyal installation, allowing you
+ This module adds an AD replacement to your Zentyal installation, allowing you
  to add users and groups to be used by other Zentyal modules.

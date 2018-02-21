@@ -6,14 +6,14 @@ Uploaders: José A. Calvo <jacalvo@zentyal.com>
 Build-Depends: zbuildtools
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
-Vcs-Browser: http://git.zentyal.org/zentyal.git/tree/HEAD:/main/openvpn
-Vcs-Git: git://git.zentyal.org/zentyal.git
+Vcs-Browser: https://github.com/zentyal/zentyal/tree/master/main/openvpn
+Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-openvpn
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 5.0), zentyal-core (<< 5.1),
-         zentyal-firewall (>= 5.0.1), zentyal-ca,
+Depends: zentyal-core (>= 5.1), zentyal-core (<< 6.0),
+         zentyal-firewall, zentyal-ca,
          openvpn, zip, quagga, openssl, ${misc:Depends}
 Description: Zentyal - VPN
  Zentyal is a Linux small business server that can act as
