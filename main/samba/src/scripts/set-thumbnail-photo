@@ -11,7 +11,7 @@ my $MAXSIZE = '96x96';
 my ($username, $file) = @ARGV;
 
 unless ($username and $file) {
-    print "Usage: $0 <username> <jpg_file>";
+    print "Usage: $0 <username> <jpg_file>\n";
     exit(1);
 }
 
