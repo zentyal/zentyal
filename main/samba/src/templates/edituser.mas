@@ -11,26 +11,29 @@ use EBox::Global;
 use EBox::Gettext;
 use JSON::XS;
 use MIME::Base64;
+my $dn = $user->dn();
+my $username = $user->name();
 my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
 my $optionalTag = __('Optional');
 my $commercial = not EBox::Global->communityEdition();
 my $photo_src = '/data/images/photo-placeholder.jpg';
+my $onChange;
 if ($commercial) {
     my $thumbnail = $user->get('thumbnailPhoto');
     if ($thumbnail) {
         $photo_src = 'data:image/jpeg;base64, ' . encode_base64($thumbnail);
     }
-    my $onChange = << "JS_END";
+    my $reloadJS = '$("[id=' . "'$dn'" . '] a").click();';
+    $onChange = << "JS_END";
     var fileUpload = new Zentyal.FileUpload(
        { formId :   'upload_photo_form',
-         complete : function() { location.reload(); },
+         complete : function() { $reloadJS },
        }
     );
     var res = fileUpload.submit();
     return res;
 JS_END
 }
-my $username = $user->name();
 </%init>
 <script type="text/javascript" src="/data/js/fileUpload.js">//</script>
 <div id="edit_user">
@@ -41,11 +44,11 @@ my $username = $user->name();
 % if ($commercial) {
       <form action='/Samba/SetProfilePhoto' method='POST' enctype="multipart/form-data" id='upload_photo_form'>
         <input type="hidden" name="username" value="<% $username %>">
-        <input type="file" name="imgupload" id="imgupload" accept="image/jpeg" style="display:none" onchange="<% $onChange %>">
+        <input type="file" name="imgupload" id="imgupload" accept="image/jpeg" style="display:none" onchange="<% $onChange | h %>">
       </form>
 % }
       <form class="formDiv" action='/Samba/EditUser' method='POST' enctype="multipart/form-data" autocomplete='off' id='editUserForm'>
-        <input type="hidden" name="dn" value="<% $user->dn() %>">
+        <input type="hidden" name="dn" value="<% $dn %>">
         <input type="hidden" name="edit" value="edit">
 % if ($commercial) {
             <div class="field">
