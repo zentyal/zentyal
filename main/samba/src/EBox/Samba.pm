@@ -808,7 +808,7 @@ sub _installPhotoCronFile
 {
     my ($self) = @_;
 
-    my $share = EBox::Config::configkey('photo_share_path');
+    my $share = EBox::Config::configkey('photo_share_name');
 
     return unless ($share);
 

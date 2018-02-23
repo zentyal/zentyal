@@ -1,6 +1,8 @@
 #!/usr/bin/perl
 
 use EBox;
+use EBox::Config;
+use EBox::Sudo;
 use EBox::Samba::User;
 use File::Slurp;
 
@@ -23,6 +25,12 @@ my $user = new EBox::Samba::User(samAccountName => $username);
 if ($user->exists()) {
     my $jpg = read_file($tmpfile, binmode => ':raw');
     $user->set('thumbnailPhoto', $jpg);
+
+    my $share = EBox::Config::configkey('photo_share_name');
+    my $path = "/home/samba/shares/$share";
+    if ($share and EBox::Sudo::fileTest('-d', $path)) {
+        EBox::Sudo::root("cp $tmpfile $path/$username.jpg");
+    }
 } else {
     die "User $username does not exist";
 }
