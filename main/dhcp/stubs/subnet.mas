@@ -148,6 +148,7 @@
                    next-server <% $options{nextServer} %>;
                    option tftp-server-name "<% $options{nextServer} %>";
                    option voip-tftp-server <% $options{nextServer} %>;
+                   option shoretel-director-server <% $options{nextServer} %>;
 % if ( $options{filename} ) {
                    filename    "<% $options{filename} %>";
 % }
