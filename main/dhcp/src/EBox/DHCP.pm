@@ -1348,6 +1348,8 @@ sub _thinClientOptions # (iface, element)
     my $row = $thinClientModel->row();
     if (defined ($row)) {
         $ret->{nextServer} = $thinClientModel->nextServer($iface);
+        $ret->{tftpServers} = $row->valueByName('option150');
+        $ret->{shoretelServer} = $row->valueByName('option155');
         $ret->{filename} = $row->valueByName('remoteFilename');
     }
     return $ret;

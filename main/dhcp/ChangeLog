@@ -1,5 +1,5 @@
 5.1
-	+ Add TFTP functionality again with support also for option 150
+	+ Add TFTP functionality again with support also for options 150 and 155
 	+ Fix module restart in postinst
 5.0
 	+ Disable TFTP

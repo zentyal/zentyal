@@ -164,11 +164,25 @@ sub _table
                              optional      => 1,
                              help          => __('Thin client file path'),
                             ),
+        new EBox::Types::Text(
+                             fieldName     => 'option150',
+                             printableName => __('Option 150'),
+                             editable      => 1,
+                             optional      => 1,
+                             help          => __('VoIP TFTP servers: list of IP addresses separated by space'),
+                            ),
+        new EBox::Types::Text(
+                             fieldName     => 'option155',
+                             printableName => __('Option 155'),
+                             editable      => 1,
+                             optional      => 1,
+                             help          => __('IP address of the ShoreTel Director server'),
+                            ),
     );
 
     my $dataTable = {
                     tableName          => 'ThinClientOptions',
-                    printableTableName => __('Thin client / External TFTP-Server'),
+                    printableTableName => __('Thin client / External TFTP-Server / Other options for VoIP phones'),
                     modelDomain        => 'DHCP',
                     defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
