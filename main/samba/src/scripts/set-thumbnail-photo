@@ -17,12 +17,12 @@ unless ($username and $file) {
     exit(1);
 }
 
-my $tmpfile = "/var/lib/zentyal/tmp/profile-photo-$$.jpg";
-
-system("convert $file -resize '$MAXSIZE^' -gravity center -crop $MAXSIZE+0+0 +repage $tmpfile");
-
 my $user = new EBox::Samba::User(samAccountName => $username);
 if ($user->exists()) {
+    my $tmpfile = "/var/lib/zentyal/tmp/profile-photo-$$.jpg";
+
+    system("convert $file -resize '$MAXSIZE^' -gravity center -crop $MAXSIZE+0+0 +repage $tmpfile");
+
     my $jpg = read_file($tmpfile, binmode => ':raw');
     $user->set('thumbnailPhoto', $jpg);
 

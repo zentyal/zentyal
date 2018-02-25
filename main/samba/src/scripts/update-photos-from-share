@@ -9,9 +9,10 @@ then
 fi
 
 shopt -s nocaseglob
+shopt -s nullglob
 
 for i in /home/samba/shares/$SHARE/{*.jpg,*.jpeg}
 do
     USERNAME=$(basename $i | sed -r 's/\.jpe?g$//')
-    /usr/share/zentyal-samba/set-thumbnail-photo $USERNAME $i
+    /usr/share/zentyal-samba/set-thumbnail-photo $USERNAME $i >/dev/null 2>&1
 done
