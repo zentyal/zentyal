@@ -810,10 +810,9 @@ sub _installPhotoCronFile
 
     my $share = EBox::Config::configkey('photo_share_name');
 
-    return unless ($share);
+    return unless ($share and EBox::Sudo::fileTest('-d', "/home/samba/shares/$share"));
 
-    my $time = EBox::Config::configkey('photo_cron_time');
-    my ($hour, $minute) = split ':', $time;
+    my $minutes = EBox::Config::configkey('photo_cron_interval');
 
     # We cannot call writeConfFile since we are not
     # EBox::Module::Service, we are not updating the digests
@@ -822,9 +821,8 @@ sub _installPhotoCronFile
         PROFILE_PHOTO_CRON_FILE,
         'samba/photo.cron',
         [
-            hour => $hour,
-            minute => $minute,
             share => $share,
+            minutes => $minutes
         ]
     );
 }
