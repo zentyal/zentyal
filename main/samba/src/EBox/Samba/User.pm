@@ -26,6 +26,7 @@ use base qw(EBox::Samba::SecurityPrincipal);
 
 use EBox::Config;
 use EBox::Global;
+use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Samba;
 use EBox::Samba::Group;
@@ -44,6 +45,7 @@ use Net::LDAP::Control;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_ALREADY_EXISTS LDAP_LOCAL_ERROR);
 use Date::Calc;
+use File::Slurp;
 use TryCatch;
 
 use constant MAXUSERLENGTH  => 128;
@@ -944,6 +946,27 @@ sub passwordHashes
     $krb5Keys = $self->_krb5Keys($krb5Keys);
 
     return $krb5Keys;
+}
+
+sub setThumbnailPhoto
+{
+    my ($self, $file) = @_;
+
+    my $MAXSIZE = '96x96';
+
+    my $tmpfile = "/var/lib/zentyal/tmp/profile-photo-$$.jpg";
+
+    system("convert $file -resize '$MAXSIZE^' -gravity center -crop $MAXSIZE+0+0 +repage $tmpfile");
+
+    my $jpg = read_file($tmpfile, binmode => ':raw');
+    $self->set('thumbnailPhoto', $jpg);
+
+    my $share = EBox::Config::configkey('photo_share_name');
+    my $path = "/home/samba/shares/$share";
+    if ($share and EBox::Sudo::fileTest('-d', $path)) {
+        my $username = $self->name();
+        EBox::Sudo::root("cp $tmpfile $path/$username.jpg");
+    }
 }
 
 sub _checkUserName

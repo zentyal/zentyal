@@ -51,9 +51,8 @@ JS_END
         <input type="hidden" name="dn" value="<% $dn %>">
         <input type="hidden" name="edit" value="edit">
 % if ($commercial) {
-            <div class="field">
-                <img src="<% $photo_src %>" style="border: 1px solid; width=96px; height=96px; cursor: pointer;" onclick="document.getElementById('imgupload').click();">
-            </div>
+            <img src="<% $photo_src %>" title="<% __('Set profile picture from .jpg file') %>"
+                 style="border: 1px solid; width=96px; height=96px; cursor: pointer;" onclick="document.getElementById('imgupload').click();">
 % }
             <div class="field">
             <label><% __('First name') %></label>

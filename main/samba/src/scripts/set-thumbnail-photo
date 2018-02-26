@@ -1,14 +1,9 @@
 #!/usr/bin/perl
 
 use EBox;
-use EBox::Config;
-use EBox::Sudo;
 use EBox::Samba::User;
-use File::Slurp;
 
 EBox::init();
-
-my $MAXSIZE = '96x96';
 
 my ($username, $file) = @ARGV;
 
@@ -19,18 +14,7 @@ unless ($username and $file) {
 
 my $user = new EBox::Samba::User(samAccountName => $username);
 if ($user->exists()) {
-    my $tmpfile = "/var/lib/zentyal/tmp/profile-photo-$$.jpg";
-
-    system("convert $file -resize '$MAXSIZE^' -gravity center -crop $MAXSIZE+0+0 +repage $tmpfile");
-
-    my $jpg = read_file($tmpfile, binmode => ':raw');
-    $user->set('thumbnailPhoto', $jpg);
-
-    my $share = EBox::Config::configkey('photo_share_name');
-    my $path = "/home/samba/shares/$share";
-    if ($share and EBox::Sudo::fileTest('-d', $path)) {
-        EBox::Sudo::root("cp $tmpfile $path/$username.jpg");
-    }
+    $user->setThumbnailPhoto($file);
 } else {
     die "User $username does not exist";
 }

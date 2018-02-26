@@ -24,6 +24,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
+use EBox::Samba::User;
 
 # Core modules
 use TryCatch;
@@ -64,9 +65,9 @@ sub _process
     # We only take the first uploaded file found.
     my $upload = $uploads->{$entryKeys[0]};
     my $uploadedFile = $upload->path();
-    my $user = $self->param('username');
-    system("/usr/share/zentyal-samba/set-thumbnail-photo $user $uploadedFile");
-    # TODO: overwrite also .jpg file to share to avoid conflicts if exists there?
+    my $username = $self->param('username');
+    my $user = new EBox::Samba::User(samAccountName => $username);
+    $user->setThumbnailPhoto($uploadedFile);
 }
 
 1;
