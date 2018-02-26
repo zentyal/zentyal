@@ -1,6 +1,7 @@
 5.1
 	+ Manage thumbnailPhotos from share in samba.conf and edit user
 	  UI in commercial editions
+	+ Do not allow to add OUs inside containers
 	+ Allow to execute ad-migrate directly
 	+ Disable expiration for Kerberos service accounts
 	+ Add ZFS support for Samba Shares

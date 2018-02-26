@@ -1,6 +1,7 @@
 <%args>
     $dn
     $addGroup
+    $allowAddOU
 </%args>
 <%init>
 use EBox::Gettext;
@@ -10,7 +11,9 @@ use EBox::Gettext;
 <label><input type="radio" name="object_type" value="user" <% $addGroup ? '' : 'checked' %>><% __('User') %></label>
 <label><input type="radio" name="object_type" value="group" <% $addGroup ? 'checked' : '' %>><% __('Group') %></label>
 <label><input type="radio" name="object_type" value="contact"><% __('Contact') %></label>
+% if ($allowAddOU) {
 <label><input type="radio" name="object_type" value="ou"><% __('Organizational Unit') %></label>
+% }
 </div>
 
 <div id="addform"></div>

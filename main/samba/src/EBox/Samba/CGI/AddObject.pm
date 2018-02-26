@@ -40,9 +40,11 @@ sub _process
     my $dn = $self->unsafeParam('dn');
 
     my $addGroup = $dn =~ /^(CN|OU)=Groups,/;
+    my $allowAddOU = $dn !~ /^CN=/;
 
     push (@args, dn => $dn);
     push (@args, addGroup => $addGroup);
+    push (@args, allowAddOU => $allowAddOU);
 
     $self->{params} = \@args;
 }
