@@ -4,6 +4,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
+my $disabled = EBox::Global->edition() eq 'trial-expired';
 </%init>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <div id='modulesStatus'>
@@ -87,6 +88,7 @@ $(function() {
                 'name' => $name,
                 'id' => $name,
                 'value' => $status,
+                'disabled' => $disabled,
                 'onChange' => qq{configureModule('$name', '$title')}
 
             &>
@@ -95,6 +97,7 @@ $(function() {
                 'name' => $name,
                 'id' => $name,
                 'value' => $status,
+                'disabled' => $disabled,
                 'onChange' => qq{sendStatus('$name', this.checked); }
             &>
 %   }

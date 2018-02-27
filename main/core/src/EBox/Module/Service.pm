@@ -20,6 +20,7 @@ package EBox::Module::Service;
 
 use base qw(EBox::Module::Config);
 
+use EBox::Global;
 use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Global;
@@ -422,6 +423,8 @@ sub setInstalled
 sub isEnabled
 {
     my ($self) = @_;
+
+    return 0 if EBox::Global->edition() eq 'trial-expired';
 
     my $enabled = $self->get_bool('_serviceModuleStatus');
     if (not defined($enabled)) {

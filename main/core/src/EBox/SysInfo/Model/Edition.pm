@@ -30,6 +30,7 @@ use EBox::Types::Text;
 use EBox::Types::HTML;
 use EBox::Exceptions::External;
 use File::Slurp;
+use Time::Piece;
 use TryCatch;
 
 sub _table
@@ -85,6 +86,10 @@ sub validateTypedRow
     EBox::Sudo::silentRoot("wget --user=$key --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep Index");
     if ($? != 0) {
         throw EBox::Exceptions::External(__("License key cannot be validated. Please try again or check your Internet connection."));
+    }
+    my ($edition, $users, $expiration) = EBox::GlobalImpl->_decodeLicense($key);
+    if (localtime > $expiration) {
+        throw EBox::Exceptions::External(__("License key is expired."));
     }
 }
 

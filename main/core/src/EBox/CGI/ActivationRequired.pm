@@ -1,4 +1,4 @@
-# Copyright (C) 2017 Zentyal S.L.
+# Copyright (C) 2018 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,9 +26,10 @@ use TryCatch;
 
 sub new
 {
-    my $class = shift;
+    my ($class, %params) = @_;
+
     my $self = $class->SUPER::new('title' => __('Activation Required'),
-                                  'template' => 'activation.mas', @_);
+                                  'template' => 'activation.mas', %params);
     bless($self, $class);
     return $self;
 }
@@ -41,10 +42,11 @@ sub _process
 
     if ($key) {
         try {
+            my $url = EBox::Global->edition() eq 'trial-expired' ? '/' : '/Software/Welcome';
             my $sysinfo = EBox::Global->modInstance('sysinfo');
             my $license = $sysinfo->model('Edition');
             $license->set(key => $key);
-            $self->{redirect} = "/Software/Welcome";
+            $self->{redirect} = $url;
         } catch {
             $self->{params} = [ error => __("License key cannot be validated. Please try again or check your Internet connection.") ];
         }

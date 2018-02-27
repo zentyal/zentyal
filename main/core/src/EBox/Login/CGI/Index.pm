@@ -93,7 +93,8 @@ sub _requestDestination
 {
     my ($session) = @_;
 
-    if (EBox::Global::edition() eq 'require-activation') {
+    my $edition = EBox::Global::edition();
+    if (($edition eq 'trial-expired') or ($edition eq 'require-activation')) {
         return $ACTIVATION_DESTINATION;
     }
 

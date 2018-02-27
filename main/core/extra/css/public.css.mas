@@ -1495,8 +1495,10 @@ border-radius: 2px;
 }
 
 #activation-required{
-    margin-top: -40px;
-    width: 450px;
+    position: absolute;
+    left: -210px;
+    margin-top: 20px;
+    width: 100vw;
     text-align: center;
     background-color: #eee;
 }
@@ -1521,9 +1523,14 @@ border-radius: 2px;
     text-shadow: 2px 2px 1px rgba(0,0,0,0.2);
 }
 #activation-required #error{
+    display: inline;
     border-color:<% $error_border %>;
     background: <% $error_background %>;
     color: <% $error_color %>;
+    font-weight: normal;
+    border: 1px dashed <% $error_border %>;
+    padding: 10px 15px;
+    font-size: 14px;
 }
 
 body.first-install {
