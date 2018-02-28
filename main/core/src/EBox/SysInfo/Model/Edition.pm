@@ -33,6 +33,12 @@ use File::Slurp;
 use Time::Piece;
 use TryCatch;
 
+sub _license
+{
+    my $file = '/var/lib/zentyal/.license';
+    return (-f $file) ? read_file($file) : '';
+}
+
 sub _table
 {
     my ($self) = @_;
@@ -42,7 +48,7 @@ sub _table
     my $title = __('License Validation');
     my ($edition, $users, $expiration);
     try {
-        ($edition, $users, $expiration) = EBox::GlobalImpl->_decodeLicense(read_file('/var/lib/zentyal/.license'));
+        ($edition, $users, $expiration) = EBox::GlobalImpl->_decodeLicense(_license());
     } catch {
         $edition = 'community';
     }
@@ -62,7 +68,7 @@ sub _table
     push (@tableHead, new EBox::Types::Text(fieldName     => 'key',
                                             printableName => __('License Key'),
                                             size          => 24,
-                                            defaultValue  => sub { return `cat /var/lib/zentyal/.license` },
+                                            defaultValue  => \&_license,
                                             editable      => 1));
 
     my $dataTable =
