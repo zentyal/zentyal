@@ -424,7 +424,7 @@ sub isEnabled
 {
     my ($self) = @_;
 
-    return 0 if EBox::Global->edition() eq 'trial-expired';
+    return 0 if ($self->{name} ne 'network') and (EBox::Global->edition() eq 'trial-expired');
 
     my $enabled = $self->get_bool('_serviceModuleStatus');
     if (not defined($enabled)) {
