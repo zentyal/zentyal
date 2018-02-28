@@ -1,0 +1,27 @@
+<%args>
+$tableName
+$data
+$action
+$cssClass => ''
+$disabled => undef
+</%args>
+<%init>
+use EBox::Global;
+my $value = $action eq 'changeAdd' ?
+                not @{EBox::Global->modInstance('network')->get_list('GatewayTable/order')} :
+                $data->printableValue();
+</%init>
+<%perl>
+my $id = $tableName . '_' . $data->fieldName();
+
+my %args = ('name'  => "$id",
+    'value' => $value,
+    'id'    => "$id",
+    'class' => "$cssClass");
+
+if (not $data->editable() or $disabled) {
+  $args{'disabled'} = 'disabled';
+}
+</%perl>
+<& /input/checkbox.mas, %args &>
+<& /trailingText.mas, trailingText => $data->trailingText() &>

@@ -93,7 +93,7 @@ sub syncRows
         }
     }
 
-    my %currentIfaces = map { 
+    my %currentIfaces = map {
         my $rowId = $_;
         my $row = $self->row($rowId);
         if ($row) {
@@ -163,6 +163,8 @@ sub syncRows
 
 sub _table
 {
+    my ($self) = @_;
+
     my @tableHead =
      (
         new EBox::Types::Boolean(
@@ -209,6 +211,7 @@ sub _table
                     'printableName' => __('Default'),
                     'size' => '1',
                     'editable' => 1,
+                    'HTMLSetter' => '/network/booleanSetterDefaultGW.mas',
                     'HTMLViewer' => '/ajax/viewer/booleanViewer.mas',
                 )
      );
