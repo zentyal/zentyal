@@ -344,6 +344,68 @@ sub hostIpAddresses
     return $array;
 }
 
+# Method: getAddresses
+#
+#   Given a domain name, it returns an array ref of addresses that
+#   it contains.
+#
+# Parameters:
+#
+#   domain - String the domain's name
+#
+# Returns:
+#
+#   array ref - list of IP addresses
+#
+sub getAddresses
+{
+    my ($self, $domain) = @_;
+
+    unless (defined $domain) {
+        throw EBox::Exceptions::MissingArgument('domain');
+    }
+
+    my $domainRow = $self->model('DomainTable')->findRow(domain => $domain);
+    unless (defined $domainRow) {
+        throw EBox::Exceptions::DataNotFound(data  => __('domain'),
+                                             value => $domain);
+    }
+
+    return $self->_domainIpAddresses($domainRow->subModel('ipAddresses'));
+}
+
+# Method: allAddressesInUse
+#
+#   Returns a hash ref with all IPs of all domains
+#
+# Returns:
+#
+#  array ref with this structure data:
+#      ip - domain/host where used
+#
+sub allAddressesInUse
+{
+    my ($self) = @_;
+
+    my %ips;
+
+    foreach my $d (@{$self->domains()}) {
+        my $domain = $d->{name};
+        foreach my $h (@{$self->getHostnames($domain)}) {
+            foreach my $ip (@{$h->{ip}}) {
+                next unless $ip;
+                $ips{$ip} = $h->{name} . '.' . $domain;
+            }
+        }
+        foreach my $ip (@{$self->getAddresses($domain)}) {
+            next unless $ip;
+            $ips{$ip} = $domain;
+        }
+    }
+
+    return \%ips;
+}
+
 # Method: getServices
 #
 #   Given a domain name, it returns an array ref of SRV records that
@@ -1972,6 +2034,18 @@ sub hostDomainChangedDone
                 last;
             }
         }
+    }
+}
+
+sub checkDuplicatedIP
+{
+    my ($self, $ip) = @_;
+
+    return if EBox::Config::boolean('allow_duplicated_ips');
+
+    my $domain = $self->allAddressesInUse()->{$ip};
+    if ($domain) {
+        throw EBox::Exceptions::DataInUse(__x("The IP '{a}' already assigned in '{d}'", a => $ip, d => $domain));
     }
 }
 

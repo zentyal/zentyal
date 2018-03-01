@@ -26,7 +26,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
-use EBox::Exceptions::DataExists;
+use EBox::Exceptions::DataInUse;
 
 use EBox::Types::HostIP;
 use EBox::Types::Text;
@@ -59,6 +59,13 @@ sub pageTitle
     }
 
     return $parentRow->printableValueByName('domain');
+}
+
+sub validateRow
+{
+    my ($self, $action, %params) = @_;
+
+    $self->parentModule()->checkDuplicatedIP($params{ip});
 }
 
 # Group: Protected methods

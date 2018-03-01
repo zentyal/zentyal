@@ -1,5 +1,5 @@
 5.1
-	+ Set version to 5.1
+	+ Avoid adding same IP addresses in different domains
 5.0.3
 	+ Wait for 30 seconds instead of 5 for named listening
 	+ Make sure 127.0.0.1 is used as resolver when launching nsupdate
