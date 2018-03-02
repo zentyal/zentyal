@@ -96,20 +96,12 @@ sub syncRows
         my $currentRow  = $self->row($id);
         my $currentName = $currentRow->valueByName('name');
         $currentNames{$currentName} = 1;
-        # Check if we need to change the source
-        if (($currentRow->valueByName('source') ne 'zentyal')) {
-            my $element = $currentRow->elementByName('source');
-            $element->setValue('zentyal');
-            $currentRow->store();
-            $modified = 1;
-        }
     }
 
     my @namesToAdd = grep { not exists $currentNames{$_} } @names;
     foreach my $name (@namesToAdd) {
         my $enabled = $self->{enableDefault}->{$name} or 0;
-        my $source  = 'community';
-        $self->add(name => $name, source => $source, enabled => $enabled, decision => 'log');
+        $self->add(name => $name, enabled => $enabled, decision => 'log');
         $modified = 1;
     }
 
@@ -142,7 +134,7 @@ sub setTypedRow
 
     my $trace = new Devel::StackTrace();
     my $frame = $trace->frame(2);
-    if ( $frame->subroutine() eq 'EBox::Model::DataTable::setRow' ) {
+    if ($frame->subroutine() eq 'EBox::Model::DataTable::setRow') {
         $paramsRef->{manual} = $self->fieldHeader('manual');
         $paramsRef->{manual}->setValue(1);
     }
@@ -178,13 +170,6 @@ sub _table
             'printableName' => __('Rule Set'),
             'unique' => 1,
             'editable' => 0
-           ),
-        new EBox::Types::Select(
-            'fieldName'      => 'source',
-            'printableName'  => __('Source'),
-            'populate'       => \&_populateSource,
-            'editable'       => 0,
-            'hiddenOnSetter' => 1,
            ),
         new EBox::Types::Boolean (
             'fieldName' => 'enabled',
@@ -233,14 +218,6 @@ sub _populateActions
         { value => 'block', printableValue => __('Block') },
         { value => 'logblock', printableValue => __('Log & Block') },
     ];
-}
-
-sub _populateSource
-{
-    return [
-        { value => 'community', printableValue => __('Community') },
-        { value => 'zentyal',   printableValue => 'Zentyal Security Updates' },
-       ];
 }
 
 1;
