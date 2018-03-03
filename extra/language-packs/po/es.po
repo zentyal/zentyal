@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2016-12-11 11:53+0200\n"
+"PO-Revision-Date: 2018-03-04 00:07+0200\n"
 "Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -20,9 +20,8 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:58
-#, fuzzy
 msgid "SOGo Webmail"
-msgstr "Webmail"
+msgstr "SOGo Webmail"
 
 # Hace referencia a activar o habilitar los modulos antes dichos en el archivo de configuración de Apache "httpd.conf"
 #: ../../main/sogo/src/EBox/SOGo.pm:137
@@ -31,20 +30,19 @@ msgstr ""
 "Habilitar los módulos proxy, proxy_http y headers en el servidor Apache"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:138
-#, fuzzy
 msgid "To make SOGo Webmail be accesible at http://ip/SOGo/."
-msgstr "Para que Webmail sea accesible por http://ip/SOGo/"
+msgstr "Para que SOGo Webmail sea accesible desde http://ip/SOGo/"
 
 # FALTA la parte de {openurl}Mail -> General{closeurl}
 #: ../../main/sogo/src/EBox/SOGo.pm:158
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "SOGo Webmail module needs IMAP or IMAPS service enabled if using Zentyal "
 "mail service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
-"El módulo Webmail necesita tener habilitado el servicio IMAP o IMAPS para "
-"usar el servicio de correo de Zentyal. Puede habilitarlo en {openurl}Correo -"
-"> General{closeurl}"
+"El módulo SOGo Webmail necesita tener habilitado el servicio IMAP o IMAPS "
+"para usar el servicio de correo de Zentyal. Puede habilitarlo en "
+"{openurl}Correo -> General{closeurl}"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:180
 msgid "To configure sogo daemon"
@@ -176,9 +174,9 @@ msgid "The host name {x} is already defined in the domain {y}"
 msgstr "Ya existe un nombre de máquina llamado {x} definido en el dominio {y}"
 
 #: ../../main/dns/src/EBox/DNS.pm:2048
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP '{a}' already assigned in '{d}'"
-msgstr "La dirección {ip} ya está siendo usada por la interfaz {iface}"
+msgstr "La dirección IP '{a}' ya está asignada a '{d}'"
 
 #: ../../main/dns/src/EBox/DNS/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
@@ -534,6 +532,8 @@ msgid ""
 "Domain added. Zentyal IP addresses not added as all of them were in other "
 "domain already."
 msgstr ""
+"Dominio añadido. Las direcciones IP de Zentyal no han sido añadidas porque "
+"ya pertenecían a otro/s dominio/s."
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:582
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
@@ -888,7 +888,7 @@ msgid "The CA certificate has been revoked"
 msgstr "El certificado de la autoridad de certificación ha sido revocado"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:80
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "This configuration will not be enforced until a new certification authority "
 "is created. Go to {openhref}Certification Authority{closehref} to do so"
@@ -3145,14 +3145,12 @@ msgid "Apply Filter Profile"
 msgstr "Aplicar perfil de filtrado"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:104
-#, fuzzy
 msgid ""
 "Here you can filter, block or allow access by network object. Rules are only "
 "applied during the selected time period."
 msgstr ""
-"Aquí se puede filtrar, bloquear o permitir el acceso por usuario/grupo o por "
-"objetos de red. Las reglas sólo se aplican durante el periodo de tiempo "
-"seleccionado."
+"Aquí se puede filtrar, bloquear o permitir el acceso por objetos de red. Las "
+"reglas sólo se aplican durante el periodo de tiempo seleccionado."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:146
 #, perl-brace-format
@@ -5037,16 +5035,16 @@ msgstr "Actualizar a Zentyal 4.2"
 #: ../../main/core/src/EBox/CGI/ActivationRequired.pm:31
 #: ../../main/core/src/templates/activation.mas:5
 msgid "Activation Required"
-msgstr ""
+msgstr "Activación Requerida"
 
 #: ../../main/core/src/EBox/CGI/ActivationRequired.pm:51
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:94
-#, fuzzy
 msgid ""
 "License key cannot be validated. Please try again or check your Internet "
 "connection."
 msgstr ""
-"No se puede conectar a Zentyal Cloud. Compruebe su conexión a Internet."
+"La clave de licencia no se ha podido validar. Por favor vuelva a intentar o "
+"compruebe su conexión a Internet."
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:86
 msgid "row"
@@ -6017,9 +6015,9 @@ msgid "administrator"
 msgstr "administrador"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:126
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "User \"{user}\" already exist in Active Directory"
-msgstr "El nombre de usuario {x} ya existe en el mismo contenedor."
+msgstr "El nombre de usuario \"{user}\" ya existe en Active Directory"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:149
 #, perl-brace-format
@@ -6102,9 +6100,8 @@ msgstr ""
 "horaria."
 
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:48
-#, fuzzy
 msgid "License Validation"
-msgstr "Aplicaciones locales"
+msgstr "Validación de Licencia"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:60
 msgid "Server edition"
@@ -6116,16 +6113,16 @@ msgstr "Fecha de renovación"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:69
 msgid "License Key"
-msgstr ""
+msgstr "Clave de Licencia"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:78
 #: ../../main/core/src/templates/activation.mas:24
 msgid "Validate License"
-msgstr ""
+msgstr "Validar Licencia"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:98
 msgid "License key is expired."
-msgstr ""
+msgstr "La clave de licencia ha expirado."
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:56
 msgid ""
@@ -7853,14 +7850,12 @@ msgid "Antivirus DB updates"
 msgstr "Actualización de la base de datos del antivirus"
 
 #: ../../main/ipsec/IPsec.pm:69 ../../main/ipsec/src/EBox/IPsec.pm:69
-#, fuzzy
 msgid "To configure Librewan IPsec."
-msgstr "Para configurar OpenSwan IPsec."
+msgstr "Para configurar Libreswan IPsec."
 
 #: ../../main/ipsec/IPsec.pm:75 ../../main/ipsec/src/EBox/IPsec.pm:75
-#, fuzzy
 msgid "To configure Libreswan IPsec passwords."
-msgstr "Para configurar las contraseñas de OpenSwan IPsec"
+msgstr "Para configurar las contraseñas de Libreswan IPsec"
 
 #: ../../main/ipsec/IPsec.pm:81 ../../main/ipsec/src/EBox/IPsec.pm:81
 msgid ""
@@ -7870,9 +7865,8 @@ msgstr ""
 "Directory"
 
 #: ../../main/ipsec/IPsec.pm:194 ../../main/ipsec/src/EBox/IPsec.pm:194
-#, fuzzy
 msgid "IPsec based VPN"
-msgstr "VPN basada en L2TP"
+msgstr "VPN basada en IPsec"
 
 #: ../../main/ipsec/IPsec.pm:419 ../../main/ipsec/src/EBox/IPsec.pm:416
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:269
@@ -8045,23 +8039,20 @@ msgstr "Comentario"
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:69
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:58
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:68
-#, fuzzy
 msgid "IPsec Connections"
-msgstr "Conexiones"
+msgstr "Conexiones IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:227
-#, fuzzy
 msgid "IPsec connection"
-msgstr "Conexión L2TP"
+msgstr "Conexión IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:234
-#, fuzzy
 msgid ""
 "IPsec connections allow to deploy secure tunnels between different "
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
 "with other security devices."
 msgstr ""
-"Las conexiones L2TP permiten desplegar túneles seguros entre diferentes "
+"Las conexiones IPSec permiten desplegar túneles seguros entre diferentes "
 "subredes. Este protocolo es un estándar y permitirá conectar Zentyal con "
 "otros dispositivos de seguridad."
 
@@ -8090,12 +8081,12 @@ msgid "Not supported"
 msgstr "No soportado"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:332
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "IPsec can only be configured on interfaces tagged as 'external' Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"L2TP solo puede ser configurado sobre interfaces marcadas como 'externa'. "
+"IPsec solo puede ser configurado sobre interfaces marcadas como 'externa'. "
 "Comprueba que la configuración de tu interfaz cumple este requisito desde "
 "{openhref}Network->Interfaces{closehref}"
 
@@ -8147,11 +8138,12 @@ msgid "The Tunnel IP {localIP} is not part of any local network"
 msgstr "La IP del túnel {localIP} no forma parte de ninguna red local"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:193
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}"
 msgstr ""
-"El rango {from}-{to} ({name}) incluye la dirección IP del túnel : {localIP}"
+"El rango {from}-{to} ({name}) incluye la dirección IP del túnel "
+"seleccionada: {localIP}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:209
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:128
@@ -9733,9 +9725,8 @@ msgid "AD LDAP server does not support GSSAPI"
 msgstr "el servidor LDAP del AD no soporta GSSAPI"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:198
-#, fuzzy
 msgid "Error binding to schema master LDAP:"
-msgstr "Error haciendo LDAP bind al schema master:"
+msgstr "Error haciendo bind al LDAP schema master:"
 
 #: ../../main/software/src/EBox/Software/CGI/Updates.pm:33
 msgid "System updates"
@@ -10772,28 +10763,25 @@ msgid "Thin client file path"
 msgstr "Ruta del fichero de cliente ligero"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:169
-#, fuzzy
 msgid "Option 150"
-msgstr "Opción"
+msgstr "Opción 150"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:172
 msgid "VoIP TFTP servers: list of IP addresses separated by space"
-msgstr ""
+msgstr "Servidores TFTP VoIP: lista de direcciones IP separadas por espacios"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:176
-#, fuzzy
 msgid "Option 155"
-msgstr "Opción"
+msgstr "Opción 155"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:179
-#, fuzzy
 msgid "IP address of the ShoreTel Director server"
-msgstr "Dirección IP del servidor de hora"
+msgstr "Dirección IP del servidor ShoreTel Director"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:185
-#, fuzzy
 msgid "Thin client / External TFTP-Server / Other options for VoIP phones"
-msgstr "Cliente ligero / Servidor TFTP externo"
+msgstr ""
+"Cliente ligero / Servidor TFTP externo / Otras opciones para teléfonos VoIP"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:190
 #, perl-brace-format
@@ -11646,24 +11634,23 @@ msgid "December"
 msgstr "Diciembre"
 
 #: ../../main/core/src/templates/activation.mas:8
-#, fuzzy
 msgid "Trial Expired"
-msgstr "Expirado"
+msgstr "Periodo de prueba expirado"
 
 #: ../../main/core/src/templates/activation.mas:11
 #, perl-brace-format
 msgid "Please contact {href} if you still do not have a license key."
 msgstr ""
+"Por favor contacta con {href} si todavía no tienes una clave de licencia."
 
 #: ../../main/core/src/templates/activation.mas:12
 #, perl-brace-format
 msgid "You can get one by requesting a free 30-day trial at {href}"
-msgstr ""
+msgstr "Puedes obtener una solicitando una prueba gratuita de 30 días en {href}"
 
 #: ../../main/core/src/templates/activation.mas:21
-#, fuzzy
 msgid "Please enter your license key"
-msgstr "Por favor, introduce un valor"
+msgstr "Por favor, introduce tu clave de licencia"
 
 #: ../../main/core/src/templates/title.mas:23
 msgid "Display help notes"
@@ -12830,7 +12817,7 @@ msgstr "Confirme contraseña"
 
 #: ../../main/samba/src/templates/edituser.mas:50
 msgid "Set profile picture from .jpg file"
-msgstr ""
+msgstr "Establecer foto de perfil a partir de archivo .jpg"
 
 #: ../../main/samba/src/templates/edituser.mas:82
 msgid "User quota"
