@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2017-02-26 16:42+0200\n"
+"PO-Revision-Date: 2018-02-16 09:29+0200\n"
 "Last-Translator: Osakana <osakanataro@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ja\n"
@@ -10874,9 +10874,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:231
-#, fuzzy
 msgid "Disassociate this server"
-msgstr "このサーバを登録します"
+msgstr "このサーバを登録解除"
 
 #: ../../main/core/src/templates/remoteservices/Backup/unsubscribed.mas:6
 #, perl-brace-format
@@ -10892,9 +10891,9 @@ msgid "Restore backup: {desc}"
 msgstr "バックアップを復元：{desc}"
 
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:27
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Remote backup: {desc}"
-msgstr "バックアップを復元：{desc}"
+msgstr "リモートバックアップ：{desc}"
 
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:67
 #: ../../main/core/src/templates/backup.mas:150

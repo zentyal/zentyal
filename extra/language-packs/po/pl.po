@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2017-02-01 09:24+0200\n"
-"Last-Translator: mariachini <wisniowy@g.pl>\n"
+"PO-Revision-Date: 2018-03-02 12:43+0200\n"
+"Last-Translator: dotdll <em@kuszpit.pl>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -551,11 +551,11 @@ msgstr "Hasło tunelu serwera"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:121
 msgid "Bind port for client"
-msgstr ""
+msgstr "Przypisz port dla klienta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:129
 msgid "Bind address for client"
-msgstr ""
+msgstr "Przypisz adres dla klienta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:136
 msgid "Command to execute after routes are set"
@@ -2428,6 +2428,8 @@ msgid ""
 "The antivirus module is not configured. Enable it first in Module Status "
 "section."
 msgstr ""
+"Moduł antywirusowy nie jest skonfigurowany. Włącz go w Sekcji Statusów "
+"Modułów."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:160
 #, fuzzy
@@ -2448,6 +2450,9 @@ msgid ""
 "junk? Get one of the {oh}Commercial Editions{ch} that will keep your "
 "Antvirus database always up-to-date."
 msgstr ""
+"Chcesz chronić swój system przed oszustwami, phishingiem, kradzieżą i innymi "
+"śmieciami? Dobierz jedną z {oh}Komercyjnych Edycji{ch} dzięki której baza "
+"danych twojego Antywirusa będzie zawsze aktualna"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:169
 msgid " To configure clamd daemon"
@@ -3245,11 +3250,17 @@ msgstr ""
 msgid "Since you have not gateways you should add the first one as default"
 msgstr ""
 
+# WRONG:
+# "gaterway"
+# OK:
+# "gateway"
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:306
 msgid ""
 "You cannot remove the default attribute, if you want to change it assign it "
 "to another gaterway"
 msgstr ""
+"Nie można usunąć domyślnego atrybutu, jeżeli chcesz go zmienić, przypisz go "
+"do innej bramy"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:314
 msgid "Automatically added gateways can not be manually deleted"
@@ -3383,6 +3394,8 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:131
 msgid "Proxy username and password will be visible by all system users."
 msgstr ""
+"Nazwa użytkownika i hasło proxy będą widoczne dla wszystkich użytkowników "
+"systemu."
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:146
 #, perl-brace-format
@@ -3452,7 +3465,7 @@ msgstr "Brama używana do połączenia z powyższą siecią"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:204
 msgid "Optional description for this route"
-msgstr ""
+msgstr "Opcjonalny opis dla tej trasy"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:210
 msgid "Static Routes List"
@@ -3716,7 +3729,7 @@ msgstr "Bramy"
 
 #: ../../main/network/src/EBox/Network.pm:3289
 msgid "Tools"
-msgstr ""
+msgstr "Narzędzia"
 
 #: ../../main/objects/src/EBox/Objects.pm:39
 #: ../../main/objects/src/EBox/Objects/Model/ObjectTable.pm:85
@@ -3898,7 +3911,13 @@ msgid ""
 "This interface is not enabled. DHCP server will not serve addresses in this "
 "interface"
 msgstr ""
+"Ten interfejs nie jest włączony. Serwer DHCP nie będzie obsługiwał adresów w "
+"tym interfejsie"
 
+# WRONG:
+# "Mising"
+# OK:
+# "Missing"
 #: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:135
 msgid ""
 "Mising interface parameter. Please, navigate again to this page starting "
@@ -4237,6 +4256,8 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:164
 msgid "No interfaces enabled.  The DHCP server  will not serve any address"
 msgstr ""
+"Brak włączonych interfejsów. Serwer DHCP nie będzie obsługiwał żadnego "
+"adresu"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:166
 msgid ""
@@ -4323,15 +4344,15 @@ msgstr "Hasło musi składać się z maksymalnie {maxLength} znaków"
 
 #: ../../main/core/src/EBox/Types/Password.pm:190
 msgid "Password mismatch, make sure passwords are identical"
-msgstr ""
+msgstr "Niejednakowe hasło, upewnij się, że hasła są identyczne"
 
 #: ../../main/core/src/EBox/Types/IPRange.pm:161
 msgid "Begin of IP range"
-msgstr ""
+msgstr "Początek zakresu adresów IP"
 
 #: ../../main/core/src/EBox/Types/IPRange.pm:162
 msgid "End of IP range"
-msgstr ""
+msgstr "Koniec zakresu adresów IP"
 
 #: ../../main/core/src/EBox/Types/IPRange.pm:173
 msgid "End of range address should be smaller than start of range address"
@@ -4416,6 +4437,10 @@ msgstr ""
 msgid "Choose a value within the value set: {set}"
 msgstr ""
 
+# WRONG:
+# "HH:MM::SS"
+# OK:
+# "HH":MM:SS"
 #: ../../main/core/src/EBox/Types/Time.pm:221
 msgid "Must be in the form HH:MM::SS"
 msgstr ""
@@ -4516,7 +4541,7 @@ msgstr "Niewłaściwy typ skrzynki pocztowej: {type}"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:78
 msgid "No subscriptions available for your account"
-msgstr ""
+msgstr "Brak dostępnych subskrypcji dla Twojego konta"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:94
 #, perl-brace-format
@@ -4591,7 +4616,7 @@ msgstr "Przywróć"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:99
 msgid "Please confirm that you want to delete the following remote backup:"
-msgstr ""
+msgstr "Proszę potwierdź, że chcesz usunąć następujące zdalne kopie zapasowe:"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:105
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:107
@@ -4659,6 +4684,8 @@ msgstr "Kopia zapasowa usunięta"
 #: ../../main/core/src/EBox/RemoteServices/CGI/UnsubscribeServer.pm:52
 msgid "Server unregistered. Save changes to remove all the subscription files"
 msgstr ""
+"Serwer niezarejestrowany. Zapisz zmiany, aby usunąć wszystkie pliki "
+"subskrypcji"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/NoSubscription.pm:28
 #, fuzzy
@@ -4668,10 +4695,11 @@ msgstr "Tworzenie serwera"
 #: ../../main/core/src/EBox/RemoteServices/CGI/NoSubscription.pm:45
 msgid "You server is not registered. Check that you have a valid subscription"
 msgstr ""
+"Twój serwer nie jest zarejestrowany. Sprawdź, czy masz ważną subskrypcję"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SetSubscriptionSlot.pm:67
 msgid "You must save changes to enable your subscription"
-msgstr ""
+msgstr "Musisz zapisać zmiany, aby włączyć subskrypcję"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:51
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:38
@@ -4684,6 +4712,10 @@ msgstr "adres e-mail"
 msgid "Missing confirmation of mail address"
 msgstr "adres e-mail"
 
+# WRONG:
+# "Registation"
+# OK:
+# "Registration"
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:57
 msgid "Registation mail address does not match with its confirmation"
 msgstr ""
@@ -4696,13 +4728,15 @@ msgstr "Połączenie z zewnętrznym serwerem"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:68
 msgid "You must accept the privacy policy to register your server"
-msgstr ""
+msgstr "Musisz zaakceptować politykę prywatności, aby zarejestrować swój serwer"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:85
 msgid ""
 "This email is already registered, please use your password to add this "
 "server to your account"
 msgstr ""
+"Ten e-mail jest już zarejestrowany, użyj swojego hasła, aby dodać ten serwer "
+"do swojego konta"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:102
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:64
@@ -4875,7 +4909,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:32
 msgid "Upgrade to Zentyal 4.2"
-msgstr ""
+msgstr "Aktualizuj do wersji Zentyal 4.2"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:30
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
@@ -5007,6 +5041,8 @@ msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
 "another port or free it and retry."
 msgstr ""
+"Zentyal jest już skonfigurowany do korzystania z portu {p} dla innej usługi. "
+"Wybierz inny port lub go zwolnij i spróbuj ponownie."
 
 #: ../../main/core/src/EBox/WebAdmin.pm:862
 #, perl-brace-format
@@ -5014,6 +5050,8 @@ msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
 "and retry."
 msgstr ""
+"Port {p} jest już używany przez program '{pr}'. Wybierz inny port lub go "
+"zwolnij i spróbuj ponownie."
 
 #: ../../main/core/src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
@@ -5133,7 +5171,7 @@ msgstr "Oprogramowanie HTTP"
 
 #: ../../main/core/src/EBox/SysInfo.pm:320
 msgid "Checking updates..."
-msgstr ""
+msgstr "Sprawdzanie aktualizacji..."
 
 #: ../../main/core/src/EBox/SysInfo.pm:321
 msgid "System load"
@@ -5257,12 +5295,12 @@ msgstr ""
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:69
 #, perl-brace-format
 msgid "Failed to enable {mod}: {err}"
-msgstr ""
+msgstr "Nie udało się włączyć {mod}: {err}"
 
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:81
 #, perl-brace-format
 msgid "Failed to enable: {err}"
-msgstr ""
+msgstr "Nie udało się włączyć: {err}"
 
 #: ../../main/core/src/EBox/ServiceModule/CGI/StatusView.pm:34
 msgid "Module Status Configuration"
@@ -5289,11 +5327,11 @@ msgstr "kopia"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:104
 msgid "Sorry, an unexpected error has occurred"
-msgstr ""
+msgstr "Przepraszamy, wystąpił nieoczekiwany błąd"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:110
 msgid "Please contact support."
-msgstr ""
+msgstr "Skontaktuj się z pomocą techniczną."
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:114
 #, fuzzy, perl-brace-format
@@ -5303,7 +5341,7 @@ msgstr "Następujące pakiety zostaną zainstalowane"
 #: ../../main/core/src/EBox/View/StackTrace.pm:119
 #: ../../main/core/src/EBox/View/StackTrace.pm:129
 msgid "Show technical details"
-msgstr ""
+msgstr "Pokaż szczegóły techniczne"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:121
 #, fuzzy, perl-brace-format
@@ -5366,7 +5404,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:135
 msgid "Couldn't send the report"
-msgstr ""
+msgstr "Nie można wysłać raportu"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:137
 msgid ""
@@ -5376,7 +5414,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:140
 msgid "To do a manual report, please follow these instructions:"
-msgstr ""
+msgstr "Aby wykonać ręczny raport, postępuj zgodnie z tymi instrukcjami:"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:141
 msgid "Create a new ticket in the Zentyal bug tracker by clicking "
@@ -5389,13 +5427,15 @@ msgstr ""
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:144
 msgid "Write a short description of the problem in the summary field"
-msgstr ""
+msgstr "Napisz krótki opis problemu w polu podsumowania"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:145
 msgid ""
 "Write a detailed report of what you were doing before this problem ocurred "
 "in the description field"
 msgstr ""
+"Napisz w polu opisu szczegółowy raport o tym, co robiłeś zanim pojawił się "
+"ten problem"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:146
 msgid "Write a valid email address to be notified of ticket updates"
@@ -5452,6 +5492,8 @@ msgid ""
 "The language pack for {l} is missing, you can install it by running the "
 "following command: {c}"
 msgstr ""
+"Brak pakietu językowego dla {l}, możesz go zainstalować uruchamiając "
+"następującą komendę: {c}"
 
 #: ../../main/core/src/EBox/WebAdmin/Model/Language.pm:78
 #, fuzzy
@@ -5460,7 +5502,7 @@ msgstr "Wybór języka"
 
 #: ../../main/core/src/EBox/WebAdmin/Model/Language.pm:82
 msgid "New language selected, save changes to commit"
-msgstr ""
+msgstr "Wybrano nowy język, zapisz zmiany aby zastosować"
 
 #: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:73
 msgid ""
@@ -5479,7 +5521,7 @@ msgstr "Uaktualnianie"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:47
 msgid "You have broken packages installed, fix them before upgrading"
-msgstr ""
+msgstr "Twoje pakiety instalacyjne są uszkodzone, napraw je przed aktualizacją"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:61
 #, fuzzy
@@ -5543,11 +5585,15 @@ msgid ""
 "Service {mod} is locked by another process. Please wait its end and then try "
 "again."
 msgstr ""
+"Usługa {mod} jest zablokowana przez inny proces. Poczekaj na jego koniec i "
+"spróbuj ponownie."
 
 #: ../../main/core/src/EBox/SysInfo/CGI/RestartService.pm:62
 #, perl-brace-format
 msgid "Error restarting service {mod}. See {logs} for more information."
 msgstr ""
+"Błąd podczas restartowania usługi {mod}. Zobacz {logs}, aby uzyskać więcej "
+"informacji."
 
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:199
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:282
@@ -5709,6 +5755,8 @@ msgid ""
 "{op}As the Users module is already installed and configured, if you change "
 "the hostname you will LOSE ALL YOUR USERS DATA.{cp}"
 msgstr ""
+"{op}Ponieważ moduł Użytkownicy jest już zainstalowany i skonfigurowany, "
+"zmiana nazwy hosta spowoduje utratę WSZYSTKICH DANYCH UŻYTKOWNIKÓW.{cp}"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:87
 #, perl-brace-format
@@ -5720,7 +5768,7 @@ msgstr ""
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:90
 #, perl-brace-format
 msgid "{op}Are you sure you want to change the hostname to {new}?.{cp}"
-msgstr ""
+msgstr "{op}Czy na pewno chcesz zmienić nazwę hosta na {new}?{cp}"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:172
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:185
@@ -5738,6 +5786,8 @@ msgid ""
 "DNS names can contain only alphabetical characters (a-z), numeric characters "
 "(0-9) and the minus sign (-)"
 msgstr ""
+"Nazwy DNS mogą zawierać tylko znaki alfabetyczne (a-z), znaki numeryczne "
+"(0-9) oraz znak minus (-)"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Halt.pm:48
 msgid "Halt"
@@ -5806,6 +5856,8 @@ msgid ""
 "As the NTP synchronization with external servers is enabled, you cannot "
 "change the date or time."
 msgstr ""
+"Ponieważ włączona jest synchronizacja z zewnętrznymi serwerami NTP, nie "
+"można zmienić daty ani godziny."
 
 #: ../../main/core/src/EBox/SysInfo/Model/TimeZone.pm:52
 msgid ""
@@ -5849,6 +5901,9 @@ msgid ""
 "notified about its status, enter your email: {form}{obs}Submit crash "
 "report{cb}"
 msgstr ""
+"Dziękujemy za przesłanie raportu o awarii. Jeśli chcesz otrzymywać "
+"powiadomienia o jego stanie, podaj swój adres e-mail: {form}{obs}Prześlij "
+"raport o awarii {cb}"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:234
 #, perl-brace-format
@@ -5856,6 +5911,8 @@ msgid ""
 "Do you want a remote configuration backup of your Zentyal Server? Set it up "
 "{oh}here{ch} for FREE!"
 msgstr ""
+"Chcesz wykonać zdalną konfigurację kopii zapasowej serwera Zentyal? Zrobisz "
+"to {oh}tutaj{ch} całkowicie ZA DARMO!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:239
 #, perl-brace-format
@@ -5863,6 +5920,8 @@ msgid ""
 "Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a "
 "FREE 30-day Trial!"
 msgstr ""
+"Jesteś zainteresowany komercyjną edycją Zentyal Server? {oh}Uzyskaj{ch} "
+"BEZPŁATNĄ wersję próbną na 30 dni!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:244
 #, perl-brace-format
@@ -5987,7 +6046,7 @@ msgstr "Bieżąca konfiguracja"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:374
 msgid "Enable/disable logging per-module basis"
-msgstr ""
+msgstr "Włącz/wyłącz rejestrowanie logów dla poszczególnych modułów"
 
 #: ../../main/core/src/EBox/Logout/CGI/Index.pm:28
 #: ../../main/core/src/EBox/Html.pm:40
@@ -6073,7 +6132,7 @@ msgstr "Informacja ogólna"
 #: ../../main/core/src/EBox/RemoteServices.pm:1315
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
-msgstr ""
+msgstr "Wyłączone - {oh}Włącz{ch}"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1328
 msgid "Standard 2 days"
@@ -6108,12 +6167,12 @@ msgstr "Nieznany"
 #: ../../main/core/src/EBox/RemoteServices.pm:1344
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
-msgstr ""
+msgstr "- Ostatnia kopia zapasowa konfiguracji: {date}"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1346
 #, perl-brace-format
 msgid "{oh}Register to store your backups in the cloud{ch}"
-msgstr ""
+msgstr "{oh}Zarejestruj się, aby przechowywać kopie zapasowe w chmurze{ch}"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1351
 #: ../../main/core/src/templates/remoteservices/index.mas:35
@@ -6282,6 +6341,8 @@ msgstr ""
 #: ../../main/core/src/EBox/Backup.pm:1652
 msgid "Try to back up again as the created backup is corrupted"
 msgstr ""
+"Spróbuj wykonać kopię zapasową ponownie, zrobiona przed chwilą wygląda na "
+"uszkodzoną"
 
 #: ../../main/core/src/EBox/Model/DataForm.pm:546
 #, perl-brace-format
@@ -6363,7 +6424,7 @@ msgstr "Strona"
 #: ../../main/core/src/EBox/Model/DataTable.pm:4596
 #, perl-brace-format
 msgid "Page {i} of {n}"
-msgstr ""
+msgstr "Strona {i} z {n}"
 
 #: ../../main/core/src/EBox/Model/Composite.pm:224
 #, perl-brace-format
@@ -6431,7 +6492,7 @@ msgstr "wartość"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:119
 msgid "Previous value"
-msgstr ""
+msgstr "Poprzednia wartość"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:123
 #: ../../main/dns/src/templates/index.mas:34
@@ -7922,17 +7983,19 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:188
 msgid "Windows account names cannot end with a dot"
-msgstr ""
+msgstr "Nazwy kont systemu Windows nie mogą kończyć się kropką"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:190
 msgid "Windows account names cannot start with a dash"
-msgstr ""
+msgstr "Nazwy kont systemu Windows nie mogą zaczynać się od myślnika"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:192
 msgid ""
 "To avoid problems, the account name should consist only of letters, digits, "
 "underscores, spaces, periods, and dashes"
 msgstr ""
+"Aby uniknąć problemów, nazwa konta powinna składać się wyłącznie z liter, "
+"cyfr, podkreśleń, spacji, kropek i myślników"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:197
 #, fuzzy, perl-brace-format
@@ -8043,7 +8106,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:760
 msgid "Could not retrieve the domain information."
-msgstr ""
+msgstr "Nie można pobrać informacji o domenie."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:769
 msgid ""

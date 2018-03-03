@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2016-06-21 10:11+0200\n"
-"Last-Translator: max <ggdi@gmx-topmail.de>\n"
+"PO-Revision-Date: 2018-01-22 00:03+0200\n"
+"Last-Translator: lonesomewalker <lonesomewalker@web.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,8 @@ msgstr "Sie müssen dem Server mindestens eine Adresse {name} zuweisen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:142
 msgid "The client certificate can't be the same than the server's one"
-msgstr "Das Client Zertifik darf nicht das gleiche wie das des Servers sein"
+msgstr ""
+"Das Client-Zertifikat darf nicht identisch mit dem Server-Zertifikat sein"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:140
 msgid ""

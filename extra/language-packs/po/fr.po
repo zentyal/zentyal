@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2017-10-11 14:42+0200\n"
-"Last-Translator: gudbes <gudbes@protonmail.com>\n"
+"PO-Revision-Date: 2017-11-29 11:50+0200\n"
+"Last-Translator: fabrice <fbriand@cheznoo.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/mail/src/EBox/Mail.pm:1565
 msgid "disabled"
-msgstr "Désactiver"
+msgstr "Désactivé(e)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
@@ -3167,7 +3167,7 @@ msgstr "Serveur de résolution de nom de demaine"
 
 #: ../../main/network/src/EBox/Network/Composite/Gateway.pm:38
 msgid "Gateways Configuration"
-msgstr "Configuration des passerelles"
+msgstr "Configuration de la passerelle"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:153
 msgid "Auto"
@@ -4475,21 +4475,20 @@ msgstr "URI suit généralement le format protocole://ressource/chemin"
 #: ../../main/core/src/EBox/Types/URI.pm:124
 #, perl-brace-format
 msgid "Scheme should be one of: {schemes}, not {scheme}"
-msgstr ""
+msgstr "Protocole devrait être un parmi : {schemes}, et non pas {scheme}"
 
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:145
 #, fuzzy
 msgid "Configuration backup upload corrupted"
-msgstr "Sauvegarde des configurations activées"
+msgstr "Sauvegarde de la configuration corrompue"
 
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:146
 msgid "Try the upload again"
-msgstr ""
+msgstr "Réessayer à nouveau le téléchargement"
 
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:190
-#, fuzzy
 msgid "Server not found"
-msgstr "La page n'a pas pu être trouvée"
+msgstr "Serveur non trouvé"
 
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:194
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:36
@@ -4502,21 +4501,20 @@ msgstr "Configuration des sauvegardes"
 #: ../../main/core/src/EBox/RemoteServices/CGI/SetSubscriptionSlot.pm:51
 #, perl-brace-format
 msgid "Missing parameter: {par}"
-msgstr ""
+msgstr "Paramètre manquant: {par}"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:66
-#, fuzzy
 msgid "Invalid credentials"
-msgstr "Fichier .tar.gz invalide: {f}"
+msgstr "Autorisations invalides"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:78
 msgid "No subscriptions available for your account"
-msgstr ""
+msgstr "Aucun abonnement disponible pour votre compte"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:94
 #, perl-brace-format
 msgid "Subscribing server as name {name}"
-msgstr ""
+msgstr "Enregistrement du serveur sous le nom {name}"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Index.pm:39
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/Register.pm:40
@@ -4555,13 +4553,8 @@ msgstr "Opérations restantes pour terminer la sauvegarde"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:80
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:244
-#, fuzzy
 msgid "Backup successful"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Sauvegardé avec succès\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Sauvegarde réussie"
+msgstr "Sauvegarde réussie"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:87
 msgid ""
@@ -4602,29 +4595,8 @@ msgstr ""
 #: ../../main/mail/src/templates/warnvd.mas:25
 #: ../../main/mail/src/templates/alias.mas:16
 #: ../../main/mail/src/templates/alias.mas:76
-#, fuzzy
 msgid "Delete"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Effacer\n"
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Effacer\n"
-"#-#-#-#-#  fr.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Effacer\n"
-"#-#-#-#-#  fr.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Supprimer\n"
-"#-#-#-#-#  fr.po (ebox-software 0.12.1)  #-#-#-#-#\n"
-"Effacer\n"
-"#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Effacer\n"
-"#-#-#-#-#  fr.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Effacer\n"
-"#-#-#-#-#  fr.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Effacer\n"
-"#-#-#-#-#  fr.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Effacer\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Effacer"
+msgstr "Effacer"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:111
 msgid ""
@@ -4657,81 +4629,80 @@ msgstr "modules restants à restaurer"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:83
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:265
-#, fuzzy
 msgid "Restore successful"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Restauré avec succès\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Restauration réussie"
+msgstr "Restauré avec succès"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
 msgstr "Sauvegarde effacée"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/UnsubscribeServer.pm:52
+#, fuzzy
 msgid "Server unregistered. Save changes to remove all the subscription files"
 msgstr ""
+"Serveur retiré. Enregistrer les modifications pour supprimer tous les "
+"fichiers d'abonnement"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/NoSubscription.pm:28
-#, fuzzy
 msgid "Server unregistered"
-msgstr "Création du serveur"
+msgstr "Serveur non enregistré"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/NoSubscription.pm:45
 msgid "You server is not registered. Check that you have a valid subscription"
 msgstr ""
+"Votre serveur n'est pas enregistré. Vérifiez que vous disposez d'un "
+"abonnement valide."
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SetSubscriptionSlot.pm:67
 msgid "You must save changes to enable your subscription"
-msgstr ""
+msgstr "Vous devez enregistrer les modifications pour activer votre abonnement."
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:51
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:38
-#, fuzzy
 msgid "Missing registration mail address"
-msgstr "Nom d'utilisateur ou adresse email"
+msgstr "Adresse courriel d’enregistrement manquante"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:54
-#, fuzzy
 msgid "Missing confirmation of mail address"
-msgstr "Nom d'utilisateur ou adresse email"
+msgstr "Confirmation adresse courriel manquante"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:57
 msgid "Registation mail address does not match with its confirmation"
-msgstr ""
+msgstr "L'adresse courriel et sa confirmation ne correspondent pas"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:63
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:50
-#, fuzzy
 msgid "Missing server name"
-msgstr "Connexion extrerne au serveur"
+msgstr "Nom du serveur manquant"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:68
 msgid "You must accept the privacy policy to register your server"
 msgstr ""
+"Vous devez accepter la politique de confidentialité pour enregistrer votre "
+"serveur"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:85
 msgid ""
 "This email is already registered, please use your password to add this "
 "server to your account"
 msgstr ""
+"Cette adresse courriel est déjà enregistrée. Utilisez votre mot de passe "
+"pour ajouter ce serveur à votre compte."
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:102
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:64
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "You can now use backups for server {name}"
-msgstr "Données de trafic pour le service"
+msgstr "Vous pouvez maintenant créer  des sauvegardes pour le serveur {name}"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:44
-#, fuzzy
 msgid "Missing registration password"
-msgstr "Administrateur"
+msgstr "Mot de passe d'enregistrement manquant"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/UnRegister.pm:37
 #, fuzzy
 msgid "The server has been disassociated"
-msgstr "Le certificat a été créé."
+msgstr "Le serveur a été dissocié/retiré"
 
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Check.pm:156
 #, perl-brace-format
@@ -4739,13 +4710,15 @@ msgid ""
 "Please note that the maximum number of users for {edition} is {max} and you "
 "currently have {nUsers}."
 msgstr ""
+"Le nombre maximum d'utilisateurs pour {edition} est {max} et vous en avez "
+"actuellement {nUsers}."
 
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Validate.pm:64
 msgid ""
 "It must be a valid subdomain name. It can only contain alphanumeric and - "
 "characters"
 msgstr ""
-"Ça doit être un nom de sous-domaine valide. Il peut contenir uniquement des "
+"Doit être un nom de sous-domaine valide. Il peut contenir uniquement des "
 "caractères alphanumériques et - "
 
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Validate.pm:67
@@ -4754,7 +4727,6 @@ msgid "It cannot be greater than {n} characters"
 msgstr "Il ne peut pas contenir plus de {n} caractères"
 
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Validate.pm:70
-#, fuzzy
 msgid "It must be a valid domain name"
 msgstr "Le nom du sous-domaine doit être valide"
 
@@ -4764,9 +4736,8 @@ msgid "server name"
 msgstr "Nom du serveur"
 
 #: ../../main/core/src/EBox/RemoteServices/Exceptions/NotCapable.pm:31
-#, fuzzy
 msgid "This server is not able to do this action."
-msgstr "Le service n'est pas activé dans Zentyal"
+msgstr "Ce serveur ne peut pas effectuer cette action"
 
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:56
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:66
@@ -4793,27 +4764,24 @@ msgid "Software module is not installed"
 msgstr "Le module logiciel n'est pas installé"
 
 #: ../../main/core/src/EBox/Wizard/CGI/SoftwareSetupFinish.pm:28
-#, fuzzy
 msgid "Installation finished"
-msgstr "Installation"
+msgstr "Installation terminée"
 
 #: ../../main/core/src/EBox/CGI/Wizard.pm:28
 msgid "Initial configuration wizard"
 msgstr "Assistant de première configuration"
 
 #: ../../main/core/src/EBox/CGI/Base.pm:256
-#, fuzzy
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: ={},/.?&+:-@ and spaces are allowed."
 msgstr ""
-"L'entrée contient des caractères invalides. Tous les caractères "
-"alphanumériques, plus ceux ci non alphanumériques sont permis: /.?&+:-@ et "
-"espaces."
+"La saisie contient des caractères invalides. Sont autorisés: tous les "
+"caractères alphanumériques, ainsi que: ={},/.?&+:-@ et les espaces ."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:681
 msgid "No trace available for this error"
-msgstr ""
+msgstr "Pas d'information disponible pour cette erreur"
 
 #: ../../main/core/src/EBox/CGI/Base.pm:695
 msgid ""
@@ -4844,6 +4812,9 @@ msgid ""
 "Please look for the details in the {f} file and take a minute to {oh}submit "
 "a bug report{ch} so we can fix the issue as soon as possible."
 msgstr ""
+"Regardez les informations dans le fichier {f} et prenez une minute pour {oh} "
+"soumettre un rapport d'erreur {ch} afin de corriger au plus vite ce "
+"problème."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:834
 msgid ""
@@ -4860,72 +4831,60 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:86
 msgid "row"
-msgstr ""
+msgstr "colonne"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:90
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {rowName} \"{r}\" has been deleted"
-msgstr "Le certificat a été renouvelé"
+msgstr "{rowName} \"{r}\"  a été supprimé"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:93
 #, perl-brace-format
 msgid "The {rowName} \"{r}\" has been moved from {x} to {y} position"
-msgstr ""
+msgstr "{rowName} \"{r}\"  a été déplacé de la position {x} à {y}"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:97
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The action \"{a}\" has been executed"
-msgstr "Le certificat a été renouvelé"
+msgstr "L'action \"{a}\" a été réalisé"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:107
 #, perl-brace-format
 msgid "A new {rowName} \"{r}\" has been added with \"{f}\" set to \"{x}\""
-msgstr ""
+msgstr "Un nouveau  {rowName} \"{r}\" a été ajouté avec \"{f}\" positionné à  \"{x}\""
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:110
 #, perl-brace-format
 msgid ""
 "The field \"{f}\" in the {rowName} \"{r}\" has been changed from \"{x}\" to "
 "\"{y}\""
-msgstr ""
+msgstr "Le champ \"{f}\" dans {rowName} \"{r}\" a été modifié de \"{x}\" à  \"{y}\""
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:32
 msgid "Upgrade to Zentyal 4.2"
-msgstr ""
+msgstr "Misa à jour vers Zentyal 4.2"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:30
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
 #: ../../main/core/src/templates/ajax/treeView.mas:40
 #: ../../main/software/src/templates/ebox.mas:319
-#, fuzzy
 msgid "Search"
-msgstr ""
-"#-#-#-#-#  fr.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Rechercher\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Recherche"
+msgstr "Recherche"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:47
-#, fuzzy
 msgid "No search term"
-msgstr "Recherche d'un domaine"
+msgstr "Absence de mot recherché"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:58
-#, fuzzy
 msgid "The search term should have a length of, at least, 3 characters"
-msgstr "Le mot de passe doit comporter un minimum de {minLength} caractères"
+msgstr "Le mot recherché doit être, au minimum, de 3 caractères"
 
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:167
-#, fuzzy
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
-"#-#-#-#-#  fr.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Une erreur interne liée à une matrice s'est produite. C'est un bogue, "
-"l'information pertinente peut être trouvé dans les logs.\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Une erreur interne liée au modèle s'est produite. Cela est du à un bug, des "
+"Une erreur interne liée au modèle s'est produite. C'est une bogue, des "
 "informations pertinentes peuvent être trouvées dans les logs."
 
 #: ../../main/core/src/EBox/CGI/Progress.pm:82
@@ -4947,13 +4906,8 @@ msgstr "Sauvegarde des modifications aux modules"
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:222
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:262
 #: ../../main/core/src/templates/report/raid.mas:210
-#, fuzzy
 msgid "Current operation"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-software 0.12.1)  #-#-#-#-#\n"
-"Opération courante\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Opération en cours"
+msgstr "Opération en cours"
 
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:85
 msgid "operations performed"
@@ -5009,16 +4963,18 @@ msgid ""
 "certificate itself can be invalid, expired or has not yet come into effect. "
 "Also check the hour of your system to avoid false expirations"
 msgstr ""
+"Le contrôle du certificat du serveur {server} a échoué. Le certificat "
+"lui-même peut être invalide, expiré ou avec une date d'effet postérieure. "
+"Vérifiez également la date/heure de votre système pour éviter une expiration "
+"erronée."
 
 #: ../../main/core/src/EBox/RESTClient.pm:440
-#, fuzzy
 msgid "User and password do not match."
-msgstr "Les nouveaux mots de passe ne correspondent pas."
+msgstr "L'utilisateur et le mot de passe ne correspondent pas."
 
 #: ../../main/core/src/EBox/WebAdmin.pm:66
-#, fuzzy
 msgid "Zentyal Webadmin"
-msgstr "Domaine Zentyal"
+msgstr "Administrateur Zentyal"
 
 #: ../../main/core/src/EBox/WebAdmin.pm:684
 msgid "Zentyal Administration Web Server"
@@ -5030,6 +4986,8 @@ msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
 "another port or free it and retry."
 msgstr ""
+"Le port {p} est déjà configuré pour un autre service dans  Zentyal. "
+"Choisissez un autre port ou libérez celui-ci puis réessayez. "
 
 #: ../../main/core/src/EBox/WebAdmin.pm:862
 #, perl-brace-format
@@ -5037,6 +4995,8 @@ msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
 "and retry."
 msgstr ""
+"Le port {p} est déjà utilisé par le programme '{pr}'. Choisissez un autre "
+"port ou libérez celui-ci puis réessayez."
 
 #: ../../main/core/src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
@@ -5056,7 +5016,7 @@ msgstr "protocole"
 
 #: ../../main/core/src/EBox/Util/Nmap.pm:63
 msgid "Only 'tcp' and 'udp' are supported"
-msgstr ""
+msgstr "Seuls 'tcp' et 'udp' sont supportés"
 
 #: ../../main/core/src/EBox/Util/Nmap.pm:105
 msgid "No hosts scanned, maybe you cannot resolve DNS names?"
@@ -5067,6 +5027,8 @@ msgid ""
 "Cannot create software packages cache. Make sure that your sources and "
 "preferences files in /etc/apt are readable and retry"
 msgstr ""
+"Ne peut pas créer le cache pour les logiciels. Assurez vous que vos sources "
+"et préférences dans /etc/apt sont accessibles en lecture puis réessayez"
 
 #: ../../main/core/src/EBox/GlobalImpl.pm:583
 #, perl-brace-format
@@ -5095,13 +5057,8 @@ msgstr "Panneau de contrôle"
 
 #: ../../main/core/src/EBox/SysInfo.pm:98
 #: ../../main/core/src/EBox/SysInfo.pm:229
-#, fuzzy
 msgid "Module Status"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Statut du Module\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Statut des modules"
+msgstr "Etat des modules"
 
 #: ../../main/core/src/EBox/SysInfo.pm:105
 #: ../../main/core/src/EBox/RemoteServices.pm:1221
@@ -5117,7 +5074,7 @@ msgstr "Date/heure"
 #: ../../main/core/src/EBox/SysInfo.pm:123
 #: ../../main/core/src/EBox/SysInfo/Model/Debug.pm:45
 msgid "Debug"
-msgstr ""
+msgstr "Déboguer"
 
 #: ../../main/core/src/EBox/SysInfo.pm:128
 msgid "Halt/Reboot"
@@ -5132,9 +5089,8 @@ msgid "Process List"
 msgstr "Liste des processus"
 
 #: ../../main/core/src/EBox/SysInfo.pm:248
-#, fuzzy
 msgid "Resources"
-msgstr "Ressource"
+msgstr "Ressources"
 
 #: ../../main/core/src/EBox/SysInfo.pm:307
 msgid "available"
@@ -5155,22 +5111,16 @@ msgid "Core version"
 msgstr "Version de base de l'eBox"
 
 #: ../../main/core/src/EBox/SysInfo.pm:320
-#, fuzzy
 msgid "Software"
-msgstr "Logiciel HTTP"
+msgstr "Logiciel"
 
 #: ../../main/core/src/EBox/SysInfo.pm:320
 msgid "Checking updates..."
-msgstr ""
+msgstr "Vérification des mises à jour..."
 
 #: ../../main/core/src/EBox/SysInfo.pm:321
-#, fuzzy
 msgid "System load"
-msgstr ""
-"#-#-#-#-#  fr.po (EBox-monitor 1.1)  #-#-#-#-#\n"
-"Charge système\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Charge du système"
+msgstr "Charge du système"
 
 #: ../../main/core/src/EBox/SysInfo.pm:322
 msgid "Uptime"
@@ -5232,54 +5182,34 @@ msgid "Lifetime parameter must be a positive number of hours"
 msgstr "Le paramètre de durée de vie doit être une nombre positif d'heures"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:65
-#, fuzzy
 msgid ""
 "There is a script which has asked to run in Zentyal exclusively. Please, "
 "wait patiently until it is done"
 msgstr ""
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Il y a un script qui a demandé à se lancer sur le serveur Zentyal en mode "
-"exclusif. Merci de patienter jusqu'à la fin de son exécution\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Un script a demandé une exécution exclusive sur Zentyal. Veuillez patientez "
-"jusqu'à la fin de son exécution"
+"Un script a demandé à s'exécuter en mode exclusif sur le serveur Zentyal "
+"Merci de patienter jusqu'à la fin de son exécution"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:68
 msgid "Your session was not valid anymore"
-msgstr ""
+msgstr "Votre session a expiré"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:70
-#, fuzzy
 msgid "Incorrect password"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Mot de passe incorrect\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Mot de passe incorrect."
+msgstr "Mot de passe erroné"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:72
-#, fuzzy
 msgid "For security reasons your session has expired due to inactivity"
 msgstr ""
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Pour des raisons de sécurité votre session a expirée pour cause "
-"d'inactivité\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
 "Votre session a expiré pour raisons de sécurité suite à votre inactivité"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:74
-#, fuzzy
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Vous avez été déconnecté car une nouvelle session a été ouverte\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Vous avez été deconnecté de cette session suite à l'ouverture d'une nouvelle"
+msgstr "Vous avez été déconnecté car une nouvelle session a été ouverte"
 
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:76
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Unknown error: '{error}'"
-msgstr "Mode de restauration inconnu : {mode}"
+msgstr "Erreur inconnu:  '{error}'"
 
 #: ../../main/core/src/EBox/Module/Service.pm:442
 #, perl-brace-format
@@ -5287,11 +5217,13 @@ msgid ""
 "{mod} module is disabled. Don't forget to enable it on the {oh}Module "
 "Status{ch} section, otherwise your changes won't have any effect."
 msgstr ""
+"Le module {mod} est désactivé. Pensez à l'activer dans la section {oh}Etat "
+"du module Status{ch},sinon vos modifications seront sans effets."
 
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:69
 #, perl-brace-format
 msgid "Failed to enable {mod}: {err}"
-msgstr ""
+msgstr "Echec de l'activation {mod}: {err}"
 
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:81
 #, perl-brace-format
