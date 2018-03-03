@@ -66,7 +66,7 @@ sub usedFiles
     push (@conf_files, {
         'file' => IPSECCONFFILE,
         'module' => 'ipsec',
-        'reason' => __('To configure Librewan IPsec.')
+        'reason' => __('To configure Libreswan IPsec.')
     });
 
     push (@conf_files, {
