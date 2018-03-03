@@ -9,23 +9,25 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2012-08-28 00:34+0200\n"
+"PO-Revision-Date: 2016-01-10 01:36+0200\n"
 "Last-Translator: Basas <vytautas@basas.lt>\n"
 "Language-Team: none\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/mail/src/EBox/Mail.pm:1565
+#, fuzzy
 msgid "disabled"
 msgstr "išjungta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
+#, fuzzy
 msgid "Server's address"
 msgstr "Serverio adresas"
 
@@ -35,6 +37,7 @@ msgid "You must provide at least one address for the server {name}"
 msgstr "Jūs turite nurodyti bent vieną adresą serveriui {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:142
+#, fuzzy
 msgid "The client certificate can't be the same than the server's one"
 msgstr "Kliento sertifikatas negali būti toks koks serverio"
 
@@ -315,7 +318,7 @@ msgstr "Aptarnaujamas tinklas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You can add here those networks which you want to make available to "
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
@@ -425,19 +428,16 @@ msgstr ""
 "modulį ir sukurti naują sertifikatą"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
-#, fuzzy
 msgid "revoked"
 msgstr "Atšauktas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
-#, fuzzy
 msgid "expired"
 msgstr "Negalioja"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
-#, fuzzy
 msgid "invalid"
-msgstr "Galioja"
+msgstr "klaidingas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:349
 #, perl-brace-format
@@ -446,6 +446,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"Negalima sukurti serverio {name} nes jau egzistuoja sertifikatas {certName} "
+"kurio statusas {state} <br/> Pasirinkite kitą vardą arba panaudokite "
+"{certName} sertifikatą"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -495,9 +498,8 @@ msgstr "Kliento privatus raktas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:109
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:95
-#, fuzzy
 msgid "TUN interface"
-msgstr "sąsaja"
+msgstr "TUN sąsaja"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:115
 msgid "Server tunnel password"
@@ -536,6 +538,7 @@ msgid ""
 "The uploaded certificates and/or private key are not valid. File: {file}, "
 "Error: {err}"
 msgstr ""
+"Įkeltas sertikatas ar privatus raktas negalioja. Byla: {file}, Klaida: {err}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
@@ -550,9 +553,8 @@ msgid "OpenVPN installer for Microsoft Windows"
 msgstr "OpenVPN diegimo vedlys Microsoft Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
-#, fuzzy
 msgid "Connection strategy"
-msgstr "Prisijungimo statusas"
+msgstr "Prisijungimo strategija"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
@@ -571,7 +573,6 @@ msgid "Additional server address (optional)"
 msgstr "Papildomi serverio adresai (nebūtinas)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
-#, fuzzy
 msgid "Second additional server address (optional)"
 msgstr "Papildomi serverio adresai (nebūtinas)"
 
@@ -588,12 +589,11 @@ msgstr "Parsisiųsti"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
-msgstr ""
+msgstr "Atsitiktinai"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
-#, fuzzy
 msgid "Failover"
-msgstr "WAN atsarginė linija"
+msgstr "Automatinis"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
@@ -646,7 +646,7 @@ msgstr ""
 msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
-msgstr ""
+msgstr "Nera sertifikato šiam klientui. Prašome {ohref} sukurti naują{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -679,9 +679,8 @@ msgid "Network Address Translation"
 msgstr "Tinklo adreso perdavimas (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
-#, fuzzy
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr "Įjungti jei šis VPN naudojamas prisijungimui prie kito Zentyal"
+msgstr "Įjungti jei šis VPN serveris yra ne maršrutizatorius"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
@@ -705,7 +704,7 @@ msgstr "Zentyal-į-Zentyal tunelio slaptažodis"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Atmesti maršrutus pateiktus Zentyal tunelio klientų"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""

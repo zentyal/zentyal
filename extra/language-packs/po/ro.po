@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-04-15 14:51+0200\n"
-"Last-Translator: DH2706 <daniel.helmenstein@gmail.com>\n"
+"PO-Revision-Date: 2017-06-20 15:43+0200\n"
+"Last-Translator: razvan.mandalac <razvan.mandalac@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -317,7 +317,7 @@ msgstr "Rețea promovată"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You can add here those networks which you want to make available to "
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
@@ -326,7 +326,10 @@ msgid ""
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
 "{openpar}Puteți introduce aici rețelele la care doriți să se poată conecta "
-"utilizatorii VPN{closepar}"
+"utilizatorii VPN{closepar}{openpar}De obicei se permite accesul la rețeaua "
+"LAN prin promovarea adresei aici.{closepar}{openparDacă o adresă de rețea "
+"promovată este la fel ca adresa de rețea VPN, rețeaua promovată este "
+"ignorată{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -553,6 +556,8 @@ msgid ""
 "The uploaded certificates and/or private key are not valid. File: {file}, "
 "Error: {err}"
 msgstr ""
+"Certificatul incarcat si/sau cheia privata invalida. Fisier: {file}, Eroare: "
+"{err}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
@@ -638,22 +643,28 @@ msgstr ""
 msgid ""
 "Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
 msgstr ""
+"Tip client invalid: serverul este destinat unui tunel de la Zentyal la "
+"Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
-msgstr ""
+msgstr "Instalarea este disponibilă numai pentru clienții Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:300
 msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr ""
+"Un pachet de client este un fișier ce conține o configurație gata de "
+"utilizare pentru clienții dumneavoastră"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:333
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
+"Nu se poate face un pachet deoarece serverul  nu este complet configurat; vă "
+"rugăm să completați configurația și reîncercați"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:343
 #, perl-brace-format
@@ -661,22 +672,24 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Nu exista certificate disponibile pentru acest client. Va rog {ohref} sa "
+"creati unul {chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
-msgstr ""
+msgstr "Adresa VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:71
 msgid "Use a network address which is not used by this machine"
-msgstr ""
+msgstr "Folositi o adresa de retea care nu este folosita de aceasta masina"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:77
 msgid "Server certificate"
-msgstr ""
+msgstr "Certificat server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:84
 msgid "Client authorization by common name"
-msgstr ""
+msgstr "Autorizare client prin nume comun"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:86
 msgid ""
@@ -684,43 +697,51 @@ msgid ""
 "to connect. If enabled, only certificates whose common name begins with the "
 "selected value will be able to connect."
 msgstr ""
+"Daca este dezactivat, orice client cu un certificat generat de Zentyal se va "
+"putea conecta. Daca este activat, doar certificatele ale caror nume incep "
+"cu valoarea selectat, se vor putea conecta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:101
 msgid "Network Address Translation"
-msgstr ""
+msgstr "Translatarea Adresei de Retea (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr ""
+msgstr "Activeaza daca acest server VPN nu este gateway implicit"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
-msgstr ""
+msgstr "Permite conexiuni client-la-client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:111
 msgid "Enable it to allow client machines of this VPN to see each other"
 msgstr ""
+"Activeaza pentru a permite masinilor client ale acestui VPN sa se vada intre "
+"ele"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:116
 msgid "Allow Zentyal-to-Zentyal tunnels"
-msgstr ""
+msgstr "Permite tunele Zentyal-la-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:119
 msgid "Enable it if this VPN is used to connect to another Zentyal"
 msgstr ""
+"Activeaza optiunea daca acest VPN este folosit la conectarea cu alt Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:124
 msgid "Zentyal-to-Zentyal tunnel password"
-msgstr ""
+msgstr "Parola tunel Zentyal-la-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Respinge rutele trimise de clientii tunelului Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Daca este bifata aceasta optiune, server-ul nu va primi nicio ruta anuntata "
+"de clientul sau"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
@@ -12667,66 +12688,71 @@ msgstr "Drepturi de adminstrare"
 
 #: ../../main/samba/src/templates/editcontact.mas:35
 msgid "Contact groups"
-msgstr ""
+msgstr "Grupuri de contact"
 
 #: ../../main/samba/src/templates/editcontact.mas:90
 msgid "This contact is not member of any group"
-msgstr ""
+msgstr "Acest contact nu este membru al niciunui grup"
 
 #: ../../main/samba/src/templates/addcontact.mas:7
 msgid "Add Contact"
-msgstr ""
+msgstr "Adaugă contact"
 
 #: ../../main/samba/src/templates/delgroup.mas:10
 #: ../../main/samba/src/templates/delgroup.mas:27
 msgid "Delete group"
-msgstr ""
+msgstr "Șterge grupul"
 
 #: ../../main/samba/src/templates/delgroup.mas:13
-#, fuzzy
 msgid "This group cannot be deleted"
-msgstr "Acest grup conţine utilizatorii"
+msgstr "Acest grup nu poate fi șters"
 
 #: ../../main/samba/src/templates/delgroup.mas:15
 msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
 msgstr ""
+"Această operație va duce la ștergerea grupului și a tuturor datele "
+"dependente, precum director partajat etc."
 
 #: ../../main/mail/src/templates/groupalias.mas:23
 #: ../../main/mail/src/templates/alias.mas:30
 msgid "Mail alias"
-msgstr ""
+msgstr "Alias pentru email"
 
 #: ../../main/mail/src/templates/groupalias.mas:68
 msgid "Group aliases cannot be created for a group without mail account"
 msgstr ""
+"Alias-ul de grup nu poate fi creat pentru un grup care nu are cont de email"
 
 #: ../../main/mail/src/templates/groupalias.mas:69
 msgid ""
 "Group aliases cannot be created for a group without a mail account belonging "
 "to a mail domain managed by Zentyal"
 msgstr ""
+"Alias-ul de grup nu poate fi creat pentru un grup care nu are cont de email "
+"care aparține unui domeniu de email gestionat de Zentyal"
 
 #: ../../main/mail/src/templates/warnvd.mas:12
-#, fuzzy
 msgid "Deleting virtual domain"
-msgstr "Domeniu Zentyal"
+msgstr "Șterge domeniul Zentyal"
 
 #: ../../main/mail/src/templates/warnvd.mas:13
 msgid ""
 "The virtual domain you tried to delete contains data in the following "
 "modules. Please confirm you want to remove it and all its related data"
 msgstr ""
+"Domeniul virtual pe care încercați să-l ștergeți conține date în următoarele "
+"module. Vă rugăm confirmați că doriți eliminarea lui și a tuturor datelor "
+"aferente"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:9
-#, fuzzy
 msgid "Delete external account"
-msgstr "Intrare externă"
+msgstr "Șterge contul extern"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:17
 msgid "Don't delete retrieved mail from external server"
-msgstr ""
+msgstr "Nu șterge emailuri preluate de pe un server extern"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:19
 msgid "Fetch already read messages"
@@ -12738,14 +12764,16 @@ msgid ""
 "Mail retrieval from external accounts service is not enabled; until you {ub}"
 "enable it{ue} your changes won't have any effect."
 msgstr ""
+"Serviciul de retragere email dintr-un cont extern nu este activ. Până când "
+"nu-l {ub}activați{ue} schimbările nu vor avea efect"
 
 #: ../../main/mail/src/templates/alias.mas:26
 msgid "Create mail aliases"
-msgstr ""
+msgstr "Creează un alias pentru email"
 
 #: ../../main/mail/src/templates/alias.mas:183
 msgid "No quota"
-msgstr ""
+msgstr "Fără cotă"
 
 #: ../../main/mail/src/templates/alias.mas:184
 msgid "Default quota"
@@ -12838,16 +12866,17 @@ msgstr "Domeniu email virtual "
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:9
 msgid "Set up the default virtual mail domain"
-msgstr ""
+msgstr "Configurează domeniul virtual pentru email"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:9
 msgid "This will be the domain for your mail accounts"
-msgstr ""
+msgstr "Acesta este domeniul pentru contul de email"
 
 #: ../../main/mail/src/templates/moduleDisabled.mas:5
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr ""
+"Următoarele configurări vor avea efect când modulul de email este activat"
 
 #, fuzzy
 #~ msgid "Configure mode"

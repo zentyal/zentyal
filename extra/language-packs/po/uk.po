@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-11-14 23:24+0200\n"
-"Last-Translator: heachhog <admin@mastercluster.net>\n"
+"PO-Revision-Date: 2016-08-03 01:49+0200\n"
+"Last-Translator: Andrii <locustsucol@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -27,7 +27,7 @@ msgstr "вимкнено"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr "Адреса сервера"
+msgstr "Адреса серверу"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
@@ -36,14 +36,14 @@ msgstr "Ви повинні надати хоча б одну адресу дл�
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:142
 msgid "The client certificate can't be the same than the server's one"
-msgstr "Сертифікат клієнта не може бути таким же як у сервера"
+msgstr "Сертифікат клієнта не може бути таким самим як у сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:140
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
-"Цей набір не є допустимим Zentyal-для-Zentyal набором конфігурації. "
+"Цей пакет не є допустимим Zentyal-to-Zentyal пакетом конфігурації. "
 "(Неможливо розпакувати)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
@@ -51,75 +51,75 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
-"Цей набір не є допустимим Zentyal-для-Zentyal набором конфігурації. "
-"(Відсутній файл конфігурації для сервера)"
+"Цей пакет не є допустимим Zentyal-to-Zentyal пакетом конфігурації. "
+"(Відсутній файл конфігурації серверу)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
-"Цей набір не є допустимим Zentyal-для-Zentyal набором конфігурації. "
-"(Відсутній файл сертифіката CA)"
+"Цей пакет не є допустимим Zentyal-to-Zentyal пакетом конфігурації. "
+"(Відсутній файл CA сертифікату)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
-"Цей набір не є допустимим Zentyal-для-Zentyal набором конфігурації. "
-"(Відсутній файл сертифіката)"
+"Цей пакет не є допустимим Zentyal-to-Zentyal пакетом конфігурації. "
+"(Відсутній файл сертифікату)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:192
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
-"Цей набір не є допустимим Zentyal-для-Zentyal набором конфігурації."
-"(Відсутній приватний ключ сертифіката)"
+"Цей пакет не є допустимим Zentyal-to-Zentyal пакетом конфігурації. "
+"(Відсутній файл приватного ключа сертифікату)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr "Неіснуючий файл сертифіката СА {p}"
+msgstr "Неіснуючий файл CA сертифікату {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr "Неіснуючий файл сертифіката клієнта {p}"
+msgstr "Неіснуючий файл сертифікату клієнта {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr "Неіснуючий приватний ключ сертифіката {p}"
+msgstr "Неіснуючий файл приватного ключа сертифікату {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr "Файл, наданий як сертифікат CA, недійсний"
+msgstr "Файл, наданий як CA сертифікат - недійсний"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
-msgstr "Файл, наданий як клієнтський сертифікат, недійсний"
+msgstr "Файл, наданий як сертифікат клієнта - недійсний"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr "Файл, наданий як приватний ключ сертифіката, недійсний"
+msgstr "Файл, наданий як приватний ключ клієнта - недійсний"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
-"Файл, наданий як клієнтський сертифікат не відповідає файлу наданому, як "
-"сертифікат CA"
+"Файл, наданий як сертифікат клієнту, не відповідає файлу, наданому як CA "
+"сертифікат"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:131
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
-"Файл, наданий як клієнтський сертифікат, не відповідає файлу наданому "
-"приватному ключу сертифіката"
+"Файл, наданий як сертифікат клієента, не відповідає файлу, наданому як "
+"приватнй ключ сертифікату"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:320
 #, perl-brace-format
@@ -127,8 +127,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
 msgstr ""
-"VPN клієнт не повинен бути налаштований для підключення до адреси {addr} , "
-"так як це його власна локальна адреса"
+"VPN клієнт не повинен бути налаштований для підключення до адреси {addr}, "
+"оскільки це його власна локальна адреса"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:337
 #, perl-brace-format
@@ -137,12 +137,12 @@ msgid ""
 "is a address of a local network interface"
 msgstr ""
 "VPN клієнт не повинен бути налаштований для підключення до адреси {addr} , "
-"так як це адреса локального мережевого інтерфейсу"
+"оскільки це адреса локального мережевого інтерфейсу"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
 msgid "Client {name}"
-msgstr "Кліент {name}"
+msgstr "Клієнт {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:890
@@ -177,7 +177,7 @@ msgstr "Ввімкнено"
 #: ../../main/openchange/src/templates/openchange_group.mas:15
 #: ../../main/samba/src/templates/edituser.mas:279
 msgid "Disabled"
-msgstr "Відключено"
+msgstr "Вимкнено"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:555
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:891
@@ -185,19 +185,19 @@ msgstr "Відключено"
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:119
 msgid "Service"
-msgstr "Служба"
+msgstr "Сервіс"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:893
 #: ../../main/core/src/EBox/SysInfo.pm:465
 msgid "Running"
-msgstr "Працює"
+msgstr "Виконується"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:893
 #: ../../main/core/src/EBox/SysInfo.pm:470
 msgid "Stopped"
-msgstr "Зупинена"
+msgstr "Зупинено"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -205,25 +205,24 @@ msgid "Daemon status"
 msgstr "Статус демона"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:566
-#, fuzzy
 msgid "Connection target"
-msgstr "Ціль з'єднання"
+msgstr "Об'єкт підключення"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:570
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:918
 msgid "VPN interface address"
-msgstr "Адреса інтерфейсу VPN"
+msgstr "Адреса VPN інтерфейсу"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:917
 msgid "No active"
-msgstr "Не активний"
+msgstr "Неактивний"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:137
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr "Порт {p}/{pro} уже використовується"
+msgstr "Порт {p}/{pro} вже використовується"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:233
 #, perl-brace-format
@@ -251,8 +250,8 @@ msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
 msgstr ""
-"Неможливо отримати ключ сервера {name}, так як він не має жодного "
-"встановленого сертифіката"
+"Неможливо отримати ключ сервера {name}, оскільки він не має жодного "
+"встановленого сертифікату"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:495
 #, perl-brace-format
@@ -260,17 +259,17 @@ msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
 msgstr ""
-"Неможливо налаштувати VPN сервер {name} оскільки не знайдена IP-адреса для "
+"VPN сервер {name} не може бути налаштованим, не знайдена IP-адреса "
 "інтерфейсу {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:617
 msgid "OpenVPN servers cannot be used for internal services"
-msgstr "Сервери OpenVPN не можуть використовуватися для внутрішніх служб"
+msgstr "OpenVPN сервери не можуть використовуватися для внутрішніх сервісів"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:645
 #, perl-brace-format
 msgid "Unsupported client type: {ct}"
-msgstr "Тип клієнта не підтримужться: {ct}"
+msgstr "Непідтримуваний тип клієнта: {ct}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:888
 #, perl-brace-format
@@ -280,7 +279,7 @@ msgstr "Сервер {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:899
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:246
 msgid "All network interfaces"
-msgstr ""
+msgstr "Всі мережеві интерфейси"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:901
 msgid "Not found"
@@ -324,11 +323,11 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
-"{openpar} Сюди можна додати ті мережі, які повинні бути доступні клієнтам "
-"цього VPN. {closepar} {openpar} Зазвичай, для дозволу доступу до вашої LAN "
-"необхідно оголосити адресу мережі тут {closepar} {openpar} При збігу "
-"зазначеної адреси мережі з адресою мережі VPN, зазначена мережа буде "
-"проігнорована. {closepar}"
+"{openpar} Сюди можна додати ті мережі, які ви хочете зробити доступними "
+"клієнтам, що під'єднуються до цього VPN.{closepar}{openpar}Ти зможеш надати "
+"доступ до своєї LAN оголошенням її мережевої адреси "
+"тут.{closepar}{openpar}Якщо оголошена мережева адреса має збіг із мережевою "
+"адресою VPN, то оголошена мережа буде ігнорована.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -387,9 +386,9 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority "
 "module{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar} Вам необхідний дійсний сертифікат CA для використання VPN "
-"серверів. {closepar} {openpar} Будь ласка, перейдіть {openhref} в модуль "
-"менеджера сертифікатів {closehref} і обновіть його. {closepar}"
+"{openpar} Вам необхідний дійсний CA сертифікат для використання VPN "
+"серверів. {closepar}{openpar}Будь ласка, перейдіть {openhref} у модуль "
+"керування сертифікатами{closehref} та оновіть його.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
 #, perl-brace-format
@@ -398,6 +397,9 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority "
 "module{closehref} and create it.{closepar}"
 msgstr ""
+"{openpar}Тобі потрібно створити CA сертифікат для використання VPN серверів. "
+"{closepar}{openpar}Будь ласка, перейди до модуля керування "
+"сертифікатами{closehref} та створи його.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
@@ -408,10 +410,12 @@ msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Неможливо активувати сервер, оскільки його не повністю сконфігуровано; будь "
+"ласка, відредагуй конфігурацію та повтори спробу"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:298
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr "Неможливо створити сервер, тому що CA сертифікат відсутній"
+msgstr "Неможливо створити сервер, оскільки немає CA сертифікату"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:323
 #, perl-brace-format
@@ -419,18 +423,20 @@ msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"
 msgstr ""
+"{act} є неможливим, оскільки немає доступних сертифікатів. Будь ласка, "
+"перейди до модуля керування сертифікатами, та створи нові сертифікати"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 msgid "revoked"
-msgstr ""
+msgstr "анульовано"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
 msgid "expired"
-msgstr ""
+msgstr "протерміновано"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
 msgid "invalid"
-msgstr "неправильний"
+msgstr "недійсний"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:349
 #, perl-brace-format
@@ -439,6 +445,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"Неможливо створити сервер з ім'ям {name}, оскільки вже існує сертифікат з "
+"ім'ям {certName} із станом {state}.<br/>Обери інше ім'я, або перествори "
+"сертифікат {certName}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -450,6 +459,14 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
+"{openpar}Ти можеш настроїти OpenVPN сервери для легкого під'єднання "
+"віддалених офісів або користувачів.{closepar}{openpar}Натисни на "
+"{openit}Конфігурація{closeit} щоб встановити параметри "
+"VPN.{closepar}{openpar}{openit}Оголошені мережі{closeit} дозволяють тобі "
+"сконфігурувати які саме мережі ти бажаєш зробити доступними для віддалених "
+"користувачів.{openpar}Як тільки ти закінчиш із конфігурацією, ти можеш "
+"завантажити пакетний файл для твоєї операційної системи для використання "
+"клієнтами."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:49
@@ -468,7 +485,7 @@ msgstr "Порт сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:73
 msgid "CA's certificate"
-msgstr "CA-сертифікат"
+msgstr "CA сертифікат"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
@@ -482,23 +499,23 @@ msgstr "Приватний ключ клієнта"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:109
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:95
 msgid "TUN interface"
-msgstr "інтерфейс TUN"
+msgstr "TUN інтерфейс"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:115
 msgid "Server tunnel password"
-msgstr "Пароль тунеля сервера"
+msgstr "Пароль сервера тунеля"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:121
 msgid "Bind port for client"
-msgstr ""
+msgstr "Прив'язати порт для клієнта"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:129
 msgid "Bind address for client"
-msgstr ""
+msgstr "Прив'язати адресу для клієнта"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:136
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "Команда на виконання після встановлення маршрутів"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:146
 msgid "Client configuration"
@@ -513,7 +530,7 @@ msgstr "клієнт"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:236
 #, perl-brace-format
 msgid "No file supplied or already set for {f}"
-msgstr ""
+msgstr "Не існує або не вказаний файл для {f}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:266
 #, perl-brace-format
@@ -521,6 +538,8 @@ msgid ""
 "The uploaded certificates and/or private key are not valid. File: {file}, "
 "Error: {err}"
 msgstr ""
+"Завантажені сертифікати та/або приватний ключ не є дійсними. Файл: {file}, "
+"Помилка: {err}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
@@ -528,7 +547,7 @@ msgstr "Тип клієнта"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:67
 msgid "Add OpenVPN's installer to bundle"
-msgstr "Додати інсталятор OpenVPN в пакет"
+msgstr "Додати інсталятор OpenVPN у пакет"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:69
 msgid "OpenVPN installer for Microsoft Windows"
@@ -536,25 +555,27 @@ msgstr "Інсталятор OpenVPN для Microsoft Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
 msgid "Connection strategy"
-msgstr ""
+msgstr "Стратегія з'єднання"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
-msgstr "Адреса сервера"
+msgstr "Адреса серверу"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:81
 msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
 msgstr ""
+"Це адреса, що буде використана твоїми клієнтами для з'єднання із сервером. "
+"Як правило, це є публічний IP або ім'я хосту"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:87
 msgid "Additional server address (optional)"
-msgstr ""
+msgstr "Додаткова адреса серверу (необов'язково)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
 msgid "Second additional server address (optional)"
-msgstr ""
+msgstr "Друга додаткова адреса серверу (необов'язково)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
 msgid "Download Client Bundle"
@@ -569,51 +590,59 @@ msgstr "Завантажити"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
-msgstr ""
+msgstr "Випадковий"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
 msgid "Failover"
-msgstr ""
+msgstr "Відмовостійкість"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
-msgstr ""
+msgstr "Zentyal-to-Zentyal тунель"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
+"Неможливо створити пакет, оскільки сервер сконфігуровано не повністю; будь "
+"ласка, відредагуй конфігурацію та спробуй ще раз"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:196
 msgid "Cannot use for the bundle the server's certificate"
-msgstr ""
+msgstr "Неможливо використати для пакету сертифікат серверу"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:212
 msgid ""
 "Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels"
-msgstr ""
+msgstr "Невірний тип клієнта: сервер не дозволяє Zentyal-to-Zentyal тунелі"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:220
 msgid ""
 "Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
 msgstr ""
+"Невірний тип клієнта: сервер налаштований тільки для Zentyal-to-Zentyal "
+"тунелів"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
-msgstr ""
+msgstr "Інсталятор доступний тільки для Windows клієнтів"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:300
 msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr ""
+"Клієнтський пакет є файлом, що має готову для використання конфігурацію для "
+"твоїх клієнтів"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:333
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
+"Неможливо створити пакет, оскільки  сервер не є повністю сконфігурованим; "
+"будь ласка, доконфігуруйте та спробуй ще раз"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:343
 #, perl-brace-format
@@ -621,22 +650,24 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Нема сертифікату, доступного для цього клієнта. Будь ласка, {ohref}створи "
+"його{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
-msgstr ""
+msgstr "VPN адреса"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:71
 msgid "Use a network address which is not used by this machine"
-msgstr ""
+msgstr "Застосуй мережеву адресу, що не використовується цією машиною"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:77
 msgid "Server certificate"
-msgstr ""
+msgstr "Сертифікат серверу"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:84
 msgid "Client authorization by common name"
-msgstr ""
+msgstr "Авторизація клієнта за загальним ім'ям (CN)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:86
 msgid ""
@@ -644,153 +675,165 @@ msgid ""
 "to connect. If enabled, only certificates whose common name begins with the "
 "selected value will be able to connect."
 msgstr ""
+"Якщо вимкнено, будь-який клієнт із сертифікатом, що згенеровано Zentyal, "
+"матиме можливість підключитися. Якщо ввімкнено, тільки сертифікати, загальне "
+"ім'я (CN) яких починається з обраного значення, будуть мати можливість "
+"підключитися."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:101
 msgid "Network Address Translation"
-msgstr ""
+msgstr "Перетворення мережевих адрес (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr ""
+msgstr "Увімкни, якщо цей VPN сервер не є шлюзом за замовчуванням"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
-msgstr ""
+msgstr "Дозволити клієнт-клієнт з'єднання"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:111
 msgid "Enable it to allow client machines of this VPN to see each other"
-msgstr ""
+msgstr "Увімкни це, щоб клієнтські машини цього VPN бачили один одного"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:116
 msgid "Allow Zentyal-to-Zentyal tunnels"
-msgstr ""
+msgstr "Дозволити Zentyal-to-Zentyal тунелі"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:119
 msgid "Enable it if this VPN is used to connect to another Zentyal"
 msgstr ""
+"Увімкніть це, якщо цей VPN використовується для підключення до іншого "
+"Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:124
 msgid "Zentyal-to-Zentyal tunnel password"
-msgstr ""
+msgstr "Zentyal-to-Zentyal пароль тунеля"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Відхилити маршрути, що відправлені клієнтами тунелю Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Якщо увімкнено, цей сервер не застосує аніякий маршрут, що запропонують його "
+"клієнти"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
-msgstr ""
+msgstr "Інтерфейс, де очікується підключення"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
-#, fuzzy
 msgid "Redirect gateway"
-msgstr "шлюз"
+msgstr "Перенаправити шлюз"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:150
 msgid "Makes Zentyal the default gateway for the client"
-msgstr ""
+msgstr "Встановити Zentyal шлюзом для клієнта"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:154
-#, fuzzy
 msgid "First nameserver"
-msgstr "перший ntp сервер"
+msgstr "Перший сервер імен"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-#, fuzzy
 msgid "Second nameserver"
-msgstr "Допоміжний сервер"
+msgstr "Другий сервер імен"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:167
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:437
 msgid "Search domain"
-msgstr ""
+msgstr "Домен для пошуку"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:173
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:467
 msgid "WINS server"
-msgstr ""
+msgstr "WINS сервер"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:183
 msgid "Server configuration"
-msgstr ""
+msgstr "Конфігурація серверу"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:297
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
-msgstr ""
+msgstr "Zentyal-to-Zentyal опція тунелю потребує RIP пароль"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:323
 #, perl-brace-format
 msgid "The VPN address {addr} is already used by interface {iface}"
-msgstr ""
+msgstr "VPN адреса {addr} вже використовується інтерфейсом {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:348
 msgid "Other server is using the same VPN address, please choose another"
 msgstr ""
+"Інший сервер вже використовує таку саму VPN адресу - будь ласка, обери іншу"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:378
 msgid "Other server is listening on the same port"
-msgstr ""
+msgstr "Інший сервер вже використовує цей порт"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
 #, perl-brace-format
 msgid "Port {p}/{pr} is in use by {mod}"
-msgstr ""
+msgstr "{mod} вже використовує порт {p}/{pr}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:476
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr ""
+msgstr "Інтерфейс {iface} не існує"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:481
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr ""
+msgstr "Інтерфейс {iface} не сконфігуровано"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:499
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
+"Неможливо застосувати NAT, оскільки це вимагає модуль фаірволу, що наразі не "
+"встановлено, або не увімкнено"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:506
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
+"Неможливо застосувати NAT, оскільки це потребує увімкненого модулю фаірволу. "
+"Будь ласка, увімкни його, та спробуй ще раз"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:535
 msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
 msgstr ""
+"Щонайменше один зовнішній інтерфейс потрібен для під'єднання до серверу, "
+"якщо опція NAT вимкнена"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:544
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
-msgstr ""
+msgstr "Необхідний зовнішній інтерфейс, допоки NAT вимкнено"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:592
 #, perl-brace-format
 msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
-msgstr ""
+msgstr "{par} несумісний із Zentyal-to-Zentyal тунелем"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
 msgid "List of advertised networks to tunnel server"
-msgstr ""
+msgstr "Список оголошених мереж до серверу тунелей"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
-msgstr ""
+msgstr "Оголошені мережі для клієнтів через TUN інтерфейс не підтримуються"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
 msgid "Advertised Network"
-msgstr ""
+msgstr "Оголошена мережа"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:58
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:303
@@ -799,25 +842,27 @@ msgstr "Увімкнути"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:84
 msgid "Upload client bundle"
-msgstr ""
+msgstr "Відвантажити клієнтський пакет"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:104
 msgid "List of Clients"
-msgstr ""
+msgstr "Список клієнтів"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:105
 msgid "VPN Clients"
-msgstr ""
+msgstr "VPN клієнти"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:149
 msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Неможливо активувати клієнта, оскільки конфігурація не повна; будь ласка, "
+"зміни конфігурацію, та повтори спробу"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:183
 msgid "RIP password is mandatory"
-msgstr ""
+msgstr "RIP пароль є обов'язковим"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:59
 msgid "Deleted daemons"
@@ -828,43 +873,43 @@ msgid "daemon"
 msgstr "демон"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:57
-#, fuzzy
 msgid "Upload configuration bundle"
-msgstr "Файл налаштування NTP"
+msgstr "Відвантажити пакет конфігурації"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:66
-#, fuzzy
 msgid "Upload client configuration bundle"
-msgstr "Загальні налаштування"
+msgstr "Відвантажити пакет конфігурації клієнта"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:134
 #, perl-brace-format
 msgid "Upload configuration bundle for {na}"
-msgstr ""
+msgstr "Відвантажити пакет конфігурації для {na}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:73
 msgid "VPN"
-msgstr ""
+msgstr "VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:118
 msgid "To configure Quagga to run ripd and zebra"
-msgstr ""
+msgstr "Сконфігурувати Quagga щоб запустити ripd та zebra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:124
 msgid "To configure Quagga to listen on the given interfaces"
 msgstr ""
+"Сконфігурувати Quagga для очікування підключення на відповідних інтерфейсах"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:129
 msgid "Main zebra configuration file"
-msgstr ""
+msgstr "Головний конфігураційний файл zebra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:135
 msgid "To configure ripd to exchange routes with client to client connections"
 msgstr ""
+"Сконфігурувати ripd для обміну маршрутами із client-toclient з'єднаннями"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:142
 msgid "To remove system-wide VPN servers autostart"
-msgstr ""
+msgstr "Прибрати загалом у системі автостарт серверу VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:610
 #, perl-brace-format
@@ -872,16 +917,18 @@ msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
 "allowed"
 msgstr ""
+"Невірне ім'я {name}. Приймаються тільки символи букв, цифр та '-', '_', '.'"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:622
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
 msgstr ""
+"Неможливо використовувати ім'я {n}, оскільки є клієнт із таким самим ім'ям"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:633
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
-msgstr ""
+msgstr "Неможливо застосувати ім'я {n}, оскільки є сервер із таким самим ім'ям"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:655
 #, perl-brace-format
@@ -889,6 +936,8 @@ msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
 "internal use"
 msgstr ""
+"Невірне ім'я {name}. Ім'я, що починається із префіксу {pf} є зарезервованим "
+"для внутрішнього використання"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:664
 #, perl-brace-format
@@ -896,40 +945,42 @@ msgid ""
 "Invalid name {name}. An internal daemon must have a name which begins with "
 "the prefix {pf}"
 msgstr ""
+"Невірне ім'я {name}. Внутрішній демон має мати ім'я, що починається із "
+"префіксу {pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1259
 #, perl-brace-format
 msgid "Client {c} does not exist"
-msgstr ""
+msgstr "Клієнт {c} не існує"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1286
 msgid "Servers"
-msgstr ""
+msgstr "Сервери"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1293
 msgid "Clients"
-msgstr ""
+msgstr "Клієнти"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
 msgid "Common name"
-msgstr ""
+msgstr "Загальне ім'я (CN)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
 #: ../../main/mail/src/EBox/Mail.pm:1582
 msgid "Address"
-msgstr ""
+msgstr "Адреса"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
 msgid "Connected since"
-msgstr ""
+msgstr "Під'єднано з"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1341
 msgid "No users connected to the VPN"
-msgstr ""
+msgstr "Нема користувачів, під'єднаних до VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1381
 msgid "OpenVPN daemons"
-msgstr ""
+msgstr "OpenVPN демони"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1479
 #: ../../main/printers/src/EBox/Printers.pm:396
@@ -973,95 +1024,94 @@ msgstr "Подія"
 #: ../../main/samba/src/templates/addgroup.mas:10
 #: ../../main/samba/src/templates/editgroup.mas:26
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 msgid "Remote IP"
-msgstr ""
+msgstr "Віддалений IP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1484
 msgid "Remote Certificate"
-msgstr ""
+msgstr "Віддалений сертифікат"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1489
 msgid "Initialization sequence completed"
-msgstr ""
+msgstr "Послідовність ініціалізації завершена"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1491
 msgid "Certificate issuer not authorized"
-msgstr ""
+msgstr "Емітент сертифікату не авторизований"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1492
 msgid "Certificate common name not authorized"
-msgstr ""
+msgstr "Загальне ім'я (CN) сертифікату не авторизоване"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1493
 msgid "Certificate verification failed"
-msgstr ""
+msgstr "Сертифікат не пройшов перевірку"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1495
 msgid "Client connection initiated"
-msgstr ""
+msgstr "Ініційоване підключення клієнта"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1496
 msgid "Client connection terminated"
-msgstr ""
+msgstr "Підключення клієнта припинено"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1498
 msgid "Connection to server initiated"
-msgstr ""
+msgstr "Ініційоване підключення до сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1499
 msgid "Server connection terminated"
-msgstr ""
+msgstr "Підключення до сервера припинено"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1527
 msgid "You must set insecure_rip_conf to yes or no"
-msgstr ""
+msgstr "Параметр insecure_rip_conf потрібно зазначити як yes або no"
 
 #: ../../main/dns/src/EBox/DNS.pm:289 ../../main/dns/src/EBox/DNS.pm:369
 #: ../../main/dns/src/EBox/DNS.pm:397 ../../main/dns/src/EBox/DNS.pm:1669
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:709
 msgid "domain"
-msgstr ""
+msgstr "домен"
 
 #: ../../main/dns/src/EBox/DNS.pm:501
 msgid "Zentyal will set the required environment variables for bind9 daemon"
-msgstr ""
+msgstr "Zentyal встановить необхідні змінні середовища для демона bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:506
 msgid "main bind9 configuration file"
-msgstr ""
+msgstr "основний конфігураційний файл bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:511
 msgid "bind9 options configuration file"
-msgstr ""
+msgstr "конфігураційний файл опцій bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:516
 msgid "local bind9 configuration file"
-msgstr ""
+msgstr "локальний конфігураційний файл bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:521
 msgid "Keys configuration file"
-msgstr ""
+msgstr "Конфігураційний файл ключів"
 
 #: ../../main/dns/src/EBox/DNS.pm:536
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
-msgstr ""
+msgstr "Змініть права доступу {dir} щоб дозволити запис групі bind"
 
 #: ../../main/dns/src/EBox/DNS.pm:538
 msgid "Let the bind daemon to be dynamically updated"
-msgstr ""
+msgstr "Дозволити динамічне оновлення демону bind"
 
 #: ../../main/dns/src/EBox/DNS.pm:542
-#, fuzzy
 msgid "Remove bind9 init script link"
-msgstr "Видалити посилання на скрипт ініціалізації ntp"
+msgstr "Видалити посилання на скрипт ініціалізації bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:543 ../../main/ntp/src/EBox/NTP.pm:82
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr "Zentyal подбае про запуск і зупинку служб."
+msgstr "Zentyal відповідає за запуск та зупинку сервісів."
 
 #: ../../main/dns/src/EBox/DNS.pm:548
 msgid "Override named apparmor profile"

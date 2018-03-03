@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2015-08-11 03:47+0200\n"
+"PO-Revision-Date: 2017-05-15 21:47+0200\n"
 "Last-Translator: kwintim <bundit@servit.co.th>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: th\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/mail/src/EBox/Mail.pm:1565
 msgid "disabled"
-msgstr "ไม่สามารถ"
+msgstr "ไม่ทำงาน"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
@@ -31,7 +31,7 @@ msgstr "ไอพี เซิฟเวอร์"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr "คุณต้องใส่ ไอพี อย่างน้อย 1 ไอพี สำหรับ"
+msgstr "คุณต้องใส่ ไอพี อย่างน้อย 1 ไอพี สำหรับเซอร์เวอร์"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:142
 msgid "The client certificate can't be the same than the server's one"
@@ -41,77 +41,77 @@ msgstr "ใบประกาศของเครื่องลูกข่า
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
-msgstr ""
+msgstr "การกำหนดค่าไม่ถูกต้อง (ไม่สามารถติดตั้งได้)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
-msgstr ""
+msgstr "การกำหนดค่าไม่ถูกต้อง (ไม่พบไฟล์สำหรับการตั้งค่า)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
-msgstr ""
+msgstr "การกำหนดค่าไม่ถูกต้อง (ไม่พบไฟล์ใบรับรอง CA)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
-msgstr ""
+msgstr "การกำหนดค่าไม่ถูกต้อง (ไม่พบไฟล์ใบรับรอง)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:192
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
-msgstr ""
+msgstr "การกำหนดค่าไม่ถูกต้อง (ไม่พบไฟล์รหัสของใบรับรอง CA)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr ""
+msgstr "ไม่พบไฟล์ใบรับรอง  CA"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr ""
+msgstr "ไม่พบไฟล์รับรองในเครื่องลูกข่าย"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr ""
+msgstr "ไม่พบไฟล์รหัสใบรับรอง"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "ไฟล์รับรองไม่ถูกต้อง"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
-msgstr ""
+msgstr "ไฟล์รับรองของเครื่องลูกข่ายไม่ถูกต้อง"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "รหัสไฟล์รับรองของเครื่องลูกข่ายไม่ถูกต้อง"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
-msgstr ""
+msgstr "ไฟล์รับรองของเครื่องลูกข่ายไม่ตรงกับไฟล์รับรองของระบบ"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:131
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
-msgstr ""
+msgstr "รหัสไฟล์รับรองของเครื่องลูกข่ายไม่ตรงกับไฟล์รับรองของระบบ"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:320
 #, perl-brace-format
 msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
-msgstr ""
+msgstr "VPN เครื่องลูกข่ายมีการกำหนดค่า {addr} ไม่ถูกต้อง"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:337
 #, perl-brace-format
@@ -119,6 +119,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
+"VPN เครื่องลูกข่ายมีการกำหนดค่า {addr} ไม่ถูกต้อง "
+"เนื่องจากมีการกำหนดค่าการใช้งานแบบ Local"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
@@ -183,11 +185,11 @@ msgstr "หยุดทำงาน"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 msgid "Daemon status"
-msgstr ""
+msgstr "สถานะการจำลองเครื่อง"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:566
 msgid "Connection target"
-msgstr ""
+msgstr "ปลายทางที่เชื่อมต่อ"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:570
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
@@ -231,7 +233,8 @@ msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
 msgstr ""
-"ไม่สามารถขอรับคีย์ของเซิร์ฟเวอร์ {name} เนื่องจากไม่มีใบรับรองใด ๆ ที่ได้รับมอบหมายไว้ก่อน"
+"ไม่สามารถขอรับคีย์ของเซิร์ฟเวอร์ {name} เนื่องจากไม่มีการรับรองใด ๆ "
+"ที่ได้กำหนดไว้ก่อน"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:495
 #, perl-brace-format
@@ -257,7 +260,7 @@ msgstr "เซิร์ฟเวอร์ {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:899
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:246
 msgid "All network interfaces"
-msgstr ""
+msgstr "การเชื่อมต่อทั้งหมด"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:901
 msgid "Not found"
@@ -284,12 +287,12 @@ msgstr "VPN เน็ตเวิร์คอินเทอร์เฟช"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
 msgid "List of Advertised Networks"
-msgstr ""
+msgstr "รายการเครือข่าย"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:50
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:49
 msgid "Advertised network"
-msgstr ""
+msgstr "เครือข่าย"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
@@ -301,6 +304,10 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
+"{openpar}สามารถเพิ่มรายการเครือข่ายที่นี่ "
+"เมื่อต้องการให้เครื่องลูกข่ายเชื่อมต่อแบบ VPN.{closepar}{openpar}แบบปกติ, "
+"สามารถกำหนดค่าอนุญาตที่นี่.{closepar}{openpar}ถ้าเป็นเครือข่ายเดียวกับ VPN "
+"ระบบจะข้ามการตั้งค่านี้.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -333,15 +340,15 @@ msgstr "การตั้งค่า"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
 msgid "Advertised networks"
-msgstr ""
+msgstr "ระบบเครือข่าย"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:94
 msgid "Download client bundle"
-msgstr ""
+msgstr "รายการลูกข่าย"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:106
 msgid "List of servers"
-msgstr ""
+msgstr "รายชื่อ เซอร์เวอร์์"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:107
 msgid "VPN servers"
@@ -371,17 +378,19 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
-msgstr ""
+msgstr "สร้างระบบแม่ข่าย"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:290
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"ไม่สามารถเปิดใช้งานได้ เนื่องจากการตั้งค่าไม่สมบูรณ์ "
+"กรุณากำหนดค่าใหม่อีกครั้ง"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:298
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr ""
+msgstr "ไม่สามารถสร้างแม่ข่ายได้เนื่องจากไม่มีใบรับรอง CA"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:323
 #, perl-brace-format
@@ -389,6 +398,8 @@ msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"
 msgstr ""
+"{act} ไม่สามารถใช้ใบรับรองนี้ได้ กรุณาสร้างใบรับรองใหม่ ที่โมดูล  "
+"certificate authority "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 msgid "revoked"
@@ -440,12 +451,12 @@ msgstr "เซิร์ฟเวอร์พอร์ท"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:73
 msgid "CA's certificate"
-msgstr ""
+msgstr "ใบรับรอง CA"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
 msgid "Client's certificate"
-msgstr ""
+msgstr "ใบรับรองของลูกข่าย"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:97
 msgid "Client's private key"
@@ -764,7 +775,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:58
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:303
 msgid "Enable"
-msgstr ""
+msgstr "เปิดใช้งาน"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:84
 msgid "Upload client bundle"
@@ -11627,27 +11638,29 @@ msgstr "ไม่มีจดหมายในคิว หรือเซอ�
 
 #: ../../main/mail/src/templates/createaccount.mas:42
 msgid "Maildir size"
-msgstr ""
+msgstr "พื้นที่เก็บเมล์"
 
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
 msgid ""
 "The new maildir size is smaller than the oldest one, the following\n"
 "\tusers will surprass the new limitation:"
 msgstr ""
+"พื้นที่เมล์มีขนาดน้อยกว่าเมล์ที่ใช้งานอยู่ \n"
+"\t กำหนดค่าใหม่อีกครั้ง"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:6
 msgid "Virtual mail domain"
-msgstr ""
+msgstr "การจำลองเมล์ Domain"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:9
 msgid "Set up the default virtual mail domain"
-msgstr ""
+msgstr "ติดตั้งค่าหลักของเมล์จำลอง"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:9
 msgid "This will be the domain for your mail accounts"
-msgstr ""
+msgstr "นี่คือ โดเมนของเมล์คุณ"
 
 #: ../../main/mail/src/templates/moduleDisabled.mas:5
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
-msgstr ""
+msgstr "ค่านี้จะมีผลเมื่อเมล์โมดูลถูกเปิดใช้งาน"

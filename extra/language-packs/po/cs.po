@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-11-11 16:42+0200\n"
-"Last-Translator: Josef <skurek.j@makovec.cz>\n"
+"PO-Revision-Date: 2017-08-28 07:54+0200\n"
+"Last-Translator: Tchunass <libor.kunst@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -26,16 +26,16 @@ msgstr "vypnuto"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr "Adresa serveru"
+msgstr "adresa serveru"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr "Je třeba zadat alespoň jednu adresu pro server {name}"
+msgstr "Je třeba zadat alespoň jednu adresu serveru {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:142
 msgid "The client certificate can't be the same than the server's one"
-msgstr "Certifikát nemůže být použit pro klienta i server zároveň"
+msgstr "Klientský certifikát nemůže být použit pro klienta i server zároveň"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:140
 msgid ""
@@ -1267,7 +1267,7 @@ msgstr "přeposílač"
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:117
 #, perl-brace-format
 msgid "Forwarder cannot be a loopback address like {forw}"
-msgstr ""
+msgstr "Přeposílač nemůže být adresa smyčky jako např. {forw}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:132
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:122
@@ -1452,9 +1452,8 @@ msgid "Preference"
 msgstr "Přednost"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:220
-#, fuzzy
 msgid "Mail exchangers"
-msgstr "Poštovní servery"
+msgstr "Služba mail exchanger poštovního serveru."
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:226
 #, perl-brace-format
@@ -1507,9 +1506,8 @@ msgid "Hostnames"
 msgstr "Názvy strojů"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:632
-#, fuzzy
 msgid "Mail Exchangers"
-msgstr "Poštovní servery"
+msgstr "služba mail Exchangers"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:640
 msgid "Name Servers"
@@ -1925,7 +1923,7 @@ msgstr "Kód země"
 
 #: ../../main/ca/src/EBox/CA.pm:223
 msgid "The country code must be the 2-characters ISO code"
-msgstr "Kód země má podobu dvouznakového kódu dle normy ISO"
+msgstr "Kód země musí mít podobu 2-znakového kódu dle normy ISO"
 
 #: ../../main/ca/src/EBox/CA.pm:267 ../../main/ca/src/EBox/CA.pm:758
 #: ../../main/ca/src/EBox/CA.pm:1394
@@ -3737,7 +3735,7 @@ msgstr "Jednoduchý protokol pro přenos souborů (TFTP)"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:145
 msgid "Dynamic Host Configuration Protocol"
-msgstr ""
+msgstr "Protokol pro automatickou konfiguraci počítačů v síti (DHCP)."
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:197
 #, perl-brace-format
@@ -4044,7 +4042,7 @@ msgstr "Sekundární nameserver"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:459
 msgid "NTP server"
-msgstr ""
+msgstr "NTP server"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:462
 msgid ""
@@ -4173,8 +4171,7 @@ msgstr "DNS modul musí být pro práci této funkce nastaven"
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:105
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr ""
-"Aby tuto funkci bylo možné používat, musí být nainstalován balíček {pkg}"
+msgstr "Pro použití této funkce, musí být nainstalován balíček {pkg}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:128
 msgid "DNS module must be enabled to make this feature work."
@@ -4728,12 +4725,12 @@ msgstr "řádek"
 #: ../../main/core/src/EBox/CGI/Finish.pm:90
 #, perl-brace-format
 msgid "The {rowName} \"{r}\" has been deleted"
-msgstr "{rowName} {r} byl smazán"
+msgstr "{rowName} \"{r}\" byl smazán"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:93
 #, perl-brace-format
 msgid "The {rowName} \"{r}\" has been moved from {x} to {y} position"
-msgstr "{rowName} {r} byl přesunut z pozice {x} na {y}"
+msgstr "{rowName} \"{r}\" byl přesunut z pozice {x} na {y}"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:97
 #, perl-brace-format
@@ -4769,7 +4766,7 @@ msgstr "Výraz, který nehledat"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:58
 msgid "The search term should have a length of, at least, 3 characters"
-msgstr "Vyhledávaný pojem by měl být alespoň tři znaky dlouhý"
+msgstr "Hledaný výraz by měl být alespoň 3 znaky dlouhý"
 
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:167
 msgid ""
@@ -5591,7 +5588,8 @@ msgid ""
 "DNS names can contain only alphabetical characters (a-z), numeric characters "
 "(0-9) and the minus sign (-)"
 msgstr ""
-"DNS názvy mohou obsahovat pouze písmena, číslice a znak „-“ (spojovník)"
+"DNS názvy mohou obsahovat pouze písmena (a-z), číslice (0-9) a znak „-“ (m"
+"ínus-pomlčka)"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Halt.pm:48
 msgid "Halt"
@@ -5837,7 +5835,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:259
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:274
 msgid "never purge"
@@ -6418,7 +6416,7 @@ msgstr ""
 #: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:38
 #: ../../main/openchange/src/templates/wizard/provision.mas:5
 msgid "OpenChange"
-msgstr ""
+msgstr "OpenChange"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:58
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:67
@@ -6531,7 +6529,7 @@ msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:98
 msgid "Outlook Anywhere (SSL)"
-msgstr ""
+msgstr "funkce Outlook Anywhere (SSL)"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:102
 msgid ""
@@ -6620,7 +6618,7 @@ msgstr "Jsou zde nenastavené {oh}virtuální domény{ch}."
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:52
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:60
 msgid "ActiveSync"
-msgstr ""
+msgstr "ActiveSync"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:55
 msgid "Enable ActiveSync support for all the mail domains"
@@ -7323,7 +7321,7 @@ msgstr "Pravidla překladu zdrojových síťových adres"
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:156
 #: ../../main/firewall/src/EBox/Firewall.pm:628
 msgid "SNAT"
-msgstr ""
+msgstr "SNAT"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:165
 msgid "SNAT rule"
@@ -7477,7 +7475,7 @@ msgstr "popis"
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:71
 #: ../../main/samba/src/templates/addgroup.mas:19
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:106
 msgid "Contact updated"
@@ -8861,7 +8859,7 @@ msgstr "Samba přístup"
 
 #: ../../main/samba/src/EBox/Samba.pm:3259
 msgid "Samba virus"
-msgstr ""
+msgstr "Samba virus"
 
 #: ../../main/samba/src/EBox/Samba.pm:3270
 msgid "Samba quarantine"
@@ -9209,7 +9207,7 @@ msgstr "Nastavení kvóty složky s poštou"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:48
 msgid "maildrop"
-msgstr ""
+msgstr "zahodit poštu"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:48
 msgid "group alias mail"
@@ -9466,8 +9464,7 @@ msgstr "Smarthost k odesílání emailů"
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:74
 msgid "The format is host[:port] being port set to 25 if none is supplied"
 msgstr ""
-"Formát je host[:port] pokud žádný port není zadán, je nastaven na port "
-"25Formát je stroj[:port] . Pokud není nic zadáno, je použit port 25"
+"Formát je host[:port] pokud žádný port není zadán, je nastaven na port 25"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:81
 msgid "Smarthost authentication"
@@ -9929,11 +9926,11 @@ msgstr "Libovolný ICMP paket"
 
 #: ../../main/services/src/EBox/Services.pm:129
 msgid "Secure Shell"
-msgstr ""
+msgstr "Zabezpečený (secure) Shell"
 
 #: ../../main/services/src/EBox/Services.pm:137
 msgid "HyperText Transport Protocol"
-msgstr ""
+msgstr "HyperTextový Transportní Protokol"
 
 #: ../../main/services/src/EBox/Services.pm:145
 msgid "HyperText Transport Protocol over SSL"
@@ -10044,7 +10041,7 @@ msgstr "Uživatel nebyl nastavený v konfiguračním souboru."
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:40
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:41
 msgid "NTP"
-msgstr ""
+msgstr "NTP"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:47
 msgid "Enable synchronization with external servers"
@@ -10086,7 +10083,7 @@ msgstr "soubor s nastaveními pro NTP"
 
 #: ../../main/ntp/src/EBox/NTP.pm:134
 msgid "Network Time Protocol"
-msgstr ""
+msgstr "NTP - protokol pro synchronizaci času hodin v počítačích"
 
 #: ../../main/dns/src/templates/index.mas:16
 msgid "Domain list"
@@ -10361,20 +10358,20 @@ msgstr ""
 #: ../../main/network/src/templates/confirm.mas:25
 #: ../../main/network/src/templates/confirmVlanDel.mas:18
 msgid "Ok"
-msgstr ""
+msgstr "OK"
 
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:16
 msgid "Ping"
-msgstr ""
+msgstr "Ping"
 
 #: ../../main/network/src/templates/diag.mas:19
 msgid "Traceroute"
-msgstr ""
+msgstr "Traceroute"
 
 #: ../../main/network/src/templates/diag.mas:21
 msgid "Trace"
-msgstr ""
+msgstr "Trace"
 
 #: ../../main/network/src/templates/diag.mas:24
 msgid "Domain Name Resolution"
@@ -10500,7 +10497,7 @@ msgstr "Neměnné"
 #: ../../main/network/src/templates/ifaces.mas:48
 #: ../../main/network/src/templates/ifaces.mas:49
 msgid "Trunk (802.1q)"
-msgstr ""
+msgstr "Trunk (802.1q)"
 
 #: ../../main/network/src/templates/ifaces.mas:53
 #: ../../main/network/src/templates/ifaces.mas:54
@@ -10718,7 +10715,7 @@ msgstr "Místní"
 
 #: ../../main/core/src/templates/backupTabs.mas:18
 msgid "Cloud"
-msgstr ""
+msgstr "Cloud"
 
 #: ../../main/core/src/templates/title.mas:23
 msgid "Display help notes"
@@ -11370,7 +11367,7 @@ msgstr "Přidat nový"
 
 #: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: ../../main/core/src/templates/ajax/changeRowForm.mas:81
 #, perl-brace-format
@@ -12161,7 +12158,7 @@ msgstr "Smazat uživatele"
 #: ../../main/samba/src/templates/deluser.mas:14
 msgid ""
 "This operation will cause the removal of the user and all its dependent data"
-msgstr "Tato operace povede k odstranění účtu uživatele a všech jeho jeho dat"
+msgstr "Tato operace povede k odstranění účtu uživatele a všech jeho dat"
 
 #: ../../main/samba/src/templates/addgroup.mas:7
 msgid "Add Group"
@@ -12584,7 +12581,7 @@ msgid ""
 "\tusers will surprass the new limitation:"
 msgstr ""
 "Nová velikost schránky je nižší, než ta původní. Následující uživatelé\n"
-"\t tento nový limit překročí:"
+"\ttento nový limit překročí:"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:6
 msgid "Virtual mail domain"

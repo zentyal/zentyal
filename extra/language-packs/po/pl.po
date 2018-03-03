@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-03-27 20:16+0200\n"
-"Last-Translator: Dominik <dominik@szynk.net>\n"
+"PO-Revision-Date: 2017-02-01 09:24+0200\n"
+"Last-Translator: mariachini <wisniowy@g.pl>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -146,7 +146,6 @@ msgstr "Klient {name}"
 #: ../../main/openchange/src/templates/openchange.mas:15
 #: ../../main/openchange/src/templates/openchange_group.mas:14
 #: ../../main/openchange/src/templates/openchange_group.mas:15
-#, fuzzy
 msgid "Enabled"
 msgstr ""
 "#-#-#-#-#  pl.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
@@ -193,7 +192,6 @@ msgstr ""
 #: ../../main/openchange/src/templates/openchange_group.mas:14
 #: ../../main/openchange/src/templates/openchange_group.mas:15
 #: ../../main/samba/src/templates/edituser.mas:279
-#, fuzzy
 msgid "Disabled"
 msgstr ""
 "#-#-#-#-#  pl.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
@@ -238,26 +236,14 @@ msgstr "Usługa"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:893
 #: ../../main/core/src/EBox/SysInfo.pm:465
-#, fuzzy
 msgid "Running"
-msgstr ""
-"#-#-#-#-#  pl.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Uruchomiony\n"
-"#-#-#-#-#  pl.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Uruchomiony\n"
-"#-#-#-#-#  pl.po (ebox 0.12)  #-#-#-#-#\n"
-"Przetwarza"
+msgstr "Uruchomiony"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:893
 #: ../../main/core/src/EBox/SysInfo.pm:470
-#, fuzzy
 msgid "Stopped"
-msgstr ""
-"#-#-#-#-#  pl.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Zatrzymany\n"
-"#-#-#-#-#  pl.po (ebox 0.12)  #-#-#-#-#\n"
-"Zatrzymana"
+msgstr "Zatrzymany"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -314,11 +300,13 @@ msgstr ""
 "certyfikatu."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:495
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
-msgstr "Nie znaleziono adresu IP na interfejsie {iface}"
+msgstr ""
+"Serwer VPN {name} nie może zostać skonfigurowany, brak adresu IP na "
+"interfejsie {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:617
 msgid "OpenVPN servers cannot be used for internal services"
@@ -485,14 +473,12 @@ msgstr ""
 "module urzędu certyfikacji CA"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
-#, fuzzy
 msgid "revoked"
-msgstr "Odwołany"
+msgstr "odwołany"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
-#, fuzzy
 msgid "expired"
-msgstr "Wygasły"
+msgstr "wygasły"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
 msgid "invalid"
@@ -505,6 +491,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"Nie można utworzyć serwera {name} ponieważ już istnieje z certyfikatem o "
+"nazwie {certName} ze statusem {state}.<br/>Wybierz inną nazwę albo odnów "
+"certyfikat {certName}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -570,7 +559,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:136
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "Komenda do wykonania po ustawieniu tras"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:146
 msgid "Client configuration"
@@ -579,13 +568,8 @@ msgstr "Konfiguracja klienta"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:152
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:112
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:72
-#, fuzzy
 msgid "client"
-msgstr ""
-"#-#-#-#-#  pl.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"klient\n"
-"#-#-#-#-#  pl.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Klient"
+msgstr "klient"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:236
 #, perl-brace-format
@@ -598,6 +582,8 @@ msgid ""
 "The uploaded certificates and/or private key are not valid. File: {file}, "
 "Error: {err}"
 msgstr ""
+"Wgrany certyfikat i/lub klucz prywatny są niepoprawne. Plik: {file}, Błąd: "
+"{err}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
@@ -612,9 +598,8 @@ msgid "OpenVPN installer for Microsoft Windows"
 msgstr "Instalator OpenVPN dla systemu Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
-#, fuzzy
 msgid "Connection strategy"
-msgstr "Cel połączenia"
+msgstr "Strategia połączenia"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
@@ -632,7 +617,6 @@ msgid "Additional server address (optional)"
 msgstr "Dodatkowy adres serwera (opcjonalnie)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
-#, fuzzy
 msgid "Second additional server address (optional)"
 msgstr "Dodatkowy adres serwera (opcjonalnie)"
 
@@ -644,15 +628,8 @@ msgstr "Pobierz paczkę dla klienta"
 #: ../../main/core/src/templates/ajax/viewer/file.mas:19
 #: ../../main/core/src/templates/ajax/viewer/file.mas:29
 #: ../../main/core/src/templates/ajax/viewer/downloadLink.mas:15
-#, fuzzy
 msgid "Download"
-msgstr ""
-"#-#-#-#-#  pl.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Pobierz\n"
-"#-#-#-#-#  pl.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"Pobieranie\n"
-"#-#-#-#-#  pl.po (ebox 0.12)  #-#-#-#-#\n"
-"Pobierz"
+msgstr "Pobierz"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
@@ -716,6 +693,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Nie utworzono certyfikatu nadającego się dla tego klienta. Proszę "
+"{ohref}utworzyć{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -749,9 +728,8 @@ msgid "Network Address Translation"
 msgstr "Network Address Translation"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
-#, fuzzy
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr "Włącz, jeśli VPN serwer będzie się łączył z innym serwerem Zentyal"
+msgstr "Włącz, jeśli ten serwer VPN nie jest bramą domyślną"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
@@ -776,21 +754,22 @@ msgstr "Hasło tunelu Zentyal-do-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Odrzuć ścieżki podawane przez klientów tuneli"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Jeśli zaznaczone, to serwer nie wybierze żadnej ścieżki proponowanej przez "
+"klienta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
 msgstr "Interfejs na którym będzie nasłuchiwał serwer."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
-#, fuzzy
 msgid "Redirect gateway"
-msgstr "Brama domyślna"
+msgstr "Przekieruj bramę"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:150
 msgid "Makes Zentyal the default gateway for the client"
@@ -802,7 +781,6 @@ msgid "First nameserver"
 msgstr "Podstawowy serwer DNS"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-#, fuzzy
 msgid "Second nameserver"
 msgstr "Pomocniczy serwer DNS"
 
@@ -883,9 +861,9 @@ msgid ""
 msgstr "Przy włączonym NAT interfejs musi być interfejsem zewnętrznym"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:592
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
-msgstr "Zezwalaj na tunele Zentyal-do-Zentyal"
+msgstr "{par} nie jest kompatybilny z tunelem Zentyal-do-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
 msgid "List of advertised networks to tunnel server"
@@ -937,19 +915,17 @@ msgid "daemon"
 msgstr "daemon"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:57
-#, fuzzy
 msgid "Upload configuration bundle"
 msgstr "Załaduj paczkę z konfiguracją"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:66
-#, fuzzy
 msgid "Upload client configuration bundle"
-msgstr "Załaduj paczkę z konfiguracją"
+msgstr "Załaduj paczkę z konfiguracją klienta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:134
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Upload configuration bundle for {na}"
-msgstr "Załaduj paczkę z konfiguracją"
+msgstr "Załaduj paczkę z konfiguracją dla {na}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:73
 msgid "VPN"
@@ -1004,7 +980,7 @@ msgstr ""
 "zarezerwowane przez system"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:664
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Invalid name {name}. An internal daemon must have a name which begins with "
 "the prefix {pf}"
@@ -1012,7 +988,7 @@ msgstr ""
 "Niedozwolona nazwa {name}. Nazwa daemona musi zaczynać się prefiksem {pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exist"
 msgstr "Certyfikat {c} nie istnieje."
 
@@ -1030,17 +1006,8 @@ msgstr "Nazwa powszechna"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
 #: ../../main/mail/src/EBox/Mail.pm:1582
-#, fuzzy
 msgid "Address"
-msgstr ""
-"#-#-#-#-#  pl.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Adres sieciowy\n"
-"#-#-#-#-#  pl.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"Adres\n"
-"#-#-#-#-#  pl.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Adres\n"
-"#-#-#-#-#  pl.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Adres"
+msgstr "Adres"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
 msgid "Connected since"
@@ -1193,13 +1160,11 @@ msgid "Override named apparmor profile"
 msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm:549
-#, fuzzy
 msgid "To allow samba daemon load Active Directory zone"
 msgstr ""
 "Aby umożliwić obciążenie demona samby w strefie usługi Active Directory"
 
 #: ../../main/dns/src/EBox/DNS.pm:574
-#, fuzzy
 msgid "Domain Name Service"
 msgstr "Serwer DNS"
 
@@ -1231,15 +1196,8 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:241
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:104
-#, fuzzy
 msgid "IP Address"
-msgstr ""
-"#-#-#-#-#  pl.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"Adres IP\n"
-"#-#-#-#-#  pl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"adres IP\n"
-"#-#-#-#-#  pl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Adres IP"
+msgstr "Adres IP"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:84
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:124
@@ -1295,17 +1253,8 @@ msgstr "Interfejs"
 #: ../../main/network/src/templates/ifaces.mas:71
 #: ../../main/network/src/templates/ifaces.mas:151
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:20
-#, fuzzy
 msgid "IP address"
-msgstr ""
-"#-#-#-#-#  pl.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Adres IP\n"
-"#-#-#-#-#  pl.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"adres IP\n"
-"#-#-#-#-#  pl.po (ebox 0.12)  #-#-#-#-#\n"
-"Adres IP\n"
-"#-#-#-#-#  pl.po (ebox-objects 0.12)  #-#-#-#-#\n"
-"Adres IP"
+msgstr "Adres IP"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:100
 msgid "The domain name will be resolved to this list of IP addresses."
@@ -1380,7 +1329,7 @@ msgstr "Priorytet"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:148
 msgid "Lower value is greater priority"
-msgstr ""
+msgstr "Niższa wartość to wyższy priorytet"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:152
 msgid "Weight"
@@ -1398,12 +1347,10 @@ msgid "Target port"
 msgstr "Port serwera"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:168
-#, fuzzy
 msgid "Target"
-msgstr "miejsce przechowywania kopii"
+msgstr "Cel"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:170
-#, fuzzy
 msgid ""
 "If you select the \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
@@ -1443,23 +1390,23 @@ msgid ""
 msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:202
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{srv} record"
-msgstr "wpis serwera nazw"
+msgstr "rekord {srv}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:294
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
-msgstr "Ta usługa nie jest włączona"
+msgstr "Usługa '{srv}' nie została odnaleziona w {file}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:312
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
 msgstr ""
 "Podana nazwa hosta nie jest w pełni kwalifikowaną nazwą domeny (FQDN). Czy "
-"masz na myśli ns.{name}?"
+"masz na myśli {srv}.{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:324
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:108
@@ -1513,13 +1460,8 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:214
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:79
 #: ../../main/network/src/EBox/Network.pm:3089
-#, fuzzy
 msgid "host name"
-msgstr ""
-"#-#-#-#-#  pl.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Nazwa komputera\n"
-"#-#-#-#-#  pl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"nazwa hosta"
+msgstr "nazwa hosta"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:86
 #, perl-brace-format
@@ -1590,9 +1532,8 @@ msgid "Domain"
 msgstr "Domena"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:614
-#, fuzzy
 msgid "Domain IP Addresses"
-msgstr "nazwa domeny"
+msgstr "Adres IP domeny"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:623
 msgid "Hostnames"
@@ -1610,7 +1551,7 @@ msgstr "Serwery nazw (DNS)"
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
-msgstr ""
+msgstr "rekordy {txt}"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:666
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:219
@@ -1618,9 +1559,8 @@ msgid "Dynamic domain"
 msgstr "Domena dynamiczna"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:702
-#, fuzzy
 msgid "Domains"
-msgstr "Domena"
+msgstr "Domeny"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:711
 msgid ""
@@ -1656,9 +1596,9 @@ msgid "name server record"
 msgstr "wpis serwera nazw"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {name} cannot be longer than {value} characters"
-msgstr "Nazwa Netbios nie może być dłuższa niż 15 znaków"
+msgstr "Nazwa {name} nie może być dłuższa niż {value} znaków"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:144
 msgid "If you select the Domain, then you are choosing the zone"
@@ -1672,7 +1612,7 @@ msgstr "Indywidualne zapytanie"
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:168
 #, perl-brace-format
 msgid "{txt} data"
-msgstr ""
+msgstr "dane {txt}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:170
 #, fuzzy
@@ -1688,7 +1628,7 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:185
 #, perl-brace-format
 msgid "{txt} record"
-msgstr ""
+msgstr "rekord {txt}"
 
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:69
 #, perl-brace-format
@@ -1711,7 +1651,6 @@ msgstr ""
 "samej domenie"
 
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:203
-#, fuzzy
 msgid ""
 "This is the list of host name aliases. All of them will be resolved to the "
 "host's IP addresses list."
@@ -12978,7 +12917,7 @@ msgstr "Ustaw domyślną domenę wirtualną"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:9
 msgid "This will be the domain for your mail accounts"
-msgstr "To jest domena Twoich kont pocztowych"
+msgstr "To będzie domena Twoich kont pocztowych"
 
 #: ../../main/mail/src/templates/moduleDisabled.mas:5
 msgid ""

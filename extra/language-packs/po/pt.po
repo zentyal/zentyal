@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2015-02-25 18:37+0200\n"
-"Last-Translator: AbelTavares <axon18@hotmail.com>\n"
+"PO-Revision-Date: 2016-06-21 18:31+0200\n"
+"Last-Translator: ruibarcelos <barcelos.rui@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -22,16 +22,16 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/mail/src/EBox/Mail.pm:1565
 msgid "disabled"
-msgstr "desactivado"
+msgstr "desativado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr "Endereço do servidor"
+msgstr "Endereço do Servidor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr "Têm que fornecer, pelo menos, um endereço IP para o servidor {name}"
+msgstr "Têm de fornecer, no mínimo, um endereço IP para o servidor {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:142
 msgid "The client certificate can't be the same than the server's one"
@@ -80,7 +80,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr "O ficheiro {p} do certificado CA não existe"
+msgstr "O certificado CA {p} não existe"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
@@ -158,7 +158,7 @@ msgstr "Cliente {name}"
 #: ../../main/openchange/src/templates/openchange_group.mas:14
 #: ../../main/openchange/src/templates/openchange_group.mas:15
 msgid "Enabled"
-msgstr "Activado"
+msgstr "Ativo"
 
 # #-#-#-#-#  pt.po (ebox-openvpn 0.12)  #-#-#-#-#
 # e
@@ -178,7 +178,7 @@ msgstr "Activado"
 #: ../../main/openchange/src/templates/openchange_group.mas:15
 #: ../../main/samba/src/templates/edituser.mas:279
 msgid "Disabled"
-msgstr "Desactivado"
+msgstr "Desativado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:555
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:891
@@ -223,7 +223,7 @@ msgstr "Inactivo"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:137
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr "A porta {p}/{pro} já está em uso"
+msgstr "A porta {p}/{pro} já está em utilização"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:233
 #, perl-brace-format
@@ -243,7 +243,7 @@ msgstr "O certificado {cn} foi revogado"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:257
 #, perl-brace-format
 msgid "The server {name} does not have certificate assigned"
-msgstr "O servidor {name} não tem certificado atribuído"
+msgstr "O servidor {name} não tem um certificado atribuído"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:278
 #, perl-brace-format

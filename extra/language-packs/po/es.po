@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-10-21 11:19+0200\n"
-"Last-Translator: mburillo <mburillo@zentyal.com>\n"
+"PO-Revision-Date: 2016-12-11 11:53+0200\n"
+"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -1273,7 +1273,7 @@ msgstr "redireccionador"
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:117
 #, perl-brace-format
 msgid "Forwarder cannot be a loopback address like {forw}"
-msgstr ""
+msgstr "El redireccionador no puede ser una dirección de loopback como {forw}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:132
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:122
@@ -4819,9 +4819,8 @@ msgstr ""
 "\"{y}\""
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:32
-#, fuzzy
 msgid "Upgrade to Zentyal 4.2"
-msgstr "Actualizar a Zentyal 4.0"
+msgstr "Actualizar a Zentyal 4.2"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:30
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
@@ -5980,9 +5979,9 @@ msgid "Zentyal Remote Client"
 msgstr "Cliente de Zentyal Remote"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1019
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "This is a Zentyal Server ({edition})."
-msgstr "Esto es un servidor Zentyal edición {edition}"
+msgstr "Esto es un servidor Zentyal ({edition})"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1226
 msgid "Server Edition"

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2012-10-15 12:12+0200\n"
-"Last-Translator: Lammmas <thetinysheep@gmail.com>\n"
+"PO-Revision-Date: 2016-05-09 14:39+0200\n"
+"Last-Translator: indrekt <indrek@laanesaare.ee>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
@@ -42,30 +42,40 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
+"See pakett ei ole õige Zentyalilt Zentyalile seadistuspakett. (Ei saa lahti "
+"pakkida)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
+"See pakett ei ole õige Zentyalilt Zentyalile seadistuspakett. (Puudub "
+"serveri seadistusfail)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
+"See pakett ei ole õige Zentyalilt Zentyalile seadistuspakett. (Puudub CA "
+"sertifikaat)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
+"See pakett ei ole õige Zentyalilt Zentyalile seadistuspakett. (Puudub "
+"sertifikaat)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:192
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
+"See pakett ei ole õige Zentyalilt Zentyalile seadistuspakett. (Puudub "
+"sertifikaadi privaatvõti)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -167,33 +177,8 @@ msgstr "Lubatud"
 #: ../../main/openchange/src/templates/openchange_group.mas:14
 #: ../../main/openchange/src/templates/openchange_group.mas:15
 #: ../../main/samba/src/templates/edituser.mas:279
-#, fuzzy
 msgid "Disabled"
-msgstr ""
-"#-#-#-#-#  et.po (ebox-mailfilter 1.4.1)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-openvpn 1.4)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-zarafa 1.4.1)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (libebox 1.4.1)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-squid 1.4)  #-#-#-#-#\n"
-"Ei kasutata\n"
-"#-#-#-#-#  et.po (ebox-ntp 1.4)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-samba 1.4.1)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-asterisk 1.4)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-mail 1.4.1)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-ebox 1.4.1)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-ebackup 1.4)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-jabber 1.4.1)  #-#-#-#-#\n"
-"Keelatud"
+msgstr "Keelatud"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:555
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:891
@@ -272,7 +257,7 @@ msgstr ""
 "sertifikaati omistatud"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:495
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
@@ -298,7 +283,6 @@ msgid "All network interfaces"
 msgstr "Kõik võrguliidesed"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:901
-#, fuzzy
 msgid "Not found"
 msgstr "Lehekülge ei leitud"
 
@@ -333,7 +317,7 @@ msgstr "Propageeritav võrk"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You can add here those networks which you want to make available to "
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
@@ -398,7 +382,7 @@ msgid "server"
 msgstr "server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:160
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority "
@@ -409,7 +393,7 @@ msgstr ""
 "moodulisse{closehref} ning loo see.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority "
@@ -445,17 +429,14 @@ msgstr ""
 "selleks sertifitseerimiskeskuse moodulisse ja loo uued sertifikaadid"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
-#, fuzzy
 msgid "revoked"
 msgstr "Tühistatud"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
-#, fuzzy
 msgid "expired"
 msgstr "Aegunud"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
-#, fuzzy
 msgid "invalid"
 msgstr "Kehtiv"
 
@@ -466,6 +447,8 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"Ei saa luua serverit {name} sest juba eksisteerib sertifikaat {certName} "
+"olekuga {state}. <br/> Vali teine nimi või  võta uus {certName} sertifikaat "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -515,26 +498,24 @@ msgstr "Kliendi privaatvõti"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:109
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:95
-#, fuzzy
 msgid "TUN interface"
-msgstr "liides"
+msgstr "TUN liides"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:115
 msgid "Server tunnel password"
-msgstr "Serveri tunneli parool"
+msgstr "Tunneli parool"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:121
 msgid "Bind port for client"
-msgstr ""
+msgstr "Seo port kliendiga"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:129
-#, fuzzy
 msgid "Bind address for client"
-msgstr "Vahemälust vabastatud domeen"
+msgstr "Seo aadress kliendiga"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:136
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "Peale marsruute käivitatav käsk"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:146
 msgid "Client configuration"
@@ -557,6 +538,8 @@ msgid ""
 "The uploaded certificates and/or private key are not valid. File: {file}, "
 "Error: {err}"
 msgstr ""
+"Üles laetud sertifikaat ja/või privaatvõti ei ole õiged. File: {file}, Viga: "
+"{err}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
@@ -572,7 +555,6 @@ msgid "OpenVPN installer for Microsoft Windows"
 msgstr "OpenVPN paigaldaja Microsoft Windowsi jaoks"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
-#, fuzzy
 msgid "Connection strategy"
 msgstr "Ühenduskoht"
 
@@ -595,7 +577,6 @@ msgstr "Täiendav serveri aadress"
 
 # vt kasutajaliides
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
-#, fuzzy
 msgid "Second additional server address (optional)"
 msgstr "Täiendav serveri aadress"
 
@@ -608,22 +589,14 @@ msgstr "Laadi kliendi komplekt alla"
 #: ../../main/core/src/templates/ajax/viewer/file.mas:19
 #: ../../main/core/src/templates/ajax/viewer/file.mas:29
 #: ../../main/core/src/templates/ajax/viewer/downloadLink.mas:15
-#, fuzzy
 msgid "Download"
-msgstr ""
-"#-#-#-#-#  et.po (libebox 1.4.1)  #-#-#-#-#\n"
-"Laadi alla\n"
-"#-#-#-#-#  et.po (ebox-trafficshaping 1.4)  #-#-#-#-#\n"
-"Allalaadimise kiirus\n"
-"#-#-#-#-#  et.po (ebox-ebox 1.4.1)  #-#-#-#-#\n"
-"Laadi alla"
+msgstr "Laadi alla"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
-msgstr ""
+msgstr "Juhuslik"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
-#, fuzzy
 msgid "Failover"
 msgstr "WAN tõrkesiire"
 
@@ -644,13 +617,11 @@ msgid "Cannot use for the bundle the server's certificate"
 msgstr "Komplekti jaoks ei saa serveri sertifikaati kasutada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:212
-#, fuzzy
 msgid ""
 "Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels"
 msgstr "Vigane kliendi tüüp: server ei luba tunneleid eBoxist-eBoxi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:220
-#, fuzzy
 msgid ""
 "Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
 msgstr "Vigane kliendi tüüp: server on määratud eBoxist-eBoxi tunneli jaoks"
@@ -679,6 +650,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Selle kliendi jaoks pole sertifikaadid saadaval. Palun {ohref}loo "
+"sertifikaat{chref} "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -698,7 +671,6 @@ msgid "Client authorization by common name"
 msgstr "Kliendi üldise nimega autoriseerimine"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:86
-#, fuzzy
 msgid ""
 "If disabled, any client with a certificate generated by Zentyal will be able "
 "to connect. If enabled, only certificates whose common name begins with the "
@@ -713,7 +685,6 @@ msgid "Network Address Translation"
 msgstr "Võrguaadressi ümbernimetamine (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
-#, fuzzy
 msgid "Enable it if this VPN server is not the default gateway"
 msgstr ""
 "Luba valik, kui see VPN on kasutusel selleks, et ühenduda teise eBoxiga"
@@ -727,50 +698,47 @@ msgid "Enable it to allow client machines of this VPN to see each other"
 msgstr "Luba valik, et kliendi masinad saaksid selle VPNiga teinetest näha"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:116
-#, fuzzy
 msgid "Allow Zentyal-to-Zentyal tunnels"
 msgstr "Luba tunnel eBoxist-eBoxi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:119
-#, fuzzy
 msgid "Enable it if this VPN is used to connect to another Zentyal"
 msgstr ""
 "Luba valik, kui see VPN on kasutusel selleks, et ühenduda teise eBoxiga"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:124
-#, fuzzy
 msgid "Zentyal-to-Zentyal tunnel password"
 msgstr "eBoxist-eBoxi tunneli parool"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
 msgstr ""
+"Keeldu marsruutidest, mis on Zentual tunneli klientide poolt tagasi lükatud"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Kui kontrollida, siis see server ei võta ühtegi klientide poolt levitatud "
+"marsruuti"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
 msgstr "Kuulatav liides"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
-#, fuzzy
 msgid "Redirect gateway"
-msgstr "Vaikelüüs"
+msgstr "Suuna vaikelüüs ümber"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:150
 msgid "Makes Zentyal the default gateway for the client"
-msgstr ""
+msgstr "Teeb Zentyali kliendi vaikelüüsiks"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:154
-#, fuzzy
 msgid "First nameserver"
-msgstr "Eesnimi"
+msgstr "Esimene nimeserver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-#, fuzzy
 msgid "Second nameserver"
 msgstr "Sekundaarne nimeserver"
 
@@ -789,26 +757,24 @@ msgid "Server configuration"
 msgstr "Serveri seadistamine"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:297
-#, fuzzy
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
 msgstr "eBoxist-eBoxi tunneli valik nõuab RIP parooli"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:323
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The VPN address {addr} is already used by interface {iface}"
 msgstr "Port {port} on juba kasutusel {mod} mooduli poolt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:348
-#, fuzzy
 msgid "Other server is using the same VPN address, please choose another"
-msgstr "Teine server kuulab samal pordil"
+msgstr "Teine server kasutab sama VPN aadressi, palun vali teine"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:378
 msgid "Other server is listening on the same port"
 msgstr "Teine server kuulab samal pordil"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {p}/{pr} is in use by {mod}"
 msgstr "Port {p}/{pro} on juba kasutusel"
 
