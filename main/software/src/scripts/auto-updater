@@ -19,11 +19,15 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Config;
 use EBox::Global;
-use EBox::Gettext;
+use EBox::Sudo;
 
-use TryCatch::Lite;
+use TryCatch;
 use File::Slurp;
+use Date::Format;
+
+my $LOG = EBox::Config::log() . 'software.log';
 
 EBox::init();
 my $global = EBox::Global->getInstance(1);
@@ -54,7 +58,11 @@ try {
     }
 
     if (@pkgnames) {
-        $software->installPkgs(@pkgnames);
+        appendLog("Starting automatic update of the following packages: @pkgnames", $LOG);
+        my $args = '-o DPkg::Options::="--force-confold" --yes --force-yes --no-install-recommends';
+        EBox::Sudo::root("LANG=C DEBIAN_FRONTEND=noninteractive apt-get $args install @pkgnames 2>&1 >>$LOG");
+        appendLog("Automatic update finished", $LOG);
+
         # the installation has invalidated the previous packages list so we need to
         # regenerate the cache
         $software->listUpgradablePkgs(1);
@@ -65,5 +73,12 @@ try {
     $e->throw();
 }
 $software->unlock();
+
+sub appendLog
+{
+    my ($msg, $log) = @_;
+    my $timestamp = time2str('%Y-%m-%d %T', time());
+    EBox::Sudo::silentRoot("sh -c 'echo \"$timestamp> $msg\" >> $log'");
+}
 
 1;

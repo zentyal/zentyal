@@ -1,0 +1,186 @@
+4.2.4
+	+ Take into account MAPI users could have been deleted
+	+ Set the number of non-MAPI users properly
+	+ Fix registered UUID field for commercial edition
+4.2.3
+	+ Set same date for running account script and fix path
+	+ Give support to Autodiscover requests
+4.2.2
+	+ Fix permissions on accounting script
+4.2.1
+	+ Added accounting script
+	+ Fix typo for provision_ignore_already_exists in conf file
+4.2
+	+ Fix typo for provision_ignore_already_exists that made the
+	  feature not work
+4.1.3
+	+ Added memcached dependency
+	+ Added provision_ignore_already_exists configuration key to skip
+	  existent elements on provision
+	+ Added methods to remove OpenChange accounts attributes
+	+ Now groups can be provisioned for OpenChange
+4.1.2
+	+ Configuration for openchange notifications with dovecot plugin
+4.1.1
+	+ Bump version due to wrongly released package with no changes
+4.1
+	+ Remove deprecated notification service deps and daemon
+	+ Disable Vacations feature from SOGo webmail
+	+ Remove z-push support in favor of sogo-activesync
+	+ Disable SOGo login for user accounts without mail enabled
+	+ Enable password change from the SOGo webmail
+	+ Configure automatic refresh of SOGo webmail to 5 min
+4.0.8
+	+ Change separator to match the one in dovecot config
+	+ Check if provision is possible before saving changes
+4.0.7
+	+ Changes to allow provision as ADC
+	+ Improve doc for the conf key sodod_prefork
+	+ Fix error when removing the sogo database in deprovision
+	+ Improve config for Sogo, setting up WOWorkersCount to 3 from 1
+	+ Fixed unsaved changes precondition
+	+ Add Ubuntu standard document root to apache virtual servers
+4.0.6
+	+ Fixed postinst script
+4.0.5
+	+ sogod is now properly managed by zentyal-openchange
+4.0.4
+	+ Restart sogod when sogo package is upgraded
+	+ Set RPC Proxy log level to debug only when debug is enabled
+	+ ActiveSync needs to have a HTTPS webmail enabled. Also handling
+	  Z-Push config files
+	+ Updated vdomains model strings warning about HTTP usage
+	+ Fixed backup/restore
+	+ ActiveSync needs to have a HTTPS webmail enabled
+4.0.3
+	+ Fixed regresion on save changes popup on deprovision
+	+ Migrate SOGo database when upgrading from 3.5
+4.0.2
+	+ zentyal-sogo package removal management
+4.0.1
+	+ Cache DomainTable DNS model in VDomains to avoid querying it in
+	  acquirers
+	+ Fix problems with some translations on CA name with non-ASCII chars
+	+ Disable HTTPS and SSL options for vdomain after certificate is revoked
+	+ When removing user delete its sogo database rows
+	+ Raise error on wizard when the user enter unsupported characters
+	  for the CA
+4.0
+	+ Make sure no repeated preconditons are shown
+	+ OpenChange users can have mail accounts on different virtual domains
+	+ Add conf file for openchange module, containing broker config for
+	  mapiproxy server
+	+ Use separate apache log files for ocsmanager
+	+ Recreate openchange certificate if it is not the correct one
+	+ Allow to customize CA attributes on initial configuration wizard
+	+ RPC proxy is available in web interface when you have only
+	  internal interfaces
+	+ Provision action triggers save changes action
+	+ Fixed deprovision
+	+ OpenChange account is enabled by default for all the new created users
+	+ Adapt to changes in Out Of Office implementation in OCSManager
+	+ Allow to access SOGo also with the /webmail URL
+	+ Apache handles now all the OC web services directly without haproxy/nginx
+	+ Remove dependency on deprecated webserver module
+	+ OpenChange -> Setup menu entry moved to Mail -> OpenChange
+	+ Remove currently unused migration code
+	+ Set version to 4.0
+	+ Tune OCSManager configuration for autodiscover
+	+ Redirect all /ews/ requests to OCSManager
+	+ Use .crt when downloading the certificate for RPC/Proxy
+	  to ease Windows importing
+	+ Changes to out-of-office required by upstream openchange changes
+	+ Notify when OpenChange is using the domain certificate
+	+ Migrate RPC Proxy certificate to new use our zentyal-ca
+	+ Adapted configuration for making Autodiscover works with Outlook Anywhere
+	+ Adapted rcpproxy certificate generation to changes in webadmin certificates
+	+ Depends on latest zentyal-samba to make sure openchange.conf
+	  is correct
+	+ openchange.conf named properties config uses splitted params
+	+ Better certificate management for autodiscovery
+3.5.1
+	+ Fixed issue with Sieve separator parameter at sogo configuration
+3.5
+	+ Zentyal users removed from "only contacts" addressbook at sogo webUI
+	+ Make SOGo shared contacts display their CN
+	+ Updated SOGo conf
+	+ Added autodiscovery of server parameters
+	+ Proxying all Exchange Web Services to OCSManager
+	+ Fixed wrong references to nginx error pages on ocsmanager conf
+	+ Depend on zentyal-users instead of zentyal-samba
+	+ Update sogo.conf to use Samba LDAP
+	+ Extracted vdomain selection for outgoing mail to a new configuration
+	  model named Configuration
+	+ Added noMultipleOUSupportComponent support
+	+ Set version to 3.5
+	+ Allow openchange working with old ldb/tdb backends (upgrade from 3.3)
+	+ Allow ActiveSync setup if z-push or sogo-activesync are installed
+	+ Remove Migration menu
+3.4.1
+	+ Generate master password for IMAP access
+3.4
+	+ Avoid to mark webadmin as changed
+	+ Update nginx template to allow access to /ews/oof
+	+ Added UI message with sogo webmail interface location
+	+ Sogo webmail shared contacts unified. Contacts working properly
+	+ Use the new EBox::Samba::Ldbobject::isCritical method
+	+ Contacts are now shown at the webmail interface
+	+ Zentyal internal accounts hidden from webmail interface
+	+ Save config if it changes in migration between versions
+	+ Adapt sogo.conf to work only with ou=Users, fixes login problem
+	+ Don't allow to remove outgoing mail virtual domain
+	+ Added rpcproxy service
+	+ Provision openchangedb with mysql as backend
+	+ Migrated to use Plack / PSGI API instead of the CGI one
+	+ Remove obsolete sope dependency
+	+ Added rpcproxy service to zentyal-webserver for Outlook Anywhere
+	+ Calendar invitations now sent via email by default
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
+	+ Using Zentyal MySQL confile template
+	+ Extracted vdomain selection for outgoing mail to a new configuration
+	  model named Configuration
+	+ Better user addon integration
+	+ Fixed bug which not enabled new user accounts when using different mail domain than AD domain
+	+ Prevent OpenChange provision if we don't have access to update the
+	  schema or it's already extended by another OpenChange / Exchange
+	  previous installation.
+	+ Clean all previous data before enabling the module
+	+ Fix regression hiding from module status
+	+ Fixed migration form that is missing a .js file to work
+	+ Hide openchange service status from the dashboard and linked it status
+	  to the one from Samba
+	+ User addon - remove check that require AD domain to be the same as mail
+	  virtual domain
+	+ Added basic deprovision option
+	+ Fixed a typo that makes openchange appear always off on Dashboard
+	+ Added vdomain selection for outgoing mail at provision screen
+3.3
+	+ Added a dependency on the zoctools package to handle the server migration
+	+ Updated to use the new communication protocol with the upgrade tool
+	+ Show new organization selector by default and block Provision submit
+	  with empty Organization Names
+	+ Added sieve features
+	+ Added autodiscovery of server parameters
+	+ Removed the deprovision option, it needs more work to be useful
+	+ Extract the list of existing organization names from AD for better user
+	  experience
+	+ Removed the selector of Administrative Group using the default one for
+	  existing organizations and falling back to the default 'First
+	  Administrative Group' for new installations. Exchange 2007 deprecated
+	  those kind of groups
+	+ Added a way to retrieve existing Organization Names
+	+ Use ou=Users as baseDN in sogo.conf if openchange_disable_multiou=yes
+	+ Changed field names to use the same terminology on Exchange
+	  installations
+	+ Added the firstorg and firstou arguments also when provisioning the
+	  openchangedb and newuser part
+	+ Switch from Error to TryCatch for exception handling
+	+ Use new enableInnoDbIfNeeded() from core
+	+ Mailbox migration user interface
+	+ Disable mode select when provisioned
+3.1.1
+	+ Implement additional openchange server deployment
+	+ Ensure no unsaved changes are pending before provision
+3.1.0
+	+ Initial release

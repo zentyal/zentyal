@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+	remove)
+        dpkg-trigger --no-await zentyal-core
+        ;;
+	purge)
+        /usr/share/zentyal/purge-module jabber
+        ;;
+esac
+
+exit 0

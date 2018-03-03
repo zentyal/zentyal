@@ -21,7 +21,7 @@ use EBox::Exceptions::LDAP;
 use EBox::Exceptions::NotImplemented;
 use EBox::Gettext;
 
-use TryCatch::Lite;
+use TryCatch;
 use Net::LDAP::Constant qw(LDAP_SUCCESS LDAP_NO_SUCH_OBJECT LDAP_CONTROL_PAGED);
 use Net::LDAP::Control::Paged;
 use POSIX;

@@ -57,9 +57,7 @@ if (($MODULE_NAME eq 'common') or ($MODULE_NAME eq 'core')) {
     $DIR{MIGRATION} = "${DESTDIR}usr/share/zentyal/migration";
     $DIR{TEMPLATES} = "${DESTDIR}usr/share/zentyal/templates";
 
-    if ($MODULE_NAME eq 'common') {
-        add_if_exists('src', $DIR{PERL}, '*');
-    }
+    add_if_exists('src', $DIR{PERL}, '*.pm');
 }
 
 add_if_exists('schemas', $DIR{SCHEMAS}, '*.yaml');

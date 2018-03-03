@@ -20,7 +20,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 37;
+use Test::More tests => 24;
 use Test::Exception;
 use Test::Deep;
 
@@ -36,61 +36,6 @@ use_ok('EBox::WebAdmin') or die;
 
 my $webAdminMod = EBox::Global->modInstance('webadmin');
 isa_ok($webAdminMod, 'EBox::WebAdmin');
-
-my @resourceNames = ('foo/a', 'bar/a', 'foo/b');
-
-is ($webAdminMod->_restrictedResourceExists($resourceNames[0]), 0, 'Resource not exists before adding');
-
-lives_ok {
-    $webAdminMod->setRestrictedResource($resourceNames[0], [ '192.168.45.2/32', '10.0.0.0/24' ]);
-} 'Adding a correct restricted resource';
-
-lives_ok {
-    $webAdminMod->setRestrictedResource($resourceNames[0], [ '192.168.1.4/32' ]);
-} 'Updating a correct restricted file';
-
-lives_ok {
-    $webAdminMod->setRestrictedResource($resourceNames[1], [ 'all', '102.1.2.3/32' ]);
-} 'Adding an all allow restricted location';
-
-is ($webAdminMod->_restrictedResourceExists($resourceNames[0]), 1, 'Resource exists after adding');
-
-throws_ok {
-    $webAdminMod->setRestrictedResource($resourceNames[2]);
-} 'EBox::Exceptions::MissingArgument', 'Missing a compulsory argument';
-
-throws_ok {
-    $webAdminMod->setRestrictedResource($resourceNames[2], []);
-} 'EBox::Exceptions::Internal', 'No given IP address';
-
-throws_ok {
-    $webAdminMod->setRestrictedResource($resourceNames[2], [ 'foobar', '10.0.0.2/24']);
-} 'EBox::Exceptions::Internal', 'Deviant IP address';
-
-cmp_deeply($webAdminMod->get_list('restricted_resources'),
-           [ { allowedIPs => [ '192.168.1.4/32' ],
-               name       => $resourceNames[0],
-             },
-             { allowedIPs => ['all'],
-               name       => $resourceNames[1],
-             }],
-            'The additions and updates were done correctly');
-
-throws_ok {
-    $webAdminMod->delRestrictedResource();
-} 'EBox::Exceptions::MissingArgument', 'Missing a compulsory argument';
-
-lives_ok {
-    foreach my $resourceName (@resourceNames[0 .. 1]) {
-        $webAdminMod->delRestrictedResource($resourceName);
-    }
-} 'Deleting correct restricted resources';
-
-is ($webAdminMod->_restrictedResourceExists($resourceNames[1]), 0, 'Resource not exists after deleting');
-
-throws_ok {
-    $webAdminMod->delRestrictedResource($resourceNames[2]);
-} 'EBox::Exceptions::DataNotFound', 'Given resource name not found';
 
 # Include related tests
 my @includes = ( '/bin/true', '/bin/false' );

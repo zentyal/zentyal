@@ -31,7 +31,7 @@ use EBox::Types::Boolean;
 use HTML::Mason::Interp;
 use JSON;
 use List::Util; # first
-use TryCatch::Lite;
+use TryCatch;
 
 # EBox exceptions
 use EBox::Exceptions::MissingArgument;

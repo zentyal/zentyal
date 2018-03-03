@@ -3,7 +3,7 @@
 use EBox;
 use EBox::Config;
 use EBox::Global;
-use TryCatch::Lite;
+use TryCatch;
 
 EBox::init();
 

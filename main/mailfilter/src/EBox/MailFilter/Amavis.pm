@@ -24,7 +24,7 @@ use EBox::Config;
 use EBox::Service;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
-use TryCatch::Lite;
+use TryCatch;
 
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
@@ -35,8 +35,8 @@ use EBox::MailVDomainsLdap;
 use EBox::Ldap;
 
 use constant {
-  AMAVIS_SERVICE                => 'ebox.amavisd-new',
-  AMAVIS_CONF_FILE              => '/etc/amavis/conf.d/amavisd.conf',
+  AMAVIS_SERVICE                => 'amavis',
+  AMAVIS_CONF_FILE              => '/etc/amavis/conf.d/01-zentyal',
   AMAVISPIDFILE                 => '/var/run/amavis/amavisd.pid',
                                    # which this modules provides
   MAILFILTER_NAME => 'mailfilter', # name used to identify the filter

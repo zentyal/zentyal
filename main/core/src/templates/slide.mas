@@ -5,9 +5,9 @@
     @items => ()
     @links => ()
     $endText => ''
-    $pkg => 'software'
+    $prefix => 'slide'
 </%args>
-<div class='ads' style="background-image: url(/data/<% $pkg %>/images/slide<% $num %>.png) ">
+<div class='ads' style="background-image: url(/data/software/images/<% $prefix %><% $num %>.png) ">
 <h2><% $title %></h2>
 
 % foreach my $text (@paragraphs) {

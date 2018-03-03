@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the zinstaller-remote package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zinstaller-remote\n"
 "Report-Msgid-Bugs-To: zinstaller-remote@packages.debian.org\n"
-"POT-Creation-Date: 2014-10-02 11:58+0200\n"
+"POT-Creation-Date: 2017-02-04 11:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,85 +20,44 @@ msgstr ""
 #. Type: text
 #. Description
 #: ../templates:1001
-msgid "Choose Zentyal edition to install"
+msgid "Validate commercial edition"
 msgstr ""
 
 #. Type: string
 #. Description
 #: ../templates:2001
-msgid "E-mail address:"
+msgid "License Key:"
 msgstr ""
 
 #. Type: string
 #. Description
 #: ../templates:2001
+msgid "Please enter the license key for this server."
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../templates:3001
+msgid "License validation failed"
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../templates:3001
 msgid ""
-"Please enter your e-mail address now to validate your commercial edition."
-msgstr ""
-
-#. Type: password
-#. Description
-#: ../templates:3001
-msgid "Password:"
-msgstr ""
-
-#. Type: password
-#. Description
-#: ../templates:3001
-msgid "Please enter the password associated with your e-mail address."
+"License key cannot be validated. Please try again or check your Internet "
+"connection."
 msgstr ""
 
 #. Type: note
 #. Description
 #: ../templates:4001
-msgid "Authentication failed"
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../templates:4001
-msgid "The provided account is not valid. Please try again."
-msgstr ""
-
-#. Type: select
-#. Description
-#: ../templates:5001
-msgid "Choose the server to install:"
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../templates:6001
 msgid "Congratulations!"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates:6001
+#: ../templates:4001
 msgid ""
-"Your credentials have been validated. Zentyal installation will now continue."
-msgstr ""
-
-#. Type: note
-#. Description
-#. Type: note
-#. Description
-#: ../templates:7001 ../templates:8001
-msgid "Error"
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../templates:7001
-msgid ""
-"Currently there are no available editions for your account. Please contact "
-"support."
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../templates:8001
-msgid ""
-"A problem ocurred while trying to register your server. Please contact "
-"support. ${ERROR}"
+"Your license key has been validated. Zentyal installation will now continue."
 msgstr ""

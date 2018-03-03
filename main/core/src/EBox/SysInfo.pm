@@ -24,7 +24,7 @@ use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
 use File::Slurp qw(read_file);
-use TryCatch::Lite;
+use TryCatch;
 
 use EBox::Config;
 use EBox::Gettext;
@@ -114,19 +114,21 @@ sub menu
                                       'text' => __('Date/Time'),
                                       'order' => 20));
 
-    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Cloud/Backup',
+    if (-f '/var/lib/zentyal/.commercial-edition') {
+        $system->add(new EBox::Menu::Item('url'   => 'SysInfo/View/Edition',
+                                          'text'  => __('Server Edition'),
+                                          'order' => 30,
+                                         ));
+    }
+
+    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
                                       'text' => __('Configuration Backup'),
                                       'order' => 50));
-
-    if (EBox::Config::boolean('debug')) {
-        $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Debug',
-                                          'text' => __('Debug'),
-                                          'order' => 55));
-    }
 
     $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Halt',
                                       'text' => __('Halt/Reboot'),
                                       'order' => 60));
+
     $root->add($system);
 }
 
@@ -145,7 +147,7 @@ sub _setConf
     my $tz = $timezoneModel->row()->elementByName('timezone');
     my $tzStr = $tz->printableValue();
     EBox::Sudo::root("echo $tzStr > /etc/timezone",
-                     "cp -f /usr/share/zoneinfo/$tzStr /etc/localtime");
+                     "ln -sf /usr/share/zoneinfo/$tzStr /etc/localtime");
 
     # Host name
     my $hostNameModel = $self->model('HostName');
@@ -286,12 +288,6 @@ sub generalWidget
     my $time = `$time_command`;
     utf8::decode($time);
 
-    my $qaUpdates = 0;
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $qaUpdates = $rs->subscriptionLevel() > 0;
-    }
-
     my $version = $self->version();
     my $ignore = EBox::Config::boolean('widget_ignore_updates');
     unless ($ignore or (not -f LATEST_VERSION)) {
@@ -303,7 +299,7 @@ sub generalWidget
         close ($fh);
 
         if (EBox::Util::Version::compare($lastVersion, $version) == 1) {
-            unless ($qaUpdates) {
+            if (EBox::Global->communityEdition()) {
                 my $available = __('available');
                 $version .=
                     " (<a target='_blank' href='$url'>$lastVersion $available</a>)";
@@ -352,7 +348,6 @@ sub linksWidget
     # Write the links widget using mason
     my $global = $self->global();
     my @params = (
-        rsPackage => $global->modExists('remoteservices'),
         softwarePackage => $global->modExists('software'),
         community => $global->communityEdition(),
         registered => ($global->edition() eq 'basic'),

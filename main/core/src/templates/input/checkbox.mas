@@ -3,7 +3,9 @@ my $name    = delete $ARGS{name};
 defined $name or $m->abort('The checkbox input needs a name parameter');
 
 my $value   = delete $ARGS{value};
+my $disabled = delete $ARGS{disabled};
 my @checked = $value ? (checked => 'checked') : ();
+my @disabled = $disabled ? (disabled => 'disabled') : ();
 </%init>
 <input type='hidden'  name='<% $name %>' value=0  />
-<input type='checkbox' name='<% $name %>' <& /htmlAttributes.mas, @checked, %ARGS &> />
+<input type='checkbox' name='<% $name %>' <& /htmlAttributes.mas, @checked, @disabled, %ARGS &> />

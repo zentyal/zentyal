@@ -30,8 +30,6 @@
     $greylist
     $greylistAddr
     $greylistPort
-
-    $openchangeProvisioned
 </%args>
 <%init>
 use EBox::Gettext;
@@ -64,6 +62,8 @@ $submissionRecipientRestrictions .= 'permit_sasl_authenticated, permit_mynetwork
 my $certFile = '/etc/postfix/sasl/postfix.pem';
 my $keyFile  = '/etc/postfix/sasl/postfix.pem';
 </%init>
+compatibility_level = 2
+
 # require helo
 smtpd_delay_reject  = yes
 smtpd_helo_required = yes
@@ -74,7 +74,7 @@ disable_vrfy_command = yes
 smtpd_banner = <% $mailname %> ESMTP
 biff = no
 
-# appending .domain is the MUAs job.
+# appending .domain is the MUA's job.
 append_dot_mydomain = no
 
 # Uncomment the next line to generate "delayed mail" warnings
@@ -106,6 +106,7 @@ smtp_sasl_mechanism_filter = login
 %   }
 % }
 
+mynetworks_style = subnet
 mynetworks = <% $allowed %>
 
 message_size_limit = <% $maxmsgsize %>
@@ -113,6 +114,7 @@ mailbox_size_limit = 0
 virtual_mailbox_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
+inet_protocols = ipv4
 
 # Aliases
 virtual_alias_domains = $virtual_alias_maps

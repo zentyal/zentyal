@@ -21,8 +21,8 @@ then
     chown g+w $DISASTER_FILE
 fi
 
-# Force update of grub before reboot
-dpkg-reconfigure zenbuntu-core
+sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 net.ifnames=0 biosdevname=0"/' /etc/default/grub
+update-grub
 
 ### CUSTOM_ACTION ###
 

@@ -10,7 +10,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart openvpn $2
 
         # restart module
-        service zentyal openvpn restart || true
+        zs openvpn restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

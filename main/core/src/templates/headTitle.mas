@@ -7,8 +7,15 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Global;
 my $logoutTitle = __('Close session');
 my $finishTitle = __('Save changes?');
+my $edition = EBox::Global->edition();
+my $expired = (rindex($edition, 'expired') != -1);
+my $image;
+if ($expired) {
+    $image = $edition eq 'trial-expired' ? 'trial' : 'license';
+}
 </%init>
     <div id="top"></div>
     <div id="header">
@@ -17,6 +24,9 @@ my $finishTitle = __('Save changes?');
       </a>
       <span class="version"><% $version %></span>
       <div id="hmenu">
+% if ($expired) {
+      <a class="expired" href="http://www.zentyal.com/es/zentyal-server/get-an-offer/"><img src="/data/images/<% $image %>-expired.png"></a>
+% }
 % if ($logout) {
         <div class="menusearch">
           <form action='/Search'>

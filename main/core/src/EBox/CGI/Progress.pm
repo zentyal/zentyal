@@ -36,7 +36,7 @@ use File::Slurp;
 use JSON::XS;
 use EBox::ProgressIndicator;
 use EBox::Exceptions::Internal;
-use TryCatch::Lite;
+use TryCatch;
 
 sub new
 {
@@ -161,14 +161,14 @@ sub _footer
 
 sub _slidesFilePath
 {
-    my ($pkg) = @_;
+    my ($prefix) = @_;
 
-    my $path = EBox::Config::share() . "$pkg/ads";
-    my $file = "$path/ads_" . EBox::locale();
+    my $path = EBox::Config::share() . "zentyal-software/ads";
+    my $file = "$path/$prefix" . EBox::locale();
     unless (-f $file) {
-        $file =  "$path/ads_" . substr (EBox::locale(), 0, 2);
+        $file =  "$path/$prefix" . substr (EBox::locale(), 0, 2);
         unless (-f $file) {
-            $file = "$path/ads_en";
+            $file = "$path/${prefix}en";
         }
     }
     if (-f "$file.custom") {
@@ -180,14 +180,14 @@ sub _slidesFilePath
 
 sub _loadSlides
 {
-    my $slidesPkg = 'zentyal-software';
-    my $imgPkg = 'software';
-    if (EBox::GlobalImpl::_packageInstalled('zentyal-cloud-prof')) {
-        $slidesPkg = 'zentyal-cloud-prof';
-        $imgPkg = 'cloud-prof';
+    my $text_prefix = 'ads_';
+    my $slide_prefix = 'slide';
+    unless (EBox::Global->communityEdition()) {
+        $text_prefix = 'com_ads_';
+        $slide_prefix = 'com_slide';
     }
 
-    my $file = _slidesFilePath($slidesPkg);
+    my $file = _slidesFilePath($text_prefix);
     EBox::debug("Loading ads from: $file");
     my $json;
     try {
@@ -205,7 +205,7 @@ sub _loadSlides
     my $num = 1;
     foreach my $slide (@{$slides}) {
         $slide->{num} = $num++;
-        $slide->{pkg} = $imgPkg;
+        $slide->{prefix} = $slide_prefix;
         push (@html, EBox::Html::makeHtml('slide.mas', %{$slide}));
     }
 

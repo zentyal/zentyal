@@ -2,11 +2,35 @@ class: 'EBox::Network'
 
 models:
     - GatewayTable
+    - MultiGwRulesDataTable
+    - MultiGwRulesOptions
     - StaticRoute
     - DNSResolver
     - SearchDomain
+    - WANFailoverOptions
+    - WANFailoverRules
     - Proxy
+    - BalanceGateways
+    - ObjectTable
+    - MemberTable
+    - ServiceTable
+    - ServiceConfigurationTable
 
 composites:
+    GatewaysGeneral: [Gateway, MultiGw, WANFailover]
     Gateway: [GatewayTable, Proxy]
+    MultiGw: [MultiGwRulesOptions, BalanceGateways, MultiGwRulesDataTable]
+    WANFailover: [WANFailoverOptions, WANFailoverRules]
     DNS: [DNSResolver, SearchDomain]
+
+foreign:
+    ObjectTable: [MemberTable]
+    ServiceTable: [ServiceConfigurationTable]
+
+modeldepends:
+    MultiGwRulesDataTable:
+        network/ObjectTable: [source_object, destination_object]
+        network/ServiceTable: [service]
+        network/GatewayTable: [gateway]
+    WANFailoverRules:
+        network/GatewayTable: [gateway]

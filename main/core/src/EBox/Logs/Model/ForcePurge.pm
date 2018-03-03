@@ -34,7 +34,7 @@ use EBox::Types::Boolean;
 use EBox::Types::Select;
 
 # Core modules
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 

@@ -41,7 +41,7 @@ use HTML::Mason::Exceptions;
 use JSON::XS;
 use Perl6::Junction qw(all any);
 use POSIX qw(setlocale LC_ALL);
-use TryCatch::Lite;
+use TryCatch;
 use URI;
 
 ## arguments
@@ -863,19 +863,11 @@ sub _validateReferer
     my $hostname = $request->env->{HTTP_HOST};
 
     my $rshostname = undef;
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        if ( $rs->eBoxSubscribed() ) {
-            $rshostname = $rs->cloudDomain();
-        }
-    }
 
     if ($referer) {
         # proxy is a valid subdomain of {domain}
         if ($referer =~ m/^https:\/\/$hostname(:[0-9]*)?\//) {
             return; # from another page
-        } elsif ($rshostname and ($referer =~ m/^https:\/\/[^\/]*$rshostname(:[0-9]*)?\//)) {
-            return; # allow remoteservices proxy access
         }
     }
 

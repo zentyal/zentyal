@@ -1,16 +1,13 @@
 set_router() {
-    ebox_routers="$new_routers"
+    new_gateway="$new_routers"
     unset new_routers
 }
 
 
 # Do nothing if network module is disbled
-if service zentyal network status; then
+if ! zs network status | grep DISABLED; then
     case $reason in
-        BOUND)
-            set_router
-            ;;
-        REBOOT|RENEW|REBIND|TIMEOUT)
+        BOUND|REBOOT|RENEW|REBIND|TIMEOUT)
             set_router
             ;;
         *)

@@ -20,12 +20,11 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use EBox::Samba::SysvolSync;
 use EBox::Samba::FSMO;
 
 use Net::Ping;
 use Net::DNS;
-use TryCatch::Lite;
+use TryCatch;
 
 ##
 ##  Init Zentyal framework
@@ -72,17 +71,6 @@ unless ($provision->isProvisioned()) {
     print "ERROR: Before running this script, the server must be joined to the domain.\n";
     print "       Configure the server as an 'Additional domain controller' in the Zentyal\n";
     print "       control panel, then run again.\n";
-    exit 1;
-}
-
-##
-##  Transfer sysvol share
-##
-print "\nSynchronizing sysvol share...\n";
-my $synchronizer = new EBox::Samba::SysvolSync();
-my $syncRet = $synchronizer->sync();
-if ($syncRet) {
-    print "ERROR: The sysvol share could not be synchronized. Check Zentyal log for details.\n";
     exit 1;
 }
 

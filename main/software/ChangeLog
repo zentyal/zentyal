@@ -1,3 +1,15 @@
+5.1
+	+ Set version to 5.1
+5.0.3
+	+ Simplify auto-updater cron job (no fork, no pipe)
+5.0.2
+	+ Avoid ugly reload error after save changes in Software -> Config
+5.0.1
+	+ Adataptions for commercial edition slides
+5.0
+	+ Use groupware metapackage instead of mail in installer
+	+ Include squid again in installer
+	+ Update version to 5.0
 4.2
 	+ Update version to 4.2
 4.1.1

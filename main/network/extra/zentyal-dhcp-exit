@@ -4,7 +4,7 @@ firewall_script=/usr/share/zentyal-firewall/dhcp-firewall.pl
 
 ebox_bound() {
     $libexec/dhcp-address.pl $interface $new_ip_address $new_subnet_mask
-    $libexec/dhcp-gateway.pl $interface $ebox_routers
+    $libexec/dhcp-gateway.pl $interface $new_gateway
 
     if ( [ -x $firewall_script ] ); then
         $firewall_script
@@ -19,14 +19,14 @@ ebox_renew() {
     if [ "z$new_subnet_mask" != "z$old_subnet_mask" ] ; then
         change="yes"
     fi
-    if [ "$change" == "yes" ] ; then
+    if [ "$change" = "yes" ] ; then
         $libexec/dhcp-address.pl $interface $new_ip_address \
                     $new_subnet_mask
     fi
-    if [ "z$ebox_routers" != "z$old_routers" ] ; then
-        $libexec/dhcp-gateway.pl $interface $ebox_routers
+    if [ "z$new_gateway" != "z$old_routers" ] ; then
+        $libexec/dhcp-gateway.pl $interface $new_gateway
     fi
-    if [ "$change" == "yes" ] ; then
+    if [ "$change" = "yes" ] ; then
         if ( [ -x $firewall_script ] ); then
             $firewall_script
         fi;
@@ -42,7 +42,7 @@ ebox_expire() {
 }
 
 # Do nothing if network module is disbled
-if  service zentyal network status; then
+if ! zs network status | grep DISABLED ; then
     case $reason in
         BOUND)
             ebox_bound

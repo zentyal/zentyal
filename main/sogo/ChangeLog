@@ -1,0 +1,28 @@
+5.1
+	+ Set version to 5.1
+5.0.3
+	+ Allow to send mails using alias
+	+ Better default settings of performance tuning when using ActiveSync
+5.0.2
+	+ Use IMAPS if IMAP is disabled in mail retrieval services
+5.0.1
+	+ Users of non-default Organizational Units now work
+	+ Provide transitional dummy openchange package to ease 4.X upgrade
+5.0
+	+ Integrate SOGo 3.2.1
+	+ New standalone sogo module independent from old openchange module
+	+ Install memcached as dependency so SOGo can use it for caching
+3.5.4
+	+ Fix depends to allow uninstall when upgrading to 4.0
+3.5.3
+	+ Revert apache conf change that does not work properly without the
+	  httpclose option in haproxy conf (that breaks Outlook Anwyhere)
+3.5.2
+	+ Fixed http/https wrong redirects using X-Forwarded-Host header
+3.5.1
+	+ Set proper actions and files in module enable action
+3.5
+	+ Set version to 3.5
+	+ Added support to https access
+3.4
+	+ Initial release

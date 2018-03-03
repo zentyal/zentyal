@@ -24,7 +24,7 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-use TryCatch::Lite;
+use TryCatch;
 
 use EBox;
 use EBox::Gettext;
@@ -106,15 +106,6 @@ sub _populateLanguages
     }
 
     return \@array;
-}
-
-sub updatedRowNotify
-{
-    my ($self, $row, $oldRow) = @_;
-
-    my $global = $self->global();
-    my $webAdmin = $global->modInstance('webadmin');
-    $webAdmin->setHardRestart(1);
 }
 
 1;

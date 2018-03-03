@@ -59,7 +59,7 @@ gen_locales()
 
     # Append Zentyal support languages to generate to current supported
     # locales
-    LOCALES_FILE=/var/lib/locales/supported.d/local
+    LOCALES_FILE=/etc/locale.gen
     TMP=/tmp/local.tmp
     cat /tmp/zentyal/locale.gen $LOCALES_FILE > $TMP
     sort $TMP | uniq > $LOCALES_FILE
@@ -90,12 +90,6 @@ gen_locales
 if [ -f /var/tmp/.zentyal-disaster-recovery ]
 then
     touch /var/lib/zentyal/.disaster-recovery
-fi
-
-if [ -f /var/lib/zinstaller-remote/REGISTER_USERNAME ]
-then
-    plymouth message --text="Registering your server... Please wait."
-    /usr/share/zenbuntu-core/remote-register
 fi
 
 if [ -d /usr/share/zentyal-custom/scripts ]

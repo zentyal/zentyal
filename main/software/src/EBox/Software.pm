@@ -34,7 +34,7 @@ use EBox::ProgressIndicator;
 use EBox::Sudo;
 
 use Digest::MD5;
-use TryCatch::Lite;
+use TryCatch;
 use Storable qw(fd_retrieve store retrieve);
 use Fcntl qw(:flock);
 use AptPkg::Cache;
@@ -44,7 +44,6 @@ use constant {
     LOCKED_BY_KEY  => 'lockedBy',
     LOCKER_PID_KEY => 'lockerPid',
     CRON_FILE      => '/etc/cron.d/zentyal-auto-updater',
-    QA_ARCHIVE     => 'zentyal-qa',
 };
 
 my @COMM_PKGS = qw(zentyal-jabber zentyal-asterisk zentyal-mail zentyal-webmail zentyal-zarafa);
@@ -271,7 +270,6 @@ sub _packageListFile
 #                   'security' - flag indicating if the update is a security one
 #                   'changelog' - package's changelog from current version
 #                                 till last one (TODO)
-#                   'ebox-qa' - flag indicating the package is from our QA repository
 #
 # Exceptions:
 #
@@ -286,7 +284,7 @@ sub listUpgradablePkgs
 
     my $file = $self->_packageListFile(0);
     my $alreadyGet = 0;
-    
+
     if (defined($clear) and ($clear == 1)) {
         unlink $file;
     } elsif (-f $file) {
@@ -527,7 +525,7 @@ sub getAutomaticUpdates
 {
     my ($self) = @_;
 
-    if ($self->QAUpdates()) {
+    unless (EBox::Global->communityEdition()) {
         if ($self->qaUpdatesAlwaysAutomatic()) {
             return 1;
         }
@@ -561,7 +559,7 @@ sub setAutomaticUpdates # (auto)
 {
     my ($self, $auto) = @_;
 
-    if ( $self->QAUpdates() ) {
+    unless (EBox::Global->communityEdition()) {
         my $key = 'qa_updates_always_automatic';
         my $alwaysAutomatic = EBox::Config::configkey($key);
         defined $alwaysAutomatic or $alwaysAutomatic = 'true';
@@ -570,7 +568,7 @@ sub setAutomaticUpdates # (auto)
             throw EBox::Exceptions::External(
                 __x('You cannot modify the automatic update using QA updates from Web UI. '
                       . 'To disable automatic updates, edit {conf} and disable {key} key.',
-                    conf => EBox::Config::etc() . 'remoteservices.conf',
+                    conf => EBox::Config::etc() . 'zentyal.conf',
                     key  => $key));
         }
     }
@@ -776,6 +774,11 @@ sub autoUpgradeStats
     }
 }
 
+sub QAUpdates
+{
+    return (not EBox::Global->communityEdition());
+}
+
 # Group: Private methods
 
 sub _getInfoEBoxPkgs
@@ -887,7 +890,7 @@ sub _candidateVersion
         if ($file->{Archive} =~ /security/) {
             $security = 1;
         }
-        if ($file->{Archive}  eq QA_ARCHIVE) {
+        if ($file->{Archive} eq 'zentyal-qa') {
             $qa = 1;
         }
         if ($security and $qa) {
@@ -947,82 +950,10 @@ sub updateStatus
     return $stat->mtime;
 }
 
-# Method: setQAUpdates
-#
-#     Set the software management system to be updated using QA
-#     updates.
-#
-#     This method must be called from zentyal-remoteservices when a
-#     subscription is done or released.
-#
-# Parameters:
-#
-#     value - boolean indicating if the QA updates are to be set or
-#             released
-#
-sub setQAUpdates
-{
-    my ($self, $value) = @_;
-    $self->set_bool('qa_updates', $value);
-}
-
-# Method: QAUpdates
-#
-#     Return if the management system is being updated using QA
-#     updates or not
-#
-# Returns:
-#
-#     Boolean -
-#
-sub QAUpdates
-{
-    my ($self) = @_;
-    return $self->get_bool('qa_updates');
-}
-
 sub _setConf
 {
     my ($self) = @_;
     $self->_installCronFile();
-    $self->_setAptPreferences();
-}
-
-sub _setAptPreferences
-{
-    my ($self) = @_;
-
-    my $enabled;
-    if ($self->QAUpdates()) {
-        $enabled = $self->_QAExclusive();
-    } else {
-        $enabled = 0;
-    }
-
-    my $preferences =  '/etc/apt/preferences';
-    my $preferencesBak = $preferences . '.zentyal.fromzc';
-    my $preferencesDirFile = '/etc/apt/preferences.d/01zentyal';
-
-    if ($enabled ) {
-        my $existsCC = EBox::Sudo::fileTest('-e', $preferencesBak);
-        if (not $existsCC) {
-            EBox::error('Could not find apt preferences file from Zentyal Cloud, letting APT preferences untouched');
-            return;
-        }
-        EBox::Sudo::root("cp '$preferencesBak' '$preferencesDirFile'",
-                         "chmod 0644 '$preferencesDirFile'");
-    } else {
-        my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
-        if ($existsOld) {
-            EBox::Sudo::root("cp '$preferencesBak' '$preferences'",
-                             "chmod 0644 '$preferences'");
-            # remove old backup to avoid to overwrite user's modifications
-            EBox::Sudo::root("rm -f '$preferencesBak' ");
-        } else {
-            # Remove preferences if no preferences was there before
-            EBox::Sudo::root("rm -f '$preferencesDirFile'");
-        }
-    }
 }
 
 sub _installCronFile
@@ -1107,12 +1038,6 @@ sub _dumpMenuItem
     }
 
     return "<li class='$class'>$text</li>\n";
-}
-
-# Is it QA the exclusive source?
-sub _QAExclusive
-{
-    return EBox::Config::boolean('qa_updates_exclusive_source');
 }
 
 sub _cache

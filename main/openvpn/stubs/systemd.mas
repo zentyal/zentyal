@@ -1,0 +1,20 @@
+<%doc>
+   Template file to write the systemd file
+
+   Parameters:
+
+     cmd - String the command to run
+     limited - Boolean indicating if the respawn is limited to 5 times
+               within 40 seconds
+</%doc>
+<%args>
+$cmd
+$limited => 0
+</%args>
+[Service]
+ExecStart=<% $cmd %>
+Restart=on-failure
+% if ($limited) {
+RestartSec=40
+StartLimitBurst=5
+% }

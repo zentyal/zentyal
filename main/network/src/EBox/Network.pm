@@ -25,11 +25,14 @@ use base qw(EBox::Module::Service);
 
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
-use constant IGNOREIFACES => qw(sit tun tap lo irda virbr vboxnet vnet);
+use constant IGNOREIFACES => qw(sit tun tap lo irda ppp virbr vboxnet vnet);
 use constant IFNAMSIZ => 16; #Max length name for interfaces
 use constant INTERFACES_FILE => '/etc/network/interfaces';
 use constant RESOLV_FILE => '/etc/resolv.conf';
 use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
+use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
+use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
+use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
 use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy';
 use constant ENV_FILE       => '/etc/environment';
 use constant SYSCTL_FILE => '/etc/sysctl.conf';
@@ -37,9 +40,10 @@ use constant RESOLVCONF_INTERFACE_ORDER => '/etc/resolvconf/interface-order';
 use constant RESOLVCONF_BASE => '/etc/resolvconf/resolv.conf.d/base';
 use constant RESOLVCONF_HEAD => '/etc/resolvconf/resolv.conf.d/head';
 use constant RESOLVCONF_TAIL => '/etc/resolvconf/resolv.conf.d/tail';
+use constant FAILOVER_CRON_FILE => '/etc/cron.d/zentyal-network';
 
 use Net::IP;
-use IO::Interface::Simple;
+use Net::Interface;
 use Perl6::Junction qw(any);
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
@@ -54,7 +58,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Lock;
 use EBox::Exceptions::DataNotFound;
-use TryCatch::Lite;
+use TryCatch;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::CounterGraph;
@@ -71,6 +75,7 @@ use EBox::DBEngineFactory;
 use File::Basename;
 use File::Slurp;
 
+use constant FAILOVER_CHAIN => 'FAILOVER-TEST';
 use constant CHECKIP_CHAIN => 'CHECKIP-TEST';
 
 # Group: Public methods
@@ -192,6 +197,12 @@ sub usedFiles
     },
     );
 
+    foreach my $iface (@{$self->pppIfaces()}) {
+        push (@files, { 'file' => PPP_PROVIDER_FILE . $iface,
+                        'reason' => __('Zentyal will add a DSL provider configuration for PPPoE'),
+                        'module' => 'network' });
+    }
+
     my $proxy = $self->model('Proxy');
     if ($proxy->serverValue() and $proxy->portValue()) {
         push (@files, { 'file' => ENV_FILE,
@@ -214,6 +225,16 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    foreach my $service (@{$self->_defaultServices()}) {
+        $service->{'sourcePort'} = 'any';
+        $service->{'readOnly'} = 1;
+        if ($self->serviceExists('name' => $service->{'name'})) {
+            $self->setService(%{$service});
+        } else {
+            $self->addService(%{$service});
+        }
+    }
+
     # Import network configuration from system
     # only if installing the first time
     unless ($version) {
@@ -225,6 +246,20 @@ sub initialSetup
             }
         } catch {
             EBox::warn('Network configuration import failed');
+        }
+    }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '5.0') < 0)) {
+        my $redis = $self->redis();
+        foreach my $mod (qw(services objects)) {
+            my @keys = $redis->_keys("$mod/*");
+            foreach my $key (@keys) {
+                next if ($key eq "$mod/state");
+                my $newkey = $key;
+                $newkey =~ s/^$mod/network/;
+                $redis->set($newkey, $redis->get($key));
+            }
+            $redis->unset(@keys);
         }
     }
 }
@@ -285,6 +320,7 @@ sub ExternalIfaces
     foreach (@ifaces) {
         ($self->ifaceMethod($_) eq 'notset') and next;
         ($self->ifaceMethod($_) eq 'trunk') and next;
+        ($self->ifaceMethod($_) eq 'bundled') and next;
         if ($self->ifaceIsExternal($_)) {
             push(@array, $_);
         }
@@ -333,6 +369,7 @@ sub InternalIfaces
     foreach (@ifaces) {
         ($self->ifaceMethod($_) eq 'notset') and next;
         ($self->ifaceMethod($_) eq 'trunk') and next;
+        ($self->ifaceMethod($_) eq 'bundled') and next;
         unless ($self->ifaceIsExternal($_)) {
             push(@array, $_);
         }
@@ -438,7 +475,69 @@ sub ifaceIsExternal # (interface)
         my @aux = $self->_viface2array($iface);
         $iface = $aux[0];
     }
+    if ($self->ifaceIsBridge($iface)) {
+        # Bridges are external if any of their interfaces is external
+        my $ifaces = $self->bridgeIfaces($iface);
+        foreach my $bridged ( @{$ifaces} ) {
+            return 1 if ($self->ifaceIsExternal($bridged));
+        }
+        return 0;
+    }
+    if ($self->ifaceIsBond($iface)) {
+        # Bonds are external if any of their interfaces is external
+        my $ifaces = $self->bondIfaces($iface);
+        foreach my $bundled ( @{$ifaces} ) {
+            return 1 if ($self->ifaceIsExternal($bundled));
+        }
+        return 0;
+    }
     return $self->get_hash('interfaces')->{$iface}->{external} ? 1 : 0;
+}
+
+# Method: ifaceIsBridge
+#
+#   Checks if a given iface exists and is a bridge
+#
+# Parameters:
+#
+#   interface - the name of a network interface
+#
+# Returns:
+#
+#   boolean - true, if the interface is external, otherwise false
+sub ifaceIsBridge # (interface)
+{
+    my ($self, $iface) = @_;
+    defined($iface) or return undef;
+
+    if ( $self->ifaceExists($iface) and $iface =~ /^br/ and not ($iface =~ /:/)) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+# Method: ifaceIsBond
+#
+#   Checks if a given iface exists and is a bond
+#
+# Parameters:
+#
+#   interface - the name of a network interface
+#
+# Returns:
+#
+#   boolean - true, if the interface is external, otherwise false
+sub ifaceIsBond # (interface)
+{
+    my ($self, $iface) = @_;
+    defined($iface) or return undef;
+
+    if ( $self->ifaceExists($iface) and $iface =~ /^bond/ and not ($iface =~ /:/)) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 # Method: ifaceOnConfig
@@ -587,6 +686,76 @@ sub _cleanupVlanIfaces
     EBox::Sudo::root(@cmds);
 }
 
+# given a list of network interfaces appends to it any existing bridged interface
+# not already in the list and removes from it any bridged interface which has been
+# deleted from the configuration.
+sub _bridgedIfaceFilter # (\array)
+{
+    my ($self, $ifaces) = @_;
+    my @array = ();
+
+    foreach my $if (@{$ifaces}) {
+        unless ($if =~ /^br/) {
+            push(@array, $if);
+        }
+    }
+
+    my $bridges = $self->bridges();
+    foreach my $id (@{$bridges}) {
+        push(@array, "br$id");
+    }
+    return \@array;
+}
+
+# given a list of network interfaces appends to it any existing bonded interface
+# not already in the list and removes from it any bonded interface which has been
+# deleted from the configuration.
+sub _bundledIfaceFilter # (\array)
+{
+    my ($self, $ifaces) = @_;
+    my @array = ();
+
+    foreach my $if (@{$ifaces}) {
+        unless ($if =~ /^bond/) {
+            push(@array, $if);
+        }
+    }
+
+    my $bonds = $self->bonds();
+    foreach my $id (@{$bonds}) {
+        push(@array, "bond$id");
+    }
+    return \@array;
+}
+
+# given a list of network interfaces appends to it any existing bridge interface
+# not already in the list
+sub _bridgedIfaceFilterWithRemoved # (\array)
+{
+    my ($self, $ifaces) = @_;
+    my $bridges = $self->bridges();
+    foreach my $id (@{$bridges}) {
+        unless (grep(/^br$id$/, @{$ifaces})) {
+            push(@{$ifaces}, "br$id");
+        }
+    }
+    return $ifaces;
+}
+
+# given a list of network interfaces appends to it any existing bond interface
+# not already in the list
+sub _bundledIfaceFilterWithRemoved # (\array)
+{
+    my ($self, $ifaces) = @_;
+    my $bonds = $self->bonds();
+    foreach my $id (@{$bonds}) {
+        unless (grep(/^bond$id$/, @{$ifaces})) {
+            push(@{$ifaces}, "bond$id");
+        }
+    }
+    return $ifaces;
+}
+
 sub _ifaces
 {
     my $self = shift;
@@ -611,6 +780,8 @@ sub ifaces
     my $self = shift;
     my $ifaces = $self->_ifaces();
     $ifaces = $self->_vlanIfaceFilter($ifaces);
+    $ifaces = $self->_bridgedIfaceFilter($ifaces);
+    $ifaces = $self->_bundledIfaceFilter($ifaces);
     return $ifaces;
 }
 
@@ -627,6 +798,8 @@ sub ifacesWithRemoved
     my $self = shift;
     my $ifaces = $self->_ifaces();
     $ifaces = $self->_vlanIfaceFilterWithRemoved($ifaces);
+    $ifaces = $self->_bridgedIfaceFilterWithRemoved($ifaces);
+    $ifaces = $self->_bundledIfaceFilterWithRemoved($ifaces);
     return $ifaces;
 }
 
@@ -664,12 +837,22 @@ sub ifaceAddresses
                            netmask => $viface->{netmask},
                            name => $name });
         }
-    } elsif ($self->ifaceMethod($iface) eq 'dhcp') {
+    } elsif ($self->ifaceMethod($iface) eq any('dhcp', 'ppp')) {
         my $addr = $self->DHCPAddress($iface);
         my $mask = $self->DHCPNetmask($iface);
         if ($addr) {
             push(@array, {address => $addr, netmask => $mask});
         }
+    } elsif ($self->ifaceMethod($iface) eq 'bridged') {
+        my $bridge = $self->ifaceBridge($iface);
+        if ($self->ifaceExists("br$bridge")) {
+            return $self->ifaceAddresses("br$bridge");
+        }
+    #} elsif ($self->ifaceMethod($iface) eq 'bundled') {
+    #    my $bond = $self->ifaceBond($iface);
+    #    if ($self->ifaceExists("bond$bond")) {
+    #        return $self->ifaceAddresses("bond$bond");
+    #    }
     }
     return \@array;
 }
@@ -813,6 +996,27 @@ sub dhcpIfaces
         }
     }
     return \@dhcpifaces;
+}
+
+# Method: pppIfaces
+#
+#       Returns the names for all the PPPoE interfaces.
+#
+# Returns:
+#
+#       an array ref - holding the name of the interfaces.
+#
+sub pppIfaces
+{
+    my ($self) = @_;
+    my @pppifaces;
+
+    foreach my $iface (@{$self->ifaces()}) {
+        if ($self->ifaceMethod($iface) eq 'ppp') {
+            push (@pppifaces, $iface);
+        }
+    }
+    return \@pppifaces;
 }
 
 # Method: allIfacesWithRemoved
@@ -1164,12 +1368,15 @@ sub ifaceAlias # (iface)
 #
 # Returns:
 #
-#   string - dhcp|static|notset|trunk
+#   string - dhcp|static|notset|trunk|ppp|bridged|bundled
 #           dhcp -> the interface is configured via dhcp
 #           static -> the interface is configured with a static ip
+#           ppp -> the interface is configured via PPP
 #           notset -> the interface exists but has not been
 #                 configured yet
 #           trunk -> vlan aware interface
+#           bridged -> bridged to other interfaces
+#           bundled -> bundled with other interfaces
 #
 sub ifaceMethod
 {
@@ -1208,13 +1415,17 @@ sub setIfaceDHCP
                              value => $name);
 
     my $oldm = $self->ifaceMethod($name);
-    if ($oldm eq 'dhcp') {
+    if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'trunk') {
         $self->_trunkIfaceIsUsed($name);
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
+    } elsif ($oldm eq 'bridged') {
+        $self->BridgedCleanUp($name);
+    } elsif ($oldm eq 'bundled') {
+        $self->BundledCleanUp($name);
     }
 
     my $global = EBox::Global->getInstance();
@@ -1329,10 +1540,14 @@ sub setIfaceStatic
     # Check the interface IP  address is not a HA floating IP
     $self->_checkHAFloatingIPCollision($name, $address);
 
-    if ($oldm eq 'dhcp') {
+    if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name, $address, $netmask);
+    } elsif ($oldm eq 'bridged') {
+        $self->BridgedCleanUp($name);
+    } elsif ($oldm eq 'bundled') {
+        $self->BundledCleanUp($name);
     }
 
     # Calling observers
@@ -1440,6 +1655,20 @@ sub _checkStaticIP
             next;
         }
 
+        # don't check against other ifaces in this bridge
+        if ($self->ifaceIsBridge($iface)) {
+            my $brIfaces = $self->bridgeIfaces($iface);
+            if ($if eq any(@{$brIfaces})) {
+                next;
+            }
+        }
+        if ($self->ifaceIsBond($iface)) {
+            my $bondIfaces = $self->bondIfaces($iface);
+            if ($if eq any(@{$bondIfaces})) {
+                next;
+            }
+        }
+
         foreach my $addr_r (@{ $self->ifaceAddresses($if)} ) {
             my $ifNetwork =  EBox::NetWrappers::ip_network($addr_r->{address},
                                                             $addr_r->{netmask});
@@ -1452,6 +1681,102 @@ sub _checkStaticIP
                 );
             }
         }
+    }
+}
+
+# Method: setIfacePPP
+#
+#   Configure with PPP method
+#
+# Parameters:
+#
+#   interface - the name of a network interface
+#   ppp_user - PPP user name
+#   ppp_pass - PPP password
+#   external - boolean to indicate if it's an external interface
+#   force - boolean to indicate if an exception should be raised when
+#           method is changed or it should be forced
+#
+sub setIfacePPP
+{
+    my ($self, $name, $ppp_user, $ppp_pass, $ext, $force) = @_;
+    defined $ext or $ext = 0;
+
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    my $oldm = $self->ifaceMethod($name);
+    my $olduser = $self->ifacePPPUser($name);
+    my $oldpass = $self->ifacePPPPass($name);
+    my $oldext = $self->ifaceIsExternal($name);
+
+    if (($oldm eq 'ppp') and
+        ($olduser eq $ppp_user) and
+        ($oldpass eq $ppp_pass) and
+        (! ($oldext xor $ext))) {
+        return;
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_trunkIfaceIsUsed($name);
+    } elsif ($oldm eq any('dhcp', 'ppp')) {
+        $self->DHCPCleanUp($name);
+    } elsif ($oldm eq 'static') {
+        $self->_routersReachableIfChange($name);
+    } elsif ($oldm eq 'bridged') {
+        $self->BridgedCleanUp($name);
+    } elsif ($oldm eq 'bundled') {
+        $self->BundledCleanUp($name);
+    }
+
+    # Calling observers
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+
+    if ($ext != $self->ifaceIsExternal($name) ) {
+        # Tell observers the interface way has changed
+        foreach my $obs (@observers) {
+            if ($obs->ifaceExternalChanged($name, $ext)) {
+                if ($force) {
+                    $obs->changeIfaceExternalProperty($name, $ext);
+                } else {
+                    throw EBox::Exceptions::DataInUse();
+                }
+            }
+        }
+    }
+
+    if ($oldm ne 'ppp') {
+            $self->_notifyChangedIface(
+                name => $name,
+                oldMethod => $oldm,
+                newMethod => 'ppp',
+                action => 'prechange',
+                force => $force,
+            );
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
+
+    my $ifaces = $self->get_hash('interfaces');
+    $ifaces->{$name}->{external} = $ext;
+    $ifaces->{$name}->{method} = 'ppp';
+    $ifaces->{$name}->{ppp_user} = $ppp_user;
+    $ifaces->{$name}->{ppp_pass} = $ppp_pass;
+    $ifaces->{$name}->{name}     = $name;
+    $ifaces->{$name}->{changed} = 1;
+    $self->set('interfaces', $ifaces);
+
+    if ($oldm ne 'ppp') {
+            $self->_notifyChangedIface(
+                name => $name,
+                oldMethod => $oldm,
+                newMethod => 'ppp',
+                action => 'postchange'
+            );
     }
 }
 
@@ -1484,11 +1809,15 @@ sub setIfaceTrunk # (iface, force)
 
     ($oldm eq 'trunk') and return;
 
-    if ($oldm eq 'dhcp') {
+    if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
+    } elsif ($oldm eq 'bridged') {
+        $self->BridgedCleanUp($name);
+    } elsif ($oldm eq 'bundled') {
+        $self->BundledCleanUp($name);
     }
 
     if ($oldm ne 'notset') {
@@ -1548,6 +1877,222 @@ sub _removeTrunkIfaceVlanes
     foreach my $vlan (@{$vlans}) {
         defined($vlan) or next;
         $self->removeVlan($vlan->{id});
+    }
+}
+
+# Method: setIfaceBridged
+#
+#   configures an interface in bridged mode attached to a new or
+#   defined bridge
+#
+# Parameters:
+#
+#   interface - the name of a network interface
+#   external - boolean to indicate if it's  a external interface
+#   bridge - bridge id number or -1 to create new one
+#   force - boolean to indicate if an exception should be raised when
+#   method is changed or it should be forced
+#
+sub setIfaceBridged
+{
+    my ($self, $name, $ext, $bridge, $force) = @_;
+    defined $ext or $ext = 0;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    # check if bridge exists
+    if ( $bridge >= 0 ) {
+        $self->ifaceExists("br$bridge") or
+            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                                 value => "br$bridge");
+    }
+
+    my $oldm = $self->ifaceMethod($name);
+    if ($oldm eq any('dhcp', 'ppp')) {
+        $self->DHCPCleanUp($name);
+    } elsif ($oldm eq 'trunk') {
+        $self->_trunkIfaceIsUsed($name);
+    } elsif ($oldm eq 'static') {
+        $self->_routersReachableIfChange($name);
+        $self->_checkStatic($name, $force);
+    } elsif ($oldm eq 'bridged' and $self->ifaceBridge($name) ne $bridge) {
+        $self->BridgedCleanUp($name);
+    }
+
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+
+    if ($ext != $self->ifaceIsExternal($name) ) {
+      # Tell observers the interface way has changed
+      foreach my $obs (@observers) {
+        if ($obs->ifaceExternalChanged($name, $ext)) {
+          if ($force) {
+            $obs->changeIfaceExternalProperty($name, $ext);
+          }
+          else {
+            throw EBox::Exceptions::DataInUse();
+          }
+        }
+      }
+    }
+    if ($oldm ne 'bridged') {
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'bridged',
+            action => 'prechange',
+            force  => $force,
+        );
+    } else {
+        my $oldm = $self->ifaceIsExternal($name);
+        my $oldbr = $self->ifaceBridge($name);
+
+        if (defined($oldm) and defined($ext) and ($oldm == $ext) and
+            defined($oldbr) and defined($bridge) and ($oldbr eq $bridge)) {
+            return;
+        }
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
+    # new bridge
+    if ($bridge < 0) {
+        my @bridges = @{$self->bridges()};
+        my $last = int(pop(@bridges));
+        $bridge = $last+1;
+        $self->_createBridge($bridge);
+    }
+
+    my $ifaces = $self->get_hash('interfaces');
+    $ifaces->{$name}->{external} = $ext;
+    delete $ifaces->{$name}->{address};
+    delete $ifaces->{$name}->{netmask};
+    $ifaces->{$name}->{method} = 'bridged';
+    $ifaces->{$name}->{changed} = 1;
+    $ifaces->{$name}->{bridge_id} = $bridge;
+    $ifaces->{$name}->{name} = $name;
+    $self->set('interfaces', $ifaces);
+
+    # mark bridge as changed
+    $self->_setChanged("br$bridge");
+
+    if ($oldm ne 'bridged') {
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'bridged',
+            action => 'postchange'
+        );
+    }
+}
+
+# Method: setIfaceBonded
+#
+#   configures an interface in bundled mode attached to a new or
+#   defined bond
+#
+# Parameters:
+#
+#   interface - the name of a network interface
+#   external - boolean to indicate if it's  a external interface
+#   bond - bond id number or -1 to create new one
+#   force - boolean to indicate if an exception should be raised when
+#   method is changed or it should be forced
+#
+sub setIfaceBonded
+{
+    my ($self, $name, $ext, $bond, $force) = @_;
+    defined $ext or $ext = 0;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    # check if bond exists
+    if ( $bond >= 0 ) {
+        $self->ifaceExists("bond$bond") or
+            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                                 value => "bond$bond");
+    }
+
+    my $oldm = $self->ifaceMethod($name);
+    if ($oldm eq any('dhcp', 'ppp')) {
+        $self->DHCPCleanUp($name);
+    } elsif ($oldm eq 'trunk') {
+        $self->_trunkIfaceIsUsed($name);
+    } elsif ($oldm eq 'static') {
+        $self->_routersReachableIfChange($name);
+        $self->_checkStatic($name, $force);
+    } elsif ($oldm eq 'bundled' and $self->ifaceBond($name) ne $bond) {
+        $self->BundledCleanUp($name);
+    }
+
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+
+    if ($ext != $self->ifaceIsExternal($name) ) {
+      # Tell observers the interface way has changed
+      foreach my $obs (@observers) {
+        if ($obs->ifaceExternalChanged($name, $ext)) {
+          if ($force) {
+            $obs->changeIfaceExternalProperty($name, $ext);
+          }
+          else {
+            throw EBox::Exceptions::DataInUse();
+          }
+        }
+      }
+    }
+    if ($oldm ne 'bundled') {
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'bundled',
+            action => 'prechange',
+            force  => $force,
+        );
+    } else {
+        my $oldm = $self->ifaceIsExternal($name);
+        my $oldbr = $self->ifaceBond($name);
+
+        if (defined($oldm) and defined($ext) and ($oldm == $ext) and
+            defined($oldbr) and defined($bond) and ($oldbr eq $bond)) {
+            return;
+        }
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_removeTrunkIfaceVlanes($name);
+    }
+    # new bond
+    if ($bond < 0) {
+        my @bonds = @{$self->bonds()};
+        my $last = int(pop(@bonds));
+        $bond = $last;
+        $self->_createBond($bond);
+    }
+
+    my $ifaces = $self->get_hash('interfaces');
+    $ifaces->{$name}->{external} = $ext;
+    delete $ifaces->{$name}->{address};
+    delete $ifaces->{$name}->{netmask};
+    $ifaces->{$name}->{method} = 'bundled';
+    $ifaces->{$name}->{changed} = 1;
+    $ifaces->{$name}->{bond_id} = $bond;
+    $ifaces->{$name}->{name} = $name;
+    $self->set('interfaces', $ifaces);
+
+    # mark bond as changed
+    $self->_setChanged("bond$bond");
+
+    if ($oldm ne 'bundled') {
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'bundled',
+            action => 'postchange'
+        );
     }
 }
 
@@ -1687,6 +2232,226 @@ sub vlan
     return $vlans->{$vlan};
 }
 
+# Method: _createBridge
+#
+#   creates a new bridge interface.
+#
+# Parameters:
+#
+#   id - bridge identifier
+#
+sub _createBridge
+{
+    my ($self, $id) = @_;
+
+    my $bridge = "br$id";
+    my $interfaces = $self->get_hash('interfaces');
+    if (exists $interfaces->{$bridge}) {
+        throw EBox::Exceptions::DataExists('data' => 'bridge',
+                                           'value' => $id);
+    }
+
+    $self->setIfaceAlias($bridge, $bridge);
+}
+
+# Method: _removeBridge
+#
+#   Removes a bridge
+#
+# Parameters:
+#
+#   id - bridge identifier
+#
+sub _removeBridge # (id)
+{
+    my ($self, $id, $force) = @_;
+    $self->_removeIface("br$id");
+}
+
+# Method: _removeEmptyBridges
+#
+# Removes bridges which has no bridged interfaces
+sub _removeEmptyBridges
+{
+    my ($self) = @_;
+    my %seen;
+
+    for my $if ( @{$self->ifaces()} ) {
+        if ( $self->ifaceMethod($if) eq 'bridged' ) {
+            $seen{$self->ifaceBridge($if)}++;
+        }
+    }
+
+    # remove unseen bridges
+    for my $bridge ( @{$self->bridges()} ) {
+        next if ( $seen{$bridge} );
+        $self->_removeBridge($bridge);
+    }
+}
+
+# Method: bridges
+#
+#   Returns a reference to a sorted array with existing bridges ID's
+#
+# Returns:
+#
+#   an array ref - holding the bridges ID's
+sub bridges
+{
+    my $self = shift;
+    my @bridges;
+
+    for my $iface (keys %{$self->get_hash('interfaces')}) {
+        if ($iface =~ /^br/) {
+            $iface =~ s/^br//;
+            push(@bridges, $iface);
+        }
+    }
+    @bridges = sort @bridges;
+    return \@bridges;
+}
+
+# Method: bridgeIfaces
+#
+#   Returns a reference to an array of ifaces bridged to
+#   the given bridge ifname
+#
+# Parameters:
+#
+#   bridge - Bridge ifname
+#
+# Returns:
+#
+#   an array ref - holding the iface names
+sub bridgeIfaces
+{
+    my ($self, $bridge) = @_;
+
+    # get the bridge's id
+    $bridge =~ s/^br//;
+
+    my @ifaces = ();
+    for my $iface (@{$self->ifaces}) {
+        if ($self->ifaceMethod($iface) eq 'bridged') {
+            if ($self->ifaceBridge($iface) eq $bridge) {
+               push(@ifaces, $iface);
+            }
+        }
+    }
+
+    return \@ifaces;
+}
+
+# Method: _createBond
+#
+#   creates a new bond interface.
+#
+# Parameters:
+#
+#   id - bond identifier
+#
+sub _createBond
+{
+    my ($self, $id) = @_;
+
+    my $bond = "bond$id";
+    my $interfaces = $self->get_hash('interfaces');
+    if (exists $interfaces->{$bond}) {
+        throw EBox::Exceptions::DataExists('data' => 'bond',
+                                           'value' => $id);
+    }
+
+    $self->setIfaceAlias($bond, $bond);
+}
+
+# Method: _removeBond
+#
+#   Removes a bond
+#
+# Parameters:
+#
+#   id - bond identifier
+#
+sub _removeBond # (id)
+{
+    my ($self, $id, $force) = @_;
+    $self->_removeIface("bond$id");
+}
+
+# Method: _removeEmptyBonds
+#
+# Removes bonds which has no bundled interfaces
+sub _removeEmptyBonds
+{
+    my ($self) = @_;
+    my %seen;
+
+    for my $if ( @{$self->ifaces()} ) {
+        if ( $self->ifaceMethod($if) eq 'bundled' ) {
+            $seen{$self->ifaceBond($if)}++;
+        }
+    }
+
+    # remove unseen bonds
+    for my $bond ( @{$self->bonds()} ) {
+        next if ( $seen{$bond} );
+        $self->_removeBond($bond);
+    }
+}
+
+# Method: bonds
+#
+#   Returns a reference to a sorted array with existing bonds ID's
+#
+# Returns:
+#
+#   an array ref - holding the bonds ID's
+sub bonds
+{
+    my $self = shift;
+    my @bonds;
+
+    for my $iface (keys %{$self->get_hash('interfaces')}) {
+        if ($iface =~ /^bond/) {
+            $iface =~ s/^bond//;
+            push(@bonds, $iface);
+        }
+    }
+    @bonds = sort @bonds;
+    return \@bonds;
+}
+
+# Method: bondIfaces
+#
+#   Returns a reference to an array of ifaces bundled to
+#   the given bond ifname
+#
+# Parameters:
+#
+#   bond - Bond ifname
+#
+# Returns:
+#
+#   an array ref - holding the iface names
+sub bondIfaces
+{
+    my ($self, $bond) = @_;
+
+    # get the bond's id
+    $bond =~ s/^bond//;
+
+    my @ifaces = ();
+    for my $iface (@{$self->ifaces}) {
+        if ($self->ifaceMethod($iface) eq 'bundled') {
+            if ($self->ifaceBond($iface) eq $bond) {
+               push(@ifaces, $iface);
+            }
+        }
+    }
+
+    return \@ifaces;
+}
+
 # Method: unsetIface
 #
 #   Unset an interface
@@ -1708,13 +2473,17 @@ sub unsetIface # (interface, force)
     }
 
     my $oldm = $self->ifaceMethod($name);
-    if ($oldm eq 'dhcp') {
+    if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'trunk') {
         $self->_trunkIfaceIsUsed($name);
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
+    } elsif ($oldm eq 'bridged') {
+        $self->BridgedCleanUp($name);
+    } elsif ($oldm eq 'bundled') {
+        $self->BundledCleanUp($name);
     }
 
     if ($oldm ne 'notset') {
@@ -1762,9 +2531,11 @@ sub unsetIface # (interface, force)
 #  Returns:
 #
 #   - For static interfaces: the configured IP Address of the interface.
-#   - For dhcp interfaces:
+#   - For dhcp and ppp interfaces:
 #       - the current address if the interface is up
 #       - undef if the interface is down
+#   - For bridged interfaces: its bridge ifaces address (static or dhcp)
+#   - For bundled interfaces: its bond ifaces address (static or dhcp)
 #   - For not-yet-configured interfaces
 #       - undef
 sub ifaceAddress # (name)
@@ -1780,10 +2551,206 @@ sub ifaceAddress # (name)
     }
     if ($self->ifaceMethod($name) eq 'static') {
         return $self->get_hash('interfaces')->{$name}->{address};
-    } elsif ($self->ifaceMethod($name) eq 'dhcp') {
+    } elsif ($self->ifaceMethod($name) eq any('dhcp', 'ppp')) {
         return $self->DHCPAddress($name);
+    } elsif ($self->ifaceMethod($name) eq 'bridged') {
+        my $bridge = $self->ifaceBridge($name);
+        if ($self->ifaceExists("br$bridge")) {
+            return $self->ifaceAddress("br$bridge");
+        }
+    #} elsif ($self->ifaceMethod($name) eq 'bundled') {
+    #    my $bond = $self->ifaceBond($name);
+    #    if ($self->ifaceExists("bond$bond")) {
+    #        return $self->ifaceAddress("bond$bond");
+    #    }
     }
     return undef;
+}
+
+# Method: ifacePPPUser
+#
+#   Returns the configured username for a PPP interface
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For ppp interfaces: the configured user of the interface.
+#   - For the rest: undef
+#
+sub ifacePPPUser # (name)
+{
+    my ($self, $name) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    if ($self->ifaceMethod($name) eq 'ppp') {
+        return $self->get_hash('interfaces')->{$name}->{ppp_user};
+    } else {
+        return undef;
+    }
+}
+
+# Method: ifacePPPPass
+#
+#   Returns the configured password for a PPP interface
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For ppp interfaces: the configured password of the interface.
+#   - For the rest: undef
+#
+sub ifacePPPPass # (name)
+{
+    my ($self, $name) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    if ($self->ifaceMethod($name) eq 'ppp') {
+        return $self->get_hash('interfaces')->{$name}->{ppp_pass};
+    } else {
+        return undef;
+    }
+}
+
+# Method: ifaceBridge
+#
+#   Returns the bridge id for an interface
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For bridged interfaces: the bridge id
+#   - For the rest: undef
+#
+sub ifaceBridge # (name)
+{
+    my ($self, $name) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    if ($self->ifaceMethod($name) eq 'bridged') {
+        return $self->get_hash('interfaces')->{$name}->{bridge_id};
+    } else {
+        return undef;
+    }
+}
+
+# Method: ifaceBond
+#
+#   Returns the bond id for an interface
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For bundled interfaces: the bond id
+#   - For the rest: undef
+#
+sub ifaceBond # (name)
+{
+    my ($self, $name) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    if ($self->ifaceMethod($name) eq 'bundled') {
+        return $self->get_hash('interfaces')->{$name}->{bond_id};
+    } else {
+        return undef;
+    }
+}
+
+# Method: bondMode
+#
+#   Returns the bonding mode for a bond interface
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For bond: the bonding mode
+#   - For the rest: undef
+#
+sub bondMode # (name)
+{
+    my ($self, $name) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    if ($self->ifaceIsBond($name)) {
+        return $self->get_hash('interfaces')->{$name}->{bond_mode};
+    }
+    return undef;
+}
+
+# Method: realIface
+#
+#   Returns the associated PPP interface in case of a Ethernet
+#   interface configured for PPPoE, or the same value in any other case.
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For ppp interfaces: the associated interface, if it is up
+#   - For the rest: the unaltered name
+#
+sub realIface # (name)
+{
+    my ($self, $name) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    if ($self->ifaceMethod($name) eq 'ppp') {
+        my $ppp_iface = $self->get_state()->{interfaces}->{$name}->{ppp_iface};
+        if ($ppp_iface) {
+            return $ppp_iface;
+        }
+    }
+    return $name;
+}
+
+# Method: etherIface
+#
+#   Returns the associated Ethernet interface in case of a ppp
+#   interface configured for PPPoE, or the same value in any other case.
+#
+#   This is somehow the inverse function of <EBox::Network::realIface>
+#   - For ppp interfaces: the associated Ethernet interface, if it is up
+#   - For the rest: the unaltered name
+#
+sub etherIface # (name)
+{
+    my ($self, $name) = @_;
+
+    for my $iface (@{$self->allIfaces()}) {
+        if ($self->ifaceMethod($iface) eq 'ppp') {
+            my $ppp_iface = $self->get_state()->{interfaces}->{$iface}->{ppp_iface};
+            return $iface if ($ppp_iface eq $name);
+        }
+    }
+    return $name;
 }
 
 # Method: ifaceNetmask
@@ -1816,8 +2783,18 @@ sub ifaceNetmask
     }
     if ($self->ifaceMethod($name) eq 'static') {
         return $self->get_hash('interfaces')->{$name}->{netmask};
-    } elsif ($self->ifaceMethod($name) eq 'dhcp') {
+    } elsif ($self->ifaceMethod($name) eq any('dhcp', 'ppp')) {
         return $self->DHCPNetmask($name);
+    } elsif ($self->ifaceMethod($name) eq 'bridged') {
+        my $bridge = $self->ifaceBridge($name);
+        if ($self->ifaceExists("br$bridge")) {
+            return $self->ifaceNetmask("br$bridge");
+        }
+    #} elsif ($self->ifaceMethod($name) eq 'bundled') {
+    #    my $bond = $self->ifaceBond($name);
+    #    if ($self->ifaceExists("bond$bond")) {
+    #        return $self->ifaceNetmask("bond$bond");
+    #    }
     }
 
     return undef;
@@ -2261,6 +3238,70 @@ sub proxySettings
     }
 }
 
+sub _generatePPPConfig
+{
+    my ($self) = @_;
+
+    my $pppSecrets = {};
+
+    my $usepeerdns = scalar (@{$self->nameservers()}) == 0;
+
+    # clear up PPP provide files
+    my $clearCmd = 'rm -f ' . PPP_PROVIDER_FILE . '*';
+    EBox::Sudo::root($clearCmd);
+
+    foreach my $iface (@{$self->pppIfaces()}) {
+        my $user = $self->ifacePPPUser($iface);
+        my $pass = $self->ifacePPPPass($iface);
+        $pppSecrets->{$user} = $pass;
+        $self->writeConfFile(PPP_PROVIDER_FILE . $iface,
+                             'network/dsl-provider.mas',
+                             [ iface => $iface,
+                               ppp_user => $user,
+                               usepeerdns => $usepeerdns
+                             ]);
+    }
+
+    $self->writeConfFile(PAP_SECRETS_FILE,
+                         'network/pap-secrets.mas',
+                         [ passwords  => $pppSecrets ],
+                         { mode => '0600' }
+                        );
+
+    # Do not overwrite the entire chap-secrets file every time
+    # to avoid conflicts with the PPTP module
+
+    my $file;
+    try {
+        $file = read_file(CHAP_SECRETS_FILE);
+    } catch {
+        # Write it with permissions for ebox if we can't read it
+        my $gid = getgrnam('ebox');
+        $self->writeConfFile(CHAP_SECRETS_FILE,
+                             'network/chap-secrets.mas', [],
+                             { mode => '0660', gid => $gid });
+        $file = read_file(CHAP_SECRETS_FILE);
+    }
+    my $pppoeConf = '';
+    foreach my $user (keys %{$pppSecrets}) {
+        $pppoeConf .= "$user * $pppSecrets->{$user}\n";
+    }
+
+    my $oldMark = '# PPPOE_CONFIG #';
+    my $mark    =  '# PPPOE_CONFIG - managed by Zentyal. Don not edit this section #';
+    my $endMark = '# End of PPPOE_CONFIG section #';
+    $file =~ s/$mark.*$mark/$mark\n$pppoeConf$mark/sm;
+    if ($file =~ m/$mark/sm) {
+        $file =~ s/$mark.*$endMark/$mark\n$pppoeConf$endMark/sm;
+    } elsif ($file =~ m/$oldMark/) {
+        # convert to new format
+        $file =~ s/$oldMark.*$oldMark/$mark\n$pppoeConf$endMark/sm;
+    } else {
+        $file .= $mark . "\n" . $pppoeConf . $endMark . "\n";
+    }
+    write_file(CHAP_SECRETS_FILE, $file);
+}
+
 sub generateInterfaces
 {
     my ($self) = @_;
@@ -2342,6 +3383,7 @@ sub _disableReversePath
     my %seen;
     for my $router ( reverse @{$routers} ) {
         my $iface = $router->{'interface'};
+        $iface = $self->realIface($iface);
         # remove viface portion
         $iface =~ s/:.*$//;
 
@@ -2412,6 +3454,8 @@ sub _multigwRoutes
         my $mark = $marks->{$router->{'id'}};
         my $table = 100 + $mark;
 
+        $iface = $self->realIface($iface);
+
         my $net = $self->ifaceNetwork($iface);
         my $address = $self->ifaceAddress($iface);
         unless ($address) {
@@ -2422,6 +3466,10 @@ sub _multigwRoutes
         }
 
         my $route = "via $ip dev $iface src $address";
+        if ($method eq 'ppp') {
+            $route = "dev $iface";
+            (undef, $ip) = split ('/', $ip);
+        }
 
         # Write mark rules first to avoid local output problems
         push(@cmds, "/sbin/ip route flush table $table");
@@ -2462,9 +3510,9 @@ sub _multigwRoutes
 
         my $mark = $marks->{$router->{'id'}};
 
-        # Match interface instead of mac for dhcp
+        # Match interface instead of mac for pppoe and dhcp
         my $mac = $router->{'mac'};
-        my $iface = $router->{'interface'};
+        my $iface = $self->realIface($router->{'interface'});
         my $origin;
         if ($mac) {
             # Skip unknown macs for static interfaces
@@ -2479,8 +3527,14 @@ sub _multigwRoutes
                   . "-j MARK --set-mark $mark");
     }
 
+    push(@cmds, @{$self->_pppoeRules()});
+
+    for my $rule (@{$self->model('MultiGwRulesDataTable')->iptablesRules()}) {
+        push(@cmds, "/sbin/iptables $rule");
+    }
+
     # send unmarked packets through default router
-    if ($defaultRouterMark) {
+    if ((not $self->balanceTraffic()) and $defaultRouterMark) {
         push(@cmds, "/sbin/iptables -t mangle -A PREROUTING  -m mark --mark 0/0xff " .
                     "-j  MARK --set-mark $defaultRouterMark");
         push(@cmds, "/sbin/iptables -t mangle -A OUTPUT -m mark --mark 0/0xff " .
@@ -2495,7 +3549,7 @@ sub _multigwRoutes
         push(@fcmds, '/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --save-mark');
         push(@fcmds, '/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --save-mark');
 
-        foreach my $chain (CHECKIP_CHAIN) {
+        foreach my $chain (FAILOVER_CHAIN, CHECKIP_CHAIN) {
             push(@fcmds, "/sbin/iptables -t mangle -N $chain");
             push(@fcmds, "/sbin/iptables -t mangle -A OUTPUT -j $chain");
         }
@@ -2571,9 +3625,23 @@ sub _preSetConf
                 my @cmds;
                 if ($self->ifaceExists($if)) {
                     my $ifname = $if;
-                    push (@cmds, "/sbin/ip address flush label $if");
-                    push (@cmds, "/sbin/ip address flush label $if:*");
-                    push (@cmds, "/sbin/ifdown --force -i $file $ifname");
+                    if ($self->ifaceMethod($if) eq 'ppp') {
+                        $ifname = "zentyal-ppp-$if";
+                    } else {
+                        push (@cmds, "/sbin/ip address flush label $if");
+                        push (@cmds, "/sbin/ip address flush label $if:*");
+                    }
+                    if ($self->ifaceMethod($if) eq 'bundled') {
+                        my $bond = $self->ifaceBond($if);
+                        push (@cmds, "/sbin/ifenslave --force -d bond$bond $if");
+                    }
+                    EBox::Sudo::silentRoot("grep ^'iface $ifname inet' $file");
+                    if ($? == 0) {
+                        push (@cmds, "/sbin/ifdown --force -i $file $ifname");
+                    }
+                    if ($self->ifaceMethod($if) eq 'bridged') {
+                        push (@cmds, "/usr/sbin/brctl delbr $if");
+                    }
                 }
 
                 EBox::Sudo::root(@cmds);
@@ -2590,7 +3658,7 @@ sub _preSetConf
         # PPPoE it should be done by the dhcp, but sometimes
         # cruft is left
         if ($self->ifaceExists($if)) {
-            unless ($self->ifaceMethod($if) eq 'dhcp') {
+            unless ($self->ifaceMethod($if) eq any('dhcp', 'ppp')) {
                 $self->DHCPCleanUp($if);
             }
         }
@@ -2614,7 +3682,9 @@ sub _setConf
 {
     my ($self) = @_;
     $self->generateInterfaces();
+    $self->_generatePPPConfig();
     $self->_generateProxyConfig();
+    $self->_writeFailoverCron();
 }
 
 # Method: _enforceServiceState
@@ -2635,11 +3705,24 @@ sub _enforceServiceState
     my @ifups = ();
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $iface (@{$iflist}) {
+        next if ($self->ifaceMethod($iface) eq 'notset');
+
         my $dhcpIface = $self->ifaceMethod($iface) eq 'dhcp';
         if ($dhcpIface) {
             $dynIfaces = 1;
         }
         if ($self->_hasChanged($iface) or $dhcpIface or $restart) {
+            if ($self->ifaceMethod($iface) eq 'ppp') {
+                $iface = "zentyal-ppp-$iface";
+                $dynIfaces = 1;
+            }
+            if ($self->ifaceIsBond($iface)) {
+                # ifup bond slaves first
+                my $bondIfaces = $self->bondIfaces($iface);
+                foreach my $slaveIface (@{$bondIfaces}) {
+                     push(@ifups, $slaveIface);
+                }
+            }
             push(@ifups, $iface);
         }
     }
@@ -2649,8 +3732,10 @@ sub _enforceServiceState
     if ((exists $ENV{USER}) or (exists $ENV{PLACK_ENV})) {
         EBox::Util::Lock::lock('ifup');
         foreach my $iface (@ifups) {
-            EBox::Sudo::root(EBox::Config::scripts() .
-                    "unblock-exec /sbin/ifup --force -i $file $iface");
+            EBox::Sudo::silentRoot("grep ^'iface $iface inet' $file");
+            if ($? == 0) {
+                EBox::Sudo::root(EBox::Config::scripts() . "unblock-exec /sbin/ifup --force -i $file $iface");
+            }
             unless ($self->isReadOnly()) {
                 $self->_unsetChanged($iface);
             }
@@ -2666,7 +3751,7 @@ sub _enforceServiceState
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
                            '/sbin/ip route del default');
 
-    my $cmd = $self->_defaultGatewayCommand();
+    my $cmd = $self->_multipathCommand();
     if ($cmd) {
         try {
             EBox::Sudo::root($cmd);
@@ -2718,9 +3803,16 @@ sub _stopService
     foreach my $if (@{$iflist}) {
         try {
             my $ifname = $if;
-            push @cmds, "/sbin/ip address flush label $if";
-            push @cmds, "/sbin/ip address flush label $if:*";
-            push @cmds, "/sbin/ifdown --force -i $file $ifname";
+            if ($self->ifaceMethod($if) eq 'ppp') {
+                $ifname = "zentyal-ppp-$if";
+            } else {
+                push @cmds, "/sbin/ip address flush label $if";
+                push @cmds, "/sbin/ip address flush label $if:*";
+            }
+            EBox::Sudo::silentRoot("grep ^'iface $ifname inet' $file");
+            if ($? == 0) {
+                push @cmds, "/sbin/ifdown --force -i $file $ifname";
+            }
         } catch (EBox::Exceptions::Internal $e) {
         }
     }
@@ -2910,6 +4002,35 @@ sub setDHCPGateway # (iface, gateway)
     $self->set_state($state);
 }
 
+# Method: setRealPPPIface
+#
+#   Sets the real PPP interface associated with the Ethernet one.
+#
+# Parameters:
+#
+#   iface     - ethernet interface name
+#   ppp_iface - ppp interface name
+#   ppp_addr  - IP address of the ppp interface
+#
+sub setRealPPPIface # (iface, ppp_iface, ppp_addr)
+{
+    my ($self, $iface, $ppp_iface, $ppp_addr) = @_;
+
+   if (not $iface =~ m{^/dev/pts/}) {
+        $self->ifaceExists($iface) or
+            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                                 value => $iface);
+    }
+
+    my $state = $self->get_state();
+    $state->{interfaces}->{$iface}->{ppp_iface} = $ppp_iface;
+    $self->set_state($state);
+
+    checkIP($ppp_addr, __("IP address"));
+    $state->{interfaces}->{$iface}->{ppp_addr} = $ppp_addr;
+    $self->set_state($state);
+}
+
 # Method: DHCPCleanUp
 #
 #   Removes the dhcp configuration for a given interface
@@ -2931,7 +4052,66 @@ sub DHCPCleanUp # (interface)
 
     my $state = $self->get_state();
     delete $state->{dhcp}->{$iface};
+    delete $state->{interfaces}->{$iface}->{ppp_iface};
     $self->set_state($state);
+}
+
+# Method: BridgedCleanUp
+#
+#   Removes the bridge configuration for a given bridged interface
+#
+# Parameters:
+#
+#   interface - interface name
+#
+sub BridgedCleanUp # (interface)
+{
+    my ($self, $iface) = @_;
+    $self->ifaceExists($iface) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $iface);
+
+    my $bridge = $self->ifaceBridge($iface);
+
+    # this changes the bridge
+    if ($self->ifaceIsBridge("br$bridge")) {
+        $self->_setChanged("br$bridge");
+    }
+
+    my $ifaces = $self->get_hash('interfaces');
+    delete $ifaces->{$iface}->{bridge_id};
+    $self->set('interfaces', $ifaces);
+
+    $self->_removeEmptyBridges();
+}
+
+# Method: BundledCleanUp
+#
+#   Removes the bond configuration for a given bundled interface
+#
+# Parameters:
+#
+#   interface - interface name
+#
+sub BundledCleanUp # (interface)
+{
+    my ($self, $iface) = @_;
+    $self->ifaceExists($iface) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $iface);
+
+    my $bond = $self->ifaceBond($iface);
+
+    # this changes the bond
+    if ($self->ifaceIsBond("bond$bond")) {
+        $self->_setChanged("bond$bond");
+    }
+
+    my $ifaces = $self->get_hash('interfaces');
+    delete $ifaces->{$iface}->{bond_id};
+    $self->set('interfaces', $ifaces);
+
+    $self->_removeEmptyBonds();
 }
 
 # Method: selectedDefaultGateway
@@ -3273,13 +4453,21 @@ sub menu
                                       'text' => __('Interfaces'),
                                       'order' => 10));
 
-    $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/Gateway',
+    $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/GatewaysGeneral',
                                       'text' => __('Gateways'),
                                       'order' => 20));
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/DNS',
                                       'text' => 'DNS',
                                       'order' => 30));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Network/View/ObjectTable',
+                                    'text' => __('Objects'),
+                                    'order' => 40));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Network/View/ServiceTable',
+                                    'text' => __('Services'),
+                                    'order' => 50));
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/View/StaticRoute',
                                       'text' => __('Static Routes'),
@@ -3357,6 +4545,7 @@ sub gatewaysWithMac
     my $gatewayModel = $self->model('GatewayTable');
 
     return $gatewayModel->gatewaysWithMac();
+
 }
 
 sub marksForRouters
@@ -3364,6 +4553,24 @@ sub marksForRouters
     my ($self) = @_;
 
     my $marks = $self->model('GatewayTable')->marksForRouters();
+}
+
+# Method: balanceTraffic
+#
+#   Return if the traffic balancing is enabled or not
+#
+# Returns:
+#
+#   bool - true if enabled, otherwise false
+#
+sub balanceTraffic
+{
+    my ($self) = @_;
+
+    my $multiGwOptions = $self->model('MultiGwRulesOptions');
+    my $balanceTraffic =  $multiGwOptions->balanceTrafficValue();
+
+    return ($balanceTraffic and (@{$self->gateways} > 1));
 }
 
 # Method: regenGateways
@@ -3399,10 +4606,14 @@ sub regenGateways
     $self->saveConfig();
     my @commands;
     push (@commands, '/sbin/ip route del table default || true');
-    my $cmd = $self->_defaultGatewayCommand();
+    my $cmd = $self->_multipathCommand();
     if ($cmd) {
         push (@commands, $cmd);
     }
+
+    # Silently delete duplicated MTU rules for PPPoE interfaces and
+    # add them to the commands array
+    push(@commands, @{$self->_pppoeRules(1)});
 
     try {
         EBox::Sudo::root(@commands);
@@ -3466,26 +4677,96 @@ sub unsetFlagIfUp
 
 # Group: Other methods
 
-sub _defaultGatewayCommand
+sub _pppoeRules
+{
+    my ($self, $flush) = @_;
+
+    my @add;
+
+    # Warning (if flush=1):
+    #   Delete rules are immediately executed, add rules are returned
+    #   this is for performance reasons, to allow to integrate them in other
+    #   arrays, but the delete ones need to be executed with silentRoot,
+    #   so they are executed separately.
+    my @delete;
+
+    # Special rule for PPPoE interfaces to avoid problems with large packets
+    foreach my $if (@{$self->pppIfaces()}) {
+        $if = $self->realIface($if);
+        my $cmd = '/sbin/iptables -t mangle';
+        my $params = "POSTROUTING -o $if -p tcp " .
+            "-m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu";
+
+        if ($flush) {
+            push (@delete, "$cmd -D $params");
+        }
+        push (@add, "$cmd -A $params");
+    }
+
+    if ($flush) {
+        EBox::Sudo::silentRoot(@delete);
+    }
+
+    return \@add;
+}
+
+sub _multipathCommand
 {
     my ($self) = @_;
 
-    my $row = $self->model('GatewayTable')->findValue(default => 1);
-    unless ($row) {
+    my @gateways = @{$self->gateways()};
+
+    if (scalar(@gateways) == 0) {
+        # If WAN failover is enabled we put the default one
+        if ($self->_failoverEnabled()) {
+            my $row = $self->model('GatewayTable')->findValue(default => 1);
+            unless ($row) {
+                return undef;
+            }
+            my $ip = $row->valueByName('ip');
+            my $iface = $row->valueByName('interface');
+            my $weight = $row->valueByName('weight');
+            push (@gateways, {ip => $ip, interface => $iface, weight => $weight});
+        } else {
+            return undef;
+        }
+    }
+
+    my $numGWs = 0;
+
+    my $cmd = 'ip route add table default default';
+    for my $gw (@gateways) {
+
+        # Skip gateways with unassigned address
+        my $ip = $gw->{'ip'};
+        next unless $ip;
+
+        # Skip gateways with traffic balance disabled
+        # except if we just have one gateway
+        next unless ($gw->{'balance'} or (@gateways == 1));
+
+        my $iface = $gw->{'interface'};
+        my $method = $self->ifaceMethod($iface);
+
+        $iface = $self->realIface($iface);
+        my $if = new Net::Interface($iface);
+        next unless $if->address;
+
+        my $route = "via $ip dev $iface";
+        if ($method eq 'ppp') {
+            $route = "dev $iface";
+        }
+
+        $cmd .= " nexthop $route weight $gw->{'weight'}";
+
+        $numGWs++;
+    }
+
+    if ($numGWs) {
+        return $cmd;
+    } else {
         return undef;
     }
-    my $ip = $row->valueByName('ip');
-    my $iface = $row->valueByName('interface');
-
-    # Skip gateway with unassigned address
-    return undef unless $ip;
-
-    my $method = $self->ifaceMethod($iface);
-
-    my $if = new IO::Interface::Simple($iface);
-    return undef unless $if->address;
-
-    return "ip route add table default default via $ip dev $iface";
 }
 
 # Method: _notifyChangedIface
@@ -3684,14 +4965,14 @@ sub _interfaceSearchMatch
     my ($self, $searchStringRe) = @_;
     my @matches;
     my $interfaces = $self->get('interfaces', {});
-    while (my ($iface, $attrs) = each %{ $interfaces }) {
+    while (my ($iface, $attrs) = each %{$interfaces}) {
         my $ifMatchs = 0;
         if ($iface =~ m/$searchStringRe/) {
             $ifMatchs = 1;
         } else {
-            while ( my($attrName, $attr) = each %{ $attrs}) {
+            while (my ($attrName, $attr) = each %{$attrs}) {
                 if ($attrName eq 'virtual') {
-                    while (my ($vname, $vattrs) = each $attr) {
+                    while (my ($vname, $vattrs) = each %{$attr}) {
                         if ($vname =~ m/$searchStringRe/) {
                             $ifMatchs = 1;
                             last;
@@ -3700,7 +4981,7 @@ sub _interfaceSearchMatch
                             if ($vattrVal =~ m/$searchStringRe/) {
                                 $ifMatchs = 1;
                                 last;
-                        }
+                            }
                         }
                         if ($ifMatchs) {
                             last;
@@ -3776,6 +5057,955 @@ sub _vlanSearchMatch
     }
 
     return \@matches;
+}
+
+sub _failoverEnabled
+{
+    my ($self) = @_;
+
+    my $rules = $self->model('WANFailoverRules');
+    return (@{$rules->enabledRows()} > 0);
+}
+
+sub _writeFailoverCron
+{
+    my ($self) = @_;
+
+    my $cronFile = FAILOVER_CRON_FILE;
+
+    if ($self->_failoverEnabled()) {
+        my $failoverOptions = $self->model('WANFailoverOptions');
+        my $minutes = $failoverOptions->value('period');
+        EBox::Module::Base::writeConfFileNoCheck($cronFile, 'network/failover-checker.cron.mas',
+                                                 [ minutes => $minutes ],
+                                                 {
+                                                  uid  => 'root',
+                                                  gid  => 'root',
+                                                  mode =>  '0644'
+                                                 });
+    } else {
+        EBox::Sudo::root("rm -f $cronFile");
+    }
+}
+
+
+### SERVICES ###
+
+sub _defaultServices
+{
+    my ($self) = @_;
+
+    my $webadminMod = $self->global()->modInstance('webadmin');
+    my $webAdminPort;
+    try {
+        $webAdminPort = $webadminMod->listeningPort();
+    } catch {
+        $webAdminPort = $webadminMod->defaultPort();
+    }
+
+    return [
+        {
+         'name' => 'any',
+         'printableName' => __('Any'),
+         'description' => __('Any protocol and port'),
+         'protocol' => 'any',
+         'destinationPort' => 'any',
+         'internal' => 0,
+        },
+        {
+         'name' => 'any UDP',
+         'printableName' => __('Any UDP'),
+         'description' => __('Any UDP port'),
+         'protocol' => 'udp',
+         'destinationPort' => 'any',
+         'internal' => 0,
+        },
+        {
+         'name' => 'any TCP',
+         'printableName' => __('Any TCP'),
+         'description' => __('Any TCP port'),
+         'protocol' => 'tcp',
+         'destinationPort' => 'any',
+         'internal' => 0,
+        },
+        {
+         'name' => 'any ICMP',
+         'printableName' => __('Any ICMP'),
+         'description' => __('Any ICMP packet'),
+         'protocol' => 'icmp',
+         'destinationPort' => 'any',
+         'internal' => 0,
+        },
+        {
+         'name' => 'zentyal_' . $webadminMod->name(),
+         'printableName' => $webadminMod->printableName(),
+         'description' => $webadminMod->printableName(),
+         'protocol' => 'tcp',
+         'destinationPort' => $webAdminPort,
+         'internal' => 1,
+        },
+        {
+         'name' => 'ssh',
+         'printableName' => 'SSH',
+         'description' => __('Secure Shell'),
+         'protocol' => 'tcp',
+         'destinationPort' => '22',
+         'internal' => 0,
+        },
+        {
+         'name' => 'HTTP',
+         'printableName' => 'HTTP',
+         'description' => __('HyperText Transport Protocol'),
+         'protocol' => 'tcp',
+         'destinationPort' => '80',
+         'internal' => 0,
+        },
+        {
+         'name' => 'HTTPS',
+         'printableName' => 'HTTPS',
+         'description' => __('HyperText Transport Protocol over SSL'),
+         'protocol' => 'tcp',
+         'destinationPort' => '443',
+         'internal' => 0,
+        },
+    ];
+}
+
+# Method: serviceNames
+#
+#       Fetch all the service identifiers and names
+#
+# Returns:
+#
+#       Array ref of  hash refs which contain:
+#
+#       'id' - service identifier
+#       'name' service name
+#
+#       Example:
+#         [
+#          {
+#            'name' => 'ssh',
+#            'id' => 'serv7999'
+#          },
+#          {
+#            'name' => 'ftp',
+#            'id' => 'serv7867'
+#          }
+#        ];
+sub serviceNames
+{
+    my ($self) = @_;
+
+    my $servicesModel = $self->model('ServiceTable');
+    my @services;
+
+    foreach my $id (@{$servicesModel->ids()}) {
+        my $name = $servicesModel->row($id)->valueByName('name');
+        push @services, {
+            'id' => $id,
+            'name' => $name
+           };
+    }
+
+    return \@services;
+}
+
+# Method: serviceConfiguration
+#
+#       For a given service identifier it returns its service configuration,
+#       that is, the set of protocols and ports.
+#
+# Returns:
+#
+#       Array ref of  hash refs which contain:
+#
+#       protocol - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
+#       source   - it can take:
+#                       "any"
+#                       An integer from 1 to 65536 -> 22
+#                       Two integers separated by colons -> 22:25
+#       destination - same as source
+#
+#       Example:
+#         [
+#             {
+#              'protocol' => 'tcp',
+#               'source' => 'any',
+#               'destination' => '21:22',
+#             }
+#         ]
+sub serviceConfiguration
+{
+    my ($self, $id) = @_;
+
+    throw EBox::Exceptions::ArgumentMissing("id") unless defined($id);
+
+    my $row = $self->model('ServiceTable')->row($id);
+
+    unless (defined($row)) {
+        throw EBox::Exceptions::DataNotFound('data' => 'service by id',
+                'value' => $id);
+    }
+
+    my $model = $row->subModel('configuration');
+
+    my @conf;
+    foreach my $id (@{$model->ids()}) {
+        my $subRow = $model->row($id);
+        push (@conf, {
+                        'protocol' => $subRow->valueByName('protocol'),
+                        'source' => $subRow->valueByName('source'),
+                        'destination' => $subRow->valueByName('destination')
+                      });
+    }
+
+    return \@conf;
+}
+
+# Method: serviceIptablesArgs
+#
+#  get a list with the iptables arguments required to match each of the
+#  configurations of the service (see serviceConfiguration)
+#
+#  Warning:
+#    for any/any/any configuration a empty string is the correct iptables argument
+sub serviceIptablesArgs
+{
+    my ($self, $id) = @_;
+    my @args;
+    my @conf =  @{ $self->serviceConfiguration($id) };
+    foreach my $conf (@conf) {
+        my $args = '';
+        my $tcpUdp = 0;
+        if ($conf->{protocol} eq 'tcp/udp') {
+            $tcpUdp = 1;
+        } elsif ($conf->{protocol} ne 'any') {
+            $args .= '--protocol ' . $conf->{protocol};
+        }
+        if ($conf->{source} ne 'any') {
+            $args .= ' --sport ' . $conf->{source};
+        }
+        if ($conf->{destination} ne 'any') {
+            $args .= ' --dport ' . $conf->{destination};
+        }
+
+        if ($tcpUdp) {
+            my $tcpArgs = '--protocol tcp' . $args;
+            my $udpArgs = '--protocol udp' . $args;
+            push @args, ($tcpArgs, $udpArgs);
+        } else {
+            push @args, $args;
+        }
+    }
+
+    return \@args;
+}
+
+# Method: addService
+#
+#   Add a service to the services table
+#
+# Parameters:
+#
+#   (NAMED)
+#
+#   name        - service's name
+#   description - service's description
+#   protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
+#   sourcePort  - it can take:
+#                   "any"
+#                   An integer from 1 to 65536 -> 22
+#                   Two integers separated by colons -> 22:25
+#   destinationPort - same as source
+#   internal - boolean, internal services can't be modified from the UI
+#   readOnly - boolean, set the row unremovable from the UI
+#
+#       Example:
+#
+#       'name' => 'ssh',
+#       'description' => 'secure shell'.
+#           'protocol' => 'tcp',
+#           'sourcePort' => 'any',
+#       'destinationPort' => '21:22',
+#
+#   Returns:
+#
+#   string - id of the new created row
+sub addService
+{
+    my ($self, %params) = @_;
+
+    return $self->model('ServiceTable')->addService(%params);
+}
+
+# Method: addMultipleService
+#
+#   Add a multi protocol service to the services table
+#
+# Parameters:
+#
+#   (NAMED)
+#
+#   name        - service's name
+#   description - service's description
+#   internal - boolean, internal services can't be modified from the UI
+#   readOnly - boolean, set the row unremovable from the UI
+#
+#   services - array ref of hash ref containing:
+#
+#           protocol    - it can take one of these: any, tcp, udp,
+#                                                   tcp/udp, grep, icmp
+#           sourcePort  - it can take:  "any"
+#                                   An integer from 1 to 65536 -> 22
+#                                   Two integers separated by colons -> 22:25
+#           destinationPort - same as source
+#
+#
+#       Example:
+#
+#       'name' => 'ssh',
+#       'description' => 'secure shell'.
+#       'services' => [
+#                       {
+#                               'protocol' => 'tcp',
+#                               'sourcePort' => 'any',
+#                           'destinationPort' => '21:22'
+#                        },
+#                        {
+#                               'protocol' => 'tcp',
+#                               'sourcePort' => 'any',
+#                           'destinationPort' => '21:22'
+#                        }
+#                     ];
+#
+#   Returns:
+#
+#   string - id of the new created row
+sub addMultipleService
+{
+    my ($self, %params) = @_;
+
+    return $self->model('ServiceTable')->addMultipleService(%params);
+}
+
+# Method: setService
+#
+#   Set a existing service to the services table
+#
+# Parameters:
+#
+#   (NAMED)
+#
+#   name        - service's name
+#   description - service's description
+#       protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
+#       sourcePort  - it can take:
+#                   "any"
+#                    An integer from 1 to 65536 -> 22
+#                   Two integers separated by colons -> 22:25
+#       destinationPort - same as source
+#   internal - boolean, internal services can't be modified from the UI
+#   readOnly - boolean, set the row unremovable from the UI
+#
+#       Example:
+#
+#       'name' => 'ssh',
+#       'description' => 'secure shell'.
+#           'protocol' => 'tcp',
+#           'sourcePort' => 'any',
+#       'destinationPort' => '21:22',
+sub setService
+{
+    my ($self, %params) = @_;
+
+    $self->model('ServiceTable')->setService(%params);
+}
+
+# Method: setMultipleService
+#
+#   Set a multi protocol service to the services table
+#
+# Parameters:
+#
+#   (NAMED)
+#
+#   name        - service's name
+#   description - service's description
+#   internal - boolean, internal services can't be modified from the UI
+#   readOnly - boolean, set the row unremovable from the UI
+#
+#   services - array ref of hash ref containing:
+#
+#	    protocol    - it can take one of these: any, tcp, udp,
+#	                                            tcp/udp, grep, icmp
+#	    sourcePort  - it can take:  "any"
+#                                   An integer from 1 to 65536 -> 22
+#                                   Two integers separated by colons -> 22:25
+#	    destinationPort - same as source
+#
+#
+#	Example:
+#
+#       'name' => 'ssh',
+#       'description' => 'secure shell'.
+#       'services' => [
+#                       {
+#	                        'protocol' => 'tcp',
+#	                        'sourcePort' => 'any',
+#                               'destinationPort' => '21:22'
+#                        },
+#                        {
+#	                        'protocol' => 'tcp',
+#	                        'sourcePort' => 'any',
+#                               'destinationPort' => '21:22'
+#                        }
+#                     ];
+#
+#   Returns:
+#
+#   string - id of the updated row
+#
+sub setMultipleService
+{
+    my ($self, %params) = @_;
+
+    $self->model('ServiceTable')->setMultipleService(%params);
+}
+
+# Method: availablePort
+#
+#       Check if a given port for a given protocol is available. That is,
+#       no internal service uses it.
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#   protocol   - it can take one of these: tcp, udp
+#   port           - An integer from 1 to 65536 -> 22
+#
+# Returns:
+#   boolean - true if it's available, otherwise false
+#
+# Note:
+#    portUsedByService returns the information of what is using the port
+sub availablePort
+{
+    my ($self, @params) = @_;
+    return not $self->portUsedByService(@params);
+}
+
+# Method: portUsedByService
+#
+#       Checks if a port is configured to be used by a service
+#
+# Parameters:
+#
+#       proto - protocol
+#       port - port number
+#       interface - interface
+#
+# Returns:
+#
+#       false - if it is not used not empty string - if it is in use, the string
+#               contains the name of what is using it
+sub portUsedByService
+{
+    my ($self, @params) = @_;
+    return $self->model('ServiceTable')->portUsedByService(@params);
+}
+
+# Method: serviceFromPort
+#
+#       Get the service name that it's using a port.
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#   protocol   - it can take one of these: tcp, udp
+#   port       - An integer from 1 to 65536 -> 22
+#
+# Returns:
+#   string - the service name, undef otherwise
+#
+sub serviceFromPort
+{
+    my ($self, %params) = @_;
+
+    return $self->model('ServiceTable')->serviceFromPort(%params);
+}
+
+# Method: removeService
+#
+#  Remove a service from the  services table
+#
+# Parameters:
+#
+#   (NAMED)
+#
+#   You can select the service using one of the following parameters:
+#
+#       name - service's name
+#       id - service's id
+sub removeService
+{
+    my ($self, %params) = @_;
+
+    unless (exists $params{'id'} or exists $params{'name'}) {
+        throw EBox::Exceptions::MissingArgument('service');
+    }
+
+    my $model =  $self->model('ServiceTable');
+    my $id = $params{'id'};
+
+    if (not defined($id)) {
+        my $name = $params{'name'};
+        my $row = $model->findValue('name' => $name);
+        unless (defined($row)) {
+            throw EBox::Exceptions::External("service $name not found");
+        }
+        $id = $row->id();
+    }
+
+    $model->removeRow($id, 1);
+}
+
+# Method: serviceExists
+#
+#   Check if a given service already exits
+#
+# Paremeters:
+#
+#   (NAMED)
+#   You can select the service using one of the following parameters:
+#
+#       name - service's name
+#       id - service's id
+sub serviceExists
+{
+    my ($self, %params) = @_;
+
+    unless (exists $params{'id'} or exists $params{'name'}) {
+        throw EBox::Exceptions::MissingArgument('service id or name');
+    }
+
+    my $model =  $self->model('ServiceTable');
+    my $id = $params{'id'};
+
+    my $row;
+    if (not defined($id)) {
+        my $name = $params{'name'};
+        $row = $model->findValue('name' => $name);
+    } else {
+        $row = $model->row($id);
+    }
+
+    return defined($row);
+}
+
+# Method: serviceId
+#
+#   Given a service's name it returns its id
+#
+# Paremeters:
+#
+#   (POSITIONAL)
+#
+#   name - service's name
+#
+# Returns:
+#
+#   service's id if it exists, otherwise undef
+sub serviceId
+{
+    my ($self, $name) = @_;
+
+    unless (defined($name)) {
+        throw EBox::Exceptions::MissingArgument('name');
+    }
+
+    my $model = $self->model('ServiceTable');
+    my $row = $model->findValue('name' => $name);
+    if (not defined $row) {
+        return undef;
+    }
+
+    return $row->id();
+}
+
+# Method: setAdministrationPort
+#
+#       Set administration port on services module
+#
+# Parameters:
+#
+#       port - Int the new port
+#
+sub setAdministrationPort
+{
+    my ($self, $port) = @_;
+
+    my $webadminMod = $self->global()->modInstance('webadmin');
+
+    $self->setService(
+            'name' => 'zentyal_' . $webadminMod->name(),
+            'printableName' => $webadminMod->printableName(),
+            'description' => $webadminMod->printableName(),
+            'protocol' => 'tcp',
+            'sourcePort' => 'any',
+            'destinationPort' => $port,
+            'internal' => 1,
+            'readOnly' => 1
+    );
+}
+
+### OBJECTS ###
+
+# Method: objects
+#
+#       Return all object names
+#
+# Returns:
+#
+#       Array ref. Each element is a hash ref containing:
+#
+#       id - object's id
+#       name - object's name
+sub objects
+{
+    my ($self) = @_;
+
+    my @objects;
+    my $model = $self->model('ObjectTable');
+    for my $id (@{$model->ids()}) {
+    my $object = $model->row($id);
+        push (@objects, {
+                            id => $id,
+                            name => $object->valueByName('name')
+                         });
+    }
+
+    return \@objects;
+}
+
+# Method: objectIds
+#
+#       Return all object ids
+#
+# Returns:
+#
+#       Array ref - containing ids
+sub objectIds # (object)
+{
+    my ($self) = @_;
+
+    my @ids = map { $_->{'id'} }  @{$self->objects()};
+    return  \@ids;
+}
+
+# objectMembers
+#
+#       Return the members belonging to an object
+#
+# Parameters:
+#
+#       (POSITIONAL)
+#
+#       id - object's id
+#
+# Returns:
+#
+#       <EBox::Objects::Members>
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::MissingArgument>
+sub objectMembers # (object)
+{
+    my ($self, $id) = @_;
+
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument("id");
+    }
+
+    my $object = $self->model('ObjectTable')->row($id);
+    if (not $object) {
+        throw EBox::Exceptions::DataNotFound(
+                        data   => __('network object'),
+                        value  => $id
+           );
+    }
+
+    return $object->subModel('members')->members();
+}
+
+# objectAddresses
+#
+#       Return the network addresses of a object
+#
+# Parameters:
+#
+#       id - object's id
+#       mask - return alse addresses' mask (named optional, default false)
+#
+# Returns:
+#
+#       array ref - containing an ip, empty array if
+#       there are no addresses in the object
+#       In case mask is wanted the elements of the array would be  [ip, mask]
+#
+sub objectAddresses
+{
+    my ($self, $id, @params) = @_;
+
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument("id");
+    }
+
+    my $members = $self->objectMembers($id);
+    return $members->addresses(@params);
+}
+
+# Method: objectDescription
+#
+#       Return the description of an Object
+#
+# Parameters:
+#
+#       id - object's id
+#
+# Returns:
+#
+#       string - description of the Object
+#
+# Exceptions:
+#
+#       DataNotFound - if the Object does not exist
+sub objectDescription  # (object)
+{
+    my ( $self, $id ) = @_;
+
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument("id");
+    }
+
+    my $object = $self->model('ObjectTable')->row($id);
+    unless (defined($object)) {
+        throw EBox::Exceptions::DataNotFound('data' => __('Object'),
+                'value' => $object);
+    }
+
+    return $object->valueByName('name');
+}
+
+# get ( $id, ['name'])
+
+# Method: objectInUse
+#
+#       Asks all installed modules if they are currently using an Object.
+#
+# Parameters:
+#
+#       object - the name of an Object
+#
+# Returns:
+#
+#       boolean - true if there is a module which uses the Object, otherwise
+#       false
+sub objectInUse # (object)
+{
+    my ($self, $object ) = @_;
+
+    unless (defined($object)) {
+        throw EBox::Exceptions::MissingArgument("id");
+    }
+
+    my $global = EBox::Global->getInstance();
+    my @mods = @{$global->modInstancesOfType('EBox::Objects::Observer')};
+    foreach my $mod (@mods) {
+        if ($mod->usesObject($object)) {
+            return 1;
+        }
+    }
+
+    return undef;
+}
+
+# Method: objectExists
+#
+#       Checks if a given object exists
+#
+# Parameters:
+#
+#       id - object's id
+#
+# Returns:
+#
+#       boolean - true if the Object exists, otherwise false
+sub objectExists
+{
+    my ($self, $id) = @_;
+
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument("id");
+    }
+
+    return defined($self->model('ObjectTable')->row($id));
+}
+
+# Method: removeObjectForce
+#
+#       Forces an object to be deleted
+#
+# Parameters:
+#
+#       object - object description
+#
+sub removeObjectForce # (object)
+{
+    #action: removeObjectForce
+
+    my ($self, $object)  = @_;
+    my $global = EBox::Global->getInstance();
+    my @mods = @{$global->modInstancesOfType('EBox::Objects::Observer')};
+    foreach my $mod (@mods) {
+        $mod->freeObject($object);
+    }
+}
+
+# Method: addObject
+#
+#   Add object to the objects table.
+#
+# Parameters:
+#
+#   (NAMED)
+#   id         - object's id *(optional*). It will be generated automatically
+#                if none is passed
+#   name       - object's name
+#   members    - array ref containing the following hash ref in each value:
+#
+#                name        - member's name
+#                address_selected - type of address, can be:
+#                                'ipaddr', 'iprange' (default: ipdaddr)
+#
+#                ipaddr  parameters:
+#                   ipaddr_ip   - member's ipaddr
+#                   ipaddr_mask - member's mask
+#                   macaddr     - member's mac address *(optional)*
+#
+#               iprange parameters:
+#                   iprange_begin - begin of the range
+#                   iprange_end   - end of range
+#
+#   readOnly   - the service can't be deleted or modified *(optional)*
+#
+#   Example:
+#
+#       name => 'administration',
+#       members => [
+#                   { 'name'         => 'accounting',
+#                     'address_selected' => 'ipaddr',
+#                     'ipaddr_ip'    => '192.168.1.3',
+#                     'ipaddr_mask'  => '32',
+#                     'macaddr'      => '00:00:00:FA:BA:DA'
+#                   }
+#                  ]
+
+sub addObject
+{
+    my ($self, %params) = @_;
+
+    return $self->model('ObjectTable')->addObject(%params);
+}
+
+# Method: addMemberToObject
+#
+#   Add a member to the given network object
+#
+# Parameters:
+#
+#   id         - object's id
+#   member     - array ref containing the following hash ref in each value:
+#
+#                name        - member's name
+#                address_selected - type of address, can be:
+#                                'ipaddr', 'iprange'
+#
+#                ipaddr  parameters:
+#                   ipaddr_ip   - member's ipaddr
+#                   ipaddr_mask - member's mask
+#                   macaddr     - member's mac address *(optional)*
+#
+#               iprange parameters:
+#                   iprange_begin - begin of the range
+#                   iprange_end   - end of range
+#
+#   Member example:
+#
+#       {
+#           'name'         => 'accounting',
+#           'address_selected' => 'ipaddr',
+#           'ipaddr_ip'    => '192.168.1.3',
+#           'ipaddr_mask'  => '32',
+#           'macaddr'      => '00:00:00:FA:BA:DA'
+#       }
+#
+sub addMemberToObject # (objectId, member)
+{
+    my ($self, $id, $member) = @_;
+
+    if (not $self->objectExists($id)) {
+        return 0;
+    }
+
+    my $object = $self->model('ObjectTable')->row($id);
+    $object->subModel('members')->addRow(%{$member});
+}
+
+# Method: removeObjectMembers
+#
+#   Removes all the members from the given network object
+#
+# Parameters:
+#
+#   id         - object's id
+#
+sub removeObjectMembers # (objectId)
+{
+    my ($self, $objectId) = @_;
+
+    if (not $self->objectExists($objectId)) {
+        return 0;
+    }
+
+    my $membersModel = $self->model('ObjectTable')->row($objectId)->subModel('members');
+    for my $id (@{$membersModel->ids()}) {
+        $membersModel->removeRow($id);
+    }
+}
+
+# Method: removeObjectMember
+#
+#   Removes all the members from the given network object
+#
+# Parameters:
+#
+#   objectId    - object's id
+#   memberId    - member's id
+#
+sub removeObjectMember # (objectId, memberId)
+{
+    my ($self, $objectId, $memberId) = @_;
+
+    if (not $self->objectExists($objectId)) {
+        return 0;
+    }
+
+    my $membersModel = $self->model('ObjectTable')->row($objectId)->subModel('members');
+    if (defined ($membersModel->row($memberId))) {
+        $membersModel->removeRow($memberId);
+    }
 }
 
 1;

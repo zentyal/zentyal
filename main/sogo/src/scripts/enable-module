@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Enable apache modules
+a2enmod proxy
+a2enmod proxy_http
+a2enmod headers
+a2enmod ssl
+
+a2enconf SOGo
+a2ensite default-ssl
+
+systemctl restart apache2
+
+exit 0

@@ -2,7 +2,6 @@ class: 'EBox::DHCP'
 
 depends:
     - network
-    - objects
 
 enabledepends:
     - network
@@ -24,7 +23,7 @@ composites:
 
 modeldepends:
     FixedAddressTable:
-        objects/ObjectTable: [object]
+        network/ObjectTable: [object]
     Options:
         dns/DomainTable: [ebox]
         network/GatewayTable: [name]

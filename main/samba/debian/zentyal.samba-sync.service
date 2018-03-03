@@ -1,0 +1,6 @@
+[Unit]
+Description=Zentyal daemon to check uid and gid numbers
+
+[Service]
+ExecStart=/usr/bin/perl /usr/share/perl5/EBox/Samba/SyncDaemon.pm
+Restart=on-failure

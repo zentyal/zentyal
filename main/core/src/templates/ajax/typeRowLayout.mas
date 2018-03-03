@@ -1,5 +1,6 @@
 <%args>
     $modelName
+    $action
     $type
     $displayRow
     $disableSetter
@@ -13,6 +14,7 @@
   <&
       $type->HTMLSetter(),
       'data' => $type,
+      'action' => $action,
       'tableName' => "$modelName",
       'disabled' =>  $disableSetter
   &>
@@ -58,9 +60,10 @@
   <&
     $type->HTMLSetter(),
     'data' => $type,
+    'action' => $action,
     'tableName' => "$modelName",
     'disabled' =>  $disableSetter
   &>
 
-% }   
+% }
 </div>

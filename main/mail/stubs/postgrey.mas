@@ -1,0 +1,45 @@
+<%args>
+$address
+$port
+$delay
+$maxAge
+$retryWindow
+$text        => undef
+$privacy     => 0
+</%args>
+<%init>
+my $params;
+$params .= "--delay=$delay ";
+$params .= "--max-age=$maxAge ";
+
+$retryWindow .= 'h'; # retry windows is in hours
+$params .= "--retry-window=$retryWindow ";
+
+if ($text) {
+   # we depend in 'Greylisted' word for logging greylist events
+   if (not ($text =~ m/Greylisted/)) {
+           $text = 'Greylisted. ' . $text;
+   }
+  $params .= "--greylist-text=$text ";
+}
+
+if ($privacy) {
+  $params .= "--privacy ";
+}
+</%init>
+# postgrey startup options, created for Debian
+
+# you may want to set
+#   --delay=N   how long to greylist, seconds (default: 300)
+#   --max-age=N delete old entries after N days (default: 35)
+# see also the postgrey(8) manpage
+
+POSTGREY_OPTS="--inet=<% $address %>:<% $port %> <% $params %>"
+
+# the --greylist-text commandline argument can not be easily passed through
+# POSTGREY_OPTS when it contains spaces.  So, insert your text here:
+% if ($text) {
+POSTGREY_TEXT="<% $text %>"
+% } else {
+#POSTGREY_TEXT="Your customized rejection message here"
+% }

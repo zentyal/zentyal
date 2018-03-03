@@ -1,0 +1,20 @@
+#!/usr/bin/perl
+
+use EBox;
+use EBox::Samba::User;
+
+EBox::init();
+
+my ($username, $file) = @ARGV;
+
+unless ($username and $file) {
+    print "Usage: $0 <username> <jpg_file>\n";
+    exit(1);
+}
+
+my $user = new EBox::Samba::User(samAccountName => $username);
+if ($user->exists()) {
+    $user->setThumbnailPhoto($file);
+} else {
+    die "User $username does not exist";
+}

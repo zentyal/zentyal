@@ -33,7 +33,7 @@ my $id = $tableName . '_' . $data->fieldName();
             disabled='disabled'
 % }
     >
-%   foreach my $key (sort(keys $zones)) {
+%   foreach my $key (sort(keys %{$zones})) {
         <option
 %   if ($key eq $data->continent()) {
             selected
@@ -61,7 +61,7 @@ my $varTmp     = $varPrefix . '_tmp';
     var <% $varCountry %> = "<% $data->country() %>";
     var <% $varA %> = new Array();
     var <% $varTmp %> = 0;
-%       foreach my $group (keys $zones) {
+%       foreach my $group (keys %{$zones}) {
                 <% $varA %>["<% $group %>"] = new Array();
 %               foreach (@{$zones->{$group}}) {
                         <% $varA %>["<%$group%>"][<% $varTmp %>++] = "<%$_%>";

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+ppp_iface=$1
+eth_iface=$2
+local_address=$4
+remote_address=$5
+
+LOG=/var/log/zentyal/pppoe.log
+
+#TIMESTAMP=$(date +"%Y-%m-%d %T")
+#echo "$TIMESTAMP> ppp-down script called with the following values:" >> $LOG
+#echo "ppp_iface: $ppp_iface" >> $LOG
+#echo "eth_iface: $eth_iface" >> $LOG
+#echo "local_address: $local_address" >> $LOG
+#echo "remote_address: $remote_address" >> $LOG
+#echo "full_args: $@" >> $LOG
+
+/usr/share/zentyal-network/dhcp-clear.pl $eth_iface
+
+#TIMESTAMP=$(date +"%Y-%m-%d %T")
+#echo "$TIMESTAMP> ppp-down script for $eth_iface ended" >> $LOG

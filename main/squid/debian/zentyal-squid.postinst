@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # initial setup
+        /usr/share/zentyal/initial-setup --no-restart squid $2
+
+        # restart module
+        zs squid restart || true
+
+        dpkg-trigger --no-await zentyal-core
+    ;;
+esac
+
+exit 0

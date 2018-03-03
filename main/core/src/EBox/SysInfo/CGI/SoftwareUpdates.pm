@@ -27,7 +27,7 @@ use EBox::Config;
 use EBox::SysInfo;
 use EBox::Sudo;
 
-use TryCatch::Lite;
+use TryCatch;
 
 sub new
 {
@@ -50,13 +50,8 @@ sub _process
         return;
     }
 
-    my $qaUpdates = 0;
+    my $qaUpdates = (-f '/etc/apt/sources.list.d/zentyal-qa.list');
     my $ignore = EBox::Config::boolean('widget_ignore_updates');
-
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $qaUpdates = $rs->subscriptionLevel() > 0;
-    }
 
     my $updatesStr = __('No updates');
     my $updatesType = 'good';

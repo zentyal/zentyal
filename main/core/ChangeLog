@@ -1,4 +1,54 @@
-HEAD
+5.1
+	+ Pass action to HTMLSetter templates so they can have a different
+	  behavior for add and edit
+	+ Avoid errors when license file not exist in webadmin restart
+	+ Services stop working and activation is required after trial expired
+	+ Allow up to 12 dashboard widgets per section instead of 4
+	+ Rename l2tp package icon to ipsec
+	+ Forbid creation of local administrator user if exists in samba
+5.0.10
+	+ Fix regression in EBox::Util::Version
+5.0.9
+	+ Wait for redis-server ready in systemd service
+	+ Remove warning in EBox::Util::Version
+	+ Add activate-license script to enter license key via CLI
+5.0.8
+	+ Avoid '/etc/localtime are the same file' errors using symlink
+	+ New activation-pending mode prompting for valid trial code before login
+5.0.7
+	+ Update external links in dashboard
+	+ Mask plaintext passwords in bug reports
+5.0.6
+	+ Show already validated license key in Server Edition model
+5.0.5
+	+ Handle error parsing license key in Server Edition model
+5.0.4
+	+ Display commercial edition license info in Server Edition
+	+ Proper management of development/commercial repos
+	+ Show warning in header when license or trial is expired
+	+ Recognise new 5-year commercial license type without support
+5.0.3
+	+ Support for commercial editions via license keys
+	+ Postinst script do not fail during upgrade from Zentyal 4.X
+	+ Allow restore of configuration backups from Zentyal 4.X
+5.0.2
+	+ Provide transitional dummy package to zentyal-common
+	+ Force nginx restart when webadmin port is changed
+5.0.1
+	+ Fix unknown column 'password' error with MySQL 5.7
+	+ Fix webadmin stop taking more than 1 minute in uwsgi systemd unit
+	+ Depend on patched libhtml-mason-perl to avoid $dir_path warning
+5.0
+	+ Distribution base is now Ubuntu 16.04 LTS
+	+ Use Clone instead of Clone::Fast
+	+ Some code adaptation to remove warnings with changes in Perl 5.2X
+	+ Remove deprecated 'remoteservices' internal module
+	+ Remove OpenChange crashes notifications in the dashboard
+	+ Get list of interfaces from /sys/class/net
+	+ Better management of webadmin reload using uwsgi master process
+4.2.2
+	+ Allow upgrade of packages that are not present in QA repo
+	+ Avoid crash in manage-logs script with undefined mods
 	+ Fix error while visiting System -> General as root user
 	+ Fix empty lines in /etc/resolv.conf
 4.2.1

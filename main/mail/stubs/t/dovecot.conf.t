@@ -15,7 +15,7 @@ my $outputFileBase  = '/tmp/dovecot.conf';  # XXX FIXME file separator in mason 
 system "rm -rf $outputFileBase*";
 
 my @cases = (
-             [ uid => 1000, gid => 1000, protocols => ['pop', 'imap'], openchange => 1, notificationsReady => 1, firstValidUid => 1000,
+             [ uid => 1000, gid => 1000, protocols => ['pop', 'imap'], firstValidUid => 1000,
                firstValidGid => 1000, mailboxesDir => '/var/mail', postmasterAddress => 'postmaster@example.com',
                antispamPlugin => {name => 'amavis'},
                keytabPath => '/var/keytab', gssapiHostname => { value1 => 'gssapiHostname' } ],

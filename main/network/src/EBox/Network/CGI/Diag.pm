@@ -23,7 +23,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate;
 use EBox::Exceptions::InvalidData;
-use TryCatch::Lite;
+use TryCatch;
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -47,7 +47,7 @@ sub _process
 
     my $action = $self->param("action");
 
-    my $objects = EBox::Global->modInstance('objects');
+    my $objects = EBox::Global->modInstance('network');
     my @object_list;
 
     for my $object (@{$objects->objects()}) {
@@ -107,7 +107,7 @@ sub _process
                 push(@array, 'target' => $mac);
                 push(@array, 'output' => $output);
             } else {
-                my $objects = EBox::Global->modInstance('objects');
+                my $objects = EBox::Global->modInstance('network');
                 my @macs;
                 for my $member (@{$objects->objectMembers($id)}) {
                     push(@macs, $member->{macaddr});

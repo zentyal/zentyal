@@ -28,6 +28,8 @@ then
     then
         echo zinstaller-remote >> $UDEB_INCLUDE
     fi
+
+    sed -i '/zentyal.org/d' $CD_BUILD_DIR/preseed/*.seed
 fi
 
 if ! grep -q zinstaller-headless $UDEB_INCLUDE
@@ -47,6 +49,7 @@ then
 else
     sed -e s:VERSION:$VERSION: < $DATA_DIR/isolinux-zentyal.cfg.template > $CD_BUILD_DIR/isolinux/txt.cfg
 fi
+sed -e s:VERSION:$VERSION: < $DATA_DIR/grub.cfg.template > $CD_BUILD_DIR/boot/grub/grub.cfg
 
 USB_SUPPORT="cdrom-detect\/try-usb=true"
 sed -i "s/gz quiet/gz $USB_SUPPORT quiet/g" $CD_BUILD_DIR/isolinux/txt.cfg

@@ -46,46 +46,11 @@ sub new
     return $self;
 }
 
-# Method: validateTypedRow
-#
-# Overrides:
-#
-#    <EBox::Model::DataTable::validateTypedRow>
-#
-# Exceptions:
-#
-#    <EBox::Exceptions::External> - thrown if there is a hostname with
-#    the same ip
-#
-sub validateTypedRow
+sub validateRow
 {
-    my ($self, $action, $changedFields, $allFields) = @_;
+    my ($self, $action, %params) = @_;
 
-    return unless (exists $changedFields->{ip});
-
-    # Check there is no A RR in the same domain with the same ip
-    my $ip = $changedFields->{ip};
-    my $hostnameWithIPSub = sub {
-        my ($ipsModel) = @_;
-        foreach my $ipId (@{$ipsModel->ids()}) {
-            my $row = $ipsModel->row($ipId);
-            if ($row->elementByName('ip')->isEqualTo($ip)) {
-                # return hostname with repeated IP
-                return $ipsModel->parentRow()->valueByName('hostname');
-            }
-        }
-        return undef;
-   };
-
-    my $hostnameWithIP = $self->executeOnBrothers($hostnameWithIPSub, subModelField => 'ipAddresses', returnFirst => 1);
-    if ($hostnameWithIP) {
-        throw EBox::Exceptions::External(
-                  __x("The IP '{ip}' is already assigned to host '{name}' " .
-                      "in the same domain",
-                      name => $hostnameWithIP,
-                      ip   => $ip->value())
-                 );
-    }
+    $self->parentModule()->checkDuplicatedIP($params{ip});
 }
 
 sub pageTitle

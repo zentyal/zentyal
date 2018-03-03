@@ -8,7 +8,6 @@ description: Base directory to mail directory
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: FALSE
--
 
 dn: CN=userMaildirSize,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: attributeSchema
@@ -20,7 +19,6 @@ description: Base directory to mail directory
 attributeSyntax: 2.5.5.9
 oMSyntax: 2
 isSingleValued: TRUE
--
 
 dn: CN=vddftMaildirSize,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: attributeSchema
@@ -32,13 +30,11 @@ description: Base directory to mail directory
 attributeSyntax: 2.5.5.9
 oMSyntax: 2
 isSingleValued: TRUE
--
 
 dn:
 changetype: modify
 replace: schemaupdatenow
 schemaupdatenow: 1
--
 
 dn: CN=userZentyalMail,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: classSchema
@@ -53,13 +49,11 @@ mayContain: userMaildirSize
 mayContain: mailquota
 mayContain: mailbox
 possSuperiors: top
--
 
 dn:
 changetype: modify
 replace: schemaupdatenow
 schemaupdatenow: 1
--
 
 dn: CN=vdZentyalMail,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: classSchema
@@ -71,12 +65,10 @@ subClassOf: top
 objectClassCategory: 3
 mayContain: vddftMaildirSize
 possSuperiors: top
--
 
 dn:
 changetype: modify
 replace: schemaupdatenow
 schemaupdatenow: 1
--
 
 # 1.3.6.1.4.1.31607.2.1.3.2.3 OID used by CourierVirtualDomain

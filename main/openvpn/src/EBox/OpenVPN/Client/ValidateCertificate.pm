@@ -25,7 +25,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 
-use TryCatch::Lite;
+use TryCatch;
 use File::Temp qw(tempfile);
 use File::Slurp qw(write_file);
 

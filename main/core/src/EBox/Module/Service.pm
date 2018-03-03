@@ -20,6 +20,7 @@ package EBox::Module::Service;
 
 use base qw(EBox::Module::Config);
 
+use EBox::Global;
 use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Global;
@@ -29,7 +30,7 @@ use EBox::AuditLogging;
 use EBox::Gettext;
 
 use Perl6::Junction qw(any);
-use TryCatch::Lite;
+use TryCatch;
 
 # Method: usedFiles
 #
@@ -423,6 +424,8 @@ sub isEnabled
 {
     my ($self) = @_;
 
+    return 0 if ($self->{name} ne 'network') and (EBox::Global->edition() eq 'trial-expired');
+
     my $enabled = $self->get_bool('_serviceModuleStatus');
     if (not defined($enabled)) {
         return $self->defaultStatus();
@@ -471,7 +474,7 @@ sub _isDaemonRunning
         return 1;
     }
 
-    if (daemon_type($daemon) eq 'upstart') {
+    if (daemon_type($daemon) eq 'systemd') {
         try {
             return EBox::Service::running($dname);
         } catch (EBox::Exceptions::Internal $e) {
@@ -497,7 +500,7 @@ sub _isDaemonRunning
             return 0;
         }
     } else {
-        throw EBox::Exceptions::Internal("Service type must be either 'upstart' or 'init.d'");
+        throw EBox::Exceptions::Internal("Service type must be either 'systemd' or 'init.d'");
     }
 }
 
@@ -507,7 +510,7 @@ sub _isDaemonRunning
 #
 #   Modules with complex service management must
 #   override this method to carry out their custom checks which can
-#   involve checking an upstart script, an existing PID...
+#   involve checking an systemd script, an existing PID...
 #
 #   By default it returns true if all the system services specified in
 #   daemons are running
@@ -643,7 +646,7 @@ sub daemon_type
     if($daemon->{'type'}) {
         return $daemon->{'type'};
     } else {
-        return 'upstart';
+        return 'systemd';
     }
 }
 
@@ -664,46 +667,6 @@ sub showModuleStatus
     return 1;
 }
 
-# Method: saveReload
-#
-#   Mimesitise what <EBox::Module::Base::save> does but instead of
-#   restarting the daemon, it reloads it.
-#
-#   For now, it is a separated method, as it is called programatically
-#   only when it is right to call. No issues due to reloading instead
-#   of restarting.
-#
-sub saveReload
-{
-    my ($self, @params) = @_;
-
-    $self->_lock();
-    my $global = $self->global();
-    my $log    = EBox::logger();
-    $log->info('Reloading service for module: ' . $self->name());
-    try {
-        $self->_saveConfig();
-        # Mimetise <EBox::Module::Service::_regenConfig>
-        if ( $self->configured() ) {
-            $self->SUPER::_regenConfig(@params);
-            my $enabled = ($self->isEnabled() or 0);
-            if ($enabled) {
-                $self->setNeedsSaveAfterConfig(0);
-            }
-            $self->_preServiceHook($enabled);
-            $self->_enforceServiceState(reload => 1);
-            $self->_postServiceHook($enabled);
-        }
-    } catch ($e) {
-        $global->modRestarted($self->name());
-        $self->_unlock();
-        $e->throw();
-    }
-    # Mark as changes has been saved
-    $global->modRestarted($self->name());
-    $self->_unlock();
-}
-
 # Method: _daemons
 #
 #   This method must be overriden to return the services required by this
@@ -712,7 +675,7 @@ sub saveReload
 # Returns:
 #
 #   An array of hashes containing keys 'name' and 'type', 'name' being the
-#   name of the service and 'type' either 'upstart' or 'init.d', depending
+#   name of the service and 'type' either 'systemd' or 'init.d', depending
 #   on how the module should be managed.
 #
 #   If the type is 'init.d' an extra 'pidfiles' key is needed with the paths
@@ -735,11 +698,11 @@ sub saveReload
 #    return [
 #        {
 #            'name' => 'ebox.jabber.jabber-router',
-#            'type' => 'upstart'
+#            'type' => 'systemd'
 #        },
 #        {
 #            'name' => 'ebox.jabber.jabber-resolver',
-#            'type' => 'upstart',
+#            'type' => 'systemd',
 #            'precondition' => \&externalConnection
 #        }
 #    ];
@@ -775,12 +738,12 @@ sub _manageDaemon
     my $dname = $daemon->{name};
     my $type = daemon_type($daemon);
 
-    if ($type eq 'upstart') {
+    if ($type eq 'systemd') {
         EBox::Service::manage($dname, $action);
     } elsif ($type eq 'init.d') {
         EBox::Sudo::root("service $dname $action");
     } else {
-        throw EBox::Exceptions::Internal("Service type must be either 'upstart' or 'init.d'");
+        throw EBox::Exceptions::Internal("Service type must be either 'systemd' or 'init.d'");
     }
 }
 
@@ -1137,20 +1100,14 @@ sub _overrideDaemons
 
     my @cmds;
     foreach my $daemon (@daemons) {
-        my $name = $daemon->{name};
-        push (@cmds, "service $name stop");
+        push (@cmds, "systemctl stop $daemon->{name}");
     }
     EBox::Sudo::silentRoot(@cmds);
 
     @cmds = ();
     push (@daemons, @{$self->_daemons()});
     foreach my $daemon (@daemons) {
-        my $name = $daemon->{name};
-        if (($daemon->{type}) and ($daemon->{type} eq 'init.d')) {
-            push (@cmds, "update-rc.d $name disable");
-        } else {
-            push (@cmds, "echo manual > /etc/init/$name.override");
-        }
+        push (@cmds, "systemctl disable $daemon->{name}");
     }
     EBox::Sudo::silentRoot(@cmds);
 }

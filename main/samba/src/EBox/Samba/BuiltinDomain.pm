@@ -31,7 +31,7 @@ use EBox::Exceptions::UnwillingToPerform;
 use EBox::Global;
 use EBox::Samba::OU;
 
-use TryCatch::Lite;
+use TryCatch;
 
 # Method: mainObjectClass
 #

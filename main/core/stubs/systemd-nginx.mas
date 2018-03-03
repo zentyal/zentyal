@@ -1,0 +1,14 @@
+<%args>
+    $conf
+    $confDir
+</%args>
+[Unit]
+Description=Nginx http daemon for Zentyal web admin
+After=network.target
+
+[Service]
+ExecStart=/usr/sbin/nginx -c <% $conf %>
+ExecStop=/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile /var/lib/zentyal/tmp/nginx.pid
+Restart=on-failure
+TimeoutStopSec=5
+KillMode=mixed

@@ -243,7 +243,7 @@ sub _fieldDescription
             new EBox::Types::Select(
                 'fieldName' => 'origDest_object',
                 'printableName' => __('Object'),
-                'foreignModel' => $self->modelGetter('objects', 'ObjectTable'),
+                'foreignModel' => $self->modelGetter('network', 'ObjectTable'),
                 'foreignField' => 'name',
                 'foreignNextPageField' => 'members',
                 'editable' => 1),
@@ -285,7 +285,7 @@ sub _fieldDescription
             new EBox::Types::Select(
                 'fieldName' => 'source_object',
                 'printableName' => __('Source object'),
-                'foreignModel' => $self->modelGetter('objects', 'ObjectTable'),
+                'foreignModel' => $self->modelGetter('network', 'ObjectTable'),
                 'foreignField' => 'name',
                 'foreignNextPageField' => 'members',
                 'editable' => 1),

@@ -23,7 +23,7 @@ use EBox::Config;
 use EBox::Sudo;
 use EBox::ServiceManager;
 use File::Slurp;
-use TryCatch::Lite;
+use TryCatch;
 
 sub moduleList
 {
@@ -110,12 +110,6 @@ sub moduleAction
 {
     my ($modname, $action, $actionName, %opts) = @_;
     my $mod = checkModule($modname); #exits if module is not manageable
-
-    # Do not restart webadmin if we are run under zentyal-software
-    if ($actionName eq 'restart' and $modname eq 'webadmin' ) {
-        return if (exists $ENV{'EBOX_SOFTWARE'} and
-                   $ENV{'EBOX_SOFTWARE'} == 1 );
-    }
 
     my $redisTrans = $modname ne 'network';
 

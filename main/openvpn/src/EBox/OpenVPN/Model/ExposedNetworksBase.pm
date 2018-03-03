@@ -46,7 +46,7 @@ sub _tableHead
     (
         new EBox::Types::Select(
                                fieldName     => 'object',
-                               foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
+                               foreignModel  => $self->modelGetter('network', 'ObjectTable'),
                                foreignField  => 'name',
                                foreignNextPageField => 'members',
 
@@ -92,7 +92,7 @@ sub networks
     my ($self, $abbreviatedMask) = @_;
     my @nets;
 
-    my $objMod = $self->global()->modInstance('objects');
+    my $objMod = $self->global()->modInstance('network');
     foreach my $rowID (@{$self->ids()}) {
         my $row = $self->row($rowID);
         my $objId = $row->valueByName('object');
@@ -130,7 +130,7 @@ sub populateWithInternalNetworks
     my ($self, $onlyPrivateNets) = @_;
     my $global = $self->global();
     my $networkMod = $global->modInstance('network');
-    my $objMod = $global->modInstance('objects');
+    my $objMod = $networkMod;
 
     my %objIdByName = map {
         ($_->{name} => $_->{id})

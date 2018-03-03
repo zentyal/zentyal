@@ -1,16 +1,9 @@
 #!/bin/bash
 
-LOG=/var/tmp/zentyal-installer.log
-
 ln -sf /lib/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.plymouth
 ln -sf /lib/plymouth/themes/zentyal/zentyal.grub /etc/alternatives/default.plymouth.grub
 
-if [ "$1" == "configure" ]
+if [ "$1" == "configure" ] && [ -z "$2" ]
 then
-    echo 'manual' > /etc/init/lxdm.override
-fi
-
-if [ -n "$2" ]
-then
-    rm -f /etc/init/lxdm.override
+    systemctl disable lxdm.service || true
 fi

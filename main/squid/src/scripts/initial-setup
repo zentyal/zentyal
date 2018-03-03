@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+# Stop squid daemon
+systemctl stop squid || true
+
+# add ebox to proxy to read squid logs
+adduser --quiet ebox proxy || true
+
+# directory for extra dg domain lists
+DG_EXTRALISTS=/etc/dansguardian/extralists
+test -d $DG_EXTRALISTS || mkdir -p -m 0755 $DG_EXTRALISTS
+
+exit 0;

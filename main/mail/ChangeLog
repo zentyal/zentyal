@@ -1,3 +1,28 @@
+5.1
+	+ Set version to 5.1
+5.0.7
+	+ Fix fetchmail daemon status in dashboard widget
+5.0.6
+	+ Fix reading of attributes from LDAP backend
+	+ Revert unnecessary previous changes in main.cf
+5.0.5
+	+ Explicit add of all virtual domains to mydestination in main.cf
+	+ Remove compatibility_level postfix warning setting main.cf accordingly
+5.0.4
+	+ Integration with mailfilter module
+5.0.3
+	+ Add missing virtual_transport = dovecot in postfix main.cf
+5.0.2
+	+ Definitive fix for fetchmail problems with custom systemd
+	  daemon, as default init.d script seems broken
+5.0.1
+	+ Fix error when retrieve mail for external accounts is enabled
+	+ Fix module restart in postinst
+5.0
+	+ Remove OpenChange integration as project is not stable yet
+	+ Use system daemons instead of old custom upstart ones
+	+ Update configuration to work with Postfix 3.1
+	+ Integration only with external mailfilter
 4.2
 	+ Update version to 4.2
 4.1.3
@@ -66,7 +91,7 @@
 	+ Fixed bug triggered when adding external aliases
 	+ Adapted to OpenLDAP removal
 	+ Postfix handles Zentyal distribution groups virtual alias
-	+ Adapted MailQueue.pm to TryCatch::Lite
+	+ Adapted MailQueue.pm to TryCatch
 	+ Restart usercorner on installation / upgrade time so the new code is
 	  available there too
 	+ Fixed external mail retrieval configuration form from user corner

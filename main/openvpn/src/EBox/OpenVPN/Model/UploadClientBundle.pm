@@ -19,7 +19,7 @@ package EBox::OpenVPN::Model::UploadClientBundle;
 
 use base 'EBox::Model::DataForm::Action';
 
-use TryCatch::Lite;
+use TryCatch;
 
 use EBox::Global;
 use EBox::Gettext;

@@ -52,7 +52,7 @@ use EBox::Gettext;
 use EBox::Model::Manager;
 
 # Other modules uses
-use TryCatch::Lite;
+use TryCatch;
 
 #################
 # Dependencies

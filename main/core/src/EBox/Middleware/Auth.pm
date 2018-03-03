@@ -30,7 +30,7 @@ use Fcntl qw(:flock);
 use JSON::XS;
 use Plack::Request;
 use Plack::Util::Accessor qw( app_name );
-use TryCatch::Lite;
+use TryCatch;
 use URI;
 
 # By now, the expiration time for session is hardcoded here
@@ -369,53 +369,5 @@ sub call
         return $self->_redirectToLogin($env);
     }
 }
-
-## Remote access constants
-#use constant CC_USER => '__remote_access__';
-
-## Method: loginCC
-##
-##      Login from Control Center, which is different if the
-##      passwordless option is activated
-##
-## Parameters:
-##
-##      request - <Apache2::RequestRec> the HTTP request
-##
-## Return:
-##
-##     the same response as <Apache2::AuthCookie::login> gives back
-##
-#sub loginCC
-#{
-#    my ($self, $req) = @_;
-#
-#    if ( $self->recognize_user($req) == OK ) {
-#        my $retVal = $self->authenticate($req);
-#        if ($req->uri() =~ m:^/ebox:) {
-#            $req->headers_out()->set('Location' => '/');
-#            return HTTP_MOVED_TEMPORARILY;
-#        }
-#        return $retVal;
-#    } else {
-#        my $global = $self->_global();
-#        if ($global->modExists('remoteservices')) {
-#            my $remoteServMod = $global->modInstance('remoteservices');
-#            if ( $remoteServMod->eBoxSubscribed()
-#                 and $remoteServMod->model('AccessSettings')->passwordlessValue()) {
-#                # Do what login does
-#                my $sessionKey = $self->authen_cred($req, CC_USER, '', 1);
-#                $self->send_cookie($req, $sessionKey);
-#                $self->handle_cache($req);
-#                $req->headers_out()->set('Location' => '/');
-#                return HTTP_MOVED_TEMPORARILY;
-#            }
-#        }
-#        EBox::initLogger('eboxlog.conf');
-#        EBox::CGI::Run->run('/Login/Index', 'EBox');
-#        return OK;
-#    }
-#}
-#
 
 1;

@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox;
 use EBox::Global;
 use EBox::Gettext;
-use TryCatch::Lite;
+use TryCatch;
 
 ## arguments:
 ##  title [required]

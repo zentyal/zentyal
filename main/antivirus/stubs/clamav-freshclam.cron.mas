@@ -1,5 +1,5 @@
 <%doc>
-  Template for the freshclam program to be launched hourly
+  Template for the freshclam program to be launched daily
 </%doc>
 <%args>
   $enabled
@@ -9,6 +9,6 @@
 SHELL=/bin/sh
 
 % if ( $enabled ) {
-# Run freshclam once a hour
-@hourly clamav /usr/bin/freshclam --quiet
+# Run freshclam once a day
+@daily clamav /usr/bin/freshclam --quiet
 % }

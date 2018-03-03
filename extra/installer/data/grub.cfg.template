@@ -1,0 +1,32 @@
+
+if loadfont /boot/grub/font.pf2 ; then
+	set gfxmode=auto
+	insmod efi_gop
+	insmod efi_uga
+	insmod gfxterm
+	terminal_output gfxterm
+fi
+
+set menu_color_normal=white/black
+set menu_color_highlight=black/light-gray
+
+menuentry "Install Zentyal VERSION (delete all disk)" {
+	set gfxpayload=keep
+	linux	/install/vmlinuz  file=/cdrom/preseed/ubuntu-server-auto.seed vga=788 net.ifnames=0 bisodevname=0 quiet ---
+	initrd	/install/initrd.gz
+}
+menuentry "Install Zentyal VERSION (expert mode)" {
+	set gfxpayload=keep
+	linux	/install/vmlinuz  file=/cdrom/preseed/ubuntu-server.seed vga=788 net.ifnames=0 bisodevname=0 quiet ---
+	initrd	/install/initrd.gz
+}
+menuentry "Check disc for defects" {
+	set gfxpayload=keep
+	linux	/install/vmlinuz  MENU=/bin/cdrom-checker-menu quiet ---
+	initrd	/install/initrd.gz
+}
+menuentry "Rescue a broken system" {
+	set gfxpayload=keep
+	linux	/install/vmlinuz  rescue/enable=true ---
+	initrd	/install/initrd.gz
+}

@@ -1,0 +1,6 @@
+[Unit]
+Description=Zentyal logger daemon
+
+[Service]
+ExecStart=/usr/share/zentyal/loggerd
+Restart=on-failure

@@ -31,11 +31,9 @@ use File::Slurp;
 use File::Basename;
 use Perl6::Junction qw(any);
 use JSON::XS;
-use TryCatch::Lite;
+use TryCatch;
 
 # Constants
-use constant REDIS_CONF => 'conf/redis.conf';
-use constant REDIS_PASS => 'conf/redis.passwd';
 use constant CLIENT_CONF => EBox::Config::etc() . 'core.conf';
 
 my %cache;
@@ -59,7 +57,6 @@ sub _new
         $self->{customRedis} = $args{customRedis};
     }
 
-    $self->_initRedis();
     $self->_respawn();
 
     $self->{pid} = $$;
@@ -67,9 +64,6 @@ sub _new
 
     unless ($lock) {
         my $path = undef;
-        if ($self->_user() eq 'ebox-usercorner') {
-            $path = '/run/shm/zentyal-usercorner';
-        }
         $lock = EBox::Util::SHMLock->init('redis', $path);
     }
 
@@ -466,7 +460,6 @@ sub _redis_call
                 sleep(1);
                 # Disconnected, try to reconnect
                 eval {
-                    $self->_initRedis();
                     $self->_respawn();
                     $failure = 1;
                 };
@@ -514,122 +507,13 @@ sub _respawn
     if ($self->{customRedis}) {
         $self->{redis} = $self->{customRedis};
     } else {
-        my $user = $self->_user();
-        my $home = $self->_home();
-        my $filepasswd = $self->_passwd();
-
-        my $redis = Redis->new(sock => "$home/redis.$user.sock", encoding => undef);
-        $redis->auth($filepasswd);
+        my $port = EBox::Config::configkeyFromFile('redis_port', CLIENT_CONF);
+        my $redis = Redis->new(port => $port, encoding => undef);
         $self->{redis} = $redis;
     }
     $self->{pid} = $$;
 
     # EBox::info("$$ Respawning the redis connection");
-}
-
-# Initialize redis daemon if it's not running
-sub _initRedis
-{
-    my ($self) = @_;
-
-    return if ($self->{customRedis});
-
-    # User corner redis server is managed by service
-    return if ($self->_user eq 'ebox-usercorner');
-
-    unless (EBox::Service::running('ebox.redis')) {
-        EBox::debug("[$$] Starting redis server");
-
-        # Write redis daemon conf file
-        $self->writeConfigFile();
-
-        # Launch daemon, added sleep to avoid first connection problems
-        EBox::Sudo::silentRoot('start ebox.redis && sleep 1');
-    }
-}
-
-# Method: writeConfigFile
-#
-#   Write redis daemon config file
-#
-sub writeConfigFile
-{
-    my ($self, $user) = @_;
-
-    defined($user) or $user = EBox::Config::user();
-
-    my $home = $self->_home($user);
-
-    my $confFile = $home . REDIS_CONF;
-    my $pass = $self->_passwd($home);
-    my $uid = getpwnam($user);
-    my $dir = $user;
-    $dir =~ s/ebox/zentyal/;
-    my $port = $self->_port($user);
-
-    my @params = ();
-    push (@params, user => $user);
-    push (@params, home => $home);
-    push (@params, dir => $dir);
-    push (@params, port => $port);
-    push (@params, passwd => $pass);
-    EBox::Module::Base::writeConfFileNoCheck($confFile,
-            'core/redis.conf.mas',
-            \@params, {mode => '0600', uid => $uid});
-}
-
-# Stop redis server, sync changes to disk before
-sub stopRedis
-{
-    my ($self) = @_;
-
-    # User corner redis server is managed by service
-    return if ($self->_user eq 'ebox-usercorner');
-
-    $self->_redis_call('save');
-    EBox::Service::manage('ebox.redis', 'stop');
-}
-
-# Returns redis server password
-sub _passwd
-{
-    my ($self, $home) = @_;
-    defined($home) or $home = $self->_home();
-
-    return read_file($home . REDIS_PASS) or
-        throw EBox::Exceptions::External('Could not open passwd file');
-}
-
-# Returns redis server port
-sub _port
-{
-    my ($self, $user) = @_;
-    defined($user) or $user = $self->_user();
-
-    if ($user eq 'ebox-usercorner') {
-        return EBox::Config::configkey('redis_port_usercorner');
-    } else {
-        return EBox::Config::configkeyFromFile('redis_port', CLIENT_CONF);
-    }
-
-    # Unknown user
-    return undef;
-}
-
-sub _home
-{
-    my ($self, $user) = @_;
-    defined($user) or $user = $self->_user();
-
-    my ($name,$passwd,$uid,$gid,$quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
-    return $dir;
-}
-
-# Returns current user name
-sub _user
-{
-    my @userdata = getpwuid(POSIX::getuid());
-    return $userdata[0];
 }
 
 1;

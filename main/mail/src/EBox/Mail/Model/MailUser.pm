@@ -70,7 +70,6 @@ sub _table
         'modelDomain' => 'Mail',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,
-        'help' => '', # FIXME
     };
 
     return $dataTable;

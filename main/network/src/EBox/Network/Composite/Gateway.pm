@@ -35,7 +35,7 @@ sub _description
 {
     my $description = {
         layout          => 'top-bottom',
-        pageTitle       => __('Gateways Configuration'),
+        printableName   => __('Gateways and Proxy'),
         headTitle       => undef,
         compositeDomain => 'Network',
         name            => 'Gateway',

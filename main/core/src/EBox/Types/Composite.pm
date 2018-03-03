@@ -36,7 +36,7 @@ use base 'EBox::Types::Abstract';
 use EBox::Exceptions::Internal;
 
 # Dependencies
-use Clone::Fast;
+use Clone;
 use Perl6::Junction qw(none);
 
 # Group: Public methods
@@ -89,7 +89,7 @@ sub clone
     my @suspectedAttrs = qw(model row types);
     foreach my $key (keys %{$self}) {
         if ( $key eq none(@suspectedAttrs) ) {
-            $clonedType->{$key} = Clone::Fast::clone($self->{$key});
+            $clonedType->{$key} = Clone::clone($self->{$key});
         }
     }
     # Just copy the reference to the suspected attributes

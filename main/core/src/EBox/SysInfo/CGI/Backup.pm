@@ -28,7 +28,7 @@ use Cwd qw(realpath);
 use HTTP::Date;
 use Plack::Util;
 use Sys::Hostname;
-use TryCatch::Lite;
+use TryCatch;
 
 
 sub new # (error=?, msg=?, cgi=?)
@@ -148,11 +148,6 @@ sub masonParameters
     push @params, (selected => 'local');
 
     my $subscribed = 0;
-    if ($global->modExists('remoteservices')) {
-        my $rs = $global->modInstance('remoteservices');
-        $subscribed = $rs->eBoxSubscribed();
-    }
-    push @params, (openchange => $global->modExists('openchange'));
     push @params, (subscribed => $subscribed);
 
     return \@params;

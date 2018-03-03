@@ -34,7 +34,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Samba::Contact;
 
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
-use TryCatch::Lite;
+use TryCatch;
 
 sub mainObjectClass
 {

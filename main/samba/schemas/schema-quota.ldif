@@ -9,13 +9,11 @@ description: Quotas (FileSystem:BlocksSoft,BlocksHard,InodesSoft,InodesHard)
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
--
 
 dn:
 changetype: modify
 replace: schemaupdatenow
 schemaupdatenow: 1
--
 
 dn: CN=systemQuotas,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -30,11 +28,8 @@ mustContain: uidNumber
 mayContain: quota
 defaultObjectCategory: CN=systemQuotas,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 possSuperiors: top
--
 
 dn:
 changetype: modify
 replace: schemaupdatenow
 schemaupdatenow: 1
--
-

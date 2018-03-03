@@ -9,7 +9,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::ProgressIndicator;
 
-use TryCatch::Lite;
+use TryCatch;
 
 use Getopt::Long;
 
@@ -18,7 +18,6 @@ EBox::init();
 # process cli
 my $progressId = undef;
 
-my $remoteBackupName = undef;
 my $configBackup = 0;
 my $bugReport    = 0;
 my $fallbackToRO = 0;
@@ -36,7 +35,6 @@ my $optionsOk = GetOptions(
                                         => \$bugReport,
                            'description=s'   => \$description,
                            'destination=s'   => \$destination,
-                           'remote-backup=s' => \$remoteBackupName,
                            'fallback-to-ro'  => \$fallbackToRO,
                            'help'            => \$help,
                           );
@@ -87,28 +85,11 @@ if ($fallbackToRO) {
     $params{fallbackToRO} = 1;
 }
 
-if ($remoteBackupName) {
-    $params{noFinishProgress} = 1;
-}
-
 my $progress = $params{progress};
 try {
     if (not $bugReport) {
         my $file = EBox::Backup->makeBackup(%params);
         print "Backup stored into file $file\n";
-        if ($remoteBackupName and EBox::Global->modExists('remoteservices')) {
-            $progress->setMessage(__('Uploading configuration backup'));
-            $progress->notifyTick();
-
-            eval 'use EBox::RemoteServices::Backup';
-            my $backupService = EBox::RemoteServices::Backup->new();
-            my $description = $params{description};
-            $backupService->sendRemoteBackup($file, $description);
-
-            if ($progress) {
-                $progress->setAsFinished();
-            }
-        }
     } else {
         # with bug report we ignore all other options
         my $reportFile = EBox::Backup->makeBugReport();
@@ -135,7 +116,6 @@ sub usage
 
     --description <description>
     --fallback-to-ro
-    --remote-backup <name>
     --progress-id (only needed for web framework)
 END
 }

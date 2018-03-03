@@ -1,3 +1,10 @@
+5.1
+	+ Set version to 5.1
+5.0.1
+	+ Support for PPPoE and bridged mode
+	+ Fix module restart in postinst
+5.0
+	+ Update version to 5.0
 4.2
 	+ Update version to 4.2
 4.1.1
@@ -98,7 +105,7 @@
 	+ Fixed error which broke rules for inverse service
 	  match for any TCP or any UDP for all ports
 2.3.8
-	+ Use Clone::Fast instead of Clone
+	+ Use Clone instead of Clone
 	+ Added load of custom iptables modules
 	+ Added table for SNAT rules
 	+ Added filtering by source MAC

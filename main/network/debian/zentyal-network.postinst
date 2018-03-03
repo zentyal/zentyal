@@ -10,11 +10,11 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart network $2
 
         # restart module
-        service zentyal network restart || true
+        zs network restart || true
 
         # restart trafficshaping, ignore error if not exists
         # this is regenerate mangle rules after the flush in network restart
-        service zentyal trafficshaping restart >/dev/null 2>&1 || true
+        zs trafficshaping restart >/dev/null 2>&1 || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

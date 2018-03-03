@@ -35,7 +35,7 @@ use EBox::Gettext;
 use Net::LDAP;
 use Net::LDAP::Util qw(ldap_error_name ldap_explode_dn);
 
-use TryCatch::Lite;
+use TryCatch;
 use File::Slurp qw(read_file);
 use File::Temp;
 use Time::HiRes;

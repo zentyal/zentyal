@@ -23,7 +23,7 @@ use base 'EBox::CGI::WizardPage';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate;
-use TryCatch::Lite;
+use TryCatch;
 use EBox::Exceptions::External;
 
 sub new

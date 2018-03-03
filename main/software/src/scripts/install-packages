@@ -27,7 +27,7 @@ use EBox::Global;
 use EBox::ProgressIndicator;
 use EBox::Sudo;
 
-use TryCatch::Lite;
+use TryCatch;
 
 sub _regenSoftwareLists
 {
@@ -132,7 +132,7 @@ if ( $pid != 0 ) {
     }
 }
 try {
-    $webAdminMod->restartService();
+    $webAdminMod->reload();
     $progress->setAsFinished($retValue, $errorMsg);
 } catch (EBox::Exceptions::External $e) {
     # Ignore if it cannot put as finished since it's possible it

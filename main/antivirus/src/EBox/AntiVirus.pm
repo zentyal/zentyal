@@ -34,13 +34,9 @@ use EBox::Global;
 use EBox::Service;
 use EBox::Exceptions::Internal;
 
-use constant CLAMAV_PID_DIR => '/var/run/clamav/';
-
 use constant {
-  CLAMAVPIDFILE                 => CLAMAV_PID_DIR . 'clamd.pid',
-  CLAMD_INIT                    => 'clamav-daemon',
   CLAMD_CONF_FILE               => '/etc/clamav/clamd.conf',
-  CLAMD_SOCKET                  => CLAMAV_PID_DIR . 'clamd.ctl',
+  CLAMD_SOCKET                  => '/var/run/clamav/clamd.ctl',
 
   FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
@@ -81,30 +77,6 @@ sub _create
 }
 
 # Group: Public methods
-
-# Method: menu
-#
-#       Add an entry to the menu with this module
-#
-# Overrides:
-#
-#       <EBox::Module::menu>
-#
-sub menu
-{
-    my ($self, $root) = @_;
-
-# TODO: replace model with dashboard widget?
-#    my $item = new EBox::Menu::Item('name' => 'AntiVirus',
-#                                    'icon' => 'antivirus',
-#                                    'text' => $self->printableName(),
-#                                    'separator' => 'Office',
-#                                    'order' => 580,
-#                                    'url' => 'AntiVirus/View/FreshclamStatus',
-#                                   );
-#
-#    $root->add($item);
-}
 
 # Method: enableService
 #
@@ -192,13 +164,7 @@ sub usedFiles
 
 sub _daemons
 {
-    return [
-        {
-            name => CLAMD_INIT,
-            type => 'init.d',
-            pidfiles => [CLAMAVPIDFILE],
-        },
-    ];
+    return [ { name => 'clamav-daemon' } ];
 }
 
 # Method: _daemonsToDisable
@@ -216,22 +182,6 @@ sub _daemonsToDisable
 sub localSocket
 {
     return CLAMD_SOCKET;
-}
-
-# Method: _postSetConfHook
-#
-# Overrides:
-#
-#      <EBox::Module::Base::_postSetConfHook>
-#
-sub _postSetConfHook
-{
-    my ($self) = @_;
-
-    # Run Freshclam first time so it works right away
-    EBox::Sudo::silentRoot("/usr/bin/freshclam --quiet");
-
-    $self->SUPER::_postSetConfHook();
 }
 
 # Method: _setConf
@@ -270,7 +220,7 @@ sub _setConf
     $self->writeConfFile(FRESHCLAM_CONF_FILE,
             "antivirus/freshclam.conf.mas", \@freshclamParams);
 
-    # Regenerate freshclam cron hourly script
+    # Regenerate freshclam cron daily script
     $self->writeConfFile(FRESHCLAM_CRON_FILE,
                          'antivirus/clamav-freshclam.cron.mas',
                          [ enabled => $self->isEnabled() ]);

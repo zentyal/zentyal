@@ -43,7 +43,7 @@ use base 'EBox::Model::DataForm::Action';
 use EBox::Exceptions::MissingArgument;
 
 # Core modules
-use TryCatch::Lite;
+use TryCatch;
 use constant URL_REDIRECT => '/Downloader/FromTempDir?filename=';
 
 # Group: Public methods

@@ -95,7 +95,17 @@ do
     test -d $CD_BUILD_DIR/isolinux || (echo "isolinux directory not found in $CD_BUILD_DIR."; false) || exit 1
     test -d $CD_BUILD_DIR/.disk || (echo ".disk directory not found in $CD_BUILD_DIR."; false) || exit 1
 
-    cp images/* $CD_BUILD_DIR/isolinux/
+    cp images/splash.* $CD_BUILD_DIR/isolinux/
+    cp images/splash.png $CD_BUILD_DIR/install/netboot/ubuntu-installer/$ARCH/boot-screens/
+    pushd $CD_BUILD_DIR/isolinux
+    mkdir tmp
+    cd tmp
+    cat ../bootlogo | cpio -i
+    cp $BASE_DIR/images/splash.pcx .
+    find . | cpio -o > ../bootlogo
+    cd ..
+    rm -rf tmp
+    popd
 
     pushd $SCRIPTS_DIR
 

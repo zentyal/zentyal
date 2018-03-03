@@ -8,7 +8,7 @@ Homepage: http://www.zentyal.org/
 
 Package: zenbuntu-desktop
 Architecture: all
-Depends: zenbuntu-core (>= 3.3~1), systemd-shim, xorg, firefox, lxdm, lxde, xdg-user-dirs, gksu, libnss3-tools, xscreensaver, evince, plymouth-theme-ubuntu-logo, gtk2-engines
+Depends: zenbuntu-core (>= 3.3~1), systemd-shim, xorg, xserver-xorg-video-all, xserver-xorg-video-intel, xserver-xorg-video-qxl, firefox, lxdm, lxde, lxsession-logout, xdg-user-dirs, gksu, libnss3-tools, xscreensaver, evince, plymouth-theme-ubuntu-logo, gtk2-engines
 Description: Zentyal Desktop Environment for Ubuntu Server
  This package ships scripts and branding stuff included in
  the Zentyal installer to setup the Zentyal system.

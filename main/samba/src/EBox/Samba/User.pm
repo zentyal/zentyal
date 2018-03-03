@@ -26,6 +26,7 @@ use base qw(EBox::Samba::SecurityPrincipal);
 
 use EBox::Config;
 use EBox::Global;
+use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Samba;
 use EBox::Samba::Group;
@@ -44,7 +45,8 @@ use Net::LDAP::Control;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_ALREADY_EXISTS LDAP_LOCAL_ERROR);
 use Date::Calc;
-use TryCatch::Lite;
+use File::Slurp;
+use TryCatch;
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
@@ -248,9 +250,6 @@ sub deleteObject
     EBox::Sudo::silentRoot("rm -rf '$path'");
 
     # TODO Remove this user from shares ACLs
-
-    # Remove from SSSd cache
-    EBox::Sudo::silentRoot("sss_cache -u '$samAccountName'");
 
     # Call super implementation
     $self->SUPER::deleteObject(@params);
@@ -469,6 +468,9 @@ sub create
     my $name = $args{name};
     unless ($name) {
         $name = $class->generatedFullName(%args);
+        if (not $name) {
+            throw EBox::Exceptions::MissingArgument('name or at least one name component parameter (givenName, sn, initials))');
+        }
     }
     my $displayName = $args{displayName};
     unless ($displayName) {
@@ -483,22 +485,6 @@ sub create
     my $usersMod = EBox::Global->modInstance('samba');
     my $realm = $usersMod->kerberosRealm();
 
-    my $real_users = $usersMod->realUsers();
-
-    my $max_users = 0;
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $max_users = $rs->maxUsers();
-    }
-
-    if ($max_users) {
-        if ( scalar(@{$real_users}) > $max_users ) {
-            throw EBox::Exceptions::External(
-                    __sx('Please note that the maximum number of users for your edition is {max} '
-                        . 'and you currently have {nUsers}',
-                        max => $max_users, nUsers => scalar(@{$real_users})));
-        }
-    }
     my $uidNumber = defined $args{uidNumber} ?
                             $args{uidNumber} :
                             $class->_newUserUidNumber($isSystemUser);
@@ -962,6 +948,27 @@ sub passwordHashes
     return $krb5Keys;
 }
 
+sub setThumbnailPhoto
+{
+    my ($self, $file) = @_;
+
+    my $MAXSIZE = '96x96';
+
+    my $tmpfile = "/var/lib/zentyal/tmp/profile-photo-$$.jpg";
+
+    system("convert $file -resize '$MAXSIZE^' -gravity center -crop $MAXSIZE+0+0 +repage $tmpfile");
+
+    my $jpg = read_file($tmpfile, binmode => ':raw');
+    $self->set('thumbnailPhoto', $jpg);
+
+    my $share = EBox::Config::configkey('photo_share_name');
+    my $path = "/home/samba/shares/$share";
+    if ($share and EBox::Sudo::fileTest('-d', $path)) {
+        my $username = $self->name();
+        EBox::Sudo::root("cp $tmpfile $path/$username.jpg");
+    }
+}
+
 sub _checkUserName
 {
     my ($name) = @_;
@@ -1086,12 +1093,6 @@ sub _domainUsersGidNumber
     my $ldap = $class->_ldap();
     my $group = $ldap->domainUsersGroup();
     return $group->gidNumber();
-}
-
-sub _loginShell
-{
-    my $usersMod = EBox::Global->modInstance('samba');
-    return $usersMod->model('PAM')->login_shellValue();
 }
 
 sub quotaAvailable

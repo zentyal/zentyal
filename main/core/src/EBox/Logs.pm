@@ -38,7 +38,7 @@ use EBox::Util::Version;
 
 use POSIX qw(ceil);
 
-use constant LOG_DAEMON => 'ebox.loggerd';
+use constant LOG_DAEMON => 'zentyal.loggerd';
 use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
 use constant PIDPATH => EBox::Config::tmp . '/pids/';
 use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';
@@ -313,6 +313,9 @@ sub getTableInfo
 sub getModTableInfos
 {
     my ($self, $mod) = @_;
+
+    return [] unless defined $mod;
+
     my @tableInfos;
 
     my $ti = $mod->tableInfo();

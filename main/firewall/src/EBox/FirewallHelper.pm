@@ -260,6 +260,7 @@ sub restartOnTemporaryStop
 # Method: _outputIface
 #
 #   Returns iptables rule part for output interface selection
+#   If the interface is a bridge port it matches de whole bridge (brX)
 #
 # Parameters:
 #
@@ -269,12 +270,19 @@ sub _outputIface # (iface)
 {
     my ($self, $iface) = @_;
 
-    return "-o $iface";
-}
+    if ( $self->{net}->ifaceExists($iface) and
+         $self->{net}->ifaceMethod($iface) eq 'bridged' ) {
 
+        my $br = $self->{net}->ifaceBridge($iface);
+        return  "-o br$br";
+    } else {
+        return "-o $iface";
+    }
+}
 # Method: _inputIface
 #
 #   Returns iptables rule part for input interface selection
+#   Takes into account if the iface is part of a bridge
 #
 # Parameters:
 #
@@ -284,7 +292,12 @@ sub _inputIface # (iface)
 {
     my ($self, $iface) = @_;
 
-    return "-i $iface";
+    if ( $self->{net}->ifaceExists($iface) and
+        $self->{net}->ifaceMethod($iface) eq 'bridged' ) {
+        return  "-m physdev --physdev-in $iface";
+    } else {
+        return "-i $iface";
+    }
 }
 
 # Method: beforeFwRestart

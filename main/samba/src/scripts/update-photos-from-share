@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+
+use EBox;
+use EBox::Samba::User;
+
+EBox::init();
+
+my ($share) = @ARGV;
+
+unless ($share) {
+    print "Usage: $0 <share_name>\n";
+    exit 1;
+}
+
+chdir("/home/samba/shares/$share");
+foreach my $file (glob ('*.jpeg *.jpg')) {
+    my $username = $file;
+    $username =~ s/\.jpe?g$//;
+    my $user = new EBox::Samba::User(samAccountName => $username);
+    next unless $user->exists();
+    $user->setThumbnailPhoto($file);
+}

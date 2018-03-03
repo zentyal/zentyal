@@ -9,30 +9,17 @@
 # This profile has been modified by Zentyal Server to provide
 # allow samba4 dns updates
 
-/var/lib/samba/private/* rw,
-/var/lib/samba/private/dns/* rw,
+/var/lib/samba/private/named.conf r,
+/var/lib/samba/private/dns/** rwk,
 
 # Access to kerberos keytab
-/var/lib/samba/private/dns.keytab kr,
+/var/lib/samba/private/dns.keytab r,
 
 # Access to kerberos ticket
 /var/tmp/** rw,
 
 # Access to samba AD DLZ zone
-/var/lib/samba/private/dns/sam.ldb k,
-/var/lib/samba/private/dns/sam.ldb.d/* krw,
-
-/usr/lib/i386-linux-gnu/samba/ldb/*.so m,
-/usr/lib/i386-linux-gnu/samba/bind9/*.so m,
-/usr/lib/i386-linux-gnu/samba/gensec/*.so m,
-/usr/lib/i386-linux-gnu/ldb/modules/ldb/*.so m,
-/usr/lib/i386-linux-gnu/krb5/plugins/authdata/sssd_pac_plugin.so m,
-
-/usr/lib/x86_64-linux-gnu/samba/ldb/*.so m,
-/usr/lib/x86_64-linux-gnu/samba/bind9/dlz_bind9_9.so m,
-/usr/lib/x86_64-linux-gnu/samba/gensec/*.so m,
-/usr/lib/x86_64-linux-gnu/ldb/modules/ldb/*.so m,
-/usr/lib/x86_64-linux-gnu/krb5/plugins/authdata/sssd_pac_plugin.so m,
+/usr/lib/x86_64-linux-gnu/samba/** rm,
 
 # RW access to session key, to allow SDLZ driver read it
 /{,var/}run/named/session.key rw,

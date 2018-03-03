@@ -25,7 +25,7 @@ use EBox::Global;
 use EBox::ProgressIndicator;
 use EBox::Sudo;
 
-use TryCatch::Lite;
+use TryCatch;
 
 EBox::init();
 
@@ -106,7 +106,7 @@ try {
     my $software = $global->modInstance('software');
     #causes the cache to be generated
     $software->listUpgradablePkgs(1);
-    $webAdminMod->_daemon('restart');
+    $webAdminMod->reload();
     $progress->setAsFinished($retValue, $errorMsg);
 } catch (EBox::Exceptions::External $e) {
     # Ignore if it cannot put as finished since it's possible it

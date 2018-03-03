@@ -39,7 +39,11 @@ The nice thing would be implementing filters which can be set within
 the table definition
 </%doc>
 %		my $content = $row->{$it};
-%		$content =~ s/ +$//;
+%		if ($content) {
+%			 $content =~ s/ +$//;
+%		} else {
+%			 $content = '';
+%		}
 %		my $tooltip = $content;
 %		if (length ($content) > 40 ) {
 %			$content = substr ($content, 0, 40) . '...';

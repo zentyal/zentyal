@@ -31,7 +31,6 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
-use EBox::Objects;
 use EBox::Validate qw(:all);
 
 use EBox::Sudo;
@@ -43,7 +42,7 @@ use EBox::Dashboard::Section;
 use EBox::Dashboard::List;
 
 use Net::IP;
-use TryCatch::Lite;
+use TryCatch;
 use Perl6::Junction qw(any);
 use Text::DHCPLeases;
 use File::Slurp;
@@ -120,12 +119,12 @@ sub initialSetup
     # Create default services, rules and conf dir
     # only if installing the first time
     unless ($version) {
-        my $services = $self->global()->modInstance('services');
+        my $network = $self->global()->modInstance('network');
         my $firewall = $self->global()->modInstance('firewall');
 
         my $serviceName = 'tftp';
-        unless ($services->serviceExists(name => $serviceName)) {
-            $services->addMultipleService(
+        unless ($network->serviceExists(name => $serviceName)) {
+            $network->addMultipleService(
                 'name' => $serviceName,
                 'printableName' => 'TFTP',
                 'description' => __('Trivial File Transfer Protocol'),
@@ -138,8 +137,8 @@ sub initialSetup
         }
 
         $serviceName = 'dhcp';
-        unless ($services->serviceExists(name => $serviceName)) {
-            $services->addMultipleService(
+        unless ($network->serviceExists(name => $serviceName)) {
+            $network->addMultipleService(
                 'name' => $serviceName,
                 'printableName' => 'DHCP',
                 'description' => __('Dynamic Host Configuration Protocol'),
@@ -224,17 +223,6 @@ sub _daemons
             'precondition' => $preSub
         }
     ];
-}
-
-# Method: _daemonsToDisable
-#
-# Overrides:
-#
-#   <EBox::Module::Service::_daemonsToDisable>
-#
-sub _daemonsToDisable
-{
-    return [ { 'name' => 'isc-dhcp-server', 'type' => 'init.d' } ];
 }
 
 sub _dhcpDaemonNeeded
@@ -1086,7 +1074,12 @@ sub dhcpLeasesWidget
         my $lease = $leases->{$id};
         if($lease->binding_state() eq 'active') {
             my $hostname = $lease->client_hostname();
-            $hostname =~ s/"//g;
+            if ($hostname) {
+                $hostname =~ s/"//g;
+            } else {
+                $hostname = __('Unknown');
+            }
+
             push(@{$ids}, $id);
             $rows->{$id} = [$lease->ip_address(),$lease->mac_address(),
                             $hostname];
@@ -1355,6 +1348,8 @@ sub _thinClientOptions # (iface, element)
     my $row = $thinClientModel->row();
     if (defined ($row)) {
         $ret->{nextServer} = $thinClientModel->nextServer($iface);
+        $ret->{tftpServers} = $row->valueByName('option150');
+        $ret->{shoretelServer} = $row->valueByName('option155');
         $ret->{filename} = $row->valueByName('remoteFilename');
     }
     return $ret;

@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 23;
+use Test::More tests => 22;
 use Test::Exception;
 
 use EBox::Global::TestStub;
@@ -32,7 +32,6 @@ EBox::Global::TestStub::fake();
 
 is (EBox::CGI::Run->urlToClass('SysInfo/Backup'), 'EBox::SysInfo::CGI::Backup', 'cgi class from url');
 is (EBox::CGI::Run->urlToClass(), 'EBox::Dashboard::CGI::Index', 'cgi index class');
-is (EBox::CGI::Run->urlToClass('RemoteServices/Backup/Index'), 'EBox::RemoteServices::CGI::Backup::Index', 'more complex cgi index class');
 
 my ($model, $module, $type, $action) = EBox::CGI::Run::_parseModelUrl('SysInfo/View/Halt');
 is $module, 'SysInfo', 'model from url (module)';

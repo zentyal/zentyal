@@ -1,6 +1,0 @@
-pre-start script
-    service ntp stop || true
-end script
-
-exec /usr/sbin/ntpd -n -g -u `getent passwd ntp | cut -f 3,4 -d:`
-respawn

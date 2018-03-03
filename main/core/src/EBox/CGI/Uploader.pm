@@ -26,7 +26,7 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 
 # Core modules
-use TryCatch::Lite;
+use TryCatch;
 use File::Basename;
 use File::Copy;
 

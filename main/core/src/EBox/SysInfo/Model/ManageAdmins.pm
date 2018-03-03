@@ -22,7 +22,7 @@ package EBox::SysInfo::Model::ManageAdmins;
 
 use base 'EBox::Model::DataTable';
 
-use TryCatch::Lite;
+use TryCatch;
 
 use EBox::Gettext;
 use EBox::Types::Password;
@@ -120,6 +120,11 @@ sub addTypedRow
 
     try {
         my $user = $params->{username}->value();
+        # Forbid creation if user already exists in samba to avoid conflicts
+        EBox::Sudo::silentRoot("samba-tool user list | grep ^$user\$");
+        if ($? == 0) {
+            throw EBox::Exceptions::External(__x('User "{user}" already exist in Active Directory', user => $user));
+        }
         # Create user if not exists
         system("id $user");
         my $userNotExists = $?;

@@ -31,7 +31,7 @@ use EBox::CGI::View::Composite;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidArgument;
 
-use TryCatch::Lite;
+use TryCatch;
 use File::Slurp;
 use Perl6::Junction qw(any);
 use Scalar::Util;

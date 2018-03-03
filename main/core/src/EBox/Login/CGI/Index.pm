@@ -25,6 +25,7 @@ use EBox::Gettext;
 use Readonly;
 Readonly::Scalar my $DEFAULT_DESTINATION => '/Dashboard/Index';
 Readonly::Scalar my $FIRSTTIME_DESTINATION => '/Software/Welcome';
+Readonly::Scalar my $ACTIVATION_DESTINATION => '/ActivationRequired';
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -92,6 +93,10 @@ sub _requestDestination
 {
     my ($session) = @_;
 
+    my $edition = EBox::Global::edition();
+    if (($edition eq 'trial-expired') or ($edition eq 'require-activation')) {
+        return $ACTIVATION_DESTINATION;
+    }
 
     # redirect to software selection on first install
     if (EBox::Global::first() and EBox::Global->modExists('software')) {

@@ -1,3 +1,10 @@
+5.1
+	+ Add TFTP functionality again with support also for options 150 and 155
+	+ Fix module restart in postinst
+5.0
+	+ Disable TFTP
+	+ Display unknown hostnames as 'Unknown' in leases widget instead
+	  of an empty string.
 4.2
 	+ Clarify error message in fixed addresses table
 4.1.1

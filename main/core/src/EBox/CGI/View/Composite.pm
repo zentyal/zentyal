@@ -31,7 +31,7 @@ package EBox::CGI::View::Composite;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use TryCatch::Lite;
+use TryCatch;
 
 # Constructor: new
 #

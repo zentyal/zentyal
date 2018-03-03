@@ -44,7 +44,7 @@ use IO::Socket::SSL;
 use JSON::XS;
 use LWP::UserAgent;
 use Time::HiRes;
-use TryCatch::Lite;
+use TryCatch;
 use URI;
 
 use constant JOURNAL_OPS_DIR => EBox::Config::conf() . 'ops-journal/';

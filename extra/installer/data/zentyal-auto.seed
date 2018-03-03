@@ -19,68 +19,17 @@ zinstaller-headless zinstaller-headless/question boolean false
 ## lvm auto
 #d-i partman-auto/disk string /dev/sda
 d-i partman-auto/method string lvm
-d-i partman-lvm/device_remove_lvm boolean true
-d-i partman-lvm/vgdelete_confirm boolean true
 d-i partman-md/device_remove_md boolean true
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-lvm/device_remove_lvm_span boolean true
 d-i partman-lvm/confirm boolean true
+d-i partman-lvm/confirm_nooverwrite boolean true
+d-i partman-lvm/vgdelete_confirm boolean true
 d-i partman-auto-lvm/guided_size string max
 d-i partman-auto/choose_recipe select atomic
 d-i partman/confirm_write_new_label boolean true
+d-i partman-partitioning/confirm_write_new_label boolean true
 d-i partman/choose_partition select finish
 d-i partman/confirm boolean true
 d-i partman/confirm_nooverwrite boolean true
-d-i partman-lvm/confirm_nooverwrite boolean true
-
-### ebox custom
-#d-i partman-auto/disk string /dev/sda
-#d-i partman-auto/method string lvm
-#d-i partman-lvm/device_remove_lvm boolean true
-#d-i partman-lvm/device_remove_lvm_span boolean true
-#d-i partman-auto/purge_lvm_from_device boolean true
-#d-i partman-auto-lvm/new_vg_name string ebox
-##d-i partman-auto/init_automatically_partition select Guided - use entire disk and set up LVM
-#d-i partman-auto/expert_recipe string                         \
-#      boot-root ::                                            \
-#              128 256 256 ext3                                \
-#                      $primary{ }                             \
-#                      method{ format } format{ }              \
-#                      use_filesystem{ } filesystem{ ext3 }    \
-#                      mountpoint{ /boot }                     \
-#              .                                               \
-#              4000 20000 10000 ext3                           \
-#                      $lvmok{ }                               \
-#                      method{ format } format{ }              \
-#                      use_filesystem{ } filesystem{ ext3 }    \
-#                      mountpoint{ / }                         \
-#              .                                               \
-#              128 20000 2048 linux-swap                       \
-#                      $lvmok{ }                               \
-#                      method{ swap } format{ }                \
-#              .                                               \
-#              2000 20000 20000 xfs                            \
-#                      $lvmok{ }                               \
-#                      method{ format } format{ }              \
-#                      use_filesystem{ } filesystem{ xfs }     \
-#                      mountpoint{ /var }                      \
-#              .                                               \
-#              2000 20000 20000 xfs                            \
-#                      $lvmok{ }                               \
-#                      method{ format } format{ }              \
-#                      use_filesystem{ } filesystem{ xfs }     \
-#                      mountpoint{ /home }                     \
-#              .                                               \
-#              1000 10000 10000 xfs                            \
-#                      $lvmok{ }                               \
-#                      method{ format } format{ }              \
-#                      use_filesystem{ } filesystem{ xfs }     \
-#                      mountpoint{ /var/vmail }                \
-#              .                                               \
-#              1000 10000 10000 ext3                           \
-#                      $lvmok{ }                               \
-#                      method{ keep }                          \
-#              .
-#
-#d-i partman-lvm/confirm boolean true
-#d-i partman/confirm_write_new_label boolean true
-#d-i partman/choose_partition select Finish partitioning and write changes to disk
-#d-i partman/confirm boolean true
+d-i partman-efi/non_efi_system boolean true

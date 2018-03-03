@@ -1,0 +1,14 @@
+class: 'EBox::SOGo'
+
+depends:
+    - mail
+
+enabledepends:
+    - mail
+
+models:
+    - ActiveSync
+
+composites:
+    Disclaimer: []
+    Configuration: [ActiveSync, Disclaimer]

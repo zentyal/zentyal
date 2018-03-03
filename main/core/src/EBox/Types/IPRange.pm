@@ -25,7 +25,7 @@ use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use Net::IP;
-use TryCatch::Lite;
+use TryCatch;
 
 use constant MAX_N_ADDRESS => 16777216; # we choose as max the number of
                                         # addresses for a net of class A

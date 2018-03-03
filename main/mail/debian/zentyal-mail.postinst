@@ -6,7 +6,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup mail $2
 
         # restart module
-        service zentyal mail restart || true
+        zs mail restart || true
 
         dpkg-trigger --no-await zentyal-usercorner
         dpkg-trigger --no-await zentyal-core

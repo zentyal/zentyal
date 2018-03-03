@@ -37,7 +37,7 @@ use EBox::Exceptions::MissingArgument;
 use List::Util qw(first);
 use Params::Validate qw(validate_pos validate SCALAR ARRAYREF);
 use Perl6::Junction qw(any);
-use TryCatch::Lite;
+use TryCatch;
 
 sub new
 {
@@ -185,6 +185,9 @@ sub local
     # redis does not store undef values, with a undef key it returns ''
     if ($iface eq  '_ALL') {
         $iface = undef;
+    } else {
+        my $network = EBox::Global->modInstance('network');
+        $iface = $network->realIface($iface);
     }
 
     return $iface;

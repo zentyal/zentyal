@@ -17,6 +17,9 @@ case "$1" in
     configure)
         ZENTYAL_LOGS_DIR=/var/log/zentyal
         ZENTYAL_BACKUPS_DIR=$ZENTYAL_HOME/conf/backups
+        STDERR_FILE=/var/lib/zentyal/tmp/stderr
+
+        touch $STDERR_FILE && chmod 0666 $STDERR_FILE
 
         # create log directory
         test -d $ZENTYAL_LOGS_DIR || mkdir $ZENTYAL_LOGS_DIR
@@ -95,16 +98,13 @@ case "$1" in
         # create Zentyal webadmin certificates
         /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl `hostname --fqdn` > /dev/null 2>&1
 
-        # stop disable default nginx init.d script
-        service nginx stop > /dev/null 2>&1
-        update-rc.d nginx disable > /dev/null 2>&1
+        # stop and disable default nginx
+        systemctl stop nginx > /dev/null 2>&1 || true
+        systemctl disable nginx > /dev/null 2>&1 || true
 
         if [ -z "$2" ]; then
             # Set Zentyal port only if it's the first time we install
             set_ebox_port
-
-            # Write redis configuration
-            service zentyal webadmin start || true
         fi
 
         # create logs & reports database
@@ -114,7 +114,9 @@ case "$1" in
         /usr/share/zentyal/initial-setup sysinfo $2
         /usr/share/zentyal/initial-setup --no-restart logs $2
         /usr/share/zentyal/initial-setup --no-restart webadmin $2
-        /usr/share/zentyal/initial-setup  remoteservices $2
+
+        # enable auto-start
+        systemctl enable zentyal
 
         dpkg-trigger --no-await zentyal-core
     ;;

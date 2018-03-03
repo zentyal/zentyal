@@ -57,15 +57,11 @@ sub new
     return $self;
 }
 
-# Method: precondition
+# Method: caAvailable
 #
 #   Check if CA has been created.
 #
-# Overrides:
-#
-#       <EBox::Model::DataTable::precondition>
-#
-sub precondition
+sub caAvailable
 {
     my ($self) = @_;
 
@@ -74,23 +70,24 @@ sub precondition
     return $ca->isAvailable();
 }
 
-# Method: preconditionFailMsg
-#
-#   Returns message to be shown on precondition fail.
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::preconditionFailMsg>
-#
-sub preconditionFailMsg
+sub permanentMessage
 {
     my ($self) = @_;
+    if ($self->caAvailable()) {
+        return undef;
+    }
 
-    return __x('You must create a Certification Authority first. '
+    return __x('This configuration will not be enforced until a new certification authority is created. '
               . 'Go to {openhref}Certification Authority{closehref} to do so',
               openhref  => qq{<a href='/CA/Index'>},
               closehref => qq{</a>});
 }
+
+sub permanentMessageType
+{
+    return 'warning';
+}
+
 
 # Method: syncRows
 #
@@ -353,11 +350,13 @@ sub validateTypedRow
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
-    my $cn = $row->valueByName('cn');
-    $self->_openchangeWarning($cn);
 
     if ($row->isEqualTo($oldRow)) {
         # no need to set module as changed
+        return;
+    }
+
+    if (not $self->caAvailable()) {
         return;
     }
 
@@ -366,16 +365,21 @@ sub updatedRowNotify
     $mod->setAsChanged();
 }
 
-sub _openchangeWarning
+# Method: notifiyNewCA
+#
+# To be called to execute the needed actions when a new CA is created.
+# The needed actions are to mark modules with custom certificates as
+# changed, so they can set up the certificates.
+sub notifyNewCA
 {
-    my ($self, $cn) = @_;
-    my $openchange = $self->parentModule()->global()->modInstance('openchange');
-    if ($openchange and $openchange->certificateIsReserved($cn)) {
-        my $warnMsg = __x('The CN {cn} is reserved by OpenChange and cannot be generated automatically. You can issue it from the {oh}OpenChange virtual domains interface.{ch}', 
-                   cn => $cn,
-                   oh => "<a href='/Mail/OpenChange'>",
-                   ch => '</a>');
-        $self->setMessage($warnMsg, 'warning');
+    my ($self) = @_;
+    for my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        if ($row->valueByName('enable')) {
+            my $modName = $row->valueByName('module');
+            my $mod = $self->global()->modInstance($modName);
+            $mod->setAsChanged();
+        }
     }
 }
 

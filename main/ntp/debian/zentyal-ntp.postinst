@@ -10,7 +10,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart ntp $2
 
         # restart module
-        service zentyal ntp restart || true
+        zs ntp restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

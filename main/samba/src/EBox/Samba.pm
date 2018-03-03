@@ -51,7 +51,6 @@ use EBox::Samba::NamingContext;
 use EBox::Samba::OU;
 use EBox::Samba::Provision;
 use EBox::Samba::SecurityPrincipal;
-use EBox::Samba::SmbClient;
 use EBox::Samba::User;
 use EBox::Util::Random qw( generate );
 use EBox::Util::Random;
@@ -61,7 +60,7 @@ use Digest::SHA;
 use Digest::MD5;
 use Sys::Hostname;
 
-use TryCatch::Lite;
+use TryCatch;
 use JSON::XS;
 use Net::LDAP::Control::Sort;
 use Net::LDAP::Util qw(ldap_explode_dn);
@@ -73,38 +72,6 @@ use Perl6::Junction qw(any);
 use String::ShellQuote;
 use Fcntl qw(:flock);
 use Net::Ping;
-use Samba::Security::AccessControlEntry;
-use Samba::Security::Descriptor qw(
-    DOMAIN_RID_ADMINISTRATOR
-    SEC_ACE_FLAG_CONTAINER_INHERIT
-    SEC_ACE_FLAG_OBJECT_INHERIT
-    SEC_ACE_TYPE_ACCESS_ALLOWED
-    SEC_DESC_DACL_AUTO_INHERITED
-    SEC_DESC_DACL_PROTECTED
-    SEC_DESC_SACL_AUTO_INHERITED
-    SEC_FILE_EXECUTE
-    SEC_RIGHTS_FILE_ALL
-    SEC_RIGHTS_FILE_READ
-    SEC_RIGHTS_FILE_WRITE
-    SEC_STD_ALL
-    SEC_STD_DELETE
-    SECINFO_DACL
-    SECINFO_GROUP
-    SECINFO_OWNER
-    SECINFO_PROTECTED_DACL
-    SEC_STD_WRITE_OWNER
-    SEC_STD_READ_CONTROL
-    SEC_STD_WRITE_DAC
-    SEC_FILE_READ_ATTRIBUTE
-);
-use Samba::Smb qw(
-    FILE_ATTRIBUTE_NORMAL
-    FILE_ATTRIBUTE_ARCHIVE
-    FILE_ATTRIBUTE_DIRECTORY
-    FILE_ATTRIBUTE_HIDDEN
-    FILE_ATTRIBUTE_READONLY
-    FILE_ATTRIBUTE_SYSTEM
-);
 use String::ShellQuote 'shell_quote';
 use Time::HiRes;
 use IO::Socket::INET;
@@ -112,7 +79,6 @@ use IO::Socket::UNIX;
 
 
 use constant SAMBA_DIR            => '/home/samba/';
-use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant SHARESCONFFILE       => '/etc/samba/shares.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
@@ -125,7 +91,6 @@ use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
-use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
 use constant COMPUTERSDN    => 'ou=Computers';
@@ -144,10 +109,10 @@ use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 
 use constant SHARES_DIR           => SAMBA_DIR . 'shares';
-use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
-use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
+
+use constant PROFILE_PHOTO_CRON_FILE => '/etc/cron.d/zentyal-profile-photo';
 
 # Kerberos constants
 use constant KERBEROS_PORT => 88;
@@ -155,9 +120,6 @@ use constant KPASSWD_PORT => 464;
 use constant KRB5_CONF_FILE => '/var/lib/samba/private/krb5.conf';
 use constant SYSTEM_WIDE_KRB5_CONF_FILE => '/etc/krb5.conf';
 use constant SYSTEM_WIDE_KRB5_KEYTAB => '/etc/krb5.keytab';
-
-# SSSD conf
-use constant SSSD_CONF_FILE => '/etc/sssd/sssd.conf';
 
 use constant OBJECT_EXISTS => 1;
 use constant OBJECT_EXISTS_AND_HIDDEN_SID => 2;
@@ -324,12 +286,6 @@ sub usedFiles
             'module' => 'samba'
         },
         {
-            'file' => SSSD_CONF_FILE,
-            'reason' => __('To configure System Security Services Daemon to manage remote'
-                           . ' authentication mechanisms'),
-            'module' => 'samba'
-        },
-        {
             'file'   => FSTAB_FILE,
             'reason' => __('To enable extended attributes and acls.'),
             'module' => 'samba',
@@ -352,7 +308,7 @@ sub initialSetup
     # Create default rules and services
     # only if installing the first time
     unless ($version) {
-        my $services = EBox::Global->modInstance('services');
+        my $services = EBox::Global->modInstance('network');
 
         my $serviceName = 'samba';
         unless($services->serviceExists(name => $serviceName)) {
@@ -500,9 +456,11 @@ sub _internalServerEnableActions
     # Execute enable-module script
     $self->SUPER::enableActions();
 
+    # FIXME: temporary disabled until reload of webadmin properly
+    #        implemented with SIGHUP or uwsgi master FIFO
     # mark webAdmin as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
-    EBox::Global->modInstance('webadmin')->setAsChanged();
+    #EBox::Global->modInstance('webadmin')->setAsChanged();
 }
 
 sub enableService
@@ -663,20 +621,6 @@ sub _services
         ];
 }
 
-
-# Generate, store in the given file and return a password
-sub _genPassword
-{
-    my ($self, $file) = @_;
-
-    my $pass = EBox::Util::Random::generate(20);
-    my ($login,$password,$uid,$gid) = getpwnam('ebox');
-    EBox::Module::Base::writeFile($file, $pass,
-            { mode => '0600', uid => $uid, gid => $gid });
-
-    return $pass;
-}
-
 # Method: wizardPages
 #
 #   Override EBox::Module::Base::wizardPages
@@ -720,13 +664,6 @@ sub _setConf
 
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
-        if (EBox::Global->modExists('openchange')) {
-            my $openchangeMod = EBox::Global->modInstance('openchange');
-            if ($openchangeMod->isProvisioned()) {
-                # Set OpenChange as not provisioned.
-                $openchangeMod->setProvisioned(0);
-            }
-        }
         if ($self->get('need_reprovision')) {
             $self->_cleanModulesForReprovision();
             # Current provision is not useful, change back status to not provisioned.
@@ -744,8 +681,10 @@ sub _setConf
 
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
-    # Create shares
-    $self->model('SambaShares')->createDirs();
+
+    unless ($self->global()->communityEdition()) {
+        $self->_installPhotoCronFile();
+    }
 }
 
 sub _createDirectories
@@ -759,8 +698,6 @@ sub _createDirectories
     my $gidNumber = $group->gidNumber();
     my $guest = $self->ldap->domainGuestUser();
     my $nobodyUidNumber = $guest->uidNumber();
-    my $avModel = $self->model('AntivirusDefault');
-    my $quarantine = $avModel->QUARANTINE_DIR();
 
     my @cmds;
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
@@ -785,10 +722,6 @@ sub _createDirectories
     push (@cmds, "setfacl -m u:$nobodyUidNumber:rx " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
 
-    push (@cmds, "mkdir -p '$quarantine'");
-    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
-    push (@cmds, "chmod 770 '$quarantine'");
-
     EBox::Sudo::root(@cmds);
 }
 
@@ -800,29 +733,6 @@ sub _adcMode
     return ($settings->modeValue() eq $settings->MODE_ADC());
 }
 
-sub _sysvolSyncCond
-{
-    my ($self) = @_;
-
-    return ($self->isEnabled() and $self->getProvision->isProvisioned() and $self->_adcMode());
-}
-
-sub _antivirusEnabled
-{
-    my ($self) = @_;
-
-    my $avModule = EBox::Global->modInstance('antivirus');
-    unless (defined ($avModule) and $avModule->isEnabled()) {
-        return 0;
-    }
-
-    my $avModel = $self->model('AntivirusDefault');
-    my $enabled = $avModel->value('scan');
-
-    return $enabled;
-}
-
-
 sub _postServiceHook
 {
     my ($self, $enabled) = @_;
@@ -831,12 +741,12 @@ sub _postServiceHook
 
     return unless $self->isProvisioned();
 
+    # FIXME: is this needed after removing antivirus?
     # Fix permissions on samba dirs. Zentyal user needs access because
     # the antivirus daemon runs as 'ebox'
     $self->_createDirectories();
 
     my $ldap = $self->ldap();
-
     # Execute the hook actions *only* if Samba module is enabled and we were invoked from the web application, this will
     # prevent that we execute this code with every service restart or on server boot delaying such processes.
     if ($enabled and ($0 =~ /\/global-action$/)) {
@@ -883,193 +793,38 @@ sub _postServiceHook
         unless (defined $host and length $host) {
             throw EBox::Exceptions::Internal('Could not get DNS hostname');
         }
-        my $sambaShares = $self->model('SambaShares');
-        my $domainSID = $ldap->domainSID();
-        my $domainAdminSID = "$domainSID-500";
-        my $domainAdminsSID = "$domainSID-512";
-        my $builtinAdministratorsSID = 'S-1-5-32-544';
-        my $domainUsersSID = "$domainSID-513";
-        my $domainGuestSID = "$domainSID-501";
-        my $domainGuestsSID = "$domainSID-514";
-        my $systemSID = "S-1-5-18";
-        my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID,
-            $domainAdminsSID, $systemSID);
-        my $readRights = SEC_FILE_EXECUTE | SEC_RIGHTS_FILE_READ;
-        my $writeRights = SEC_RIGHTS_FILE_WRITE | SEC_STD_DELETE;
-        my $adminRights = SEC_STD_ALL | SEC_RIGHTS_FILE_ALL;
-        my $defaultInheritance = SEC_ACE_FLAG_CONTAINER_INHERIT | SEC_ACE_FLAG_OBJECT_INHERIT;
-        my $setDescriptorError;
-        for my $id (@{$sambaShares->ids()}) {
-            my $row = $sambaShares->row($id);
-            my $enabled     = $row->valueByName('enabled');
-            my $shareName   = $row->valueByName('share');
-            my $guestAccess = $row->valueByName('guest');
-            my $recursiveAcls = $row->valueByName('recursive_acls');
-
-            unless ($enabled) {
-                next;
-            }
-
-            my $state = $self->get_state();
-            unless (defined $state->{shares_set_rights} and $state->{shares_set_rights}->{$shareName}) {
-                # share permissions didn't change, nothing needs to be done for this share.
-                next;
-            }
-
-            EBox::info("Applying new permissions to the share '$shareName'...");
-
-            my $smb = new EBox::Samba::SmbClient(
-                target => $host, service => $shareName, RID => DOMAIN_RID_ADMINISTRATOR);
-
-            # Set the client to case sensitive mode. The directory listing can
-            # contain files inside folders with the same name but different
-            # casing, so when trying to open them the library failes with a
-            # NT_STATUS_OBJECT_NAME_NOT_FOUND error code. Setting the library
-            # to case sensitive avoids this problem.
-            $smb->case_sensitive(1);
-
-            my $sd = new Samba::Security::Descriptor();
-            my $sdControl = $sd->type();
-            # Inherite all permissions.
-            $sdControl |= SEC_DESC_DACL_AUTO_INHERITED;
-            $sdControl |= SEC_DESC_DACL_PROTECTED;
-            $sdControl |= SEC_DESC_SACL_AUTO_INHERITED;
-            $sd->type($sdControl);
-            # Set the owner and the group. We differ here from Windows because they just set the owner to
-            # builtin/Administrators but this other setting should be compatible and better looking when using Linux
-            # console.
-            $sd->owner($domainAdminSID);
-            $sd->group($builtinAdministratorsSID);
-
-            # Always, full control to Builtin/Administrators group, Users/Administrator and System users.
-            for my $superAdminSID (@superAdminSIDs) {
-                my $ace = new Samba::Security::AccessControlEntry(
-                    $superAdminSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $adminRights, $defaultInheritance);
-                $sd->dacl_add($ace);
-            }
-
-            if ($guestAccess) {
-                # Add read/write access for Domain Users
-                my $ace = new Samba::Security::AccessControlEntry(
-                    $domainUsersSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
-                $sd->dacl_add($ace);
-                # Add read/write access for Domain Guest user
-                my $ace2 = new Samba::Security::AccessControlEntry(
-                    $domainGuestSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
-                $sd->dacl_add($ace2);
-
-                # Add read/write access for Domain Guests group
-                my $ace3 = new Samba::Security::AccessControlEntry(
-                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
-                $sd->dacl_add($ace3);
-
-                # Add everybody read/write access
-                my $ace4 = new Samba::Security::AccessControlEntry(
-                    'S-1-1-0', SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
-                $sd->dacl_add($ace4);
-            } else {
-                for my $subId (@{$row->subModel('access')->ids()}) {
-                    my $subRow = $row->subModel('access')->row($subId);
-                    my $permissions = $subRow->elementByName('permissions');
-
-                    my $userType = $subRow->elementByName('user_group');
-                    my $account = $userType->value();
-                    my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
-                    next unless ($object->exists());
-
-                    my $sid = $object->sid();
-
-                    my $rights = undef;
-                    if ($permissions->value() eq 'readOnly') {
-                        $rights = $readRights;
-                    } elsif ($permissions->value() eq 'readWrite') {
-                        $rights = $readRights | $writeRights;
-                    } elsif ($permissions->value() eq 'administrator') {
-                        $rights = $adminRights;
-                    } else {
-                        my $type = $permissions->value();
-                        EBox::error("Unknown share permission type '$type'");
-                        next;
-                    }
-                    my $ace = new Samba::Security::AccessControlEntry(
-                        $sid, SEC_ACE_TYPE_ACCESS_ALLOWED, $rights, $defaultInheritance);
-                    $sd->dacl_add($ace);
-                }
-            }
-            my $relativeSharePath = '/';
-            EBox::info("Applying ACLs for top-level share $shareName");
-            my $sinfo = SECINFO_OWNER |
-                        SECINFO_GROUP |
-                        SECINFO_DACL |
-                        SECINFO_PROTECTED_DACL;
-            my $access_mask = SEC_STD_WRITE_OWNER |
-                              SEC_STD_READ_CONTROL |
-                              SEC_STD_WRITE_DAC |
-                              SEC_FILE_READ_ATTRIBUTE;
-            my $attributes = FILE_ATTRIBUTE_NORMAL |
-                             FILE_ATTRIBUTE_ARCHIVE |
-                             FILE_ATTRIBUTE_DIRECTORY |
-                             FILE_ATTRIBUTE_HIDDEN |
-                             FILE_ATTRIBUTE_READONLY |
-                             FILE_ATTRIBUTE_SYSTEM;
-            try {
-                EBox::debug("Setting NT ACL on file: $relativeSharePath");
-                $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
-            } catch ($ex) {
-                EBox::error(
-                    __x("Error setting security descriptor on share '{x}': {y}",
-                        x => $shareName, y => $ex));
-                $setDescriptorError = 1;
-            }
-
-            # Apply recursively the permissions.
-            my $shareContentList = $smb->list($relativeSharePath,
-                attributes => $attributes, recursive => 1);
-            # Reset the DACL_PROTECTED flag;
-            $sdControl = $sd->type();
-            $sdControl &= ~SEC_DESC_DACL_PROTECTED;
-            $sd->type($sdControl);
-            ## only replace ACLs for subdirs if recursiveAcls = 1
-            if ($recursiveAcls) {
-                foreach my $item (@{$shareContentList}) {
-                    my $itemName = $item->{name};
-                    $itemName =~ s/^\/\/(.*)/\/$1/s;
-                    try {
-                        EBox::debug("Replacing ACLs for $shareName$itemName");
-                        $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
-                    } catch ($ex) {
-                        EBox::error(
-                            __x("Error setting security descriptor on file {x}{y}: {z}",
-                                x => $shareName, y => $itemName, z => $ex));
-                        $setDescriptorError = 1;
-                    }
-                }
-            }
-            delete $state->{shares_set_rights}->{$shareName};
-            $self->set_state($state);
-        }
-
-        # Change group ownership of quarantine_dir to __USERS__
-        EBox::info("Fixing quarantine_dir permissions...");
-        if ($self->defaultAntivirusSettings()) {
-            $self->_setupQuarantineDirectory();
-        }
 
         # Write DNS update list
         EBox::info("Writing DNS update list...");
         $self->_writeDnsUpdateList();
-
-        # Show warning if error setting ACLs
-        if ($setDescriptorError) {
-            $self->global->addSaveMessage(
-                __("There were errors setting ACLs on samba shares, " .
-                    "please check the zentyal log for details."));
-        }
     } else {
         EBox::debug("Ignoring Samba's _postServiceHook code because it was not invoked from the web application.");
     }
 
     return $self->SUPER::_postServiceHook($enabled);
+}
+
+sub _installPhotoCronFile
+{
+    my ($self) = @_;
+
+    my $share = EBox::Config::configkey('photo_share_name');
+
+    return unless ($share and EBox::Sudo::fileTest('-d', "/home/samba/shares/$share"));
+
+    my $minutes = EBox::Config::configkey('photo_cron_interval');
+
+    # We cannot call writeConfFile since we are not
+    # EBox::Module::Service, we are not updating the digests
+    # but ebox-software script is not from other package
+    EBox::Module::Base::writeConfFileNoCheck(
+        PROFILE_PHOTO_CRON_FILE,
+        'samba/photo.cron',
+        [
+            share => $share,
+            minutes => $minutes
+        ]
+    );
 }
 
 sub kerberosRealm
@@ -1095,7 +850,6 @@ sub _setupNSSPAM
 
     my $PAMModule = $self->model('PAM');
     my $enablePAM = $PAMModule->enable_pamValue();
-    $self->_setupSSSd($PAMModule->login_shellValue());
 
     my $cmd;
     if ($enablePAM) {
@@ -1104,23 +858,6 @@ sub _setupNSSPAM
         $cmd = 'auth-client-config -a -p zentyal-nokrb';
     }
     EBox::Sudo::root($cmd);
-}
-
-# Set up SSS daemon
-sub _setupSSSd
-{
-    my ($self, $defaultShell) = @_;
-
-    my $sysinfo = $self->global()->modInstance('sysinfo');
-    my @params = ('fqdn'   => $sysinfo->fqdn(),
-                  'domain' => $sysinfo->hostDomain(),
-                  'defaultShell' => $defaultShell,
-                  'keyTab' => SECRETS_KEYTAB);
-
-    # SSSd conf file must be owned by root and only rw by him
-    $self->writeConfFile(SSSD_CONF_FILE, 'samba/sssd.conf.mas',
-                         \@params,
-                         {'mode' => '0600', uid => 0, gid => 0});
 }
 
 # Method: editableMode
@@ -1150,28 +887,18 @@ sub _daemons
             name => 'samba-ad-dc',
         },
         {
-            name => 'sssd',
-        },
-        {
-            name => 'zentyal.sysvol-sync',
-            precondition => \&_sysvolSyncCond,
-        },
-        {
-            name => 'zentyal.zavsd',
-            precondition => \&_antivirusEnabled,
-        },
-        {
-            name => 'zentyal.set-uid-gid-numbers',
-            precondition => \&_uidSyncEnabled,
+            name => 'zentyal.samba-sync',
+            precondition => \&_syncEnabled,
         },
     ];
 }
 
-sub _uidSyncEnabled
+sub _syncEnabled
 {
     my ($self) = @_;
 
-    return 0 if EBox::Config::boolean('disable_uid_sync');
+    return 0 if (EBox::Config::boolean('disable_uid_sync') and
+                 EBox::Config::boolean('unmanaged_acls'));
 
     return ($self->isEnabled() and $self->isProvisioned());
 }
@@ -1185,9 +912,9 @@ sub _uidSyncEnabled
 sub _daemonsToDisable
 {
     return [
-        { 'name' => 'smbd', 'type' => 'upstart' },
-        { 'name' => 'nmbd', 'type' => 'upstart' },
-        { 'name' => 'winbind', 'type' => 'upstart' },
+        { 'name' => 'smbd', 'type' => 'systemd' },
+        { 'name' => 'nmbd', 'type' => 'systemd' },
+        { 'name' => 'winbind', 'type' => 'systemd' },
     ];
 }
 
@@ -1231,14 +958,15 @@ sub _startService
 
     $self->SUPER::_startService();
 
-    # Wait for sss to open the NSS pipe
+    # Wait for samba to open the ldapi socket
+    # TODO: wait also for winbind pipe?
     my $tries = 300;
     my $sleep = 0.1;
     my $socket = undef;
     while (not defined $socket and $tries > 0) {
         $socket = new IO::Socket::UNIX(
             Type => SOCK_STREAM,
-            Peer => '/var/lib/sss/pipes/nss');
+            Peer => '/var/lib/samba/private/ldap_priv/ldapi');
         last if $socket;
         $tries--;
         Time::HiRes::sleep($sleep);
@@ -2793,6 +2521,14 @@ sub sambaInterfaces
     my %seenBridges;
     foreach my $iface (@{$netIfaces}) {
         push @ifaces, $iface;
+        if ($net->ifaceMethod($iface) eq 'bridged') {
+            my $br = $net->ifaceBridge($iface);
+            if (not $seenBridges{$br}) {
+                push (@ifaces, "br$br");
+                $seenBridges{$br} = 1;
+            }
+            next;
+        }
         my $vifacesNames = $net->vifaceNames($iface);
         if (defined $vifacesNames) {
             push @ifaces, @{$vifacesNames};
@@ -2823,18 +2559,11 @@ sub writeSambaConfig
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
     push (@array, 'shares' => 1);
+    push (@array, 'shell' => $self->model('PAM')->value('login_shell'));
 
     if (not EBox::Config::boolean('listen_all')) {
         my $interfaces = join (',', @{$self->sambaInterfaces()});
         push (@array, 'ifaces' => $interfaces);
-    }
-
-    if ($self->global()->modExists('openchange')) {
-        my $openchangeMod = $self->global()->modInstance('openchange');
-        if ($openchangeMod->isEnabled() and $openchangeMod->isProvisioned()) {
-            push (@array, 'openchange' => 1);
-            $openchangeMod->writeSambaConfig();
-        }
     }
 
     if ($self->global()->modExists('printers')) {
@@ -2856,14 +2585,9 @@ sub writeSambaConfig
     push (@array, 'unmanagedAcls' => EBox::Config::boolean('unmanaged_acls'));
     push (@array, 'shares' => $self->shares());
 
-    push (@array, 'antivirus' => $self->defaultAntivirusSettings());
-    push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
-    push (@array, 'antivirus_config' => $self->antivirusConfig());
     push (@array, 'recycle' => $self->defaultRecycleSettings());
     push (@array, 'recycle_exceptions' => $self->recycleExceptions());
     push (@array, 'recycle_config' => $self->recycleConfig());
-
-    $self->_writeAntivirusConfig();
 
     $self->writeConfFile(SHARESCONFFILE, 'samba/shares.conf.mas', \@array,
                          { 'uid' => 'root', 'gid' => 'root', mode => '644' });
@@ -3026,66 +2750,6 @@ sub shares
     return \@shares;
 }
 
-sub defaultAntivirusSettings
-{
-    my ($self) = @_;
-
-    my $antivirus = $self->model('AntivirusDefault');
-    return $antivirus->value('scan');
-}
-
-sub antivirusExceptions
-{
-    my ($self) = @_;
-
-    my $model = $self->model('AntivirusExceptions');
-    my $exceptions = {
-        'share' => {},
-        'group' => {},
-    };
-
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $element = $row->elementByName('user_group_share');
-        my $type = $element->selectedType();
-        if ($type eq 'users') {
-            $exceptions->{'users'} = 1;
-        } else {
-            my $value = $element->printableValue();
-            $exceptions->{$type}->{$value} = 1;
-        }
-    }
-
-    return $exceptions;
-}
-
-sub antivirusConfig
-{
-    my ($self) = @_;
-
-    # Provide a default config and override with the conf file if exists
-    my $avModel = $self->model('AntivirusDefault');
-    my $conf = {
-        show_special_files       => 'True',
-        rm_hidden_files_on_rmdir => 'True',
-        recheck_time_open        => '50',
-        recheck_tries_open       => '100',
-        allow_nonscanned_files   => 'False',
-    };
-
-    foreach my $key (keys %{$conf}) {
-        my $value = EBox::Config::configkey($key);
-        $conf->{$key} = $value if $value;
-    }
-
-    # Hard coded settings
-    $conf->{quarantine_dir} = $avModel->QUARANTINE_DIR();
-    $conf->{domain_socket}  = 'True';
-    $conf->{socketname}     = $avModel->ZAVS_SOCKET();
-
-    return $conf;
-}
-
 sub defaultRecycleSettings
 {
     my ($self) = @_;
@@ -3148,55 +2812,6 @@ sub _writeDnsUpdateList
                          { 'uid' => '0', 'gid' => '0', mode => '644' });
 }
 
-sub _writeAntivirusConfig
-{
-    my ($self) = @_;
-
-    return unless EBox::Global->modExists('antivirus');
-
-    my $avModule = EBox::Global->modInstance('antivirus');
-    my $avModel = $self->model('AntivirusDefault');
-
-    my $conf = {};
-    $conf->{clamavSocket} = $avModule->CLAMD_SOCKET();
-    $conf->{quarantineDir} = $avModel->QUARANTINE_DIR();
-    $conf->{zavsSocket}  = $avModel->ZAVS_SOCKET();
-    $conf->{nThreadsConf} = EBox::Config::configkey('scanning_threads');
-
-    write_file(ANTIVIRUS_CONF, encode_json($conf));
-}
-
-sub _setupQuarantineDirectory
-{
-    my ($self) = @_;
-
-    my $zentyalUser = EBox::Config::user();
-    my $guest       = $self->ldap->domainGuestUser();
-    my $guestUidNumber = $guest->uidNumber();
-    my $avModel     = $self->model('AntivirusDefault');
-    my $quarantine  = $avModel->QUARANTINE_DIR();
-    my @cmds;
-    push (@cmds, "mkdir -p '$quarantine'");
-    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
-    push (@cmds, "chmod 770 '$quarantine'");
-    push (@cmds, "setfacl -R -m u:$guestUidNumber:rwx g:adm:rwx '$quarantine'");
-
-    # Grant access to domain admins
-    my $domainAdminsSid = $self->ldap->domainSID() . '-512';
-    my $domainAdminsGroup = new EBox::Samba::Group(sid => $domainAdminsSid);
-    if ($domainAdminsGroup->exists()) {
-        my @domainAdmins = $domainAdminsGroup->get('member');
-        foreach my $memberDN (@domainAdmins) {
-            my $user = new EBox::Samba::User(dn => $memberDN);
-            if ($user->exists()) {
-                my $uid = $user->get('samAccountName');
-                push (@cmds, "setfacl -m u:$uid:rwx '$quarantine'");
-            }
-        }
-    }
-    EBox::Sudo::silentRoot(@cmds);
-}
-
 # Implement LogHelper interface
 sub tableInfo
 {
@@ -3222,28 +2837,6 @@ sub tableInfo
         'rename' => __('Rename'),
     };
 
-    my $virus_titles = {
-        'timestamp' => __('Date'),
-        'client' => __('Client address'),
-        'username' => __('User'),
-        'filename' => __('File name'),
-        'virus' => __('Virus'),
-        'event' => __('Type'),
-    };
-    my @virus_order = qw(timestamp client username filename virus event);;
-    my $virus_events = { 'virus' => __('Virus') };
-
-    my $quarantine_titles = {
-        'timestamp' => __('Date'),
-        'client' => __('Client address'),
-        'username' => __('User'),
-        'filename' => __('File name'),
-        'qfilename' => __('Quarantined file name'),
-        'event' => __('Quarantine'),
-    };
-    my @quarantine_order = qw(timestamp client username filename qfilename event);
-    my $quarantine_events = { 'quarantine' => __('Quarantine') };
-
     return [{
         'name' => __('Samba access'),
         'tablename' => 'samba_access',
@@ -3253,28 +2846,6 @@ sub tableInfo
         'filter' => ['client', 'username', 'resource'],
         'types' => { 'client' => 'IPAddr' },
         'events' => $access_events,
-        'eventcol' => 'event'
-    },
-    {
-        'name' => __('Samba virus'),
-        'tablename' => 'samba_virus',
-        'titles' => $virus_titles,
-        'order' => \@virus_order,
-        'timecol' => 'timestamp',
-        'filter' => ['client', 'filename', 'virus'],
-        'types' => { 'client' => 'IPAddr' },
-        'events' => $virus_events,
-        'eventcol' => 'event'
-    },
-    {
-        'name' => __('Samba quarantine'),
-        'tablename' => 'samba_quarantine',
-        'titles' => $quarantine_titles,
-        'order' => \@quarantine_order,
-        'timecol' => 'timestamp',
-        'filter' => ['filename'],
-        'types' => { 'client' => 'IPAddr' },
-        'events' => $quarantine_events,
         'eventcol' => 'event'
     }];
 }

@@ -12,7 +12,7 @@ case "$1" in
         db_name="zentyal"
         db_user="zentyal"
         echo "DROP DATABASE $db_name;
-              DROP USER '$db_user'@'localhost';" | mysql --defaults-file=/etc/mysql/debian.cnf
+              DROP USER '$db_user'@'localhost';" | mysql --defaults-file=/etc/mysql/debian.cnf || true
         rm -f /var/lib/zentyal/.db-created
 
         # delete webadmin certificates
@@ -28,6 +28,12 @@ case "$1" in
 
         # delete shared memory data
         rm -rf /run/shm/zentyal
+
+        # delete logs and temporal files
+        rm -rf /var/lib/zentyal/
+
+        # delete configuration files
+        rm -rf /etc/zentyal
     ;;
 esac
 

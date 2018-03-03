@@ -106,13 +106,13 @@ sub _encodeKerberosProperty
     my $keyValueOffset = 16 + 20 + (scalar @{$keys} * 20) + $defaultSaltLength;
 
     foreach my $key (@{$keys}) {
-        push ($credentials, $self->_encodeKerberosKeyData($key, $keyValueOffset));
-        push ($keyValues, $key->{value});
+        push (@{$credentials}, $self->_encodeKerberosKeyData($key, $keyValueOffset));
+        push (@{$keyValues}, $key->{value});
         $keyValueOffset += 8;
     }
     foreach my $key (@{$oldKeys}) {
-        push ($oldCredentials, $self->_encodeKerberosKeyData($key, $keyValueOffset));
-        push ($keyValues, $key->{value});
+        push (@{$oldCredentials}, $self->_encodeKerberosKeyData($key, $keyValueOffset));
+        push (@{$keyValues}, $key->{value});
         $keyValueOffset += 8;
     }
 
@@ -154,35 +154,35 @@ sub _encodeWDigestProperty
     my $numHashes = 29;
 
     my $hashes = [];
-    push ($hashes, md5_hex($sam . $netbios . $pwd));           # 1
-    push ($hashes, md5_hex(uc($sam) . uc($netbios) . $pwd));    # 2
-    push ($hashes, md5_hex(lc($sam) . lc($netbios) . $pwd));    # 3
-    push ($hashes, md5_hex($sam . uc($netbios) . $pwd));        # 4
-    push ($hashes, md5_hex($sam . lc($netbios) . $pwd));        # 5
-    push ($hashes, md5_hex(uc($sam) . lc($netbios) . $pwd));    # 6
-    push ($hashes, md5_hex(lc($sam) . uc($netbios) . $pwd));    # 7
-    push ($hashes, md5_hex($sam . $dns . $pwd));                # 8
-    push ($hashes, md5_hex(uc($sam) . uc($dns) . $pwd));        # 9
-    push ($hashes, md5_hex(lc($sam) . lc($dns) . $pwd));        # 10
-    push ($hashes, md5_hex($sam . uc($dns) . $pwd));            # 11
-    push ($hashes, md5_hex($sam . lc($dns) . $pwd));            # 12
-    push ($hashes, md5_hex(uc($sam) . lc($dns) . $pwd));        # 13
-    push ($hashes, md5_hex(lc($sam) . uc($dns) . $pwd));        # 14
-    push ($hashes, md5_hex($principal . $pwd));                 # 15
-    push ($hashes, md5_hex(uc($principal) . $pwd));             # 16
-    push ($hashes, md5_hex(lc($principal) . $pwd));             # 17
-    push ($hashes, md5_hex($netbios . '\\' . $sam . $pwd));     # 18
-    push ($hashes, md5_hex(uc($netbios . '\\' . $sam) . $pwd)); # 19
-    push ($hashes, md5_hex(lc($netbios . '\\' . $sam) . $pwd)); # 20
-    push ($hashes, md5_hex($sam . 'Digest' . $pwd));            # 21
-    push ($hashes, md5_hex(uc($sam) . 'DIGEST' . $pwd));        # 22
-    push ($hashes, md5_hex(lc($sam) . 'digest' . $pwd));        # 23
-    push ($hashes, md5_hex($principal . 'Digest' . $pwd));      # 24
-    push ($hashes, md5_hex(uc($principal) . 'DIGEST' . $pwd));  # 25
-    push ($hashes, md5_hex(lc($principal) . 'digest' . $pwd));  # 26
-    push ($hashes, md5_hex($netbios . '\\' . $sam . 'Digest' . $pwd)); # 27
-    push ($hashes, md5_hex(uc($netbios . '\\' . $sam) . 'DIGEST' . $pwd));  # 28
-    push ($hashes, md5_hex(lc($netbios . '\\' . $sam) . 'digest' . $pwd));  # 29
+    push (@{$hashes}, md5_hex($sam . $netbios . $pwd));           # 1
+    push (@{$hashes}, md5_hex(uc($sam) . uc($netbios) . $pwd));    # 2
+    push (@{$hashes}, md5_hex(lc($sam) . lc($netbios) . $pwd));    # 3
+    push (@{$hashes}, md5_hex($sam . uc($netbios) . $pwd));        # 4
+    push (@{$hashes}, md5_hex($sam . lc($netbios) . $pwd));        # 5
+    push (@{$hashes}, md5_hex(uc($sam) . lc($netbios) . $pwd));    # 6
+    push (@{$hashes}, md5_hex(lc($sam) . uc($netbios) . $pwd));    # 7
+    push (@{$hashes}, md5_hex($sam . $dns . $pwd));                # 8
+    push (@{$hashes}, md5_hex(uc($sam) . uc($dns) . $pwd));        # 9
+    push (@{$hashes}, md5_hex(lc($sam) . lc($dns) . $pwd));        # 10
+    push (@{$hashes}, md5_hex($sam . uc($dns) . $pwd));            # 11
+    push (@{$hashes}, md5_hex($sam . lc($dns) . $pwd));            # 12
+    push (@{$hashes}, md5_hex(uc($sam) . lc($dns) . $pwd));        # 13
+    push (@{$hashes}, md5_hex(lc($sam) . uc($dns) . $pwd));        # 14
+    push (@{$hashes}, md5_hex($principal . $pwd));                 # 15
+    push (@{$hashes}, md5_hex(uc($principal) . $pwd));             # 16
+    push (@{$hashes}, md5_hex(lc($principal) . $pwd));             # 17
+    push (@{$hashes}, md5_hex($netbios . '\\' . $sam . $pwd));     # 18
+    push (@{$hashes}, md5_hex(uc($netbios . '\\' . $sam) . $pwd)); # 19
+    push (@{$hashes}, md5_hex(lc($netbios . '\\' . $sam) . $pwd)); # 20
+    push (@{$hashes}, md5_hex($sam . 'Digest' . $pwd));            # 21
+    push (@{$hashes}, md5_hex(uc($sam) . 'DIGEST' . $pwd));        # 22
+    push (@{$hashes}, md5_hex(lc($sam) . 'digest' . $pwd));        # 23
+    push (@{$hashes}, md5_hex($principal . 'Digest' . $pwd));      # 24
+    push (@{$hashes}, md5_hex(uc($principal) . 'DIGEST' . $pwd));  # 25
+    push (@{$hashes}, md5_hex(lc($principal) . 'digest' . $pwd));  # 26
+    push (@{$hashes}, md5_hex($netbios . '\\' . $sam . 'Digest' . $pwd)); # 27
+    push (@{$hashes}, md5_hex(uc($netbios . '\\' . $sam) . 'DIGEST' . $pwd));  # 28
+    push (@{$hashes}, md5_hex(lc($netbios . '\\' . $sam) . 'digest' . $pwd));  # 29
 
     my $blob = pack ('W W W W x12 a*',
                      $reserved1, $reserved2,

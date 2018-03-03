@@ -327,6 +327,8 @@ sub createCA
     #unlink (CAREQ);
     $self->_setPasswordRequired(defined($self->{caKeyPassword}));
 
+    $self->model('Certificates')->notifyNewCA();
+
     return 1;
 }
 
@@ -693,7 +695,6 @@ sub CAPublicKey
 #       requestFile - path to save the new certificate request
 #                    (Optional)
 #       certFile - path to store the new certificate file (Optional)
-#       openchange - when is true it lets you to issue the openchange certificate (default: true)
 #
 #       subjAltNames - Array ref containing the subject alternative
 #                      names in a hash ref with the following keys:
@@ -728,18 +729,6 @@ sub issueCertificate
         $self->checkCertificateFieldsCharacters(%args);
     }
     my $cn = $args{commonName};
-    if (not $args{openchange}) {
-
-        my $openchange = $self->global()->modInstance('openchange');
-        if ($openchange and $openchange->certificateIsReserved($cn)) {
-            throw EBox::Exceptions::External(
-                __x('You cannot issue a certificate with CN {cn} because that CN is reserved to domain certificate by OpenChange. You can issue it from the {oh}OpenChange virtual domains interface.{ch}',
-                   cn => $cn,
-                   oh => "<a href='/Mail/OpenChange'>",
-                   ch => '</a>')
-            );
-        }
-    }
     if ( defined( $args{days} ) and defined( $args{endDate} ) ) {
         EBox::warn("Two ways to declare expiration date through days and endDate. "
                        . "Using endDate...");
@@ -1952,12 +1941,15 @@ sub _supportActions
     return undef;
 }
 
-# Method: _setConf # # Overrides: # # <EBox::Module::Service::_setConf> #
+# Method: _setConf
+#
+# Overrides: <EBox::Module::Service::_setConf>
+#
 sub _setConf
 {
     my ($self) = @_;
-    my $openchange = $self->global()->modInstance('openchange');
-    EBox::CA::Certificates->genCerts($openchange);
+
+    EBox::CA::Certificates->genCerts();
 }
 
 # Group: Private methods

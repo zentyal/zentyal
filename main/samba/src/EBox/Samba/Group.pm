@@ -42,7 +42,7 @@ use EBox::Samba::User;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Perl6::Junction qw(any);
-use TryCatch::Lite;
+use TryCatch;
 
 use constant SYSMINGID      => 1900;
 use constant MINGID         => 2000;
@@ -133,22 +133,22 @@ sub create
         unless (defined $gidNumber) {
             $gidNumber = $class->_gidForNewGroup($isSystemGroup);
         }
-        push ($attr, objectClass => ['top', 'group', 'posixAccount']);
+        push (@{$attr}, objectClass => ['top', 'group', 'posixAccount']);
         if ($gidNumber) {
             $class->_checkGid($gidNumber, $isSystemGroup);
-            push ($attr, gidNumber => $gidNumber);
+            push (@{$attr}, gidNumber => $gidNumber);
         }
         $groupType |= GROUPTYPESECURITY;
     } else {
-        push ($attr, objectClass => ['top', 'group']);
+        push (@{$attr}, objectClass => ['top', 'group']);
     }
-    push ($attr, cn => $args{name});
-    push ($attr, sAMAccountName => $args{name});
-    push ($attr, description    => $args{description}) if ($args{description});
-    push ($attr, mail           => $args{mail}) if ($args{mail});
+    push (@{$attr}, cn => $args{name});
+    push (@{$attr}, sAMAccountName => $args{name});
+    push (@{$attr}, description    => $args{description}) if ($args{description});
+    push (@{$attr}, mail           => $args{mail}) if ($args{mail});
 
     $groupType = unpack('l', pack('l', $groupType)); # force 32bit integer
-    push ($attr, groupType => $groupType);
+    push (@{$attr}, groupType => $groupType);
 
     # Add the entry
     my $result = $class->_ldap->add($dn, { attrs => $attr });

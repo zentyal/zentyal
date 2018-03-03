@@ -20,7 +20,7 @@ package EBox::Mail;
 
 use base qw(
     EBox::Module::Kerberos
-    EBox::ObjectsObserver
+    EBox::Objects::Observer
     EBox::FirewallObserver
     EBox::LogObserver
     EBox::SyncFolders::Provider
@@ -50,18 +50,9 @@ use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 use EBox::SyncFolders::Folder;
 use EBox::Samba::User;
-use Samba::Security::Descriptor qw(
-    SEC_ACE_TYPE_ACCESS_ALLOWED
-    SEC_ACE_FLAG_CONTAINER_INHERIT
-    SEC_ADS_READ_PROP
-    SEC_ADS_LIST
-    SEC_ADS_LIST_OBJECT
-    SEC_STD_READ_CONTROL
-);
-use Samba::Security::AccessControlEntry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
-use TryCatch::Lite;
+use TryCatch;
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
 use File::Slurp;
@@ -75,12 +66,10 @@ use constant MAILBOX_CF_FILE          => '/etc/postfix/mailbox.cf';
 use constant VDOMAINS_CF_FILE         => '/etc/postfix/vdomains.cf';
 use constant LOGIN_CF_FILE            => '/etc/postfix/login.cf';
 
-use constant MASTER_PID_FILE          => '/var/spool/postfix/pid/master.pid';
 use constant MAIL_ALIAS_FILE          => '/etc/aliases';
 use constant DOVECOT_CONFFILE         => '/etc/dovecot/dovecot.conf';
 use constant DOVECOT_LDAP_CONFFILE    =>  '/etc/dovecot/dovecot-ldap.conf';
 use constant DOVECOT_SQL_CONFFILE     =>  '/etc/dovecot/dovecot-sql.conf';
-use constant MAILINIT                 => 'postfix';
 use constant BYTES                    => '1048576';
 use constant DOVECOT_SERVICE          => 'dovecot';
 use constant TRANSPORT_FILE           => '/etc/postfix/transport';
@@ -88,7 +77,7 @@ use constant SASL_PASSWD_FILE         => '/etc/postfix/sasl_passwd';
 use constant MAILNAME_FILE            => '/etc/mailname';
 use constant VDOMAINS_MAILBOXES_DIR   => '/var/vmail';
 use constant ARCHIVEMAIL_CRON_FILE    => '/etc/cron.daily/archivemail';
-use constant FETCHMAIL_SERVICE        => 'ebox.fetchmail';
+use constant FETCHMAIL_SERVICE        => 'zentyal.fetchmail';
 use constant ALWAYS_BCC_TABLE_FILE    => '/etc/postfix/alwaysbcc';
 use constant SIEVE_SCRIPTS_DIR        => '/var/vmail/sieve';
 use constant BOUNCE_ADDRESS_KEY       => 'SMTPOptions/bounceReturnAddress';
@@ -184,8 +173,6 @@ sub usedFiles
 {
     my ($self) = @_;
 
-    my @greylistFiles =   @{ $self->greylist()->usedFiles() };
-
     return [
             {
               'file' => MAILMAINCONFFILE,
@@ -240,7 +227,6 @@ sub usedFiles
                 reason => __('To let dovecot authenticate users using PAM'),
                 module => 'mail',
             },
-            @greylistFiles
     ];
 }
 
@@ -266,6 +252,12 @@ sub initialSetup
         # TODO: We need a mechanism to notify modules when the hostname
         # changes, so this default could be set to the hostname
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
+    }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '5.0.6') < 0)) {
+        if ($self->get_state()->{'_ldapSetup'}) {
+            $self->_setPrivilegedAccount();
+        }
     }
 
     $self->{fetchmail}->initialSetup($version);
@@ -389,35 +381,20 @@ sub setupLDAP
                 dn => $param->{base}, count => $result->count()));
     }
 
-    my $entry = $result->entry(0);
-    my $sdBlob = $entry->get_value('nTSecurityDescriptor');
-    my $sd = new Samba::Security::Descriptor();
-    $sd->unmarshall($sdBlob, length($sdBlob));
-
-    my $accessMask = SEC_ADS_READ_PROP |
-                     SEC_ADS_LIST |
-                     SEC_ADS_LIST_OBJECT |
-                     SEC_STD_READ_CONTROL;
-    my $ace = new Samba::Security::AccessControlEntry($sid,
-        SEC_ACE_TYPE_ACCESS_ALLOWED, $accessMask,
-        SEC_ACE_FLAG_CONTAINER_INHERIT);
-    $sd->dacl_add($ace);
-    $entry->replace(nTSecurityDescriptor => $sd->marshall);
-    $result = $entry->update($ldap->connection());
-    if ($result->is_error()) {
-        unless ($result->code() == LDAP_LOCAL_ERROR and
-                $result->error() eq 'No attributes to update')
-        {
-            throw EBox::Exceptions::LDAP(
-                message => __('Error on LDAP entry creation:'),
-                result => $result,
-                opArgs => EBox::Samba::LdapObject->entryOpChangesInUpdate($entry),
-            );
-        }
-    }
+    $self->_setPrivilegedAccount();
 
     # vdomains should be regnenerated to setup user correctly
     $self->{vdomains}->regenConfig();
+}
+
+# This is needed for postfix virtual_alias_maps to work, otherwise
+# a regular user cannot read attributes from the extended schema using LDAP queries
+sub _setPrivilegedAccount
+{
+    my ($self) = @_;
+
+    my $netbiosName = EBox::Global->modInstance('samba')->model('DomainSettings')->value('netbiosName');
+    EBox::Sudo::root("samba-tool group addmembers 'Domain Admins' zentyal-mail-$netbiosName");
 }
 
 sub _addConfigurationContainers
@@ -454,7 +431,6 @@ sub depends
 
     return \@depends;
 }
-
 # Method: _getIfacesForAddress
 #
 #  This method returns all interfaces which ip address belongs
@@ -579,7 +555,6 @@ sub _setMailConf
     push @args, ('greylist' =>     $greylist->isEnabled() );
     push @args, ('greylistAddr' => $greylist->address());
     push @args, ('greylistPort' => $greylist->port());
-    push @args, ('openchangeProvisioned' => $self->openchangeProvisioned());
     $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@args, $filePermissions);
 
     @args = ();
@@ -736,18 +711,6 @@ sub _setDovecotConf
     my $gid = scalar(getgrnam('ebox'));
     my $gssapiHostname = $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
-    my $openchange = 0;
-    my $notificationsReady = 0;
-    my $openchangeMod;
-
-    if ($self->global->modExists('openchange')) {
-        $openchangeMod = $self->global->modInstance('openchange');
-        if ($openchangeMod->isEnabled() and $openchangeMod->isProvisioned()) {
-            $openchange = 1;
-            $notificationsReady = $openchangeMod->notificationsReady();
-        }
-    }
-
     my $filePermissions = {
         uid => 0,
         gid => 0,
@@ -763,11 +726,8 @@ sub _setDovecotConf
     push @params, (firstValidGid => $gid);
     push @params, (mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
     push @params, (postmasterAddress => $self->postmasterAddress(0, 1));
-    push @params, (antispamPlugin => $self->_getDovecotAntispamPluginConf());
     push @params, (keytabPath => KEYTAB_FILE);
     push @params, (gssapiHostname => $gssapiHostname);
-    push @params, (openchange => $openchange);
-    push @params, (notificationsReady => $notificationsReady);
 
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas", \@params, $filePermissions);
 
@@ -787,34 +747,6 @@ sub _setDovecotConf
     push @params, (bindDNPwd    => $self->_kerberosServiceAccountPassword());
 
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params, $restrictiveFilePermissions);
-
-    if ($openchange) {
-        @params = ();
-        push (@params, masterPassword => $openchangeMod->getImapMasterPassword());
-        $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params, $restrictiveFilePermissions);
-    }
-}
-
-sub _getDovecotAntispamPluginConf
-{
-    my ($self) = @_;
-
-    # FIXME: disabled until dovecot-antispam ubuntu package is fixed
-    return { enabled => 0};
-
-    my $global = EBox::Global->getInstance();
-    my @mods = grep {
-        $_->can('dovecotAntispamPluginConf')
-    } @{ $global->modInstances() };
-
-    if (@mods == 0) {
-        return { enabled => 0 };
-    } elsif (@mods > 0) {
-        EBox::warn('More than one module offers configuration for dovecot plugin. We will take the first one');
-    }
-
-    my $mod = shift @mods;
-    return $mod->dovecotAntispamPluginConf();
 }
 
 sub _setArchivemailConf
@@ -1046,12 +978,10 @@ sub _daemons
 
     my $daemons = [
         {
-            'name' => MAILINIT,
-            'type' => 'init.d',
-            'pidfiles' => [MASTER_PID_FILE],
+            name => 'postfix',
         },
         {
-         name => DOVECOT_SERVICE,
+            name => DOVECOT_SERVICE,
         },
         {
             name => FETCHMAIL_SERVICE,
@@ -1149,7 +1079,6 @@ sub _useFilterAttr
 
     return 1;
 }
-
 # Method: ipfilter
 #
 #  This method returns the ip of the external filter
@@ -1246,7 +1175,7 @@ sub _sslRetrievalServices
 {
     my ($self) = @_;
     my $retrievalServices = $self->model('RetrievalServices');
-    return $retrievalServices->pop3sValue() or $retrievalServices->imapsValue();
+    return $retrievalServices->pop3sValue() || $retrievalServices->imapsValue();
 }
 
 #
@@ -1382,8 +1311,6 @@ sub _preSetConf
         my $vdomainsLdap = new EBox::MailVDomainsLdap;
         $vdomainsLdap->regenConfig();
     }
-
-    $self->greylist()->writeUpstartFile();
 }
 
 # Method: service
@@ -1411,11 +1338,11 @@ sub service
         return $self->isEnabled();
     }
     elsif ($service eq 'pop') { # that e
-        return $self->model('RetrievalServices')->pop3Value() or
+        return $self->model('RetrievalServices')->pop3Value() ||
             $self->model('RetrievalServices')->pop3sValue();
     }
     elsif ($service eq 'imap') {
-        return $self->model('RetrievalServices')->imapValue() or
+        return $self->model('RetrievalServices')->imapValue() ||
             $self->model('RetrievalServices')->imapsValue();
     }
     elsif ($service eq 'filter') {
@@ -1586,13 +1513,6 @@ sub _filterDashboardSection
                     __('Filter type') => $self->_zentyalMailfilterAttr('prettyName')
                     )
                 );
-
-# FIXME: this crashes, and maybe it's not needed
-#        my $global = EBox::Global->getInstance(1);
-#        my ($filterInstance) =
-#          grep {$_->mailFilterName eq $filter}
-#          @{  $global->modInstancesOfType('EBox::Mail::FilterProvider')  };
-#        $filterInstance->mailFilterDashboard($section);
     }
 
     return $section;
@@ -1887,19 +1807,6 @@ sub reprovisionLDAP
 #    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
 }
 
-sub openchangeProvisioned
-{
-    my ($self) = @_;
-
-    my $globalInstance = $self->global();
-    if ( $globalInstance->modExists('openchange') ) {
-        my $openchange = $globalInstance->modInstance('openchange');
-        return ($openchange->isEnabled() and $openchange->isProvisioned());
-    }
-
-    return 0;
-}
-
 # Method: checkMailNotInUse
 #
 #   check if a mail address is not used by the system and throw exception if it
@@ -1923,6 +1830,5 @@ sub checkMailNotInUse
         );
     }
 }
-
 
 1;

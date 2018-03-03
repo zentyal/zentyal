@@ -39,7 +39,7 @@ use English qw(-no_match_vars);
 use File::Basename;
 use File::Slurp;
 use POSIX qw(setsid setlocale LC_ALL);
-use TryCatch::Lite;
+use TryCatch;
 
 # Constants
 use constant NGINX_INCLUDE_KEY => 'nginxIncludes';
@@ -48,6 +48,7 @@ use constant CAS_KEY => 'cas';
 use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
 use constant CA_CERT_FILE  => CA_CERT_PATH . 'nginx-ca.pem';
 use constant CERT_FILE     => EBox::Config::conf() . 'ssl/ssl.pem';
+use constant RELOAD_FILE   => '/var/lib/zentyal/webadmin.reload';
 use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'webadmin_no_restart_on_trigger';
 
 # Constructor: _create
@@ -69,11 +70,6 @@ sub _create
 
     bless($self, $class);
     return $self;
-}
-
-sub serverroot
-{
-    return '/var/lib/zentyal';
 }
 
 # FIXME: is this still needed?
@@ -98,41 +94,16 @@ sub cleanupForExec
     open(STDIN, '/dev/null');
 }
 
-sub _daemon
+#  Method: _daemons
+#
+#   Overrides <EBox::Module::Service::_daemons>
+#
+sub _daemons
 {
-    my ($self, $action) = @_;
-
-    $self->_manageNginx($action);
-
-    if ($action eq 'stop') {
-        # Stop redis server
-        $self->{redis}->stopRedis();
-        $self->setHardRestart(0) if $self->hardRestart();
-    }
-}
-
-sub _manageNginx
-{
-    my ($self, $action) = @_;
-
-    EBox::Service::manage($self->_uwsgiUpstartName(), $action);
-    EBox::Service::manage($self->_nginxUpstartName(), $action);
-}
-
-sub setHardRestart
-{
-    my ($self, $reload) = @_;
-    my $state = $self->get_state;
-    $state->{hardRestart} = $reload;
-    $self->set_state($state);
-}
-
-# return wether we should reload the page after saving changes
-sub hardRestart
-{
-    my ($self) = @_;
-    my $state = $self->get_state;
-    return $state->{hardRestart};
+    return [
+        { name => 'zentyal.webadmin-uwsgi' },
+        { name => 'zentyal.webadmin-nginx' }
+    ];
 }
 
 # Method: listeningPort
@@ -150,11 +121,9 @@ sub listeningPort
     return $self->model('AdminPort')->value('port');
 }
 
-sub _stopService
+sub reload
 {
-    my ($self) = @_;
-
-    $self->_daemon('stop');
+    EBox::Sudo::root('touch ' . RELOAD_FILE);
 }
 
 sub _setConf
@@ -165,58 +134,33 @@ sub _setConf
     $self->_writeNginxConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
+    $self->_setEdition();
     $self->enableRestartOnTrigger();
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $apportEnabled = $sysinfo->model('Debug')->value('enabled');
-    EBox::Sudo::root("sed -i 's/^enabled=.*/enabled=$apportEnabled/' /etc/default/apport");
 }
 
 sub _enforceServiceState
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
 
-    $self->_daemon('restart');
+    if ((not $params{'stop'}) and $self->isRunning()) {
+        $self->reload();
 
-    EBox::Sudo::silentRoot('service apport restart');
-}
-
-sub _nginxConfFile
-{
-    return '/var/lib/zentyal/conf/nginx.conf';
-}
-
-sub _nginxUpstartName
-{
-    return 'zentyal.webadmin-nginx';
-}
-
-sub _nginxUpstartFile
-{
-    my ($self) = @_;
-
-    my $nginxUpstartName = $self->_nginxUpstartName();
-    return "/etc/init/$nginxUpstartName.conf";
-}
-
-sub _uwsgiUpstartName
-{
-    return 'zentyal.webadmin-uwsgi';
-}
-
-sub _uwsgiUpstartFile
-{
-    my ($self) = @_;
-
-    my $uwsgiUpstartName = $self->_uwsgiUpstartName();
-    return "/etc/init/$uwsgiUpstartName.conf";
+        my $state = $self->get_state();
+        if (exists $state->{port_changed}) {
+            delete $state->{port_changed};
+            $self->set_state($state);
+            EBox::Sudo::silentRoot("systemctl restart zentyal.webadmin-nginx");
+        }
+    } else {
+        $self->SUPER::_enforceServiceState(%params);
+    }
 }
 
 sub _writeNginxConfFile
 {
     my ($self) = @_;
 
-    my $nginxconf = $self->_nginxConfFile();
+    my $nginxconf = '/var/lib/zentyal/conf/nginx.conf';
     my $templateConf = 'core/nginx.conf.mas';
 
     my @confFileParams = ();
@@ -242,7 +186,7 @@ sub _writeNginxConfFile
     EBox::Module::Base::writeConfFileNoCheck($nginxconf, $templateConf, \@confFileParams, $permissions);
 
     @confFileParams = ();
-    push @confFileParams, (conf => $self->_nginxConfFile());
+    push @confFileParams, (conf => $nginxconf);
     push @confFileParams, (confDir => EBox::Config::conf());
 
     $permissions = {
@@ -252,18 +196,19 @@ sub _writeNginxConfFile
         force => 1,
     };
 
-    EBox::Module::Base::writeConfFileNoCheck($self->_nginxUpstartFile, 'core/upstart-nginx.mas', \@confFileParams, $permissions);
+    my $systemdPathPrefix = '/lib/systemd/system/zentyal.webadmin';
 
-    my $upstartFile = 'core/upstart-uwsgi.mas';
+    EBox::Module::Base::writeConfFileNoCheck("$systemdPathPrefix-nginx.service", 'core/systemd-nginx.mas', \@confFileParams, $permissions);
+
+    my $systemdFile = 'core/systemd-uwsgi.mas';
     @confFileParams = ();
     push (@confFileParams, socketpath => '/run/zentyal-' . $self->name());
     push (@confFileParams, socketname => 'webadmin.sock');
-    push (@confFileParams, script => EBox::Config::psgi() . 'zentyal.psgi');
-    push (@confFileParams, module => $self->printableName());
-    push (@confFileParams, user   => EBox::Config::user());
-    push (@confFileParams, group  => EBox::Config::group());
-    EBox::Module::Base::writeConfFileNoCheck(
-        $self->_uwsgiUpstartFile, $upstartFile, \@confFileParams, $permissions);
+    push (@confFileParams, script     => EBox::Config::psgi() . 'zentyal.psgi');
+    push (@confFileParams, reloadfile => RELOAD_FILE);
+    push (@confFileParams, user       => EBox::Config::user());
+    push (@confFileParams, group      => EBox::Config::group());
+    EBox::Module::Base::writeConfFileNoCheck("$systemdPathPrefix-uwsgi.service", $systemdFile, \@confFileParams, $permissions);
 }
 
 sub _setLanguage
@@ -350,120 +295,6 @@ sub logs
     $log->{'types'} = \@types;
     push(@logs, $log);
     return \@logs;
-}
-
-# Method: setRestrictedResource
-#
-#   Set a restricted resource to the nginx configuration.
-#
-# Parameters:
-#
-#   resourceName - String the resource location to restrict.
-#   allowedIPs   - Array ref the set of IPs which allow the restricted resource to be accessed in CIDR
-#                  format or magic word 'all' or 'nobody'. The former all sources are allowed to see
-#                  that resourcename and the latter nobody is allowed to see this resource. 'all'
-#                  value has more priority than 'nobody' value.
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::MissingArgument> - thrown if any compulsory argument is missing.
-#   <EBox::Exceptions::InvalidType>     - thrown if the resource type is invalid.
-#   <EBox::Exceptions::Internal>        - thrown if any of the allowed IP addresses are not in CIDR format or no
-#                                         allowed IP is given.
-#
-sub setRestrictedResource
-{
-    my ($self, $resourceName, $allowedIPs) = @_;
-
-    unless (defined $resourceName) {
-        throw EBox::Exceptions::MissingArgument('resourceName');
-    }
-    unless (defined $allowedIPs) {
-        throw EBox::Exceptions::MissingArgument('allowedIPs');
-    }
-
-    my $allFound = grep { $_ eq 'all' } @{$allowedIPs};
-    my $nobodyFound = grep { $_ eq 'nobody' } @{$allowedIPs};
-    if ($allFound) {
-        $allowedIPs = ['all'];
-    } elsif ($nobodyFound) {
-        $allowedIPs = ['nobody'];
-    } else {
-        # Check the given list is a list of IPs
-        my $notIPs = grep { !checkCIDR($_) } @{$allowedIPs};
-        if ($notIPs > 0) {
-            throw EBox::Exceptions::Internal('Some of the given allowed IP addresses are not in CIDR format');
-        }
-        if ( @{$allowedIPs} == 0 ) {
-            throw EBox::Exceptions::Internal('Some allowed IP must be set');
-        }
-    }
-
-    my $resources = $self->get_list('restricted_resources');
-    if ($self->_restrictedResourceExists($resourceName)) {
-        my @deleted = grep { $_->{name} ne $resourceName } @{$resources};
-        $resources = \@deleted;
-    }
-    push (@{$resources}, { name => $resourceName, allowedIPs => $allowedIPs });
-    $self->set('restricted_resources', $resources);
-}
-
-# Method: delRestrictedResource
-#
-#   Remove a restricted resource from the list.
-#
-# Parameters:
-#
-#   resourcename - String the resource name which indexes which restricted resource is requested to be deleted.
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::MissingArgument> - thrown if any compulsory argument is missing.
-#   <EBox::Exceptions::DataNotFound>    - thrown if the given resource name is not in the list of restricted
-#                                         resources.
-#
-sub delRestrictedResource
-{
-    my ($self, $resourcename) = @_;
-
-    unless (defined $resourcename) {
-        throw EBox::Exceptions::MissingArgument('resourcename');
-    }
-
-    $resourcename =~ s:^/::;
-
-    my $resources = $self->get_list('restricted_resources');
-
-    unless ($self->_restrictedResourceExists($resourcename)) {
-        throw EBox::Exceptions::DataNotFound(data => 'resourcename', value => $resourcename);
-    }
-
-    my @deleted = grep { $_->{name} ne $resourcename} @{$resources};
-    $self->set('restricted_resources', \@deleted);
-}
-
-# Method: _restrictedResourceExists
-#
-#   Whether a restricted resource exists.
-#
-# Parameters:
-#
-#   resourcename - String the resource name which we want to check.
-#
-# Returns:
-#
-#   Boolean - Whether the given resource is registered or not.
-#
-sub _restrictedResourceExists
-{
-    my ($self, $resourcename) = @_;
-
-    foreach my $resource (@{$self->get_list('restricted_resources')}) {
-        if ($resource->{name} eq $resourcename) {
-            return 1;
-        }
-    }
-    return 0;
 }
 
 # Method: isEnabled
@@ -785,7 +616,7 @@ sub _CAs
 #   ignore it and do nothing
 sub disableRestartOnTrigger
 {
-    system 'touch ' . NO_RESTART_ON_TRIGGER;
+    system ('touch ' . NO_RESTART_ON_TRIGGER);
     if ($? != 0) {
         EBox::warn('Canot create "webadmin no restart on trigger" file');
     }
@@ -806,7 +637,7 @@ sub enableRestartOnTrigger
 #  restart themselves when the script is executed
 sub restartOnTrigger
 {
-    return not EBox::Sudo::fileTest('-e', NO_RESTART_ON_TRIGGER);
+    return (not EBox::Sudo::fileTest('-e', NO_RESTART_ON_TRIGGER));
 }
 
 sub usesPort
@@ -869,7 +700,7 @@ sub checkAdminPort
 
 # Method: updateAdminPortService
 #
-#    Update the admin port service used by services module, if available
+#    Update the admin port service used by network module, if available
 #
 # Parameters:
 #
@@ -879,10 +710,63 @@ sub updateAdminPortService
 {
     my ($self, $port) = @_;
     my $global = $self->global();
-    if ($global->modExists('services')) {
-        my $services = $global->modInstance('services');
+    if ($global->modExists('network')) {
+        my $services = $global->modInstance('network');
         $services->setAdministrationPort($port);
     }
+
+    # Enforce nginx restart
+    my $state = $self->get_state();
+    $state->{port_changed} = 1;
+    $self->set_state($state);
+}
+
+sub _setEdition
+{
+    my ($self, $rs) = @_;
+
+    my $themePath = EBox::Config::share() . 'zentyal/www';
+
+    # Check not to override the rebranded Zentyal
+    if (-r "$themePath/custom.theme.sig") {
+        my $content = File::Slurp::read_file("$themePath/custom.theme");
+        if ($content !~ /title-(ent|sb|comm|prof|business|premium|trial).png/) {
+            # Do not rebrand
+            EBox::debug("Custom logo images are not rebranded because there is already a rebranding");
+            return;
+        }
+    }
+
+    my @cmds;
+    my $edition = $self->global()->edition();
+    my $expired = (rindex($edition, 'expired') != -1);
+    $edition =~ s/-expired//;
+    if ($edition eq 'commercial') {
+        @cmds = ("cp '$themePath/comm.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/comm.theme.sig' '$themePath/custom.theme.sig'");
+    } elsif ($edition eq 'professional') {
+        @cmds = ("cp '$themePath/prof.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/prof.theme.sig' '$themePath/custom.theme.sig'");
+    } elsif ($edition eq 'business') {
+        @cmds = ("cp '$themePath/business.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/business.theme.sig' '$themePath/custom.theme.sig'");
+    } elsif ($edition eq 'premium') {
+        @cmds = ("cp '$themePath/premium.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/premium.theme.sig' '$themePath/custom.theme.sig'");
+    } elsif ($edition eq 'trial') {
+        @cmds = ("cp '$themePath/trial.theme' '$themePath/custom.theme'",
+                 "cp '$themePath/trial.theme.sig' '$themePath/custom.theme.sig'");
+    } else {
+        @cmds = ("rm -f '$themePath/custom.theme' '$themePath/custom.theme.sig'",
+                 "rm -f /etc/apt/sources.list.d/zentyal-qa.list");
+    }
+    if ($expired) {
+        push (@cmds, "rm -f /etc/apt/sources.list.d/zentyal-qa.list");
+    } elsif ($edition ne 'community') {
+        push (@cmds, 'echo "deb https://`cat /var/lib/zentyal/.license`:lk@archive.zentyal.com/zentyal-qa 5.0 main" > /etc/apt/sources.list.d/zentyal-qa.list',
+                     'sed -i "/archive.zentyal.org/d" /etc/apt/sources.list');
+    }
+    EBox::Sudo::root(@cmds);
 }
 
 1;

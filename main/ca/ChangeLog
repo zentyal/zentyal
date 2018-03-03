@@ -1,3 +1,9 @@
+5.1
+	+ Fix module restart in postinst
+5.0
+	+ Use SHA256 by default
+4.2.1
+	+ Set up services certificates when a new CA is created
 4.2
 	+ Update version to 4.2
 4.1

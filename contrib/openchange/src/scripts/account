@@ -1,0 +1,175 @@
+#!/usr/bin/perl -w
+
+# Copyright (C) 2015 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# This script is intended to account the number of OC users
+
+use strict;
+use warnings;
+
+package EBox::OpenChange::Account;
+
+use AptPkg::Cache;
+use Data::UUID;
+use EBox;
+use EBox::Global;
+use EBox::RESTClient;
+use JSON::XS;
+use Getopt::Long;
+use Pod::Usage;
+use TryCatch;
+
+# Edition names
+my %EDITION_NAMES = ('commercial' => 'Commercial',
+                     'dev'        => 'Development');
+# Package names
+my @PKG_NAMES = ('openchangeserver', 'sogo-openchange', 'zentyal-openchange');
+# Server to send the info
+my %SERVER = ( 'uri' => 'https://statistics.zentyal.com',
+               'path' => '/billing/mapi/' );
+
+# Get the accounting UUID, create it if it does not exist
+sub _accountUUID
+{
+    my ($mod) = @_;
+
+    my $state = $mod->get_state();
+    if (not exists $state->{'accounting_uuid'}) {
+        my $ug = new Data::UUID();
+        $state->{'accounting_uuid'} = $ug->create_str();
+        $mod->set_state($state);
+    }
+    return $state->{'accounting_uuid'};
+}
+
+# Get the software versions from different components
+# Tuple from PKG_NAMES
+sub _softVersions
+{
+    my @versions;
+    my $cache = new AptPkg::Cache();
+    foreach my $pkgName (@PKG_NAMES) {
+        my $pkgData = $cache->{$pkgName};
+        if ($pkgData) {
+            push(@versions, $pkgData->{CurrentVer}{VerStr});
+        }
+    }
+    return @versions;
+}
+
+# Get the MAPI users and non-MAPI users
+sub _usersNum
+{
+    my ($gl, $ocMod) = @_;
+
+    my $ocUsers = $ocMod->users();
+    my $sambaMod = $gl->modInstance('samba');
+
+    my $realUsers = $sambaMod->realUsers();
+    my %currentUsers = map { $_->name() => 1 } @{$realUsers};
+    my $ocUserNum = 0;
+    foreach my $username (@{$ocUsers}) {
+        if (exists $currentUsers{$username}) {
+            $ocUserNum++;
+        }
+    }
+    my $mailUsersNum = grep { defined ($_->get('mail')) } @{$realUsers};
+
+    return ($ocUserNum, $mailUsersNum - $ocUserNum);
+}
+
+# Send accounted data to the server
+sub _send
+{
+    my ($accountData) = @_;
+
+    my $uri = EBox::Config::configkey('stats_uri');
+    if ((not $uri) or ($uri !~ m/^http/)) {
+        $uri = $SERVER{uri};
+    }
+    my $client = new EBox::RESTClient(uri => $uri, verifyPeer => 0);
+
+    $client->POST($SERVER{path}, query => $accountData, retry => 1);
+}
+
+sub _account
+{
+    my $gl = EBox::Global->getInstance();
+    my $oc = $gl->modInstance('openchange');
+
+    return if ((not $oc) or (not $oc->isEnabled()) or (not $oc->isProvisioned()));
+
+    my $accountData = { 'uuid'    => _accountUUID($oc),
+                        'product' => 'Server' };
+    my $rs = $gl->modInstance('remoteservices');
+    if ($rs and $rs->eBoxSubscribed()) {
+        $accountData->{registered_server_uuid} = $rs->subscribedUUID();
+        if ($rs->commercialEdition()) {
+            $accountData->{edition} = $EDITION_NAMES{commercial};
+        }
+    }
+
+    if (not exists $accountData->{edition}) {
+        $accountData->{edition} = $EDITION_NAMES{dev};
+    }
+
+    ($accountData->{mapiserver_version}, $accountData->{backend_version}, $accountData->{product_version}) = _softVersions();
+
+    ($accountData->{mapi_users_num}, $accountData->{non_mapi_users_num}) = _usersNum($gl, $oc);
+
+    if ($accountData->{mapi_users_num} > 0) {
+        _send($accountData);
+    } else {
+        EBox::debug("No MAPI users, skipping");
+    }
+}
+
+# MAIN
+
+# Get arguments
+my ($usage) = (0);
+my $correct = GetOptions(
+    'usage|help' => \$usage,
+   );
+
+if ( $usage or (not $correct)) {
+    pod2usage(1);
+}
+
+EBox::init();
+
+try {
+    _account();
+} catch ($e) {
+    EBox::error($e);
+}
+
+1;
+
+__END__
+
+=head1 NAME
+
+account - Account the number of MAPI users
+
+=head1 SYNOPSIS
+
+account [--usage|help]
+
+ Options:
+    --usage|help  Print this help and exit
+
+=cut

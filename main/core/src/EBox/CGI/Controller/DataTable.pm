@@ -30,7 +30,7 @@ use EBox::View::StackTrace;
 use EBox::TraceStorable;
 
 use POSIX qw(ceil floor INT_MAX);
-use TryCatch::Lite;
+use TryCatch;
 use JSON::XS;
 use Perl6::Junction qw(all any);
 

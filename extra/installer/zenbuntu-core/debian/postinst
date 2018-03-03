@@ -10,27 +10,7 @@ apt-key add /usr/share/zenbuntu-core/zentyal-archive.asc >> $LOG 2>&1
 
 ln -sf /lib/plymouth/themes/zentyal-text/zentyal-text.plymouth /etc/alternatives/text.plymouth
 
-if [ "$1" == "configure" ]
+if [ -z "$2" ]
 then
-    cp /etc/rc.local /usr/share/zenbuntu-core/
     cp /usr/share/zenbuntu-core/first-boot.sh /etc/rc.local
-
-    if [ -f /etc/default/grub ]
-    then
-        update="no"
-        if ! grep -q ifnames /etc/default/grub
-        then
-            sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 net.ifnames=1 biosdevname=0"/' /etc/default/grub
-            update="yes"
-        fi
-        if ! grep -q splash /etc/default/grub
-        then
-            sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 splash"/' /etc/default/grub
-            update="yes"
-        fi
-        if [ "$update" == "yes" ]
-        then
-            update-grub
-        fi
-    fi
 fi

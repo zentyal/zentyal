@@ -1,2 +1,0 @@
-exec  /usr/bin/perl /usr/share/perl5/EBox/EventDaemon.pm >> /var/log/zentyal/events.err 2>&1
-respawn

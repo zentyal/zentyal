@@ -22,7 +22,6 @@ package EBox::NTP;
 use base qw(EBox::Module::Service);
 
 use EBox;
-use EBox::Objects;
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Menu::Item;
@@ -30,7 +29,7 @@ use EBox::Menu::Folder;
 use EBox::Validate qw(:all);
 use EBox::Sudo;
 use Time::HiRes qw(usleep);
-use TryCatch::Lite;
+use TryCatch;
 
 # Constants
 use constant NTPCONFFILE      => '/etc/ntp.conf';
@@ -123,7 +122,7 @@ sub initialSetup
             $servers->add(server => "$i.pool.ntp.org");
         }
 
-        my $services = EBox::Global->modInstance('services');
+        my $services = EBox::Global->modInstance('network');
         my $fw = EBox::Global->modInstance('firewall');
 
         my $serviceName = 'ntp';
@@ -186,16 +185,7 @@ sub _preSetConf
 #
 sub _daemons
 {
-    return [ { name => 'ebox.ntpd' } ];
-}
-
-#  Method: _daemonsToDisable
-#
-#   Overrides <EBox::Module::Service::_daemonsToDisable>
-#
-sub _daemonsToDisable
-{
-    return [ { name => 'ntp', type => 'init.d' } ];
+    return [ { name => 'ntp' } ];
 }
 
 # Method: synchronized
@@ -266,7 +256,7 @@ sub _setConf
     push(@array, 'servers'  => \@servers);
 
     my $samba = $self->global()->modInstance('samba');
-    if (EBox::Sudo::fileTest('-d', SAMBA_SOCKET_DIR) 
+    if (EBox::Sudo::fileTest('-d', SAMBA_SOCKET_DIR)
         and $samba
         and $samba->isEnabled()) {
         EBox::Sudo::root('chgrp ntp "' . SAMBA_SOCKET_DIR . '"');

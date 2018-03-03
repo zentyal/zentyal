@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Gettext;
 use EBox::Global;
 # For exceptions
-use TryCatch::Lite;
+use TryCatch;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::External;

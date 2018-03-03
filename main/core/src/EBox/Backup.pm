@@ -36,7 +36,7 @@ use File::Slurp qw(read_file write_file);
 use File::Basename;
 use File::MMagic;
 
-use TryCatch::Lite;
+use TryCatch;
 use Digest::MD5;
 use EBox::Sudo;
 use POSIX qw(strftime);
@@ -842,11 +842,6 @@ sub _unpackAndVerify
     my $tempdir;
 
     try {
-#     unless (copy($file, "$tempdir/eboxbackup.tar")) {
-#       throw EBox::Exceptions::Internal("Could not copy backup into ".
-#                                        "the tempdir.");
-#     }
-
         $tempdir = $self->_unpackArchive($archive);
 
         unless (-f "$tempdir/eboxbackup/files.tgz" &&
@@ -856,6 +851,7 @@ sub _unpackAndVerify
 
         $self->_checkArchiveMd5Sum($tempdir);
         $self->_checkArchiveType($tempdir);
+        $self->_unpackModulesRestoreData($tempdir);
         unless ($options{forceZentyalVersion}) {
             $self->_checkZentyalVersion($tempdir);
         }
@@ -964,7 +960,7 @@ sub _checkSize
 
 sub _checkZentyalVersion
 {
-    my ($self, $tempDir)=  @_;
+    my ($self, $tempDir) = @_;
     my $file = "$tempDir/eboxbackup/debpackages" ;
 
     if (not -r $file) {
@@ -1005,14 +1001,43 @@ sub _checkZentyalVersion
         throw EBox::Exceptions::Internal("Cannot retrieve actual version from dpkg output: '@dpkgOutput'");
     }
 
-    my $versionOk =  ($major == $wantedMajor) && ($minor == $wantedMinor);
-    if (not $versionOk) {
-        throw EBox::Exceptions::External(__x(
-'Could not restore the backup because a mismatch between its Zentyal version and the current system version. Backup was done in Zentyal version {bv} and this system could only restore backups from Zentyal version {wv}',
-                bv => $zentyalVersion,
-                wv => $actualVersion)
-        );
+    if (($major != $wantedMajor) && ($minor != $wantedMinor)) {
+        if ($major == 4) {
+            $self->_migrateFromOldVersion($tempDir);
+        } elsif (($major == 3) && ($minor == 2)) {
+            # TODO: check if we can also migrate directly from 3.2, if not, advise to upgrade to 4.X before
+        } else {
+            throw EBox::Exceptions::External(__x(
+    'Could not restore the backup because a mismatch between its Zentyal version and the current system version. Backup was done in Zentyal version {bv} and this system could only restore backups from Zentyal version {wv}',
+                    bv => $zentyalVersion,
+                    wv => "$wantedMajor.$wantedMinor")
+            );
+        }
     }
+}
+
+sub _migrateFromOldVersion
+{
+    my ($self, $tempDir) = @_;
+
+    my $path = "$tempDir/eboxbackup";
+
+    foreach my $mod (qw(services objects)) {
+        my $file = "$path/$mod.bak/$mod.bak";
+        system("sed -i 's/^$mod/network/g' $file");
+        system("cat $file >> $path/network.bak/network.bak");
+    }
+
+    # FIXME: check if we need to migrate something here,
+    #        for example: enabled openchange -> enabled sogo
+    my $global = "$path/global.bak/global.bak";
+    foreach my $mod (qw(services objects remoteservices openchange printers antivirus mailfilter)) {
+        system("rm -rf $path/$mod.bak");
+        system("sed -i 's/ $mod//' $path/modules");
+        system("sed -i '/$mod/d' $global");
+    }
+    system("cat -s $global > $path/global.tmp");
+    system("mv $path/global.tmp $global");
 }
 
 # Method: prepareRestoreBackup
@@ -1155,12 +1180,9 @@ sub restoreBackup
             $progress->notifyTick() if ($progress);
         }
 
-        $self->_unpackModulesRestoreData($tempdir);
-
         $self->_restoreZentyalConfFiles($tempdir);
 
-        # TODO: Make sure we don't open the file more than necessary
-        $self->_preRestoreActions($file, %options);
+        $self->_preRestoreActions($tempdir, %options);
 
         my @modules  = @{ $self->_modInstancesForRestore($file, %options) };
         my @restored = ();
@@ -1353,10 +1375,10 @@ sub _revokeRestore
 
 sub _preRestoreActions
 {
-    my ($self, $archive, %options) = @_;
+    my ($self, $tempdir, %options) = @_;
 
     my $global = EBox::Global->getInstance();
-    my @inBackup = @{ $self->_modulesInBackup($archive) };
+    my @inBackup = @{ $self->_modulesInBackup($tempdir) };
 
     my @missing;
     foreach my $modName (@inBackup) {
@@ -1482,7 +1504,11 @@ sub _modulesInBackup
 {
     my ($self, $archive) = @_;
 
-    my $tempDir = $self->_unpackArchive($archive, 'modules');
+    my $tempDir = $archive;
+    unless (-d $archive) {
+        $tempDir = $self->_unpackArchive($archive, 'modules');
+    }
+
     my $modulesString = read_file("$tempDir/eboxbackup/modules");
 
     my @modules = split '\s', $modulesString;

@@ -41,9 +41,9 @@ use EBox::Sudo;
 use EBox::Types::Boolean;
 use EBox::WebAdmin::UserConfiguration;
 
-use Clone::Fast;
+use Clone;
 use Encode;
-use TryCatch::Lite;
+use TryCatch;
 use POSIX qw(ceil INT_MAX);
 use Perl6::Junction qw(all any);
 use List::Util;
@@ -1894,7 +1894,8 @@ sub message
 sub messageClass
 {
     my ($self, $action) = @_;
-    return $self->table()->{'messageClass'} or 'note';
+
+    $self->table()->{'messageClass'} or 'note';
 }
 
 # Method: popMessage
@@ -3769,7 +3770,7 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
 {
     my ($self, $action, $methodName, $oldParamsRef) = @_;
 
-    my $paramsRef = Clone::Fast::clone($oldParamsRef);
+    my $paramsRef = Clone::clone($oldParamsRef);
 
     # Delete the action from the name
     my $first = ( $methodName =~ s/^$action// );
@@ -4040,7 +4041,7 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
 {
     my ($self, $action, $methodName, $origParamsRef) = @_;
 
-    my $paramsRef = Clone::Fast::clone($origParamsRef);
+    my $paramsRef = Clone::clone($origParamsRef);
 
     $methodName =~ s/^$action//;
 

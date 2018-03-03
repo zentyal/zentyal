@@ -20,7 +20,7 @@ use warnings;
 package EBox::Firewall;
 
 use base qw(EBox::Module::Service
-            EBox::ObjectsObserver
+            EBox::Objects::Observer
             EBox::NetworkObserver
             EBox::LogObserver);
 
@@ -38,10 +38,9 @@ use EBox::Firewall::Model::EBoxServicesRuleTable;
 use EBox::Firewall::Model::RedirectsTable;
 
 use EBox::FirewallLogHelper;
-use EBox::Objects;
 use EBox::Validate qw( :all );
 use EBox::Util::Lock;
-use TryCatch::Lite;
+use TryCatch;
 
 # Time in sec. to be blocked to work on iptables
 use constant BLOCKED_TIMEOUT => 10;
@@ -105,7 +104,7 @@ sub initialSetup
         $self->setInternalService('zentyal_webadmin', 'accept');
         $self->setInternalService('ssh', 'accept');
 
-        my $services = EBox::Global->modInstance('services');
+        my $services = EBox::Global->modInstance('network');
         my $any = $services->serviceId('any');
 
         unless (defined $any) {
@@ -134,7 +133,7 @@ sub restoreDependencies
 {
     my ($self) = @_;
 
-    return ['services'];
+    return ['network'];
 }
 
 # utility used by CGI
@@ -291,7 +290,7 @@ sub portUsedByService
     ($port ne "") or return undef;
     my $global = EBox::Global->getInstance($self->isReadOnly());
     my $network = $global->modInstance('network');
-    my $services = $global->modInstance('services');
+    my $services = $network;
 
     # if it's an internal interface, check all services
     unless ($iface &&
@@ -511,7 +510,7 @@ sub _setService
 {
     my ($self, $service, $decision, $internal) = @_;
 
-    my $serviceMod = EBox::Global->modInstance('services');
+    my $serviceMod = EBox::Global->modInstance('network');
 
     unless (defined($service)) {
         throw EBox::Exceptions::MissingArgument('service');
@@ -679,7 +678,7 @@ sub addServiceRules
 {
     my ($self, $services) = @_;
 
-    my $servicesMod = EBox::Global->modInstance('services');
+    my $servicesMod = EBox::Global->modInstance('network');
 
     foreach my $service (@{$services}) {
         my $name = $service->{'name'};
@@ -749,7 +748,7 @@ sub _addService
     exists $params{destinationPort} or
         $params{destinationPort} = 'any';
 
-    my $serviceMod = EBox::Global->modInstance('services');
+    my $serviceMod = EBox::Global->modInstance('network');
 
     if (not $serviceMod->serviceExists('name' => $params{name})) {
         $serviceMod->addService('name' => $params{name},

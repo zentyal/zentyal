@@ -1,0 +1,37 @@
+#!/bin/bash
+
+LICENSE=$1
+
+if [ -z "$LICENSE" ]
+then
+    echo "Usage: $0 XXXXX-XXXXX-XXXXX-XXXXX"
+    exit 1
+fi
+
+if ! echo "$LICENSE" | grep -E -q "^[A-Z0-9]{5}-[A-Z0-9]{5}.[A-Z0-9]{5}-[A-Z0-9]{5}$"
+then
+    echo "Invalid key format."
+    echo "Make sure your license matchs the following format: XXXXX-XXXXX-XXXXX-XXXXX"
+    exit 1
+fi
+
+touch /var/lib/zentyal/.commercial-edition
+
+if wget -q -o /dev/null --user=$LICENSE --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep -q Index
+then
+    echo
+    echo "License key successfully validated."
+    echo
+    echo $LICENSE > /var/lib/zentyal/.license
+else
+    echo
+    echo "License key cannot be validated."
+    echo
+    echo "If key is valid please check your connection and run $0 again."
+    echo "If you have checked and still have problems, please contact support."
+    exit 1
+fi
+
+apt-key add /usr/share/zentyal/zentyal-qa.pub
+echo 'Acquire::https::archive.zentyal.com { Verify-Peer "false"; };' > /etc/apt/apt.conf.d/99zentyal
+zs webadmin restart

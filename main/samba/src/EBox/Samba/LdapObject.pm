@@ -34,7 +34,7 @@ use Net::LDAP::Control::Paged;
 use Net::LDAP::Control::Relax;
 
 use Perl6::Junction qw(any);
-use TryCatch::Lite;
+use TryCatch;
 
 my $_usersMod; # cached users module
 

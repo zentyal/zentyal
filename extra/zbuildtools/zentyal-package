@@ -121,10 +121,12 @@ sub generate_rep
 
     system("apt-ftparchive packages . > Packages")
                                 and die "couldn't generate pkg";
-    system("gzip -f Packages");
+#    system("gzip -f Packages");
     system("apt-ftparchive sources . > Sources")
                                 and die "couldn't generate src";
-    system("gzip -f Sources");
+#    system("gzip -f Sources");
+    system("apt-ftparchive release . > Release")
+                                and die "couldn't generate release";
 }
 
 sub clean

@@ -9,7 +9,7 @@ use EBox::ProgressIndicator;
 use Getopt::Long;
 
 use English qw(-no-match-vars);
-use TryCatch::Lite;
+use TryCatch;
 
 EBox::init();
 
@@ -36,6 +36,7 @@ my $forceDependencies = 0;
 my $forceZentyalVersion = 0;
 my $revokeAllOnModuleFail = 1;
 my $continueOnModuleFail = 0;
+my $dataRestore = 1;
 my $installMissing = 0;
 
 my $help = 0;;
@@ -47,9 +48,10 @@ my $optionsOk = GetOptions(
     'progress-id:i' => \$progressId,
     'force-dependencies' => \$forceDependencies,
     'force-zentyal-version' => \$forceZentyalVersion,
-    'delete-backup'      => \$deleteBackup,
+    'delete-backup' => \$deleteBackup,
     'revoke-all-on-module-fail!' => \$revokeAllOnModuleFail,
     'continue-on-module-fail!' => \$continueOnModuleFail,
+    'data-restore!' => \$dataRestore,
     'install-missing' => \$installMissing,
 
     'info'       => \$info,
@@ -93,10 +95,11 @@ if (@modsToExclude) {
 
 $restoreParams{forceDependencies} = $forceDependencies;
 $restoreParams{forceZentyalVersion} = $forceZentyalVersion,
-$restoreParams{deleteBackup}      = $deleteBackup;
+$restoreParams{deleteBackup} = $deleteBackup;
 $restoreParams{revokeAllOnModuleFail} = $revokeAllOnModuleFail;
-$restoreParams{continueOnModuleFail}  = $continueOnModuleFail;
-$restoreParams{installMissing}    = $installMissing;
+$restoreParams{continueOnModuleFail} = $continueOnModuleFail;
+$restoreParams{dataRestore} = $dataRestore;
+$restoreParams{installMissing} = $installMissing;
 
 try {
     EBox::Backup->restoreBackup($file, %restoreParams);
@@ -131,19 +134,24 @@ sub usage
 {
   print <<END;
   Usage:
-  $0  [OPTION\]... [--module NAME]...  [--exclude NAME]...  ARCHIVE_FILE
-  $0  --info ARCHIVE_FILE
-  $0  --help
+  $0 [OPTIONS\] [--module NAME]... [--exclude NAME]... ARCHIVE_FILE
+  $0 --info ARCHIVE_FILE
+  $0 --help
 
   Options:
     --force-dependencies
+
     --force-zentyal-version
 
     --delete-backup
 
-    --revoke-all-on-module-fail,--no-revoke-all-on-module-fail
+    --revoke-all-on-module-fail, --no-revoke-all-on-module-fail
 
-    --progress-id
+    --continue-all-on-module-fail, --no-continue-all-on-module-fail
+
+    --data-restore, --no-data-restore
+
+    --install-missing
 END
 
 }

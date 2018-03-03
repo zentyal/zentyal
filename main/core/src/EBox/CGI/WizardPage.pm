@@ -46,7 +46,7 @@ use EBox::Gettext;
 use EBox::Html;
 
 use HTML::Mason::Exceptions;
-use TryCatch::Lite;
+use TryCatch;
 
 use constant ERROR_STATUS => '500';
 

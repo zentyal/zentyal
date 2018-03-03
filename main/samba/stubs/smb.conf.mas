@@ -9,10 +9,10 @@
     $profilesPath
     $sysvolPath
     $ifaces => undef
+    $shell
 
     $print => 0
     $shares => 0
-    $openchange => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -24,17 +24,25 @@ use EBox::Gettext;
     server string = <% $description %>
     server role = <% $mode %>
     server role check:inhibit = yes
-    server services = -dns -winbindd +winbind
+    server services = -dns
     server signing = auto
     dsdb:schema update allowed = yes
+    ldap server require strong auth = no
     drs:max object sync = 1200
 
     idmap_ldb:use rfc2307 = yes
+
+    winbind enum users = yes
+    winbind enum groups = yes
+    template shell = <% $shell %>
+    template homedir = /home/%U
 
 % if ($ifaces) {
     interfaces = <% $ifaces %>
     bind interfaces only = yes
 % }
+
+    map to guest = Bad User
 
     log level = 3
     log file = /var/log/samba/samba.log
@@ -42,10 +50,6 @@ use EBox::Gettext;
 
 % if ($print) {
     include = /etc/samba/printers.conf
-% }
-
-% if ($openchange) {
-    include = /etc/samba/openchange.conf
 % }
 
 % if ($shares) {

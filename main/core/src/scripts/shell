@@ -22,7 +22,7 @@ use strict;
 use Term::ReadLine;
 use Lexical::Persistence;
 use Data::Dumper;
-use TryCatch::Lite;
+use TryCatch;
 
 use EBox;
 use EBox::Global;

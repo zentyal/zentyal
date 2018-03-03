@@ -27,11 +27,7 @@ use EBox::Module::Base;
 use EBox::Global;
 use EBox::Dashboard::ModuleStatus;
 
-use constant {
-    UPSTART_DIR       => '/etc/init',
-    GREYLIST_SERVICE => 'ebox.postgrey',
-    WHITELIST_CLIENTS_FILE => '/etc/postgrey/whitelist_clients',
-};
+use constant GREYLIST_SERVICE => 'postgrey';
 
 sub new
 {
@@ -41,19 +37,6 @@ sub new
   bless $self, $class;
 
   return $self;
-}
-
-sub usedFiles
-{
-    my ($self) = @_;
-    return [
-            {
-              'file' => WHITELIST_CLIENTS_FILE,
-              'reason' => __('To configure whitelist for greylisting'),
-              'module' => 'mail'
-            },
-
-           ];
 }
 
 sub daemon
@@ -76,11 +59,6 @@ sub isRunning
     my ($self) = @_;
 
     unless (EBox::Global->modInstance('mail')->configured()) {
-        return undef;
-    }
-
-    my $upstartFile = $self->upstartFile();
-    if (not -e $upstartFile) {
         return undef;
     }
 
@@ -110,116 +88,31 @@ sub _confAttr
     my ($self, $attr) = @_;
 
     if (not $self->{configuration}) {
-        my $mailfilter = EBox::Global->modInstance('mail');
-        $self->{configuration}     = $mailfilter->model('GreylistConfiguration');
+        my $mail = EBox::Global->modInstance('mail');
+        $self->{configuration} = $mail->model('GreylistConfiguration');
     }
 
     my $row = $self->{configuration}->row();
     return $row->valueByName($attr);
 }
 
-sub writeUpstartFile
-{
-  my ($self) = @_;
-  my $path = $self->upstartFile();
-
-    my $fileAttrs    = {
-                        uid  => 0,
-                        gid  => 0,
-                        mode => '0644',
-                       };
-
-   EBox::Module::Base::writeConfFileNoCheck(
-                                    $path,
-                                    '/mail/ebox.postgrey.mas',
-                                    [
-                                     address  => $self->address(),
-                                     port => $self->port(),
-
-                                     delay       => $self->delay(),
-                                     maxAge      => $self->maxAge(),
-                                     retryWindow => $self->retryWindow(),
-                                    ],
-
-                                    $fileAttrs
-                                   );
-
-}
-
-sub upstartFile
-{
-    return UPSTART_DIR . '/' . GREYLIST_SERVICE . '.conf';
-}
-
 sub writeConf
 {
     my ($self) = @_;
 
-    my $network =  EBox::Global->modInstance('network');
-    my @internalIf = @{ $network->InternalIfaces()  };
-    my @internalNets = map {
-        my $if  = $_;
-        my $net =  $network->ifaceNetwork($if);
+    EBox::Module::Base::writeConfFileNoCheck(
+        '/etc/default/postgrey',
+        '/mail/postgrey.mas',
+        [
+         address  => $self->address(),
+         port => $self->port(),
 
-        if ($net) {
-            my $mask = $network->ifaceNetmask($if);
-            EBox::NetWrappers::to_network_with_mask($net, $mask);
-        }
-        else {
-            ()
-        }
-
-    } @internalIf;
-
-    my $mail = EBox::Global->modInstance('mail');
-    my $allowedAddresses = $mail->allowedAddresses();
-
-    my $fileAttrs    = {
-                        uid  => 0,
-                        gid  => 0,
-                        mode => '0644',
-                       };
-
-   EBox::Module::Base::writeConfFileNoCheck(
-                                    WHITELIST_CLIENTS_FILE,
-                                    '/mail/whitelist_clients.mas',
-                                    [
-                                     whitelist => [
-                                                   @internalNets,
-                                                   @{ $self->_antispamWhitelist() },
-                                                   @{ $allowedAddresses },
-                                                   ],
-                                    ],
-
-                                    $fileAttrs
-                                   );
-}
-
-sub _antispamWhitelist
-{
-    my ($self) = @_;
-
-    # TODO: use a interface when we have more than one module with spam ACL
-    my $global = EBox::Global->getInstance();
-
-    if (not $global->modExists('mailfilter')) {
-        return [];
-    }
-
-    my $mailfilter = $global->modInstance('mailfilter');
-    if (not $mailfilter->isEnabled()) {
-        return [];
-    }
-
-    my @wl = @{ $mailfilter->antispam()->whitelist() };
-    # the format for domains is @domain_name, however postgrey uses domainname
-    # format
-    @wl = map {
-        $_ =~ s/^@//;
-        $_
-    } @wl;
-
-    return \@wl;
+         delay       => $self->delay(),
+         maxAge      => $self->maxAge(),
+         retryWindow => $self->retryWindow(),
+        ],
+        { uid  => 0, gid  => 0, mode => '0644' }
+    );
 }
 
 sub port

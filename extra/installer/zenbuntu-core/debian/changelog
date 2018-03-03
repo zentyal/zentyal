@@ -1,3 +1,34 @@
+zenbuntu-core (5.0.4) xenial; urgency=medium
+
+  * Fix update of grub conf on first install
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 26 Feb 2017 18:27:20 +0100
+
+zenbuntu-core (5.0.3) xenial; urgency=medium
+
+  * Fix postinst to not replace rc.local in upgrades
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 05 Feb 2017 00:16:10 +0100
+
+zenbuntu-core (5.0.2) xenial; urgency=medium
+
+  * Fix for LXDM starting after webadmin and rest of services
+  * Definitive fix for plymouth problems in expert mode
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 11 Dec 2016 12:32:58 +0100
+
+zenbuntu-core (5.0.1) xenial; urgency=medium
+
+  * Quit plymouth 1 minute after finish to allow local login in expert mode 
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Thu, 01 Dec 2016 12:39:20 +0100
+
+zenbuntu-core (5.0) xenial; urgency=medium
+
+  * Package for 16.04
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 17 Oct 2016 12:53:24 +0200
+
 zenbuntu-core (4.2) trusty; urgency=medium
 
   * Bump version to 4.2

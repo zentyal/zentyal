@@ -1,6 +1,0 @@
-#!/bin/bash
-
-PASSWD=`cat /var/lib/zentyal/conf/redis.passwd`
-SOCKET=/var/lib/zentyal/redis.ebox.sock
-
-redis-cli -s $SOCKET -a $PASSWD $@

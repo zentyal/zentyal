@@ -1,8 +1,0 @@
-class: 'EBox::Objects'
-
-models:
-    - ObjectTable
-    - MemberTable
-
-foreign:
-    ObjectTable: [MemberTable]

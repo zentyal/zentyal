@@ -14,10 +14,20 @@ Description: Zentyal - Core metapackage
  .
  This metapackage installs the Zentyal core and the Software module.
 
+Package: zentyal-groupware
+Architecture: all
+Depends: zentyal-mail, zentyal-sogo
+Description: Zentyal - Mail and Groupware
+ Zentyal is a drop-in replacement for Microsoft Small Business Server and
+ Microsoft Exchange Server, that you can set up in less than 30 minutes.
+ .
+ This metapackage installs the Zentyal mail and sogo modules.
+
 Package: zentyal-all
 Architecture: all
-Depends: zentyal, zentyal-samba, zentyal-openchange,
-         zentyal-openvpn, zentyal-mail, zentyal-dhcp, zentyal-printers
+Depends: zentyal, zentyal-samba, zentyal-squid,
+         zentyal-openvpn, zentyal-groupware, zentyal-dhcp,
+         zentyal-antivirus, zentyal-mailfilter, zentyal-jabber
 Description: Zentyal - All Modules
  Zentyal is a drop-in replacement for Microsoft Small Business Server and
  Microsoft Exchange Server, that you can set up in less than 30 minutes.

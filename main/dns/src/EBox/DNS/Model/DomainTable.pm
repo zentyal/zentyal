@@ -50,7 +50,7 @@ use EBox::Util::Random;
 # Dependencies
 use Digest::HMAC_MD5;
 use MIME::Base64;
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 
@@ -490,11 +490,14 @@ sub addedRowNotify
     my $secret = $self->_generateSecret();
     $newRow->elementByName('tsigKey')->setValue($secret);
     $newRow->store();
+
+    my $addrs = $self->parentModule()->allAddressesInUse();
+
     my $ipModel = $newRow->subModel('ipAddresses');
 
     # Add the domain IP addresses
     my @addedAddrs;
-    my %seenAddrs;
+    my %seenAddrs = %{$addrs};
     my $network = EBox::Global->modInstance('network');
     my $ifaces = $network->allIfaces();
     foreach my $iface (@{$ifaces}) {
@@ -519,7 +522,7 @@ sub addedRowNotify
     my $hostRow   = $hostModel->row($hostRowId);
 
     $ipModel = $hostRow->subModel('ipAddresses');
-    %seenAddrs = ();
+    %seenAddrs = %{$addrs};
     foreach my $iface (@{$ifaces}) {
         my $addrs = $network->ifaceAddresses($iface);
         foreach my $addr (@{$addrs}) {
@@ -537,42 +540,15 @@ sub addedRowNotify
     my $nsModel = $newRow->subModel('nameServers');
     $nsModel->add(hostName => { ownerDomain => $nsHost } );
 
-    my $addrs = join(', ', @addedAddrs);
-    $self->setMessage(__x('Domain added. The host name {nshost} has been added to this domain with '
-                          . 'these IP addresses {ips}, this host name has been also set as '
-                          . 'nameserver record. Moreover, the same IP addresses have been assigned '
-                          . 'to this new domain. You can always rename it or create alias for it.',
-                          nshost => $nsHost, ips => $addrs));
-
-    # Invalidate domains cache in openchange module
-    if (EBox::Global->modExists('openchange')) {
-        my $oc = EBox::Global->modInstance('openchange');
-        my $model = $oc->model('VDomains');
-        $model->invalidateCache();
-    }
-}
-
-sub updatedRowNotify
-{
-    my ($self, $row, $oldRow, $force) = @_;
-
-    # Invalidate domains cache in openchange module
-    if (EBox::Global->modExists('openchange')) {
-        my $oc = EBox::Global->modInstance('openchange');
-        my $model = $oc->model('VDomains');
-        $model->invalidateCache();
-    }
-}
-
-sub deletedRowNotify
-{
-    my ($self, $row, $force) = @_;
-
-    # Invalidate domains cache in openchange module
-    if (EBox::Global->modExists('openchange')) {
-        my $oc = EBox::Global->modInstance('openchange');
-        my $model = $oc->model('VDomains');
-        $model->invalidateCache();
+    if (@addedAddrs) {
+        my $addrs = join(', ', @addedAddrs);
+        $self->setMessage(__x('Domain added. The host name {nshost} has been added to this domain with '
+                              . 'these IP addresses {ips}, this host name has been also set as '
+                              . 'nameserver record. Moreover, the same IP addresses have been assigned '
+                              . 'to this new domain. You can always rename it or create alias for it.',
+                              nshost => $nsHost, ips => $addrs));
+    } else {
+        $self->setMessage(__('Domain added. Zentyal IP addresses not added as all of them were in other domain already.'));
     }
 }
 

@@ -1,9 +1,17 @@
 #!/bin/bash
 
+set -e
+
+#DEBHELPER#
+
 case "$1" in
 	configure)
 
-        /usr/share/zentyal/initial-setup mailfilter $2
+        # initial setup
+        /usr/share/zentyal/initial-setup --no-restart mailfilter $2
+
+        # restart module
+        zs mailfilter restart || true
 
         dpkg-trigger --no-await zentyal-core
 esac

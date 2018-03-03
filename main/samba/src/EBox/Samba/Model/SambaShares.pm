@@ -41,7 +41,7 @@ use EBox::Validate;
 use Sys::Filesystem;
 use File::Basename qw( dirname );
 use Cwd 'abs_path';
-use TryCatch::Lite;
+use TryCatch;
 
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
                              '/proc', '/run', '/sbin', '/sys', '/var', '/usr',
@@ -114,12 +114,13 @@ sub _table
             editable      => 1,
             defaultValue  => 0,
             help          => __('This share will not require authentication.')),
-        new EBox::Types::Boolean(
-            fieldName     => 'recursive_acls',
-            printableName => __('Apply ACLs recursively'),
-            editable      => 1,
-            defaultValue  => 1,
-            help          => __('ACL changes replace all permissions on subfolders of this share.')),
+# TODO: implement read-only status of asynchronous ACLs application
+#        new EBox::Types::Boolean(
+#            fieldName     => 'recursive_acls',
+#            printableName => __('Apply ACLs recursively'),
+#            editable      => 1,
+#            defaultValue  => 1,
+#            help          => __('ACL changes replace all permissions on subfolders of this share.')),
         new EBox::Types::HasMany(
             fieldName     => 'access',
             printableName => __('Access control'),
@@ -329,47 +330,6 @@ sub deletedRowNotify
     $deletedModel->addRow('path' => $path->value());
 }
 
-# Method: createDirs
-#
-#   This method is used to create the necessary directories for those
-#   shares which must live under /home/samba/shares
-#
-sub createDirs
-{
-    my ($self) = @_;
-
-    for my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
-        my $enabled     = $row->valueByName('enabled');
-        my $shareName   = $row->valueByName('share');
-        my $pathType    = $row->elementByName('path');
-        my $guestAccess = $row->valueByName('guest');
-
-        unless ($enabled) {
-            next;
-        }
-
-        my $path = undef;
-        if ($pathType->selectedType() eq 'zentyal') {
-            $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
-        } elsif ($pathType->selectedType() eq 'system') {
-            $path = $pathType->value();
-        } else {
-            EBox::error("Unknown share type on share '$shareName'");
-        }
-        unless (defined $path) {
-            next;
-        }
-
-        my @cmds = ();
-        # Just create the share folder, the permissions will be set later on EBox::Samba::_postServiceHook so we are
-        # sure that the share is already created and Samba is reloaded with the new configuration.
-        push (@cmds, "mkdir -p '$path'");
-
-        EBox::Sudo::root(@cmds);
-    }
-}
-
 # Method: viewCustomizer
 #
 #   Overrided to show a warning when guest access is enabled for any share
@@ -485,8 +445,8 @@ sub _checkSystemShareMountOptions
         }
     }
 
-    # BTRFS, XFS and GlusterFS have acl and extended attributes by default
-    if (($type =~ m/btrfs/) or ($type =~ m/xfs/) or ($type =~ m/glusterfs/)) {
+    # ext4, BTRFS, XFS, ZFS and GlusterFS have acl and extended attributes by default
+    if (($type =~ m/ext4/) or ($type =~ m/btrfs/) or ($type =~ m/xfs/) or ($type =~ m/zfs/) or ($type =~ m/glusterfs/)) {
         return 1;
     }
 

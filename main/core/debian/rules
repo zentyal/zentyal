@@ -2,10 +2,10 @@
 
 include /usr/share/zbuildtools/1/rules/zentyal.mk
 
-DEB_DH_INSTALLINIT_ARGS = --no-start --init-script=zentyal
+DEB_CONFIGURE_EXTRA_FLAGS+= --with-systemd
 
 install/zentyal-core::
-	test -e debian/zentyal-core.init || ln -s ../src/scripts/zentyal.init.d debian/zentyal-core.init
+	test -e debian/zentyal.init || ln -s ../src/scripts/zentyal.init.d debian/zentyal.init
 	rm -f $(CURDIR)/debian/ebox/var/lib/zentyal/conf/ebox.passwd
 
 binary-predeb/zentyal-core::

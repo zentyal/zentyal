@@ -528,7 +528,7 @@ Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start, c
     }
 
     var widgets = mod.widgets;
-    var max_wids = 4;
+    var max_wids = 12;
     var end = start + max_wids;
     if(end > widgets.length) {
         end = widgets.length;

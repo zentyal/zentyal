@@ -22,7 +22,7 @@ use warnings;
 use EBox;
 use EBox::Global;
 use EBox::Exceptions::Lock;
-use TryCatch::Lite;
+use TryCatch;
 
 EBox::init();
 

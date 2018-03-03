@@ -215,6 +215,9 @@ Header
     right: 0;
     z-index: 10;
 }
+#hmenu .expired {
+    float: left;
+}
 #hmenu a {
     float:left;
     font-size: 11px;
@@ -905,7 +908,7 @@ td[class^="icon"] {
 .icon-ebackup { background-image: url("/data/images/package-icons/zentyal-ebackup.png");}
 .icon-firewall { background-image: url("/data/images/package-icons/zentyal-firewall.png");}
 .icon-ips { background-image: url("/data/images/package-icons/zentyal-ips.png");}
-.icon-l2tp { background-image: url("/data/images/package-icons/zentyal-l2tp.png");}
+.icon-ipsec { background-image: url("/data/images/package-icons/zentyal-ipsec.png");}
 .icon-jabber { background-image: url("/data/images/package-icons/zentyal-jabber.png");}
 .icon-mail { background-image: url("/data/images/package-icons/zentyal-mail.png");}
 .icon-mailfilter { background-image: url("/data/images/package-icons/zentyal-mailfilter.png");}
@@ -920,7 +923,6 @@ td[class^="icon"] {
 .icon-printers { background-image: url("/data/images/package-icons/zentyal-printers.png");}
 .icon-radius { background-image: url("/data/images/package-icons/zentyal-radius.png");}
 .icon-register { background-image: url("/data/images/package-icons/zentyal-register.png");}
-.icon-remoteservices { background-image: url("/data/images/package-icons/zentyal-remoteservices.png");}
 .icon-samba { background-image: url("/data/images/package-icons/zentyal-samba.png");}
 .icon-sharing { background-image: url("/data/images/package-icons/zentyal-sharing.png");}
 .icon-domain { background-image: url("/data/images/package-icons/zentyal-domain.png");}
@@ -1490,6 +1492,45 @@ border-radius: 2px;
     font-weight: normal;
     letter-spacing: 0px;
     text-shadow: 2px 2px 1px rgba(0,0,0,0.2);
+}
+
+#activation-required{
+    position: absolute;
+    left: -210px;
+    margin-top: 20px;
+    width: 100vw;
+    text-align: center;
+    background-color: #eee;
+}
+#activation-required header img{
+    width: 200px
+}
+#activation-required h1{
+    font-size: 30px;
+    margin: 20px 0 30px 0;
+}
+#activation-required h3{
+    font-size: 1.2em;
+    line-height: 140%;
+    border-bottom: none;
+    font-weight: 100
+}
+#activation-required .btn-green{
+    width: 300px;
+    text-transform: none;
+    font-weight: normal;
+    letter-spacing: 0px;
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.2);
+}
+#activation-required #error{
+    display: inline;
+    border-color:<% $error_border %>;
+    background: <% $error_background %>;
+    color: <% $error_color %>;
+    font-weight: normal;
+    border: 1px dashed <% $error_border %>;
+    padding: 10px 15px;
+    font-size: 14px;
 }
 
 body.first-install {

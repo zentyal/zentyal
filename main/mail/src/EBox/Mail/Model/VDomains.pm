@@ -222,18 +222,4 @@ vd => $vdomain, al => $alias
     }
 }
 
-# overriden to offer the openchange vdomains info
-sub viewCustomizer
-{
-    my ($self) = @_;
-    my $customizer = $self->SUPER::viewCustomizer();
-    if ($self->global()->modExists('openchange')) {
-        my $msg =__x('{oh}Manage additional OpenChange features for these domains{ch}',
-                     oh => '<a href="/Mail/OpenChange">',
-                     ch => '</a>');
-        $customizer->setPermanentMessage($msg);
-    }
-    return $customizer;
-}
-
 1;

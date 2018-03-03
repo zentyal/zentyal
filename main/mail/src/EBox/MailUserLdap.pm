@@ -34,7 +34,7 @@ use EBox::Model::Manager;
 use EBox::Gettext;
 use EBox::Samba::User;
 use EBox::MailVDomainsLdap;
-use TryCatch::Lite;
+use TryCatch;
 
 use Perl6::Junction qw(any);
 
@@ -148,13 +148,6 @@ sub setUserAccount
     $user->set('mailquota', $quota, 1);
     $user->set('mailHomeDirectory', DIRVMAIL, 1);
 
-    my $openchange = EBox::Global->modInstance('openchange');
-    if ($openchange and $openchange->isProvisioned()) {
-        my @proxyAddresses = $user->get('proxyAddresses');
-        @proxyAddresses = map { $a = $_; $a =~ s/SMTP:.+$/SMTP:$email/; $a } @proxyAddresses;
-        $user->set('proxyAddresses', \@proxyAddresses);
-    }
-
     $user->save();
 
     my $dir = DIRVMAIL . "/$rhs/$lhs";
@@ -210,16 +203,6 @@ sub delUserAccount
     push (@cmds, "/bin/rm -rf $sieveDir");
 
     EBox::Sudo::root(@cmds);
-
-    # delete openchange account if exists. We don't implement and observer
-    # notifier interface bz only one module is to be notifier
-    if ((not $user->isSystem()) and ($self->openchangeAccountEnabled($user))) {
-        my $openchange = EBox::Global->modInstance('openchange');
-        my $userOc = $openchange->_ldapModImplementation();
-        if ($userOc->enabled($user)) {
-            $userOc->deleteAccount($user, $usermail);
-        }
-    }
 }
 
 # Method: userAccount
@@ -312,16 +295,6 @@ sub delGroupAccount
     }
 
     $group->delete('mail');
-
-    # delete openchange account if exists. We don't implement and observer
-    # notifier interface bz only one module is to be notifier
-    my $openchange = EBox::Global->modInstance('openchange');
-    if ($openchange and not $group->isSystem()) {
-        my $userOc = $openchange->_ldapModImplementation();
-        if ($userOc->groupEnabled($group)) {
-            $userOc->deleteGroupAccount($group);
-        }
-    }
 }
 
 # Method: _addUser
@@ -905,20 +878,5 @@ sub hiddenOUs
 {
     return [ 'postfix' ];
 }
-
-sub openchangeAccountEnabled
-{
-    my ($self, $user) = @_;
-    if (EBox::Global->modExists('openchange')) {
-        my $openchange =  EBox::Global->modInstance('openchange');
-        if ($openchange->configured() and $openchange->isProvisioned()) {
-            my $userOc = $openchange->_ldapModImplementation();
-            return $userOc->enabled($user);
-        }
-    }
-    return 0;
-}
-
-
 
 1;

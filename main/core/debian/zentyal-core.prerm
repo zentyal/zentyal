@@ -4,7 +4,7 @@ set -e
 
 case "$1" in
     remove)
-        service zentyal stop || true
+        zs stop || true
     ;;
 esac
 

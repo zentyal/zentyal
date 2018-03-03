@@ -36,7 +36,7 @@ use EBox::DBEngineFactory;
 use HTML::Mason;
 use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
-use TryCatch::Lite;
+use TryCatch;
 use Time::Local;
 use File::Slurp;
 use Perl6::Junction qw(any);
@@ -417,7 +417,7 @@ sub restoreBackup # (dir, %options)
     my $backupDir = $self->backupDir($dir);
     (-d $backupDir) or throw EBox::Exceptions::Internal("$backupDir must be a directory");
 
-    if (not $options{dataRestore}) {
+    if ($options{dataRestore}) {
         $self->aroundRestoreConfig($backupDir, %options);
     }
 }
@@ -1226,33 +1226,6 @@ sub restoreFilesFromArchive
     EBox::Sudo::root($restoreCmd);
 }
 
-
-# Method: recoveryEnabled
-#
-#   Helper method to know if the module is configured for
-#   disaster recovery synchronization
-#
-# Returns:
-#
-#   boolean - true if synchronization for the specified module is enabled
-#
-sub recoveryEnabled
-{
-    my ($self) = @_;
-
-    # TODO: Remove it
-    return 0;
-
-    my $module = $self->{name};
-
-    my $rs = EBox::Global->modInstance('remoteservices');
-    unless (defined ($rs) and $rs->disasterRecoveryAvailable()) {
-        return 0;
-    }
-
-    my $model = $rs->model('DisasterRecoveryDomains');
-    return $model->moduleEnabled($module);
-}
 
 sub searchContents
 {

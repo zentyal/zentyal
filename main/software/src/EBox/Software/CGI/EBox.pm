@@ -22,7 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
-use TryCatch::Lite;
+use TryCatch;
 
 ## arguments:
 ##  title [required]
@@ -69,9 +69,9 @@ sub _process
 
     my %pkgs = map { $_->{name} => $_ } @allpkgs;
 
-    my @bigpkgs = ($pkgs{'zentyal-samba'}, $pkgs{'zentyal-mail'});
+    my @bigpkgs = ($pkgs{'zentyal-samba'}, $pkgs{'zentyal-groupware'});
     my @mediumpkgs = ($pkgs{'zentyal-dns'}, $pkgs{'zentyal-dhcp'}, $pkgs{'zentyal-firewall'});
-    my %filterpkgs = map { ("zentyal-$_") => 1 } qw(samba mail openchange dns dhcp firewall network objects services ntp squid users cloud-prof);
+    my %filterpkgs = map { ("zentyal-$_") => 1 } qw(samba mail sogo groupware dns dhcp firewall network objects services ntp users cloud-prof);
 
     my @array = ();
     push(@array, 'bigpkgs'     => \@bigpkgs);

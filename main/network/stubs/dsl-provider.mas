@@ -1,0 +1,91 @@
+<%args>
+    $iface
+    $ppp_user
+    $usepeerdns
+</%args>
+# Configuration file for PPP, using PPP over Ethernet
+# to connect to a DSL provider.
+#
+# See the manual page pppd(8) for information on all the options.
+
+##
+# Section 1
+#
+# Stuff to configure...
+
+# MUST CHANGE: Uncomment the following line, replacing the user@provider.net
+# by the DSL user name given to your by your DSL provider.
+# (There should be a matching entry in /etc/ppp/pap-secrets with the password.)
+user <% $ppp_user %>
+
+# Use the pppoe program to send the ppp packets over the Ethernet link
+# This line should work fine if this computer is the only one accessing
+# the Internet through this DSL connection. This is the right line to use
+# for most people.
+#pty "/usr/sbin/pppoe -I eth0 -T 80 -m 1452"
+
+# An even more conservative version of the previous line, if things
+# don't work using -m 1452...
+#pty "/usr/sbin/pppoe -I eth0 -T 80 -m 1412"
+
+# If the computer connected to the Internet using pppoe is not being used
+# by other computers as a gateway to the Internet, you can try the following
+# line instead, for a small gain in speed:
+#pty "/usr/sbin/pppoe -I eth0 -T 80"
+
+
+# The following two options should work fine for most DSL users.
+
+# Assumes that your IP address is allocated dynamically
+# by your DSL provider...
+noipdefault
+
+% if ($usepeerdns) {
+# Try to get the name server addresses from the ISP.
+usepeerdns
+% }
+
+# Use this connection as the default route.
+# Comment out if you already have the correct default route installed.
+#defaultroute
+
+##
+# Section 2
+#
+# Uncomment if your DSL provider charges by minute connected
+# and you want to use demand-dialing.
+#
+# Disconnect after 300 seconds (5 minutes) of idle time.
+
+#demand
+#idle 300
+
+##
+# Section 3
+#
+# You shouldn't need to change these options...
+
+hide-password
+lcp-echo-interval 20
+lcp-echo-failure 3
+# Override any connect script that may have been set in /etc/ppp/options.
+connect /bin/true
+noauth
+persist
+mtu 1492
+
+# RFC 2516, paragraph 7 mandates that the following options MUST NOT be
+# requested and MUST be rejected if requested by the peer:
+# Address-and-Control-Field-Compression (ACFC)
+noaccomp
+# Asynchronous-Control-Character-Map (ACCM)
+default-asyncmap
+
+# Always retry on fail
+maxfail 0
+
+# Added for eBox
+# Used to pass the name of the ethernet interface to the ip-up.d script
+ipparam <% $iface %>
+
+plugin rp-pppoe.so <% $iface %>

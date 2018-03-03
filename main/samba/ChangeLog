@@ -1,3 +1,61 @@
+5.1
+	+ Manage thumbnailPhotos from share in samba.conf and edit user
+	  UI in commercial editions
+	+ Do not allow to add OUs inside containers
+	+ Allow to execute ad-migrate directly
+	+ Disable expiration for Kerberos service accounts
+	+ Add ZFS support for Samba Shares
+5.0.10
+	+ Integrate Samba 4.6
+	+ Remove manipulation or resolv.conf in standalone DC provision
+	  no longer required with the fix in zentyal-dns 5.0.3
+	+ Different resolv.conf manipulation in ADC depending if we
+	  are joining a Windows DC or a Zentyal one, always use
+	  127.0.0.1 when the provision is finished
+5.0.9
+	+ Fix enable-quotas
+5.0.8
+	+ Depend on new Samba 4.5.8+dfsg-2 (fixes CVE-2017-7494)
+5.0.7
+	+ Add proper template shell and homedir in smb.conf
+	+ Support for bridged mode in sambaInterfaces method
+5.0.6
+	+ Depend on new Samba 4.5.8
+	+ Fix setting of ACLs for 'Domain Users' group
+5.0.5
+	+ Depend on new Samba 4.5.6
+5.0.4
+	+ Depend on new Samba 4.5.4
+	+ Remove trigger that causes dpkg error on samba upgrade
+5.0.3
+	+ Fix wrong management of resolv.conf during ADC provision
+	+ Fix provision when netbios name and hostname are different
+5.0.2
+	+ Apply ACLs recursively on background instead of blocking save changes
+	+ Set noexpiry of administrator account only in DC mode, prevents
+	  error when user exists with a different name like "administrador"
+5.0.1
+	+ Remove acl and user_xattr mount options related code as ext4 already
+	  has them enabled by default
+	+ Fix module restart in postinst
+5.0
+	+ Integrate Samba 4.5
+	+ Remove perl bindings to use just samba upstream packages,
+	  current sysvol sync also deprecated, workaround at
+	  https://wiki.samba.org/index.php/Rsync_based_SysVol_replication_workaround
+	  this affects also ad-migrate script, currently it will not sync GPOs
+	+ Use winbind instead of sssd
+	+ DNS updates now done via GSS-TSIG no longer require custom samba patch
+	+ Remove deprecated scannedonly integration
+	+ Adapt code to perl 5.22
+	+ zentyal.set-uid-gid-numbers renamed to zentyal.samba-sync to include
+	  more functionality in next versions
+4.2.3
+	+ Add cron to flush idmap cache to avoid auth issues
+4.2.2
+	+ Add systemQuota object class when setting user quota
+	+ Added explicit check for full name in EBox::Samba::User::create
+	+ Add systemQuota object class when setting user quota
 4.2.1
 	+ Remove External AD mode leftovers in menu when not configured
 4.2

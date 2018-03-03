@@ -42,8 +42,8 @@ use MIME::Base64;
 
 use constant {
  FETCHMAIL_DN        => 'ou=fetchmail,ou=postfix',
- FETCHMAIL_CONF_FILE => '/etc/ebox-fetchmail.rc',
- FETCHMAIL_SERVICE   => 'ebox.fetchmail',
+ FETCHMAIL_CONF_FILE => '/etc/zentyal-fetchmail.rc',
+ FETCHMAIL_SERVICE   => 'zentyal.fetchmail',
  FETCHMAIL_CRON_FILE => '/etc/cron.d/ebox-mail',
 };
 
@@ -424,7 +424,7 @@ sub writeConf
                          {
                              uid  => 'fetchmail',
                              gid  => 'nogroup',
-                             mode =>  '0710',
+                             mode =>  '0600',
                          }
                         );
 
@@ -439,6 +439,7 @@ sub writeConf
                              mode =>  '0644',
                          }
                         );
+
 }
 
 sub daemonMustRun

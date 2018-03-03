@@ -23,7 +23,7 @@ use base qw(EBox::CGI::ClientBase);
 use EBox::Validate;
 use EBox::Util::BugReport;
 use EBox::Gettext;
-use TryCatch::Lite;
+use TryCatch;
 
 sub _print
 {

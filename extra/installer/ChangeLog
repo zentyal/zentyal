@@ -1,3 +1,9 @@
+5.0.1
+    + Based on Ubuntu 16.04.3
+    + UEFI support
+    + Include all video drivers to fix boot with GUI in HyperV, KVM or other hardware
+5.0
+    + Based on Ubuntu 16.04.2
 4.2
     + Based on Ubuntu 14.04.3
     + Support for newer network cards with non-ethX default iface names

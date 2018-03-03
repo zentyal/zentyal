@@ -29,7 +29,6 @@ use EBox::Firewall;
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Objects;
 use EBox::Network;
 use EBox::Firewall::IptablesHelper;
 use EBox::Exceptions::External;
@@ -38,7 +37,7 @@ use EBox::Sudo;
 
 use Perl6::Junction qw( any );
 use Socket;
-use TryCatch::Lite;
+use TryCatch;
 
 my $statenew = " -m state --state NEW ";
 
@@ -57,8 +56,8 @@ sub new
     my $class = shift;
     my $self = {};
     $self->{firewall} = EBox::Global->modInstance('firewall');
-    $self->{objects} = EBox::Global->modInstance('objects');
     $self->{net} = EBox::Global->modInstance('network');
+    $self->{objects} = $self->{net};
 
     bless($self, $class);
     return $self;
@@ -329,48 +328,8 @@ sub _setDHCP
 {
     my ($self, $interface) = @_;
 
+    $interface = $self->{net}->realIface($interface);
     return [ pf("-A ointernal $statenew -o $interface -p udp --dport 67 -j oaccept") ];
-}
-
-# Method: _setRemoteServices
-#
-#       Set output rules required to remote services to work
-#
-#
-sub _setRemoteServices
-{
-    my ($self) = @_;
-
-    my @commands;
-
-    my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('remoteservices') ) {
-        my $rsMod = $gl->modInstance('remoteservices');
-        if ( $rsMod->eBoxSubscribed() ) {
-            try {
-                # Allow communications against the API
-                eval "use EBox::RemoteServices::Configuration";
-                my $APIEndPoint = EBox::RemoteServices::Configuration->APIEndPoint();
-                my ($h, undef, undef, undef, @addrs) = gethostbyname($APIEndPoint);
-                if ($h) {
-                    foreach my $packedIPAddr (@addrs) {
-                        # Public API servers to connect to
-                        my $ipAddr = inet_ntoa($packedIPAddr);
-                        push(@commands,
-                             pf("-A ointernal $statenew -p tcp -d $ipAddr --dport 443 -j oaccept || true")
-                            );
-                    }
-                }
-            } catch (EBox::Exceptions::External $e) {
-                # Cannot contact Zentyal Remote, no DNS?
-                my ($exc) = @_;
-                my $msg = "Cannot contact Zentyal Remote: $exc";
-                EBox::error($msg);
-                $gl->addSaveMessage($msg);
-            }
-        }
-    }
-    return \@commands;
 }
 
 # Method: _nospoof
@@ -390,6 +349,8 @@ sub _setRemoteServices
 sub _nospoof # (interface, \@addresses)
 {
     my ($self, $iface, $addresses) = @_;
+
+    $iface = $self->{net}->realIface($iface);
 
     my @commands;
     foreach (@{$addresses}) {
@@ -478,6 +439,8 @@ sub start
 
     my @ifaces = @{$self->{net}->ifaces()};
     foreach my $ifc (@ifaces) {
+        next if ($self->{net}->ifaceMethod($ifc) eq 'bridged');
+
         if ($self->{net}->ifaceMethod($ifc) eq any('dhcp', 'ppp')) {
             push(@commands, @{$self->_setDHCP($ifc)});
         } else {
@@ -487,14 +450,13 @@ sub start
         }
     }
 
-    push(@commands, @{$self->_setRemoteServices()});
-
     push(@commands, @{$self->_redirects()});
     push (@commands, @{$self->_snat() });
 
     @ifaces = @{$self->{net}->ExternalIfaces()};
     foreach my $if (@ifaces) {
         my $method = $self->{net}->ifaceMethod($if);
+        $if = $self->{net}->realIface($if);
 
         my $input = $self->_inputIface($if);
         my $output = $self->_outputIface($if);
@@ -511,14 +473,27 @@ sub start
             my $addr = $self->{net}->ifaceAddress($if);
             my $src = $addr;
 
+            # If it's a bridge SNAT traffic out of the network
+            if ( $self->{net}->ifaceIsBridge($if) ) {
+                my $mask = $self->{net}->ifaceNetmask($if);
+                $src = "$addr/$mask";
+            }
             push(@commands,
                 pf("-t nat -A POSTROUTING ! -s $src $output " .
                    "-j SNAT --to $addr")
             );
         } elsif (($method eq 'dhcp') or ($method eq 'ppp')) {
-            push(@commands,
-                pf("-t nat -A POSTROUTING $output -j MASQUERADE")
-            );
+            if ( $self->{net}->ifaceIsBridge($if) ) {
+                push(@commands,
+                    pf("-t nat -A POSTROUTING $output -m physdev" .
+                       " ! --physdev-is-bridged -j MASQUERADE")
+                );
+            }
+            else {
+                push(@commands,
+                    pf("-t nat -A POSTROUTING $output -j MASQUERADE")
+                );
+            }
         }
     }
 
@@ -731,6 +706,7 @@ sub _iexternalCheckInit
 
     my @internalIfaces = @{$self->{net}->InternalIfaces()};
     foreach my $if (@internalIfaces) {
+        $if = $self->{net}->realIface($if);
         my $input = $self->_inputIface($if);
 
         push(@commands,
@@ -830,6 +806,7 @@ sub _ffwdrules
 
     my @internalIfaces = @{$self->{net}->InternalIfaces()};
     foreach my $if (@internalIfaces) {
+        $if = $self->{net}->realIface($if);
         my $input = $self->_inputIface($if);
 
         push(@commands, pf("-A ffwdrules $input -j RETURN"));
@@ -951,6 +928,7 @@ sub _log
 # Method: _outputIface
 #
 #   Returns iptables rule part for output interface selection
+#   Takes into account if the iface is part of a bridge
 #
 # Parameters:
 #
@@ -960,12 +938,18 @@ sub _outputIface # (iface)
 {
     my ($self, $iface) = @_;
 
-    return "-o $iface";
+    if ( $self->{net}->ifaceExists($iface) and
+         $self->{net}->ifaceMethod($iface) eq 'bridged' ) {
+        return  "-m physdev --physdev-out $iface";
+    } else {
+        return "-o $iface";
+    }
 }
 
 # Method: _inputIface
 #
 #   Returns iptables rule part for input interface selection
+#   Takes into account if the iface is part of a bridge
 #
 # Parameters:
 #
@@ -975,7 +959,12 @@ sub _inputIface # (iface)
 {
     my ($self, $iface) = @_;
 
-    return "-i $iface";
+    if ( $self->{net}->ifaceExists($iface) and
+         $self->{net}->ifaceMethod($iface) eq 'bridged' ) {
+        return  "-m physdev --physdev-in $iface";
+    } else {
+        return "-i $iface";
+    }
 }
 
 # Method: _natEnabled

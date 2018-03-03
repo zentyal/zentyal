@@ -1,0 +1,40 @@
+class: 'EBox::Squid'
+
+depends:
+    - network
+
+enabledepends:
+    - firewall
+
+models:
+    - GeneralSettings
+    - AccessRules
+    - NoCacheDomains
+    - TransparentExceptions
+    - FilterProfiles
+    - ContentFilterThreshold
+    - Extensions
+    - MIME
+    - DomainFilter
+    - DomainFilterCategories
+    - DomainFilterSettings
+    - AntiVirus
+    - DelayPools
+    - CategorizedLists
+
+composites:
+    General: [GeneralSettings, NoCacheDomains, TransparentExceptions]
+    FilterSettings: [ContentFilterThreshold, AntiVirus]
+    Domains: [DomainFilterSettings, DomainFilter]
+    ProfileConfiguration: [FilterSettings, Domains, DomainFilterCategories, MIME, Extensions]
+
+modeldepends:
+    AccessRules:
+        network/ObjectTable: [object]
+        squid/FilterProfiles: [profile]
+    DelayPools:
+        network/ObjectTable: [acl_object]
+
+foreign:
+    FilterProfiles: [ProfileConfiguration]
+

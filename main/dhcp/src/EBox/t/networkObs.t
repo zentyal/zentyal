@@ -28,7 +28,7 @@ EBox::init();
 
 my $dhcp = EBox::Global->modInstance('dhcp');
 my $net  = EBox::Global->modInstance('network');
-my $obj  = EBox::Global->modInstance('objects');
+my $obj  = $net;
 
 sub testCareVI
 {

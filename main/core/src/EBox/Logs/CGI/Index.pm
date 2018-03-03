@@ -26,7 +26,7 @@ use EBox::Model::Manager;
 use EBox::Validate;
 use EBox::Html;
 use POSIX qw(ceil);
-use TryCatch::Lite;
+use TryCatch;
 
 use constant PAGESIZE => 15;
 

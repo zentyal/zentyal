@@ -28,7 +28,7 @@ use EBox;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Protocol;
-use TryCatch::Lite;
+use TryCatch;
 use SOAP::Lite;
 use IO::Socket::SSL;
 

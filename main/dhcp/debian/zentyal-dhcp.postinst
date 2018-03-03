@@ -10,7 +10,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart dhcp $2
 
         # restart module
-        service zentyal dhcp restart || true
+        zs dhcp restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

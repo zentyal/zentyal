@@ -3,20 +3,26 @@ Section: web
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
 Uploaders: José A. Calvo <jacalvo@zentyal.com>
-Build-Depends: zbuildtools, po-debconf
+Build-Depends: zbuildtools, po-debconf, dh-systemd
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
-Vcs-Browser: http://git.zentyal.org/zentyal.git/tree/HEAD:/main/core
-Vcs-Git: git://git.zentyal.org/zentyal.git
+Vcs-Browser: https://github.com/zentyal/zentyal/tree/master/main/core
+Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-core
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-common (>= 4.2), zentyal-common (<< 4.3),
-         adduser, apport, anacron, cracklib-runtime, cron, curl, dbus, debconf, gpgv,
+Depends: adduser, anacron, cracklib-runtime, cron, curl, dbus, debconf, gpgv,
+         sudo, iproute, liblog-dispatch-perl, liblog-log4perl-perl,
+         libhtml-mason-perl (>= 1:1.56+zentyal1-1),
+         liblocale-gettext-perl, libtrycatch-perl,
+         libdevel-stacktrace-perl, libintl-perl, libnet-ip-perl, gettext,
+         libfile-slurp-perl, libreadonly-perl, libreadonly-xs-perl,
+         libperl6-junction-perl, libmail-rfc822-address-perl,
+         libsoap-lite-perl, libdata-validate-domain-perl,
+         libconfig-tiny-perl, libnet-interface-perl,
          libapt-pkg-perl, libauthen-simple-pam-perl,
-         libcgi-emulate-psgi-perl, libclass-singleton-perl, libclone-fast-perl,
-         libdatetime-timezone-perl,
+         libcgi-emulate-psgi-perl, libclass-singleton-perl, libclone-perl,
          libdbd-mysql-perl, libfile-copy-recursive-perl, libfile-mmagic-perl,
          libfilesys-df-perl, libhttp-date-perl, libjson-perl,
          libjson-rpc-perl, libjson-xs-perl, liblexical-persistence-perl,
@@ -26,8 +32,9 @@ Depends: zentyal-common (>= 4.2), zentyal-common (<< 4.3),
          libredis-perl (>= 2:1.9670), libstring-shellquote-perl, libsys-cpuload-perl,
          libsys-cpu-perl, libterm-readline-gnu-perl, libtest-deep-perl,
          libtime-piece-perl, liburi-encode-perl,
-         libyaml-libyaml-perl, mysql-server, nginx, nmap,
-         openssl, redis-server (>= 2:2.8.4), update-notifier-common, uwsgi-plugin-psgi,
+         libdatetime-timezone-perl, libyaml-libyaml-perl,
+         mysql-server, nginx, nmap, update-notifier-common,
+         openssl, redis-server (>= 2:2.8.4), uwsgi-plugin-psgi,
          apt-transport-https, libdate-calc-xs-perl, screen, at,
          ${misc:Depends}
 Description: Zentyal - Core

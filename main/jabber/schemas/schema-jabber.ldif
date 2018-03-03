@@ -1,0 +1,47 @@
+dn: CN=jabberUid,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.31607.2.1.2.1.1
+cn: jabberUid
+name: jabberUid
+ldapDisplayName: jabberUid
+description: User has Jabber account
+attributeSyntax: 2.5.5.3
+oMSyntax: 27
+isSingleValued: TRUE
+
+dn: CN=jabberAdmin,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.31607.2.1.2.1.2
+cn: jabberAdmin
+name: jabberAdmin
+ldapDisplayName: jabberAdmin
+description: User has administration Jabber account
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+
+dn: CN=userJabberAccount,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: classSchema
+governsID: 1.3.6.1.4.1.31607.2.1.2.2.1
+cn: userJabberAccount
+name: userJabberAccount
+ldapDisplayName: userJabberAccount
+subClassOf: posixAccount
+objectClassCategory: 3
+mayContain: jabberUid
+mayContain: jabberAdmin
+defaultObjectCategory: CN=userJabberAccount,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+possSuperiors: top
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1

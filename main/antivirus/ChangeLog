@@ -1,3 +1,12 @@
+5.1
+	+ Set version to 5.1
+5.0.2
+	+ Fix dashboard running state false negative
+5.0.1
+	+ Do not force execution of freshclam after restart as it takes
+	  a very long time to timeout when connection is not successful
+5.0
+	+ Run freshclam daily instead of hourly
 4.2
 	+ Update version to 4.2
 4.1

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+	configure)
+        # initial setup
+        /usr/share/zentyal/initial-setup --no-restart ipsec $2
+
+        # restart module
+        zs ipsec restart || true
+
+        dpkg-trigger --no-await zentyal-core
+    ;;
+esac
+
+exit 0

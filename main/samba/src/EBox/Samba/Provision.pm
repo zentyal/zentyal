@@ -42,7 +42,7 @@ use Net::LDAP::Util qw(ldap_explode_dn canonical_dn);
 use File::Temp qw( tempfile tempdir );
 use File::Slurp;
 use Time::HiRes;
-use TryCatch::Lite;
+use TryCatch;
 
 sub new
 {
@@ -330,10 +330,7 @@ sub provision
     # Check environment
     my $provisionIP = $self->checkEnvironment(2);
 
-    # Remove SSS caches
     my @cmds;
-    push (@cmds, 'rm -f /var/lib/sss/db/*');
-
     # Remove extracted keytab
     my $conf = EBox::Config::conf();
     my $keytab = "$conf/samba.keytab";
@@ -377,8 +374,10 @@ sub provision
         throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
     }
 
-    # Disable expiration on administrator account
-    EBox::Sudo::root('samba-tool user setexpiry administrator --noexpiry');
+    # Necessary to allow GSS-TSIG DNS updates via nsupdate -g in dns module
+    my $netbiosName = $users->model('DomainSettings')->value('netbiosName');
+    EBox::Sudo::root("samba-tool group addmembers DnsAdmins dns-$netbiosName");
+
     # Clean cache
     EBox::Sudo::root('net cache flush');
 
@@ -520,7 +519,6 @@ sub provisionDC
             " --domain='" . $usersModule->workgroup() . "'" .
             " --realm='" . $usersModule->kerberosRealm() . "'" .
             " --dns-backend=BIND9_DLZ" .
-            " --use-xattrs=yes " .
             " --use-rfc2307 " .
             " --function-level=2003 " .
             " --server-role='" . $usersModule->dcMode() . "'" .
@@ -598,6 +596,9 @@ sub provisionDC
         $self->setProvisioned(0);
         throw EBox::Exceptions::Internal($error);
     }
+
+    # Disable expiration on administrator account
+    EBox::Sudo::root('samba-tool user setexpiry administrator --noexpiry');
 }
 
 sub rootDseAttributes
@@ -1298,6 +1299,10 @@ sub provisionADC
     # Check the netbios domain name
     my $adNetbiosDomain = $self->checkADNebiosName($adServerIp, $adUser, $adPwd, $netbiosDomain);
 
+    # Detect if we are joining to Windows or Zentyal
+    EBox::Sudo::silentRoot("nmap --script smb-os-discovery.nse -p 139 $adServerIp | grep Samba");
+    my $isZentyal = ($? == 0);
+
     my $dnsFile = undef;
     my $adminAccountPwdFile = undef;
     my $passwdFile;
@@ -1399,12 +1404,16 @@ sub provisionADC
 
         $e->throw();
     }
-    # Revert primary resolver changes
-    if (defined $dnsFile and -f $dnsFile) {
+
+    if ($isZentyal) {
         EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
                          'resolvconf -d zentyal.temp');
         unlink $dnsFile;
+    } else {
+        # Restart network to regenerate original resolv.conf
+        EBox::Global->getInstance()->addModuleToPostSave('network');
     }
+
     # Remove stashed password
     if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
         unlink $adminAccountPwdFile;

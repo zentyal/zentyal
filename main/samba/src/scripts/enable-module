@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# Remount filesystem with user_xattr and acl options
-/usr/share/zentyal-samba/setup-filesystem
+# Unmask/enable systemd service
+systemctl unmask samba-ad-dc
+systemctl enable samba-ad-dc
 
 # enable quotas
 /usr/share/zentyal-samba/enable-quotas
 
 # This might fail if the fs does not support quotas
-service quota restart
+systemctl restart quota
 
 exit 0

@@ -1,3 +1,40 @@
+5.1
+	+ Auto-mark gateway as default when adding the only one
+5.0.10
+	+ Fix failover-checker script
+	+ Make DHCP hooks less error-prone and remove warnings
+5.0.9
+	+ Remove resolvconf workarounds in 5.0.2 and 5.0.3 now that
+	  proper fix is included in zentyal-dns 5.0.3
+5.0.8
+	+ Avoid save changes error also for any iface not present in
+	  /etc/network/interfaces, for example trunk ifaces, this is
+	  a regression on ifup behavior on Ubuntu 16.04
+	+ Avoid errors also for ifdown when iface not present in file
+5.0.7
+	+ Fix error on save changes after configuring iface as non set
+5.0.6
+	+ Restore PPPoE, bridged mode, multigateway and failover from Zentyal 4.0
+5.0.5
+	+ Restore bonding support from Zentyal 4.0
+5.0.4
+	+ Migrate services and objects redis data when upgrading from 4.X
+5.0.3
+	+ Provide transitional dummy packages for services and objects
+	+ Fix regression enforcing 127.0.0.1 as nameserver in ADC mode
+5.0.2
+	+ Make sure 127.0.0.1 is always used as nameserver with zentyal-samba
+5.0.1
+	+ Fix DHCP hooks
+	+ Fix module restart in postinst
+5.0
+	+ Integrate objects and services modules inside network
+	+ Use Net::Interface instead of IO::Interface::Simple, which
+	  seems buggy with new interface naming
+4.2.2
+	+ Fix regression in initial modules enable after last change
+4.2.1
+	+ Avoid race condition between saving changes and failover cron job
 4.2
 	+ Update version to 4.2
 4.1.1

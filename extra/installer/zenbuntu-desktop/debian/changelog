@@ -1,3 +1,34 @@
+zenbuntu-desktop (5.0.4) xenial; urgency=medium
+
+  * Include all video drivers to avoid problems in specific hardware or Hyper-V
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 16 Sep 2017 15:51:45 +0200
+
+zenbuntu-desktop (5.0.3) xenial; urgency=medium
+
+  * Do not disable lxdm on upgrades
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 05 Feb 2017 00:21:54 +0100
+
+zenbuntu-desktop (5.0.2) xenial; urgency=medium
+
+  * Avoid error in postinst when upgrading from 4.X
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 16 Jan 2017 23:55:49 +0100
+
+zenbuntu-desktop (5.0.1) xenial; urgency=medium
+
+  * Include custom zentyal.lxdm systemd service, fixes GUI starting
+    before webadmin and rest of services are ready
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 11 Dec 2016 17:19:13 +0100
+
+zenbuntu-desktop (5.0) xenial; urgency=medium
+
+  * Package for 16.04
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 17 Oct 2016 12:53:51 +0200
+
 zenbuntu-desktop (4.2) trusty; urgency=medium
 
   * Bump version to 4.2

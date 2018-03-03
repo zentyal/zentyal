@@ -32,7 +32,7 @@ package EBox::Types::Abstract;
 
 use EBox;
 
-use Clone::Fast;
+use Clone;
 use Scalar::Util 'weaken';
 use File::Basename;
 
@@ -83,7 +83,7 @@ sub clone
     my @suspectedAttrs = qw(model row);
     foreach my $key (keys %{$self}) {
         if ($key ne 'model' and $key ne 'row') {
-            $clonedType->{$key} = Clone::Fast::clone($self->{$key});
+            $clonedType->{$key} = Clone::clone($self->{$key});
         }
     }
     # Just copy the reference

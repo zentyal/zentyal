@@ -66,7 +66,7 @@ sub validateTypedRow
     my ($self, $action, $changedFields, $allFields) = @_;
 
     my $objectId = $allFields->{object}->value();
-    my $members = $self->global()->modInstance('objects')->objectMembers($objectId);
+    my $members = $self->global()->modInstance('network')->objectMembers($objectId);
 
     my $iface    = $self->parentRow()->valueByName('iface');
     my $ifaceIp  = $self->global()->modInstance('network')->ifaceAddresses($iface);
@@ -191,7 +191,7 @@ sub objectModelGetter
 
     my $global = $self->global();
     return sub {
-        return $global->modInstance('objects')->model('ObjectTable');
+        return $global->modInstance('network')->model('ObjectTable');
     };
 }
 
@@ -216,7 +216,7 @@ sub addresses
     my %addrs;
 
     my $global = $self->global();
-    my $objMod = $global->modInstance('objects');
+    my $objMod = $global->modInstance('network');
     my %namesSeen;
     my %macsSeen;
     for my $id (@{$self->ids()}) {

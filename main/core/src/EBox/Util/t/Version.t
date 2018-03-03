@@ -17,7 +17,7 @@ use warnings;
 
 use Test::More tests => 10;
 use Test::Exception;
-use TryCatch::Lite;
+use TryCatch;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Util::Version;

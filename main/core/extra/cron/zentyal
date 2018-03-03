@@ -1,8 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 # Check latest version
-URL="http://update.zentyal.org/last-4.2.txt"
+URL="http://update.zentyal.org/last-5.1.txt"
 TIMEOUT="300"
 DEST="/var/lib/zentyal/latestversion"
 wget --timeout $TIMEOUT $URL -O $DEST >/dev/null 2>&1
 
+# Stop services if commercial trial expired
+[ $(/usr/share/zentyal/shell '$global->edition()') == "trial-expired" ] && zs restart >/dev/null

@@ -37,7 +37,7 @@ use File::Copy;
 use File::Basename;
 use EBox::Util::SQLTypes;
 
-use TryCatch::Lite;
+use TryCatch;
 use Data::Dumper;
 
 use constant MYSQL_CUSTOM_CONF => '/etc/mysql/conf.d/zentyal.cnf';
@@ -75,7 +75,7 @@ sub updateMysqlConf
 
     if ($self->_innoDbValueHasChanged($nextInnoDbValue)) {
         EBox::Module::Base::writeConfFileNoCheck(MYSQL_CUSTOM_CONF, 'core/zentyal.cnf.mas', \@confParams);
-        EBox::Sudo::rootWithoutException('restart mysql');
+        EBox::Sudo::rootWithoutException('systemctl restart mysql');
     }
 }
 
@@ -100,7 +100,7 @@ sub _enableInnoDB
 {
     my ($self) = @_;
 
-    return EBox::Global->modExists('openchange');
+    return EBox::Global->modExists('sogo');
 }
 
 # Method: _innoDbValueHasChanged
@@ -695,7 +695,7 @@ sub  dumpDB
         $args .= ' --no-data';
     }
     $args .= " -h$dbhost --skip-lock-tables --quick --single-transaction";
-    
+
     my $dumpCommand = "mysqldump $args $dbname > $tmpFile";
 
     $self->commandAsSuperuser($dumpCommand);

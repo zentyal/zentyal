@@ -125,11 +125,13 @@ if (@formData and $formData[0]->model()->disableAutocomplete()) {
 <form class="formDiv changeRow" id="<% $modelName . '_ajaxform' %>" name="<% $modelName . '_ajaxform' %>" <% $formAttrs %>>
       <& SELF:editFormSection,
          name => $modelName,
+         action => $action,
          formData => \@formData,
       &>
 % foreach my $section (@sections) {
       <& SELF:editFormSection,
          name => $modelName,
+         action => $action,
          formData => \@formData,
          section => $section
       &>
@@ -172,6 +174,7 @@ if (@formData and $formData[0]->model()->disableAutocomplete()) {
 <%method editFormSection>
 <%args>
   $name
+  $action
   @formData
   $section => undef
 </%args>
@@ -195,6 +198,7 @@ if (@formData and $formData[0]->model()->disableAutocomplete()) {
 % }
       <& SELF:editRowFields,
          modelName => $name,
+         action => $action,
          formData => \@data
       &>
 % if ($section) {
@@ -219,6 +223,7 @@ if (@formData and $formData[0]->model()->disableAutocomplete()) {
 <%method editRowFields>
 <%args>
   $modelName
+  $action
   @formData
 </%args>
 % foreach my $type (grep { defined($_->HTMLSetter())} @formData) {
@@ -240,6 +245,7 @@ if (@formData and $formData[0]->model()->disableAutocomplete()) {
 <& $type->typeRowLayout(),
     'modelName' => $modelName,
     'type' => $type,
+    'action' => $action,
     'displayRow' => $displayRow,
     'disableSetter' => $disableSetter,
 &>

@@ -6,7 +6,6 @@ enabledepends:
 depends:
     - samba
     - network
-    - objects
 
 models:
     - SMTPOptions
@@ -27,7 +26,7 @@ composites:
 
 modeldepends:
     ObjectPolicy:
-        objects/ObjectTable: [object]
+        network/ObjectTable: [object]
 
 foreign:
     VDomains: [VDomainAliases, ExternalAliases, VDomainSettings]

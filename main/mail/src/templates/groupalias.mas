@@ -134,16 +134,6 @@ $(function(){
       });
   });
 
-   $('#OpenChangeUserOptions_ready').on('group_email_change', function(ev) {
-       if (ev.mail) {
-          $('#OpenChangeUserOptions_active').val(ev.ocEnabled ? 'yes' : 'no');
-          $(this).show();
-       } else {
-          $('#note_OpenChangeUserOptions, #error_OpenChangeUserOptions').html('').hide();
-          $(this).hide();
-      }
-    });
-
   refreshAliasList(<% $aliasesJS %>);
 
   var group_email_change_event = jQuery.Event("group_email_change");

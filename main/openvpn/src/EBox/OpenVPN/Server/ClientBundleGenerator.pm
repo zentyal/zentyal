@@ -28,7 +28,7 @@ use EBox::Exceptions::External;
 
 use English qw(-no_match_vars);
 use File::Basename;
-use TryCatch::Lite;
+use TryCatch;
 use Params::Validate qw(validate_pos);
 use File::Slurp qw(read_file);
 

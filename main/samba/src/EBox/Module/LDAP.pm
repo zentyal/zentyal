@@ -37,7 +37,7 @@ use File::Temp;
 use File::Slurp;
 use Authen::SASL;
 
-use TryCatch::Lite;
+use TryCatch;
 
 # Method: _ldapModImplementation
 #
@@ -195,7 +195,7 @@ sub _connectToSchemaMaster
     my $masterBind = $masterLdap->bind(sasl => $saslClient);
     if ($masterBind->is_error()) {
         throw EBox::Exceptions::LDAP(
-            message => __('Error binding to schama master LDAP:'),
+            message => __('Error binding to schema master LDAP:'),
             result => $masterBind);
     }
 
@@ -357,7 +357,7 @@ sub setupLDAPDone
 {
     my ($self) = @_;
     my $state = $self->get_state();
-    return $state->{'_schemasAdded'} and $state->{'_ldapSetup'};
+    return $state->{'_schemasAdded'} && $state->{'_ldapSetup'};
 }
 
 # Method: reprovisionLDAP

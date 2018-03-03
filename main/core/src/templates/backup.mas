@@ -2,30 +2,12 @@
   @backups => ()
   $modulesChanged => 1
   $subscribed => undef
-  $openchange => 0
 </%args>
 <%init>
 use EBox::Gettext;
 use EBox::Config;
 </%init>
-<div class="insideTab">
-<%doc>
-TODO: check what ad if any we want to shoe
-% if ($subscribed) {
-  <div class='ad'>
-        <% __sx('Thank you for registering your server! The configuration backup is checked on daily basis and stored automatically if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.', ohref => '<a href="https://remote.zentyal.com/services/backup/all" target="_blank">', chref => '</a>') %>
-  </div>
-% } else {
-  <div class='adwarning'>
-        <% __sx('{ohref}Register{chref} your Zentyal Server for free! And gain access to the following benefits: Remote configuration backup, customized zentyal.me subdomain, recorded webinars, whitepapers, trials and much more coming!', ohref => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription" target="_blank">', chref => '</a>') %>
-  </div>
-% }
-</%doc>
-% if ($openchange) {
-  <div class='note'>
-    <% __(q{User mail messages are neither backed up or restored. If you want to back up them manually they reside under '/var/vmail'} ) %>
-  </div>
-% }
+<!-- <div class="insideTab"> -->
 <& .backupSection, modulesChanged => $modulesChanged &>
 <& .restoreSection &>
 <& .listSection, backups => \@backups &>
@@ -37,6 +19,7 @@ $modulesChanged
 <%init>
 my $disabledAttr = $modulesChanged ? 'disabled' : '';
 </%init>
+<div class="item-block">
 <div class='help'>
     <% __x('Those modules which have not been enabled for first time in the {openref}Module Status{closeref} section will be ignored in both backup and restore operations.', openref => '<a href="/ServiceModule/StatusView">', closeref => '</a>') %>
 </div>
@@ -50,7 +33,6 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
         <% __(q{Backup is disabled because there are unsaved configuration changes. Please, save or discard them to be able to backup the configuration}) %>
   </div>
 % }
-<p>
 <form action='Backup' class="formDiv inline-form" method='POST'>
     <div class="field">
         <label><% __('Description') %></label>
@@ -77,7 +59,7 @@ ENDJS
               />
     </div>
 </form>
-</p>
+</div>
 </%def>
 
 <%def .restoreSection>
@@ -111,6 +93,7 @@ ENDJS
 </%init>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/fileUpload.js">//</script>
+<div class="item-block">
 <h3><% __('Restore Backup from File') %></h3>
 <div class='help'>
         <% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
@@ -134,9 +117,10 @@ ENDJS
   </form>
   <form class="force-right" action='ConfirmBackup' method='POST' enctype="multipart/form-data" id='<% $formId %>' >
       <input class="btn-green" type='submit' name='restoreFromFile' value="<% $title %>"
-                         onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'/>  
+                         onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'/>
   </form>
   </div>
+</div>
 </%def>
 
 
@@ -162,6 +146,7 @@ my %printableTypeById = (
 
 </%init>
 % if(@backups){
+<div class="item-block">
 <h3><% __("Backups' list") %></h3>
 <table class='dataTable' cellspacing='0'>
         <thead>
@@ -239,9 +224,11 @@ my %printableTypeById = (
 </%perl>
 <& legendTable.mas, elements => \@legendElements, nColumns => 3 &>
 % }
+</div>
 </%def>
 
 <%def .reportSection>
+<div class="item-block">
 <h3><% __('Configuration Report') %></h3>
 <p>
         <% __('You can generate a file with information about the state of your system. This file can be useful if you want to report a problem or seek for support.')%>
@@ -251,5 +238,6 @@ my %printableTypeById = (
                 <input type='submit' name='bugreport'
                            value="<% __('Generate and Download report file') %>" />
 </form>
-</%def>
 </div>
+</%def>
+<!-- </div> -->

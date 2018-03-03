@@ -32,6 +32,9 @@ authoritative;
 option rfc3442-classless-static-routes code 121 = array of integer 8;
 # MS routes
 option ms-classless-static-routes code 249 = array of integer 8;
+# Cisco IP phones
+option voip-tftp-servers code 150 = array of ip-address;
+option shoretel-director-server code 155 = ip-address;
 
 pid-file-name "<% $pidFile %>";
 
@@ -80,3 +83,9 @@ include "<% $keysFile %>";
         <& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces &>
 %           }
 % }
+
+# Add option 150 (0x96) and 155 (0x9b)
+if exists dhcp-parameter-request-list {
+option dhcp-parameter-request-list=concat(option dhcp-parameter-request-list,96);
+option dhcp-parameter-request-list=concat(option dhcp-parameter-request-list,9b);
+}

@@ -32,7 +32,7 @@ use EBox::Exceptions::Internal;
 use EBox::Global;
 use EBox::Sudo;
 
-use TryCatch::Lite;
+use TryCatch;
 use File::Basename;
 
 use constant CONF_DIR => 'ServiceModule/';
