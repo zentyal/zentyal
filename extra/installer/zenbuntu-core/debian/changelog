@@ -1,3 +1,9 @@
+zenbuntu-core (5.1) xenial; urgency=medium
+
+  * Bump version to 5.1
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 03 Mar 2018 19:58:32 +0100
+
 zenbuntu-core (5.0.4) xenial; urgency=medium
 
   * Fix update of grub conf on first install

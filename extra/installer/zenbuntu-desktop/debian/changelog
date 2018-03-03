@@ -1,3 +1,9 @@
+zenbuntu-desktop (5.1) xenial; urgency=medium
+
+  * Bump version to 5.1
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 03 Mar 2018 19:59:00 +0100
+
 zenbuntu-desktop (5.0.4) xenial; urgency=medium
 
   * Include all video drivers to avoid problems in specific hardware or Hyper-V

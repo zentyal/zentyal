@@ -15,7 +15,7 @@ REPO=archive.zentyal.com
 
 SOURCES_DIR=/target/etc/apt/sources.list.d
 mkdir -p $SOURCES_DIR
-echo "deb https://$LICENSE:lk@$REPO/zentyal-qa 5.0 main" > $SOURCES_DIR/zentyal-qa.list
+echo "deb https://$LICENSE:lk@$REPO/zentyal-qa 5.1 main" > $SOURCES_DIR/zentyal-qa.list
 
 CONF_DIR=/target/etc/apt/apt.conf.d/
 mkdir -p $CONF_DIR
