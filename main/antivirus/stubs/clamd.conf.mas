@@ -2,6 +2,8 @@
 $localSocket  => '/var/run/clamav/clamd.ctl'
 $maxThreads   => 12
 $strictMode   => 0
+$onAccess     => 0
+@paths        => ()
 </%args>
 
 LocalSocket <% $localSocket %>
@@ -65,4 +67,12 @@ ScanArchive true
 ArchiveBlockMax true
 ArchiveBlockEncrypted true
 ScanPDF true
+% }
+% if ($onAccess) {
+ScanOnAccess yes
+% foreach my $path (@paths) {
+OnAccess<% $path %>
+% }
+OnAccessPrevention yes
+OnAccessExtraScanning yes
 % }

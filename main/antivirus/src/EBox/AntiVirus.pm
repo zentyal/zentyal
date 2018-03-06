@@ -78,6 +78,23 @@ sub _create
 
 # Group: Public methods
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default include rules only if installing the first time
+    unless ($version) {
+        # Include Home directories and Shares by default
+        $self->model('Paths')->add(type => 'IncludePath', path => '/home');
+        $self->saveConfig();
+    }
+}
+
 # Method: enableService
 #
 #   Used to enable a service We have to verride this because squid needs a
@@ -196,9 +213,12 @@ sub _setConf
 
     my $localSocket = $self->localSocket();
 
-    my @clamdParams = (
-            localSocket => $localSocket,
-            );
+    my @clamdParams = (localSocket => $localSocket);
+
+    unless ($self->global()->communityEdition()) {
+        push (@clamdParams, onAccess => $self->model('Settings')->onAccessValue());
+        push (@clamdParams, paths => $self->model('Paths')->includes());
+    }
 
     $self->writeConfFile(CLAMD_CONF_FILE, "antivirus/clamd.conf.mas", \@clamdParams);
 
@@ -397,6 +417,22 @@ sub tableInfo
         'events'    => $events,
         'eventcol'  => 'event',
     }];
+}
+
+# Method: menu
+#
+#       Overrides EBox::Module method.
+#
+sub menu
+{
+    my ($self, $root) = @_;
+
+    return if $self->global()->communityEdition();
+
+    $root->add(new EBox::Menu::Item(text      => __('Antivirus'),
+                                    url       => 'Antivirus/Composite/General',
+                                    icon      => 'antivirus',
+                                    order     => 900));
 }
 
 1;

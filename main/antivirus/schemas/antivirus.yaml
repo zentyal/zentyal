@@ -1,3 +1,10 @@
 class: 'EBox::AntiVirus'
 depends:
     - network
+
+models:
+    - Settings
+    - Paths
+
+composites:
+    General: [Settings, Paths]
