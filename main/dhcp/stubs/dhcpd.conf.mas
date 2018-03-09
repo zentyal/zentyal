@@ -38,7 +38,7 @@ option shoretel-director-server code 155 = ip-address;
 
 pid-file-name "<% $pidFile %>";
 
-%       if ( $dynamicDNSEnabled ) {
+%       if ($dynamicDNSEnabled) {
 ddns-update-style    interim;
 ddns-updates         on;
 update-static-leases on;
@@ -50,7 +50,7 @@ ddns-update-style none;
 option domain-name-servers <% $dnsone %>\
 %		if(length($dnstwo) != 0) {
 , <% $dnstwo %>;
-% 		}else{
+%		}else{
 ;
 %		}
 %	}
@@ -79,8 +79,8 @@ include "<% $keysFile %>";
                 }
             }
 </%perl>
-%           if ( $ifaceToWrite ) {
-        <& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces &>
+%           if ($ifaceToWrite) {
+<& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces &>
 %           }
 % }
 

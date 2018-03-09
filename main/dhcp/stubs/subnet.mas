@@ -6,36 +6,33 @@
   %info
 </%args>
 % if (exists $info{'staticRoutes'} ) {
-        <& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw =>  $info{'gateway'}   &>
+<& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw =>  $info{'gateway'}   &>
 % }
     subnet <% $info{'net'} %> netmask <% $info{'netmask'} %> {
-                <& .options, info => \%info &>
-%   my $ranges = $info{'ranges'};
-%   foreach my $range (@{$ranges}) {
-            pool {
-                <& .include, name => $range->{'name'} &>
-                <& .thin_client_options, options => $range->{'options'} &>
-                range <% $range->{'from'} %> <% $range->{'to'} %>;
+        <& .options, info => \%info &>
+% my $ranges = $info{'ranges'};
+% foreach my $range (@{$ranges}) {
+        pool {
+            <& .include, name => $range->{'name'} &>
+            <& .thin_client_options, options => $range->{'options'} &>
+            range <% $range->{'from'} %> <% $range->{'to'} %>;
+        }
+% }
+    }
+
+    group { <& .options, info => \%info, fixed => 1 &>
+% foreach my $groupFixed (values %{$info{'fixed'}}) {
+        group { <& .thin_client_options, options => $groupFixed->{options} &>
+% foreach my $fixed (@{$groupFixed->{members}}) {
+            host <% $fixed->{'name'} %> {
+                hardware ethernet <% $fixed->{'mac'} %>;
+                fixed-address <% $fixed->{'ip'} %>;
+                <& .include, name => $fixed->{'name'} &>
             }
-%   }
+% }
         }
-
-        group {
-           <& .options, info => \%info, fixed => 1 &>
-%   foreach my $groupFixed (values %{$info{'fixed'}}) {
-       group {
-                   <& .thin_client_options, options => $groupFixed->{options} &>
-%          foreach my $fixed (@{$groupFixed->{members}}) {
-           host <% $fixed->{'name'} %> {
-              hardware ethernet <% $fixed->{'mac'} %>;
-              fixed-address <% $fixed->{'ip'} %>;
-                          <& .include, name => $fixed->{'name'} &>
-                          }
-%      }
-           }
-%       }
-        }
-
+% }
+    }
 <%doc>
   Print out the route options
 </%doc>
@@ -46,77 +43,76 @@
 </%args>
 % # Common options for the shared network
 % if (exists $info{'gateway'}) {
-            option routers <% $info{'gateway'} %>;
+        option routers <% $info{'gateway'} %>;
 % }
 % if(defined($info{'search'})) {
-            option domain-name "<% $info{'search'} %>";
+        option domain-name "<% $info{'search'} %>";
 % }
 % if(exists $info{'nameserver1'} and length($info{'nameserver1'}) > 0) {
-            option domain-name-servers <% $info{'nameserver1'} %>\
+        option domain-name-servers <% $info{'nameserver1'} %>\
 %       if(exists $info{'nameserver2'} and  length($info{'nameserver2'}) > 0) {
 , <% $info{'nameserver2'} %>;
 %       }else{
 ;
 %       }
 % }
-% if ( defined($info{'ntpServer'}) ) {
-                option ntp-servers <% $info{'ntpServer'} %>;
+% if (defined($info{'ntpServer'})) {
+        option ntp-servers <% $info{'ntpServer'} %>;
 % }
-% if ( defined($info{'winsServer'}) ) {
-                option netbios-name-servers <% $info{'winsServer'} %>;
-                option netbios-node-type 8;
+% if (defined($info{'winsServer'})) {
+        option netbios-name-servers <% $info{'winsServer'} %>;
+        option netbios-node-type 8;
 % }
-% if(defined($info{'defaultLeasedTime'})) {
-                default-lease-time <% $info{'defaultLeasedTime'} %>;
+% if (defined($info{'defaultLeasedTime'})) {
+        default-lease-time <% $info{'defaultLeasedTime'} %>;
 % }
-% if(defined($info{'maxLeasedTime'})) {
-                max-lease-time <% $info{'maxLeasedTime'} %>;
+% if (defined($info{'maxLeasedTime'})) {
+        max-lease-time <% $info{'maxLeasedTime'} %>;
 % }
 
-% if( defined($info{'dynamicDomain'}) ) {
-                option host-name = config-option server.ddns-hostname;
-%     if ( $fixed ) {
+% if (defined($info{'dynamicDomain'})) {
+        option host-name = config-option server.ddns-hostname;
+% if ($fixed) {
 <%doc>
   Check dhcp-eval and dhcp-options to know what this function does to
   add A record to DNS server
 </%doc>
-                ddns-hostname = pick-first-value ( host-decl-name,
-                                                   option fqdn.hostname,
-                                                   concat("static-", binary-to-ascii(10, 8, "-", leased-address)));
-                ddns-domainname      "<% $info{'staticDomain'} %>.";
-                zone <% $info{'staticDomain'} %>. {
-                    primary 127.0.0.1;
-                    key <% $info{'staticDomain'} %>;
-                }
-%         foreach my $revZone (@{$info{'reverseZones'}}) {
-                zone <% $revZone %>                       {
-                    primary 127.0.0.1;
-                    key <% $info{'dynamicDomain'} %>;
-                }
-%         }
-%     } else {
+        ddns-hostname = pick-first-value ( host-decl-name,
+                                           option fqdn.hostname,
+                                           concat("static-", binary-to-ascii(10, 8, "-", leased-address)));
+        ddns-domainname      "<% $info{'staticDomain'} %>.";
+        zone <% $info{'staticDomain'} %>. {
+            primary 127.0.0.1;
+            key <% $info{'staticDomain'} %>;
+        }
+% foreach my $revZone (@{$info{'reverseZones'}}) {
+        zone <% $revZone %>                       {
+            primary 127.0.0.1;
+            key <% $info{'dynamicDomain'} %>;
+        }
+% }
+% } else {
 <%doc>
   This ignores the data sent by the DHCP client and always set
   dhcp-leased-IP.domain name
 </%doc>
-                ddns-hostname = pick-first-value( option fqdn.hostname,
-                                                  option host-name,
-                                                  concat("dhcp-", binary-to-ascii(10, 8, "-", leased-address)));
-                ddns-domainname      "<% $info{'dynamicDomain'} %>.";
-                zone <% $info{'dynamicDomain'} %>. {
-                    primary 127.0.0.1;
-                    key <% $info{'dynamicDomain'} %>;
-                }
-%         foreach my $revZone (@{$info{'reverseZones'}}) {
-                zone <% $revZone %> {
-                    primary 127.0.0.1;
-                    key <% $info{'dynamicDomain'} %>;
-                }
-%         }
-%     }
+        ddns-hostname = pick-first-value( option fqdn.hostname,
+                                          option host-name,
+                                          concat("dhcp-", binary-to-ascii(10, 8, "-", leased-address)));
+        ddns-domainname      "<% $info{'dynamicDomain'} %>.";
+        zone <% $info{'dynamicDomain'} %>. {
+            primary 127.0.0.1;
+            key <% $info{'dynamicDomain'} %>;
+        }
+% foreach my $revZone (@{$info{'reverseZones'}}) {
+        zone <% $revZone %> {
+            primary 127.0.0.1;
+            key <% $info{'dynamicDomain'} %>;
+        }
+% }
+% }
 % }
 </%def>
-
 <%doc>
   If there is any file with the given name, then include it in the
   configuration
@@ -132,11 +128,10 @@
   my $dirName  = EBox::DHCP->IncludeDir();
   my $fileName = $dirName . $name;
 </%init>
-% if ( -r $fileName ) {
-                   include "<% $fileName %>";
+% if (-r $fileName) {
+            include "<% $fileName %>";
 % }
 </%def>
-
 <%doc>
   Print out the thin client options
 </%doc>
@@ -145,12 +140,15 @@
   %options
 </%args>
 % if (values(%options) > 0) {
-                   next-server <% $options{nextServer} %>;
-                   option tftp-server-name "<% $options{nextServer} %>";
-                   option voip-tftp-servers <% $options{tftpServers} %>;
-                   option shoretel-director-server <% $options{shoretelServer} %>;
-% if ( $options{filename} ) {
-                   filename    "<% $options{filename} %>";
+            next-server <% $options{nextServer} %>;
+% if ($options{tftpServers}) {
+            option voip-tftp-servers <% $options{tftpServers} %>;
+% }
+% if ($options{shoretelServer}) {
+            option shoretel-director-server <% $options{shoretelServer} %>;
+% }
+% if ($options{filename}) {
+            filename    "<% $options{filename} %>";
 % }
 % }
 </%def>
