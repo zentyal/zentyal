@@ -164,6 +164,9 @@ sub _table
                              optional      => 1,
                              help          => __('Thin client file path'),
                             ),
+    );
+
+    my @extraOptions = (
         new EBox::Types::Text(
                              fieldName     => 'option150',
                              printableName => __('Option 150'),
@@ -179,6 +182,10 @@ sub _table
                              help          => __('IP address of the ShoreTel Director server'),
                             ),
     );
+
+    unless (EBox::Global->communityEdition()) {
+        push (@tableDesc, @extraOptions);
+    }
 
     my $dataTable = {
                     tableName          => 'ThinClientOptions',
