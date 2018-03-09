@@ -907,6 +907,7 @@ td[class^="icon"] {
 .icon-dhcp { background-image: url("/data/images/package-icons/zentyal-dhcp.png");}
 .icon-ebackup { background-image: url("/data/images/package-icons/zentyal-ebackup.png");}
 .icon-firewall { background-image: url("/data/images/package-icons/zentyal-firewall.png");}
+.icon-ftp { background-image: url("/data/images/package-icons/zentyal-ftp.png");}
 .icon-ips { background-image: url("/data/images/package-icons/zentyal-ips.png");}
 .icon-ipsec { background-image: url("/data/images/package-icons/zentyal-ipsec.png");}
 .icon-jabber { background-image: url("/data/images/package-icons/zentyal-jabber.png");}
