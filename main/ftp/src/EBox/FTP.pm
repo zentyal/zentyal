@@ -49,7 +49,6 @@ sub menu
     $root->add(new EBox::Menu::Item('url' => 'FTP/View/Options',
                                     'icon' => 'ftp',
                                     'text'  => $self->printableName(),
-                                    'separator' => 'Office',
                                     'order' => 565));
 }
 

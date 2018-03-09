@@ -246,8 +246,7 @@ sub menu
     $root->add(new EBox::Menu::Item('url' => 'IPS/Composite/General',
                                     'text' => $self->printableName(),
                                     'icon' => 'ips',
-                                    'separator' => 'Gateway',
-                                    'order' => 228));
+                                    'order' => 510));
 }
 
 # Method: usedFiles
