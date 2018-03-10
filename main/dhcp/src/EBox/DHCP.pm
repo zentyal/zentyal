@@ -1031,6 +1031,7 @@ sub _dhcpLeases
         print $fh @lines;
         close ($fh);
         try {
+            local $SIG{__WARN__};
             $leases = Text::DHCPLeases->new(file => $tmpfile);
         } catch ($e) {
            EBox::error('Error parsing DHCP leases file (' . LEASEFILE . "): $e");
