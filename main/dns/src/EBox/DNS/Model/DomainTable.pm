@@ -491,7 +491,7 @@ sub addedRowNotify
     $newRow->elementByName('tsigKey')->setValue($secret);
     $newRow->store();
 
-    my $addrs = $self->parentModule()->allAddressesInUse();
+    my $addrs = $self->parentModule()->allAddressesInOtherDomains($newRow->valueByName('domain'));
 
     my $ipModel = $newRow->subModel('ipAddresses');
 

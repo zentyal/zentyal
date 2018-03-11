@@ -374,27 +374,28 @@ sub getAddresses
     return $self->_domainIpAddresses($domainRow->subModel('ipAddresses'));
 }
 
-# Method: allAddressesInUse
+# Method: allAddressesInOtherDomains
 #
-#   Returns a hash ref with all IPs of all domains
+#   Returns a hash ref with all IPs of all domains except the given one
 #
 # Returns:
 #
 #  array ref with this structure data:
 #      ip - domain/host where used
 #
-sub allAddressesInUse
+sub allAddressesInOtherDomains
 {
-    my ($self) = @_;
+    my ($self, $myDomain) = @_;
 
     my %ips;
 
     foreach my $d (@{$self->domains()}) {
         my $domain = $d->{name};
+        next if ($domain eq $myDomain);
         foreach my $h (@{$self->getHostnames($domain)}) {
             foreach my $ip (@{$h->{ip}}) {
                 next unless $ip;
-                $ips{$ip} = $h->{name} . '.' . $domain;
+                $ips{$ip} = $domain;
             }
         }
         foreach my $ip (@{$self->getAddresses($domain)}) {
@@ -2039,13 +2040,13 @@ sub hostDomainChangedDone
 
 sub checkDuplicatedIP
 {
-    my ($self, $ip) = @_;
+    my ($self, $ip, $myDomain) = @_;
 
     return if EBox::Config::boolean('allow_duplicated_ips');
 
-    my $domain = $self->allAddressesInUse()->{$ip};
+    my $domain = $self->allAddressesInOtherDomains($myDomain)->{$ip};
     if ($domain) {
-        throw EBox::Exceptions::DataInUse(__x("The IP '{a}' already assigned in '{d}'", a => $ip, d => $domain));
+        throw EBox::Exceptions::DataInUse(__x("The IP '{a}' is already in '{d}'", a => $ip, d => $domain));
     }
 }
 

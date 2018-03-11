@@ -50,7 +50,7 @@ sub validateRow
 {
     my ($self, $action, %params) = @_;
 
-    $self->parentModule()->checkDuplicatedIP($params{ip});
+    $self->parentModule()->checkDuplicatedIP($params{ip}, $self->parentRow()->parentRow()->valueByName('domain'));
 }
 
 sub pageTitle
