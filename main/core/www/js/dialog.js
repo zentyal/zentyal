@@ -99,6 +99,7 @@ Zentyal.Dialog.submitForm = function(formSelector, params) {
         url : url,
         data: data,
         dataType: 'json',
+        type: 'post',
         success: function (response){
             if (response.success) {
                 if ('success' in params) {
