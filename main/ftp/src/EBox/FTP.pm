@@ -65,11 +65,11 @@ sub initialSetup
     # Create default rules and services
     # only if installing the first time
     unless ($version) {
-        my $services = EBox::Global->modInstance('services');
+        my $network = EBox::Global->modInstance('network');
 
         my $serviceName = 'FTP';
-        unless($services->serviceExists(name => $serviceName)) {
-            $services->addMultipleService(
+        unless($network->serviceExists(name => $serviceName)) {
+            $network->addMultipleService(
                 'name' => $serviceName,
                 'description' => __('Zentyal FTP Server'),
                 'internal' => 1,
