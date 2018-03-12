@@ -1,4 +1,5 @@
 5.1
+	+ Use winbind for PAM auth instead of krb5
 	+ Remove samba dependency
 3.4
 	+ Enabled the chrootUsers option

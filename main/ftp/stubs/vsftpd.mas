@@ -11,7 +11,7 @@ auth	required	pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succ
 @include common-account
 @include common-session
 
-auth sufficient pam_krb5.so
+auth sufficient pam_winbind.so
 auth sufficient pam_unix.so
 auth required pam_deny.so
 % }
