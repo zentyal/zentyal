@@ -50,6 +50,9 @@ use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 use EBox::SyncFolders::Folder;
 use EBox::Samba::User;
+use EBox::Dashboard::ModuleStatus;
+use EBox::Dashboard::Section;
+use EBox::Dashboard::Value;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use TryCatch;
@@ -1488,15 +1491,12 @@ sub _filterDashboardSection
 
     my $section = new EBox::Dashboard::Section('mailfilter', 'Mail filter');
 
-    my $service     = $self->service('filter');
+    my $service = $self->service('filter');
     my $statusValue =  $service ? __('enabled') : __('disabled');
 
-    $section->add( new EBox::Dashboard::Value( __('Status'), $statusValue));
+    $section->add(new EBox::Dashboard::Value( __('Status'), $statusValue));
 
-    $section->add(
-            new EBox::Dashboard::Value(__(q{Mail server's filter}),
-                $statusValue)
-            );
+    $section->add(new EBox::Dashboard::Value(__(q{Mail server's filter}), $statusValue));
 
     $service or return $section;
 

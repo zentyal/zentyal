@@ -1,5 +1,5 @@
 5.1
-	+ Set version to 5.1
+	+ Avoid Dashboard::Value errors in zentyal.log by adding missing use
 5.0.7
 	+ Fix fetchmail daemon status in dashboard widget
 5.0.6
