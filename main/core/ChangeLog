@@ -1,4 +1,6 @@
 5.1
+	+ Avoid uninitialized comparison warnings in zentyal.log regarding
+	  EBox::Types::Service and EBox::Types::IPAddr
 	+ Use POST method when submitting forms in AJAX requests from dialogs
 	+ Pass action to HTMLSetter templates so they can have a different
 	  behavior for add and edit

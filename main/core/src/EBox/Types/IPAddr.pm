@@ -245,6 +245,7 @@ sub isEqualTo
         return undef;
     }
 
+    local $SIG{__WARN__};
     if ($self->ip() ne $other->ip()) {
         return undef;
     } elsif ($self->mask() ne $other->mask()) {

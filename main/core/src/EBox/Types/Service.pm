@@ -128,14 +128,16 @@ sub cmp
 {
     my ($self, $compared) = @_;
 
-    $compared->isa(__PACKAGE__) or
-        return undef;
+    $compared->isa(__PACKAGE__) or return undef;
 
     my $portA = $self->port();
+    defined ($portA) or return undef;
+
     my $portB = $compared->port();
+    defined ($portB) or return undef;
 
     my $res = $portA <=> $portB;
-    if ( $res != 0 ) {
+    if ($res != 0) {
         return $res;
     }
 
