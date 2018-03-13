@@ -122,18 +122,9 @@ sub theme
 sub _readTheme
 {
     my $path = EBox::Config::share() . 'zentyal/www';
-    my $theme = "$path/default.theme";
+    my $default = "$path/default.theme";
     my $custom = "$path/custom.theme";
-    if (-f $custom) {
-        # Check theme's signature
-#        if (EBox::Util::GPG::checkSignature($custom)) {
-            $theme = $custom;
-            EBox::info('Using custom default.theme');
-#        } else {
-#            EBox::warn('Invalid signature in custom.theme, fallbacking to default.theme');
-#        }
-    }
-    my ($yaml) = YAML::XS::LoadFile($theme);
+    my ($yaml) = YAML::XS::LoadFile((-f $custom) ? $custom : $default);
     return $yaml;
 }
 
