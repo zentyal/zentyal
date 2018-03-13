@@ -1,4 +1,5 @@
 5.1
+	+ Check domain functional level <= 2008 R2 before joining
 	+ Manage thumbnailPhotos from share in samba.conf and edit user
 	  UI in commercial editions
 	+ Do not allow to add OUs inside containers

@@ -895,16 +895,20 @@ sub checkFunctionalLevels
     my $adLdap = new Net::LDAP($adServerIp);
     my $rootDse = $adLdap->root_dse(attrs => $self->rootDseAttributes());
     my $forestLevel = $rootDse->get_value('forestFunctionality');
-    unless ($forestLevel >= 2) {
+    if ($forestLevel < 2) {
         throw EBox::Exceptions::External(
             __('The forest functional level must be Windows Server 2003 ' .
                'or higher. Please raise your forest functional level.'));
     }
     my $domainLevel = $rootDse->get_value('domainFunctionality');
-    unless ($domainLevel >= 2) {
+    if ($domainLevel < 2) {
         throw EBox::Exceptions::External(
             __('The domain functional level must be Windows Server 2003 ' .
                'or higher. Please raise your domain functional level.'));
+    } elsif ($domainLevel > 4) {
+        throw EBox::Exceptions::External(
+            __('The domain functional level must be Windows Server 2008 R2 ' .
+               'or lower. Please lower your domain functional level.'));
     }
 }
 
@@ -1272,7 +1276,7 @@ sub provisionADC
     # Check DC is reachable
     $self->checkServerReachable($adServerIp);
 
-    # Check DC functional levels > 2000
+    # Check DC functional levels >= 2003 && <= 2008R2
     $self->checkFunctionalLevels($adServerIp);
 
     # Check RFC2307 compliant schema
