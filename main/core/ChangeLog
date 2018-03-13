@@ -8,6 +8,7 @@
 	+ Add ftp icon
 	+ Rename l2tp package icon to ipsec
 	+ Forbid creation of local administrator user if exists in samba
+	+ Use EBox::Config::version for commercial repo URL
 5.0.10
 	+ Fix regression in EBox::Util::Version
 5.0.9
