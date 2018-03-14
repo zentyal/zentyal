@@ -34,7 +34,6 @@ use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::Internal;
 use EBox::IPS::LogHelper;
 use EBox::IPS::FirewallHelper;
-use List::Util;
 use POSIX;
 
 use constant SURICATA_CONF_FILE    => '/etc/suricata/suricata-debian.yaml';
@@ -42,8 +41,6 @@ use constant SURICATA_DEFAULT_FILE => '/etc/default/suricata';
 use constant SURICATA_INIT_FILE    => '/etc/init/suricata.conf';
 use constant SNORT_RULES_DIR       => '/etc/snort/rules';
 use constant SURICATA_RULES_DIR    => '/etc/suricata/rules';
-use constant SURICATA_UPSTART_JOB  => 'suricata';
-use constant SURICATA_LOG_FILE     => '/var/log/upstart/' . SURICATA_UPSTART_JOB . '.log';
 
 # Group: Protected methods
 
@@ -79,7 +76,7 @@ sub _daemons
 {
     return [
         {
-         'name'         => SURICATA_UPSTART_JOB,
+         'name'         => 'suricata',
          'precondition' => \&_suricataNeeded,
         }
     ];
@@ -135,10 +132,7 @@ sub nfQueueNum
 {
     my ($self) = @_;
 
-    # As l7filter may take as much as interfaces are up, a security
-    # measure is set to + 10 of enabled interfaces
-    my $netMod = $self->global()->modInstance('network');
-    my $queueNum = scalar(@{$netMod->ifaces()}) + 10;
+    my $queueNum = (EBox::Config::configkey('ips_nfqueue') or 0);
     if ($queueNum > 65535) {
         throw EBox::Exceptions::Internal('There are too many interfaces to set a valid NFQUEUE number');
     }
@@ -222,11 +216,8 @@ sub _setConf
                          [ mode => $mode, rules => $rules ]);
 
     $self->writeConfFile(SURICATA_DEFAULT_FILE, 'ips/suricata.mas',
-                         [ enabled => $self->isEnabled() ]);
-
-    $self->writeConfFile(SURICATA_INIT_FILE, 'ips/suricata.upstart.mas',
-                         [ nfQueueNum => $self->nfQueueNum() ]);
-
+                         [ enabled => $self->isEnabled(),
+                           nfQueueNum => $self->nfQueueNum() ]);
 }
 
 # Group: Public methods

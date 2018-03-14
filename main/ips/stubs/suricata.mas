@@ -1,12 +1,11 @@
 <%args>
     $enabled
+    $nfQueueNum
 </%args>
 # Default config for Suricata
 
-% my $run = $enabled ? 'yes' : 'no';
-
 # set to yes to start the server in the init.d script
-RUN=<% $run %>
+RUN=<% $enabled ? 'yes' : 'no' %>
 
 # Configuration file to load
 SURCONF=/etc/suricata/suricata-debian.yaml
@@ -21,7 +20,7 @@ LISTENMODE=nfqueue
 #IFACE=eth0
 
 # Queue number to listen on (for nfqueue mode)
-NFQUEUE=0
+NFQUEUE=<% $nfQueueNum %>
 
 # Load Google TCMALLOC if libtcmalloc-minimal0 is installed
 # This _might_ give you very very small performance gain....
