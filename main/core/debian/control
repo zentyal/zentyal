@@ -33,7 +33,7 @@ Depends: adduser, anacron, cracklib-runtime, cron, curl, dbus, debconf, gpgv,
          libsys-cpu-perl, libterm-readline-gnu-perl, libtest-deep-perl,
          libtime-piece-perl, liburi-encode-perl,
          libdatetime-timezone-perl, libyaml-libyaml-perl,
-         mysql-server, nginx, nmap, update-notifier-common,
+         mysql-server, nginx, nmap, update-notifier-common, libpam-cap,
          openssl, redis-server (>= 2:2.8.4), uwsgi-plugin-psgi,
          apt-transport-https, libdate-calc-xs-perl, screen, at,
          ${misc:Depends}

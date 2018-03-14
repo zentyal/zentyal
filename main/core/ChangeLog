@@ -1,4 +1,5 @@
 5.1
+	+ Add libpam-cap dependency to avoid warnings in auth.log
 	+ Avoid uninitialized comparison warnings in zentyal.log regarding
 	  EBox::Types::Service and EBox::Types::IPAddr
 	+ Use POST method when submitting forms in AJAX requests from dialogs
