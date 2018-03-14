@@ -1,4 +1,5 @@
 5.1
+	+ Remove deprecated logs consolidate and rules update code
 	+ Remove deprecated 'Source' field in rules table
 5.0
 	+ Use TryCatch instead of TryCatch::Lite

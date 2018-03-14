@@ -30,7 +30,6 @@ use TryCatch;
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
-use EBox::DBEngineFactory;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::Internal;
 use EBox::IPS::LogHelper;
@@ -140,7 +139,7 @@ sub nfQueueNum
     # measure is set to + 10 of enabled interfaces
     my $netMod = $self->global()->modInstance('network');
     my $queueNum = scalar(@{$netMod->ifaces()}) + 10;
-    if ( $queueNum > 65535 ) {
+    if ($queueNum > 65535) {
         throw EBox::Exceptions::Internal('There are too many interfaces to set a valid NFQUEUE number');
     }
     return $queueNum;
@@ -292,7 +291,6 @@ sub logHelper
 #       Two tables are created:
 #
 #           - ips_event for IPS events
-#           - ips_rule_updates for IPS rule updates
 #
 # Overrides:
 #
@@ -324,147 +322,16 @@ sub tableInfo
             'events' => { 'alert' => __('Alert') },
             'eventcol' => 'event',
             'filter' => ['priority', 'description', 'source', 'dest'],
-            'consolidate' => $self->_consolidate(),
         } ];
 
     return $tableInfos;
-}
-
-sub _consolidate
-{
-    my ($self) = @_;
-
-    my $table = 'ips_alert';
-
-    my $spec = {
-        accummulateColumns  => { alert => 0 },
-        consolidateColumns => {
-                                event => {
-                                          conversor => sub { return 1; },
-                                          accummulate => 'alert',
-                                         },
-                              },
-    };
-
-    return { $table => $spec };
-}
-
-# Method: rulesNum
-#
-#     Get the number of available IPS rules
-#
-# Parameters:
-#
-#     force - Boolean indicating we are forcing to calculate again
-#
-# Returns:
-#
-#     Int - the number of available IPS rules
-#
-sub rulesNum
-{
-    my ($self, $force) = @_;
-
-    my $key = 'rules_num';
-    $force = 0 unless defined($force);
-
-    my $rulesNum;
-    if ( $force or (not $self->st_entry_exists($key)) ) {
-        my $rulesDir = SNORT_RULES_DIR . '/';
-        my @files = <${rulesDir}*.rules>;
-
-        # Count the number of rules removing blank lines and comment lines
-        my @numRules = map { `sed -e '/^#/d' -e '/^\$/d' $_ | wc -l` } @files;
-        $rulesNum = List::Util::sum(@numRules);
-        $self->st_set_int($key, $rulesNum);
-    } else {
-        $rulesNum = $self->st_get_int($key);
-    }
-    return $rulesNum;
-}
-
-# Method: notifyUpdate
-#
-#      This method is intended to store the update log in the
-#      ips_rule_update table.
-#
-#      It suceeds if the daemon is running, it does not if the daemon
-#      is not running waiting for 10s (daemon restarting lag maximum
-#      time)
-#
-#      It will send an event if the attempt has failed
-#
-# Parameters:
-#
-#      failureReason - String reason on failure.
-#                      *(Optional)* Default value: check the daemon is running
-#
-sub notifyUpdate
-{
-    my ($self, $failureReason) = @_;
-
-    my $event = 'success';
-    if ($self->isEnabled()) {
-        if ( $failureReason ) {
-            $event  = 'failure';
-        } else {
-            my $count = 0;
-            while (not $self->isRunning()) {
-                last if (++$count > 10);
-                sleep(1);
-            }
-            if ($count >= 10) {
-                $event = 'failure';
-                $failureReason = __x('Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for details and rule changelog at {url} ({name} rules)',
-                                     log  => SURICATA_LOG_FILE,
-                                     url  => 'http://rules.emergingthreats.net/changelogs',
-                                     name => 'suricata.open');
-            } else {
-                $failureReason = "";
-            }
-        }
-        my $dbh = EBox::DBEngineFactory::DBEngine();
-        $dbh->unbufferedInsert('ips_rule_updates',
-                               { timestamp      => POSIX::strftime('%Y-%m-%d %H:%M:%S', localtime()),
-                                 failure_reason => substr($failureReason, 0, 512), # Truncate
-                                 event          => $event });
-        if ($event eq 'failure') {
-            # Send an event
-            $self->_sendFailureEvent($failureReason);
-        }
-    }
-
 }
 
 sub firewallHelper
 {
     my ($self) = @_;
 
-    # TODO: check also if IPS mode is enabled
-    if ($self->isEnabled()) {
-        return EBox::IPS::FirewallHelper->new();
-    }
-
-    return undef;
-}
-
-# Group: Private methods
-
-# Send failure event when a failure attempt happens
-sub _sendFailureEvent
-{
-    my ($self, $message) = @_;
-
-    my $global = $self->global();
-    if ($global->modExists('events')) {
-        my $events = $global->modInstance('events');
-        if ( $events->isRunning() ) {
-            $events->sendEvent(
-                message    => $message,
-                source     => 'ips-rule-update',
-                level      => 'warn');
-        }
-    }
+    return ($self->isEnabled() ? EBox::IPS::FirewallHelper->new() : undef);
 }
 
 1;
