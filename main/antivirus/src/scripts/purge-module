@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# Force regeneration of smb.conf and samba restart if antivirus is enabled
-if /usr/share/zentyal/grep-redis AntivirusDefault | grep ^samba | grep -q 'scan.*1'
-then
-    service zentyal samba restart
-fi
-
-exit 0
