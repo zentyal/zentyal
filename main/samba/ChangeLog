@@ -1,4 +1,5 @@
 5.1
+	+ Comment field is now optional when adding a share
 	+ Explicit set of valid users write/read/admin lists for share security
 	  unless "unmanaged_acls = yes" is set in /etc/zentyal/samba.conf
 	+ Check domain functional level <= 2008 R2 before joining

@@ -41,7 +41,9 @@ use EBox::Gettext;
 # <% @shares ? "Shares\n" : "No shares configured" %>
 % foreach my $share (@shares) {
 [<% $share->{share} %>]
+% if ($share->{comment}) {
     comment = <% $share->{comment} %>
+% }
     path = <% $share->{path} %>
     browseable = yes
     force create mode = 0660
