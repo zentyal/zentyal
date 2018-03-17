@@ -1,4 +1,6 @@
 5.1
+	+ Explicit set of valid users write/read/admin lists for share security
+	  unless "unmanaged_acls = yes" is set in /etc/zentyal/samba.conf
 	+ Check domain functional level <= 2008 R2 before joining
 	+ Manage thumbnailPhotos from share in samba.conf and edit user
 	  UI in commercial editions

@@ -43,12 +43,19 @@ use EBox::Gettext;
 [<% $share->{share} %>]
     comment = <% $share->{comment} %>
     path = <% $share->{path} %>
-    browseable = Yes
-    read only = No
+    browseable = yes
     force create mode = 0660
     force directory mode = 0660
 % if ($share->{guest}) {
     guest ok = yes
+    read only = no
+% } elsif ($unmanagedAcls) {
+    read only = no
+% } else {
+    valid users = <% $share->{validUsers} %>
+    read list = <% $share->{readOnly} %>
+    write list = <% $share->{readWrite} %>
+    admin users = <% $share->{administrators} %>
 % }
 % my $rb = ($recycle xor defined($recycle_exceptions->{'share'}->{$share->{'share'}}));
 % my $objects = 'acl_xattr';
