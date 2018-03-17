@@ -1,4 +1,5 @@
 5.1
+	+ Update suricata conf stub with default values from Ubuntu 16.04
 	+ Improved daemon management and firewall integration
 	+ Use NFQUEUE=0 by default, overrideable with ips_nfqueue confkey
 	+ Remove deprecated logs consolidate and rules update code
