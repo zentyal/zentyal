@@ -45,10 +45,13 @@ sub manage # (daemon,action)
     }
 
     if ($action eq 'start') {
+        EBox::Sudo::silentRoot("systemctl enable '$daemon'");
         EBox::Sudo::root("systemctl start '$daemon'");
     } elsif ($action eq 'stop') {
         EBox::Sudo::root("systemctl stop '$daemon'") if (running($daemon));
+        EBox::Sudo::silentRoot("systemctl disable '$daemon'");
     } elsif ($action eq 'restart') {
+        EBox::Sudo::silentRoot("systemctl enable '$daemon'");
         EBox::Sudo::root("systemctl restart '$daemon'");
     } elsif ($action eq 'reload') {
         EBox::Sudo::root("systemctl reload '$daemon'") if (running($daemon));
