@@ -90,6 +90,8 @@ sub _suricataNeeded
 {
     my ($self) = @_;
 
+    return 0 unless $self->isEnabled();
+
     return (@{$self->enabledIfaces()} > 0);
 }
 
@@ -322,7 +324,7 @@ sub firewallHelper
 {
     my ($self) = @_;
 
-    return ($self->isEnabled() ? EBox::IPS::FirewallHelper->new() : undef);
+    return ($self->_suricataNeeded() ? EBox::IPS::FirewallHelper->new() : undef);
 }
 
 1;

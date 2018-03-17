@@ -1,4 +1,5 @@
 5.1
+	+ Improved daemon management and firewall integration
 	+ Use NFQUEUE=0 by default, overrideable with ips_nfqueue confkey
 	+ Remove deprecated logs consolidate and rules update code
 	+ Remove deprecated 'Source' field in rules table

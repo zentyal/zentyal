@@ -1,0 +1,7 @@
+#!/bin/bash
+
+systemctl stop suricata || true
+
+modprobe nfnetlink_queue
+
+exit 0
