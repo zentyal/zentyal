@@ -744,45 +744,6 @@ sub _postServiceHook
     # Execute the hook actions *only* if Samba module is enabled and we were invoked from the web application, this will
     # prevent that we execute this code with every service restart or on server boot delaying such processes.
     if ($enabled and ($0 =~ /\/global-action$/)) {
-
-        # Only set global roaming profiles and drive letter options
-        # if we are not replicating to another Windows Server to avoid
-        # overwritting already existing per-user settings. Also skip if
-        # unmanaged_home_directory config key is defined
-        my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
-        unless ($self->global()->modInstance('samba')->dcMode() eq 'adc') {
-            EBox::info("Setting roaming profiles...");
-            my $netbiosName = $self->netbiosName();
-            my $realmName = $self->kerberosRealm();
-            my $drive = $self->drive();
-            my $drivePath = "\\\\$netbiosName.$realmName";
-            my $profilesPath = $self->_roamingProfilesPath();
-
-            # Skip if unmanaged_home_directory config key is defined and
-            # no changes made to roaming profiles
-            my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
-            my $state = $self->get_state();
-            my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
-            $self->set_state($state);
-            my $users = $self->users();
-            if ($roamingProfilesChanged or not $unmanagedHomes) {
-                foreach my $user (@{$users}) {
-                    # Set roaming profiles
-                    if ($roamingProfilesChanged) {
-                        if ($self->roamingProfiles()) {
-                            $user->setRoamingProfile(1, $profilesPath, 1);
-                        } else {
-                            $user->setRoamingProfile(0, undef, 1);
-                        }
-                    }
-
-                    # Mount user home on network drive
-                    $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
-                    $user->save();
-                }
-            }
-        }
-
         my $host = $ldap->rootDse()->get_value('dnsHostName');
         unless (defined $host and length $host) {
             throw EBox::Exceptions::Internal('Could not get DNS hostname');

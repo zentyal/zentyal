@@ -1,4 +1,6 @@
 5.1
+	+ Set homeDrive, homeDirectory and profilePath attributes after
+	  adding new users without need of explicit save change operation
 	+ Remove no longer required zentyal user ACLs on share paths
 	+ Comment field is now optional when adding a share
 	+ Explicit set of valid users write/read/admin lists for share security

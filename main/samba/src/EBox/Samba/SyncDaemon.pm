@@ -36,12 +36,13 @@ sub new
 {
     my ($class) = @_;
 
-    my $samba = EBox::Global->modInstance('samba');
+    my $samba = EBox::Global->getInstance(1)->modInstance('samba');
     my $ldap = $samba->ldap();
     my $rootDse = $ldap->rootDse();
     my $defaultNC = $rootDse->get_value('defaultNamingContext');
 
     my $self = {
+        samba => $samba,
         ldap => $ldap,
         defaultNC => $defaultNC,
     };
@@ -85,6 +86,25 @@ sub checkUsers
 {
     my ($self, $ldap, $containers) = @_;
 
+    my $samba = $self->{samba};
+
+    # Only set global roaming profiles and drive letter options
+    # if we are not replicating to another Windows Server to avoid
+    # overwritting already existing per-user settings. Also skip if
+    # unmanaged_home_directory config key is defined
+    my $unmanagedHomes = (EBox::Config::boolean('unmanaged_home_directory') or ($samba->dcMode() eq 'adc'));
+
+    my $netbiosName = $samba->netbiosName();
+    my $realmName = $samba->kerberosRealm();
+    my $drive = $samba->drive();
+    my $drivePath = "\\\\$netbiosName.$realmName";
+    my $profilesEnabled = $samba->roamingProfiles();
+    my $profilesPath = $samba->_roamingProfilesPath();
+
+    my $state = $samba->get_state();
+    my $profilesChanged = delete $state->{_roamingProfilesChanged};
+    $samba->set_state($state);
+
     my $primaryGidNumber = EBox::Samba::User->_domainUsersGidNumber();
     my $userFilter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))(!(showInAdvancedViewOnly=*))(!(isCriticalSystemObject=*)))";
     foreach my $containerDN (@{$containers}) {
@@ -98,26 +118,43 @@ sub checkUsers
         foreach my $entry (@entries) {
             my $user = new EBox::Samba::User(entry => $entry);
             my $dn = $user->dn();
+            my $modified = 0;
 
-            EBox::debug("Checking user '$dn' uidNumber and gidNumber attributes");
-            unless (defined $user->get('uidNumber')) {
-                try {
+            EBox::debug("Checking user '$dn' attributes to update...");
+            try {
+                unless (defined $user->get('uidNumber')) {
                     my $uidNumber = EBox::Samba::User->_newUserUidNumber(0);
                     EBox::Samba::User->_checkUid($uidNumber, 0);
-                    $user->set('uidNumber', $uidNumber);
-                    EBox::info("Set user '$dn' uidNumber '$uidNumber'");
-                } catch ($error) {
-                    EBox::error("Error setting uidNumber on user '$dn': $error");
+                    $user->set('uidNumber', $uidNumber, 1);
+                    EBox::info("Set user '$dn' uidNumber=$uidNumber");
+                    $modified = 1;
                 }
-            }
 
-            unless (defined $user->get('gidNumber')) {
-                try {
-                    $user->set('gidNumber', $primaryGidNumber);
-                    EBox::info("Set user '$dn' gidNumber '$primaryGidNumber'");
-                } catch ($error) {
-                    EBox::error("Error setting gidNumber on group '$dn': $error");
+                unless (defined $user->get('gidNumber')) {
+                    $user->set('gidNumber', $primaryGidNumber, 1);
+                    EBox::info("Set user '$dn' gidNumber=$primaryGidNumber");
+                    $modified = 1;
                 }
+
+                unless ($unmanagedHomes) {
+                    # Set roaming profiles if needed
+                    if ($user->get('profilePath') xor $profilesEnabled) {
+                        my $path = $profilesEnabled ? $profilesPath : '';
+                        $user->setRoamingProfile($profilesEnabled, $path, 1);
+                        EBox::info("Set user '$dn' profilePath='$path'");
+                        $modified = 1;
+                    }
+                    unless (defined $user->get('homeDrive')) {
+                        # Mount user home on network drive
+                        $user->setHomeDrive($drive, $drivePath, 1);
+                        EBox::info("Set user '$dn' homeDrive='$drive' homeDirectory='$drivePath'");
+                        $modified = 1;
+                    }
+                }
+
+                $user->save() if $modified;
+            } catch ($error) {
+                EBox::error("Error updating attributes on user '$dn': $error");
             }
         }
     }
@@ -194,7 +231,7 @@ sub setACLs
 {
     my ($self) = @_;
 
-    my $samba = EBox::Global->modInstance('samba');
+    my $samba = $self->{samba};
     my $domainSid = $samba->ldap()->domainSID();
     my $domainAdminsSid = $domainSid . '-512';
     my $domainUsersSid  = $domainSid . '-513';
