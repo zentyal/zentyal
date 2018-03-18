@@ -284,7 +284,7 @@ sub usesFilterById
     my ($self, $rowId) = @_;
     my $row = $self->row($rowId);
     my $profileConf = $row->subModel('filterPolicy');
-    return  $profileConf->usesFilter();
+    return $profileConf->usesFilter();
 }
 
 sub usesFilter
@@ -292,6 +292,24 @@ sub usesFilter
     my ($self, $enabledProfiles) = @_;
     foreach my $id (@{ $enabledProfiles }) {
         if ($self->usesFilterById($id)) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+sub usesHTTPSById
+{
+    my ($self, $rowId) = @_;
+    my $row = $self->row($rowId);
+    return $row->subModel('filterPolicy')->componentByName('DomainFilterSettings', 1)->value('httpsBlock');
+}
+
+sub usesHTTPS
+{
+    my ($self, $enabledProfiles) = @_;
+    foreach my $id (@{ $enabledProfiles }) {
+        if ($self->usesHTTPSById($id)) {
             return 1;
         }
     }

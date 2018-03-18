@@ -1,5 +1,6 @@
 5.1
-	+ Set version to 5.1
+	+ Block HTTPS by domain using firewall module for commercial editions
+	+ Fix time period condition checking end minute
 5.0.3
 	+ Fix regression in transparent proxy mode with filter
 5.0.2

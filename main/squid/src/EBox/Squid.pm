@@ -407,6 +407,24 @@ sub filterNeeded
     return 0;
 }
 
+sub httpsBlockNeeded
+{
+    my ($self) = @_;
+
+    unless ($self->isEnabled()) {
+        return 0;
+    }
+
+    if ($self->global()->communityEdition()) {
+        return 0;
+    }
+
+    my $rules = $self->model('AccessRules');
+    if ($rules->rulesUseHTTPS()) {
+        return 1;
+    }
+}
+
 # Function: usesPort
 #
 #       Implements EBox::FirewallObserver interface
@@ -735,7 +753,7 @@ sub writeDgGroups
                 my ($endHour, $endMin) = split (':', $profile->{end});
                 if ($hour > $endHour) {
                     next;
-                } elsif (($hour == $endHour) and ($min > $endMin)) {
+                } elsif (($hour == $endHour) and ($min >= $endMin)) {
                     next;
                 }
             }

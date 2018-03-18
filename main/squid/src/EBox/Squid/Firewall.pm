@@ -125,6 +125,7 @@ sub _trans_prerouting
 sub input
 {
     my ($self) = @_;
+
     my $global = $self->_global();
     my $sq = $global->modInstance('squid');
     my $net = $global->modInstance('network');
@@ -147,9 +148,51 @@ sub output
 {
     my ($self) = @_;
 
-    my @rules = ();
+    my @rules;
     push (@rules, "-m state --state NEW -p tcp --dport 80 -j oaccept");
     push (@rules, "-m state --state NEW -p tcp --dport 443 -j oaccept");
+    return \@rules;
+}
+
+sub forward
+{
+    my ($self) = @_;
+
+    my $global = $self->_global();
+
+    return [] if $global->communityEdition();
+
+    my $sq = $global->modInstance('squid');
+    my $profilesModel = $sq->model('FilterProfiles');
+    my @rules;
+    my %domainsById;
+
+    my (undef, $min, $hour, undef, undef, undef, $day) = localtime();
+    foreach my $profile (@{$sq->model('AccessRules')->filterProfiles()}) {
+        next unless $profile->{usesHTTPS};
+
+        if ($profile->{timePeriod}) {
+            next unless ($profile->{days}->{$day});
+            if ($profile->{begin}) {
+                my ($beginHour, $beginMin) = split (':', $profile->{begin});
+                next if ($hour < $beginHour);
+                next if (($hour == $beginHour) and ($min < $beginMin));
+            }
+            if ($profile->{end}) {
+                my ($endHour, $endMin) = split (':', $profile->{end});
+                next if ($hour > $endHour);
+                next if (($hour == $endHour) and ($min >= $endMin));
+            }
+        }
+        my $id = $profile->{id};
+        unless (exists $domainsById{$id}) {
+            $domainsById{$id} = $profilesModel->row($id)->subModel('filterPolicy')->deniedDomains();
+        }
+        foreach my $domain (@{$domainsById{$id}}) {
+            push (@rules, "-p tcp --dport 443 -s $profile->{address} -m string --string '$domain' --algo bm --to 65535 -j fdrop");
+        }
+    }
+
     return \@rules;
 }
 

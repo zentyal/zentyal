@@ -45,7 +45,22 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableDesc = (
+    my @tableDesc;
+
+    unless ($self->global()->communityEdition()) {
+        push (@tableDesc,
+            new EBox::Types::Boolean(
+                fieldName     => 'httpsBlock',
+                printableName => __('Block HTTPS traffic by domain'),
+                defaultValue     => 0,
+                editable         => 1,
+                help             => __('If this is enabled, any domain (not applicable to URLs) which is <b>denied</b> in the ' .
+                                       '<i>Domains and URL rules</i> will be blocked at firewall level.'),
+                                  ),
+        );
+    }
+
+    push (@tableDesc,
         new EBox::Types::Boolean(
             fieldName     => 'blanketBlock',
             printableName => __('Block not listed domains and URLs'),
@@ -53,7 +68,7 @@ sub _table
             editable         => 1,
             help             => __('If this is enabled, ' .
                                    'any domain or URL which is neither present neither in the ' .
-                                   '<i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections below will be ' .
+                                   '<i>Domains and URL rules</i> nor in the <i>Domain list files</i> sections below will be ' .
                                    'forbidden.'),
                               ),
         new EBox::Types::Boolean(

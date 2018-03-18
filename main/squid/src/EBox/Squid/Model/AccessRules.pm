@@ -258,12 +258,14 @@ sub filterProfiles
     my %profileIdByRowId = %{ $filterProfilesModel->idByRowId() };
 
     my $objectMod = $self->global()->modInstance('network');
+    my $commercial = (not $self->global()->communityEdition());
 
     my @profiles;
     foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
 
         my $profile = {};
+        $profile->{id} = $row->valueByName('profile');
 
         my $policy     = $row->elementByName('policy');
         my $policyType = $policy->selectedType();
@@ -275,6 +277,9 @@ sub filterProfiles
             my $rowId = $policy->value();
             $profile->{number} = $profileIdByRowId{$rowId};
             $profile->{usesFilter} = $filterProfilesModel->usesFilterById($rowId);
+            if ($commercial) {
+                $profile->{usesHTTPS} = $filterProfilesModel->usesHTTPSById($rowId);
+            }
         } else {
             throw EBox::Exceptions::Internal("Unknown policy type: $policyType");
         }
@@ -317,6 +322,14 @@ sub rulesUseFilter
     my $profiles = $self->_enabledProfiles();
     my $filterProfiles = $self->parentModule()->model('FilterProfiles');
     return $filterProfiles->usesFilter($profiles);
+}
+
+sub rulesUseHTTPS
+{
+    my ($self) = @_;
+    my $profiles = $self->_enabledProfiles();
+    my $filterProfiles = $self->parentModule()->model('FilterProfiles');
+    return $filterProfiles->usesHTTPS($profiles);
 }
 
 sub _enabledProfiles

@@ -111,4 +111,22 @@ sub usesFilter
     return 0;
 }
 
+sub deniedDomains
+{
+    my ($self) = @_;
+
+    my $model = $self->componentByName('DomainFilter', 1);
+    my @domains;
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        if ($row->valueByName('policy') eq 'deny') {
+            my $domain = $row->valueByName('domain');
+            # skip URLs
+            next if (index ($domain, '/') > 0);
+            push (@domains, $domain);
+        }
+    }
+    return \@domains;
+}
+
 1;
