@@ -1,4 +1,5 @@
 5.1
+	+ Reimplement EBox::Validate::isIPInNetwork using NetAddr::IP
 	+ Safer management of systemd daemons enabled/disabled status
 	+ Add libpam-cap dependency to avoid warnings in auth.log
 	+ Avoid uninitialized comparison warnings in zentyal.log regarding

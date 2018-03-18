@@ -25,6 +25,7 @@ use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::NetWrappers qw();
 use Net::IP;
+use NetAddr::IP;
 use Mail::RFC822::Address;
 use Data::Validate::Domain qw(is_hostname);
 
@@ -131,12 +132,10 @@ sub isIPInRange # from, to, host_ip
 sub isIPInNetwork # net_ip, net_mask, host_ip
 {
     my ($net_ip, $net_mask, $host_ip) = @_;
-    my $net_net = EBox::NetWrappers::ip_network($net_ip, $net_mask);
 
-    my $bits = EBox::NetWrappers::bits_from_mask($net_mask);
-    my $ip = new Net::IP("$net_net/$bits");
-    my $ip2 = new Net::IP($host_ip);
-    return ($ip2->overlaps($ip)==$IP_A_IN_B_OVERLAP);
+    my $net = NetAddr::IP->new($net_ip, $net_mask);
+    my $ip = NetAddr::IP->new($host_ip);
+    return $ip->within($net);
 }
 
 # Function: checkCIDR
