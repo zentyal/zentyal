@@ -54,6 +54,7 @@ sub masonParameters
     }
 
     my @params = ();
+    my @bridges = ();
     my @bonds = ();
     my @ifaces = ();
     my $vlans = [];
@@ -96,6 +97,14 @@ sub masonParameters
         $externalWarning = $net->externalConnectionWarning($ifname, $self->request());
     }
 
+    foreach my $bridge (@{$net->bridges()}) {
+        my $brinfo = {};
+        $brinfo->{'id'} = $bridge;
+        $brinfo->{'name'} = "br$bridge";
+        $brinfo->{'alias'} = $net->ifaceAlias("br$bridge");
+        push (@bridges, $brinfo);
+    }
+
     foreach my $bond (@{$net->bonds()}) {
         my $bondinfo = {};
         $bondinfo->{'id'} = $bond;
@@ -103,11 +112,13 @@ sub masonParameters
         $bondinfo->{'alias'} = $net->ifaceAlias("bond$bond");
         push (@bonds, $bondinfo);
     }
+
     @params = (
         'network'         => $net,
         'externalWarning' => $externalWarning,
         'iface'           => $iface,
         'ifaces'          => \@ifaces,
+        'bridges'         => \@bridges,
         'bonds'           => \@bonds,
         'vlans'           => $vlans
     );
