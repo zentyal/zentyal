@@ -10,5 +10,6 @@ models:
     - ActiveSync
 
 composites:
+    Warning: []
     Disclaimer: []
-    Configuration: [ActiveSync, Disclaimer]
+    Configuration: [Warning, ActiveSync, Disclaimer]
