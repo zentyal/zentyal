@@ -3640,7 +3640,7 @@ sub _preSetConf
                         push (@cmds, "/sbin/ifdown --force -i $file $ifname");
                     }
                     if ($self->ifaceMethod($if) eq 'bridged') {
-                        push (@cmds, "/usr/sbin/brctl delbr $if");
+                        push (@cmds, "/sbin/brctl delbr $if");
                     }
                 }
 
