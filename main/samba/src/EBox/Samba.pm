@@ -693,7 +693,6 @@ sub _createDirectories
 
     return unless $self->isProvisioned();
 
-    my $zentyalUser = EBox::Config::user();
     my $group = $self->ldap->domainUsersGroup();
     my $gidNumber = $group->gidNumber();
     my $guest = $self->ldap->domainGuestUser();
@@ -706,7 +705,6 @@ sub _createDirectories
     push (@cmds, "chmod 770 " . SAMBA_DIR);
     push (@cmds, "setfacl -b " . SAMBA_DIR);
     push (@cmds, "setfacl -m u:$nobodyUidNumber:rx " . SAMBA_DIR);
-    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
 
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
     push (@cmds, "chown root " . PROFILES_DIR);
@@ -720,7 +718,6 @@ sub _createDirectories
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -b " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$nobodyUidNumber:rx " . SHARES_DIR);
-    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
 
     EBox::Sudo::root(@cmds);
 }
@@ -741,9 +738,6 @@ sub _postServiceHook
 
     return unless $self->isProvisioned();
 
-    # FIXME: is this needed after removing antivirus?
-    # Fix permissions on samba dirs. Zentyal user needs access because
-    # the antivirus daemon runs as 'ebox'
     $self->_createDirectories();
 
     my $ldap = $self->ldap();
