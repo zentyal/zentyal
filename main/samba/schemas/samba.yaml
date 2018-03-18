@@ -23,10 +23,12 @@ models:
     - RecycleExceptions
 
 composites:
+    Domain: [DomainSettings, GPOs]
     Settings: [LdapInfo, PAM]
     UserTemplate: []
     RecycleBin: [RecycleDefault, RecycleExceptions]
     FileSharing: [SambaShares, RecycleBin]
+    GPOs: []
 
 modeldepends:
     RecycleExceptions:

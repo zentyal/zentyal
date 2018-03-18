@@ -1,4 +1,6 @@
 5.1
+	+ Domain is now a menu item instead of a folder with just one subitem
+	+ Add notice about GPO management in Domain section
 	+ Set homeDrive, homeDirectory and profilePath attributes after
 	  adding new users without need of explicit save change operation
 	+ Remove no longer required zentyal user ACLs on share paths

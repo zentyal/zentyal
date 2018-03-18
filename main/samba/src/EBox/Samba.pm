@@ -1608,16 +1608,12 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
-                                              text => __('Domain'),
-                                              icon => 'domain',
-                                              tag => 'main',
-                                              order => 2);
-
-    $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/DomainSettings',
-                                            text  => __('Settings'),
-                                            order => 10));
-    $root->add($domainFolder);
+    $root->add(new EBox::Menu::Item(name => 'Domain',
+                                    url => 'Samba/Composite/Domain',
+                                    text => __('Domain'),
+                                    icon => 'domain',
+                                    tag => 'main',
+                                    order => 2));
 
 
     my $folder = new EBox::Menu::Folder(name => 'Users',
