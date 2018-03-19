@@ -265,7 +265,6 @@ sub filterProfiles
         my $row = $self->row($id);
 
         my $profile = {};
-        $profile->{id} = $row->valueByName('profile');
 
         my $policy     = $row->elementByName('policy');
         my $policyType = $policy->selectedType();
@@ -275,6 +274,7 @@ sub filterProfiles
             $profile->{number} = 1;
         } elsif ($policyType eq 'profile') {
             my $rowId = $policy->value();
+            $profile->{id} = $rowId;
             $profile->{number} = $profileIdByRowId{$rowId};
             $profile->{usesFilter} = $filterProfilesModel->usesFilterById($rowId);
             if ($commercial) {
