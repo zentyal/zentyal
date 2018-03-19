@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:58
@@ -2782,7 +2782,6 @@ msgid "HTTP Proxy"
 msgstr "HTTP прокси"
 
 #: ../../main/squid/src/EBox/Squid.pm:124
-#, fuzzy
 msgid "Front HTTP Proxy configuration file"
 msgstr "Конфигурационный файл HTTP прокси"
 
@@ -2879,7 +2878,6 @@ msgid "Remove dansguardian init script link"
 msgstr "Удалить ссылку на скрипт инициализации dansguardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:254
-#, fuzzy
 msgid ""
 "To enable the HTTP proxy module, you need to have a least one external "
 "network interface"
@@ -2968,7 +2966,6 @@ msgid ""
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
-#, fuzzy
 msgid "Supplied file is not an archive file"
 msgstr "Несуществующий файл архива"
 
@@ -3176,22 +3173,18 @@ msgid "The '~' character is reserved and cannot be used in profile names"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:143
-#, fuzzy
 msgid "Category"
 msgstr "категория"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:149
-#, fuzzy
 msgid "List File"
 msgstr "Слушать"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:155
-#, fuzzy
 msgid "File Present"
 msgstr "Слушать"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:175
-#, fuzzy
 msgid "Domain categories"
 msgstr "Категория список доменов"
 
@@ -3298,7 +3291,7 @@ msgid "Very strict"
 msgstr "Очень строгий"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:42
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain '{domain}' could not be resolved."
 msgstr "Операция \"{a}\" выполнена"
 
@@ -3321,7 +3314,6 @@ msgid "domain name address"
 msgstr "адрес доменного имени"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:78
-#, fuzzy
 msgid ""
 "You can exempt some addresses from transparent proxy. The domains will be "
 "resolved at saving changes process."
@@ -3369,7 +3361,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:53
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to use this object."
 msgstr ""
@@ -3402,12 +3394,10 @@ msgid "Enable global limit for the object"
 msgstr "Включить глобальное ограничение для объектов"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:154
-#, fuzzy
 msgid "Maximum unlimited size"
 msgstr "Неограниченный размер"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:155
-#, fuzzy
 msgid "Maximum unthrottled download size for the whole network object."
 msgstr ""
 "Максимальный неограниченный размер загружаемого файла для этой сети. "
@@ -3437,24 +3427,20 @@ msgid "KB/s"
 msgstr "КБ/с"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:171
-#, fuzzy
 msgid "Enable per client limit"
 msgstr "Разрешить Корзину"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:178
-#, fuzzy
 msgid "Maximum unlimited size per client"
 msgstr "Превышен максимальный размер сообщения"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:179
-#, fuzzy
 msgid "Maximum unthrottled download size for each client."
 msgstr ""
 "Максимальный неограниченный размер загружаемого файла для этой сети. "
 "Используйте -1 чтобы отключить эту опцию."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:186
-#, fuzzy
 msgid "Maximum download rate per client"
 msgstr ""
 "Максимальная скорость загрузки на одного клиента. Используйте -1 чтобы "
@@ -3468,12 +3454,10 @@ msgstr ""
 "Используйте -1 чтобы отключить эту опцию."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:196
-#, fuzzy
 msgid "Bandwidth Throttling Rules"
 msgstr "Управление полосой пропускания"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:204
-#, fuzzy
 msgid ""
 "Bandwith throttling allows you to control download rates for connections "
 "going though the HTTP proxy. The first rule to match is applied. If a "
@@ -3534,12 +3518,10 @@ msgid "Exempt address from caching"
 msgstr "Запретить кэширование для адреса"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:52
-#, fuzzy
 msgid "Cache Exemptions"
 msgstr "Кэширование запрещено"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:61
-#, fuzzy
 msgid ""
 "You can exempt some addresses from caching. It will include the subdomains."
 msgstr "Вы можете запретить кэширование для некоторых адресов"
@@ -3684,7 +3666,6 @@ msgid "Filter virus"
 msgstr "Фильтр вирусов"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Domains.pm:60
-#, fuzzy
 msgid "Domains and URLs"
 msgstr "Правила доменов и URL"
 
@@ -4580,12 +4561,10 @@ msgid "Jabber account enabled with administration rights"
 msgstr "Аккаунт Jabber"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:58
-#, fuzzy
 msgid "Jabber account enabled"
 msgstr "Аккаунт Jabber"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:65
-#, fuzzy
 msgid "Jabber account disabled"
 msgstr "Аккаунт Jabber"
 
@@ -4698,7 +4677,6 @@ msgstr ""
 "что они используют один и тот же домен."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:209
-#, fuzzy
 msgid "Domain change confirmation"
 msgstr "Завершение конфигурации новых модулей"
 
@@ -6588,7 +6566,6 @@ msgstr ""
 "Модуля{ch},в противном случае ваши изменения не будут иметь никакого эффекта."
 
 #: ../../main/ips/src/EBox/IPS.pm:67
-#, fuzzy
 msgid "IDS/IPS"
 msgstr "IDS/IPS"
 
@@ -6601,7 +6578,6 @@ msgid "Enable start of suricata daemon"
 msgstr "Разрешить запуск модуля suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:320
-#, fuzzy
 msgid "IPS"
 msgstr "IPS"
 
@@ -6630,7 +6606,6 @@ msgstr ""
 "трафика"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:218
-#, fuzzy
 msgid "Block"
 msgstr "Блокировка рекламы"
 
@@ -6686,7 +6661,6 @@ msgid "Intrusion Detection/Prevention System"
 msgstr "Система обнаружения вторжений"
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
-#, fuzzy
 msgid "IPS Alerts report"
 msgstr "Отчёт оповещений IDS"
 
@@ -6921,12 +6895,10 @@ msgid "bond"
 msgstr ""
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:139
-#, fuzzy
 msgid "bonding mode"
 msgstr "Сконфигурированные"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:166
-#, fuzzy
 msgid ""
 "The PPPoE password contains invalid characters. All alphanumeric characters, "
 "plus these non alphanumeric chars: /.?!&+:-_\\@$%=* and spaces are allowed."
@@ -7128,7 +7100,6 @@ msgid "Test type"
 msgstr "Тип теста"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:92
-#, fuzzy
 msgid "Host IP address"
 msgstr "Пользовательский IP-адрес"
 
@@ -7461,7 +7432,7 @@ msgid "Balance Traffic"
 msgstr "Балансировка траффика"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:71
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them {oa}here{ca} first."
@@ -7475,7 +7446,6 @@ msgid "Gateways Configuration"
 msgstr "Настройка шлюзов"
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:62
-#, fuzzy
 msgid ""
 "Here you can configure all the settings related to the way Zentyal provides "
 "Internet connection for your network"
@@ -7797,7 +7767,6 @@ msgid "To configure Libreswan IPsec passwords."
 msgstr "Настроить пароли OpenSwan IPsec."
 
 #: ../../main/ipsec/IPsec.pm:81 ../../main/ipsec/src/EBox/IPsec.pm:81
-#, fuzzy
 msgid ""
 "To configure L2TP/IPSec users when not using Active Directory validation."
 msgstr ""
@@ -7815,7 +7784,6 @@ msgid "Connection name"
 msgstr "Имя подключения"
 
 #: ../../main/ipsec/IPsec.pm:425 ../../main/ipsec/src/EBox/IPsec.pm:422
-#, fuzzy
 msgid "Stopping completed"
 msgstr "Остановка завершена"
 
@@ -7838,7 +7806,7 @@ msgid "{from} - {to} is an invalid range"
 msgstr "{from} - {to} ошибочный диапазон"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:92
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
 msgstr "Диапазон {from}-{to} включает интерфейс с IP-адресом: {ifaceIP}"
 
@@ -7879,12 +7847,10 @@ msgid "IP address assigned to this user within the VPN network."
 msgstr "IP-адрес, присвоенный этому пользователю в сети VPN."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:91
-#, fuzzy
 msgid "L2TP/IPSec Users"
 msgstr "PPTP пользователи"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:99
-#, fuzzy
 msgid ""
 "Users allowed to connect using the L2TP/IPSec VPN. This list is independant "
 "of users defined on Users and Groups."
@@ -7923,17 +7889,14 @@ msgid "Users Group"
 msgstr "Группа пользователей"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:147
-#, fuzzy
 msgid "Manual list of users"
 msgstr "Список серверов"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:154
-#, fuzzy
 msgid "Users Source"
 msgstr "Ресурс"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:157
-#, fuzzy
 msgid "Selects the provider for the users allowed to use the VPN."
 msgstr "Выберите принтеры, к которым будет доступ у этого пользователя."
 
@@ -7953,7 +7916,6 @@ msgid "L2TP/IPSec users source"
 msgstr "PPTP пользователи"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:125
-#, fuzzy
 msgid "DataTable Component"
 msgstr "Компоненты Zentyal"
 
@@ -8006,7 +7968,6 @@ msgstr ""
 "с другими устройствами безопасности."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:254
-#, fuzzy
 msgid "Enabled flag"
 msgstr "Включено"
 
@@ -8017,17 +7978,14 @@ msgid ""
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:271
-#, fuzzy
 msgid "Blank characters are not allowed"
 msgstr "Не разрешенный IP-адрес"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:306
-#, fuzzy
 msgid "VPN Type"
 msgstr "Тип"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:308
-#, fuzzy
 msgid "Not supported"
 msgstr "Поддержка SSL"
 
@@ -8043,7 +8001,7 @@ msgstr ""
 ">Interfaces{closehref}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:390
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Tunnel IP {ip} is already in use by connection {name}"
 msgstr "VPN адрес {addr} уже используется интерфейсом {iface}"
 
@@ -8053,12 +8011,12 @@ msgid "The range overlaps with tunnel IP {ip} used  by connection {name}"
 msgstr "VPN адрес {addr} уже используется интерфейсом {iface}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:411
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Tunnel IP {ip} is already in use by range in connection {name}"
 msgstr "VPN адрес {addr} уже используется интерфейсом {iface}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:417
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {range} is already in use by connection {name}"
 msgstr "VPN адрес {addr} уже используется интерфейсом {iface}"
 
@@ -8072,7 +8030,7 @@ msgstr ""
 "\"{name}\": {fixedIP}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:163
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The Tunnel IP {localIP} is already used as a fixed address from the object "
 "member \"{name}\": {fixedIP}"
@@ -8147,7 +8105,6 @@ msgid "Secondary nameserver"
 msgstr "Вторичный сервер имен"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:318
-#, fuzzy
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for L2TP clients"
@@ -8217,7 +8174,6 @@ msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:89
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:138
-#, fuzzy
 msgid "Remote Address"
 msgstr "Удаленный IP-адрес"
 
@@ -8238,12 +8194,10 @@ msgid ""
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:130
-#, fuzzy
 msgid "Public IP address"
 msgstr "Публичный IP-адрес Zentyal."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:134
-#, fuzzy
 msgid "Zentyal public IP address where clients will connect to."
 msgstr "Публичный IP-адрес Zentyal."
 
@@ -8256,32 +8210,27 @@ msgid "Remote endpoint public IP address."
 msgstr "Удалённый публичный IP-адрес."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:155
-#, fuzzy
 msgid "PSK Shared Secret"
 msgstr "PSK общий секретный ключ"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:157
-#, fuzzy
 msgid "Pre-shared key for the IPsec connection."
 msgstr "Общий ключ для IPsec соединения."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:204
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configuration no complete, {field} not set"
 msgstr "Конфигурация резервного копирования не завершена"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/UsersSettings.pm:41
-#, fuzzy
 msgid "User settings"
 msgstr "Общие настройки"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:86
-#, fuzzy
 msgid "No ranges or users defined for the connection"
 msgstr "Общий ключ для IPsec соединения."
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/GeneralL2TPSettings.pm:43
-#, fuzzy
 msgid "General L2TP/IPSec Settings"
 msgstr "Общие настройки"
 
@@ -11360,7 +11309,6 @@ msgid "Administration rights"
 msgstr "Права администратора"
 
 #: ../../main/jabber/src/templates/jabber.mas:54
-#, fuzzy
 msgid ""
 "The following settings will take effect only when the Jabber module is "
 "enabled."
@@ -12359,7 +12307,6 @@ msgstr "Статический"
 
 #: ../../main/network/src/templates/ifaces.mas:61
 #: ../../main/network/src/templates/ifaces.mas:62
-#, fuzzy
 msgid "Broadcast"
 msgstr "Локальный адрес"
 
@@ -12400,7 +12347,6 @@ msgid "Bridge"
 msgstr "Мост"
 
 #: ../../main/network/src/templates/ifaces.mas:166
-#, fuzzy
 msgid "Bonding"
 msgstr "Загрузка"
 

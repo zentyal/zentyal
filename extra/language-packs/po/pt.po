@@ -2905,7 +2905,6 @@ msgid "Remove dansguardian init script link"
 msgstr "Remove o link no init ao dansguardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:254
-#, fuzzy
 msgid ""
 "To enable the HTTP proxy module, you need to have a least one external "
 "network interface"
@@ -2999,7 +2998,6 @@ msgstr ""
 "Comercial{ch} mantendo o anti-virus sempre atualizado."
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
-#, fuzzy
 msgid "Supplied file is not an archive file"
 msgstr "O fornecido não é valido"
 
@@ -3328,7 +3326,7 @@ msgid "Very strict"
 msgstr "Muito rigoroso"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:42
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain '{domain}' could not be resolved."
 msgstr "O certificado foi renovado"
 
@@ -3351,7 +3349,6 @@ msgid "domain name address"
 msgstr "Endereço do nome de domínio"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:78
-#, fuzzy
 msgid ""
 "You can exempt some addresses from transparent proxy. The domains will be "
 "resolved at saving changes process."
@@ -3393,7 +3390,7 @@ msgstr ""
 "posteriormente filtrar essas categorias em cada filtro de perfil."
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot use name {name} because there arready a directory for this name: "
 "{dir}.\n"
@@ -3403,7 +3400,7 @@ msgstr ""
 "Provavelmente uma remoção não confirmada"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:53
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to use this object."
 msgstr ""
@@ -3552,12 +3549,10 @@ msgid "Exempt address from caching"
 msgstr "Limpar endereços da cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:52
-#, fuzzy
 msgid "Cache Exemptions"
 msgstr "Excepções da cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:61
-#, fuzzy
 msgid ""
 "You can exempt some addresses from caching. It will include the subdomains."
 msgstr "Pode impedir que alguns endereços sejam armazenados na cache"
@@ -6791,22 +6786,18 @@ msgid "Zentyal FTP Server"
 msgstr "Servidor FTP Zentyal"
 
 #: ../../main/ftp/src/EBox/FTP.pm:113
-#, fuzzy
 msgid "Generate SSL certificates"
 msgstr "Criar certificados"
 
 #: ../../main/ftp/src/EBox/FTP.pm:114
-#, fuzzy
 msgid "Zentyal will self-signed SSL certificates for FTP service."
 msgstr "A Zentyal criará os certificados para usar nos serviços de correio"
 
 #: ../../main/ftp/src/EBox/FTP.pm:132
-#, fuzzy
 msgid "To configure vsftpd."
 msgstr "Para configurar vsftpd"
 
 #: ../../main/ftp/src/EBox/FTP.pm:136
-#, fuzzy
 msgid "To configure vsftpd with LDAP authentication."
 msgstr "Para configurar vsftpd com autenticação LDAP"
 
@@ -6834,7 +6825,6 @@ msgid "Anonymous access"
 msgstr "Acesso anónimo"
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:135
-#, fuzzy
 msgid "Enable anonymous FTP access to the /srv/ftp directory."
 msgstr "Activar acesso FTP para cada utilizador ao seu directório /home"
 
@@ -6843,7 +6833,6 @@ msgid "Personal directories"
 msgstr "Directórios pessoais"
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:142
-#, fuzzy
 msgid "Enable authenticated FTP access to each user home directory."
 msgstr "Activar acesso FTP para cada utilizador ao seu directório /home"
 
@@ -6866,7 +6855,6 @@ msgid "FTP Server"
 msgstr "Servidor FTP"
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:168
-#, fuzzy
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
 "there have read permissions for everybody (sudo chmod o+r /srv/ftp/*). If "
@@ -7888,7 +7876,7 @@ msgid "{from} - {to} is an invalid range"
 msgstr "{from} - {to} é um âmbito inválido "
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:92
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
 msgstr "O âmbito {from}-{to} inclui interface com endereço IP: {ifaceIP}"
 
@@ -7929,7 +7917,6 @@ msgid "IP address assigned to this user within the VPN network."
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:91
-#, fuzzy
 msgid "L2TP/IPSec Users"
 msgstr "Utilizadores"
 
@@ -7969,17 +7956,14 @@ msgid "Users Group"
 msgstr "Grupo de utilizadores"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:147
-#, fuzzy
 msgid "Manual list of users"
 msgstr "Lista de servidores"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:154
-#, fuzzy
 msgid "Users Source"
 msgstr "Recursos"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:157
-#, fuzzy
 msgid "Selects the provider for the users allowed to use the VPN."
 msgstr "Seleccione as impressoras a que o utilizador terá acesso"
 
@@ -7999,7 +7983,6 @@ msgid "L2TP/IPSec users source"
 msgstr "Utilizadores"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:125
-#, fuzzy
 msgid "DataTable Component"
 msgstr "Componentes Zentyal"
 
@@ -8068,12 +8051,10 @@ msgid "Blank characters are not allowed"
 msgstr "Caracter espaço não é permitido"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:306
-#, fuzzy
 msgid "VPN Type"
 msgstr "Tipo"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:308
-#, fuzzy
 msgid "Not supported"
 msgstr "Suporte SSL"
 
@@ -8088,7 +8069,7 @@ msgstr ""
 "definidas em {openhref}Network->Interfaces{closehref}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:390
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Tunnel IP {ip} is already in use by connection {name}"
 msgstr "O porto {port} já está em uso pelo módulo {mod}"
 
@@ -8098,12 +8079,12 @@ msgid "The range overlaps with tunnel IP {ip} used  by connection {name}"
 msgstr "O porto {port} já está em uso pelo módulo {mod}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:411
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Tunnel IP {ip} is already in use by range in connection {name}"
 msgstr "O porto {port} já está em uso pelo módulo {mod}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:417
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {range} is already in use by connection {name}"
 msgstr "O endereço {addr} já se encontra em utilização por {type} {name}"
 
@@ -8322,7 +8303,6 @@ msgid "Configuration no complete, {field} not set"
 msgstr "Configuração incompleta. Campo {field} não definido"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/UsersSettings.pm:41
-#, fuzzy
 msgid "User settings"
 msgstr "Definições gerais"
 
@@ -8332,7 +8312,6 @@ msgid "No ranges or users defined for the connection"
 msgstr "Chave pré-partilhada para a ligação IPSec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/GeneralL2TPSettings.pm:43
-#, fuzzy
 msgid "General L2TP/IPSec Settings"
 msgstr "Definições gerais"
 
@@ -11433,7 +11412,6 @@ msgid "Administration rights"
 msgstr "Direitos de administração"
 
 #: ../../main/jabber/src/templates/jabber.mas:54
-#, fuzzy
 msgid ""
 "The following settings will take effect only when the Jabber module is "
 "enabled."
@@ -12277,7 +12255,6 @@ msgid "No entries in this list"
 msgstr "Não existem entradas nesta lista"
 
 #: ../../main/ftp/stubs/vsftpd.conf.mas:73
-#, fuzzy
 msgid "Welcome to Zentyal FTP service."
 msgstr "Servidor FTP Zentyal"
 

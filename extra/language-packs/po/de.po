@@ -2824,7 +2824,6 @@ msgid "HTTP Proxy"
 msgstr "HTTP-Proxy"
 
 #: ../../main/squid/src/EBox/Squid.pm:124
-#, fuzzy
 msgid "Front HTTP Proxy configuration file"
 msgstr "Konfigurationsdatei des HTTP-Proxy"
 
@@ -3353,7 +3352,7 @@ msgid "Very strict"
 msgstr "Sehr streng"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:42
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain '{domain}' could not be resolved."
 msgstr "Das Zertifikat wurde erneuert"
 
@@ -3376,7 +3375,6 @@ msgid "domain name address"
 msgstr "Adresse des Domänennamens"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:78
-#, fuzzy
 msgid ""
 "You can exempt some addresses from transparent proxy. The domains will be "
 "resolved at saving changes process."
@@ -3467,7 +3465,6 @@ msgid "Enable global limit for the object"
 msgstr "globales Objektlimit aktivieren"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:154
-#, fuzzy
 msgid "Maximum unlimited size"
 msgstr ""
 "#-#-#-#-#  de.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
@@ -3590,7 +3587,6 @@ msgid "Cache Exemptions"
 msgstr "Ausnahmen von Zwischenspeicherung"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:61
-#, fuzzy
 msgid ""
 "You can exempt some addresses from caching. It will include the subdomains."
 msgstr "Sie können Adressen von der Zwischenspeicherung ausschließen"
@@ -6786,17 +6782,14 @@ msgid "interface"
 msgstr "oberfläche"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:139
-#, fuzzy
 msgid "Select in which interfaces IPS system will be enabled"
 msgstr "Auf welchen Schnittstellen soll das IDS-System aktiviert sein"
 
 #: ../../main/ips/src/EBox/IPS/Composite/General.pm:58
-#, fuzzy
 msgid "Intrusion Detection/Prevention System"
 msgstr "Eindringling Erkennungs System (IDS)"
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
-#, fuzzy
 msgid "IPS Alerts report"
 msgstr "IDS Alarm Berichte"
 
@@ -6905,7 +6898,6 @@ msgstr ""
 "Verzeichnis "
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:146
-#, fuzzy
 msgid "Restrict to personal directories"
 msgstr "Persönliche Verzeichnisse"
 
@@ -7239,7 +7231,6 @@ msgid "Test type"
 msgstr "Testmethode"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:92
-#, fuzzy
 msgid "Host IP address"
 msgstr "Benutzerdefinierte IP Adresse"
 
@@ -7577,7 +7568,6 @@ msgid "Gateway"
 msgstr "Gateway"
 
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:77
-#, fuzzy
 msgid "Gateways for Traffic Balance"
 msgstr "Netzverkehr aufteilen"
 
@@ -7618,7 +7608,6 @@ msgid ""
 msgstr ""
 
 #: ../../main/network/src/EBox/Network/Composite/Gateway.pm:38
-#, fuzzy
 msgid "Gateways and Proxy"
 msgstr "Gateways"
 
@@ -7939,22 +7928,18 @@ msgstr ""
 
 #: ../../main/ipsec/IPsec.pm:419 ../../main/ipsec/src/EBox/IPsec.pm:416
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:269
-#, fuzzy
 msgid "Connection name"
 msgstr "Gegenstelle"
 
 #: ../../main/ipsec/IPsec.pm:425 ../../main/ipsec/src/EBox/IPsec.pm:422
-#, fuzzy
 msgid "Stopping completed"
 msgstr "Prozent abgeschlosssen"
 
 #: ../../main/ipsec/IPsec.pm:427 ../../main/ipsec/src/EBox/IPsec.pm:424
-#, fuzzy
 msgid "Connection initiated"
 msgstr "Verbindung zum VPN-Benutzer aufgebaut"
 
 #: ../../main/ipsec/IPsec.pm:428 ../../main/ipsec/src/EBox/IPsec.pm:425
-#, fuzzy
 msgid "Connection terminated"
 msgstr "Verbindung zum VPN-Benutzer beendet"
 
@@ -7969,7 +7954,7 @@ msgid "{from} - {to} is an invalid range"
 msgstr "{from} - {to} ist kein gültiger Bereich"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:92
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
 msgstr ""
 "Der Bereich {from}-{to} beinhaltet die IP-Adresse einer Netzwerkkarte: "
@@ -8014,7 +7999,6 @@ msgid "IP address assigned to this user within the VPN network."
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:91
-#, fuzzy
 msgid "L2TP/IPSec Users"
 msgstr "PPTP Benutzer"
 
@@ -8054,17 +8038,14 @@ msgid "Users Group"
 msgstr "Benutzergruppe"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:147
-#, fuzzy
 msgid "Manual list of users"
 msgstr "Serverliste"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:154
-#, fuzzy
 msgid "Users Source"
 msgstr "Ressource"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:157
-#, fuzzy
 msgid "Selects the provider for the users allowed to use the VPN."
 msgstr "Wählen Sie die Drucker welche der Benutzer verwenden darf"
 
@@ -8084,7 +8065,6 @@ msgid "L2TP/IPSec users source"
 msgstr "PPTP Benutzer"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:125
-#, fuzzy
 msgid "DataTable Component"
 msgstr "Zentyal Komponenten"
 
@@ -8133,7 +8113,6 @@ msgid ""
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:254
-#, fuzzy
 msgid "Enabled flag"
 msgstr "Aktiviert"
 
@@ -8144,17 +8123,14 @@ msgid ""
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:271
-#, fuzzy
 msgid "Blank characters are not allowed"
 msgstr "IP-Adressen sind nicht erlaubt"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:306
-#, fuzzy
 msgid "VPN Type"
 msgstr "Typ"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:308
-#, fuzzy
 msgid "Not supported"
 msgstr "Unterstützt SSL Verschlüsselung"
 
@@ -8170,7 +8146,7 @@ msgstr ""
 "{openhref}Netzwerk->Netzwerkkarten{closehref}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:390
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Tunnel IP {ip} is already in use by connection {name}"
 msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
 
@@ -8180,12 +8156,12 @@ msgid "The range overlaps with tunnel IP {ip} used  by connection {name}"
 msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:411
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Tunnel IP {ip} is already in use by range in connection {name}"
 msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:417
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {range} is already in use by connection {name}"
 msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
 
@@ -8199,7 +8175,7 @@ msgstr ""
 "dieses Interface \"{interface}\" vergeben."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:163
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The Tunnel IP {localIP} is already used as a fixed address from the object "
 "member \"{name}\": {fixedIP}"
@@ -8275,7 +8251,6 @@ msgid "Secondary nameserver"
 msgstr "Zweiter Nameserver"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:318
-#, fuzzy
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for L2TP clients"
@@ -8293,7 +8268,6 @@ msgid "This network is already reachable through a static route"
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:108
-#, fuzzy
 msgid "Local Subnet"
 msgstr "Lokales Netzwerk"
 
@@ -8302,7 +8276,6 @@ msgid "Local subnet available through the tunnel."
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:116
-#, fuzzy
 msgid "Remote Subnet"
 msgstr "IP-Adresse des Gegenübers"
 
@@ -8312,12 +8285,10 @@ msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:116
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:162
-#, fuzzy
 msgid "IKE Authentication"
 msgstr "Authentifizierung"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:156
-#, fuzzy
 msgid "IKE Encryption"
 msgstr "Verschlüsselung"
 
@@ -8367,7 +8338,7 @@ msgid "Must be the external IP to connect but it's not defined"
 msgstr "Es muss eine externe IP angegeben werden."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:108
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Must be the external IP to connect and it was the addresss of local "
 "interface {if}"
@@ -8402,12 +8373,11 @@ msgid "Pre-shared key for the IPsec connection."
 msgstr "Passwort für den o.g. Benutzer"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:204
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configuration no complete, {field} not set"
 msgstr "Nur Konfiguration"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/UsersSettings.pm:41
-#, fuzzy
 msgid "User settings"
 msgstr "Allgemeine Einstellungen"
 
@@ -8416,7 +8386,6 @@ msgid "No ranges or users defined for the connection"
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/GeneralL2TPSettings.pm:43
-#, fuzzy
 msgid "General L2TP/IPSec Settings"
 msgstr "Allgemeine Einstellungen"
 
@@ -11589,7 +11558,6 @@ msgstr ""
 "{ub}aktivieren{ue}, haben Ihre Änderungen keine Auswirkungen."
 
 #: ../../main/squid/stubs/template.html.mas:13
-#, fuzzy
 msgid "Access Denied"
 msgstr "Zugriffs-Anforderungen"
 
@@ -11633,7 +11601,6 @@ msgid "Days of the week"
 msgstr "Tage der Woche"
 
 #: ../../main/jabber/src/templates/jabber.mas:14
-#, fuzzy
 msgid "User account"
 msgstr ""
 "#-#-#-#-#  de.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
@@ -11650,7 +11617,6 @@ msgid "Administration rights"
 msgstr "Administrationsrechte"
 
 #: ../../main/jabber/src/templates/jabber.mas:54
-#, fuzzy
 msgid ""
 "The following settings will take effect only when the Jabber module is "
 "enabled."
@@ -12511,7 +12477,6 @@ msgid "No entries in this list"
 msgstr "Keine Einträge in dieser Liste"
 
 #: ../../main/ftp/stubs/vsftpd.conf.mas:73
-#, fuzzy
 msgid "Welcome to Zentyal FTP service."
 msgstr "Zentyal FTP Server Dateien"
 
@@ -12657,7 +12622,6 @@ msgstr "Statisch"
 
 #: ../../main/network/src/templates/ifaces.mas:61
 #: ../../main/network/src/templates/ifaces.mas:62
-#, fuzzy
 msgid "Broadcast"
 msgstr "Lokale Adresse"
 
