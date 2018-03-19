@@ -53,8 +53,8 @@ msgstr "Clamd arkaplan hizmetini ayarla"
 msgid "To configure sogo parameters"
 msgstr "Kimlik doğrulama gerekli"
 
-#: ../../main/sogo/src/EBox/SOGo.pm:373 ../../main/mail/src/EBox/Mail.pm:95
-#: ../../main/mail/src/EBox/Mail.pm:1477 ../../main/mail/src/EBox/Mail.pm:1634
+#: ../../main/sogo/src/EBox/SOGo.pm:373 ../../main/mail/src/EBox/Mail.pm:98
+#: ../../main/mail/src/EBox/Mail.pm:1480 ../../main/mail/src/EBox/Mail.pm:1634
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "Posta"
@@ -92,91 +92,96 @@ msgid ""
 "registered in the USA and other countries."
 msgstr ""
 
+#: ../../main/sogo/src/EBox/SOGo/Composite/Warning.pm:48
+#, perl-brace-format
+msgid "{x} is only recommended for mailboxes of 1GB of data or less."
+msgstr ""
+
 #: ../../main/dns/src/EBox/DNS.pm:288 ../../main/dns/src/EBox/DNS.pm:370
-#: ../../main/dns/src/EBox/DNS.pm:430 ../../main/dns/src/EBox/DNS.pm:458
-#: ../../main/dns/src/EBox/DNS.pm:1733
+#: ../../main/dns/src/EBox/DNS.pm:431 ../../main/dns/src/EBox/DNS.pm:459
+#: ../../main/dns/src/EBox/DNS.pm:1734
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:685
 msgid "domain"
 msgstr "Alan"
 
-#: ../../main/dns/src/EBox/DNS.pm:562
+#: ../../main/dns/src/EBox/DNS.pm:563
 msgid "Zentyal will set the required environment variables for bind9 daemon"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS.pm:567
+#: ../../main/dns/src/EBox/DNS.pm:568
 msgid "main bind9 configuration file"
 msgstr "bind9 ana ayar dosyası"
 
-#: ../../main/dns/src/EBox/DNS.pm:572
+#: ../../main/dns/src/EBox/DNS.pm:573
 msgid "bind9 options configuration file"
 msgstr "bind9 seçenek ayar dosyası"
 
-#: ../../main/dns/src/EBox/DNS.pm:577
+#: ../../main/dns/src/EBox/DNS.pm:578
 msgid "local bind9 configuration file"
 msgstr "yerel bind9 ayar dosyası"
 
-#: ../../main/dns/src/EBox/DNS.pm:582
+#: ../../main/dns/src/EBox/DNS.pm:583
 msgid "Keys configuration file"
 msgstr "Keys ayar dosyası"
 
-#: ../../main/dns/src/EBox/DNS.pm:597
+#: ../../main/dns/src/EBox/DNS.pm:598
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr ""
 "{dir} dizini için yetkilendirmeyi değiştirip bind grubuna yazma hakkı verin"
 
-#: ../../main/dns/src/EBox/DNS.pm:599
+#: ../../main/dns/src/EBox/DNS.pm:600
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "bind süreci dinamik olarak güncellenecek"
 
-#: ../../main/dns/src/EBox/DNS.pm:603
+#: ../../main/dns/src/EBox/DNS.pm:604
 #, fuzzy
 msgid "Remove bind9 init script link"
 msgstr "NTP init betiği linkini kaldır"
 
-#: ../../main/dns/src/EBox/DNS.pm:604 ../../main/squid/src/EBox/Squid.pm:234
+#: ../../main/dns/src/EBox/DNS.pm:605 ../../main/squid/src/EBox/Squid.pm:234
 #: ../../main/squid/src/EBox/Squid.pm:240 ../../main/ntp/src/EBox/NTP.pm:81
 #, fuzzy
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "eBox, servislerin durdurulması ve başlatılması ile ilgilenecek."
 
-#: ../../main/dns/src/EBox/DNS.pm:609
+#: ../../main/dns/src/EBox/DNS.pm:610
 msgid "Override named apparmor profile"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS.pm:610
+#: ../../main/dns/src/EBox/DNS.pm:611
 msgid "To allow samba daemon load Active Directory zone"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS.pm:635
+#: ../../main/dns/src/EBox/DNS.pm:636
 #, fuzzy
 msgid "Domain Name Service"
 msgstr "Kaynak"
 
-#: ../../main/dns/src/EBox/DNS.pm:1015
+#: ../../main/dns/src/EBox/DNS.pm:1016
 #, fuzzy, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
 msgstr "Keys ayar dosyası"
 
-#: ../../main/dns/src/EBox/DNS.pm:1759
+#: ../../main/dns/src/EBox/DNS.pm:1760
 #, fuzzy
 msgid "hostname"
 msgstr "Makina ismi"
 
-#: ../../main/dns/src/EBox/DNS.pm:1764
+#: ../../main/dns/src/EBox/DNS.pm:1765
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2350
+#: ../../main/samba/src/EBox/Samba.pm:2301
 msgid "alias"
 msgstr "Takma ad"
 
-#: ../../main/dns/src/EBox/DNS.pm:1980
+#: ../../main/dns/src/EBox/DNS.pm:1981
 #, fuzzy, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
 msgstr "Aynı ada sahip makine ve alan adı bulunmaktadır \"{name}\""
 
-#: ../../main/dns/src/EBox/DNS.pm:2048
+#: ../../main/dns/src/EBox/DNS.pm:2049
 #, fuzzy, perl-brace-format
-msgid "The IP '{a}' already assigned in '{d}'"
+msgid "The IP '{a}' is already in '{d}'"
 msgstr "{port} portu şu anda {mod} modülü tarafından kullanılmakta"
 
 #: ../../main/dns/src/EBox/DNS/Types/Hostname.pm:48
@@ -192,14 +197,14 @@ msgstr "Servis ismi"
 #: ../../main/firewall/src/EBox/Firewall.pm:791
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:256
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
-#: ../../main/ips/src/EBox/IPS.pm:312
+#: ../../main/ips/src/EBox/IPS.pm:302
 #: ../../main/network/src/EBox/Network/Model/ServiceConfigurationTable.pm:144
 #: ../../main/mail/src/templates/externalAccounts.mas:18
 msgid "Protocol"
 msgstr "Protokol"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:143
-#: ../../main/ips/src/EBox/IPS.pm:308
+#: ../../main/ips/src/EBox/IPS.pm:298
 msgid "Priority"
 msgstr "Öncelik"
 
@@ -309,7 +314,7 @@ msgstr ""
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:170
 #: ../../main/network/src/EBox/Network.pm:4228
 #: ../../main/network/src/EBox/Network.pm:4249
-#: ../../main/dhcp/src/EBox/DHCP.pm:1067
+#: ../../main/dhcp/src/EBox/DHCP.pm:1068
 #: ../../main/dns/src/templates/edit.mas:18
 #, fuzzy
 msgid "Host name"
@@ -490,7 +495,6 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
-#: ../../main/samba/src/EBox/Samba.pm:1663
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
 #: ../../main/software/src/EBox/Software.pm:668
 #: ../../main/software/src/templates/config.mas:14
@@ -526,14 +530,15 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:582
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
-#: ../../main/squid/src/EBox/Squid.pm:911
+#: ../../main/squid/src/EBox/Squid.pm:929
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:53
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:71
-#: ../../main/samba/src/EBox/Samba.pm:1657
+#: ../../main/samba/src/EBox/Samba.pm:1613
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
+#: ../../main/samba/src/EBox/Samba/Composite/Domain.pm:39
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 msgid "Domain"
 msgstr "Alan adı"
@@ -712,7 +717,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:3994
 #: ../../main/network/src/EBox/Network.pm:4029
 #: ../../main/network/src/EBox/Network.pm:4393
-#: ../../main/dhcp/src/EBox/DHCP.pm:1067
+#: ../../main/dhcp/src/EBox/DHCP.pm:1068
 #: ../../main/network/src/templates/wizard/network.mas:47
 #: ../../main/network/src/templates/ifaces.mas:125
 #: ../../main/network/src/templates/ifaces.mas:233
@@ -722,6 +727,41 @@ msgstr "IP adresi"
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:107
 msgid "The domain name will be resolved to this list of IP addresses."
 msgstr ""
+
+#: ../../main/partner-tools/src/EBox/PartnerTools.pm:52
+#: ../../main/partner-tools/src/EBox/PartnerTools/CGI/Tools.pm:31
+#: ../../main/partner-tools/src/EBox/PartnerTools/CGI/Tools.pm:42
+msgid "Partner Tools"
+msgstr ""
+
+#: ../../main/partner-tools/src/EBox/PartnerTools/CGI/Tools.pm:53
+#: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:229
+#: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
+#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:77
+#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
+#: ../../main/partner-tools/src/templates/tools.mas:14
+#: ../../main/mail/src/templates/externalAccounts.mas:14
+#: ../../main/core/src/templates/login/index.mas:52
+#: ../../main/network/src/templates/ifaces.mas:180
+#: ../../main/samba/src/templates/adduser.mas:30
+#: ../../main/samba/src/templates/edituser.mas:86
+#, fuzzy
+msgid "Password"
+msgstr ""
+"#-#-#-#-#  tr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
+"Parola\n"
+"#-#-#-#-#  tr.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
+"Şifre\n"
+"#-#-#-#-#  tr.po (ebox-webmail 1.3)  #-#-#-#-#\n"
+"Şifre\n"
+"#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
+"Parola\n"
+"#-#-#-#-#  tr.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
+"Şifre"
 
 #: ../../main/ca/src/EBox/CA/CGI/Index.pm:38
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:42
@@ -832,7 +872,8 @@ msgstr "Yetki Belgelendirme yaratma sırasında problemler oluştu"
 #: ../../main/core/src/EBox/Model/Composite.pm:536
 #: ../../main/core/src/EBox/Model/DataTable.pm:1764
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:2824
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:61
+#: ../../main/samba/src/EBox/Samba.pm:2775
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:477
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
@@ -1234,14 +1275,13 @@ msgid "SNAT"
 msgstr ""
 
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/mail/src/EBox/Mail.pm:1599 ../../main/squid/src/EBox/Squid.pm:907
+#: ../../main/mail/src/EBox/Mail.pm:1599 ../../main/squid/src/EBox/Squid.pm:925
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1409
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
-#: ../../main/ips/src/EBox/IPS.pm:307
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:52
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:382 ../../main/ipsec/IPsec.pm:417
+#: ../../main/ips/src/EBox/IPS.pm:297
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:402
 #: ../../main/ipsec/src/EBox/IPsec.pm:414
-#: ../../main/samba/src/EBox/Samba.pm:2821
+#: ../../main/samba/src/EBox/Samba.pm:2772
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:475
 #: ../../main/dhcp/src/EBox/DHCP.pm:967
 #: ../../main/ca/src/templates/index.mas:99
@@ -1265,16 +1305,16 @@ msgstr "Çıkış arayüzü"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:49
-#: ../../main/ips/src/EBox/IPS.pm:310
+#: ../../main/ips/src/EBox/IPS.pm:300
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:94
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:383
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:403
 msgid "Source"
 msgstr "Kaynak"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:790
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:96
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:139
-#: ../../main/ips/src/EBox/IPS.pm:311
+#: ../../main/ips/src/EBox/IPS.pm:301
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:122
 msgid "Destination"
 msgstr "Hedef"
@@ -1347,7 +1387,7 @@ msgstr "Çıkış arayüzü"
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:113
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:144
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:63
-#: ../../main/core/src/EBox/Types/Service.pm:183
+#: ../../main/core/src/EBox/Types/Service.pm:185
 #: ../../main/core/src/EBox/Types/PortRange.pm:289
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:99
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:127
@@ -1416,7 +1456,7 @@ msgstr "Yönlendirilmiş port listesi"
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:139
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:337
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:178
-#: ../../main/ips/src/EBox/IPS.pm:309
+#: ../../main/ips/src/EBox/IPS.pm:299
 #: ../../main/network/src/EBox/Network/Model/ServiceTable.pm:132
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:201
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:55
@@ -1493,6 +1533,7 @@ msgid "External Input"
 msgstr "Dışarıdan Gelen"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
+#: ../../main/partner-tools/src/templates/tools.mas:20
 #: ../../main/network/src/templates/diag.mas:66
 #, fuzzy
 msgid "Output"
@@ -1739,111 +1780,111 @@ msgstr ""
 msgid "This message is being delivered"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:137
+#: ../../main/mail/src/EBox/Mail.pm:140
 #, fuzzy
 msgid "Generate mail aliases"
 msgstr "İleti takma ismi oluştur"
 
-#: ../../main/mail/src/EBox/Mail.pm:139
+#: ../../main/mail/src/EBox/Mail.pm:142
 #, perl-brace-format
 msgid "Zentyal will execute {cmd}"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:144
+#: ../../main/mail/src/EBox/Mail.pm:147
 msgid "Add LDAP schemas"
 msgstr "LDAP şemaları ekle"
 
-#: ../../main/mail/src/EBox/Mail.pm:146
+#: ../../main/mail/src/EBox/Mail.pm:149
 msgid "Zentyal will add two LDAP schemas: authldap.ldif and eboximail.ldif."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:152
+#: ../../main/mail/src/EBox/Mail.pm:155
 #, fuzzy
 msgid "Create certificates"
 msgstr "İleti takma ismi oluştur"
 
-#: ../../main/mail/src/EBox/Mail.pm:154
+#: ../../main/mail/src/EBox/Mail.pm:157
 msgid "Zentyal will create certificates to use in mail services"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:159
+#: ../../main/mail/src/EBox/Mail.pm:162
 msgid "Add fetchmail update cron job"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:161
+#: ../../main/mail/src/EBox/Mail.pm:164
 msgid ""
 "Zentyal will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:179
+#: ../../main/mail/src/EBox/Mail.pm:182
 msgid "To configure postfix"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:185
+#: ../../main/mail/src/EBox/Mail.pm:188
 msgid "To define how client programs connect to services in  postfix"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:192
+#: ../../main/mail/src/EBox/Mail.pm:195
 #, fuzzy
 msgid "To configure host mail name"
 msgstr "Kimlik doğrulama gerekli"
 
-#: ../../main/mail/src/EBox/Mail.pm:197
+#: ../../main/mail/src/EBox/Mail.pm:200
 #, fuzzy
 msgid "To configure postfix aliases"
 msgstr "Kimlik doğrulama gerekli"
 
-#: ../../main/mail/src/EBox/Mail.pm:202
+#: ../../main/mail/src/EBox/Mail.pm:205
 msgid "To configure dovecot"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:207
+#: ../../main/mail/src/EBox/Mail.pm:210
 #, fuzzy
 msgid "To configure dovecot to authenticate against LDAP"
 msgstr "Kimlik doğrulama gerekli"
 
-#: ../../main/mail/src/EBox/Mail.pm:212
+#: ../../main/mail/src/EBox/Mail.pm:215
 #, fuzzy
 msgid "To configure dovecot to have a master password"
 msgstr "Kimlik doğrulama gerekli"
 
-#: ../../main/mail/src/EBox/Mail.pm:217
+#: ../../main/mail/src/EBox/Mail.pm:220
 #, fuzzy
 msgid "To configure smart host authentication"
 msgstr "Kimlik doğrulama gerekli"
 
-#: ../../main/mail/src/EBox/Mail.pm:222
+#: ../../main/mail/src/EBox/Mail.pm:225
 #, fuzzy
 msgid "To configure mail transports"
 msgstr "Kimlik doğrulama gerekli"
 
-#: ../../main/mail/src/EBox/Mail.pm:227
+#: ../../main/mail/src/EBox/Mail.pm:230
 #, fuzzy
 msgid "To let dovecot authenticate users using PAM"
 msgstr "Kimlik doğrulama gerekli"
 
-#: ../../main/mail/src/EBox/Mail.pm:293
+#: ../../main/mail/src/EBox/Mail.pm:296
 msgid "Outgoing Mail (SMTP protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:302
+#: ../../main/mail/src/EBox/Mail.pm:305
 msgid "Incoming Mail"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:303
+#: ../../main/mail/src/EBox/Mail.pm:306
 msgid "POP, IMAP and SIEVE protocols"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:312
+#: ../../main/mail/src/EBox/Mail.pm:315
 msgid "Mail Submission"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:313
+#: ../../main/mail/src/EBox/Mail.pm:316
 msgid "Outgoing Mail (Submission protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:379
+#: ../../main/mail/src/EBox/Mail.pm:382
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:297
 #, perl-brace-format
 msgid ""
@@ -1851,54 +1892,54 @@ msgid ""
 "got {count}"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:837
+#: ../../main/mail/src/EBox/Mail.pm:840
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:842
+#: ../../main/mail/src/EBox/Mail.pm:845
 msgid "The mail name must be a fully qualified name"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:846 ../../main/mail/src/EBox/Mail.pm:857
-#: ../../main/mail/src/EBox/Mail.pm:865
+#: ../../main/mail/src/EBox/Mail.pm:849 ../../main/mail/src/EBox/Mail.pm:860
+#: ../../main/mail/src/EBox/Mail.pm:868
 #, fuzzy
 msgid "Host mail name"
 msgstr "Alan adı"
 
-#: ../../main/mail/src/EBox/Mail.pm:860
+#: ../../main/mail/src/EBox/Mail.pm:863
 msgid "The mail name and virtual mail domain name are equal"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1423
+#: ../../main/mail/src/EBox/Mail.pm:1426
 #, fuzzy
 msgid "SMTP service"
 msgstr "IMAP hizmeti"
 
-#: ../../main/mail/src/EBox/Mail.pm:1430
+#: ../../main/mail/src/EBox/Mail.pm:1433
 msgid "POP3 service"
 msgstr "POP3 hizmeti"
 
-#: ../../main/mail/src/EBox/Mail.pm:1436
+#: ../../main/mail/src/EBox/Mail.pm:1439
 #, fuzzy
 msgid "POP3S service"
 msgstr "POP3 hizmeti"
 
-#: ../../main/mail/src/EBox/Mail.pm:1442
+#: ../../main/mail/src/EBox/Mail.pm:1445
 msgid "IMAP service"
 msgstr "IMAP hizmeti"
 
-#: ../../main/mail/src/EBox/Mail.pm:1448
+#: ../../main/mail/src/EBox/Mail.pm:1451
 #, fuzzy
 msgid "IMAPS service"
 msgstr "IMAP hizmeti"
 
-#: ../../main/mail/src/EBox/Mail.pm:1492
+#: ../../main/mail/src/EBox/Mail.pm:1495
 msgid "enabled"
 msgstr "Etkinleşti"
 
-#: ../../main/mail/src/EBox/Mail.pm:1492
+#: ../../main/mail/src/EBox/Mail.pm:1495
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 msgid "disabled"
 msgstr ""
@@ -1907,7 +1948,7 @@ msgstr ""
 "#-#-#-#-#  tr.po (ebox-mail 0.12)  #-#-#-#-#\n"
 "Etkisizleşti"
 
-#: ../../main/mail/src/EBox/Mail.pm:1494 ../../main/mail/src/EBox/Mail.pm:1608
+#: ../../main/mail/src/EBox/Mail.pm:1497 ../../main/mail/src/EBox/Mail.pm:1608
 #: ../../main/network/src/EBox/Network.pm:4382
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1916,7 +1957,7 @@ msgstr ""
 msgid "Status"
 msgstr "Durum"
 
-#: ../../main/mail/src/EBox/Mail.pm:1497
+#: ../../main/mail/src/EBox/Mail.pm:1499
 msgid "Mail server's filter"
 msgstr "Posta servis ayarları"
 
@@ -2010,12 +2051,12 @@ msgstr "İlet"
 msgid "Message type"
 msgstr "Mesaj"
 
-#: ../../main/mail/src/EBox/Mail.pm:1609 ../../main/squid/src/EBox/Squid.pm:914
+#: ../../main/mail/src/EBox/Mail.pm:1609 ../../main/squid/src/EBox/Squid.pm:932
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1410
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/ips/src/EBox/IPS.pm:313
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:384 ../../main/ipsec/IPsec.pm:418
+#: ../../main/ips/src/EBox/IPS.pm:303
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:404
 #: ../../main/ipsec/src/EBox/IPsec.pm:415
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:478
 #: ../../main/dhcp/src/EBox/DHCP.pm:971
@@ -2259,33 +2300,6 @@ msgstr ""
 #, fuzzy
 msgid "External account"
 msgstr "Posta hesabı"
-
-#: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:229
-#: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:77
-#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
-#: ../../main/mail/src/templates/externalAccounts.mas:14
-#: ../../main/core/src/templates/login/index.mas:52
-#: ../../main/network/src/templates/ifaces.mas:180
-#: ../../main/samba/src/templates/adduser.mas:30
-#: ../../main/samba/src/templates/edituser.mas:86
-#, fuzzy
-msgid "Password"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Parola\n"
-"#-#-#-#-#  tr.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Şifre\n"
-"#-#-#-#-#  tr.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Şifre\n"
-"#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
-"Parola\n"
-"#-#-#-#-#  tr.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Şifre"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:41
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
@@ -2754,11 +2768,11 @@ msgid "User and password"
 msgstr "Kullanıcı adı ve parola"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
-#: ../../main/squid/src/EBox/Squid.pm:909
+#: ../../main/squid/src/EBox/Squid.pm:927
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:2823
+#: ../../main/samba/src/EBox/Samba.pm:2774
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:302
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
 #: ../../main/samba/src/templates/addobject.mas:11
@@ -3020,7 +3034,7 @@ msgstr "Geçici reddetme servisi"
 msgid "Mail server options"
 msgstr "Posta servis ayarları"
 
-#: ../../main/squid/src/EBox/Squid.pm:81 ../../main/squid/src/EBox/Squid.pm:923
+#: ../../main/squid/src/EBox/Squid.pm:81 ../../main/squid/src/EBox/Squid.pm:941
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:94
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
@@ -3138,39 +3152,39 @@ msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr "cache_mem değişkenini ayar dosyanızda tanımlamanız gereklidir."
 
-#: ../../main/squid/src/EBox/Squid.pm:780
+#: ../../main/squid/src/EBox/Squid.pm:798
 #, perl-brace-format
 msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
 "Editions{ch} for automatic security updates."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:868
+#: ../../main/squid/src/EBox/Squid.pm:886
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:71
 msgid "General Settings"
 msgstr "Genel Ayarlar"
 
-#: ../../main/squid/src/EBox/Squid.pm:871
+#: ../../main/squid/src/EBox/Squid.pm:889
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:95
 msgid "Access Rules"
 msgstr "Erişim Kuralları"
 
-#: ../../main/squid/src/EBox/Squid.pm:874
+#: ../../main/squid/src/EBox/Squid.pm:892
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:47
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 msgid "Filter Profiles"
 msgstr "Süzgeç Tanımları"
 
-#: ../../main/squid/src/EBox/Squid.pm:877
+#: ../../main/squid/src/EBox/Squid.pm:895
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:73
 msgid "Categorized Lists"
 msgstr "Sınıflandırılmış Listeler"
 
-#: ../../main/squid/src/EBox/Squid.pm:880
+#: ../../main/squid/src/EBox/Squid.pm:898
 msgid "Bandwidth Throttling"
 msgstr "Bandwidth Ayarlama"
 
-#: ../../main/squid/src/EBox/Squid.pm:908
+#: ../../main/squid/src/EBox/Squid.pm:926
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:65
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:72
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:154
@@ -3179,31 +3193,31 @@ msgstr "Bandwidth Ayarlama"
 msgid "Host"
 msgstr "Makina"
 
-#: ../../main/squid/src/EBox/Squid.pm:910
+#: ../../main/squid/src/EBox/Squid.pm:928
 msgid "URL"
 msgstr "URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:912
+#: ../../main/squid/src/EBox/Squid.pm:930
 msgid "Bytes"
 msgstr "Bayt"
 
-#: ../../main/squid/src/EBox/Squid.pm:913
+#: ../../main/squid/src/EBox/Squid.pm:931
 msgid "Mime/type"
 msgstr "Mime/type"
 
-#: ../../main/squid/src/EBox/Squid.pm:919
+#: ../../main/squid/src/EBox/Squid.pm:937
 msgid "Accepted"
 msgstr "İzin verilen"
 
-#: ../../main/squid/src/EBox/Squid.pm:920
+#: ../../main/squid/src/EBox/Squid.pm:938
 msgid "Denied"
 msgstr "Yasaklanan"
 
-#: ../../main/squid/src/EBox/Squid.pm:921
+#: ../../main/squid/src/EBox/Squid.pm:939
 msgid "Filtered"
 msgstr "Süzgeçlenen"
 
-#: ../../main/squid/src/EBox/Squid.pm:1025
+#: ../../main/squid/src/EBox/Squid.pm:1043
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get one of the {oh}"
@@ -3380,12 +3394,12 @@ msgid ""
 "other rule for the same {sourceType}"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:344
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:357
 #, perl-brace-format
 msgid "Object: {o}"
 msgstr "Nesne: {o}"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:355
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:368
 #, perl-brace-format
 msgid "Apply '{p}' profile"
 msgstr "'{p}' profilini uygula"
@@ -3759,26 +3773,36 @@ msgid ""
 "You can exempt some addresses from caching. It will include the subdomains."
 msgstr "Vekil sunucu kullanmayacak adres ekleyebilirsiniz"
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:51
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:54
+msgid "Block HTTPS traffic by domain"
+msgstr ""
+
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:57
+msgid ""
+"If this is enabled, any domain (not applicable to URLs) which is <b>denied</"
+"b> in the <i>Domains and URL rules</i> will be blocked at firewall level."
+msgstr ""
+
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:66
 msgid "Block not listed domains and URLs"
 msgstr "Listede olmayan alan adları ve URLleri engelle"
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:54
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:69
 msgid ""
 "If this is enabled, any domain or URL which is neither present neither in "
-"the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
-"below will be forbidden."
+"the <i>Domains and URL rules</i> nor in the <i>Domain list files</i> "
+"sections below will be forbidden."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:61
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:76
 msgid "Block sites specified only as IP"
 msgstr "sadece IP olarak belirtilen siteleri engelle"
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:69
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:84
 msgid "Domain filter settings"
 msgstr "Alan adı süzgeç ayarları "
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:75
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:90
 msgid "Filtering settings changed"
 msgstr "Süzgeç ayarları değişti "
 
@@ -3980,7 +4004,7 @@ msgstr ""
 msgid "Remote Certificate"
 msgstr "Sertifika"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1419 ../../main/ipsec/IPsec.pm:424
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1419
 #: ../../main/ipsec/src/EBox/IPsec.pm:421
 msgid "Initialization sequence completed"
 msgstr ""
@@ -5109,12 +5133,12 @@ msgstr "eBox etkin ve çalışıyor"
 msgid "The service is not enabled in Zentyal"
 msgstr "eBox etkin ve çalışıyor"
 
-#: ../../main/core/src/EBox/Validate.pm:453
-#: ../../main/core/src/EBox/Validate.pm:467
+#: ../../main/core/src/EBox/Validate.pm:452
+#: ../../main/core/src/EBox/Validate.pm:466
 msgid "Must be a number between 1 and 4096"
 msgstr "Sayı 1 ile 4096 arasında olmalıdır"
 
-#: ../../main/core/src/EBox/Validate.pm:758
+#: ../../main/core/src/EBox/Validate.pm:757
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -5122,12 +5146,12 @@ msgid ""
 msgstr ""
 "{dir} dizinine girilemiyor. Dizin mevcut değil veya erişim yetkiniz yok"
 
-#: ../../main/core/src/EBox/Validate.pm:763
+#: ../../main/core/src/EBox/Validate.pm:762
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr "{dir} dizini özel değil; çünkü başka bir kullanıcı sahipliği altında"
 
-#: ../../main/core/src/EBox/Validate.pm:837
+#: ../../main/core/src/EBox/Validate.pm:836
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -5135,11 +5159,11 @@ msgstr ""
 "Verilen dosya yolu gerçerli değil. (Şu an geçerli olan tüm dosya "
 "karakterleri desteklenmiyor)"
 
-#: ../../main/core/src/EBox/Validate.pm:865
+#: ../../main/core/src/EBox/Validate.pm:864
 msgid "The file path must be absolute"
 msgstr "Dosya yolu mutlak olmalı"
 
-#: ../../main/core/src/EBox/Validate.pm:896
+#: ../../main/core/src/EBox/Validate.pm:895
 #, fuzzy, perl-brace-format
 msgid "Error on regular expression: {err}"
 msgstr "Dış yol"
@@ -5751,7 +5775,7 @@ msgstr "{data} {value} önceden mevcut."
 #: ../../main/core/src/EBox/Backup.pm:460
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:268
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:135
-#: ../../main/dhcp/src/EBox/DHCP.pm:1080
+#: ../../main/dhcp/src/EBox/DHCP.pm:1081
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -6545,24 +6569,24 @@ msgstr ""
 msgid "Failed to enable: {err}"
 msgstr ""
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:517
+#: ../../main/core/src/EBox/GlobalImpl.pm:508
 msgid ""
 "Cannot create software packages cache. Make sure that your sources and "
 "preferences files in /etc/apt are readable and retry"
 msgstr ""
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:584
+#: ../../main/core/src/EBox/GlobalImpl.pm:575
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Yedekleme modu"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:651
-#: ../../main/core/src/EBox/GlobalImpl.pm:679
+#: ../../main/core/src/EBox/GlobalImpl.pm:642
+#: ../../main/core/src/EBox/GlobalImpl.pm:670
 #, fuzzy, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Yedekleme modu"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:1304
+#: ../../main/core/src/EBox/GlobalImpl.pm:1295
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr ""
@@ -6916,32 +6940,25 @@ msgid ""
 "Status{ch} section, otherwise your changes won't have any effect."
 msgstr ""
 
-#: ../../main/ips/src/EBox/IPS.pm:67
+#: ../../main/ips/src/EBox/IPS.pm:63
 msgid "IDS/IPS"
 msgstr ""
 
-#: ../../main/ips/src/EBox/IPS.pm:268
+#: ../../main/ips/src/EBox/IPS.pm:259
 msgid "Add rules to suricata configuration"
 msgstr "Ayarları kaydet"
 
-#: ../../main/ips/src/EBox/IPS.pm:273
+#: ../../main/ips/src/EBox/IPS.pm:264
 msgid "Enable start of suricata daemon"
 msgstr ""
 
-#: ../../main/ips/src/EBox/IPS.pm:320
+#: ../../main/ips/src/EBox/IPS.pm:310
 msgid "IPS"
 msgstr "IP"
 
-#: ../../main/ips/src/EBox/IPS.pm:325
+#: ../../main/ips/src/EBox/IPS.pm:315
 msgid "Alert"
 msgstr "Uyarı"
-
-#: ../../main/ips/src/EBox/IPS.pm:419
-#, perl-brace-format
-msgid ""
-"Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for "
-"details and rule changelog at {url} ({name} rules)"
-msgstr ""
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:200
 msgid "Rules"
@@ -6960,31 +6977,6 @@ msgstr "Reklam engelleme"
 #, fuzzy
 msgid "Log & Block"
 msgstr "Reklam engelleme"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
-msgid "number of alerts"
-msgstr "uyarı sayısı"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:50
-msgid "Alerts chart"
-msgstr "Uyarı grafikleri"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:66
-msgid "Alert Graph"
-msgstr "Uyarı Grafiği"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:58
-msgid "Number of alerts"
-msgstr "Uyarı sayısı"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:66
-msgid "Alert details"
-msgstr "Uyarı ayrıntıları"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:73
-msgid "alerts"
-msgstr "uyarılar"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:131
 #: ../../main/network/src/EBox/Network.pm:4453
@@ -7006,10 +6998,6 @@ msgstr "Hangi arabirim üzerinde IDS aktif edileceğini seçiniz"
 #: ../../main/ips/src/EBox/IPS/Composite/General.pm:58
 msgid "Intrusion Detection/Prevention System"
 msgstr "Saldırı Tespit Sistemi"
-
-#: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
-msgid "IPS Alerts report"
-msgstr "IDS Uyarı raporu"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:47
 #, fuzzy
@@ -7063,30 +7051,30 @@ msgstr "Zaman dilimi ayarları"
 msgid "Network Time Protocol"
 msgstr "Ağ tanıları"
 
-#: ../../main/ftp/src/EBox/FTP.pm:75
+#: ../../main/ftp/src/EBox/FTP.pm:74
 msgid "Zentyal FTP Server"
 msgstr "eBox FTP Sunucusu"
 
-#: ../../main/ftp/src/EBox/FTP.pm:113
+#: ../../main/ftp/src/EBox/FTP.pm:112
 msgid "Generate SSL certificates"
 msgstr "İleti takma ismi oluştur"
 
-#: ../../main/ftp/src/EBox/FTP.pm:114
+#: ../../main/ftp/src/EBox/FTP.pm:113
 msgid "Zentyal will self-signed SSL certificates for FTP service."
 msgstr ""
 "Ebox, TTLS için gerekli sertifikaları /etc/freeradius/certs/ klasörü altında "
 "oluşturacak."
 
-#: ../../main/ftp/src/EBox/FTP.pm:132
+#: ../../main/ftp/src/EBox/FTP.pm:131
 #, fuzzy
 msgid "To configure vsftpd."
 msgstr "Yazıcı yapılandırılmadı"
 
-#: ../../main/ftp/src/EBox/FTP.pm:136
+#: ../../main/ftp/src/EBox/FTP.pm:135
 msgid "To configure vsftpd with LDAP authentication."
 msgstr "vsftpd yi LDAP kimlik kontrolü ile konfigüre etmek için"
 
-#: ../../main/ftp/src/EBox/FTP.pm:179
+#: ../../main/ftp/src/EBox/FTP.pm:178
 #, fuzzy
 msgid "FTP"
 msgstr "NAT"
@@ -7205,7 +7193,7 @@ msgstr "Yerel adres"
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:103
 #: ../../main/network/src/EBox/Network/Model/MemberTable.pm:81
 #: ../../main/network/src/EBox/Network.pm:4387
-#: ../../main/dhcp/src/EBox/DHCP.pm:969 ../../main/dhcp/src/EBox/DHCP.pm:1067
+#: ../../main/dhcp/src/EBox/DHCP.pm:969 ../../main/dhcp/src/EBox/DHCP.pm:1068
 #: ../../main/network/src/templates/diag.mas:33
 msgid "MAC address"
 msgstr "MAC adresi"
@@ -8094,9 +8082,56 @@ msgstr "HTTP"
 msgid "network object"
 msgstr "Ağ Nesneleri"
 
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Settings.pm:42
+#, fuzzy
+msgid "Enable On-Access Prevention"
+msgstr "Demo dahili numara aktif etme"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Settings.pm:45
+msgid "Deny access to infected files in the included paths above."
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Settings.pm:51
+#, fuzzy
+msgid "On-Access Scan"
+msgstr "Erişim Kontrolü"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:67
+msgid "Path"
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:78
+#, fuzzy
+msgid "Include/Exclude Paths"
+msgstr "Dahil etmek ve Dışında Tutmak"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:79
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:113
+#: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:106
+msgid "path"
+msgstr "path"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:87
+msgid ""
+"Inclusions and Exclusions are recursive. Please also note that any path that "
+"is not explicitly included is excluded by default."
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:99
+#, fuzzy
+msgid "Include Path"
+msgstr "Dış yol"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:103
+#, fuzzy
+msgid "Exclude path"
+msgstr "Dış yol"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Composite/General.pm:38
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:73
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:348
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:353
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:368
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:373
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:432
 msgid "Antivirus"
 msgstr ""
 "#-#-#-#-#  tr.po (ebox-samba 0.12)  #-#-#-#-#\n"
@@ -8104,73 +8139,73 @@ msgstr ""
 "#-#-#-#-#  tr.po (ebox-antivirus 0.1)  #-#-#-#-#\n"
 "Antivirus"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:141
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:158
 msgid " To configure clamd daemon"
 msgstr "Clamd arkaplan hizmetini ayarla"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:146
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:163
 msgid "To schedule the launch of the updater"
 msgstr "Güncelemeler için zaman ayarla"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:151
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:168
 #, perl-brace-format
 msgid "Custom {app} profile configuration for {bin} binary"
 msgstr ""
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:158
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:175
 #, perl-brace-format
 msgid "Disable {app} profile for {bin} binary"
 msgstr ""
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:388
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:408
 msgid "Success"
 msgstr "Samba Erişimi"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:388
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:408
 msgid "Failure"
 msgstr "alan"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:391
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:411
 msgid "Antivirus DB updates"
 msgstr "Antivirüs Varsayılan Ayarlar"
 
-#: ../../main/ipsec/IPsec.pm:69 ../../main/ipsec/src/EBox/IPsec.pm:69
+#: ../../main/ipsec/src/EBox/IPsec.pm:69
 #, fuzzy
-msgid "To configure Librewan IPsec."
+msgid "To configure Libreswan IPsec."
 msgstr "Ortak SIP ve IAX kullanıcı yapılandırması"
 
-#: ../../main/ipsec/IPsec.pm:75 ../../main/ipsec/src/EBox/IPsec.pm:75
+#: ../../main/ipsec/src/EBox/IPsec.pm:75
 #, fuzzy
 msgid "To configure Libreswan IPsec passwords."
 msgstr "Konfigürasyon aktif edildi ve modüller devre dışı bırakıldı."
 
-#: ../../main/ipsec/IPsec.pm:81 ../../main/ipsec/src/EBox/IPsec.pm:81
+#: ../../main/ipsec/src/EBox/IPsec.pm:81
 msgid ""
 "To configure L2TP/IPSec users when not using Active Directory validation."
 msgstr ""
 
-#: ../../main/ipsec/IPsec.pm:194 ../../main/ipsec/src/EBox/IPsec.pm:194
+#: ../../main/ipsec/src/EBox/IPsec.pm:194
 msgid "IPsec based VPN"
 msgstr ""
 
-#: ../../main/ipsec/IPsec.pm:419 ../../main/ipsec/src/EBox/IPsec.pm:416
+#: ../../main/ipsec/src/EBox/IPsec.pm:416
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:269
 msgid "Connection name"
 msgstr "Bağlantı hedefi"
 
-#: ../../main/ipsec/IPsec.pm:425 ../../main/ipsec/src/EBox/IPsec.pm:422
+#: ../../main/ipsec/src/EBox/IPsec.pm:422
 msgid "Stopping completed"
 msgstr ""
 
-#: ../../main/ipsec/IPsec.pm:427 ../../main/ipsec/src/EBox/IPsec.pm:424
+#: ../../main/ipsec/src/EBox/IPsec.pm:424
 msgid "Connection initiated"
 msgstr "İstemcinin sertifikası"
 
-#: ../../main/ipsec/IPsec.pm:428 ../../main/ipsec/src/EBox/IPsec.pm:425
+#: ../../main/ipsec/src/EBox/IPsec.pm:425
 msgid "Connection terminated"
 msgstr "İstemcinin sertifikası"
 
-#: ../../main/ipsec/IPsec.pm:461 ../../main/ipsec/src/EBox/IPsec.pm:458
+#: ../../main/ipsec/src/EBox/IPsec.pm:458
 msgid "IPsec"
 msgstr ""
 
@@ -8741,54 +8776,54 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1334
+#: ../../main/samba/src/EBox/Samba.pm:1289
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1670
+#: ../../main/samba/src/EBox/Samba.pm:1621
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
 #, fuzzy
 msgid "Users and Computers"
 msgstr "Grubdaki kullanıcılar"
 
-#: ../../main/samba/src/EBox/Samba.pm:1675
+#: ../../main/samba/src/EBox/Samba.pm:1626
 #, fuzzy
 msgid "Manage"
 msgstr "Salt Okunur"
 
-#: ../../main/samba/src/EBox/Samba.pm:1679
+#: ../../main/samba/src/EBox/Samba.pm:1630
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
 #, fuzzy
 msgid "User Template"
 msgstr "Kullanıcı ismi"
 
-#: ../../main/samba/src/EBox/Samba.pm:1683
+#: ../../main/samba/src/EBox/Samba.pm:1634
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
 msgid "LDAP Settings"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1686
+#: ../../main/samba/src/EBox/Samba.pm:1637
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
 #, fuzzy
 msgid "File Sharing"
 msgstr "Dosya paylaşım"
 
-#: ../../main/samba/src/EBox/Samba.pm:1818
+#: ../../main/samba/src/EBox/Samba.pm:1769
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1834
+#: ../../main/samba/src/EBox/Samba.pm:1785
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1851
+#: ../../main/samba/src/EBox/Samba.pm:1802
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8796,57 +8831,57 @@ msgid ""
 "{ex}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1861
+#: ../../main/samba/src/EBox/Samba.pm:1812
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2125
+#: ../../main/samba/src/EBox/Samba.pm:2076
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2218
+#: ../../main/samba/src/EBox/Samba.pm:2169
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Dosya sistemi yolu"
 
-#: ../../main/samba/src/EBox/Samba.pm:2361
+#: ../../main/samba/src/EBox/Samba.pm:2312
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "{port} portu şu anda {mod} modülü tarafından kullanılmakta"
 
-#: ../../main/samba/src/EBox/Samba.pm:2822
+#: ../../main/samba/src/EBox/Samba.pm:2773
 msgid "Client address"
 msgstr "İstemci IP adresi"
 
-#: ../../main/samba/src/EBox/Samba.pm:2825
+#: ../../main/samba/src/EBox/Samba.pm:2776
 msgid "Resource"
 msgstr "Kaynak"
 
-#: ../../main/samba/src/EBox/Samba.pm:2829
+#: ../../main/samba/src/EBox/Samba.pm:2780
 msgid "Connect"
 msgstr "Bağlan"
 
-#: ../../main/samba/src/EBox/Samba.pm:2830
+#: ../../main/samba/src/EBox/Samba.pm:2781
 msgid "Access to directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2831
+#: ../../main/samba/src/EBox/Samba.pm:2782
 msgid "Read file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2832
+#: ../../main/samba/src/EBox/Samba.pm:2783
 msgid "Write file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2833
+#: ../../main/samba/src/EBox/Samba.pm:2784
 msgid "Disconnect"
 msgstr "Bağlantıyı kes"
 
-#: ../../main/samba/src/EBox/Samba.pm:2834
+#: ../../main/samba/src/EBox/Samba.pm:2785
 #: ../../main/mail/src/templates/qmanager.mas:37
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #, fuzzy
@@ -8861,21 +8896,21 @@ msgstr ""
 "#-#-#-#-#  tr.po (ebox-mail 0.12)  #-#-#-#-#\n"
 "Kaldır"
 
-#: ../../main/samba/src/EBox/Samba.pm:2835
+#: ../../main/samba/src/EBox/Samba.pm:2786
 msgid "Create directory"
 msgstr "Klasör Oluştur"
 
-#: ../../main/samba/src/EBox/Samba.pm:2836
+#: ../../main/samba/src/EBox/Samba.pm:2787
 #, fuzzy
 msgid "Remove directory"
 msgstr "Klasör Sil"
 
-#: ../../main/samba/src/EBox/Samba.pm:2837
+#: ../../main/samba/src/EBox/Samba.pm:2788
 #, fuzzy
 msgid "Rename"
 msgstr "İsmini değiştir"
 
-#: ../../main/samba/src/EBox/Samba.pm:2841
+#: ../../main/samba/src/EBox/Samba.pm:2792
 msgid "Samba access"
 msgstr "Samba Erişimi"
 
@@ -9249,54 +9284,60 @@ msgid ""
 "raise your domain functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:933
+#: ../../main/samba/src/EBox/Samba/Provision.pm:910
+msgid ""
+"The domain functional level must be Windows Server 2008 R2 or lower. Please "
+"lower your domain functional level."
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba/Provision.pm:937
 msgid "Error querying AD schema:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:940
+#: ../../main/samba/src/EBox/Samba/Provision.pm:944
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:967
+#: ../../main/samba/src/EBox/Samba/Provision.pm:971
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1000
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1004
 #, fuzzy, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "www. önekini alan adı ile birlikte kullanamazsınız."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1013
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1017
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
 "problems with kerberos authentication, please sync both clocks with an "
 "external NTP source and try again."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1052
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1056
 #, fuzzy, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "{cn} sertifikası mevcut değil"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1064
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1068
 msgid "Could not determine the site of the specified server"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1098
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1102
 msgid "Could not determine the netbios domain name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1102
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1106
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1464
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1468
 msgid "Error on group container LDAP entry creation:"
 msgstr ""
 
@@ -9441,12 +9482,8 @@ msgid ""
 "status section and save changes in order to use it."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:106
-msgid "path"
-msgstr "path"
-
 #: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:121
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:146
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:140
 msgid "share"
 msgstr "paylaşım"
 
@@ -9573,7 +9610,7 @@ msgid "User/Group"
 msgstr "Kullanıcı/Grup"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:219
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:139
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:133
 msgid "Shares"
 msgstr "Paylaşımlar"
 
@@ -9674,49 +9711,49 @@ msgstr "eBox altındaki dizin ismi"
 msgid "File system path"
 msgstr "Dosya sistemi yolu"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:113
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:114
 msgid "Guest access"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:117
 msgid "This share will not require authentication."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:126
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
 msgid "Access control"
 msgstr "Erişim Kontrolü"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:257
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:251
 #, perl-brace-format
 msgid "Zentyal could not access to directory '{x}': {y}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:272
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:266
 msgid "Samba share absolute path"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:275
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:269
 #, perl-brace-format
 msgid "Path {p} is not a directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:282
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:276
 #, fuzzy
 msgid "Samba share directory"
 msgstr "{group} için paylaşım klasörü"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:308
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:302
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "Klasör boş değil. Silmek istediğinizden emin misiniz?"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:353
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:347
 #, perl-brace-format
 msgid ""
 "Domain guest account should be enabled for guest access to shares. You can "
 "enable it in the {oh}users and groups manager{ch}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:381
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:375
 #, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
@@ -9724,36 +9761,36 @@ msgid ""
 "you to share an existing directory within your file system"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:395
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:389
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let Zentyal create it for "
 "you."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:439
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:433
 #, perl-brace-format
 msgid "Error getting filesystem format in {m}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:444
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:438
 #, perl-brace-format
 msgid "Filesystem format '{x}' does not support storing ACLs."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:457
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:451
 #, perl-brace-format
 msgid "Error reading mount options in {m}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:462
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:456
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'acl' option. This is "
 "required for permissions to work properly."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:468
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:462
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'user_xattr' option. "
@@ -9946,6 +9983,13 @@ msgstr "Hesap ismi"
 #, fuzzy
 msgid "File sharing options"
 msgstr "Dosya paylaşım seçenekleri"
+
+#: ../../main/samba/src/EBox/Samba/Composite/GPOs.pm:53
+#, perl-brace-format
+msgid ""
+"<b>Group Policy Objects</b> can be managed downloading {oh}Microsoft Remote "
+"Server Administration Tools{ch} for your Windows version."
+msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/RecycleBin.pm:58
 msgid "Recycle Bin"
@@ -11013,31 +11057,31 @@ msgstr "Dış yol"
 msgid "Thin client file path"
 msgstr "İnce İstemci"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:169
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:172
 #, fuzzy
 msgid "Option 150"
 msgstr "Seçenekler"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:172
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:175
 msgid "VoIP TFTP servers: list of IP addresses separated by space"
 msgstr ""
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:176
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:179
 #, fuzzy
 msgid "Option 155"
 msgstr "Seçenekler"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:179
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:182
 #, fuzzy
 msgid "IP address of the ShoreTel Director server"
 msgstr "Başka Jabber ağlarına bağlan"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:185
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:192
 #, fuzzy
 msgid "Thin client / External TFTP-Server / Other options for VoIP phones"
 msgstr "Harici NTP sunucuları"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:190
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:197
 #, perl-brace-format
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
@@ -11046,7 +11090,7 @@ msgstr ""
 "İnce İstemcinizde değişiklik yapmak için {path} dizinine gerekli tüm "
 "dosyaları kopyalayınız"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:196
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:203
 #, fuzzy
 msgid "thin client option"
 msgstr "İnce İstemci"
@@ -11164,7 +11208,7 @@ msgstr "Released"
 msgid "DHCP"
 msgstr "DHCP"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:1100
+#: ../../main/dhcp/src/EBox/DHCP.pm:1101
 msgid "DHCP leases"
 msgstr "DHCP İstemcileri"
 
@@ -11192,6 +11236,19 @@ msgstr "Sil"
 #, perl-brace-format
 msgid "Host list for domain {domain}"
 msgstr "{domain} alanı için makina listesi"
+
+#: ../../main/partner-tools/stubs/vsftpd.conf.mas:73
+#: ../../main/ftp/stubs/vsftpd.conf.mas:73
+msgid "Welcome to Zentyal FTP service."
+msgstr "eBox FTP Sunucusu"
+
+#: ../../main/partner-tools/src/templates/tools.mas:14
+msgid "PostgreSQL Database Setup for IM and Presence Service on Cisco UCM"
+msgstr ""
+
+#: ../../main/partner-tools/src/templates/tools.mas:17
+msgid "Setup"
+msgstr ""
 
 #: ../../main/ca/src/templates/index.mas:44
 #: ../../main/ca/src/templates/createCA.mas:14
@@ -12676,10 +12733,6 @@ msgstr ""
 msgid "No entries in this list"
 msgstr ""
 
-#: ../../main/ftp/stubs/vsftpd.conf.mas:73
-msgid "Welcome to Zentyal FTP service."
-msgstr "eBox FTP Sunucusu"
-
 #: ../../main/network/src/templates/confirmremove.mas:11
 #: ../../main/network/src/templates/confirm.mas:19
 msgid ""
@@ -13409,6 +13462,27 @@ msgstr ""
 #: ../../main/software/src/templates/config.mas:25
 msgid "Automatic operations start time"
 msgstr ""
+
+#~ msgid "number of alerts"
+#~ msgstr "uyarı sayısı"
+
+#~ msgid "Alerts chart"
+#~ msgstr "Uyarı grafikleri"
+
+#~ msgid "Alert Graph"
+#~ msgstr "Uyarı Grafiği"
+
+#~ msgid "Number of alerts"
+#~ msgstr "Uyarı sayısı"
+
+#~ msgid "Alert details"
+#~ msgstr "Uyarı ayrıntıları"
+
+#~ msgid "alerts"
+#~ msgstr "uyarılar"
+
+#~ msgid "IPS Alerts report"
+#~ msgstr "IDS Uyarı raporu"
 
 #~ msgid ""
 #~ "Invalid name {name}. Name which begins with the prefix {pf} are reserved "
@@ -16202,16 +16276,8 @@ msgstr ""
 #~ msgstr "Dahil et veya dışında tut"
 
 #, fuzzy
-#~ msgid "Includes and Excludes"
-#~ msgstr "Dahil etmek ve Dışında Tutmak"
-
-#, fuzzy
 #~ msgid "exclude or include"
 #~ msgstr "Dahil et veya dışında tut"
-
-#, fuzzy
-#~ msgid "Exclude path"
-#~ msgstr "Dış yol"
 
 #, fuzzy
 #~ msgid "Exclude by regular expression"
@@ -16227,10 +16293,6 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "exclude path"
-#~ msgstr "Dış yol"
-
-#, fuzzy
-#~ msgid "include path"
 #~ msgstr "Dış yol"
 
 #~ msgid "Host or destination"
@@ -17341,9 +17403,6 @@ msgstr ""
 
 #~ msgid "meeting"
 #~ msgstr "Toplantı"
-
-#~ msgid "Enable demo extensions"
-#~ msgstr "Demo dahili numara aktif etme"
 
 #~ msgid "Enable outgoing calls"
 #~ msgstr "Dışarı aramaları aktif etme"

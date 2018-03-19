@@ -53,8 +53,8 @@ msgstr " Configurer le service clamd"
 msgid "To configure sogo parameters"
 msgstr "Pour configurer le nom d'hôte de messagerie"
 
-#: ../../main/sogo/src/EBox/SOGo.pm:373 ../../main/mail/src/EBox/Mail.pm:95
-#: ../../main/mail/src/EBox/Mail.pm:1477 ../../main/mail/src/EBox/Mail.pm:1634
+#: ../../main/sogo/src/EBox/SOGo.pm:373 ../../main/mail/src/EBox/Mail.pm:98
+#: ../../main/mail/src/EBox/Mail.pm:1480 ../../main/mail/src/EBox/Mail.pm:1634
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "Courrier"
@@ -93,90 +93,95 @@ msgid ""
 "registered in the USA and other countries."
 msgstr ""
 
+#: ../../main/sogo/src/EBox/SOGo/Composite/Warning.pm:48
+#, perl-brace-format
+msgid "{x} is only recommended for mailboxes of 1GB of data or less."
+msgstr ""
+
 #: ../../main/dns/src/EBox/DNS.pm:288 ../../main/dns/src/EBox/DNS.pm:370
-#: ../../main/dns/src/EBox/DNS.pm:430 ../../main/dns/src/EBox/DNS.pm:458
-#: ../../main/dns/src/EBox/DNS.pm:1733
+#: ../../main/dns/src/EBox/DNS.pm:431 ../../main/dns/src/EBox/DNS.pm:459
+#: ../../main/dns/src/EBox/DNS.pm:1734
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:685
 msgid "domain"
 msgstr "domaine"
 
-#: ../../main/dns/src/EBox/DNS.pm:562
+#: ../../main/dns/src/EBox/DNS.pm:563
 msgid "Zentyal will set the required environment variables for bind9 daemon"
 msgstr ""
 "Zentyal va définir les variables d'environnement nécessaires pour le service "
 "bind9"
 
-#: ../../main/dns/src/EBox/DNS.pm:567
+#: ../../main/dns/src/EBox/DNS.pm:568
 msgid "main bind9 configuration file"
 msgstr "Fichier de configuration principale de bind9"
 
-#: ../../main/dns/src/EBox/DNS.pm:572
+#: ../../main/dns/src/EBox/DNS.pm:573
 msgid "bind9 options configuration file"
 msgstr "Fichier de configuration de bind9"
 
-#: ../../main/dns/src/EBox/DNS.pm:577
+#: ../../main/dns/src/EBox/DNS.pm:578
 msgid "local bind9 configuration file"
 msgstr "Fichier local de configuration bind9"
 
-#: ../../main/dns/src/EBox/DNS.pm:582
+#: ../../main/dns/src/EBox/DNS.pm:583
 msgid "Keys configuration file"
 msgstr "Fichier de configuration des clefs"
 
-#: ../../main/dns/src/EBox/DNS.pm:597
+#: ../../main/dns/src/EBox/DNS.pm:598
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr ""
 "Changer les permission pour {dir} afin de permettre l'écriture dans le "
 "groupe bind"
 
-#: ../../main/dns/src/EBox/DNS.pm:599
+#: ../../main/dns/src/EBox/DNS.pm:600
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "Laisse le service bind être mis-à-jour automatiquement"
 
-#: ../../main/dns/src/EBox/DNS.pm:603
+#: ../../main/dns/src/EBox/DNS.pm:604
 msgid "Remove bind9 init script link"
 msgstr "Supprimer le lien au script d'initialisation bind9"
 
-#: ../../main/dns/src/EBox/DNS.pm:604 ../../main/squid/src/EBox/Squid.pm:234
+#: ../../main/dns/src/EBox/DNS.pm:605 ../../main/squid/src/EBox/Squid.pm:234
 #: ../../main/squid/src/EBox/Squid.pm:240 ../../main/ntp/src/EBox/NTP.pm:81
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "Zentyal va prendre en charge le démarrage et l'arrêt des services."
 
-#: ../../main/dns/src/EBox/DNS.pm:609
+#: ../../main/dns/src/EBox/DNS.pm:610
 msgid "Override named apparmor profile"
 msgstr "Remplacer le profil apparmor"
 
-#: ../../main/dns/src/EBox/DNS.pm:610
+#: ../../main/dns/src/EBox/DNS.pm:611
 msgid "To allow samba daemon load Active Directory zone"
 msgstr "Permettre au service Samba de charger la zone Active Directory"
 
-#: ../../main/dns/src/EBox/DNS.pm:635
+#: ../../main/dns/src/EBox/DNS.pm:636
 msgid "Domain Name Service"
 msgstr "Serveur de nom de domaine (DNS)"
 
-#: ../../main/dns/src/EBox/DNS.pm:1015
+#: ../../main/dns/src/EBox/DNS.pm:1016
 #, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
 msgstr "Clef '{key}' dans le fichier principal de configuration {value}"
 
-#: ../../main/dns/src/EBox/DNS.pm:1759
+#: ../../main/dns/src/EBox/DNS.pm:1760
 msgid "hostname"
 msgstr "Nom d'hôte"
 
-#: ../../main/dns/src/EBox/DNS.pm:1764
+#: ../../main/dns/src/EBox/DNS.pm:1765
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2350
+#: ../../main/samba/src/EBox/Samba.pm:2301
 msgid "alias"
 msgstr "alias"
 
-#: ../../main/dns/src/EBox/DNS.pm:1980
+#: ../../main/dns/src/EBox/DNS.pm:1981
 #, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
 msgstr "Un hôte avec le nom {x} est déjà présent dans le domaine {y}"
 
-#: ../../main/dns/src/EBox/DNS.pm:2048
+#: ../../main/dns/src/EBox/DNS.pm:2049
 #, fuzzy, perl-brace-format
-msgid "The IP '{a}' already assigned in '{d}'"
+msgid "The IP '{a}' is already in '{d}'"
 msgstr "L'adresse {ip} est déjà affectée à l'interface {iface}"
 
 #: ../../main/dns/src/EBox/DNS/Types/Hostname.pm:48
@@ -194,14 +199,14 @@ msgstr "Nom du service"
 #: ../../main/firewall/src/EBox/Firewall.pm:791
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:256
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
-#: ../../main/ips/src/EBox/IPS.pm:312
+#: ../../main/ips/src/EBox/IPS.pm:302
 #: ../../main/network/src/EBox/Network/Model/ServiceConfigurationTable.pm:144
 #: ../../main/mail/src/templates/externalAccounts.mas:18
 msgid "Protocol"
 msgstr "Protocole"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:143
-#: ../../main/ips/src/EBox/IPS.pm:308
+#: ../../main/ips/src/EBox/IPS.pm:298
 msgid "Priority"
 msgstr "Priorité"
 
@@ -319,7 +324,7 @@ msgstr ""
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:170
 #: ../../main/network/src/EBox/Network.pm:4228
 #: ../../main/network/src/EBox/Network.pm:4249
-#: ../../main/dhcp/src/EBox/DHCP.pm:1067
+#: ../../main/dhcp/src/EBox/DHCP.pm:1068
 #: ../../main/dns/src/templates/edit.mas:18
 msgid "Host name"
 msgstr "Nom d'hôte"
@@ -497,7 +502,6 @@ msgstr "Activer le cache DNS transparent"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
-#: ../../main/samba/src/EBox/Samba.pm:1663
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
 #: ../../main/software/src/EBox/Software.pm:668
 #: ../../main/software/src/templates/config.mas:14
@@ -539,14 +543,15 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:582
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
-#: ../../main/squid/src/EBox/Squid.pm:911
+#: ../../main/squid/src/EBox/Squid.pm:929
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:53
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:71
-#: ../../main/samba/src/EBox/Samba.pm:1657
+#: ../../main/samba/src/EBox/Samba.pm:1613
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
+#: ../../main/samba/src/EBox/Samba/Composite/Domain.pm:39
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 msgid "Domain"
 msgstr "Domaine"
@@ -704,7 +709,7 @@ msgstr "Le nom d'hôte a été résolu dans la liste d'adresses IP"
 #: ../../main/network/src/EBox/Network.pm:3994
 #: ../../main/network/src/EBox/Network.pm:4029
 #: ../../main/network/src/EBox/Network.pm:4393
-#: ../../main/dhcp/src/EBox/DHCP.pm:1067
+#: ../../main/dhcp/src/EBox/DHCP.pm:1068
 #: ../../main/network/src/templates/wizard/network.mas:47
 #: ../../main/network/src/templates/ifaces.mas:125
 #: ../../main/network/src/templates/ifaces.mas:233
@@ -714,6 +719,30 @@ msgstr "Adresse IP"
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:107
 msgid "The domain name will be resolved to this list of IP addresses."
 msgstr "Le nom de domaine a été résolu avec cette liste d'adresse IP"
+
+#: ../../main/partner-tools/src/EBox/PartnerTools.pm:52
+#: ../../main/partner-tools/src/EBox/PartnerTools/CGI/Tools.pm:31
+#: ../../main/partner-tools/src/EBox/PartnerTools/CGI/Tools.pm:42
+msgid "Partner Tools"
+msgstr ""
+
+#: ../../main/partner-tools/src/EBox/PartnerTools/CGI/Tools.pm:53
+#: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:229
+#: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
+#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:77
+#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
+#: ../../main/partner-tools/src/templates/tools.mas:14
+#: ../../main/mail/src/templates/externalAccounts.mas:14
+#: ../../main/core/src/templates/login/index.mas:52
+#: ../../main/network/src/templates/ifaces.mas:180
+#: ../../main/samba/src/templates/adduser.mas:30
+#: ../../main/samba/src/templates/edituser.mas:86
+msgid "Password"
+msgstr "Mot de passe"
 
 #: ../../main/ca/src/EBox/CA/CGI/Index.pm:38
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:42
@@ -823,7 +852,8 @@ msgstr "Un problème durant la création du certificat d'autorité est survenu"
 #: ../../main/core/src/EBox/Model/Composite.pm:536
 #: ../../main/core/src/EBox/Model/DataTable.pm:1764
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:2824
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:61
+#: ../../main/samba/src/EBox/Samba.pm:2775
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:477
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
@@ -1215,14 +1245,13 @@ msgid "SNAT"
 msgstr "Translation de l'adresse réseau source (SNAT)"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/mail/src/EBox/Mail.pm:1599 ../../main/squid/src/EBox/Squid.pm:907
+#: ../../main/mail/src/EBox/Mail.pm:1599 ../../main/squid/src/EBox/Squid.pm:925
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1409
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
-#: ../../main/ips/src/EBox/IPS.pm:307
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:52
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:382 ../../main/ipsec/IPsec.pm:417
+#: ../../main/ips/src/EBox/IPS.pm:297
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:402
 #: ../../main/ipsec/src/EBox/IPsec.pm:414
-#: ../../main/samba/src/EBox/Samba.pm:2821
+#: ../../main/samba/src/EBox/Samba.pm:2772
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:475
 #: ../../main/dhcp/src/EBox/DHCP.pm:967
 #: ../../main/ca/src/templates/index.mas:99
@@ -1246,16 +1275,16 @@ msgstr "Interface de sortie"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:49
-#: ../../main/ips/src/EBox/IPS.pm:310
+#: ../../main/ips/src/EBox/IPS.pm:300
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:94
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:383
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:403
 msgid "Source"
 msgstr "Source"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:790
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:96
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:139
-#: ../../main/ips/src/EBox/IPS.pm:311
+#: ../../main/ips/src/EBox/IPS.pm:301
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:122
 msgid "Destination"
 msgstr "Destination"
@@ -1327,7 +1356,7 @@ msgstr "Interface de sortie"
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:113
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:144
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:63
-#: ../../main/core/src/EBox/Types/Service.pm:183
+#: ../../main/core/src/EBox/Types/Service.pm:185
 #: ../../main/core/src/EBox/Types/PortRange.pm:289
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:99
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:127
@@ -1395,7 +1424,7 @@ msgstr "Log des nouvelles connections transférées"
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:139
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:337
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:178
-#: ../../main/ips/src/EBox/IPS.pm:309
+#: ../../main/ips/src/EBox/IPS.pm:299
 #: ../../main/network/src/EBox/Network/Model/ServiceTable.pm:132
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:201
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:55
@@ -1442,6 +1471,7 @@ msgid "External Input"
 msgstr "Entrée externe"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
+#: ../../main/partner-tools/src/templates/tools.mas:20
 #: ../../main/network/src/templates/diag.mas:66
 msgid "Output"
 msgstr "Sortie"
@@ -1631,16 +1661,16 @@ msgstr "'Tout service' ne peut pas avoir de résolution inverse."
 msgid "This message is being delivered"
 msgstr "Ce message est transmis"
 
-#: ../../main/mail/src/EBox/Mail.pm:137
+#: ../../main/mail/src/EBox/Mail.pm:140
 msgid "Generate mail aliases"
 msgstr "Créer des alias de courrier "
 
-#: ../../main/mail/src/EBox/Mail.pm:139
+#: ../../main/mail/src/EBox/Mail.pm:142
 #, perl-brace-format
 msgid "Zentyal will execute {cmd}"
 msgstr "Zentyal va exécuter {cmd}"
 
-#: ../../main/mail/src/EBox/Mail.pm:144
+#: ../../main/mail/src/EBox/Mail.pm:147
 #, fuzzy
 msgid "Add LDAP schemas"
 msgstr ""
@@ -1649,26 +1679,26 @@ msgstr ""
 "#-#-#-#-#  fr.po (ebox-mail 0.12)  #-#-#-#-#\n"
 "Ajouter les schémas LDAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:146
+#: ../../main/mail/src/EBox/Mail.pm:149
 msgid "Zentyal will add two LDAP schemas: authldap.ldif and eboximail.ldif."
 msgstr ""
 "Zentyal va ajouter deux schémas LDAP : authldap.ldif et eboximail.ldif."
 
-#: ../../main/mail/src/EBox/Mail.pm:152
+#: ../../main/mail/src/EBox/Mail.pm:155
 msgid "Create certificates"
 msgstr "Créer des certificats"
 
-#: ../../main/mail/src/EBox/Mail.pm:154
+#: ../../main/mail/src/EBox/Mail.pm:157
 msgid "Zentyal will create certificates to use in mail services"
 msgstr ""
 "Zentyal va générer des certificats qui seront utilisés par les services de "
 "courrier"
 
-#: ../../main/mail/src/EBox/Mail.pm:159
+#: ../../main/mail/src/EBox/Mail.pm:162
 msgid "Add fetchmail update cron job"
 msgstr "Ajouter la tâche planifiée de mise-à-jour de fetchmail"
 
-#: ../../main/mail/src/EBox/Mail.pm:161
+#: ../../main/mail/src/EBox/Mail.pm:164
 msgid ""
 "Zentyal will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
@@ -1677,75 +1707,75 @@ msgstr ""
 "configuration de fetchmail (service de récupération), lorsque l'utilisateur "
 "ajoutera des comptes externes"
 
-#: ../../main/mail/src/EBox/Mail.pm:179
+#: ../../main/mail/src/EBox/Mail.pm:182
 msgid "To configure postfix"
 msgstr "Pour configurer \"postfix\""
 
-#: ../../main/mail/src/EBox/Mail.pm:185
+#: ../../main/mail/src/EBox/Mail.pm:188
 msgid "To define how client programs connect to services in  postfix"
 msgstr ""
 "Définir comment les programmes clients se connectent aux services dans "
 "\"postfix\""
 
-#: ../../main/mail/src/EBox/Mail.pm:192
+#: ../../main/mail/src/EBox/Mail.pm:195
 msgid "To configure host mail name"
 msgstr "Pour configurer le nom d'hôte de messagerie"
 
-#: ../../main/mail/src/EBox/Mail.pm:197
+#: ../../main/mail/src/EBox/Mail.pm:200
 msgid "To configure postfix aliases"
 msgstr "Pour configurer les alias du service \"postfix\""
 
-#: ../../main/mail/src/EBox/Mail.pm:202
+#: ../../main/mail/src/EBox/Mail.pm:205
 msgid "To configure dovecot"
 msgstr "Configurer \"dovecot\""
 
 # Courier en tant que serveur de courrier ou "Courier-Imap" ?
-#: ../../main/mail/src/EBox/Mail.pm:207
+#: ../../main/mail/src/EBox/Mail.pm:210
 msgid "To configure dovecot to authenticate against LDAP"
 msgstr "Configurer \"dovecot\" pour l'authentification auprès de LDAP"
 
 # Courier en tant que serveur de courrier ou "Courier-Imap" ?
-#: ../../main/mail/src/EBox/Mail.pm:212
+#: ../../main/mail/src/EBox/Mail.pm:215
 #, fuzzy
 msgid "To configure dovecot to have a master password"
 msgstr "Configurer \"dovecot\" pour l'authentification auprès de LDAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:217
+#: ../../main/mail/src/EBox/Mail.pm:220
 msgid "To configure smart host authentication"
 msgstr "Configurer l'authentification du courrier serveur de relai (SmartHost)"
 
-#: ../../main/mail/src/EBox/Mail.pm:222
+#: ../../main/mail/src/EBox/Mail.pm:225
 #, fuzzy
 msgid "To configure mail transports"
 msgstr "Configurer amavis"
 
 # Courier en tant que serveur de courrier ou "Courier-Imap" ?
-#: ../../main/mail/src/EBox/Mail.pm:227
+#: ../../main/mail/src/EBox/Mail.pm:230
 #, fuzzy
 msgid "To let dovecot authenticate users using PAM"
 msgstr "Configurer \"dovecot\" pour l'authentification auprès de LDAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:293
+#: ../../main/mail/src/EBox/Mail.pm:296
 msgid "Outgoing Mail (SMTP protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:302
+#: ../../main/mail/src/EBox/Mail.pm:305
 msgid "Incoming Mail"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:303
+#: ../../main/mail/src/EBox/Mail.pm:306
 msgid "POP, IMAP and SIEVE protocols"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:312
+#: ../../main/mail/src/EBox/Mail.pm:315
 msgid "Mail Submission"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:313
+#: ../../main/mail/src/EBox/Mail.pm:316
 msgid "Outgoing Mail (Submission protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:379
+#: ../../main/mail/src/EBox/Mail.pm:382
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:297
 #, perl-brace-format
 msgid ""
@@ -1753,7 +1783,7 @@ msgid ""
 "got {count}"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:837
+#: ../../main/mail/src/EBox/Mail.pm:840
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -1761,49 +1791,49 @@ msgstr ""
 "Impossible d'utiliser le nom d'hôte comme nom de messagerie car ce nom n'est "
 "pas certifié (FQHN). Merci de définir un nom de messagerie différent"
 
-#: ../../main/mail/src/EBox/Mail.pm:842
+#: ../../main/mail/src/EBox/Mail.pm:845
 msgid "The mail name must be a fully qualified name"
 msgstr "Le nom de messagerie doit être certifié (FQHN)"
 
-#: ../../main/mail/src/EBox/Mail.pm:846 ../../main/mail/src/EBox/Mail.pm:857
-#: ../../main/mail/src/EBox/Mail.pm:865
+#: ../../main/mail/src/EBox/Mail.pm:849 ../../main/mail/src/EBox/Mail.pm:860
+#: ../../main/mail/src/EBox/Mail.pm:868
 msgid "Host mail name"
 msgstr "Nom d'hôte de messagerie"
 
-#: ../../main/mail/src/EBox/Mail.pm:860
+#: ../../main/mail/src/EBox/Mail.pm:863
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "Le nom de messagerie et le domaine virtuel sont identiques"
 
-#: ../../main/mail/src/EBox/Mail.pm:1423
+#: ../../main/mail/src/EBox/Mail.pm:1426
 msgid "SMTP service"
 msgstr "Service SMTP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1430
+#: ../../main/mail/src/EBox/Mail.pm:1433
 msgid "POP3 service"
 msgstr "Service POP3"
 
-#: ../../main/mail/src/EBox/Mail.pm:1436
+#: ../../main/mail/src/EBox/Mail.pm:1439
 msgid "POP3S service"
 msgstr "Service POP3S"
 
-#: ../../main/mail/src/EBox/Mail.pm:1442
+#: ../../main/mail/src/EBox/Mail.pm:1445
 msgid "IMAP service"
 msgstr "Service IMAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1448
+#: ../../main/mail/src/EBox/Mail.pm:1451
 msgid "IMAPS service"
 msgstr "Service IMAPS"
 
-#: ../../main/mail/src/EBox/Mail.pm:1492
+#: ../../main/mail/src/EBox/Mail.pm:1495
 msgid "enabled"
 msgstr "activé"
 
-#: ../../main/mail/src/EBox/Mail.pm:1492
+#: ../../main/mail/src/EBox/Mail.pm:1495
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 msgid "disabled"
 msgstr "Désactivé(e)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1494 ../../main/mail/src/EBox/Mail.pm:1608
+#: ../../main/mail/src/EBox/Mail.pm:1497 ../../main/mail/src/EBox/Mail.pm:1608
 #: ../../main/network/src/EBox/Network.pm:4382
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1813,7 +1843,7 @@ msgid "Status"
 msgstr "État"
 
 # Context ?
-#: ../../main/mail/src/EBox/Mail.pm:1497
+#: ../../main/mail/src/EBox/Mail.pm:1499
 msgid "Mail server's filter"
 msgstr "Filtres du serveur de courrier (Mail server's filter)"
 
@@ -1888,12 +1918,12 @@ msgstr "Type de message"
 
 # #-#-#-#-#  fr.po (ebox-dhcp 0.12)  #-#-#-#-#
 # corrrection typo
-#: ../../main/mail/src/EBox/Mail.pm:1609 ../../main/squid/src/EBox/Squid.pm:914
+#: ../../main/mail/src/EBox/Mail.pm:1609 ../../main/squid/src/EBox/Squid.pm:932
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1410
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/ips/src/EBox/IPS.pm:313
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:384 ../../main/ipsec/IPsec.pm:418
+#: ../../main/ips/src/EBox/IPS.pm:303
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:404
 #: ../../main/ipsec/src/EBox/IPsec.pm:415
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:478
 #: ../../main/dhcp/src/EBox/DHCP.pm:971
@@ -2115,22 +2145,6 @@ msgstr ""
 #: ../../main/mail/src/templates/externalAccounts.mas:13
 msgid "External account"
 msgstr "Compte externe"
-
-#: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:229
-#: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:77
-#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
-#: ../../main/mail/src/templates/externalAccounts.mas:14
-#: ../../main/core/src/templates/login/index.mas:52
-#: ../../main/network/src/templates/ifaces.mas:180
-#: ../../main/samba/src/templates/adduser.mas:30
-#: ../../main/samba/src/templates/edituser.mas:86
-msgid "Password"
-msgstr "Mot de passe"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:41
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
@@ -2572,11 +2586,11 @@ msgid "User and password"
 msgstr "Utilisateur et mot de passe"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
-#: ../../main/squid/src/EBox/Squid.pm:909
+#: ../../main/squid/src/EBox/Squid.pm:927
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:2823
+#: ../../main/samba/src/EBox/Samba.pm:2774
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:302
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
 #: ../../main/samba/src/templates/addobject.mas:11
@@ -2838,7 +2852,7 @@ msgstr "Service de liste grise (Greylist)"
 msgid "Mail server options"
 msgstr "Options du serveur de courrier"
 
-#: ../../main/squid/src/EBox/Squid.pm:81 ../../main/squid/src/EBox/Squid.pm:923
+#: ../../main/squid/src/EBox/Squid.pm:81 ../../main/squid/src/EBox/Squid.pm:941
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:94
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
@@ -2965,39 +2979,39 @@ msgstr ""
 "Vous devez définir la variable max_object_size dans le fichier de "
 "configuration de Zentyal"
 
-#: ../../main/squid/src/EBox/Squid.pm:780
+#: ../../main/squid/src/EBox/Squid.pm:798
 #, perl-brace-format
 msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
 "Editions{ch} for automatic security updates."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:868
+#: ../../main/squid/src/EBox/Squid.pm:886
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:71
 msgid "General Settings"
 msgstr "Paramètres généraux"
 
-#: ../../main/squid/src/EBox/Squid.pm:871
+#: ../../main/squid/src/EBox/Squid.pm:889
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:95
 msgid "Access Rules"
 msgstr "Règles d’accès"
 
-#: ../../main/squid/src/EBox/Squid.pm:874
+#: ../../main/squid/src/EBox/Squid.pm:892
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:47
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 msgid "Filter Profiles"
 msgstr "Profiles de filtre"
 
-#: ../../main/squid/src/EBox/Squid.pm:877
+#: ../../main/squid/src/EBox/Squid.pm:895
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:73
 msgid "Categorized Lists"
 msgstr "listes catégorisées"
 
-#: ../../main/squid/src/EBox/Squid.pm:880
+#: ../../main/squid/src/EBox/Squid.pm:898
 msgid "Bandwidth Throttling"
 msgstr "Limitation de Bande passante"
 
-#: ../../main/squid/src/EBox/Squid.pm:908
+#: ../../main/squid/src/EBox/Squid.pm:926
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:65
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:72
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:154
@@ -3006,31 +3020,31 @@ msgstr "Limitation de Bande passante"
 msgid "Host"
 msgstr "Hôte"
 
-#: ../../main/squid/src/EBox/Squid.pm:910
+#: ../../main/squid/src/EBox/Squid.pm:928
 msgid "URL"
 msgstr "URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:912
+#: ../../main/squid/src/EBox/Squid.pm:930
 msgid "Bytes"
 msgstr "Octets"
 
-#: ../../main/squid/src/EBox/Squid.pm:913
+#: ../../main/squid/src/EBox/Squid.pm:931
 msgid "Mime/type"
 msgstr "Mime/type"
 
-#: ../../main/squid/src/EBox/Squid.pm:919
+#: ../../main/squid/src/EBox/Squid.pm:937
 msgid "Accepted"
 msgstr "Autorisé"
 
-#: ../../main/squid/src/EBox/Squid.pm:920
+#: ../../main/squid/src/EBox/Squid.pm:938
 msgid "Denied"
 msgstr "Interdit"
 
-#: ../../main/squid/src/EBox/Squid.pm:921
+#: ../../main/squid/src/EBox/Squid.pm:939
 msgid "Filtered"
 msgstr "Filtré"
 
-#: ../../main/squid/src/EBox/Squid.pm:1025
+#: ../../main/squid/src/EBox/Squid.pm:1043
 #, fuzzy, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get one of the {oh}"
@@ -3215,12 +3229,12 @@ msgstr ""
 "La période de temps de la règle ({t1}) se superpose à la période de temps de "
 "la règle ({t2}) alors que la source {sourceType} est identique"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:344
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:357
 #, perl-brace-format
 msgid "Object: {o}"
 msgstr "Objet: {o}"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:355
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:368
 #, perl-brace-format
 msgid "Apply '{p}' profile"
 msgstr "Appliquer le profile '{p}'"
@@ -3615,29 +3629,44 @@ msgid ""
 "You can exempt some addresses from caching. It will include the subdomains."
 msgstr "Vous pouvez exclure certaines adresses du cache"
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:51
-msgid "Block not listed domains and URLs"
-msgstr "Bloquer les domaines et les URL non-listés"
-
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:54
+msgid "Block HTTPS traffic by domain"
+msgstr ""
+
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:57
+#, fuzzy
 msgid ""
-"If this is enabled, any domain or URL which is neither present neither in "
-"the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
-"below will be forbidden."
+"If this is enabled, any domain (not applicable to URLs) which is <b>denied</"
+"b> in the <i>Domains and URL rules</i> will be blocked at firewall level."
 msgstr ""
 "Si c'est activé, tous domaines qui ne sera pas précisé dans la section "
 "<i>Règles des domaines et des URL</i> ou dans <i>Liste des fichiers de "
 "domaine</i> ci-dessous seront interdits."
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:61
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:66
+msgid "Block not listed domains and URLs"
+msgstr "Bloquer les domaines et les URL non-listés"
+
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:69
+#, fuzzy
+msgid ""
+"If this is enabled, any domain or URL which is neither present neither in "
+"the <i>Domains and URL rules</i> nor in the <i>Domain list files</i> "
+"sections below will be forbidden."
+msgstr ""
+"Si c'est activé, tous domaines qui ne sera pas précisé dans la section "
+"<i>Règles des domaines et des URL</i> ou dans <i>Liste des fichiers de "
+"domaine</i> ci-dessous seront interdits."
+
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:76
 msgid "Block sites specified only as IP"
 msgstr "Bloquer les sites spécifiés uniquement comme IP"
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:69
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:84
 msgid "Domain filter settings"
 msgstr "Paramètres de filtrage de domaine"
 
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:75
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:90
 msgid "Filtering settings changed"
 msgstr "Paramètres de filtrage modifiés"
 
@@ -3844,7 +3873,7 @@ msgstr "IP distante"
 msgid "Remote Certificate"
 msgstr "Certificat distant"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1419 ../../main/ipsec/IPsec.pm:424
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1419
 #: ../../main/ipsec/src/EBox/IPsec.pm:421
 msgid "Initialization sequence completed"
 msgstr "Séquence d'initialisation terminée"
@@ -4975,12 +5004,12 @@ msgstr "Ce service est en fonction, mais pas activé dans Zentyal"
 msgid "The service is not enabled in Zentyal"
 msgstr "Le service n'est pas activé dans Zentyal"
 
-#: ../../main/core/src/EBox/Validate.pm:453
-#: ../../main/core/src/EBox/Validate.pm:467
+#: ../../main/core/src/EBox/Validate.pm:452
+#: ../../main/core/src/EBox/Validate.pm:466
 msgid "Must be a number between 1 and 4096"
 msgstr "Doit être un nombre compris entre 1 et 4096"
 
-#: ../../main/core/src/EBox/Validate.pm:758
+#: ../../main/core/src/EBox/Validate.pm:757
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -4989,13 +5018,13 @@ msgstr ""
 "Impossible d'accéder au dossier : {dir}. Il est peut-être inexistant ou vous "
 "n'avez pas de droits suffisants"
 
-#: ../../main/core/src/EBox/Validate.pm:763
+#: ../../main/core/src/EBox/Validate.pm:762
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "Le répertoire {dir} n'est pas privé, car il appartient à un autre utilisateur"
 
-#: ../../main/core/src/EBox/Validate.pm:837
+#: ../../main/core/src/EBox/Validate.pm:836
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -5003,11 +5032,11 @@ msgstr ""
 "Le chemin au fichier désiré est invalide. (Actuellement, tous les caractères "
 "de fichier ne sont pas supportés)"
 
-#: ../../main/core/src/EBox/Validate.pm:865
+#: ../../main/core/src/EBox/Validate.pm:864
 msgid "The file path must be absolute"
 msgstr "Le chemin du fichier doit être absolut"
 
-#: ../../main/core/src/EBox/Validate.pm:896
+#: ../../main/core/src/EBox/Validate.pm:895
 #, fuzzy, perl-brace-format
 msgid "Error on regular expression: {err}"
 msgstr "Expression régulière incorrecte"
@@ -5593,7 +5622,7 @@ msgstr "{data} {value} existe déjà."
 #: ../../main/core/src/EBox/Backup.pm:460
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:268
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:135
-#: ../../main/dhcp/src/EBox/DHCP.pm:1080
+#: ../../main/dhcp/src/EBox/DHCP.pm:1081
 msgid "Unknown"
 msgstr "Inconnu"
 
@@ -6322,7 +6351,7 @@ msgstr "Echec de l'activation {mod}: {err}"
 msgid "Failed to enable: {err}"
 msgstr ""
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:517
+#: ../../main/core/src/EBox/GlobalImpl.pm:508
 msgid ""
 "Cannot create software packages cache. Make sure that your sources and "
 "preferences files in /etc/apt are readable and retry"
@@ -6330,18 +6359,18 @@ msgstr ""
 "Ne peut pas créer le cache pour les logiciels. Assurez vous que vos sources "
 "et préférences dans /etc/apt sont accessibles en lecture puis réessayez"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:584
+#: ../../main/core/src/EBox/GlobalImpl.pm:575
 #, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Activation du module {modName}"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:651
-#: ../../main/core/src/EBox/GlobalImpl.pm:679
+#: ../../main/core/src/EBox/GlobalImpl.pm:642
+#: ../../main/core/src/EBox/GlobalImpl.pm:670
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Sauvegarde en cours du module {modName}"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:1304
+#: ../../main/core/src/EBox/GlobalImpl.pm:1295
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "Script {scriptName} en cours d'exécution"
@@ -6688,34 +6717,27 @@ msgstr ""
 "Le module {mod} est désactivé. Pensez à l'activer dans la section {oh}Etat "
 "du module Status{ch},sinon vos modifications seront sans effets."
 
-#: ../../main/ips/src/EBox/IPS.pm:67
+#: ../../main/ips/src/EBox/IPS.pm:63
 msgid "IDS/IPS"
 msgstr ""
 
-#: ../../main/ips/src/EBox/IPS.pm:268
+#: ../../main/ips/src/EBox/IPS.pm:259
 #, fuzzy
 msgid "Add rules to suricata configuration"
 msgstr "Configuration de l'état du module"
 
-#: ../../main/ips/src/EBox/IPS.pm:273
+#: ../../main/ips/src/EBox/IPS.pm:264
 msgid "Enable start of suricata daemon"
 msgstr ""
 
-#: ../../main/ips/src/EBox/IPS.pm:320
+#: ../../main/ips/src/EBox/IPS.pm:310
 #, fuzzy
 msgid "IPS"
 msgstr "IP"
 
-#: ../../main/ips/src/EBox/IPS.pm:325
+#: ../../main/ips/src/EBox/IPS.pm:315
 msgid "Alert"
 msgstr "Alerte"
-
-#: ../../main/ips/src/EBox/IPS.pm:419
-#, perl-brace-format
-msgid ""
-"Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for "
-"details and rule changelog at {url} ({name} rules)"
-msgstr ""
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:200
 msgid "Rules"
@@ -6735,31 +6757,6 @@ msgstr "Blocage des publicités"
 #, fuzzy
 msgid "Log & Block"
 msgstr "Blocage des publicités"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
-msgid "number of alerts"
-msgstr "nombre d'alertes"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:50
-msgid "Alerts chart"
-msgstr "Graphique des alertes"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:66
-msgid "Alert Graph"
-msgstr "Graphique des alertes"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:58
-msgid "Number of alerts"
-msgstr "Nombre d'alertes"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:66
-msgid "Alert details"
-msgstr "Détails des alertes"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:73
-msgid "alerts"
-msgstr "alertes"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:131
 #: ../../main/network/src/EBox/Network.pm:4453
@@ -6783,11 +6780,6 @@ msgstr "Choisissez l'interface sur laquelle le système IDS sera activé"
 #, fuzzy
 msgid "Intrusion Detection/Prevention System"
 msgstr "IDS Système de Détection d'Intrusion"
-
-#: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
-#, fuzzy
-msgid "IPS Alerts report"
-msgstr "Rapport des alertes IDS"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:47
 #, fuzzy
@@ -6840,27 +6832,27 @@ msgstr "Fichier de configuration de NTP"
 msgid "Network Time Protocol"
 msgstr "Outils de diagnostique réseau"
 
-#: ../../main/ftp/src/EBox/FTP.pm:75
+#: ../../main/ftp/src/EBox/FTP.pm:74
 msgid "Zentyal FTP Server"
 msgstr "Serveur FTP de Zentyal"
 
-#: ../../main/ftp/src/EBox/FTP.pm:113
+#: ../../main/ftp/src/EBox/FTP.pm:112
 msgid "Generate SSL certificates"
 msgstr "Créer des certificats SSL"
 
-#: ../../main/ftp/src/EBox/FTP.pm:114
+#: ../../main/ftp/src/EBox/FTP.pm:113
 msgid "Zentyal will self-signed SSL certificates for FTP service."
 msgstr "Zentyal va auto-générer les certificats SSL pour le service FTP."
 
-#: ../../main/ftp/src/EBox/FTP.pm:132
+#: ../../main/ftp/src/EBox/FTP.pm:131
 msgid "To configure vsftpd."
 msgstr "Pour configurer vsftpd."
 
-#: ../../main/ftp/src/EBox/FTP.pm:136
+#: ../../main/ftp/src/EBox/FTP.pm:135
 msgid "To configure vsftpd with LDAP authentication."
 msgstr "Pour configurer vsftpd avec l'authentification LDAP."
 
-#: ../../main/ftp/src/EBox/FTP.pm:179
+#: ../../main/ftp/src/EBox/FTP.pm:178
 msgid "FTP"
 msgstr "FTP"
 
@@ -6985,7 +6977,7 @@ msgstr "Adresse de diffusion"
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:103
 #: ../../main/network/src/EBox/Network/Model/MemberTable.pm:81
 #: ../../main/network/src/EBox/Network.pm:4387
-#: ../../main/dhcp/src/EBox/DHCP.pm:969 ../../main/dhcp/src/EBox/DHCP.pm:1067
+#: ../../main/dhcp/src/EBox/DHCP.pm:969 ../../main/dhcp/src/EBox/DHCP.pm:1068
 #: ../../main/network/src/templates/diag.mas:33
 msgid "MAC address"
 msgstr "Adresse MAC"
@@ -7903,80 +7895,125 @@ msgstr "Protocole De Transport D'Hypertexte (http)"
 msgid "network object"
 msgstr "Objet réseau"
 
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Settings.pm:42
+#, fuzzy
+msgid "Enable On-Access Prevention"
+msgstr "Active le service POP3"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Settings.pm:45
+msgid "Deny access to infected files in the included paths above."
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Settings.pm:51
+#, fuzzy
+msgid "On-Access Scan"
+msgstr "Contrôle d'accès"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:67
+msgid "Path"
+msgstr "Chemin"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:78
+#, fuzzy
+msgid "Include/Exclude Paths"
+msgstr "Inclure le chemin"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:79
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:113
+#: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:106
+msgid "path"
+msgstr "chemin"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:87
+msgid ""
+"Inclusions and Exclusions are recursive. Please also note that any path that "
+"is not explicitly included is excluded by default."
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:99
+msgid "Include Path"
+msgstr "Inclure le chemin"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:103
+msgid "Exclude path"
+msgstr "Chemin exclu"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Composite/General.pm:38
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:73
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:348
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:353
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:368
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:373
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:432
 msgid "Antivirus"
 msgstr "Antivirus"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:141
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:158
 msgid " To configure clamd daemon"
 msgstr " Configurer le service clamd"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:146
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:163
 msgid "To schedule the launch of the updater"
 msgstr "Planifier l'exécution de l'outil de mise à jour"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:151
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:168
 #, perl-brace-format
 msgid "Custom {app} profile configuration for {bin} binary"
 msgstr "Configuration du profil personnalisé {app} pour l' exécutable {bin}"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:158
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:175
 #, perl-brace-format
 msgid "Disable {app} profile for {bin} binary"
 msgstr "Désactivez le profil {app} pour l'exécutable {bin}"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:388
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:408
 msgid "Success"
 msgstr "Accès aux invités"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:388
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:408
 msgid "Failure"
 msgstr "échec"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:391
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:411
 msgid "Antivirus DB updates"
 msgstr "Mise à jour de la base de données antivirale"
 
-#: ../../main/ipsec/IPsec.pm:69 ../../main/ipsec/src/EBox/IPsec.pm:69
+#: ../../main/ipsec/src/EBox/IPsec.pm:69
 #, fuzzy
-msgid "To configure Librewan IPsec."
+msgid "To configure Libreswan IPsec."
 msgstr "Pour configurer OpenSwan IPsec."
 
-#: ../../main/ipsec/IPsec.pm:75 ../../main/ipsec/src/EBox/IPsec.pm:75
+#: ../../main/ipsec/src/EBox/IPsec.pm:75
 #, fuzzy
 msgid "To configure Libreswan IPsec passwords."
 msgstr "Pour configurer les mots de passe OpenSwan IPsec."
 
-#: ../../main/ipsec/IPsec.pm:81 ../../main/ipsec/src/EBox/IPsec.pm:81
+#: ../../main/ipsec/src/EBox/IPsec.pm:81
 msgid ""
 "To configure L2TP/IPSec users when not using Active Directory validation."
 msgstr ""
 
-#: ../../main/ipsec/IPsec.pm:194 ../../main/ipsec/src/EBox/IPsec.pm:194
+#: ../../main/ipsec/src/EBox/IPsec.pm:194
 #, fuzzy
 msgid "IPsec based VPN"
 msgstr "VPN IPsec"
 
-#: ../../main/ipsec/IPsec.pm:419 ../../main/ipsec/src/EBox/IPsec.pm:416
+#: ../../main/ipsec/src/EBox/IPsec.pm:416
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:269
 msgid "Connection name"
 msgstr "Nom de la connexion"
 
-#: ../../main/ipsec/IPsec.pm:425 ../../main/ipsec/src/EBox/IPsec.pm:422
+#: ../../main/ipsec/src/EBox/IPsec.pm:422
 msgid "Stopping completed"
 msgstr "Le processus d'arrêt est terminé"
 
-#: ../../main/ipsec/IPsec.pm:427 ../../main/ipsec/src/EBox/IPsec.pm:424
+#: ../../main/ipsec/src/EBox/IPsec.pm:424
 msgid "Connection initiated"
 msgstr "Connexion initiée"
 
-#: ../../main/ipsec/IPsec.pm:428 ../../main/ipsec/src/EBox/IPsec.pm:425
+#: ../../main/ipsec/src/EBox/IPsec.pm:425
 msgid "Connection terminated"
 msgstr "Connexion terminée"
 
-#: ../../main/ipsec/IPsec.pm:461 ../../main/ipsec/src/EBox/IPsec.pm:458
+#: ../../main/ipsec/src/EBox/IPsec.pm:458
 msgid "IPsec"
 msgstr "IPsec"
 
@@ -8541,52 +8578,52 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1334
+#: ../../main/samba/src/EBox/Samba.pm:1289
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1670
+#: ../../main/samba/src/EBox/Samba.pm:1621
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
 #, fuzzy
 msgid "Users and Computers"
 msgstr "Utilisateurs et Groupes"
 
-#: ../../main/samba/src/EBox/Samba.pm:1675
+#: ../../main/samba/src/EBox/Samba.pm:1626
 #, fuzzy
 msgid "Manage"
 msgstr "Lecture seul"
 
-#: ../../main/samba/src/EBox/Samba.pm:1679
+#: ../../main/samba/src/EBox/Samba.pm:1630
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
 msgid "User Template"
 msgstr "Modèle utilisateur"
 
-#: ../../main/samba/src/EBox/Samba.pm:1683
+#: ../../main/samba/src/EBox/Samba.pm:1634
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
 msgid "LDAP Settings"
 msgstr "Paramètres LDAP"
 
-#: ../../main/samba/src/EBox/Samba.pm:1686
+#: ../../main/samba/src/EBox/Samba.pm:1637
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
 msgid "File Sharing"
 msgstr "Partage de fichiers"
 
-#: ../../main/samba/src/EBox/Samba.pm:1818
+#: ../../main/samba/src/EBox/Samba.pm:1769
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1834
+#: ../../main/samba/src/EBox/Samba.pm:1785
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1851
+#: ../../main/samba/src/EBox/Samba.pm:1802
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8594,57 +8631,57 @@ msgid ""
 "{ex}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1861
+#: ../../main/samba/src/EBox/Samba.pm:1812
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2125
+#: ../../main/samba/src/EBox/Samba.pm:2076
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2218
+#: ../../main/samba/src/EBox/Samba.pm:2169
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Espace utilisé dans le système de fichier"
 
-#: ../../main/samba/src/EBox/Samba.pm:2361
+#: ../../main/samba/src/EBox/Samba.pm:2312
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "L'adresse VPN {addr} est déjà utilisée par l'interface {iface}"
 
-#: ../../main/samba/src/EBox/Samba.pm:2822
+#: ../../main/samba/src/EBox/Samba.pm:2773
 msgid "Client address"
 msgstr "Adresse client"
 
-#: ../../main/samba/src/EBox/Samba.pm:2825
+#: ../../main/samba/src/EBox/Samba.pm:2776
 msgid "Resource"
 msgstr "Ressource"
 
-#: ../../main/samba/src/EBox/Samba.pm:2829
+#: ../../main/samba/src/EBox/Samba.pm:2780
 msgid "Connect"
 msgstr "Connecter"
 
-#: ../../main/samba/src/EBox/Samba.pm:2830
+#: ../../main/samba/src/EBox/Samba.pm:2781
 msgid "Access to directory"
 msgstr "Accéder au répertoire"
 
-#: ../../main/samba/src/EBox/Samba.pm:2831
+#: ../../main/samba/src/EBox/Samba.pm:2782
 msgid "Read file"
 msgstr "Lire le fichier"
 
-#: ../../main/samba/src/EBox/Samba.pm:2832
+#: ../../main/samba/src/EBox/Samba.pm:2783
 msgid "Write file"
 msgstr "Écrire dans le fichier"
 
-#: ../../main/samba/src/EBox/Samba.pm:2833
+#: ../../main/samba/src/EBox/Samba.pm:2784
 msgid "Disconnect"
 msgstr "Déconnecter"
 
-#: ../../main/samba/src/EBox/Samba.pm:2834
+#: ../../main/samba/src/EBox/Samba.pm:2785
 #: ../../main/mail/src/templates/qmanager.mas:37
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #, fuzzy
@@ -8661,19 +8698,19 @@ msgstr ""
 "#-#-#-#-#  fr.po (ebox-mail 0.12)  #-#-#-#-#\n"
 "Supprimer"
 
-#: ../../main/samba/src/EBox/Samba.pm:2835
+#: ../../main/samba/src/EBox/Samba.pm:2786
 msgid "Create directory"
 msgstr "Créer un répertoire"
 
-#: ../../main/samba/src/EBox/Samba.pm:2836
+#: ../../main/samba/src/EBox/Samba.pm:2787
 msgid "Remove directory"
 msgstr "Supprimer un répertoire"
 
-#: ../../main/samba/src/EBox/Samba.pm:2837
+#: ../../main/samba/src/EBox/Samba.pm:2788
 msgid "Rename"
 msgstr "Renommer"
 
-#: ../../main/samba/src/EBox/Samba.pm:2841
+#: ../../main/samba/src/EBox/Samba.pm:2792
 msgid "Samba access"
 msgstr "Accès Samba"
 
@@ -9041,54 +9078,60 @@ msgid ""
 "raise your domain functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:933
+#: ../../main/samba/src/EBox/Samba/Provision.pm:910
+msgid ""
+"The domain functional level must be Windows Server 2008 R2 or lower. Please "
+"lower your domain functional level."
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba/Provision.pm:937
 msgid "Error querying AD schema:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:940
+#: ../../main/samba/src/EBox/Samba/Provision.pm:944
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:967
+#: ../../main/samba/src/EBox/Samba/Provision.pm:971
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1000
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1004
 #, fuzzy, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "Vous ne devez pas préfixer le domaine par www."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1013
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1017
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
 "problems with kerberos authentication, please sync both clocks with an "
 "external NTP source and try again."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1052
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1056
 #, fuzzy, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "Le certificat {cn} n'existe pas"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1064
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1068
 msgid "Could not determine the site of the specified server"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1098
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1102
 msgid "Could not determine the netbios domain name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1102
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1106
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1464
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1468
 msgid "Error on group container LDAP entry creation:"
 msgstr ""
 
@@ -9216,12 +9259,8 @@ msgstr ""
 "Vous devez activer le module \"Utilisateurs\" dans la section \"Statut des "
 "modules\" pour pouvoir l'utiliser."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:106
-msgid "path"
-msgstr "chemin"
-
 #: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:121
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:146
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:140
 msgid "share"
 msgstr "partage"
 
@@ -9347,7 +9386,7 @@ msgid "User/Group"
 msgstr "Utilisateur/Groupe"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:219
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:139
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:133
 msgid "Shares"
 msgstr "Partages"
 
@@ -9452,49 +9491,49 @@ msgstr "Répertoire sous Zentyal"
 msgid "File system path"
 msgstr "Chemin du système de fichier"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:113
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:114
 msgid "Guest access"
 msgstr "Accès aux invités"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:117
 msgid "This share will not require authentication."
 msgstr "Cette part ne nécessite pas d'authentification."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:126
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
 msgid "Access control"
 msgstr "Contrôle d'accès"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:257
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:251
 #, perl-brace-format
 msgid "Zentyal could not access to directory '{x}': {y}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:272
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:266
 msgid "Samba share absolute path"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:275
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:269
 #, fuzzy, perl-brace-format
 msgid "Path {p} is not a directory"
 msgstr "Le fichier existe et n'est pas un répertoire"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:282
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:276
 #, fuzzy
 msgid "Samba share directory"
 msgstr "Dossier partagé de {group}"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:308
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:302
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "Le répertoire n'est pas vide. Êtes-vous sûr de vouloir l'effacer ?"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:353
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:347
 #, perl-brace-format
 msgid ""
 "Domain guest account should be enabled for guest access to shares. You can "
 "enable it in the {oh}users and groups manager{ch}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:381
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:375
 #, fuzzy, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
@@ -9506,7 +9545,7 @@ msgstr ""
 "système de fichier{closeit} vous permettra de partager un répertoire "
 "existant à l'intérieur de votre système de fichier. "
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:395
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:389
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let Zentyal create it for "
@@ -9516,29 +9555,29 @@ msgstr ""
 "pointus. Vous pouvez utilisez un répertoire existant ou fournir un nom et "
 "laissé Zentyal le créer pour vous."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:439
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:433
 #, perl-brace-format
 msgid "Error getting filesystem format in {m}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:444
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:438
 #, perl-brace-format
 msgid "Filesystem format '{x}' does not support storing ACLs."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:457
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:451
 #, perl-brace-format
 msgid "Error reading mount options in {m}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:462
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:456
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'acl' option. This is "
 "required for permissions to work properly."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:468
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:462
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'user_xattr' option. "
@@ -9736,6 +9775,13 @@ msgstr "Nom de compte"
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:39
 msgid "File sharing options"
 msgstr "Options des partages de fichiers"
+
+#: ../../main/samba/src/EBox/Samba/Composite/GPOs.pm:53
+#, perl-brace-format
+msgid ""
+"<b>Group Policy Objects</b> can be managed downloading {oh}Microsoft Remote "
+"Server Administration Tools{ch} for your Windows version."
+msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/RecycleBin.pm:58
 msgid "Recycle Bin"
@@ -10848,31 +10894,31 @@ msgstr "Chemin du fichier"
 msgid "Thin client file path"
 msgstr "Chemin du fichier du client léger"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:169
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:172
 #, fuzzy
 msgid "Option 150"
 msgstr "Options"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:172
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:175
 msgid "VoIP TFTP servers: list of IP addresses separated by space"
 msgstr ""
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:176
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:179
 #, fuzzy
 msgid "Option 155"
 msgstr "Options"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:179
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:182
 #, fuzzy
 msgid "IP address of the ShoreTel Director server"
 msgstr "Adresse IP du serveur"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:185
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:192
 #, fuzzy
 msgid "Thin client / External TFTP-Server / Other options for VoIP phones"
 msgstr "Client léger / Serveur T.F.T.P. externe"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:190
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:197
 #, perl-brace-format
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
@@ -10882,7 +10928,7 @@ msgstr ""
 "faire, vous pouvez inclure tous les fichiers dont vous avez besoin sous "
 "{path}"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:196
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:203
 msgid "thin client option"
 msgstr "Option du client léger"
 
@@ -11005,7 +11051,7 @@ msgstr "Libre"
 msgid "DHCP"
 msgstr "DHCP"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:1100
+#: ../../main/dhcp/src/EBox/DHCP.pm:1101
 msgid "DHCP leases"
 msgstr "Baux DHCP"
 
@@ -11045,6 +11091,20 @@ msgstr ""
 #, perl-brace-format
 msgid "Host list for domain {domain}"
 msgstr "Liste des hôtes pour le domaine {domain}"
+
+#: ../../main/partner-tools/stubs/vsftpd.conf.mas:73
+#: ../../main/ftp/stubs/vsftpd.conf.mas:73
+#, fuzzy
+msgid "Welcome to Zentyal FTP service."
+msgstr "Serveur de fichiers FTP de Zentyal"
+
+#: ../../main/partner-tools/src/templates/tools.mas:14
+msgid "PostgreSQL Database Setup for IM and Presence Service on Cisco UCM"
+msgstr ""
+
+#: ../../main/partner-tools/src/templates/tools.mas:17
+msgid "Setup"
+msgstr ""
 
 #: ../../main/ca/src/templates/index.mas:44
 #: ../../main/ca/src/templates/createCA.mas:14
@@ -12553,11 +12613,6 @@ msgstr ""
 msgid "No entries in this list"
 msgstr "Pas d'élément dans cette liste"
 
-#: ../../main/ftp/stubs/vsftpd.conf.mas:73
-#, fuzzy
-msgid "Welcome to Zentyal FTP service."
-msgstr "Serveur de fichiers FTP de Zentyal"
-
 #: ../../main/network/src/templates/confirmremove.mas:11
 #: ../../main/network/src/templates/confirm.mas:19
 msgid ""
@@ -13295,6 +13350,28 @@ msgstr ""
 #: ../../main/software/src/templates/config.mas:25
 msgid "Automatic operations start time"
 msgstr "Heure du début des opérations automatiques"
+
+#~ msgid "number of alerts"
+#~ msgstr "nombre d'alertes"
+
+#~ msgid "Alerts chart"
+#~ msgstr "Graphique des alertes"
+
+#~ msgid "Alert Graph"
+#~ msgstr "Graphique des alertes"
+
+#~ msgid "Number of alerts"
+#~ msgstr "Nombre d'alertes"
+
+#~ msgid "Alert details"
+#~ msgstr "Détails des alertes"
+
+#~ msgid "alerts"
+#~ msgstr "alertes"
+
+#, fuzzy
+#~ msgid "IPS Alerts report"
+#~ msgstr "Rapport des alertes IDS"
 
 #~ msgid ""
 #~ "Invalid name {name}. Name which begins with the prefix {pf} are reserved "
@@ -17667,15 +17744,9 @@ msgstr "Heure du début des opérations automatiques"
 #~ "contenus du répertoire. Les fichiers qui ne sont pas explicitement exclus "
 #~ "ou inclus seront inclus par défaut."
 
-#~ msgid "Exclude path"
-#~ msgstr "Chemin exclu"
-
 # ou fichier d'exclusion regexp ?
 #~ msgid "Exclude by regular expression"
 #~ msgstr "Exclure à l'aide d'une expression régulière"
-
-#~ msgid "Include Path"
-#~ msgstr "Inclure le chemin"
 
 #, fuzzy
 #~ msgid "edit row"
@@ -18757,10 +18828,6 @@ msgstr "Heure du début des opérations automatiques"
 #~ msgstr "Compte du logiciel de groupe de travail"
 
 #, fuzzy
-#~ msgid "Enable POP3 Access"
-#~ msgstr "Active le service POP3"
-
-#, fuzzy
 #~ msgid "Enable IMAP Access"
 #~ msgstr "Active le service IMAP"
 
@@ -19245,9 +19312,6 @@ msgstr "Heure du début des opérations automatiques"
 #, fuzzy
 #~ msgid "Drive Type"
 #~ msgstr "Lettre du disque (Drive letter)"
-
-#~ msgid "Path"
-#~ msgstr "Chemin"
 
 #~ msgid "Device Settings"
 #~ msgstr "Paramètres du périphérique"
