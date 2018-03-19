@@ -42,7 +42,7 @@ sub _table
                 printableName => __('Enable On-Access Prevention'),
                 defaultValue => 0,
                 editable => 1,
-                help => __('Deny access to infected files in the included paths above.')
+                help => __('Deny access to infected files in the included paths below.')
                 )
          );
 
