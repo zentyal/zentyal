@@ -29,7 +29,7 @@ unless ($DESTDIR) {
 
 my $MODULE_NAME = basename(getcwd());
 $MODULE_NAME =~ s/^zentyal-//;
-$MODULE_NAME =~ s/-.*$//;
+$MODULE_NAME =~ s/-[0-9].*$//;
 
 if (exists $ENV{MODULE_NAME}) {
     $MODULE_NAME = $ENV{MODULE_NAME};

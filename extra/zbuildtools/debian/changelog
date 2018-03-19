@@ -1,3 +1,9 @@
+zbuildtools (12) xenial; urgency=medium
+
+  * Fix $MODULE_NAME for packages with several dashes
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 19 Mar 2018 01:35:53 +0100
+
 zbuildtools (11) xenial; urgency=medium
 
   * Xenial version for Zentyal 5.0
