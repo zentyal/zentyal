@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2018-03-04 00:07+0200\n"
+"PO-Revision-Date: 2018-03-19 03:39+0200\n"
 "Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -96,7 +96,7 @@ msgstr ""
 #: ../../main/sogo/src/EBox/SOGo/Composite/Warning.pm:48
 #, perl-brace-format
 msgid "{x} is only recommended for mailboxes of 1GB of data or less."
-msgstr ""
+msgstr "{x} solo se recomienda para buzones de 1GB de datos o menos."
 
 #: ../../main/dns/src/EBox/DNS.pm:288 ../../main/dns/src/EBox/DNS.pm:370
 #: ../../main/dns/src/EBox/DNS.pm:431 ../../main/dns/src/EBox/DNS.pm:459
@@ -179,9 +179,9 @@ msgid "The host name {x} is already defined in the domain {y}"
 msgstr "Ya existe un nombre de máquina llamado {x} definido en el dominio {y}"
 
 #: ../../main/dns/src/EBox/DNS.pm:2049
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP '{a}' is already in '{d}'"
-msgstr "La dirección IP '{a}' ya está asignada a '{d}'"
+msgstr "La dirección IP '{a}' ya pertenece a '{d}'"
 
 #: ../../main/dns/src/EBox/DNS/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
@@ -723,7 +723,7 @@ msgstr "El nombre de dominio resolverá a esta lista de direcciones IP."
 #: ../../main/partner-tools/src/EBox/PartnerTools/CGI/Tools.pm:31
 #: ../../main/partner-tools/src/EBox/PartnerTools/CGI/Tools.pm:42
 msgid "Partner Tools"
-msgstr ""
+msgstr "Herramientas de Partners"
 
 #: ../../main/partner-tools/src/EBox/PartnerTools/CGI/Tools.pm:53
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
@@ -3571,24 +3571,22 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:54
 msgid "Block HTTPS traffic by domain"
-msgstr ""
+msgstr "Bloquear tráfico HTTPS por dominio"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:57
-#, fuzzy
 msgid ""
 "If this is enabled, any domain (not applicable to URLs) which is <b>denied</"
 "b> in the <i>Domains and URL rules</i> will be blocked at firewall level."
 msgstr ""
-"Si esta opción está habilitada, cualquier dominio o URL que no esté en la "
-"sección <i>Reglas de dominios</i>, ni en <i>Ficheros de listas de dominios</"
-"i> debajo será prohibido."
+"Si esta opción está habilitada, cualquier dominio (no URLs) que esté "
+"<b>denegado</b> en las <i>Reglas de Dominios y URLs</i> será bloqueado a "
+"nivel de cortafuegos."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:66
 msgid "Block not listed domains and URLs"
 msgstr "Bloquear dominios y URLs no listados"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:69
-#, fuzzy
 msgid ""
 "If this is enabled, any domain or URL which is neither present neither in "
 "the <i>Domains and URL rules</i> nor in the <i>Domain list files</i> "
@@ -7804,27 +7802,25 @@ msgid "network object"
 msgstr "objeto de red"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Settings.pm:42
-#, fuzzy
 msgid "Enable On-Access Prevention"
-msgstr "Habilitar pasarela POP3"
+msgstr "Habilitar prevención al acceder"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Settings.pm:45
-msgid "Deny access to infected files in the included paths above."
+msgid "Deny access to infected files in the included paths below."
 msgstr ""
+"Deniega el acceso a ficheros infectados incluidos en las rutas de abajo."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Settings.pm:51
-#, fuzzy
 msgid "On-Access Scan"
-msgstr "Control de acceso"
+msgstr "Análisis en Acceso"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:67
 msgid "Path"
 msgstr "Ruta"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:78
-#, fuzzy
 msgid "Include/Exclude Paths"
-msgstr "Incluir ruta"
+msgstr "Incluir/Excluir Rutas"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:79
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:113
@@ -7837,6 +7833,8 @@ msgid ""
 "Inclusions and Exclusions are recursive. Please also note that any path that "
 "is not explicitly included is excluded by default."
 msgstr ""
+"Las inclusiones y exclusiones son recursivas. Cualquier ruta que no sea "
+"explícitamente incluida es excluída por defecto."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:99
 msgid "Include Path"
@@ -7885,7 +7883,6 @@ msgid "Antivirus DB updates"
 msgstr "Actualización de la base de datos del antivirus"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:69
-#, fuzzy
 msgid "To configure Libreswan IPsec."
 msgstr "Para configurar Libreswan IPsec."
 
@@ -8986,13 +8983,12 @@ msgstr ""
 "favor, aumente el nivel funcional de su bosque."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:910
-#, fuzzy
 msgid ""
 "The domain functional level must be Windows Server 2008 R2 or lower. Please "
 "lower your domain functional level."
 msgstr ""
-"El nivel funcional del bosque debe ser Windows Server 2003 o superior. Por "
-"favor, aumente el nivel funcional de su bosque."
+"El nivel funcional del dominio debe ser Windows Server 2008 R2 o inferior. "
+"Por favor, aumente el nivel funcional de su dominio."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:937
 msgid "Error querying AD schema:"
@@ -9707,6 +9703,9 @@ msgid ""
 "<b>Group Policy Objects</b> can be managed downloading {oh}Microsoft Remote "
 "Server Administration Tools{ch} for your Windows version."
 msgstr ""
+"Las <b>Directivas de Grupo (GPOs)</b> se pueden gestionar descargando "
+"{oh}Microsoft Remote Server Administration Tools{ch} para su versión de "
+"Windows."
 
 #: ../../main/samba/src/EBox/Samba/Composite/RecycleBin.pm:58
 msgid "Recycle Bin"
@@ -10998,7 +10997,7 @@ msgstr "Bienvenido al servicio FTP de Zentyal."
 
 #: ../../main/partner-tools/src/templates/tools.mas:14
 msgid "PostgreSQL Database Setup for IM and Presence Service on Cisco UCM"
-msgstr ""
+msgstr "Configuración de BDD PostgreSQL para Cisco UCM"
 
 #: ../../main/partner-tools/src/templates/tools.mas:17
 msgid "Setup"
