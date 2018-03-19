@@ -1,6 +1,7 @@
 5.1
 	+ Supress annoying vendor-class-identifier warnings in zentyal.log
-	+ Add TFTP functionality again with support also for options 150 and 155
+	+ Add TFTP functionality again
+	+ Support for options 150 and 155 in commercial editions
 	+ Fix module restart in postinst
 5.0
 	+ Disable TFTP
