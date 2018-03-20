@@ -83,6 +83,7 @@ sub list_ifaces
         @ifaceList = @{read_dir('/sys/class/net')};
         @ifaceList = grep (!/:/, @ifaceList);
         @ifaceList = sort @ifaceList;
+        @ifaceList = grep (-l "/sys/class/net/$_", @ifaceList);
     }
     return @ifaceList;
 }
