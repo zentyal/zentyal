@@ -5746,7 +5746,8 @@ sub objectMembers # (object)
 # Parameters:
 #
 #       id - object's id
-#       mask - return alse addresses' mask (named optional, default false)
+#       mask - return also addresses' mask (named optional, default false)
+#       ranges - return ranges instead of full list of addresses (named optional, default false)
 #
 # Returns:
 #

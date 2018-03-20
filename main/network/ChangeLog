@@ -1,5 +1,6 @@
 5.1
 	+ Auto-mark gateway as default when adding the only one
+	+ Optional ranges param added to Objects::Members::addresses()
 	+ Add ip_vti to list of ifaces_to_ignore by default
 	+ Fix brctl binary path
 	+ Fix regression populating bridges list on iface configuration

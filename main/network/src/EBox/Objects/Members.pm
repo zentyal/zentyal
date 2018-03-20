@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2018 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -63,6 +63,7 @@ sub addresses
 {
     my ($self, %params) = @_;
     my $mask = $params{mask};
+    my $ranges = $params{ranges};
 
     my @ips = map {
         my $member = $_;
@@ -77,7 +78,9 @@ sub addresses
            }
         } elsif ($type eq 'iprange') {
             if (not defined $member->{addresses}) {
-                $member->{addresses} = EBox::Types::IPRange->addressesFromBeginToEnd($member->{begin}, $member->{end});
+                my $beg = $member->{begin};
+                my $end = $member->{end};
+                $member->{addresses} = $ranges ? [ "$beg-$end" ] : EBox::Types::IPRange->addressesFromBeginToEnd($beg, $end);
             }
             if ($mask) {
                 map {
