@@ -183,7 +183,6 @@ sub _changeInAccessRules
     $self->global()->modChange('logs');
 }
 
-# TODO: Add doc as used by list-proxy-rules job
 sub rules
 {
     my ($self) = @_;
@@ -197,12 +196,12 @@ sub rules
         my $row = $self->row($id);
         my $source = $row->elementByName('source');
 
-        my $rule = { number => $number};
+        my $rule = { number => $number };
         if ($source->selectedType() eq 'object') {
             my $object = $source->value();
             $rule->{object} = $object;
             $rule->{members} = $objectMod->objectMembers($object);
-            my $addresses = $objectMod->objectAddresses($object);
+            my $addresses = $objectMod->objectAddresses($object, ranges => 1);
             # ignore empty objects
             next unless @{$addresses};
             $rule->{addresses} = $addresses;
@@ -301,7 +300,7 @@ sub filterProfiles
             push @profiles, $profile;
         } elsif ($sourceType eq 'object') {
             my $obj       = $source->value();
-            my @addresses = @{ $objectMod->objectAddresses($obj, mask => 1) };
+            my @addresses = @{ $objectMod->objectAddresses($obj, mask => 1, ranges => 1) };
             foreach my $cidrAddress (@addresses) {
                 # put a pseudo-profile for each address in the object
                 my ($addr, $netmask) = ($cidrAddress->[0], EBox::NetWrappers::mask_from_bits($cidrAddress->[1]));

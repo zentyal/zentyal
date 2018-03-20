@@ -1,4 +1,6 @@
 5.1
+	+ Use IP ranges in squid and dansguardian conf for very significant
+	  increase of performance when restarting the module
 	+ Block HTTPS by domain using firewall module for commercial editions
 	+ Fix time period condition checking end minute
 5.0.3

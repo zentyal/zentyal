@@ -13,5 +13,7 @@
 #192.168.1.0-192.168.1.255 = filter1
 
 % foreach my $obj (@objects) {
-<% $obj->{address} %>=filter<% $obj->{number} %>
+% my $addr = $obj->{address};
+% $addr =~ s:/255.255.255.255:: if (index($addr, '-') > 0);
+<% $addr %>=filter<% $obj->{number} %>
 % }
