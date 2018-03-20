@@ -189,7 +189,15 @@ sub forward
             $domainsById{$id} = $profilesModel->row($id)->subModel('filterPolicy')->deniedDomains();
         }
         foreach my $domain (@{$domainsById{$id}}) {
-            push (@rules, "-p tcp --dport 443 -s $profile->{address} -m string --string '$domain' --algo bm --to 65535 -j fdrop");
+            my $addr = $profile->{address};
+            my $src;
+            if (index ($addr, '-') == -1) {
+                $src = "-s $addr";
+            } else {
+                $addr =~ s:/255.255.255.255::;
+                $src = "-m iprange --src-range $addr";
+            }
+            push (@rules, "-p tcp --dport 443 $src -m string --string '$domain' --algo bm --to 65535 -j fdrop");
         }
     }
 
