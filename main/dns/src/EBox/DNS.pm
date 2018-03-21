@@ -344,36 +344,6 @@ sub hostIpAddresses
     return $array;
 }
 
-# Method: getAddresses
-#
-#   Given a domain name, it returns an array ref of addresses that
-#   it contains.
-#
-# Parameters:
-#
-#   domain - String the domain's name
-#
-# Returns:
-#
-#   array ref - list of IP addresses
-#
-sub getAddresses
-{
-    my ($self, $domain) = @_;
-
-    unless (defined $domain) {
-        throw EBox::Exceptions::MissingArgument('domain');
-    }
-
-    my $domainRow = $self->model('DomainTable')->findRow(domain => $domain);
-    unless (defined $domainRow) {
-        throw EBox::Exceptions::DataNotFound(data  => __('domain'),
-                                             value => $domain);
-    }
-
-    return $self->_domainIpAddresses($domainRow->subModel('ipAddresses'));
-}
-
 # Method: allAddressesInOtherDomains
 #
 #   Returns a hash ref with all IPs of all domains except the given one
@@ -389,18 +359,26 @@ sub allAddressesInOtherDomains
 
     my %ips;
 
-    foreach my $d (@{$self->domains()}) {
-        my $domain = $d->{name};
+    my $domainTable = $self->model('DomainTable');
+    foreach my $domainId (@{$self->get_list('DomainTable/order')}) {
+        my $domainKey = "DomainTable/keys/$domainId";
+        my $domainIpRow = $self->get_hash($domainKey);
+        my $domain = $domainIpRow->{domain};
         next if ($domain eq $myDomain);
-        foreach my $h (@{$self->getHostnames($domain)}) {
-            foreach my $ip (@{$h->{ip}}) {
-                next unless $ip;
-                $ips{$ip} = $domain;
-            }
+
+        foreach my $domainIpId (@{$self->get_list("$domainKey/ipAddresses/order")}) {
+            my $domainIpRow = $self->get_hash("$domainKey/ipAddresses/keys/$domainIpId");
+            my $domainIp = $domainIpRow->{ip};
+            $ips{$domainIp} = $domain if ($domainIp);
         }
-        foreach my $ip (@{$self->getAddresses($domain)}) {
-            next unless $ip;
-            $ips{$ip} = $domain;
+
+        foreach my $domainHostId (@{$self->get_list("$domainKey/hostnames/order")}) {
+            my $hostKey = "$domainKey/hostnames/keys/$domainHostId";
+            foreach my $domainIpId (@{$self->get_list("$hostKey/ipAddresses/order")}) {
+                my $domainIpRow = $self->get_hash("$hostKey/ipAddresses/keys/$domainIpId");
+                my $domainIp = $domainIpRow->{ip};
+                $ips{$domainIp} = $domain if ($domainIp);
+            }
         }
     }
 
