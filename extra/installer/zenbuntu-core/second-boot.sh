@@ -14,8 +14,9 @@ then
     # Remove autosubscription data
     rm -rf /var/lib/zinstaller-remote
 
-    # Restore default rc.local
-    mv /etc/rc.local.orig /etc/rc.local
+    # Restore default rc.local and execute it
+    mv /usr/share/zenbuntu-core/rc.local /etc/rc.local
+    . /etc/rc.local
 fi
 
 exit 0

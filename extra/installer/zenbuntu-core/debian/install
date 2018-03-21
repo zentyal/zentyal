@@ -1,5 +1,6 @@
 first-boot.sh /usr/share/zenbuntu-core
 second-boot.sh /usr/share/zenbuntu-core
+rc.local /usr/share/zenbuntu-core
 motd.tail /usr/share/zenbuntu-core
 core-install /usr/share/zenbuntu-core
 get-zentyal-url /usr/share/zenbuntu-core
