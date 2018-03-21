@@ -12,13 +12,13 @@ set menu_color_highlight=black/light-gray
 
 menuentry "Install Zentyal VERSION (delete all disk)" {
 	set gfxpayload=keep
-	linux	/install/vmlinuz  file=/cdrom/preseed/ubuntu-server-auto.seed vga=788 net.ifnames=0 bisodevname=0 quiet ---
-	initrd	/install/initrd.gz
+	linux	/install/hwe-vmlinuz  file=/cdrom/preseed/ubuntu-server-auto.seed vga=788 ipv6.disable=1 net.ifnames=0 bisodevname=0 quiet ---
+	initrd	/install/hwe-initrd.gz
 }
 menuentry "Install Zentyal VERSION (expert mode)" {
 	set gfxpayload=keep
-	linux	/install/vmlinuz  file=/cdrom/preseed/ubuntu-server.seed vga=788 net.ifnames=0 bisodevname=0 quiet ---
-	initrd	/install/initrd.gz
+	linux	/install/hwe-vmlinuz  file=/cdrom/preseed/ubuntu-server.seed vga=788 ipv6.disable=1 net.ifnames=0 bisodevname=0 quiet ---
+	initrd	/install/hwe-initrd.gz
 }
 menuentry "Check disc for defects" {
 	set gfxpayload=keep
