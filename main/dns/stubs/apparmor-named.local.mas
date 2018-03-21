@@ -13,13 +13,14 @@
 /var/lib/samba/private/dns/** rwk,
 
 # Access to kerberos keytab
-/var/lib/samba/private/dns.keytab r,
+/var/lib/samba/private/dns.keytab rwk,
 
 # Access to kerberos ticket
 /var/tmp/** rw,
 
 # Access to samba AD DLZ zone
 /usr/lib/x86_64-linux-gnu/samba/** rm,
+/usr/lib/x86_64-linux-gnu/ldb/** rm,
 
 # RW access to session key, to allow SDLZ driver read it
 /{,var/}run/named/session.key rw,

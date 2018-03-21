@@ -3,3 +3,8 @@
 
 # Access to Samba winbind pipe
 /run/samba/winbindd/pipe rw,
+
+# Other rules required by upgrade to kernel 4.13
+/sys/devices/system/node/ r,
+/sys/devices/system/node/** r,
+owner @{PROC}/@{pid}/status r,
