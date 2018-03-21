@@ -325,6 +325,9 @@ sub initialSetup
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
+
+        # unmask systemd service to avoid no such daemon error
+        EBox::Sudo::silentRoot('systemctl unmask samba-ad-dc');
     }
 }
 

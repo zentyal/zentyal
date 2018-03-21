@@ -14,6 +14,7 @@
 	+ Allow to execute ad-migrate directly
 	+ Disable expiration for Kerberos service accounts
 	+ Add ZFS support for Samba Shares
+	+ Avoid no such daemon error in zentyal.log when module not configured
 5.0.10
 	+ Integrate Samba 4.6
 	+ Remove manipulation or resolv.conf in standalone DC provision

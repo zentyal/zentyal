@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Unmask/enable systemd service
-systemctl unmask samba-ad-dc
-systemctl enable samba-ad-dc
-
 # enable quotas
 /usr/share/zentyal-samba/enable-quotas
 
