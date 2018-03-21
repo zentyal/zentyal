@@ -4,9 +4,11 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Global;
+my $img_class = EBox::Global->communityEdition() ? 'final_installation_img' : 'final_installation_img_com';
 </%init>
 <div id="wizard_error" class="error" style="display: none; margin-bottom: 20px"></div>
-<div class="final_installation item-block">
+<div class="final_installation <% $img_class %> item-block">
 
   <h4><% __('Congratulations!') %></h4>
   <h5><% __('Your Zentyal installation has successfully finished!') %>

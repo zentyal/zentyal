@@ -1731,12 +1731,17 @@ body.first-install {
 }
 .final_installation {
     height:450px;
-    background: url("/data/software/images/fluffy_ok.png") right bottom no-repeat;
     background-color: #ddd;
     margin-top:10px;
     overflow: hidden;
     position: relative;
     padding: 40px 50px;
+}
+.final_installation_img {
+    background: url("/data/software/images/fluffy_ok.png") right bottom no-repeat;
+}
+.final_installation_img_com {
+    background: url("/data/software/images/tie_ok.png") right bottom no-repeat;
 }
 .final_installation h4 {
     font-size: 50px;
