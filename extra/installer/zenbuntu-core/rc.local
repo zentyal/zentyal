@@ -14,8 +14,7 @@
 # Workaround for unset gateway on DHCP interfaces after reboot
 for iface in `grep "inet dhcp" /etc/network/interfaces|cut -d' ' -f2`
 do
-       ifup --allow=hotplug $iface
-       ifup --allow=auto $iface
+    /usr/share/zentyal-network/dhcp-gateway.pl $iface `cat /var/lib/zentyal/conf/${iface}_gw`
 done
 
 exit 0
