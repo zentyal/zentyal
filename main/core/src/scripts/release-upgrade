@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# Preliminary checks
+
+if [ $(df /boot | tail -1 | awk '{print $4}') -lt 51200 ];
+then
+    echo "Upgrade cannot be performed due to low disk space (less than 50MB available on /boot)"
+    exit 2
+fi
+
+for i in / /var
+do
+    if [ `df $i | tail -1 | awk '{print $4}'` -lt 358400 ];
+    then
+        echo -e "Upgrade cannot be performed due to low disk space (less than 350MB available on $i)"
+        exit 2
+    fi
+done
 UPGRADE_FILE=/var/lib/zentyal/.upgrade-finished
 
 rm -f $UPGRADE_FILE
@@ -29,12 +45,10 @@ sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 echo; echo "Upgrading your current system to the latest packages..."; echo
 upgrade
 
-echo; echo "Upgrading from Zentyal 4.1 to Zentyal 4.2..."; echo
-sed -ri '/zentyal(.)4.1/d' /etc/apt/sources.list
-echo 'deb http://archive.zentyal.org/zentyal 4.2 main extra' > /etc/apt/sources.list.d/zentyal-archive.list
-sed -i 's/zentyal-qa-4.1/zentyal-qa-4.2/g' /etc/apt/sources.list.d/zentyal-qa.list
-# Workaround to avoid dependency problems when packages are hold
-for e in `grep -R "a=zentyal-qa" /etc/apt | cut -f1 -d:`; do rm -f $e; done
+echo; echo "Upgrading from Zentyal 5.0 to Zentyal 5.1..."; echo
+sed -ri '/zentyal(.)5.0/d' /etc/apt/sources.list
+echo 'deb http://archive.zentyal.org/zentyal 5.1 main' > /etc/apt/sources.list.d/zentyal-archive.list
+sed -i 's/zentyal-qa-5.0/zentyal-qa-5.1/g' /etc/apt/sources.list.d/zentyal-qa.list
 
 upgrade
 
@@ -47,7 +61,7 @@ then
     # Restart Zentyal UI
     zs webadmin restart
 
-    echo; echo "Zentyal upgrade finished!"
+    echo; echo "Zentyal upgrade finished! Please restart your server now."
 else
     echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
 fi
