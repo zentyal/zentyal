@@ -1,3 +1,5 @@
+HEAD
+	+ Add support for pepertual licenses
 5.1
 	+ NetWrappers::list_ifaces() now ignores invalid ones like bonding_masters
 	+ Reimplement EBox::Validate::isIPInNetwork using NetAddr::IP

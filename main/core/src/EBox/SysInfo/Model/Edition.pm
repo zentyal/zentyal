@@ -56,6 +56,9 @@ sub _table
         $edition = ucfirst($edition);
         $title = "Zentyal $edition Edition";
         my $date = $expiration->strftime('%x');
+        if ($expiration->strftime('%Y') >= 2030) {
+            $date = __('Perpetual');
+        }
 
         my $html = '<p><label>' . __('Server edition') . "</label>$edition</p>";
         $html .= '<p><label>' . __('Users') . "</label>$users</p>";
