@@ -154,7 +154,7 @@ sub output
     return \@rules;
 }
 
-sub forward
+sub preForward
 {
     my ($self) = @_;
 
@@ -197,7 +197,7 @@ sub forward
                 $addr =~ s:/255.255.255.255::;
                 $src = "-m iprange --src-range $addr";
             }
-            push (@rules, "-p tcp --dport 443 $src -m string --string '$domain' --algo bm --to 65535 -j fdrop");
+            push (@rules, "-p tcp --dport 443 $src -m string --string '$domain' --algo bm --to 65535 -j REJECT");
         }
     }
 
