@@ -1,3 +1,5 @@
+HEAD
+	+ Do not enable ScanOnAccess option if no paths are defined
 5.1
 	+ On-Access Scanning for Commercial editions
 	+ Remove deprecated purge-module script

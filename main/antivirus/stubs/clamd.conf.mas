@@ -68,7 +68,7 @@ ArchiveBlockMax true
 ArchiveBlockEncrypted true
 ScanPDF true
 % }
-% if ($onAccess) {
+% if ($onAccess and scalar(@paths)) {
 ScanOnAccess yes
 % foreach my $path (@paths) {
 OnAccess<% $path %>
