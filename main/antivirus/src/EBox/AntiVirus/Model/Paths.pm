@@ -109,6 +109,8 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
+    return unless defined ($changedFields->{path});
+
     my $path = $changedFields->{path}->value();
     EBox::Validate::checkAbsoluteFilePath($path, __('path'));
 }
