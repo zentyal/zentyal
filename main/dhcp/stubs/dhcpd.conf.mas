@@ -86,6 +86,5 @@ include "<% $keysFile %>";
 
 # Add option 150 (0x96) and 155 (0x9b)
 if exists dhcp-parameter-request-list {
-option dhcp-parameter-request-list=concat(option dhcp-parameter-request-list,96);
-option dhcp-parameter-request-list=concat(option dhcp-parameter-request-list,9b);
+option dhcp-parameter-request-list=concat(option dhcp-parameter-request-list,96,9b);
 }

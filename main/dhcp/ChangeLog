@@ -1,3 +1,5 @@
+HEAD
+	+ Fix dhcp-parameter-request-list options concatenation
 5.1
 	+ Supress annoying vendor-class-identifier warnings in zentyal.log
 	+ Add TFTP functionality again
