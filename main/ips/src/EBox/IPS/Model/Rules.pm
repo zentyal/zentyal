@@ -216,7 +216,6 @@ sub _populateActions
     return [
         { value => 'log', printableValue => __('Log') },
         { value => 'block', printableValue => __('Block') },
-        { value => 'logblock', printableValue => __('Log & Block') },
     ];
 }
 

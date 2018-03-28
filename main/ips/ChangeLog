@@ -1,3 +1,5 @@
+HEAD
+	+ Remove Log & Block decision as suricata only matches first rule
 5.1
 	+ Update suricata conf stub with default values from Ubuntu 16.04
 	+ Improved daemon management and firewall integration
