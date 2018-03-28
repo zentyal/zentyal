@@ -191,6 +191,7 @@ sub _table
             'printableName' => 'manual',
             'defaultValue'  => 0,
             'editable'      => 0,
+            'hidden'        => 1,
            ),
     );
 
