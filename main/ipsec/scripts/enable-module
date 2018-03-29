@@ -1,5 +1,0 @@
-#!/bin/bash
-
-mkdir -p /var/run/xl2tpd
-
-exit 0

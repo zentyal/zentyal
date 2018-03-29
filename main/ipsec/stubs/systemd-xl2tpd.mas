@@ -3,8 +3,9 @@
 </%args>
 [Unit]
 Description=Zentyal XL2TPD VPN server - <% $tunnel->{name} %>
+After=network.target
 
 [Service]
 Type=forking
-ExecStart=/usr/sbin/xl2tpd -p /var/run/xl2tpd/xl2tpd-<% $tunnel->{name} %>.pid -C /var/run/xl2tpd/l2tp-control-<% $tunnel->{name} %> -c /etc/xl2tpd/<% $tunnel->{name} %>.conf
+ExecStart=/usr/sbin/xl2tpd -p /run/xl2tpd/xl2tpd-<% $tunnel->{name} %>.pid -C /run/xl2tpd/l2tp-control-<% $tunnel->{name} %> -c /etc/xl2tpd/<% $tunnel->{name} %>.conf
 Restart=on-failure
