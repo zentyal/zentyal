@@ -22,7 +22,7 @@ cat $DATA_DIR/zentyal-auto.seed >> $CD_BUILD_DIR/preseed/disaster-recovery-auto.
 
 UDEB_INCLUDE=$CD_BUILD_DIR/.disk/udeb_include
 
-if [ "$INCLUDE_REMOTE" == "true" ]
+if [[ $VERSION = *"commercial"* ]]
 then
     if ! grep -q zinstaller-remote $UDEB_INCLUDE
     then
