@@ -48,7 +48,7 @@ upgrade
 echo; echo "Upgrading from Zentyal 5.0 to Zentyal 5.1..."; echo
 sed -ri '/zentyal(.)5.0/d' /etc/apt/sources.list
 echo 'deb http://archive.zentyal.org/zentyal 5.1 main' > /etc/apt/sources.list.d/zentyal-archive.list
-sed -i 's/zentyal-qa-5.0/zentyal-qa-5.1/g' /etc/apt/sources.list.d/zentyal-qa.list
+sed -i 's/zentyal-qa 5.0/zentyal-qa 5.1/g' /etc/apt/sources.list.d/zentyal-qa.list
 
 upgrade
 
