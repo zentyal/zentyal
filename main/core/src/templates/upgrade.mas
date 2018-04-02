@@ -9,14 +9,15 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/dialog.js">//</script>
 <script>
-    var aboutToFinish = false;
+    var errors = 0;
     function updateOutput() {
         $.ajax({
             url: '/ReleaseUpgrade?action=output',
             dataType: 'json',
             success: function(response) {
+                errors = 0;
                 $('#output').html(response.output);
-                if (aboutToFinish || response.finished) {
+                if (response.finished) {
                     $('#webadmin_ko').hide();
                     $('#ajax_loader_upgrade').hide();
                     $('#finished').show();
@@ -24,8 +25,10 @@ use EBox::Gettext;
                 }
             }
         }).fail(function (jqXHR) {
-            if ((jqXHR.status == 404) && !aboutToFinish) {
-                aboutToFinish = true;
+            if (jqXHR.status >= 400) {
+                errors++;
+            }
+            if (errors > 10) {
                 $('#output').hide();
                 $('#webadmin_ko').show();
             }
