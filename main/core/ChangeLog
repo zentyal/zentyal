@@ -1,4 +1,5 @@
 HEAD
+	+ Change trial messages to adapt to new 45-day period
 	+ Add support for pepertual licenses
 5.1
 	+ NetWrappers::list_ifaces() now ignores invalid ones like bonding_masters
