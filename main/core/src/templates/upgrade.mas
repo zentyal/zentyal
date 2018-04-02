@@ -9,28 +9,17 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/dialog.js">//</script>
 <script>
-    var errors = 0;
     function updateOutput() {
         $.ajax({
             url: '/ReleaseUpgrade?action=output',
             dataType: 'json',
             success: function(response) {
-                errors = 0;
                 $('#output').html(response.output);
                 if (response.finished) {
-                    $('#webadmin_ko').hide();
                     $('#ajax_loader_upgrade').hide();
                     $('#finished').show();
                     $('#close_button').show();
                 }
-            }
-        }).fail(function (jqXHR) {
-            if (jqXHR.status >= 400) {
-                errors++;
-            }
-            if (errors > 10) {
-                $('#output').hide();
-                $('#webadmin_ko').show();
             }
         });
         setTimeout(updateOutput, 1000);

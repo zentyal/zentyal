@@ -62,12 +62,12 @@ then
     zs webadmin restart
 
     ### Migrate SOGo database
-    if dpkg -l|grep ^ii|grep -q sogo
+    if (dpkg -l|grep ^ii|grep -q sogo) > /dev/null 2>&1
     then
         SOGODB='/usr/share/doc/sogo/sql-update-3.2.10_to_4.0.0-mysql.sh'
         cp $SOGODB $SOGODB.bk
         sed -i -e '/^read/d; s/$USER/sogo/g; s/-p/-p$defaultpasswd/g' -e "13idefaultpasswd=`cat /var/lib/zentyal/conf/sogo_db.passwd`" $SOGODB
-        if ! ps -ef | grep 'mysqld$'; then service mysql restart; fi
+        if ! ps -ef | grep -q 'mysqld$'; then service mysql restart; fi
         $SOGODB > /dev/null 2>&1
         mv $SOGODB.bk $SOGODB
     fi
