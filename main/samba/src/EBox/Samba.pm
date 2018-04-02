@@ -2687,7 +2687,8 @@ sub shares
             } elsif ($permissions->value() eq 'readWrite') {
                 push (@readWrite, $user);
             } elsif ($permissions->value() eq 'administrator') {
-                push (@administrators, $user)
+                push (@administrators, $user);
+                push (@readWrite, $user);
             }
         }
 
