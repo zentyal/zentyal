@@ -102,8 +102,9 @@ sub checkUsers
     my $profilesPath = $samba->_roamingProfilesPath();
 
     my $state = $samba->get_state();
-    my $profilesChanged = delete $state->{_roamingProfilesChanged};
-    $samba->set_state($state);
+    my $profilesChangedFile = EBox::Config::conf() . 'samba/_roamingProfilesChanged';
+    my $profilesChanged = (-f $profilesChangedFile);
+    unlink ($profilesChangedFile) if $profilesChanged;
 
     my $primaryGidNumber = EBox::Samba::User->_domainUsersGidNumber();
     my $userFilter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))(!(showInAdvancedViewOnly=*))(!(isCriticalSystemObject=*)))";
@@ -248,8 +249,8 @@ sub setACLs
             next;
         }
 
-        my $state = $samba->get_state();
-        unless (defined $state->{shares_set_rights} and $state->{shares_set_rights}->{$shareName}) {
+        my $syncShareFile = EBox::Config::conf() . "samba/sync_shares/$shareName";
+        unless (-f $syncShareFile) {
             # share permissions didn't change, nothing needs to be done for this share.
             next;
         }
@@ -328,8 +329,7 @@ sub setACLs
         }
         EBox::info("Recursive set of ACLs to share '$shareName' finished.");
 
-        delete $state->{shares_set_rights}->{$shareName};
-        $samba->set_state($state);
+        unlink ($syncShareFile);
     }
 }
 

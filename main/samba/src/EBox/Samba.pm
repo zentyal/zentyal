@@ -329,6 +329,8 @@ sub initialSetup
         # unmask systemd service to avoid no such daemon error
         EBox::Sudo::silentRoot('systemctl unmask samba-ad-dc');
     }
+
+    system('mkdir -p /var/lib/zentyal/conf/samba/sync_shares');
 }
 
 sub _checkEnableIPs

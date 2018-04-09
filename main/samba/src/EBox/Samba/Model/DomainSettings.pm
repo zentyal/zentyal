@@ -27,6 +27,7 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use TryCatch;
 use Encode;
+use File::Slurp;
 
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
@@ -235,9 +236,7 @@ sub updatedRowNotify
     my $newRoaming = $row->valueByName('roaming');
     my $oldRoaming = defined $oldRow ? $oldRow->valueByName('roaming') : $newRoaming;
     if ($oldRoaming != $newRoaming) {
-        my $state = $self->parentModule->get_state();
-        $state->{_roamingProfilesChanged} = 1;
-        $self->parentModule->set_state($state);
+        write_file(EBox::Config::conf() . 'samba/_roamingProfilesChanged');
     }
 }
 

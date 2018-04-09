@@ -39,7 +39,8 @@ use EBox::Types::Union;
 use EBox::Validate;
 
 use Sys::Filesystem;
-use File::Basename qw( dirname );
+use File::Basename qw(dirname);
+use File::Slurp;
 use Cwd 'abs_path';
 use TryCatch;
 
@@ -183,14 +184,7 @@ sub tagShareRightsReset
         }
 
         EBox::info("Tagging share '$shareName' as requiring a permission reset");
-        # Store in redis that we should set acls, given the permission changed.
-        my $sambaMod = $self->parentModule();
-        my $state = $sambaMod->get_state();
-        unless (defined $state->{shares_set_rights}) {
-            $state->{shares_set_rights} = {};
-        }
-        $state->{shares_set_rights}->{$shareName} = 1;
-        $sambaMod->set_state($state);
+        write_file(EBox::Config::conf() . "samba/sync_shares/$shareName");
     }
 }
 
