@@ -75,7 +75,7 @@ sub removeDirs
     for my $id ( @{$self->ids()}) {
         my $row = $self->row($id);
         my $path = EBox::Samba::SHARES_DIR() . '/' . $row->elementByName('path')->value();
-        unless (-d $path) {
+        unless (EBox::Sudo::fileTest('-d', $path)) {
             $self->removeRow($row->id(), 1);
             next;
         }
