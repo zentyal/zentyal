@@ -1,4 +1,5 @@
 HEAD
+	+ Enforce change of homeDrive for existing users
 	+ Fix regression deleting share directory after removing ebox ACL
 	+ Fix bug with shared state for shares and roaming profiles sync
 5.1.1

@@ -101,11 +101,6 @@ sub checkUsers
     my $profilesEnabled = $samba->roamingProfiles();
     my $profilesPath = $samba->_roamingProfilesPath();
 
-    my $state = $samba->get_state();
-    my $profilesChangedFile = EBox::Config::conf() . 'samba/_roamingProfilesChanged';
-    my $profilesChanged = (-f $profilesChangedFile);
-    unlink ($profilesChangedFile) if $profilesChanged;
-
     my $primaryGidNumber = EBox::Samba::User->_domainUsersGidNumber();
     my $userFilter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))(!(showInAdvancedViewOnly=*))(!(isCriticalSystemObject=*)))";
     foreach my $containerDN (@{$containers}) {
@@ -145,7 +140,8 @@ sub checkUsers
                         EBox::info("Set user '$dn' profilePath='$path'");
                         $modified = 1;
                     }
-                    unless (defined $user->get('homeDrive')) {
+                    my $currentDrive = $user->get('homeDrive');
+                    unless (defined ($currentDrive) and ($currentDrive eq $drive)) {
                         # Mount user home on network drive
                         $user->setHomeDrive($drive, $drivePath, 1);
                         EBox::info("Set user '$dn' homeDrive='$drive' homeDirectory='$drivePath'");

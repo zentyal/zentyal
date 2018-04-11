@@ -232,12 +232,6 @@ sub updatedRowNotify
         my $sambaMod = $self->parentModule();
         $sambaMod->getProvision->setProvisioned(0);
     }
-
-    my $newRoaming = $row->valueByName('roaming');
-    my $oldRoaming = defined $oldRow ? $oldRow->valueByName('roaming') : $newRoaming;
-    if ($oldRoaming != $newRoaming) {
-        write_file(EBox::Config::conf() . 'samba/_roamingProfilesChanged');
-    }
 }
 
 sub confirmReprovision
