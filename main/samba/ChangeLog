@@ -1,4 +1,4 @@
-HEAD
+5.1.2
 	+ Enforce share directory creation if not exists, even if not tagged
 	+ Enforce change of homeDrive for existing users
 	+ Fix regression deleting share directory after removing ebox ACL
