@@ -245,12 +245,6 @@ sub setACLs
             next;
         }
 
-        my $syncShareFile = EBox::Config::conf() . "samba/sync_shares/$shareName";
-        unless (-f $syncShareFile) {
-            # share permissions didn't change, nothing needs to be done for this share.
-            next;
-        }
-
         my $path = undef;
         if ($pathType->selectedType() eq 'zentyal') {
             $path = $samba->SHARES_DIR() . '/' . $pathType->value();
@@ -263,7 +257,13 @@ sub setACLs
             next;
         }
 
-        next if (EBox::Config::boolean('unmanaged_acls') and EBox::Sudo::fileTest('-d', $path));
+        my $syncShareFile = EBox::Config::conf() . "samba/sync_shares/$shareName";
+        my $syncShareFileExists = (-f $syncShareFile);
+
+        if (EBox::Sudo::fileTest('-d', $path)) {
+            next if EBox::Config::boolean('unmanaged_acls');
+            next unless $syncShareFileExists; # share permissions didn't change, nothing needs to be done for this share.
+        }
 
         EBox::info("Starting to apply recursive ACLs to share '$shareName'...");
 
@@ -325,7 +325,7 @@ sub setACLs
         }
         EBox::info("Recursive set of ACLs to share '$shareName' finished.");
 
-        unlink ($syncShareFile);
+        unlink ($syncShareFile) if $syncShareFileExists;
     }
 }
 
