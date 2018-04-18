@@ -2,5 +2,9 @@
 $listenport
 $vncport
 </%args>
+[Unit]
+Description=Zentyal vncproxy daemon
 
-exec /usr/bin/websockify --web /usr/share/novnc <% $listenport %> localhost:<% $vncport %>
+[Service]
+ExecStart=/usr/bin/websockify --web /usr/share/novnc <% $listenport %> localhost:<% $vncport %>
+Restart=on-failure

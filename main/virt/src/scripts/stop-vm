@@ -1,0 +1,22 @@
+#!/bin/bash
+
+user=$1
+stopCmd=$2
+forceStopCmd=$3
+runningCmd=$4
+
+sudo -u $user -H $stopCmd
+
+if [ -n "$forceStopCmd" ]
+then
+    for i in `seq 1 30`
+    do
+        if ! $runningCmd
+        then
+            break
+        fi
+        sleep 1
+    done
+
+    sudo -u $user -H $forceStopCmd
+fi

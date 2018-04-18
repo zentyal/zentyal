@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Zentyal S.L.
+# Copyright (C) 2011-2018 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,7 +18,6 @@ use warnings;
 package EBox::Virt;
 
 use base qw(EBox::Module::Service
-            EBox::Report::DiskUsageProvider
             EBox::NetworkObserver
             EBox::FirewallObserver);
 
@@ -34,7 +33,7 @@ use EBox::Dashboard::Section;
 use EBox::Virt::Dashboard::VMStatus;
 use EBox::Virt::Model::NetworkSettings;
 use EBox::Virt::Model::DeviceSettings;
-use Error qw(:try);
+use TryCatch;
 use String::ShellQuote;
 use File::Slurp;
 
@@ -43,7 +42,7 @@ use constant LIBVIRT_BIN => '/usr/bin/virsh';
 use constant DEFAULT_VIRT_USER => 'ebox';
 use constant VNC_PASSWD_FILE => '/var/lib/zentyal/conf/vnc-passwd';
 
-my $UPSTART_PATH = '/etc/init/';
+my $SYSTEMD_PATH = '/lib/systemd/system';
 my $WWW_PATH = EBox::Config::www();
 
 sub _create
@@ -84,7 +83,7 @@ sub initialSetup
 
     unless ($version) {
         # Create default service only if installing the first time
-        my $services = EBox::Global->modInstance('services');
+        my $services = EBox::Global->modInstance('network');
 
         my $serviceName = 'vnc-virt';
         unless ($services->serviceExists(name => $serviceName)) {
@@ -135,7 +134,7 @@ sub _preSetConf
     my $disabled = not $self->isEnabled();
 
     # The try is needed because this is also executed before
-    # the upstart files for the machines are created, if
+    # the systemd files for the machines are created, if
     # we made this code more intelligent probably it won't
     # be needed.
     try {
@@ -146,22 +145,13 @@ sub _preSetConf
                 my $name = $vm->valueByName('name');
                 if ($self->vmRunning($name)) {
                     $self->stopVM($name);
-
-                    # Send stop event for not autostarted VMs on module disable
-                    my $autostarted = $vm->valueByName('autostart');
-                    if ($disabled and not $autostarted) {
-                        my $roGlobal  = EBox::Global->getInstance(1);
-                        if ( $roGlobal->modExists('cloud-prof') ) {
-                            my $cloudProf = $roGlobal->modInstance('cloud-prof');
-                            $cloudProf->zentyalVMStopAlert($name);
-                        }
-                    }
                 }
             }
         }
 
         $self->_stopService();
-    } otherwise {};
+    } catch {
+    }
 }
 
 sub _setConf
@@ -170,8 +160,8 @@ sub _setConf
 
     my $backend = $self->{backend};
 
-    # Clean all upstart and novnc files, the current ones will be regenerated
-    EBox::Sudo::silentRoot("rm -rf $UPSTART_PATH/zentyal-virt.*.conf",
+    # Clean all systemd and novnc files, the current ones will be regenerated
+    EBox::Sudo::silentRoot("rm -rf $SYSTEMD_PATH/zentyal-virt.*.service",
                            "rm -rf $WWW_PATH/vncviewer-*.html");
 
     my %currentVMs;
@@ -250,7 +240,7 @@ sub updateFirewallService
         }
     }
 
-    my $servMod = EBox::Global->modInstance('services');
+    my $servMod = EBox::Global->modInstance('network');
     $servMod->setMultipleService(name => 'vnc-virt',
                                  printableName => __('Virtual Machines VNC'),
                                  description => __('VNC connections for Zentyal VMs'),
@@ -544,14 +534,14 @@ sub _writeMachineConf
     my $listenport = $vncport + 1000;
 
     EBox::Module::Base::writeConfFileNoCheck(
-            "$UPSTART_PATH/" . $self->machineDaemon($name) . '.conf',
-            '/virt/upstart.mas',
+            "$SYSTEMD_PATH/" . $self->machineDaemon($name) . '.service',
+            '/virt/systemd.mas',
             [ startCmd => $start, stopCmd => $stop, forceStopCmd => $forceStop, runningCmd => $running, user => $self->{vmUser} ],
             { uid => 0, gid => 0, mode => '0644' }
     );
 
     EBox::Module::Base::writeConfFileNoCheck(
-            "$UPSTART_PATH/" . $self->vncDaemon($name) . '.conf',
+            "$SYSTEMD_PATH/" . $self->vncDaemon($name) . '.conf',
             '/virt/vncproxy.mas',
             [ vncport => $vncport, listenport => $listenport ],
             { uid => 0, gid => 0, mode => '0644' }
@@ -674,16 +664,6 @@ sub usingVBox
     my ($self) = @_;
 
     return $self->{backend}->isa('EBox::Virt::VBox');
-}
-
-sub _facilitiesForDiskUsage
-{
-    my ($self) = @_;
-
-    my $name  = __('Virtual Machines');
-    my $vmsPath = $self->{backend}->vmsPath();
-
-    return { $name => [ $vmsPath ] };
 }
 
 sub _vmWidget

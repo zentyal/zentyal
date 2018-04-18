@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Zentyal S.L.
+# Copyright (C) 2011-2018 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -389,7 +389,7 @@ sub attachedDevices
 
 # Method: runningVMCommand
 #
-#   Only used for libvirt for the upstart and manage.sh scripts.
+#   Only used for libvirt for the systemd and manage.sh scripts.
 #
 # Parameters:
 #
