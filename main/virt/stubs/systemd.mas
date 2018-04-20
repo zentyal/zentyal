@@ -10,4 +10,4 @@ Description=Zentyal VM daemon
 
 [Service]
 ExecStart=/usr/bin/sudo -u <% $user %> -H <% $startCmd %>
-ExecStop=/usr/share/zentyal-virt/stop-vm <% $user %> <% $stopCmd %> <% forceStopCmd %> <% $runningCmd %>
+ExecStop=/usr/share/zentyal-virt/stop-vm <% $user %> <% $stopCmd %> <% $forceStopCmd %> <% $runningCmd %>

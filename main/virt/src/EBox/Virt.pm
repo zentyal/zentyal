@@ -541,7 +541,7 @@ sub _writeMachineConf
     );
 
     EBox::Module::Base::writeConfFileNoCheck(
-            "$SYSTEMD_PATH/" . $self->vncDaemon($name) . '.conf',
+            "$SYSTEMD_PATH/" . $self->vncDaemon($name) . '.service',
             '/virt/vncproxy.mas',
             [ vncport => $vncport, listenport => $listenport ],
             { uid => 0, gid => 0, mode => '0644' }
