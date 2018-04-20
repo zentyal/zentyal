@@ -420,7 +420,6 @@ sub deletedRowNotify
     if ($virt->vmRunning($name) or $virt->vmPaused($name)) {
         $virt->stopVM($name);
     }
-
 }
 
 sub vncPorts
@@ -434,13 +433,6 @@ sub vncPorts
     }
 
     return \@ports;
-}
-
-sub updatedRowNotify
-{
-    my ($self) = @_;
-    my $sysinfo = EBox::Global->getInstance(1)->modInstance('sysinfo');
-    $sysinfo->setReloadPageAfterSavingChanges(1);
 }
 
 sub actionClickedJS
