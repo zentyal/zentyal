@@ -549,7 +549,7 @@ sub _writeMachineConf
 
     my $width = $self->consoleWidth();
     my $height = $self->consoleHeight();
-    my $gid = getgrnam('ebox'); # The Zentyal apache needs to read it
+    my $gid = getgrnam('www-data'); # nginx needs to read it
     EBox::Module::Base::writeConfFileNoCheck(
             EBox::Config::www() . "/vncviewer-$name.html",
             '/virt/vncviewer.html.mas',
