@@ -142,6 +142,9 @@ http {
            root /usr/share/zentyal/www;
         }
 
+        # To allow POST on static pages (needed for vncviewer in zentyal-virt)
+        error_page 405 =200 $uri;
+
         location /data/ {
 <& .restricted, restrictions => $sectionrestrictions{'/data/'} &>
             root /usr/share/zentyal/www;
