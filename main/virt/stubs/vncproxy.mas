@@ -6,5 +6,5 @@ $vncport
 Description=Zentyal vncproxy daemon
 
 [Service]
-ExecStart=/usr/bin/websockify --web /usr/share/novnc <% $listenport %> localhost:<% $vncport %>
+ExecStart=/usr/bin/websockify --ssl-only --key=/var/lib/zentyal/conf/ssl/ssl.key --cert=/var/lib/zentyal/conf/ssl/ssl.pem --web /usr/share/novnc <% $listenport %> localhost:<% $vncport %>
 Restart=on-failure

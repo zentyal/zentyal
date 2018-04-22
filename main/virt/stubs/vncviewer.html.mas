@@ -10,7 +10,7 @@ $height += 35;
 </%init>
 <iframe id="vnc_frame" src="" width="<% $width %>" height="<% $height %>">This browser does not support frames</iframe>
 <script>
-var src = 'http://' + document.domain + ':<% $port %>/vnc_auto.html?host=' + document.domain + '&port=<% $port %>&password=<% $password %>';
+var src = 'https://' + document.domain + ':<% $port %>/vnc_auto.html?host=' + document.domain + '&port=<% $port %>&password=<% $password %>';
 var vncFrame = $('#vnc_frame')
 vncFrame.attr('src', src);
 var dialog = $('#load_in_dialog');
