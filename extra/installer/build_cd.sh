@@ -35,7 +35,7 @@ pushd $TMPDIR/zinstaller-headless
 dpkg-buildpackage
 popd
 
-if [[ $VERSION = *"commercial"* ]]
+if [[ $VERSION != *"development"* ]]
 then
     # Build zinstaller-remote udeb
     cp -rL zinstaller-remote $TMPDIR/zinstaller-remote
@@ -73,7 +73,7 @@ do
     done
 
     # Add zinstaller-remote udeb
-    if [[ $VERSION = *"commercial"* ]]
+    if [[ $VERSION != *"development"* ]]
     then
         UDEB_DIR=$CD_BUILD_DIR/pool/main/z/zinstaller-remote
         mkdir -p $UDEB_DIR
