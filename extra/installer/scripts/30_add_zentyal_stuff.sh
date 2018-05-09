@@ -15,10 +15,11 @@ cp $DATA_DIR/zentyal.seed $CD_BUILD_DIR/preseed/ubuntu-server.seed
 cp $CD_BUILD_DIR/preseed/ubuntu-server.seed $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
 cat $DATA_DIR/zentyal-auto.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
 
-cp $CD_BUILD_DIR/preseed/ubuntu-server.seed $CD_BUILD_DIR/preseed/disaster-recovery.seed
-sed -i 's/INSTALL_MODE/RECOVER_MODE/g' $CD_BUILD_DIR/preseed/disaster-recovery.seed
-cp $CD_BUILD_DIR/preseed/disaster-recovery.seed $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
-cat $DATA_DIR/zentyal-auto.seed >> $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
+cp $DATA_DIR/zentyal.seed $CD_BUILD_DIR/preseed/upgrade.seed
+if [ -f $DATA_DIR/zentyal-upgrade.seed ]
+then
+    cat $DATA_DIR/zentyal-upgrade.seed >> $CD_BUILD_DIR/preseed/upgrade.seed
+fi
 
 UDEB_INCLUDE=$CD_BUILD_DIR/.disk/udeb_include
 
@@ -41,9 +42,6 @@ if [ -f $BASE_DIR/DEBUG_MODE ]
 then
     cp $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed
     cat $DATA_DIR/zentyal-debug.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed
-
-    cp $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed $CD_BUILD_DIR/preseed/disaster-recovery-debug.seed
-    sed -i 's/INSTALL_MODE/RECOVER_MODE/g' $CD_BUILD_DIR/preseed/disaster-recovery-debug.seed
 
     cp $DATA_DIR/isolinux-zentyal-debug.cfg $CD_BUILD_DIR/isolinux/txt.cfg
 else
