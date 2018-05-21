@@ -19,15 +19,13 @@ use warnings;
 package EBox::AntiVirus;
 
 use base qw(EBox::Module::Service
-            EBox::FirewallObserver
-            EBox::LogObserver);
+            EBox::FirewallObserver);
 
 use Perl6::Junction qw(any);
 use File::Slurp qw(read_file write_file);
 use File::ReadBackwards;
 
 use EBox::AntiVirus::FirewallHelper;
-use EBox::AntiVirus::LogHelper;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
@@ -39,7 +37,6 @@ use constant {
   CLAMD_SOCKET                  => '/var/run/clamav/clamd.ctl',
 
   FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
-  FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
   FRESHCLAM_CRON_FILE           => '/etc/cron.d/clamav-freshclam',
   FRESHCLAM_DIR                 => '/var/lib/clamav/',
   FRESHCLAM_LOG_FILE            => '/var/log/clamav/freshclam.log',
@@ -138,16 +135,11 @@ sub appArmorProfiles
 {
     my ($self) = @_;
 
-    my $observerScript = EBox::Config::share() . 'zentyal-antivirus/' . FRESHCLAM_OBSERVER_SCRIPT;
-
-    my @params = ( 'observerScript' => $observerScript);
-
-    return [
-        { 'binary' => 'usr.bin.freshclam',
-          'local'  => 1,
-          'file'   => 'antivirus/freshclam.profile.mas',
-          'params' => \@params },
-       ];
+    return [{
+        'binary' => 'usr.bin.freshclam',
+        'local'  => 1,
+        'file'   => 'antivirus/freshclam.profile.mas',
+    }];
 }
 
 sub usedFiles
@@ -224,13 +216,10 @@ sub _setConf
 
     $self->disableApparmorProfile('usr.sbin.clamd');
 
-    my $observerScript = EBox::Config::share() . 'zentyal-antivirus/' . FRESHCLAM_OBSERVER_SCRIPT;
-
     my $network = EBox::Global->modInstance('network');
     my $proxy = $network->model('Proxy');
     my @freshclamParams = (
             clamdConfFile   => CLAMD_CONF_FILE,
-            observerScript  => $observerScript,
             proxyServer => $proxy->serverValue(),
             proxyPort => $proxy->portValue(),
             proxyUser => $proxy->usernameValue(),
@@ -246,110 +235,6 @@ sub _setConf
                          [ enabled => $self->isEnabled() ]);
 }
 
-# Method: freshclamState
-#
-#   get the last freshclam event
-#
-#  Returns:
-#     hash ref with the following fields
-#       update - true if the last event was a succesful update
-#       error  - true if the last event was a error
-#       outdated  - contains a version number if the last event was an update
-#                   that recommends an updated version of engine. (in this case
-#                   update field is not set to true)
-#       date     - date of the last event
-#
-#    If there is not last recorded event it returns a empty hash.
-#
-sub freshclamState
-{
-    my ($self) = @_;
-
-    my @stateAttrs = qw(update error outdated date);
-
-    my $emptyRes = { map {  ( $_ => undef )  } @stateAttrs  };
-    my $freshclamStateFile = $self->freshclamStateFile();
-    if (not -e $freshclamStateFile) {
-        return $emptyRes; # freshclam has never updated before
-    }
-
-    my $file = new File::ReadBackwards($freshclamStateFile);
-    my $lastLine = $file->readline();
-    if ($lastLine eq "") {
-        # Empty file
-        return $emptyRes;
-    }
-    my %state = split(',', $lastLine, (@stateAttrs * 2));
-
-    # checking state file coherence
-    foreach my $attr (@stateAttrs) {
-        exists $state{$attr} or throw EBox::Exceptions::Internal("Invalid freshclam state file. Missing attribute: $attr");
-    }
-    if ( scalar @stateAttrs != scalar keys %state) {
-        throw EBox::Exceptions::Internal("Invalid fresclam state file: invalid attributes found. (valid attributes are @stateAttrs)");
-    }
-
-    return \%state;
-}
-
-sub freshclamEBoxDir
-{
-    return FRESHCLAM_DIR;
-}
-
-# Class method: freshclamStateFile
-#
-# Returns:
-#
-#      String - the path to freshclam state file path
-#
-sub freshclamStateFile
-{
-    return EBox::AntiVirus::LogHelper::FRESHCLAM_STATE_FILE;
-}
-
-# Class Method: notifyFreshclamEvent
-#
-#     Got notified from a freshclam event and store the state in
-#     /var/lib/clamav/freshclam.state file. This is called by
-#     freshclam-observer script which is called by freshclam after an
-#     attempt of updating the AV Data Base
-#
-# Parameters:
-#
-#     event - String the freshclam event. Valid ones are: update, error, outdated
-#
-#     extraParam - String extra parameters (only expected last version
-#                  for outdated event)
-#
-sub notifyFreshclamEvent
-{
-    my ($class, $event, $extraParam) = @_;
-
-    my @validEvents = qw(update error outdated);
-    if (not ($event eq any( @validEvents))) {
-        $extraParam = defined $extraParam ? "with parameter $extraParam" : "";
-        die ("Invalid freshclam event: $event $extraParam");
-    }
-
-    my $date = time();
-    my $update   = 0;
-    my $outdated = 0;
-    my $error    = 0;
-
-    if ($event eq 'update') {
-        $update = 1;
-    } elsif ($event eq 'error') {
-        $error = 1;
-    } elsif ($event eq 'outdated') {
-        $outdated = $extraParam; # $extraParam = last version
-    }
-
-    my $statePairs = "date,$date,update,$update,error,$error,outdated,$outdated\n";
-    my $stateFile = $class->freshclamStateFile();
-    write_file($stateFile, { append => 1 }, $statePairs);
-}
-
 sub firewallHelper
 {
     my ($self) = @_;
@@ -359,64 +244,6 @@ sub firewallHelper
     }
 
     return undef;
-}
-
-sub summary
-{
-    my ($self, $summary) = @_;
-
-    my $section = new EBox::Dashboard::Section(__("Antivirus"));
-    $summary->add($section);
-
-    my $antivirus = new EBox::Dashboard::ModuleStatus(
-        module        => 'antivirus',
-        printableName => __('Antivirus'),
-        enabled       => $self->isEnabled(),
-        running       => $self->isRunning(),
-        nobutton      => 0);
-    $section->add($antivirus);
-}
-
-# Implement LogObserver interface
-
-# Method: logHelper
-#
-# Overrides:
-#
-#     <EBox::LogObserver::logHelper>
-#
-sub logHelper
-{
-    return (new EBox::AntiVirus::LogHelper());
-}
-
-# Method: tableInfo
-#
-# Overrides:
-#
-#     <EBox::LogObserver::tableInfo>
-#
-sub tableInfo
-{
-    my $titles = {
-        'timestamp' => __('Date'),
-        'source'    => __('Source'),
-        'event'     => __('Event')
-       };
-    my @order  = ('timestamp', 'source', 'event' );
-    my @filter = ('source');
-    my $events = { 'success' => __('Success'), 'failure' => __('Failure') };
-
-    return [{
-        'name'      => __('Antivirus DB updates'),
-        'tablename' => 'av_db_updates',
-        'titles'    => $titles,
-        'order'     => \@order,
-        'timecol'   => 'timestamp',
-        'filter'    => \@filter,
-        'events'    => $events,
-        'eventcol'  => 'event',
-    }];
 }
 
 # Method: menu

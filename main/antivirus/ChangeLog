@@ -1,6 +1,7 @@
 HEAD
 	+ Do not try to validate path if not changed
 	+ Do not enable ScanOnAccess option if no paths are defined
+	+ Remove obsolete code
 5.1
 	+ On-Access Scanning for Commercial editions
 	+ Remove deprecated purge-module script

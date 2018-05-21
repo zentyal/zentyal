@@ -1,8 +1,0 @@
-/var/log/clamav/freshclam.state {
-     rotate 12
-     weekly
-     compress
-     delaycompress
-     missingok
-     create 640  clamav adm
-     }
