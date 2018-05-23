@@ -60,6 +60,10 @@ sub _table
             $date = __('Perpetual');
         }
 
+        if ($users >= 9999) {
+            $users = __('Unlimited');
+        }
+
         my $html = '<p><label>' . __('Server edition') . "</label>$edition</p>";
         $html .= '<p><label>' . __('Users') . "</label>$users</p>";
         $html .= '<p><label>' . __('Renovation date') . "</label>$date</p>";
