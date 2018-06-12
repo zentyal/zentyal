@@ -41,4 +41,4 @@ my $key = encode_base64($buf);
 my @key_bits = ( $key =~ /.{1,64}/gs );
 $key = join("\t", @key_bits);
 
-print "localhost:8443\tOID.2.16.840.1.101.3.4.2.1\t$fp\tMU\t$key";
+print "localhost:443\tOID.2.16.840.1.101.3.4.2.1\t$fp\tMU\t$key";
