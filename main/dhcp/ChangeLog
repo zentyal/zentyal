@@ -1,4 +1,5 @@
 HEAD
+	+ Fix parse of DHCP events in syslog
 	+ Fix dhcp-parameter-request-list options concatenation
 5.1
 	+ Supress annoying vendor-class-identifier warnings in zentyal.log
