@@ -659,6 +659,11 @@ sub consoleHeight
     return $vncport ? $vncport : 600;
 }
 
+sub viewNewWindow
+{
+    return EBox::Config::boolean('view_console_new_window');
+}
+
 sub usingVBox
 {
     my ($self) = @_;

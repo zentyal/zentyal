@@ -247,7 +247,11 @@ sub _viewConsoleClicked
     my $viewConsoleURL = "/data/vncviewer-$name.html";
     my $viewConsoleCaption = __('View Console') . " ($name)";
 
-   return "Zentyal.Dialog.showURL('$viewConsoleURL', {title: '$viewConsoleCaption', width: '$width', height: '$height', wideWindow : true, dialogClass: 'VMConsole' }); return false",
+    if ($virt->viewNewWindow()) {
+        return "window.open('$viewConsoleURL'); return false";
+    } else {
+        return "Zentyal.Dialog.showURL('$viewConsoleURL', {title: '$viewConsoleCaption', width: '$width', height: '$height', wideWindow : true, dialogClass: 'VMConsole' }); return false";
+    }
 }
 
 sub _acquirePaused
