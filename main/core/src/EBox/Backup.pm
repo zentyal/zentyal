@@ -1004,8 +1004,8 @@ sub _checkZentyalVersion
     if (($major != $wantedMajor) && ($minor != $wantedMinor)) {
         if ($major == 4) {
             $self->_migrateFromOldVersion($tempDir);
-        } elsif (($major == 3) && ($minor == 2)) {
-            # TODO: check if we can also migrate directly from 3.2, if not, advise to upgrade to 4.X before
+        } elsif (($major == 3) and (-x EBox::Config::configkey('custom_oldbackup_restore_script'))) {
+            system(EBox::Config::configkey('custom_oldbackup_restore_script') . ' ' . $tempDir);
         } else {
             throw EBox::Exceptions::External(__x(
     'Could not restore the backup because a mismatch between its Zentyal version and the current system version. Backup was done in Zentyal version {bv} and this system could only restore backups from Zentyal version {wv}',
