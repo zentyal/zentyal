@@ -1,0 +1,7 @@
+<%args>
+</%args>
+<script>
+$(function () {
+    Zentyal.Dialog.showURL('/SaveChanges', {title:'Saving changes...', data:'save=1', showCloseButton: false});
+});
+</script>

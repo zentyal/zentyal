@@ -8,8 +8,7 @@ if ($trial) {
     $title .= ' (' . __('Trial Expired') . ')';
 }
 use EBox::Gettext;
-my $msg = $trial ? __x('Please contact {href} if you still do not have a license key.', href => '<a href="mailto:sales@zentyal.com" style="color:#69be28;">sales@zentyal.com</a>') :
-                   __x('You can get one by requesting a free 45-day trial at {href}', href => '<a href="http://zentyal.com/trial">http://zentyal.com/trial</a>');
+my $msg = __x('Please contact {href} if you still do not have a license key.', href => '<a href="mailto:sales@zentyal.com" style="color:#69be28;">sales@zentyal.com</a>');
 </%init>
 <div id="activation-required">
     <header>
@@ -22,7 +21,7 @@ my $msg = $trial ? __x('Please contact {href} if you still do not have a license
     <form>
     <h3><% __('Please enter your license key') %></h3>
     <center>
-        <input id="key" class="inputText" size="25" name="key" type="text">
+        <input id="key" class="inputText" size="25" name="key" type="text" placeholder="XXXXX-XXXXX-XXXXX-XXXXX">
         <h3><% $msg %></h3>
         <br>
         <input class="btn btn-green btn-big btn-block" id="validate" type="submit" value="<% __('Validate License') %>">

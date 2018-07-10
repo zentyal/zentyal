@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::CGI::ActivationRequired;
+package EBox::CGI::ActivationSaveChanges;
 
 use base 'EBox::CGI::ClientBase';
 
@@ -28,8 +28,8 @@ sub new
 {
     my ($class, %params) = @_;
 
-    my $self = $class->SUPER::new('title' => __('Activation Required'),
-                                  'template' => 'activation.mas', %params);
+    my $self = $class->SUPER::new('title' => __('Save Changes'),
+                                  'template' => 'activation-save.mas', %params);
     bless($self, $class);
     return $self;
 }
@@ -38,18 +38,10 @@ sub _process
 {
     my ($self) = @_;
 
-    my $key = $self->param('key');
+    my $save = $self->param('save');
 
-    if ($key) {
-        try {
-            my $url = EBox::Global->edition() eq 'trial-expired' ? '/' : '/ActivationSaveChanges?save=1';
-            my $sysinfo = EBox::Global->modInstance('sysinfo');
-            my $license = $sysinfo->model('Edition');
-            $license->set(key => $key);
-            $self->{redirect} = $url;
-        } catch {
-            $self->{params} = [ error => __("License key cannot be validated. Please try again or check your Internet connection.") ];
-        }
+    unless ($save) {
+        $self->{redirect} = '/';
     }
 }
 

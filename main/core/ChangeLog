@@ -1,4 +1,5 @@
 HEAD
+	+ Automatic save changes in license activation after first login
 	+ Avoid errors when parsing JSON for dashboard widgets
 	+ Force restore of configuration backup from 3.X by using custom script
 	+ Adapt nginx conf to allow vncviewer for zentyal-virt
