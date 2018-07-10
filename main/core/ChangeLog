@@ -1,6 +1,5 @@
 HEAD
 	+ Force restore of configuration backup from 3.X by using custom script
-	+ Avoid errors when parsing JSON for dashboard widgets
 	+ Adapt nginx conf to allow vncviewer for zentyal-virt
 	+ Add zentyal-virt icon
 5.1.1
