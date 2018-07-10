@@ -78,8 +78,11 @@ sub _print
     local $JSON::ConvBlessed = 1;
 
     my $json = new JSON;
-    my $js = $json->allow_blessed->convert_blessed->encode( $self->{widget} );
-    $response->body($js);
+    try {
+        my $js = $json->allow_blessed->convert_blessed->encode( $self->{widget} );
+        $response->body($js);
+    } catch {
+    }
 }
 
 1;
