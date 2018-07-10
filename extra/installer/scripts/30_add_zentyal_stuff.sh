@@ -23,7 +23,7 @@ fi
 
 UDEB_INCLUDE=$CD_BUILD_DIR/.disk/udeb_include
 
-if [[ $VERSION != *"development"* ]]
+if [[ $VERSION = *"commercial"* ]]
 then
     if ! grep -q zinstaller-remote $UDEB_INCLUDE
     then
