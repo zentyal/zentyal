@@ -94,6 +94,15 @@ sub validateTypedRow
     my $key = defined $changed->{key} ? $changed->{key}->value() : $all->{key}->value();
     EBox::Sudo::silentRoot("wget --user=$key --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep Index");
     if ($? != 0) {
+        if (substr($key, 0, 2) eq 'NS') {
+            EBox::Sudo::silentRoot("wget --user=$key --password=lk archive.zentyal.com/zentyal-qa/ -O- 2>&1 | grep '401 Authorization Required'");
+            if ($? == 0) {
+                throw EBox::Exceptions::External(__("License key is invalid or expired."));
+            }
+            my ($level, $users, $exp_date) = EBox::GlobalImpl->_decodeLicense($key);
+            return if (defined($level) and defined($users) and ($users =~ /[0-9]+/) and defined($exp_date) and not (localtime > $exp_date));
+            throw EBox::Exceptions::External(__("License key is invalid or expired."));
+        }
         throw EBox::Exceptions::External(__("License key cannot be validated. Please try again or check your Internet connection."));
     }
     my ($edition, $users, $expiration) = EBox::GlobalImpl->_decodeLicense($key);
