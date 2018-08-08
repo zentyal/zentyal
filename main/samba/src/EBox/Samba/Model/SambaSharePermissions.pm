@@ -64,7 +64,7 @@ sub populateUser
     my @users = ();
     my $samba = EBox::Global->modInstance('samba');
     return [] unless $samba->isRunning();
-    my $list = $samba->realUsers();
+    my $list = $samba->realUsers(EBox::Config::boolean('allow_admin_user_in_shares_acl'));
     foreach my $u (@{$list}) {
         my $gr = {};
         $gr->{value} = $gr->{printableValue} = $u->name();

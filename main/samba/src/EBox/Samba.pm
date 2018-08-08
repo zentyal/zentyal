@@ -1155,9 +1155,14 @@ sub users
 #
 sub realUsers
 {
-    my ($self) = @_;
+    my ($self, $includeAdmin) = @_;
 
-    my @users = grep { not $_->isInternal() and not $_->isAdministratorOrGuest() } @{$self->users()};
+    my @users;
+    if ($includeAdmin) {
+        @users = grep { not ($_->isInternal() or $_->isGuest()) } @{$self->users()};
+    } else {
+        @users = grep { not ($_->isInternal() or $_->isGuest() or $_->isAdministrator()) } @{$self->users()};
+    }
 
     return \@users;
 }

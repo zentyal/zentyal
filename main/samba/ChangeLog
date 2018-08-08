@@ -1,3 +1,6 @@
+HEAD
+	+ Add confkey to allow Administrator user in shares permissions for
+	  backwards compatibility with Zentyal 3.0
 5.1.2
 	+ Enforce share directory creation if not exists, even if not tagged
 	+ Enforce change of homeDrive for existing users
