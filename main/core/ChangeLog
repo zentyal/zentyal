@@ -5,6 +5,7 @@ HEAD
 	+ Force restore of configuration backup from 3.X by using custom script
 	+ Adapt nginx conf to allow vncviewer for zentyal-virt
 	+ Add zentyal-virt icon
+	+ Add support for licenses with unlimited users
 5.1.1
 	+ Change trial messages to adapt to new 45-day period
 	+ Add support for pepertual licenses

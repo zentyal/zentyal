@@ -62,7 +62,7 @@ sub processLine # (file, line, logger)
 {
     my ($self, $file, $line, $dbengine) = @_;
 
-    return unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) \S+ dhcpd:.*/);
+    return unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) \S+ dhcpd\[\d+\]:.*/);
 
     my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
     my ($ip, $mac, $iface, $event);

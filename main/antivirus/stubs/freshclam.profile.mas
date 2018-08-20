@@ -1,8 +1,2 @@
-<%args>
-  $observerScript
-</%args>
 /run/clamav/clamd.ctl rw,
 /proc/*/status r,
-# Run observer script
-/bin/dash ix,
-<% $observerScript %> rUx,

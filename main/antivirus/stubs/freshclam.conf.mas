@@ -1,6 +1,5 @@
 <%args>
 $clamdConfFile
-$observerScript
 $databaseMirrorLocalCode => 'local'
 $proxyServer
 $proxyPort
@@ -34,10 +33,6 @@ Checks 24
 DatabaseMirror <% "db.$databaseMirrorLocalCode.clamav.net" %>
 DatabaseMirror database.clamav.net
 NotifyClamd <% $clamdConfFile %>
-
-OnUpdateExecute  <% "$observerScript update" %>
-OnErrorExecute <% "$observerScript error" %>
-<%doc>OnOutdatedExecute <% "$observerScript outdated %v" %></%doc>
 
 % if ($proxyServer and $proxyPort) {
 HTTPProxyServer <% $proxyServer %>
