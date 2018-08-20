@@ -7,4 +7,5 @@ models:
     - Paths
 
 composites:
-    General: [Settings, Paths]
+    Updates: []
+    General: [Settings, Paths, Updates]
