@@ -16,6 +16,7 @@ fi
 MANDATORY_PACKAGES="
 crda
 grub
+libfuse2
 installation-report
 linux-firmware
 lvm
