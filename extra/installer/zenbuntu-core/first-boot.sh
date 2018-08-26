@@ -1,5 +1,7 @@
 #!/bin/bash
 
+chvt 1
+
 LOG=/var/tmp/zentyal-installer.log
 
 plymouth message --text="Installing Zentyal core packages... Please wait."
