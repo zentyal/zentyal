@@ -7,7 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-virt
 Architecture: all
-Depends: zentyal-core (>= 5.1), zentyal-core (<< 6.0), zentyal-firewall,
+Depends: zentyal-core (>= 6.0), zentyal-core (<< 6.1), zentyal-firewall,
          novnc, python-numpy, libvirt-bin, qemu-kvm, qemu-utils, ${misc:Depends}
 Description: Zentyal - Virtualization Manager
  Zentyal is a Linux small business server that can act as

@@ -1,9 +1,8 @@
-HEAD
-	+ Add view_console_new_window config key
-5.1
-	+ Adapt to Ubuntu 16.04
+6.0
+	+ Adapt to Ubuntu 18.04
 	+ Use HTTPS for VNC webserver
 	+ Adapted to new CSS styles and replaced some icons
+	+ Add view_console_new_window config key
 3.1.3
 	+ Added menu icon
 	+ Request user confirmation when clicking remove virtual machine button

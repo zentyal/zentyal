@@ -7,8 +7,8 @@ Standards-Version: 3.9.2
 
 Package: zentyal-webserver
 Architecture: all
-Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1),
-         zentyal-firewall, zentyal-ca, zentyal-samba, libnet-domain-tld-perl,
+Depends: zentyal-core (>= 6.0), zentyal-core (<< 6.1),
+         zentyal-firewall, zentyal-ca, certbot, libnet-domain-tld-perl,
          apache2, libapache2-mod-ldap-userdir, ${misc:Depends}
 Description: Zentyal - Web Server
  Zentyal is a Linux small business server that can act as
@@ -16,6 +16,4 @@ Description: Zentyal - Web Server
  Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
- This module adds a pretty simple apache server configuration module to Zentyal,
- allowing publication of contents using several virtual hosts and the
- use of public_html directories within user directories.
+ This module adds a web server to your Zentyal installation.

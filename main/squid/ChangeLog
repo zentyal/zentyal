@@ -1,4 +1,4 @@
-HEAD
+6.0
 	+ HTTPS block rules are evaluated first and packets are rejected
 5.1
 	+ Use IP ranges in squid and dansguardian conf for very significant

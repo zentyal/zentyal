@@ -11,7 +11,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-sogo
 Architecture: all
-Depends: zentyal-core (>= 5.1), zentyal-core (<< 6.0),
+Depends: zentyal-core (>= 6.0), zentyal-core (<< 6.1),
          zentyal-mail, sogo (>= 4.0), sogo-activesync (>= 4.0),
          apache2, sope4.9-gdl1-mysql, zip, libstring-random-perl,
          memcached
