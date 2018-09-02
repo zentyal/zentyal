@@ -8,7 +8,10 @@ if ($trial) {
     $title .= ' (' . __('Trial Expired') . ')';
 }
 use EBox::Gettext;
-my $msg = __x('Please contact {href} if you still do not have a license key.', href => '<a href="mailto:sales@zentyal.com" style="color:#69be28;">sales@zentyal.com</a>');
+my $msg = EBox::GlobalImpl::_packageInstalled('zentyal-custom') ?
+            __x('Please contact {href} if you still do not have a license key.', href => '<a href="mailto:sales@zentyal.com" style="color:#69be28;">sales@zentyal.com</a>') :
+                $trial ? __x('Please contact {href} if you still do not have a license key.', href => '<a href="mailto:sales@zentyal.com" style="color:#69be28;">sales@zentyal.com</a>') :
+                         __x('You can get one by requesting a free 45-day trial at {href}', href => '<a href="http://zentyal.com/trial">http://zentyal.com/trial</a>');
 </%init>
 <div id="activation-required">
     <header>

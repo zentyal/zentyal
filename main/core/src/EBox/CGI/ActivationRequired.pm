@@ -42,7 +42,9 @@ sub _process
 
     if ($key) {
         try {
-            my $url = EBox::Global->edition() eq 'trial-expired' ? '/' : '/ActivationSaveChanges?save=1';
+            my $url = EBox::Global->edition() eq 'trial-expired' ?
+                        '/' : EBox::GlobalImpl::_packageInstalled('zentyal-custom') ?
+                                '/ActivationSaveChanges?save=1' : '/Software/Welcome';
             my $sysinfo = EBox::Global->modInstance('sysinfo');
             my $license = $sysinfo->model('Edition');
             $license->set(key => $key);
