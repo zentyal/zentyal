@@ -833,12 +833,15 @@ sub _getUpgradablePkgs
 
     my $cache = $self->_cache(1);
     my @list;
-    my %seen; # XXX workaround launchpad bug 994509
+    my @held = `apt-mark showhold`;
+    chomp (@held);
+    my %seen = map { $_ => 1 } @held;
     for my $pack (keys %$cache) {
-        if ($seen{$pack}) {
+        my ($pname) = split(':', $pack);
+        if ($seen{$pname}) {
             next;
         } else {
-            $seen{$pack} = 1;
+            $seen{$pname} = 1;
         }
 
         my $pkgCache = $cache->packages()->lookup($pack) or next;
