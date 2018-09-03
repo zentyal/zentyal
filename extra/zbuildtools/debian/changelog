@@ -1,3 +1,9 @@
+zbuildtools (13) bionic; urgency=medium
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 03 Sep 2018 07:42:18 +0200
+
 zbuildtools (12) xenial; urgency=medium
 
   * Fix $MODULE_NAME for packages with several dashes

@@ -13,7 +13,7 @@ Package: zentyal-core
 Architecture: all
 Pre-Depends: mysql-server
 Depends: adduser, anacron, cracklib-runtime, cron, curl, dbus, debconf, gpgv,
-         sudo, iproute, liblog-dispatch-perl, liblog-log4perl-perl,
+         sudo, iproute2, liblog-dispatch-perl, liblog-log4perl-perl,
          libhtml-mason-perl (>= 1:1.56+zentyal1-1),
          liblocale-gettext-perl, libtrycatch-perl,
          libdevel-stacktrace-perl, libintl-perl, libnet-ip-perl, gettext,

@@ -13,7 +13,7 @@ Package: zentyal-samba
 Architecture: all
 Depends: zentyal-core (>= 6.0), zentyal-core (<< 6.1),
          zentyal-firewall, zentyal-dns, zentyal-ntp,
-         samba (>= 2:4.6.7+dfsg-1), samba-vfs-modules, samba-dsdb-modules,
+         samba, samba-vfs-modules, samba-dsdb-modules,
          winbind, ldb-tools, apache2-utils, adduser, quota, acl, imagemagick,
          libgssapi3-heimdal, libsasl2-modules-gssapi-heimdal, heimdal-clients,
          libquota-perl, liburi-encode-perl, libnss-winbind, libpam-winbind,
