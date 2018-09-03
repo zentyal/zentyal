@@ -4,5 +4,5 @@ Description=A theme that features a blank background with a logo.
 ModuleName=script
 
 [script]
-ImageDir=/lib/plymouth/themes/zentyal
-ScriptFile=/lib/plymouth/themes/zentyal/ubuntu-logo.script
+ImageDir=/usr/share/plymouth/themes/zentyal
+ScriptFile=/usr/share/plymouth/themes/zentyal/ubuntu-logo.script
