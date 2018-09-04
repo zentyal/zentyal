@@ -21,10 +21,14 @@ then
     chown g+w $DISASTER_FILE
 fi
 
+echo "FRAMEBUFFER=y" > /etc/initramfs-tools/conf.d/splash
 update-initramfs -u
 
 sed -i 's/#GRUB_HIDDEN_TIMEOUT=0/GRUB_HIDDEN_TIMEOUT=0/' /etc/default/grub
 sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 net.ifnames=0 biosdevname=0"/' /etc/default/grub
+SIZE=$(sed 's/,/x/' /sys/class/graphics/fb0/virtual_size)
+echo "GRUB_GFXMODE=$SIZE" >> /etc/default/grub
+echo "GRUB_GFXPAYLOAD_LINUX=keep" >> /etc/default/grub
 update-grub
 
 ### CUSTOM_ACTION ###
