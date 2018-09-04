@@ -1,3 +1,9 @@
+zenbuntu-core (5.1.1) xenial; urgency=medium
+
+  * Fix plymouth theme path
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 04 Sep 2018 12:14:03 +0200
+
 zenbuntu-core (5.1) xenial; urgency=medium
 
   * Bring dhcp interfaces up in /etc/rc.local
