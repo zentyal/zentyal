@@ -67,9 +67,6 @@ use constant MAXDOMAINSIZ => 255;
 use constant DGLISTSDIR => DGDIR . '/lists';
 use constant DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian';
 use constant CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf';
-use constant BLOCK_ADS_PROGRAM => '/usr/bin/adzapper.wrapper';
-use constant BLOCK_ADS_EXEC_FILE => '/usr/bin/adzapper';
-use constant ADZAPPER_CONF => '/etc/adzapper.conf';
 use constant CRONFILE => '/etc/cron.d/zentyal-squid';
 
 use constant SQUID_ZCONF_FILE => '/etc/zentyal/squid.conf';
@@ -207,11 +204,6 @@ sub usedFiles
              'file' =>    DGLISTSDIR . '/authplugins/ipgroups',
              'module' => 'squid',
              'reason' => __('Filter groups per IP'),
-            },
-            {
-             'file' =>    ADZAPPER_CONF,
-             'module' => 'squid',
-             'reason' => __('Configuration of adzapper'),
             }
     ];
 }
@@ -340,56 +332,6 @@ sub banThreshold
     my ($self) = @_;
     my $model = $self->model('ContentFilterThreshold');
     return $model->contentFilterThresholdValue();
-}
-
-# Method: getAdBlockPostMatch
-#
-#     Get the file with the ad-blocking post match
-#
-# Returns:
-#
-#     String - the ad-block file path postmatch
-#
-sub getAdBlockPostMatch
-{
-    my ($self) = @_;
-
-    my $adBlockPostMatch = $self->get_string('ad_block_post_match');
-    defined $adBlockPostMatch or
-        $adBlockPostMatch = '';
-    return $adBlockPostMatch;
-}
-
-# Method: setAdBlockPostMatch
-#
-#     Set the file with the ad-blocking post match
-#
-# Parameters:
-#
-#     file - String the ad-block file path postmatch
-#
-sub setAdBlockPostMatch
-{
-    my ($self, $file) = @_;
-
-    $self->set_string('ad_block_post_match', $file);
-}
-
-# Method: setAdBlockExecFile
-#
-#     Set the adblocker exec file
-#
-# Parameters:
-#
-#     file - String the ad-block exec file
-#
-sub setAdBlockExecFile
-{
-    my ($self, $file) = @_;
-
-    if ($file) {
-        EBox::Sudo::root("cp -f $file " . BLOCK_ADS_EXEC_FILE);
-    }
 }
 
 sub filterNeeded
@@ -536,13 +478,6 @@ sub _writeSquidConf
     push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
     push @writeParam, ('hostfqdn' => $sysinfo->fqdn());
-
-    if ($generalSettings->removeAdsValue()) {
-        push (@writeParam, urlRewriteProgram => BLOCK_ADS_PROGRAM);
-        my @adsParams = ();
-        push (@adsParams, postMatch => $self->getAdBlockPostMatch());
-        $self->writeConfFile(ADZAPPER_CONF, 'squid/adzapper.conf.mas', \@adsParams);
-    }
 
     my $append_domain = $network->model('SearchDomain')->domainValue();
     push (@writeParam, append_domain => $append_domain);

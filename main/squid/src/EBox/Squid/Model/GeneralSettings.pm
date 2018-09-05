@@ -43,13 +43,6 @@ sub _table
                   editable => 1,
                   defaultValue => 0,
               ),
-          new EBox::Types::Boolean(
-                  fieldName => 'removeAds',
-                  printableName => __('Ad Blocking'),
-                  editable => 1,
-                  defaultValue => 0,
-                  help => __('Remove advertisements from all HTTP traffic')
-              ),
           new EBox::Types::Port(
                   fieldName => 'port',
                   printableName => __('Port'),
