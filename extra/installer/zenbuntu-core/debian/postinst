@@ -8,7 +8,7 @@ cp /usr/share/zenbuntu-core/motd.tail /etc/motd.tail
 # Import archive key to avoid warnings
 apt-key add /usr/share/zenbuntu-core/zentyal-archive.asc >> $LOG 2>&1
 
-ln -sf /lib/plymouth/themes/zentyal-text/zentyal-text.plymouth /etc/alternatives/text.plymouth
+ln -sf /usr/share/plymouth/themes/zentyal-text/zentyal-text.plymouth /etc/alternatives/text.plymouth
 
 if [ -z "$2" ]
 then

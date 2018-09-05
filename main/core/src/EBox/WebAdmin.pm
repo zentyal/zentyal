@@ -763,8 +763,13 @@ sub _setEdition
     if ($expired) {
         push (@cmds, "rm -f /etc/apt/sources.list.d/zentyal-qa.list");
     } elsif ($edition ne 'community') {
-        push (@cmds, 'echo "deb https://`cat /var/lib/zentyal/.license`:lk@archive.zentyal.com/zentyal-qa ' . EBox::Config::version() . ' main" > /etc/apt/sources.list.d/zentyal-qa.list',
-                     'sed -i "/archive.zentyal.org/d" /etc/apt/sources.list');
+        my $version = EBox::Config::version();
+        my $lk = read_file('/var/lib/zentyal/.license');
+        chomp ($lk);
+        if (substr($lk, 0, 2) eq 'NS') {
+            $version .= '-nss';
+        }
+        push (@cmds, "echo 'deb https://$lk:lk\@archive.zentyal.com/zentyal-qa $version main' > /etc/apt/sources.list.d/zentyal-qa.list", 'sed -i "/archive.zentyal.org/d" /etc/apt/sources.list');
     }
     EBox::Sudo::root(@cmds);
 }

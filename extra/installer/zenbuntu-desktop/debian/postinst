@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ln -sf /lib/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.plymouth
-ln -sf /lib/plymouth/themes/zentyal/zentyal.grub /etc/alternatives/default.plymouth.grub
+ln -sf /usr/share/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.plymouth
+ln -sf /usr/share/plymouth/themes/zentyal/zentyal.grub /etc/alternatives/default.plymouth.grub
 
 if [ "$1" == "configure" ] && [ -z "$2" ]
 then
