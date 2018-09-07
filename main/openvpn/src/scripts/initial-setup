@@ -15,8 +15,4 @@ STATUS_DIR=`perl -MEBox::OpenVPN -e 'print EBox::OpenVPN->logDir(); 1 '`
 test -d $STATUS_DIR || mkdir -p  $STATUS_DIR
 chown nobody:nogroup $STATUS_DIR
 
-# Workaround problem when automatically updating quagga
-# FIXME: remove this if it gets fixed by upstream
-echo "quagga quagga/really_stop boolean true" | debconf-set-selections
-
 exit 0

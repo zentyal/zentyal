@@ -791,10 +791,8 @@ sub _daemons
     my @daemons;
     #first quagga daemon
     push @daemons, {
-           type => 'init.d',
-           name => 'quagga',
+           name => 'zebra',
            precondition => sub {  return $self->ripDaemonService() },
-           pidfiles => ['/var/run/quagga/ripd.pid', '/var/run/quagga/zebra.pid',],
        };
     foreach my $daemon ($self->daemons()) {
         push @daemons, $daemon->toDaemonHash();
