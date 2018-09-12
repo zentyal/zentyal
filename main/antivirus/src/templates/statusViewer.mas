@@ -1,0 +1,11 @@
+<%args>
+$data
+</%args>
+%   my $value = $data->value();
+%   if (defined ($value) and ($value eq 'clean')) {
+		<img src="/data/images/running.png"/>
+%   } elsif (defined ($value) and ($value eq 'infected')) {
+		<img src="/data/images/infected.png"/>
+%   } else {
+		<img src="/data/images/noreport.png"/>
+%   }

@@ -54,14 +54,7 @@ sub includes
 #
 sub _table
 {
-
     my @tableHeader = (
-        new EBox::Types::Select(
-            fieldName     => 'type',
-            printableName => __('Action'),
-            editable      => 1,
-            populate      => \&_types,
-        ),
         new EBox::Types::Text(
             fieldName     => 'path',
             printableName => __('Path'),
@@ -70,12 +63,18 @@ sub _table
             editable      => 1,
             allowUnsafeChars => 1,
         ),
+        new EBox::Types::Select(
+            fieldName     => 'type',
+            printableName => __('Type'),
+            editable      => 1,
+            populate      => \&_types,
+        ),
     );
 
     my $dataTable =
     {
         tableName          => 'Paths',
-        printableTableName => __('Include/Exclude Paths'),
+        printableTableName => __('On-Access Scanning'),
         printableRowName   => __('path'),
         rowUnique          => 1,
         defaultActions     => [ 'add', 'del', 'editField', 'changeView', 'move' ],
@@ -88,7 +87,6 @@ sub _table
     };
 
     return $dataTable;
-
 }
 
 sub _types
@@ -96,11 +94,11 @@ sub _types
     return [
         {
             value => 'IncludePath',
-            printableValue => __('Include Path')
+            printableValue => __('Include')
         },
         {
             value => 'ExcludePath',
-            printableValue => __('Exclude path')
+            printableValue => __('Exclude')
         },
     ];
 }
