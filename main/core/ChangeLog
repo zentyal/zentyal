@@ -1,4 +1,6 @@
 6.0
+	+ Allow new status field in daemon description to use a different daemon
+	  name to check running status
 	+ Syntax changes to be compliant with Perl 5.26
 	+ Use 5.1-nss repo for NS license keys
 	+ Allow offline license key validation

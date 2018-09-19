@@ -982,6 +982,7 @@ sub _daemons
     my $daemons = [
         {
             name => 'postfix',
+            status => 'postfix@-',
         },
         {
             name => DOVECOT_SERVICE,

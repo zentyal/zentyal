@@ -474,6 +474,10 @@ sub _isDaemonRunning
         return 1;
     }
 
+    if ($daemon->{'status'}) {
+        $dname = $daemon->{'status'};
+    }
+
     if (daemon_type($daemon) eq 'systemd') {
         try {
             return EBox::Service::running($dname);
