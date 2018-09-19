@@ -2685,7 +2685,7 @@ sub shares
             if ($userType->selectedType() eq 'group') {
                 $preCar = '@';
             }
-            my $user =  $preCar . '"' . $userType->value() . '"';
+            my $user = $preCar . '"' . $userType->value() . '"';
 
             my $permissions = $subRow->elementByName('permissions');
 
