@@ -165,7 +165,7 @@ sub _searchLogs
         $hfilters = {};
     }
     if (exists $tableinfo->{autoFilter}) {
-        while (my ($field, $value) = each $tableinfo->{autoFilter}) {
+        while (my ($field, $value) = each %{$tableinfo->{autoFilter}}) {
             (exists $hfilters->{$field}) and next;
             $hfilters->{$field} = $value;
         }

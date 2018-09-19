@@ -824,7 +824,7 @@ sub checkFilePath # (filePath, name)
 
     # see Regexp::Common::URI::RFC1738 in CPAN for inspiration in the regex
 
-    my $fpart = q{[:alpha:\-\$_.+!*(),][|\#]+ }; # there are missing character but this will suffice for now...
+    my $fpart = q{[[:alpha:]\-\$_.+!*(),][|\#]+ }; # there are missing character but this will suffice for now...
     my $fPathRegex = "($fpart)?(/$fpart)*";
 
     if ( $filePath =~ m/$fPathRegex/ ) {
