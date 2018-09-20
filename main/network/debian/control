@@ -16,6 +16,7 @@ Depends: zentyal-core (>= 6.0), zentyal-core (<< 6.1),
          iptables, libnet-arp-perl, wget, traceroute, ppp,
          libnet-interface-perl, debconf, wakeonlan, bridge-utils,
          resolvconf, ifenslave, ethtool, ${misc:Depends}
+Conflicts: netplan.io
 Description: Zentyal - Network Configuration
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
