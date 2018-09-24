@@ -1,5 +1,5 @@
 # Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2018 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -54,7 +54,7 @@ sub title
                         logout => $logout,
                         finishClass => $finishClass,
                         image_title => $image_title,
-                        version => _htmlVersion());
+                        version => EBox::Config::version());
     return $html;
 }
 
@@ -73,7 +73,7 @@ sub titleNoAction
 
     my $html = makeHtml('headTitle.mas',
                         image_title => $image_title,
-                        version => _htmlVersion());
+                        version => EBox::Config::version());
     return $html;
 }
 
@@ -146,27 +146,13 @@ sub makeHtml
 {
     my ($filename, @params) = @_;
 
-    my $filePath = EBox::Config::templates . "/$filename";
-
     $output = '';
-    if (not $interp) {
-        $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::templates, out_method => \$output,);
+    unless ($interp) {
+        $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::templates, out_method => \$output);
     }
 
-    my $comp = $interp->make_component(comp_file => $filePath);
-    $interp->exec($comp, @params);
+    $interp->exec("/$filename", @params);
     return $output;
-}
-
-sub _htmlVersion
-{
-    my $version = EBox::Config::version();
-
-#    unless (EBox::Global->communityEdition()) {
-#        $version .= ' <em>Service Pack 1</em>';
-#    }
-
-    return $version;
 }
 
 1;

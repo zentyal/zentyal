@@ -9,7 +9,7 @@ use EBox::Gettext;
 </%init>
 
 <div class='dns-cachenew'>
-<& enable.mas, title => __('DNS service status'), active => $active &>
+<& /enable.mas, title => __('DNS service status'), active => $active &>
 </div>
 
 <div>

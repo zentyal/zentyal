@@ -5,10 +5,10 @@ $cssClass => ''
 </%args>
 % my $id = $tableName . '_' . $data->fieldName() . '_inverseMatch';
 			<& '/ajax/setter/unionSetter.mas', 'data' => $data, 'tableName' => $tableName, 'cssClass' => $cssClass &>
-            
+
             <label class="checkbox">
 			<& /input/checkbox.mas,
-			  'name'  => "$id", 
+			  'name'  => "$id",
 			  'value' => $data->inverseMatch(),
 			  'id'    => "$id",
 			  'class' => "$cssClass",

@@ -17,7 +17,7 @@
                          printableName => __('CA Passphrase') ]);
   }
 
-  push ( @renewTable, [ printableName => '', 
+  push ( @renewTable, [ printableName => '',
                         component => '/ca/forceRenew.mas:buttons',
 			action          => 'renew',
 			printableAction => __('Renew')
@@ -41,7 +41,7 @@
   </span>
 % }
 % else {
-  <span class="ftitle"><% __("Common Name") %>: </span> 
+  <span class="ftitle"><% __("Common Name") %>: </span>
   <span class="ftitle">
     <%$metaDataCert->{dn}->attribute('commonName')  %>
   </span>
@@ -52,7 +52,7 @@
   <%
     sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->year(),
 	    $date->month(), $date->day(), $date->hours(),
-	    $date->minutes(), $date->seconds()) 
+	    $date->minutes(), $date->seconds())
   %>
   </span>
 </div>
@@ -68,6 +68,6 @@
 % }
 <br>
 <form action="RenewCertificate" method="post" >
-  <& formTable.mas, rows => \@renewTable &>
+  <& /formTable.mas, rows => \@renewTable &>
 </form>
 </div>

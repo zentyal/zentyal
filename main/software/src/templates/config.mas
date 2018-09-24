@@ -20,7 +20,7 @@ my ($hour, $minutes) = split ':', $automaticTime;
 %  if ($QAUpdates) {
 <& /msg.mas, class => 'note', msg => __('Zentyal is configured to use QA repositories')&>
 %  }
-<& enable.mas, title => $enableTitle, active => $automatic &>
+<& /enable.mas, title => $enableTitle, active => $automatic &>
 % }
 <form action='AutomaticOptions' method='POST' class="formDiv">
 	<div class="inline-input">

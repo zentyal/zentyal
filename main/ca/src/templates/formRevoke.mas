@@ -26,7 +26,7 @@ use EBox::Gettext;
   </span>
 % }
 % else {
-  <span class="ftitle"><% __("Common Name") %>: </span> 
+  <span class="ftitle"><% __("Common Name") %>: </span>
   <span class="ftitle">
     <%$metaDataCert->{dn}->attribute('commonName')  %>
   </span>
@@ -37,7 +37,7 @@ use EBox::Gettext;
   <%
     sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->year(),
 	    $date->month(), $date->day(), $date->hours(),
-	    $date->minutes(), $date->seconds()) 
+	    $date->minutes(), $date->seconds())
   %>
   </span>
 </div>
@@ -76,7 +76,7 @@ use EBox::Gettext;
                            printableName => __('CA Passphrase')]);
   }
 
-  push ( @revokeTable, [ printableName => '', 
+  push ( @revokeTable, [ printableName => '',
 			 component => '/ca/forceRenew.mas:buttons',
 			 action          => 'revoke',
 			 printableAction => __('Revoke')
@@ -84,6 +84,6 @@ use EBox::Gettext;
       );
 </%perl>
 <form action="RevokeCertificate" method="post" >
-  <& formTable.mas, rows => \@revokeTable &>
+  <& /formTable.mas, rows => \@revokeTable &>
 </form>
 </div>

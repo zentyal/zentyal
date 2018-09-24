@@ -138,7 +138,7 @@ $tdClass => undef
 
 <%method additionalComponents>
 <%args>
-@components 
+@components
 </%args>
 % return if (@components == 0);
 <& /componentCall.mas, @components &>

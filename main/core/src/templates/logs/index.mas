@@ -208,7 +208,7 @@ use Data::Dumper;
 </form>
 
 %       if (@{$data}) {
-                <& logs/dbtable.mas , params => $tableinfo , data => $data ,
+                <& /logs/dbtable.mas , params => $tableinfo , data => $data ,
                                 page => $page , selected => $selected, fromdate => \@fromdate,
                                 todate => \@todate, tpages => $tpages,filters => $filters &>
 <%perl>

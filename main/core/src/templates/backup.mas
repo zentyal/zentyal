@@ -222,7 +222,7 @@ my %printableTypeById = (
     { imgFile => "/data/images/delete.gif", imgName => __('delete') }
   );
 </%perl>
-<& legendTable.mas, elements => \@legendElements, nColumns => 3 &>
+<& /legendTable.mas, elements => \@legendElements, nColumns => 3 &>
 % }
 </div>
 </%def>

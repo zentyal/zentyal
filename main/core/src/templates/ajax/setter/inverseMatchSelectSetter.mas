@@ -3,16 +3,16 @@ my %args = @_;
 my $tableName = delete $args{tableName};
 my $data   = delete $args{data};
 my $cssClass = delete $args{cssClass};
-defined $cssClass or 
+defined $cssClass or
         $cssClass = '';
 
 </%init>
 % my $id = $tableName . '_' . $data->fieldName() . '_inverseMatch';
 			<& '/ajax/setter/selectSetter.mas', 'data' => $data, 'tableName' => $tableName, 'cssClass' => $cssClass, %args &>
-            
+
             <label class="checkbox">
 			<& /input/checkbox.mas,
-			  'name'  => "$id", 
+			  'name'  => "$id",
 			  'value' => $data->inverseMatch(),
 			  'id'    => "$id",
 			  'class' => "$cssClass",

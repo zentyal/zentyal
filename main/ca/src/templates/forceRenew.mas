@@ -21,7 +21,7 @@ currently in used by some other module.
 			   value => $expireDays ],
 			 [ name => 'renewForced', input => 'hidden',
 			   value => 'true' ],
-			 [ printableName => '', 
+			 [ printableName => '',
 			   component => '/ca/forceRenew.mas:buttons',
 			   action          => 'renew',
 			   printableAction => __('Renew')
@@ -57,7 +57,7 @@ if ( $metaDataCert->{isCACert} ) {
 
   <p>
     <form action="RenewCertificate" method="post">
-      <& formTable.mas, rows => \@forceRenewTable &>
+      <& /formTable.mas, rows => \@forceRenewTable &>
     </form>
   </p>
 
@@ -72,7 +72,7 @@ The input buttons one after one
 <%init>
   if ( not defined ( $printableAction )) {
     $printableAction = $action;
-  }   
+  }
 </%init>
 
 <& /input/submit.mas, name => $action, value => $printableAction &>

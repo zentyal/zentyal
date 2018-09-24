@@ -1,21 +1,21 @@
 <%doc>
 Create a table data which conforms with the following specifications:
  tabla data rows with simple contents and a cell with
-action icons. 
+action icons.
 
 The actions cells  must be hash references with the following fields
-   url 
+   url
    name
    icon
 
 Finally, some arbitary component can be added using the
-additionalComponents parameters 
+additionalComponents parameters
 </%doc>
 <%flags>
 inherit => 'table.mas'
 </%flags>
 <%args>
-@columnTitles  => ()  
+@columnTitles  => ()
 @rows          => ()
 @additionalComponents => ()
 </%args>
@@ -39,7 +39,7 @@ additionalComponents => \@additionalComponents &>
 <%init>
 my $actionColumnTitle = pop @columnTitles;
 </%init>
-   <&  PARENT:theadContent, columnTitles => \@columnTitles &>    
+   <&  PARENT:theadContent, columnTitles => \@columnTitles &>
    <th class='thOptions'>
          <% $actionColumnTitle %>
   </th>
@@ -64,7 +64,7 @@ my $actionColumnTitle = pop @columnTitles;
 </%args>
 <td class='tcenter'>
 % while ( my $action_r = shift @actions)  {
-   <& link.mas, href => $action_r->{url}, text => $action_r->{text}, image => $action_r->{icon}, onclick => $action_r->{onclick} &>
+   <& /link.mas, href => $action_r->{url}, text => $action_r->{text}, image => $action_r->{icon}, onclick => $action_r->{onclick} &>
 %   if (@actions) {
    <img src='/data/images/sep.gif' alt='-'/>
 %   }

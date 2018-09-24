@@ -7,12 +7,12 @@ my %args = @_;
 my $selected = 'local';
 
 my %tabs = (
-	    local => {
-		      component =>  'backup.mas',
-		      title     =>  __('Local'),
-                      url       => '/SysInfo/Backup?selected=local',
-		     },
-	   );
+        local => {
+              component => '/backup.mas',
+              title     => __('Local'),
+              url       => '/SysInfo/Backup?selected=local',
+             },
+       );
 my @tabsOrder = qw(local);
 if (not exists $tabs{$selected}) {
   $m->abort("bad selected value $selected");

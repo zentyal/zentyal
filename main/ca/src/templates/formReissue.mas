@@ -47,6 +47,6 @@
 % }
 <br>
 <form action="IssueCertificate" method="post" >
-  <& formTable.mas, rows => \@reissueTable &>
+  <& /formTable.mas, rows => \@reissueTable &>
 </form>
 </div>

@@ -38,6 +38,6 @@
 <div class="item-block">
 <h3><% __('Create Certification Authority Certificate') %></h3>
 <form action='CreateCA' method='POST'>
-  <& formTable.mas, rows => \@createTable &>
+  <& /formTable.mas, rows => \@createTable &>
 </form>
 </div>

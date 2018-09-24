@@ -19,7 +19,7 @@ use EBox::NetWrappers qw(:all);
     <br/>
 <% __('Traffic being routed through interfaces marked as external will be NATed.  Also, services meant for the LAN users will not be available on external interfaces.') %>
 </div>
-<& network/iftabs.mas, ifaces=> \@ifaces, selected => $iface->{name}&>
+<& /network/iftabs.mas, ifaces=> \@ifaces, selected => $iface->{name}&>
 <div class="insideTab">
 % if ($externalWarning) {
 <div class='warning'>

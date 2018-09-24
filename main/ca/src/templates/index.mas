@@ -92,7 +92,7 @@ use EBox::CA::DN;
   <h3><% __('Issue a New Certificate')  %></h3>
 % }
 <form class="formDiv" action="IssueCertificate" method="post" >
-  <& formTable.mas, rows => \@issueTable &>
+  <& /formTable.mas, rows => \@issueTable &>
 </form>
 </div>
 <!-- List current certificates in a table -->
@@ -215,5 +215,5 @@ use EBox::CA::DN;
               imgName => __("Renew or reissue") }
                );
 </%perl>
-<& legendTable.mas, elements => \@legendElements, nColumns => 3 &>
+<& /legendTable.mas, elements => \@legendElements, nColumns => 3 &>
 </div>
