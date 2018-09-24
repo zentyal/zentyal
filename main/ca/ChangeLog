@@ -1,4 +1,5 @@
 6.0
+	+ Use openssl1.0 for backwards compatibility
 	+ Fix Mason template paths
 5.1
 	+ Fix module restart in postinst
