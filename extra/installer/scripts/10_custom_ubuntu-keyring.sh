@@ -15,16 +15,17 @@ popd
 
 pushd $UBUNTU_KEYRING_DIR/keyrings
 
-gpg --import < ubuntu-archive-keyring.gpg
+gpg --import < ubuntu-keyring-2012-cdimage.gpg
 # Ubuntu CD Image Automatic Signing Key (2012) <cdimage@ubuntu.com>
 # Ubuntu Archive Automatic Signing Key (2012) <ftpmaster@ubuntu.com>
-gpg --export FBB75451 437D05B5 C0B21F32 EFE21092 $ZINSTALLER_KEYID > ubuntu-archive-keyring.gpg
+gpg --export FBB75451 437D05B5 C0B21F32 EFE21092 991BC93C $ZINSTALLER_KEYID > ubuntu-keyring-2012-cdimage.gpg
 
 popd
 
 pushd $UBUNTU_KEYRING_DIR
 
 rm -f ../ubuntu-keyring*deb
+sed -i 's/binary: checkkeyrings/binary:/' debian/rules
 dpkg-buildpackage -rfakeroot -m"'$ZINSTALLER_ADDRESS'" -k$ZINSTALLER_KEYID
 cp -v ../ubuntu-keyring*deb $CD_BUILD_DIR/pool/main/u/ubuntu-keyring
 

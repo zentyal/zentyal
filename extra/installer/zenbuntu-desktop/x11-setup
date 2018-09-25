@@ -12,11 +12,6 @@ then
     echo "@/usr/bin/zentyal-session" >> /etc/xdg/lxsession/LXDE/autostart
 fi
 
-if ! grep -q pam_systemd.so /etc/pam.d/lxdm
-then
-    echo "session required        pam_systemd.so" >> /etc/pam.d/lxdm
-fi
-
 echo "mode: off" > $DIR/.xscreensaver
 echo "selected: -1" >> $DIR/.xscreensaver
 chown $USER_NAME:$USER_NAME $DIR/.xscreensaver

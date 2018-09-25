@@ -21,13 +21,15 @@ test -d $EXTRAS_DIR || mkdir $EXTRAS_DIR
 sudo rm -fr $CHROOT
 mkdir $CHROOT
 
-sudo debootstrap --arch=$ARCH $DIST $CHROOT
+sudo debootstrap --arch=$ARCH --include=gnupg $DIST $CHROOT
 
 sudo cp sources.list $CHROOT/etc/apt/sources.list
 
 cat zenbuntu-core/zentyal-archive.asc | sudo chroot $CHROOT apt-key add -
 
 sudo chroot $CHROOT apt-get update
+
+sudo chroot $CHROOT apt-get purge -y netplan.io
 
 test -r data/extra-packages.list || exit 1
 cp data/extra-packages.list /tmp/extra-packages.list

@@ -8,16 +8,13 @@ CD_BUILD_DIR="$CD_BUILD_DIR_BASE-$ARCH"
 
 # Rebrand newt palette
 pushd $CD_BUILD_DIR/install
-for i in initrd.gz hwe-initrd.gz
-do
-    mkdir tmp
-    cd tmp
-    gunzip < ../$i | cpio --extract --preserve
-    cp $DATA_DIR/palette.zentyal etc/newt/palette.ubuntu
-    find . | cpio --create --'format=newc' | gzip > ../$i
-    cd ..
-    rm -rf tmp
-done
+mkdir tmp
+cd tmp
+gunzip < ../initrd.gz | cpio --extract --preserve
+cp $DATA_DIR/palette.zentyal etc/newt/palette
+find . | cpio --create --'format=newc' | gzip > ../initrd.gz
+cd ..
+rm -rf tmp
 popd
 
 # Change default hostname

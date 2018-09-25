@@ -13,4 +13,6 @@ if ! grep -q "^#includedir /etc/sudoers.d" "$SUDOERS"; then
     echo "$INCLUDE" >> "$SUDOERS"
 fi
 
+sed -i 's/^bind.*/bind 127.0.0.1/' /etc/redis/redis.conf
+
 exit 0

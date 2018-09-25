@@ -11,7 +11,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-core
 Architecture: all
-Pre-Depends: mysql-server
+Pre-Depends: mysql-server, redis-server
 Depends: adduser, anacron, cracklib-runtime, cron, curl, dbus, debconf, gpgv,
          sudo, iproute2, liblog-dispatch-perl, liblog-log4perl-perl,
          libhtml-mason-perl (>= 1:1.56+zentyal1-1),
