@@ -38,6 +38,10 @@ d-i user-setup/encrypt-home boolean false
 d-i preseed/early_command string \
     touch /tmp/INSTALL_MODE
 
+# FIXME: avoid installation of lightdm
+lightdm shared/default-x-display-manager select lxdm
+lxdm shared/default-x-display-manager select lxdm
+
 # late command (we prepare here the Zentyal custom installer)
 d-i preseed/late_command string \
     cp -r /target/media/cdrom/zentyal /target/tmp/ && \
