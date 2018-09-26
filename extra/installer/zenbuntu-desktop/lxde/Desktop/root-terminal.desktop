@@ -4,7 +4,7 @@ Name=Administrator Console
 Name[es]=Consola de Administrador
 Comment=Executes a root shell
 Comment[es]=Ejecuta una consola de root
-Exec=gksudo lxterminal
+Exec=pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY lxterminal
 Icon=lxterminal
 Type=Application
 Categories=GTK;Utility;TerminalEmulator;
