@@ -1,4 +1,5 @@
 6.0
+	+ Login page form is now centered in a responsive way
 	+ Simplify interpreter code and avoid warnings with HTML::Mason templates
 	+ Allow new status field in daemon description to use a different daemon
 	  name to check running status

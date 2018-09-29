@@ -69,7 +69,7 @@ function checkBrowser() {
                     id='loginButton'
                     value="<% __('Enter') %>"/>
     </form>
+    <div id="footer"><% $created_by_footer %></div>
 </div>
-<div id="footer"><% $created_by_footer %></div>
 </body>
 </html>
