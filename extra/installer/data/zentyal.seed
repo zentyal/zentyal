@@ -5,7 +5,7 @@
 ##
 
 # add zentyal repository
-d-i apt-setup/local0/repository string http://archive.zentyal.org/zentyal 6.0 main extra
+d-i apt-setup/local0/repository string http://archive.zentyal.org/zentyal 6.0 main
 d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-6.0-archive.asc
 
 # ignore error downloading key if not internet connection
@@ -29,8 +29,9 @@ d-i pkgsel/include string zenbuntu-desktop
 # disable automatic updates, Zentyal will take care of that
 d-i pkgsel/update-policy select none
 
-# do not ask for fullname
+# do not ask for fullname or password confirmation
 d-i passwd/user-fullname string  
+d-i user-setup/allow-password-weak boolean true
 
 # do not encrypt home folder
 d-i user-setup/encrypt-home boolean false

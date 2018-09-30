@@ -7,7 +7,7 @@ then
     sed -i "s/.*autologin=.*/# autologin=nobody/" /etc/lxdm/default.conf
 
     # Remove temporal local repository
-    sed -i "/deb file.*zentyal-packages/d" /etc/apt/sources.list
+    sed -i "/deb.*file.*zentyal-packages/d" /etc/apt/sources.list
     rm -rf /var/tmp/zentyal-packages
     apt-get clean
 

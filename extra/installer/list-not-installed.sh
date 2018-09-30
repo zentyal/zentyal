@@ -17,6 +17,10 @@ MANDATORY_PACKAGES="
 crda
 grub
 libfuse2
+libldap-2.4-2
+libsasl2
+libassuan0
+heimdal
 installation-report
 linux-firmware
 lvm
@@ -41,7 +45,7 @@ CHROOT_INSTALLED_PACKAGES=$(sudo chroot $CHROOT_BASE-$ARCH/ dpkg -l|awk '{ print
 
 PACKAGES_TO_INSTALL=$(cat data/extra-packages.list | xargs)
 
-CHROOT_ZENTYAL_PACKAGES=$(sudo chroot $CHROOT_BASE-$ARCH/ apt-get install --simulate --no-install-recommends -y --force-yes $PACKAGES_TO_INSTALL |grep ^Inst|awk '{ print $2 }')
+CHROOT_ZENTYAL_PACKAGES=$(sudo chroot $CHROOT_BASE-$ARCH/ apt-get install --simulate --no-install-recommends -y $PACKAGES_TO_INSTALL |grep ^Inst|awk '{ print $2 }')
 
 echo $CHROOT_INSTALLED_PACKAGES $CHROOT_ZENTYAL_PACKAGES | tr ' ' "\n" > NO_DELETE
 

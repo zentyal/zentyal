@@ -12,25 +12,11 @@ do
     cp $file $PKG_DIR 2> /dev/null
 done
 
-if [ -f /tmp/RECOVER_MODE ]
-then
-    # Set DR flag for second stage
-    DISASTER_FILE=/var/tmp/.zentyal-disaster-recovery
-    touch $DISASTER_FILE
-    chown :admin $DISASTER_FILE
-    chown g+w $DISASTER_FILE
-fi
-
-#FIXME: is this required in 18.04?
-#       if removed, remove also v86d depend from zenbuntu-desktop
-#echo "FRAMEBUFFER=y" > /etc/initramfs-tools/conf.d/splash
-#update-initramfs -u
+apt purge -y netplan.io
+apt install -y ifupdown net-tools
 
 sed -i 's/#GRUB_HIDDEN_TIMEOUT=0/GRUB_HIDDEN_TIMEOUT=0/' /etc/default/grub
 sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 net.ifnames=0 biosdevname=0"/' /etc/default/grub
-#SIZE=$(sed 's/,/x/' /sys/class/graphics/fb0/virtual_size)
-#echo "GRUB_GFXMODE=$SIZE" >> /etc/default/grub
-#echo "GRUB_GFXPAYLOAD_LINUX=keep" >> /etc/default/grub
 update-grub
 
 ### CUSTOM_ACTION ###
