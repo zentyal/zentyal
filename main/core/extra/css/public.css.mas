@@ -3399,7 +3399,10 @@ OVERRIDED MODEL STYLES
 #VDomains_table button[name="revoke"] {
     display: none;
 }
-#System_top div.tableSearch,div.bDataTable {
+#System_top div.tableSearch {
+    display: none;
+}
+#System div.bDataTable {
     display: none;
 }
 #System_table th:last-child {
