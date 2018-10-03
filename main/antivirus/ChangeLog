@@ -1,4 +1,5 @@
 HEAD
+	+ Remove deprecated option in freshclam.conf for clamav 0.100.1
 	+ On-Demand System Scanning configurable in /etc/zentyal/antivirius.conf
 	+ Set max file size for OnAccess scan to 250M
 	+ Display last database update events from freshclam.log
