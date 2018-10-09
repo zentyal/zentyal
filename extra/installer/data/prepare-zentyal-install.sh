@@ -12,9 +12,6 @@ do
     cp $file $PKG_DIR 2> /dev/null
 done
 
-apt purge -y netplan.io
-apt install -y ifupdown net-tools
-
 sed -i 's/#GRUB_HIDDEN_TIMEOUT=0/GRUB_HIDDEN_TIMEOUT=0/' /etc/default/grub
 sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 net.ifnames=0 biosdevname=0"/' /etc/default/grub
 update-grub
