@@ -36,6 +36,7 @@ use constant CLIENTSCONFFILE => '/etc/freeradius/clients.conf';
 use constant EAPCONFFILE => '/etc/freeradius/eap.conf';
 use constant DEFAULTSRVCONFFILE => '/etc/freeradius/sites-available/default';
 use constant INNERTUNNELSRVCONFFILE => '/etc/freeradius/sites-available/inner-tunnel';
+use constant MSCHAPCONFFILE => '/etc/freeradius/modules/mschap';
 
 # Constructor: _create
 #
@@ -117,6 +118,10 @@ sub usedFiles
                         'module' => 'radius',
                         'reason' => __('To configure RADIUS inner-tunnel vhost.')
                       },
+                      { 'file' => MSCHAPCONFFILE,
+                        'module' => 'radius',
+                        'reason' => __('To configure RADIUS mschap.')
+                      },
          );
 
     return \@usedFiles;
@@ -134,7 +139,7 @@ sub initialSetup
     # Create default rules and services
     # only if installing the first time
     unless ($version) {
-        my $services = EBox::Global->modInstance('services');
+        my $services = EBox::Global->modInstance('network');
 
         my $serviceName = 'RADIUS';
         unless($services->serviceExists(name => $serviceName)) {
@@ -174,13 +179,16 @@ sub _services
 #
 sub _daemons
 {
-    return [
-        {
-            'name' => 'freeradius',
-            'type' => 'init.d',
-            'pidfiles' => ['/var/run/freeradius/freeradius.pid'],
+    return [ { 'name' => 'freeradius', 'type' => 'systemd' } ];
         }
-    ];
+
+# Method: _daemonsToDisable
+#
+#  Overrides <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [ { 'name' => 'freeradius', 'type' => 'systemd' } ];
 }
 
 # Method: _regenConfig
@@ -213,6 +221,8 @@ sub _setConf
     $self->writeConfFile(DEFAULTSRVCONFFILE, "radius/default.mas",
                          undef, { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
     $self->writeConfFile(INNERTUNNELSRVCONFFILE, "radius/inner-tunnel.mas",
+                         undef, { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
+    $self->writeConfFile(MSCHAPCONFFILE, "radius/mschap.mas",
                          undef, { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 
     $self->_setUsers();

@@ -115,6 +115,11 @@ sub processLine # (file, line, logger)
     if ($clientInfo =~ /cli (\w\w[:-]\w\w[:-]\w\w[:-]\w\w[:-]\w\w[:-]\w\w)/) {
         $mac = $1;
         $mac =~ s/-/:/ig;
+        $mac = uc $mac;
+    } elsif ($clientInfo =~ /cli (\w\w\w\w\w\w\w\w\w\w\w\w)/) {
+        $mac = $1;
+        $mac =~ s/([0-9a-fA-F]{2})\B/$1:/g;
+        $mac = uc $mac;
     } elsif ($clientInfo =~ /TLS tunnel/) {
         $mac = 'TLS tunnel';
     } else {

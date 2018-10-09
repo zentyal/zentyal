@@ -15,6 +15,16 @@ then
 
     chown root:freerad /etc/freeradius/certs/freeradius.pem
     chmod 440 /etc/freeradius/certs/freeradius.pem
+else
+    chown root:freerad /etc/freeradius/certs/freeradius.pem
+    chmod 440 /etc/freeradius/certs/freeradius.pem
 fi
 
+# freeradius log permission
 chmod 755 /var/log/freeradius
+
+# add freerad to winbindd_priv group
+usermod -a -G winbindd_priv freerad
+
+# fix winbindd_privileged ownership
+chown root:winbindd_priv /var/lib/samba/winbindd_privileged

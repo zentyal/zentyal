@@ -7,6 +7,10 @@
 #	directory.  Soft links should be created in the "sites-enabled"
 #	directory to these files.  This is done in a normal installation.
 #
+#	If you are using 802.1X (EAP) authentication, please see also
+#	the "inner-tunnel" virtual server.  You wll likely have to edit
+#	that, too, for authentication to work.
+#
 #	$Id$
 #
 ######################################################################
@@ -54,12 +58,26 @@
 #  Authorization. First preprocess (hints and huntgroups files),
 #  then realms, and finally look in the "users" file.
 #
+#  Any changes made here should also be made to the "inner-tunnel"
+#  virtual server.
+#
 #  The order of the realm modules will determine the order that
 #  we try to find a matching realm.
 #
 #  Make *sure* that 'preprocess' comes before any realm if you 
 #  need to setup hints for the remote radius server
 authorize {
+	#
+	#  Security settings.  Take a User-Name, and do some simple
+	#  checks on it, for spaces and other invalid characters.  If
+	#  it looks like the user is trying to play games, reject it.
+	#
+	#  This should probably be enabled by default.
+	#
+	#  See policy.conf for the definition of the filter_username policy.
+	#
+#	filter_username
+
 	#
 	#  The preprocess module takes care of sanitizing some bizarre
 	#  attributes in the request, and turning them into attributes
@@ -115,7 +133,7 @@ authorize {
 	#  Otherwise, when the first style of realm doesn't match,
 	#  the other styles won't be checked.
 	#
-	suffix
+#	suffix
 #	ntdomain
 
 	#
@@ -131,7 +149,7 @@ authorize {
 	#
 	#  The example below uses module failover to avoid querying all
 	#  of the following modules if the EAP module returns "ok".
-	#  Therefore, your LDAP and/or SQL servers will not be queried
+	#  Therefore,auth_log your LDAP and/or SQL servers will not be queried
 	#  for the many packets that go back and forth to set up TTLS
 	#  or PEAP.  The load on those servers will therefore be reduced.
 	#
@@ -271,6 +289,11 @@ authenticate {
 	#  containing CHAP-Password attributes CANNOT be authenticated
 	#  against /etc/passwd!  See the FAQ for details.
 	#
+	#  For normal "crypt" authentication, the "pap" module should
+	#  be used instead of the "unix" module.  The "unix" module should
+	#  be used for authentication ONLY for compatibility with legacy
+	#  FreeRADIUS configurations.
+	#
 #	unix
 
 	# Uncomment it if you want to use ldap for authentication
@@ -405,6 +428,9 @@ accounting {
 	#  Cisco VoIP specific bulk accounting
 #	pgsql-voip
 
+	# For Exec-Program and Exec-Program-Wait
+	exec
+
 	#  Filter attributes from the accounting response.
 	attr_filter.accounting_response
 
@@ -461,6 +487,7 @@ post-auth {
 	#
 #	ldap
 
+	# For Exec-Program and Exec-Program-Wait
 	exec
 
 	#
@@ -488,6 +515,32 @@ post-auth {
 	#
 #	wimax
 
+	#  If there is a client certificate (EAP-TLS, sometimes PEAP
+	#  and TTLS), then some attributes are filled out after the
+	#  certificate verification has been performed.  These fields
+	#  MAY be available during the authentication, or they may be
+	#  available only in the "post-auth" section.
+	#
+	#  The first set of attributes contains information about the
+	#  issuing certificate which is being used.  The second
+	#  contains information about the client certificate (if
+	#  available).
+#
+#	update reply {
+#	       Reply-Message += "%{TLS-Cert-Serial}"
+#	       Reply-Message += "%{TLS-Cert-Expiration}"
+#	       Reply-Message += "%{TLS-Cert-Subject}"
+#	       Reply-Message += "%{TLS-Cert-Issuer}"
+#	       Reply-Message += "%{TLS-Cert-Common-Name}"
+#
+#	       Reply-Message += "%{TLS-Client-Cert-Serial}"
+#	       Reply-Message += "%{TLS-Client-Cert-Expiration}"
+#	       Reply-Message += "%{TLS-Client-Cert-Subject}"
+#	       Reply-Message += "%{TLS-Client-Cert-Issuer}"
+#	       Reply-Message += "%{TLS-Client-Cert-Common-Name}"
+#	}
+
+
 	#  If the WiMAX module did it's work, you may want to do more
 	#  things here, like delete the MS-MPPE-*-Key attributes.
 	#
@@ -506,6 +559,8 @@ post-auth {
 	#  'edir_account_policy_check = yes' in the ldap module configuration
 	#
 	Post-Auth-Type REJECT {
+		# log failed authentications in SQL, too.
+#		sql
 		attr_filter.access_reject
 	}
 }

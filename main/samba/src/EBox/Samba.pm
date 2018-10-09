@@ -2527,6 +2527,13 @@ sub writeSambaConfig
         push (@array, 'ifaces' => $interfaces);
     }
 
+    if ($self->global()->modExists('radius')) {
+        my $radiusMod = $self->global()->modInstance('radius');
+        if ($radiusMod->isEnabled()) {
+            push (@array, 'radius' => 1);
+        }
+    }
+
     if ($self->global()->modExists('printers')) {
         my $printersMod = $self->global()->modInstance('printers');
         if ($printersMod->isEnabled()) {
