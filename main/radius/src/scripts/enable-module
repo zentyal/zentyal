@@ -1,7 +1,16 @@
 #!/bin/bash -x
 
+DIR=/etc/freeradius/3.0
+
+# enable ldap module
+pushd $DIR/mods-enabled
+ln -sf ../mods-available/ldap .
+popd
+
+CERTSDIR=$DIR/certs
+
 # generate certificates
-if test ! -e /etc/freeradius/certs/freeradius.pem
+if test ! -e $CERTSDIR/freeradius.pem
 then
     if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
        test ! -e /etc/ssl/private/ssl-cert-snakeoil.key
@@ -11,13 +20,13 @@ then
 
     cat /etc/ssl/certs/ssl-cert-snakeoil.pem \
         /etc/ssl/private/ssl-cert-snakeoil.key \
-        > /etc/freeradius/certs/freeradius.pem
+        > $CERTSDIR/freeradius.pem
 
-    chown root:freerad /etc/freeradius/certs/freeradius.pem
-    chmod 440 /etc/freeradius/certs/freeradius.pem
+    chown root:freerad $CERTSDIR/freeradius.pem
+    chmod 440 $CERTSDIR/freeradius.pem
 else
-    chown root:freerad /etc/freeradius/certs/freeradius.pem
-    chmod 440 /etc/freeradius/certs/freeradius.pem
+    chown root:freerad $CERTSDIR/freeradius.pem
+    chmod 440 $CERTSDIR/freeradius.pem
 fi
 
 # freeradius log permission

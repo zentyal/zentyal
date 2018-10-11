@@ -42,7 +42,7 @@ server inner-tunnel {
 #  The order of the realm modules will determine the order that
 #  we try to find a matching realm.
 #
-#  Make *sure* that 'preprocess' comes before any realm if you 
+#  Make *sure* that 'preprocess' comes before any realm if you
 #  need to setup hints for the remote radius server
 authorize {
 	#
@@ -100,7 +100,7 @@ authorize {
 	#  the next few lines.
 	#
 	update control {
-	       Proxy-To-Realm := LOCAL
+		&Proxy-To-Realm := LOCAL
 	}
 
 	#
@@ -211,6 +211,9 @@ authenticate {
 	}
 
 	#
+	#  For old names, too.
+	#
+	mschap
 	#  Pluggable Authentication Modules.
 #	pam
 
@@ -219,7 +222,7 @@ authenticate {
 	#  module checks the users password.  Note that packets
 	#  containing CHAP-Password attributes CANNOT be authenticated
 	#  against /etc/passwd!  See the FAQ for details.
-	#  
+	#
 #	unix
 
 	# Uncomment it if you want to use ldap for authentication
@@ -244,7 +247,7 @@ authenticate {
 ######################################################################
 
 
-#  Session database, used for checking Simultaneous-Use. Either the radutmp 
+#  Session database, used for checking Simultaneous-Use. Either the radutmp
 #  or rlm_sql module can handle this.
 #  The rlm_sql module is *much* faster
 session {
@@ -259,6 +262,16 @@ session {
 #  Post-Authentication
 #  Once we KNOW that the user has been authenticated, there are
 #  additional steps we can take.
+#
+#  Note that the last packet of the inner-tunnel authentication
+#  MAY NOT BE the last packet of the outer session.  So updating
+#  the outer reply MIGHT work, and sometimes MIGHT NOT.  The
+#  exact functionality depends on both the inner and outer
+#  authentication methods.
+#
+#  If you need to send a reply attribute in the outer session,
+#  the ONLY safe way is to set "use_tunneled_reply = yes", and
+#  then update the inner-tunnel reply.
 post-auth {
 	# Note that we do NOT assign IP addresses here.
 	# If you try to assign IP addresses for EAP authentication types,
@@ -293,7 +306,7 @@ post-auth {
 	#  Access-Reject packets are sent through the REJECT sub-section of the
 	#  post-auth section.
 	#
-	#  Add the ldap module name (or instance) if you have set 
+	#  Add the ldap module name (or instance) if you have set
 	#  'edir_account_policy_check = yes' in the ldap module configuration
 	#
 	Post-Auth-Type REJECT {

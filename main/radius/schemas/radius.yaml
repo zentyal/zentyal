@@ -2,6 +2,9 @@ class: 'EBox::Radius'
 enabledepends:
     - samba
 
+depends:
+    - samba
+
 models:
     - Auth
     - Clients

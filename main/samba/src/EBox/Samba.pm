@@ -550,7 +550,6 @@ sub _services
 {
     my ($self) = @_;
 
-    # TODO: separate this in different services?
     return [
             { # kerberos
                 'protocol' => 'tcp/udp',
@@ -605,11 +604,6 @@ sub _services
                 'sourcePort' => 'any',
                 'destinationPort' => '636',
                 'description' => 'LDAP over TLS/SSL',
-            },
-            { # unknown???
-                'protocol' => 'tcp',
-                'sourcePort' => 'any',
-                'destinationPort' => '1024',
             },
             { # msft-gc
                 'protocol' => 'tcp',

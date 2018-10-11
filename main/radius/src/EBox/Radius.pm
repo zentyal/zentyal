@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2009-2018 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -29,14 +30,16 @@ use EBox::Ldap;
 use EBox::Radius::LogHelper;
 use EBox::Radius::LdapUser;
 
-use constant USERSCONFFILE => '/etc/freeradius/users';
-use constant LDAPCONFFILE => '/etc/freeradius/modules/ldap';
-use constant RADIUSDCONFFILE => '/etc/freeradius/radiusd.conf';
-use constant CLIENTSCONFFILE => '/etc/freeradius/clients.conf';
-use constant EAPCONFFILE => '/etc/freeradius/eap.conf';
-use constant DEFAULTSRVCONFFILE => '/etc/freeradius/sites-available/default';
-use constant INNERTUNNELSRVCONFFILE => '/etc/freeradius/sites-available/inner-tunnel';
-use constant MSCHAPCONFFILE => '/etc/freeradius/modules/mschap';
+use constant CONFDIR => "/etc/freeradius/3.0/";
+use constant USERSCONFFILE => CONFDIR . 'users';
+use constant LDAPCONFFILE => CONFDIR . 'mods-available/ldap';
+use constant RADIUSDCONFFILE => CONFDIR . 'radiusd.conf';
+use constant CLIENTSCONFFILE => CONFDIR . 'clients.conf';
+use constant EAPCONFFILE => CONFDIR . 'mods-available/eap';
+use constant DEFAULTSRVCONFFILE => CONFDIR . 'sites-available/default';
+use constant INNERTUNNELSRVCONFFILE => CONFDIR . 'sites-available/inner-tunnel';
+use constant MSCHAPCONFFILE => CONFDIR . 'mods-available/mschap';
+use constant CERTSDIR => CONFDIR . 'certs';
 
 # Constructor: _create
 #
@@ -67,8 +70,8 @@ sub actions
     return [
     {
         'action' => __('Create RADIUS certificates for TTLS'),
-        'reason' => __('Zentyal will create the needed certificates for TTLS ' .
-                       'in /etc/freeradius/certs/.'),
+        'reason' => __x('Zentyal will create the needed certificates for TTLS ' .
+                       'in {d}.', d => CERTSDIR),
         'module' => 'radius'
     },
     {
@@ -178,15 +181,6 @@ sub _services
 #      <EBox::Module::Service::_daemons>
 #
 sub _daemons
-{
-    return [ { 'name' => 'freeradius', 'type' => 'systemd' } ];
-        }
-
-# Method: _daemonsToDisable
-#
-#  Overrides <EBox::Module::Service::_daemonsToDisable>
-#
-sub _daemonsToDisable
 {
     return [ { 'name' => 'freeradius', 'type' => 'systemd' } ];
 }
@@ -345,7 +339,7 @@ sub certificates
             {
              serviceId => 'RADIUS',
              service =>  __('RADIUS'),
-             path    =>  '/etc/freeradius/certs/freeradius.pem',
+             path    =>  CERTSDIR . 'freeradius.pem',
              user => 'root',
              group => 'freerad',
              mode => '0440',
