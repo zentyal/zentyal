@@ -1,4 +1,4 @@
-HEAD
+5.1.1
 	+ Add virtlogd as managed daemon to avoid some random VM start errors
 	+ Add view_console_new_window config key
 5.1
