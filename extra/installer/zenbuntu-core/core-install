@@ -93,6 +93,8 @@ then
     run-parts /usr/share/zentyal-custom/scripts
 fi
 
+apt-get purge -y netplan.io
+
 sync
 
 exit 0
