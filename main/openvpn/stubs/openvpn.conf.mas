@@ -104,7 +104,9 @@ keepalive 10 120
 
 
 # client certificate common name authentication
-<& valueEntry, entry=> 'tls-remote', value => $tlsRemote &>
+% if (defined $tlsRemote) {
+verify-x509-name <% $tlsRemote %> name
+% }
 
 # For extra security beyond that provided
 # by SSL/TLS, create an "HMAC firewall"
