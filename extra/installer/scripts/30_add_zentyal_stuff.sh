@@ -38,15 +38,39 @@ then
     echo zinstaller-headless >> $UDEB_INCLUDE
 fi
 
+ISOLINUXCFG=$CD_BUILD_DIR/isolinux/txt.cfg
 if [ -f $BASE_DIR/DEBUG_MODE ]
 then
     cp $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed
     cat $DATA_DIR/zentyal-debug.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed
 
-    cp $DATA_DIR/isolinux-zentyal-debug.cfg $CD_BUILD_DIR/isolinux/txt.cfg
+    cp $DATA_DIR/isolinux-zentyal-debug.cfg $ISOLINUXCFG
 else
-    sed -e s:VERSION:$VERSION: < $DATA_DIR/isolinux-zentyal.cfg.template > $CD_BUILD_DIR/isolinux/txt.cfg
+    sed -e s:VERSION:$VERSION: < $DATA_DIR/isolinux-zentyal.cfg.template > $ISOLINUXCFG
 fi
+
+AUTO_TEXT=$(grep "Install" $ISOLINUXCFG | head -1 | cut -d^ -f2 | sed 's/Install //')
+EXPERT_TEXT=$(grep "Install" $ISOLINUXCFG | tail -1 | cut -d^ -f2 | sed 's/Install //')
+for i in $CD_BUILD_DIR/isolinux/*.tr
+do
+    sed -i "s/Edubuntu/$AUTO_TEXT/" $i
+    sed -i "s/Kubuntu/$EXPERT_TEXT/" $i
+done
+sed -i "s/delete all disk/borrar todo el disco/g" $CD_BUILD_DIR/isolinux/es.tr
+sed -i "s/expert mode/modo experto/g" $CD_BUILD_DIR/isolinux/es.tr
+
+sed -i 's/timeout 300/timeout 0/' $CD_BUILD_DIR/isolinux/isolinux.cfg
+
+pushd $CD_BUILD_DIR/isolinux
+mkdir tmp
+cd tmp
+cat ../bootlogo | cpio --extract --make-directories --no-absolute-filenames
+cp ../*.tr .
+find . | cpio -o > ../bootlogo
+cd ..
+rm -rf tmp
+popd
+
 sed -e s:VERSION:$VERSION: < $DATA_DIR/grub.cfg.template > $CD_BUILD_DIR/boot/grub/grub.cfg
 
 USB_SUPPORT="cdrom-detect\/try-usb=true"
