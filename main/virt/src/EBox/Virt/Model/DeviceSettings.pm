@@ -184,7 +184,8 @@ sub validateTypedRow
             $self->_checkCDDeviceFile();
         } else {
             $self->_checkDevicePath($path, 0, __('ISO image'));
-            unless (_checkFileOutput($path, qr/ISO 9660 CD-ROM filesystem/)) {
+            unless (_checkFileOutput($path, qr/ISO 9660 CD-ROM filesystem/,
+                                            qr/DOS\/MBR boot sector/)) {
                 throw EBox::Exceptions::External(
                     __x('The CD disk image {img} should be in ISO format',
                         img => $path)
