@@ -1,20 +1,19 @@
 [
   {
     "title": "&iexcl;Gracias por elegir Zentyal Server!",
-    "paragraphs": [
-      "Zentyal Server implementa los protocolos de Microsoft Active Directory® en Linux de forma nativa. ¿Buscas una versi&oacute;n experimental para probar el producto? ¡Zentyal Server Development Edition es para ti! Si buscas una versi&oacute;n para tu entorno de produci&oacute;n, elige la edición comercial.",
-      "Para obtener ayuda de la comunidad, echa un vistazo a la documentaci&oacute;n oficial y al Foro Oficial de Zentyal!"
+    "paragraphs": [ "El Servidor Linux Zentyal ofrece una alternative a Windows Server®. Gracias a la interoperabilidad nativa con Microsoft Active Directory®, permite integración transparente en entornos Windows (LDAP, DNS, Kerberos)." ],
+    "items": [
+      "Une tus clientes Windows al dominio e inicia sesi&oacute;n con usuarios de dominio",
+      "Autenticaci&oacute;n Single Sign-On (SSO) en todo el dominio",
+      "Compartición de ficheros en entornos Windows® (CIFS)",
+      "Gesti&oacute;n avanzada del dominio mediante herramientas RSAT"
     ],
-    "links": [
-      "http://wiki.zentyal.org/",
-      "http://forum.zentyal.org"
-    ]
+    "endText": "&iexcl;Aprende m&aacute;s en wiki.zentyal.org !"
   },
+
   {
-    "title": "Edici&oacute;n Comercial de Zentyal",
-    "paragraphs": [
-      "&iexcl;Lista para usar en un entorno de produci&oacute;n!"
-    ],
+    "title": "Licencia Comercial de Servidor Zentyal",
+    "paragraphs": [ "Buscas un servidor comercial para un entorno de producción? ¡Elige la Edición Comercial!" ],
     "items": [
       "Características adicionales",
       "Soporte t&eacute;cnico oficial",
@@ -22,21 +21,9 @@
       "Aseguramiento de calidad sobre las actualizaciones",
       "Soportada durante 4.5 años"
     ],
-    "endText": "&iexcl;Pide tu trial gratuito en www.zentyal.com/es/zentyal-server!"
+    "endText": "&iexcl;Pide tu trial gratuito en www.zentyal.com/es/trial !"
   },
-  {
-    "title": "Compatibilidad nativa con Microsoft Active Directory®",
-    "paragraphs": [
-      "&iexcl;Integraci&oacute;n transparente en entornos de Windows Server®! (LDAP, DNS, Kerberos)"
-    ],
-    "items": [
-      "Une tus clientes Windows al dominio e inicia sesi&oacute;n con usuarios de dominio",
-      "Autenticaci&oacute;n Single Sign-On (SSO) en todo el dominio",
-      "Compartición de ficheros en entornos Windows® (CIFS)",
-      "Gesti&oacute;n avanzada del dominio mediante herramientas RSAT"
-    ],
-    "endText": "&iexcl;Aprende m&aacute;s en wiki.zentyal.org!"
-  },
+
   {
     "title": "Formaci&oacute;n Certificada en Zentyal Server",
     "paragraphs": [
@@ -49,6 +36,7 @@
     ],
     "endText": "&iexcl;Obt&eacute;n m&aacute;s informaci&oacute;n en www.zentyal.com/es/training/!"
   },
+
   {
     "title": "Distribuidores de Zentyal",
     "paragraphs": [
@@ -61,6 +49,7 @@
     ],
     "endText": "&iexcl;Obt&eacute;n m&aacute;s informaci&oacute;n en www.zentyal.com/es/zentyal-server/resellers!"
   },
+
   {
     "title": "&iquest;C&oacute;mo puedo contribuir?",
     "paragraphs": [

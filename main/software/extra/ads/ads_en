@@ -1,29 +1,7 @@
 [
   {
     "title": "Thank you for choosing Zentyal Server!",
-    "paragraphs": [
-              "Zentyal Server offers native Microsoft Active Directory interoperability on Linux. Are you looking for a version to experiment with? The Development Edition is for you! Are you looking for a commercially supported server for a production environment? Choose the Commercial Edition.",
-              "For community help, check out the official documentation and the Zentyal Forum!"
-             ],
-    "links": [ "http://wiki.zentyal.org/", "http://forum.zentyal.org" ]
-  },
-
-  {
-    "title": "Commercial Zentyal Editions",
-    "paragraphs": [ "Ready for the production environment!" ],
-    "items": [
-              "Additional features",
-              "Official technical support",
-              "Fully tested and stable",
-              "Quality assured updates",
-              "Supported for 4.5 years"
-             ],
-    "endText": "Get your free trial at www.zentyal.com/zentyal-server!"
-  },
-
-  {
-    "title": "Native compatibility with Microsoft Active Directory®",
-    "paragraphs": [ "Transparent integration in Windows Server® environments (LDAP, DNS, Kerberos)" ],
+    "paragraphs": [ "Zentyal Linux Server offers an alternative to Windows Server®. It comes with native Microsoft Active Directory interoperability, providing transparent integration in Windows environments (LDAP, DNS, Kerberos)." ],
     "items": [
               "Join your Windows® clients to the domain and login with domain users",
               "Single Sign-On (SSO) authentication across all domain",
@@ -34,12 +12,25 @@
   },
 
   {
+    "title": "Commercial Zentyal Server License",
+    "paragraphs": [ "Are you looking for a commercially supported server for a production environment? Choose the Commercial Edition." ],
+    "items": [
+              "Additional features",
+              "Official technical support",
+              "Fully tested and stable",
+              "Quality assured updates",
+              "Supported for 4.5 years"
+             ],
+    "endText": "Get your free trial at www.zentyal.com/trial !"
+  },
+
+  {
     "title": "Certified Zentyal Server Training",
     "paragraphs": [ "Learn easy and practical Linux server management!" ],
     "items": [
               "Official on-line courses",
               "By certified instructors",
-              "Plenty exercises and real world scenarios"
+              "Plenty of exercises and real world scenarios"
              ],
     "endText": "Learn more at www.zentyal.com/training!"
   },
