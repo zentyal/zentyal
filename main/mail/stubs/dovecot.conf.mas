@@ -96,7 +96,7 @@ log_timestamp = "%Y-%m-%d %H:%M:%S "
 
 ssl = yes
 ssl_cert =</etc/dovecot/private/dovecot.pem
-ssl_key =</etc/dovecot/private/dovecot.key
+ssl_key =</etc/dovecot/private/dovecot.pem
 
 verbose_ssl = no
 

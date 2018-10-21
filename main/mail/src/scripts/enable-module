@@ -24,15 +24,13 @@ function dovecot {
 
 test -d /etc/dovecot/private || mkdir -p /etc/dovecot/private
 
-if test -e  /etc/dovecot/private/dovecot.pem
+if test -e /etc/dovecot/private/dovecot.pem && \
+   test -e /etc/dovecot/private/dovecot.key
 then
-  if test  -e /etc/dovecot/dovecot.pem
-  then
-       # we need to have certicate and key in the same pem
-       cp  /etc/dovecot/private/dovecot.pem  /etc/dovecot/private/dovecot.pem.tmp
-       cat /etc/dovecot/dovecot.pem  /etc/dovecot/private/dovecot.pem.tmp >  /etc/dovecot/private/dovecot.pem
-       rm /etc/dovecot/private/dovecot.pem.tmp /etc/dovecot/dovecot.pem
-  fi
+    # we need to have certicate and key in the same pem
+    cat /etc/dovecot/private/dovecot.{pem,key} > /etc/dovecot/private/dovecot.pem.tmp
+    rm -f /etc/dovecot/private/dovecot.{pem,key}
+    mv /etc/dovecot/private/dovecot.pem.tmp /etc/dovecot/dovecot.pem
 fi
 
 if test ! -e /etc/dovecot/private/dovecot.pem
