@@ -47,6 +47,7 @@ update_if_network()
     if $(wget -T 10 -t 1 $ARCHIVE_URL); then
         echo "Updating package database from the network..."
         apt-get update
+        DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
     else
         echo "Warning: Can't connect to $ARCHIVE_URL. Updates won't be installed."
     fi
