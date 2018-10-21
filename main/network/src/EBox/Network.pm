@@ -226,6 +226,11 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    EBox::Sudo::silentRoot('systemctl stop systemd-resolved');
+    EBox::Sudo::silentRoot('systemctl disable systemd-resolved');
+    EBox::Sudo::silentRoot('resolvconf -d systemd-resolved');
+    EBox::Sudo::silentRoot('rm -f /etc/dhcp/dhclient-enter-hooks.d/resolved');
+
     foreach my $service (@{$self->_defaultServices()}) {
         $service->{'sourcePort'} = 'any';
         $service->{'readOnly'} = 1;
