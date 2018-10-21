@@ -74,6 +74,7 @@ use EBox::Util::Version;
 use EBox::DBEngineFactory;
 use File::Basename;
 use File::Slurp;
+use YAML::XS;
 
 use constant FAILOVER_CHAIN => 'FAILOVER-TEST';
 use constant CHECKIP_CHAIN => 'CHECKIP-TEST';
@@ -244,8 +245,8 @@ sub initialSetup
             if ($self->changed()) {
                 $self->saveConfigRecursive();
             }
-        } catch {
-            EBox::warn('Network configuration import failed');
+        } catch ($e) {
+            EBox::warn("Network configuration import failed: $e");
         }
     }
 
@@ -1140,9 +1141,6 @@ sub setViface
            );
     }
 
-    # Check the virtual interface IP  address is not a HA floating IP
-    $self->_checkHAFloatingIPCollision($iface, $address);
-
     my $global = EBox::Global->getInstance();
     my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
     foreach my $mod (@mods) {
@@ -1536,9 +1534,6 @@ sub setIfaceStatic
                    ));
         }
     }
-
-    # Check the interface IP  address is not a HA floating IP
-    $self->_checkHAFloatingIPCollision($name, $address);
 
     if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
@@ -4816,44 +4811,50 @@ sub importInterfacesFile
 {
     my ($self) = @_;
 
-    my $DEFAULT_IFACE = 'eth0';
+    my $netcfg = '/etc/netplan/01-netcfg.yaml';
+
+    return unless (-f $netcfg);
+
     my $DEFAULT_GW_NAME = 'default';
 
-    my @interfaces = @{$self->_readInterfaces()};
-    foreach my $iface (@interfaces) {
-        if ($iface->{name} =~ /^vlan/) {
-            ($iface->{'vlan-raw-device'}) or
-                die "vlan interface '$iface->{name}' needs a ".
-                "raw-device declaration";
-            $self->setIfaceTrunk($iface->{'vlan-raw-device'}, 1);
-            my $vlan = $iface->{name};
-            $vlan =~ s/^vlan//;
-            $self->createVlan($vlan, undef, $iface->{'vlan-raw-device'});
-        }
-        if ($iface->{'method'} eq 'static') {
-            $self->setIfaceStatic($iface->{'name'}, $iface->{'address'},
-                    $iface->{'netmask'}, undef, 1);
-            if ($iface->{'gateway'}){
+    my $yaml = YAML::XS::LoadFile($netcfg);
+    my $network = $yaml->{network};
+    return unless ($network);
+    my $ifaces = $network->{ethernets};
+    return unless ($ifaces);
+
+    foreach my $name (keys %{$ifaces}) {
+        my $iface = $ifaces->{$name};
+        if ($iface->{dhcp4}) {
+            $self->setIfaceDHCP($name, 0, 1);
+        } elsif ($iface->{addresses}) {
+            my ($ip, $bits) = split ('/', $iface->{addresses}->[0]);
+            $self->setIfaceStatic($name, $ip, EBox::NetWrappers::mask_from_bits($bits), undef, 1);
+            if ($iface->{gateway4}) {
                 my $gwModel = $self->model('GatewayTable');
                 my $defaultGwRow = $gwModel->find(name => $DEFAULT_GW_NAME);
                 if ($defaultGwRow) {
                     EBox::info("Already a default gateway, keeping it");
                 } else {
                     $gwModel->add(name      => $DEFAULT_GW_NAME,
-                                  ip        => $iface->{'gateway'},
-                                  interface => $iface->{'name'},
+                                  ip        => $iface->{gateway4},
+                                  interface => $name,
                                   default   => 1);
                 }
             }
-        } elsif ($iface->{'method'} eq 'dhcp') {
-            $self->setIfaceDHCP($iface->{'name'}, 0, 1);
+            my $ns = $iface->{nameservers};
+            if ($ns) {
+                my $search = $ns->{search};
+                if ($search) {
+                    $self->model('SearchDomain')->importSystemSearchDomain($name, $search->[0]);
+                }
+                my $addresses = $ns->{addresses};
+                if ($addresses) {
+                    $self->model('DNSResolver')->importSystemResolvers($name, $addresses);
+                }
+            }
         }
     }
-
-    my $resolverModel = $self->model('DNSResolver');
-    $resolverModel->importSystemResolvers();
-    my $searchDomainModel = $self->model('SearchDomain');
-    $searchDomainModel->importSystemSearchDomain();
 
     $self->saveConfig();
 }
@@ -4876,58 +4877,6 @@ sub _importDHCPAddresses
             my ($address, $netmask) = each %addr;
             EBox::debug("_importDHCPAdress $iface $address $netmask");
             $self->setDHCPAddress($iface, $address, $netmask);
-        }
-    }
-}
-
-sub _readInterfaces
-{
-    my ($self) = @_;
-
-    my $ifacesFH;
-    unless (open($ifacesFH, INTERFACES_FILE)) {
-        warn  "couldn't open " . INTERFACES_FILE;
-        return [];
-    }
-
-    my @interfaces;
-    my $iface;
-    my @fields = qw/address netmask gateway vlan-raw-device/;
-
-    for my $line (<$ifacesFH>) {
-        $line =~ s/^\s+//g;
-        my @toks = split (/\s+/, $line);
-        next unless @toks;
-        if ($toks[0] eq 'iface' and $toks[2] eq 'inet') {
-            next if ($self->_ignoreIface($toks[1]));
-            push (@interfaces, $iface) if ($iface);
-            $iface = { name   => $toks[1],
-                       method => $toks[3]
-            };
-        }
-
-        if (grep((/^$toks[0]$/), @fields)) {
-            $iface->{$toks[0]} = $toks[1];
-        }
-    }
-    close ($ifacesFH);
-    push (@interfaces, $iface) if ($iface);
-
-    return \@interfaces;
-}
-
-# Check the IP  address is not a HA floating IP
-sub _checkHAFloatingIPCollision
-{
-    my ($self, $iface, $address) = @_;
-
-    my $global = EBox::Global->getInstance();
-
-    if ($global->modExists('ha') and $global->modInstance('ha')->isEnabled()) {
-        my $ha = $global->modInstance('ha');
-        if ($ha->isFloatingIP($iface, $address)) {
-            throw EBox::Exceptions::External("The IP: " . $address . " is already".
-                    " a HA floating IP.");
         }
     }
 }

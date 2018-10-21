@@ -321,68 +321,17 @@ sub getInterfaceResolvconfConfig
     return $entry;
 }
 
-# Method: getSystemResolvers
-#
-#   This method gets the list of currently configured system resolvers in the
-#   same way resolvconf does. It gets the orderer list of resolvconf interface
-#   files and process them to get the list.
-#
-# Returns:
-#
-#   An array reference containing structures as returned by the method
-#   getInterfaceResolvconfConfig, one for each resolvconf file returned by
-#   the list-records helper script.
-#
-sub getSystemResolvers
-{
-    my ($self) = @_;
-
-    my $resolvers = [];
-    try {
-        # Change directory to /var/run/resolvconf/interface
-        my $path = '/var/run/resolvconf/interface';
-        unless (chdir $path) {
-            EBox::warn("Failed to chdir to $path");
-            return $resolvers;
-        }
-
-        # Call to /lib/resolvconf/list-records to get the list ordered by
-        # the rules in /etc/resolvconf/interface-order
-        my $files = `/lib/resolvconf/list-records`;
-        my @files = split(/\n/, $files);
-
-        # Read each file and parse nameservers
-        foreach my $file (@files) {
-            my $entry = $self->getInterfaceResolvconfConfig($file);
-            push (@{$resolvers}, $entry);
-        }
-    } catch ($error) {
-        EBox::error("Failed to get the list of resolvconf resolvers: $error");
-    }
-
-    return $resolvers;
-}
-
 # Method: importSystemResolvers
 #
-#   This method populate the model with the currently configured system
-#   resolvers.
+#   This method populate the model with the given resolvers list for the given interface.
 #
 sub importSystemResolvers
 {
-    my ($self) = @_;
+    my ($self, $interface, $resolvers) = @_;
 
     try {
-        my $resolvers = $self->getSystemResolvers();
-
-        # Populate the table with the obtained information
-        $self->removeAll(1);
-        foreach my $entry (@{$resolvers}) {
-            my $interface = $entry->{interface};
-            foreach my $nameserver (@{$entry->{resolvers}}) {
-                $self->addRow(interface => $interface,
-                    nameserver => $nameserver);
-            }
+        foreach my $nameserver (@{$resolvers}) {
+            $self->addRow(interface => $interface, nameserver => $nameserver);
         }
     } catch ($error) {
         EBox::error("Could not import system resolvers: $error");

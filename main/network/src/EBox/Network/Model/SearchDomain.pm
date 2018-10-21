@@ -26,33 +26,6 @@ use EBox::Types::DomainName;
 use EBox::Types::Text;
 use TryCatch;
 
-# Dependencies
-
-# Group: Public methods
-
-# Constructor: new
-#
-#     Create the DynDNS model
-#
-# Overrides:
-#
-#     <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#     <EBox::Network::Model::SearchDomain>
-#
-sub new
-{
-      my $class = shift;
-
-      my $self = $class->SUPER::new(@_);
-
-      bless ( $self, $class );
-
-      return $self;
-}
-
 # Group: Protected methods
 
 # Method: _table
@@ -121,51 +94,15 @@ sub updatedRowNotify
 
 # Method: importSystemSearchDomain
 #
-#   This method populate the model with the currently configured search
-#   domains
+#   This method populate the model with the given search domain
 #
 sub importSystemSearchDomain
 {
-    my ($self) = @_;
+    my ($self, $interface, $domain) = @_;
 
     try {
-        # Change directory to /var/run/resolvconf/interface
-        chdir '/var/run/resolvconf/interface';
-
-        # Call to /lib/resolvconf/list-records to get the list ordered by
-        # the rules in /etc/resolvconf/interface-order
-        my $files = `/lib/resolvconf/list-records`;
-        my @files = split(/\n/, $files);
-
-        # Read each file and parse search
-        my %domains;
-        foreach my $file (@files) {
-            my $fd;
-            unless (open ($fd, $file)) {
-                EBox::warn("Couldn't open $file");
-                next;
-            }
-
-            $domains{$file} = [];
-            for my $line (<$fd>) {
-                $line =~ s/^\s+//g;
-                my @toks = split (/\s+/, $line);
-                if (($toks[0] eq 'domain') or ($toks[0] eq 'search')) {
-                    push (@{$domains{$file}}, $toks[1]);
-                }
-            }
-            close ($fd);
-        }
-
-        # Populate the table with the obtained information
-        $self->removeAll(1);
-
-        foreach my $interface (keys %domains) {
-            foreach my $domain (@{$domains{$interface}}) {
-                $self->setValue('interface', $interface);
-                $self->setValue('domain', $domain);
-            }
-        }
+        $self->setValue('interface', $interface);
+        $self->setValue('domain', $domain);
     } catch ($e) {
         EBox::error("Could not import search domain: $e");
     }
