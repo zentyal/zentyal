@@ -4825,7 +4825,8 @@ sub importInterfacesFile
 
     foreach my $name (keys %{$ifaces}) {
         my $iface = $ifaces->{$name};
-        if ($iface->{dhcp4}) {
+        my $dhcp = $iface->{dhcp4};
+        if ($dhcp and ($dhcp eq 'yes')) {
             $self->setIfaceDHCP($name, 0, 1);
         } elsif ($iface->{addresses}) {
             my ($ip, $bits) = split ('/', $iface->{addresses}->[0]);
