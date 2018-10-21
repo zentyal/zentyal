@@ -1,5 +1,5 @@
 6.0
-	+ Set version to 6.0
+	+ Log only warning instead of warning + error when ntpdate fails
 5.1
 	+ Fix module restart in postinst
 5.0

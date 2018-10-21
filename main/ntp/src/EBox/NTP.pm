@@ -150,9 +150,8 @@ sub _syncDate
     if ($self->synchronized) {
         my $exserver = $self->firstServer();
         return unless $exserver;
-        try {
-            EBox::Sudo::root("/usr/sbin/ntpdate $exserver");
-        } catch (EBox::Exceptions::Internal $e) {
+        EBox::Sudo::silentRoot("/usr/sbin/ntpdate $exserver");
+        if ($? != 0) {
             EBox::warn("Couldn't execute ntpdate $exserver");
         }
     }
