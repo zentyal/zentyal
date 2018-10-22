@@ -1,0 +1,9 @@
+<%args>
+$data
+</%args>
+%   my $value = $data->value();
+%   if (defined ($value) and $value) {
+		<button class="btn-only-icon btn-config" title="Full Report" type="image" onclick="window.open('/data/antivirus.log')">Full Report</button>
+%   } else {
+		<button disabled class="btn-only-icon btn-config" title="Full Report" type="image">Full Report</button>
+%   }

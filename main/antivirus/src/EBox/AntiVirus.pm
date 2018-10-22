@@ -75,23 +75,6 @@ sub _create
 
 # Group: Public methods
 
-# Method: initialSetup
-#
-# Overrides:
-#   EBox::Module::Base::initialSetup
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    # Create default include rules only if installing the first time
-    unless ($version) {
-        # Include Home directories and Shares by default
-        $self->model('Paths')->add(type => 'IncludePath', path => '/home');
-        $self->saveConfig();
-    }
-}
-
 # Method: enableService
 #
 #   Used to enable a service We have to verride this because squid needs a
@@ -208,7 +191,6 @@ sub _setConf
     my @clamdParams = (localSocket => $localSocket);
 
     unless ($self->global()->communityEdition()) {
-        push (@clamdParams, onAccess => $self->model('Settings')->onAccessValue());
         push (@clamdParams, paths => $self->model('Paths')->includes());
     }
 

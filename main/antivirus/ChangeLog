@@ -1,4 +1,7 @@
 6.0
+	+ Remove deprecated AllowSupplementaryGroups conf option for clamav 0.100
+	+ On-Demand System Scanning configurable in /etc/zentyal/antivirius.conf
+	+ Set max file size for OnAccess scan to 250M
 	+ Display last database update events from freshclam.log
 5.1.1
 	+ Do not try to validate path if not changed

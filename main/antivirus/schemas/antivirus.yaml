@@ -3,9 +3,9 @@ depends:
     - network
 
 models:
-    - Settings
     - Paths
+    - System
 
 composites:
     Updates: []
-    General: [Settings, Paths, Updates]
+    General: [Updates, Paths, System]

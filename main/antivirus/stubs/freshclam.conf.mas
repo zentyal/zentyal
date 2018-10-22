@@ -21,7 +21,6 @@ Debug false
 MaxAttempts 5
 DatabaseDirectory /var/lib/clamav/
 DNSDatabaseInfo current.cvd.clamav.net
-AllowSupplementaryGroups false
 PidFile /var/run/clamav/freshclam.pid
 ConnectTimeout 30
 ReceiveTimeout 30

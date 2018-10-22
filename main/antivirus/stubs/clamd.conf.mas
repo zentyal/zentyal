@@ -2,17 +2,14 @@
 $localSocket  => '/var/run/clamav/clamd.ctl'
 $maxThreads   => 12
 $strictMode   => 0
-$onAccess     => 0
 @paths        => ()
 </%args>
 
 LocalSocket <% $localSocket %>
 FixStaleSocket true
-AllowSupplementaryGroups  true
 # TemporaryDirectory is not set to its default /tmp here to make overriding
 # the default with environment variables TMPDIR/TMP/TEMP possible
 User root
-AllowSupplementaryGroups true
 ScanMail true
 ScanArchive true
 ArchiveBlockEncrypted false
@@ -68,11 +65,12 @@ ArchiveBlockMax true
 ArchiveBlockEncrypted true
 ScanPDF true
 % }
-% if ($onAccess and scalar(@paths)) {
+% if (scalar(@paths)) {
 ScanOnAccess yes
 % foreach my $path (@paths) {
 OnAccess<% $path %>
 % }
 OnAccessPrevention yes
 OnAccessExtraScanning yes
+OnAccessMaxFileSize 250M
 % }

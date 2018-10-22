@@ -1,0 +1,19 @@
+#!/bin/bash
+
+LOG=/usr/share/zentyal/www/antivirus.log
+TMPLOG=/var/lib/zentyal/tmp/antivirus.log
+RUNNING=/var/lib/zentyal/tmp/.clamscan-running
+
+touch $RUNNING
+
+{
+    sudo clamscan -r -i $@
+    echo "Date: $(date)"
+    echo "Paths: $@"
+} > $TMPLOG
+
+sudo mv $TMPLOG $LOG
+
+rm -f $RUNNING
+
+sudo touch /var/lib/zentyal/webadmin.reload

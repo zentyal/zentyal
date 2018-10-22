@@ -1,6 +1,7 @@
 6.0
 	+ Add support for EFI or Hybrid ISO files
 	+ Adapt to Ubuntu 18.04
+	+ Add virtlogd as managed daemon to avoid some random VM start errors
 	+ Use HTTPS for VNC webserver
 	+ Adapted to new CSS styles and replaced some icons
 	+ Add view_console_new_window config key
