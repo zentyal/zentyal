@@ -228,7 +228,6 @@ sub initialSetup
 
     EBox::Sudo::silentRoot('systemctl stop systemd-resolved');
     EBox::Sudo::silentRoot('systemctl disable systemd-resolved');
-    EBox::Sudo::silentRoot('resolvconf -d systemd-resolved');
     EBox::Sudo::silentRoot('rm -f /etc/dhcp/dhclient-enter-hooks.d/resolved');
 
     foreach my $service (@{$self->_defaultServices()}) {
@@ -3088,6 +3087,8 @@ sub _setChanged # (interface)
 sub _generateResolvconfConfig
 {
     my ($self) = @_;
+
+    EBox::Sudo::silentRoot('resolvconf -d systemd-resolved');
 
     # Generate base, head and tail
     $self->writeConfFile(RESOLVCONF_BASE,
