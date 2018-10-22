@@ -755,7 +755,7 @@ sub vmsPath
 
 sub daemons
 {
-    return [ { name => 'virtlogd' }, { name => 'libvirt-bin' } ];
+    return [ { name => 'virtlogd' }, { name => 'libvirtd' } ];
 }
 
 sub ifaces
