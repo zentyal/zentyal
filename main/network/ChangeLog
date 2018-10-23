@@ -1,4 +1,5 @@
 6.0
+	+ Allow IPv6, as able: most underlying components support it now
 	+ Disable systemd-resolved
 	+ Import network configuration from netplan if present
 	+ Fix Mason template paths

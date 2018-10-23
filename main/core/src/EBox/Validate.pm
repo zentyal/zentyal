@@ -159,11 +159,11 @@ sub isIPInNetwork # net_ip, net_mask, host_ip
 #
 sub checkCIDR # (cidr, name?)
 {
+    # https://perldoc.perl.org/functions/shift.html
     my $cidr = shift;
     my $name = shift;
 
     my $ip;
-
     my @values = split(/\//, $cidr);
 
     if(@values == 2) {
@@ -175,7 +175,6 @@ sub checkCIDR # (cidr, name?)
                 if ($network eq $address) {
                     $ip = new Net::IP("$network/$mask");
                 }
-
             }
         }
     }
@@ -195,16 +194,16 @@ sub checkCIDR # (cidr, name?)
 # Function: checkIP
 #
 #       Checks if the string param that holds an ip address is a valid
-#       IPv4 address.
+#       IPv4 or IPv6 address. https://metacpan.org/pod/Net::IP
 #
 # Parameters:
 #
-#       ip - IPv4 address
+#       ip - IPv4 or IPv6 address
 #       name - ip's name to be used when throwing an Exception (optional)
 #
 # Returns:
 #
-#       boolean - True if it is a valid IPv4 address, false otherwise
+#       boolean - True if it is a valid IP address, false otherwise
 #
 # Exceptions:
 #
@@ -214,51 +213,18 @@ sub checkCIDR # (cidr, name?)
 #
 sub checkIP # (ip, name?)
 {
+    # https://perldoc.perl.org/functions/shift.html
     my $ip = shift;
     my $name = shift;
-
-    if("$ip\." =~ m/^(([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])\.){4}$/){
-        my $first = (split(/\./, $ip))[0];
-        if(($first != 0) and ($first < 224)) {
-            return 1;
-        }
+    # Is this an IPv4 address?
+    if (Net::IP::ip_is_ipv4($ip)) {
+        return 1;
     }
-    if ($name) {
-        throw EBox::Exceptions::InvalidData
-            ('data' => $name, 'value' => $ip);
-    } else {
-        return undef;
-    }
-}
-
-# Function: checkIP6
-#
-#       Checks if the string param that holds an ip address is a valid
-#       IPv6 address.
-#
-# Parameters:
-#
-#       ip - IPv6 address
-#       name - ip's name to be used when throwing an Exception (optional)
-#
-# Returns:
-#
-#       boolean - True if it is a valid IPv4 address, false otherwise
-#
-# Exceptions:
-#
-#       If name is passed an exception could be raised
-#
-#       InvalidData - IP is invalid
-#
-sub checkIP6 # (ip, name?)
-{
-    my ($ip, $name) = @_;
-
+    # Is this an IPv6 address?
     if (Net::IP::ip_is_ipv6($ip)) {
         return 1;
     }
-
+    # Invalid data
     if ($name) {
         throw EBox::Exceptions::InvalidData
             ('data' => $name, 'value' => $ip);
