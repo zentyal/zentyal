@@ -461,7 +461,7 @@ sub _packageDepends
 # check whether APT is ready, if not throws exception
 sub _isAptReady
 {
-    my $testCmd = 'LANG=C apt-get install --dry-run -qq -y --force-yes coreutils';
+    my $testCmd = 'LANG=C apt-get install --dry-run -qq -y coreutils';
     my $unreadyMsg;
     try {
         EBox::Sudo::root($testCmd);

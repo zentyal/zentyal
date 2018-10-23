@@ -34,9 +34,9 @@ my ($retValue, $errorMsg) = (0, '');
 
 my $fifo = "/var/lib/zentyal/apt-$command.pipe";
 
-my $args = "$command $dpkgOpts --yes";
+my $args = "$command $dpkgOpts -y";
 if ($command eq 'install') {
-    $args .= ' --force-yes --no-install-recommends';
+    $args .= ' --no-install-recommends';
 } elsif ($command eq 'remove') {
     $args .= ' --purge -q';
 }

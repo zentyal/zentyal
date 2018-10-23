@@ -59,7 +59,7 @@ try {
 
     if (@pkgnames) {
         appendLog("Starting automatic update of the following packages: @pkgnames", $LOG);
-        my $args = '-o DPkg::Options::="--force-confold" --yes --force-yes --no-install-recommends';
+        my $args = '-o DPkg::Options::="--force-confold" -y --no-install-recommends';
         EBox::Sudo::root("LANG=C DEBIAN_FRONTEND=noninteractive apt-get $args install @pkgnames 2>&1 >>$LOG");
         appendLog("Automatic update finished", $LOG);
 
