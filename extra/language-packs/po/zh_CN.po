@@ -7123,17 +7123,6 @@ msgid ""
 "default route table. "
 msgstr "它将关注DHCP服务器向默认路由表中添加默认路由。"
 
-#: ../../main/network/src/EBox/Network.pm:145
-msgid "Disable IPv6"
-msgstr "禁用 IPv6"
-
-#: ../../main/network/src/EBox/Network.pm:146
-msgid ""
-"Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
-"can cause problems on some services"
-msgstr ""
-"Zentyal 还不支持 IPv6，为接口分配 v6 地址，可能会导致一些服务方面的问题"
-
 #: ../../main/network/src/EBox/Network.pm:165
 msgid "Zentyal will set your network configuration"
 msgstr "Zentyal将设置您的网络配置"
@@ -7151,10 +7140,6 @@ msgstr "Zentyal 将进行 resolvconf 配置"
 #: ../../main/network/src/EBox/Network.pm:190
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "Zentyal将设置您的DHCP客户端配置"
-
-#: ../../main/network/src/EBox/Network.pm:195
-msgid "Zentyal will disable IPV6 on this system"
-msgstr "Zentyal 将禁用本系统的 IPv6 "
 
 #: ../../main/network/src/EBox/Network.pm:202
 msgid "Zentyal will add a DSL provider configuration for PPPoE"

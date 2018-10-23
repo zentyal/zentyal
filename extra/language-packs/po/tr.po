@@ -7819,39 +7819,6 @@ msgid ""
 "default route table. "
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:145
-#, fuzzy
-msgid "Disable IPv6"
-msgstr ""
-"#-#-#-#-#  tr.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Etkin değil\n"
-"#-#-#-#-#  tr.po (ebox-. 1.5)  #-#-#-#-#\n"
-"Etkin Değil\n"
-"#-#-#-#-#  tr.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Etkisiz\n"
-"#-#-#-#-#  tr.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Etkisiz\n"
-"#-#-#-#-#  tr.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Etkisiz\n"
-"#-#-#-#-#  tr.po (ebox-ntp 0.12)  #-#-#-#-#\n"
-"Etkisiz\n"
-"#-#-#-#-#  tr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Etkisiz\n"
-"#-#-#-#-#  tr.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Devre dışı\n"
-"#-#-#-#-#  tr.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Etkisiz\n"
-"#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
-"Etkisiz\n"
-"#-#-#-#-#  tr.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Etkisiz"
-
-#: ../../main/network/src/EBox/Network.pm:146
-msgid ""
-"Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
-"can cause problems on some services"
-msgstr ""
-
 #: ../../main/network/src/EBox/Network.pm:165
 msgid "Zentyal will set your network configuration"
 msgstr ""
@@ -7870,10 +7837,6 @@ msgstr "Öntanımlı süzgeç grubu ayarları"
 
 #: ../../main/network/src/EBox/Network.pm:190
 msgid "Zentyal will set your DHCP client configuration"
-msgstr ""
-
-#: ../../main/network/src/EBox/Network.pm:195
-msgid "Zentyal will disable IPV6 on this system"
 msgstr ""
 
 #: ../../main/network/src/EBox/Network.pm:202

@@ -7648,18 +7648,6 @@ msgstr ""
 "Il fera attention d'ajouter la route par défaut donnée par un serveur DHCP à "
 "la table de routage par défaut. "
 
-#: ../../main/network/src/EBox/Network.pm:145
-msgid "Disable IPv6"
-msgstr "Désactiver l'IPv6"
-
-#: ../../main/network/src/EBox/Network.pm:146
-msgid ""
-"Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
-"can cause problems on some services"
-msgstr ""
-"Zentyal ne supporte pas encore l'IPv6, assigner des adresses IPv6 à des "
-"interfaces peut occasionner des problèmes sur certains services"
-
 #: ../../main/network/src/EBox/Network.pm:165
 msgid "Zentyal will set your network configuration"
 msgstr "Zentyal va appliquer votre configuration réseau"
@@ -7677,10 +7665,6 @@ msgstr "Zentyal va définir la configuration resolconf"
 #: ../../main/network/src/EBox/Network.pm:190
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "Zentyal va définir votre configuration client DHCP"
-
-#: ../../main/network/src/EBox/Network.pm:195
-msgid "Zentyal will disable IPV6 on this system"
-msgstr "Zentyal va désactiver l'IPv6 sur votre système"
 
 #: ../../main/network/src/EBox/Network.pm:202
 msgid "Zentyal will add a DSL provider configuration for PPPoE"

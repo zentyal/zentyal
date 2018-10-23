@@ -7349,27 +7349,6 @@ msgid ""
 "default route table. "
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:145
-#, fuzzy
-msgid "Disable IPv6"
-msgstr ""
-"#-#-#-#-#  eu.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Desgaitua\n"
-"#-#-#-#-#  eu.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Ezgaiturik\n"
-"#-#-#-#-#  eu.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Ez-gaitua\n"
-"#-#-#-#-#  eu.po (ebox 0.12)  #-#-#-#-#\n"
-"Ezgaiturik\n"
-"#-#-#-#-#  eu.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Desgaitua"
-
-#: ../../main/network/src/EBox/Network.pm:146
-msgid ""
-"Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
-"can cause problems on some services"
-msgstr ""
-
 #: ../../main/network/src/EBox/Network.pm:165
 msgid "Zentyal will set your network configuration"
 msgstr ""
@@ -7391,10 +7370,6 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network.pm:190
 msgid "Zentyal will set your DHCP client configuration"
-msgstr ""
-
-#: ../../main/network/src/EBox/Network.pm:195
-msgid "Zentyal will disable IPV6 on this system"
 msgstr ""
 
 #: ../../main/network/src/EBox/Network.pm:202

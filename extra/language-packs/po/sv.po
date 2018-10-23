@@ -7602,17 +7602,6 @@ msgstr ""
 "Detta tar hand om att addera default route från DHCP servern till tabellen "
 "för rutter"
 
-#: ../../main/network/src/EBox/Network.pm:145
-#, fuzzy
-msgid "Disable IPv6"
-msgstr "Inaktiverad"
-
-#: ../../main/network/src/EBox/Network.pm:146
-msgid ""
-"Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
-"can cause problems on some services"
-msgstr ""
-
 #: ../../main/network/src/EBox/Network.pm:165
 msgid "Zentyal will set your network configuration"
 msgstr "Zentyal kommer att ställa in din nätverkskonfiguration"
@@ -7632,11 +7621,6 @@ msgstr "Zentyal kommer att ställa in din nätverkskonfiguration"
 #: ../../main/network/src/EBox/Network.pm:190
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "Zentyal kommer att ställa in din DHCP-klientkonfiguration"
-
-#: ../../main/network/src/EBox/Network.pm:195
-#, fuzzy
-msgid "Zentyal will disable IPV6 on this system"
-msgstr "Zentyal kommer att ge LDAP-användare system konto."
 
 #: ../../main/network/src/EBox/Network.pm:202
 msgid "Zentyal will add a DSL provider configuration for PPPoE"

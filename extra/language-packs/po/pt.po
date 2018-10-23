@@ -7550,20 +7550,6 @@ msgstr ""
 "Será adicionada a rota pré-definida estabelecida por um servidor de DHCP "
 "para a tabela de rotas pré-definidas"
 
-# #-#-#-#-#  pt.po (ebox-openvpn 0.12)  #-#-#-#-#
-# e
-#: ../../main/network/src/EBox/Network.pm:145
-msgid "Disable IPv6"
-msgstr "Dasabilitar IPv6"
-
-#: ../../main/network/src/EBox/Network.pm:146
-msgid ""
-"Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
-"can cause problems on some services"
-msgstr ""
-"Zentyal não suporta ainda IPv6. Assignar endereços IPv6 aos interfaces pode "
-"causar problemas em alguns serviços."
-
 #: ../../main/network/src/EBox/Network.pm:165
 msgid "Zentyal will set your network configuration"
 msgstr "Zentyal definirá a sua configuração de rede"
@@ -7581,10 +7567,6 @@ msgstr "A Zentyal definirá a configuração resolvconf"
 #: ../../main/network/src/EBox/Network.pm:190
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "A Zentyal definirá a configuração do cliente DHCP"
-
-#: ../../main/network/src/EBox/Network.pm:195
-msgid "Zentyal will disable IPV6 on this system"
-msgstr "Zentyal desabilitará o IPv6 neste sistema"
 
 #: ../../main/network/src/EBox/Network.pm:202
 msgid "Zentyal will add a DSL provider configuration for PPPoE"

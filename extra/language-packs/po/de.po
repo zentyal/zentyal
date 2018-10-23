@@ -7627,18 +7627,6 @@ msgstr ""
 "Server zur Verfügung gestellt wurde, in der Standard-Routing-Tabelle "
 "hinzugefügt wird. "
 
-#: ../../main/network/src/EBox/Network.pm:145
-msgid "Disable IPv6"
-msgstr "IPv6 deaktiviert"
-
-#: ../../main/network/src/EBox/Network.pm:146
-msgid ""
-"Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
-"can cause problems on some services"
-msgstr ""
-"Zentyal unterstützt IPv6 noch nicht, haben Sie dennoch für ein IPv6 Adressen "
-"einer Schnittstelle zugeteilt kann es zu Problemen mit Diensten kommen"
-
 #: ../../main/network/src/EBox/Network.pm:165
 msgid "Zentyal will set your network configuration"
 msgstr "Zentyal wird Ihre Netzwerk-Konfiguration durchführen"
@@ -7656,10 +7644,6 @@ msgstr "Zentyal wird Ihre Auflösungs-Konfiguration durchführen"
 #: ../../main/network/src/EBox/Network.pm:190
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "Zentyal wird Ihre DHCP-Client-Konfiguration durchführen"
-
-#: ../../main/network/src/EBox/Network.pm:195
-msgid "Zentyal will disable IPV6 on this system"
-msgstr "Zentyal wird IPv6 auf diesem System deaktivieren"
 
 #: ../../main/network/src/EBox/Network.pm:202
 msgid "Zentyal will add a DSL provider configuration for PPPoE"

@@ -7492,18 +7492,6 @@ msgstr ""
 "Ez hozzá fogja adni a DHCP által kiosztott alapértelmezett átjárót az "
 "alapértelmezett útvonaltáblához. "
 
-#: ../../main/network/src/EBox/Network.pm:145
-msgid "Disable IPv6"
-msgstr "IPv6 kikapcsolása"
-
-#: ../../main/network/src/EBox/Network.pm:146
-msgid ""
-"Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
-"can cause problems on some services"
-msgstr ""
-"A Zentyal még nem támogatja az IPv6-ot, a csatolókhoz v6 címek rendelése "
-"problémákat okozhat egyes szolgáltatásoknál"
-
 #: ../../main/network/src/EBox/Network.pm:165
 msgid "Zentyal will set your network configuration"
 msgstr "A Zentyal elvégzi a hálózati beállításokat"
@@ -7521,10 +7509,6 @@ msgstr "A Zentyal elvégzi a resolvconf beállításokat"
 #: ../../main/network/src/EBox/Network.pm:190
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "A Zentyal elvégzi a DHCP kliens beállításokat"
-
-#: ../../main/network/src/EBox/Network.pm:195
-msgid "Zentyal will disable IPV6 on this system"
-msgstr "A Zentyal kikapcsolja az IPv6-ot ezen a rendszeren"
 
 #: ../../main/network/src/EBox/Network.pm:202
 msgid "Zentyal will add a DSL provider configuration for PPPoE"

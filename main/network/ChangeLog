@@ -4,6 +4,8 @@
 	+ Fix Mason template paths
 	+ Avoid conflict with new netplan in Ubuntu 18.04
 	+ Disable TCP offloading
+	+ NoVNC updated to 1.0.0 stable
+	+ Allow IPv6, as able: most underlying components support it now
 5.1
 	+ Auto-mark gateway as default when adding the only one
 	+ Optional ranges param added to Objects::Members::addresses()

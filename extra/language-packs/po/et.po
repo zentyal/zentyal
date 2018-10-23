@@ -7796,43 +7796,6 @@ msgstr ""
 "See lisab DHCP serveri poolt pakutavad vaikimisi marsruudid vaikimisi "
 "marsruuditabelisse."
 
-# #-#-#-#-#  et.po (ebox-squid 1.4)  #-#-#-#-#
-# kui tõlkida 'keelatud', siis tundub, et lävi on range. vt liides
-#: ../../main/network/src/EBox/Network.pm:145
-#, fuzzy
-msgid "Disable IPv6"
-msgstr ""
-"#-#-#-#-#  et.po (ebox-mailfilter 1.4.1)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-openvpn 1.4)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-zarafa 1.4.1)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (libebox 1.4.1)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-squid 1.4)  #-#-#-#-#\n"
-"Ei kasutata\n"
-"#-#-#-#-#  et.po (ebox-ntp 1.4)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-samba 1.4.1)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-asterisk 1.4)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-mail 1.4.1)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-ebox 1.4.1)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-ebackup 1.4)  #-#-#-#-#\n"
-"Keelatud\n"
-"#-#-#-#-#  et.po (ebox-jabber 1.4.1)  #-#-#-#-#\n"
-"Keelatud"
-
-#: ../../main/network/src/EBox/Network.pm:146
-msgid ""
-"Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
-"can cause problems on some services"
-msgstr ""
-
 #: ../../main/network/src/EBox/Network.pm:165
 #, fuzzy
 msgid "Zentyal will set your network configuration"
@@ -7854,10 +7817,6 @@ msgstr "eBox määrab sinu võrgu seadistused"
 #, fuzzy
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "eBox määrab sinu DHCP kliendi seadistused"
-
-#: ../../main/network/src/EBox/Network.pm:195
-msgid "Zentyal will disable IPV6 on this system"
-msgstr ""
 
 #: ../../main/network/src/EBox/Network.pm:202
 #, fuzzy
