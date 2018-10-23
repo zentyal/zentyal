@@ -41,7 +41,8 @@ exit 0 unless (defined $interface and length $interface);
 # If the update if triggered for a user defined interface, we do not have
 # to update the resolvers model. The interface for manually added resolvers is
 # set to "zentyal.<row id>"
-exit 0 if ($interface =~ m/zentyal\..+/);
+# Skip also systemd-resolved stuff
+exit 0 if (($interface =~ m/zentyal\..+/) or ($interface =~ m/resolv/));
 
 my $globalRO = EBox::Global->getInstance(1);
 my $networkROModule = $globalRO->modInstance('network');
