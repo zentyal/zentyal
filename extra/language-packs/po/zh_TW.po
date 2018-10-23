@@ -7647,6 +7647,39 @@ msgid ""
 "default route table. "
 msgstr "把透過 DHCP 伺服器配發的預設路由加到預設路由表要特別小心。"
 
+#: ../../main/network/src/EBox/Network.pm:145
+#, fuzzy
+msgid "Disable IPv6"
+msgstr ""
+"#-#-#-#-#  zh_TW.po (ebox-mailfilter 0.12.99)  #-#-#-#-#\n"
+"停用\n"
+"#-#-#-#-#  zh_TW.po (ebox-openvpn 0.12.99)  #-#-#-#-#\n"
+"已停用\n"
+"#-#-#-#-#  zh_TW.po (ebox-zarafa 0.12.99)  #-#-#-#-#\n"
+"已停用\n"
+"#-#-#-#-#  zh_TW.po (libebox 0.12.99)  #-#-#-#-#\n"
+"停用\n"
+"#-#-#-#-#  zh_TW.po (ebox-squid 0.12.99)  #-#-#-#-#\n"
+"停用\n"
+"#-#-#-#-#  zh_TW.po (ebox-ntp 0.12.99)  #-#-#-#-#\n"
+"停用\n"
+"#-#-#-#-#  zh_TW.po (ebox-samba 0.12.99)  #-#-#-#-#\n"
+"已停用\n"
+"#-#-#-#-#  zh_TW.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
+"禁止\n"
+"#-#-#-#-#  zh_TW.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
+"停用\n"
+"#-#-#-#-#  zh_TW.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
+"停用\n"
+"#-#-#-#-#  zh_TW.po (ebox-jabber 0.12.99)  #-#-#-#-#\n"
+"已停用"
+
+#: ../../main/network/src/EBox/Network.pm:146
+msgid ""
+"Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
+"can cause problems on some services"
+msgstr ""
+
 #: ../../main/network/src/EBox/Network.pm:165
 #, fuzzy
 msgid "Zentyal will set your network configuration"
@@ -7668,6 +7701,10 @@ msgstr "eBox 會設定您的網路組態"
 #, fuzzy
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "eBox 會設定您的 ddclient 組態"
+
+#: ../../main/network/src/EBox/Network.pm:195
+msgid "Zentyal will disable IPV6 on this system"
+msgstr "Zentyal 將會停用這個系的 IPV6"
 
 #: ../../main/network/src/EBox/Network.pm:202
 #, fuzzy

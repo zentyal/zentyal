@@ -7471,6 +7471,17 @@ msgstr ""
 "Для добавления маршрута по умолчанию из DHCP в таблицу маршрутов по "
 "умолчанию. "
 
+#: ../../main/network/src/EBox/Network.pm:145
+#, fuzzy
+msgid "Disable IPv6"
+msgstr "Отключено"
+
+#: ../../main/network/src/EBox/Network.pm:146
+msgid ""
+"Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
+"can cause problems on some services"
+msgstr ""
+
 #: ../../main/network/src/EBox/Network.pm:165
 msgid "Zentyal will set your network configuration"
 msgstr "Zentyal установит конфигурацию сети"
@@ -7490,6 +7501,11 @@ msgstr "Zentyal установит конфигурацию сети"
 #: ../../main/network/src/EBox/Network.pm:190
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "Zentyal установит конфигурацию DHCP клиента"
+
+#: ../../main/network/src/EBox/Network.pm:195
+#, fuzzy
+msgid "Zentyal will disable IPV6 on this system"
+msgstr "Zentyal даст пользователям LDAP системную учётную запись."
 
 #: ../../main/network/src/EBox/Network.pm:202
 msgid "Zentyal will add a DSL provider configuration for PPPoE"

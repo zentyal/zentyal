@@ -7331,6 +7331,33 @@ msgid ""
 "default route table. "
 msgstr ""
 
+#: ../../main/network/src/EBox/Network.pm:145
+#, fuzzy
+msgid "Disable IPv6"
+msgstr ""
+"#-#-#-#-#  sk.po (ebox-. 1.5)  #-#-#-#-#\n"
+"Zakázaný\n"
+"#-#-#-#-#  sk.po (ebox-zarafa 1.3.3)  #-#-#-#-#\n"
+"Zakázaný\n"
+"#-#-#-#-#  sk.po (libebox 1.3.3)  #-#-#-#-#\n"
+"Zakázaný\n"
+"#-#-#-#-#  sk.po (ebox-ntp 1.3.3)  #-#-#-#-#\n"
+"Zakázané\n"
+"#-#-#-#-#  sk.po (ebox-webmail 1.3)  #-#-#-#-#\n"
+"Zakázaný\n"
+"#-#-#-#-#  sk.po (ebox-webserver 1.3.3)  #-#-#-#-#\n"
+"Zakázaný\n"
+"#-#-#-#-#  sk.po (ebox)  #-#-#-#-#\n"
+"Vypnuté\n"
+"#-#-#-#-#  sk.po (ebox-jabber 1.3.3)  #-#-#-#-#\n"
+"Zakázaný"
+
+#: ../../main/network/src/EBox/Network.pm:146
+msgid ""
+"Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
+"can cause problems on some services"
+msgstr ""
+
 #: ../../main/network/src/EBox/Network.pm:165
 msgid "Zentyal will set your network configuration"
 msgstr ""
@@ -7349,6 +7376,10 @@ msgstr "Konfigurácia východzích filter skupín"
 
 #: ../../main/network/src/EBox/Network.pm:190
 msgid "Zentyal will set your DHCP client configuration"
+msgstr ""
+
+#: ../../main/network/src/EBox/Network.pm:195
+msgid "Zentyal will disable IPV6 on this system"
 msgstr ""
 
 #: ../../main/network/src/EBox/Network.pm:202
