@@ -36,6 +36,9 @@ sub _table
 {
     my ($self) = @_;
 
+    my $samba = $self->global()->modInstance('samba');
+    my $commercial = (not $self->global()->communityEdition());
+
     my @tableDesc = (
           new EBox::Types::Boolean(
                   fieldName => 'transparentProxy',
@@ -43,6 +46,18 @@ sub _table
                   editable => 1,
                   defaultValue => 0,
               ),
+    );
+    if ($commercial and $samba and $samba->isEnabled()) {
+        push (@tableDesc,
+          new EBox::Types::Boolean(
+                  fieldName => 'kerberos',
+                  printableName => __('Enable Single Sign-On (Kerberos)'),
+                  editable => 1,
+                  defaultValue => 0,
+              ),
+        );
+    }
+    push (@tableDesc,
           new EBox::Types::Port(
                   fieldName => 'port',
                   printableName => __('Port'),
@@ -79,6 +94,26 @@ sub validateTypedRow
 
     if (exists $params_r->{port}) {
         $self->_checkPortAvailable($params_r->{port}->value());
+    }
+
+    my $trans = exists $params_r->{transparentProxy} ?
+                        $params_r->{transparentProxy}->value() :
+                        $actual_r->{transparentProxy}->value() ;
+    if ($trans) {
+        if ($self->parentModule()->authNeeded()) {
+            throw EBox::Exceptions::External(
+                __('Transparent proxy is incompatible with the users group authorization policy found in some access rules')
+               );
+        }
+
+        my $kerberos =  exists $params_r->{kerberos} ?
+                         $params_r->{kerberos}->value() :
+                         $actual_r->{kerberos}->value() ;
+        if ($kerberos) {
+            throw EBox::Exceptions::External(
+                __('Transparent proxy is incompatible with Kerberos authentication')
+               );
+        }
     }
 }
 

@@ -37,6 +37,40 @@ sub _table
 {
     my ($self) = @_;
 
+    my $samba = $self->global()->modInstance('samba');
+    my $commercial = (not $self->global()->communityEdition());
+
+    my @sourceTypes = (
+        new EBox::Types::Select(
+            fieldName     => 'object',
+            foreignModel  => $self->modelGetter('network', 'ObjectTable'),
+            foreignField  => 'name',
+            foreignNextPageField => 'members',
+            printableName => __('Network Object'),
+            editable      => 1,
+            optional      => 0,
+        ),
+    );
+    if ($commercial and $samba and $samba->isEnabled()) {
+        push (@sourceTypes,
+            new EBox::Types::Select(
+                fieldName        => 'group',
+                printableName    => __('Users Group'),
+                populate         => \&_populateGroups,
+                editable         => 1,
+                optional         => 0,
+                disableCache     => 1,
+                allowUnsafeChars => 1,
+            ),
+        );
+    }
+    push (@sourceTypes,
+        new EBox::Types::Union::Text(
+            fieldName => 'any',
+            printableName => __('Any'),
+        )
+    );
+
     my @tableHeader = (
         new EBox::Squid::Types::TimePeriod(
                 fieldName => 'timePeriod',
@@ -48,21 +82,7 @@ sub _table
             fieldName     => 'source',
             printableName => __('Source'),
             filter        => \&_filterSourcePrintableValue,
-            subtypes => [
-                new EBox::Types::Select(
-                    fieldName     => 'object',
-                    foreignModel  => $self->modelGetter('network', 'ObjectTable'),
-                    foreignField  => 'name',
-                    foreignNextPageField => 'members',
-                    printableName => __('Network Object'),
-                    editable      => 1,
-                    optional      => 0,
-                ),
-                new EBox::Types::Union::Text(
-                    fieldName => 'any',
-                    printableName => __('Any'),
-                )
-            ]
+            subtypes => \@sourceTypes,
         ),
         new EBox::Types::Union(
             fieldName     => 'policy',
@@ -101,8 +121,23 @@ sub _table
         rowUnique          => 1,
         automaticRemove    => 1,
         printableRowName   => __('rule'),
-        help               => __('Here you can filter, block or allow access by network object. Rules are only applied during the selected time period.'),
+        help               => $commercial ? __('Here you can filter, block or allow access by user group or network object. Rules are only applied during the selected time period.') :
+                                            __('Here you can filter, block or allow access by network object. Rules are only applied during the selected time period.'),
     };
+}
+
+sub _populateGroups
+{
+    my ($self) = @_;
+
+    my $samba = $self->global()->modInstance('samba');
+    return [] unless ($samba->isEnabled() and $samba->isProvisioned());
+
+    my @groups;
+    foreach my $group (@{$samba->securityGroups()}) {
+        push (@groups, { value => $group->dn(), printableValue => $group->get('samAccountName') });
+    }
+    return \@groups;
 }
 
 sub validateTypedRow
@@ -116,15 +151,24 @@ sub validateTypedRow
     my $sourceType  = $source->selectedType();
     my $sourceValue = $source->value();
 
-    # check if it is a incompatible rule
-    my $objectProfile;
-    my $policy = exists $params_r->{policy} ?  $params_r->{policy}->selectedType
-                                             :  $actual_r->{policy}->selectedType();
-    if (($policy eq 'allow') or ($policy eq 'profile') ) {
-        $objectProfile = 1;
+    if ($squid->transproxy() and ($sourceType eq 'group')) {
+        throw EBox::Exceptions::External(__('Source matching by user group is not compatible with transparent proxy mode'));
     }
 
-    if (not $objectProfile) {
+    # check if it is a incompatible rule
+    my $groupRules;
+    my $objectProfile;
+    if ($sourceType eq 'group') {
+        $groupRules = 1;
+    } else {
+        my $policy = exists $params_r->{policy} ?  $params_r->{policy}->selectedType
+                                                 :  $actual_r->{policy}->selectedType();
+        if (($policy eq 'allow') or ($policy eq 'profile') ) {
+            $objectProfile = 1;
+        }
+    }
+
+    if ((not $groupRules) and (not $objectProfile)) {
         return;
     }
 
@@ -137,6 +181,17 @@ sub validateTypedRow
         my $row = $self->row($id);
         my $rowSource = $row->elementByName('source');
         my $rowSourceType = $rowSource->selectedType();
+        if ($objectProfile and ($rowSourceType eq 'group')) {
+            throw EBox::Exceptions::External(
+              __("You cannot add a 'Allow' or 'Profile' rule for an object or any address if you have group rules")
+             );
+        } elsif ($groupRules and ($rowSourceType ne 'group')) {
+            if ($row->elementByName('policy')->selectedType() ne 'deny') {
+                throw EBox::Exceptions::External(
+                 __("You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule for objects or any address")
+               );
+            }
+        }
 
         if ($sourceValue eq $rowSource->value()) {
             # same object/group, check time overlaps
@@ -187,7 +242,10 @@ sub rules
 {
     my ($self) = @_;
 
-    my $objectMod = $self->global()->modInstance('network');
+    my $global = $self->global();
+    my $objectMod = $global->modInstance('network');
+    my $usersMod = $global->modInstance('samba');
+    my $usersEnabled = $usersMod and $usersMod->isEnabled();
 
     # we dont use row ids to make rule id shorter bz squid limitations with id length
     my $number = 0;
@@ -205,6 +263,10 @@ sub rules
             # ignore empty objects
             next unless @{$addresses};
             $rule->{addresses} = $addresses;
+        } elsif ($source->selectedType() eq 'group') {
+            next unless ($usersEnabled);
+            my $group = $source->value();
+            $rule->{group} = $group;
         } elsif ($source->selectedType() eq 'any') {
             $rule->{any} = 1;
         }
@@ -249,6 +311,37 @@ sub squidFilterProfiles
            };
 }
 
+sub existsPoliciesForGroup
+{
+    my ($self, $group) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $source = $row->elementByName('source');
+        next unless $source->selectedType() eq 'group';
+        my $userGroup = $source->value();
+        if ($group eq $userGroup) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+sub delPoliciesForGroup
+{
+    my ($self, $group) = @_;
+    my @ids = @{ $self->ids() };
+    foreach my $id (@ids) {
+        my $row = $self->row($id);
+        my $source = $row->elementByName('source');
+        next unless $source->selectedType() eq 'group';
+        my $userGroup = $source->printableValue();
+        if ($group eq $userGroup) {
+            $self->removeRow($id);
+        }
+    }
+}
+
 sub filterProfiles
 {
     my ($self) = @_;
@@ -257,6 +350,8 @@ sub filterProfiles
     my %profileIdByRowId = %{ $filterProfilesModel->idByRowId() };
 
     my $objectMod = $self->global()->modInstance('network');
+    my $userMod = $self->global()->modInstance('samba');
+    my $domainUsers = $userMod ? $userMod->ldap->domainUsersGroup->get('samAccountName') : '';
     my $commercial = (not $self->global()->communityEdition());
 
     my @profiles;
@@ -308,11 +403,40 @@ sub filterProfiles
                 $profileCopy{address} = "$addr/$netmask";
                 push @profiles, \%profileCopy;
             }
+        } elsif ($sourceType eq 'group') {
+            my $group = $source->value();
+            $profile->{group} = $group;
+            my @users;
+            my $members;
+            if ($group eq $domainUsers) {
+                $members = $userMod->users();
+            } else {
+                $members = $userMod->objectFromDN($group)->users();
+            }
+            @users = map { $_->name() } @{$members};
+            @users or next;
+            $profile->{users} = \@users;
+            push @profiles, $profile;
         } else {
             throw EBox::Exceptions::Internal("Unknow source type: $sourceType");
         }
     }
     return \@profiles;
+}
+
+sub rulesUseAuth
+{
+    my ($self) = @_;
+
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        my $source = $row->elementByName('source');
+        if ($source->selectedType() eq 'group') {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 sub rulesUseFilter
@@ -354,6 +478,8 @@ sub _filterSourcePrintableValue
 
     if ($selected eq 'object') {
         return __x('Object: {o}', o => $value);
+    } elsif ($selected eq 'group') {
+        return __x('Group: {g}', g => $value);
     } else {
         return $value;
     }
@@ -370,22 +496,5 @@ sub _filterProfilePrintableValue
     }
 }
 
-sub defaultNC
-{
-    my ($self, $ldap) = @_;
-    if ($self->{defaultNC}) {
-        return $self->{defaultNC};
-    }
-
-    my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
-    if (not $dse) {
-        throw EBox::Exceptions::Internal('Cannot get root dse');
-    }
-
-    my $defaultNC = $dse->get_value('defaultNamingContext');
-    $defaultNC = canonical_dn($defaultNC);
-    $self->{defaultNC} = $defaultNC;
-    return $self->{defaultNC};
-}
 
 1;
