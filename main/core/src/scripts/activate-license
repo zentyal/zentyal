@@ -32,6 +32,4 @@ else
     exit 1
 fi
 
-apt-key add /usr/share/zentyal/zentyal-qa.pub
-echo 'Acquire::https::archive.zentyal.com { Verify-Peer "false"; };' > /etc/apt/apt.conf.d/99zentyal
 zs webadmin restart

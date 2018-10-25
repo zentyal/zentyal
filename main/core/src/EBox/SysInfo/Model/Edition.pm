@@ -120,9 +120,7 @@ sub updatedRowNotify
     my ($self, $row, $oldRow, $force) = @_;
 
     my $key = $self->row->valueByName('key');
-    EBox::Sudo::root("echo '$key' > /var/lib/zentyal/.license",
-                     "apt-key add /usr/share/zentyal/zentyal-qa.pub",
-                     "echo 'Acquire::https::archive.zentyal.com { Verify-Peer \"false\"; };' > /etc/apt/apt.conf.d/99zentyal");
+    EBox::Sudo::root("echo '$key' > /var/lib/zentyal/.license");
     EBox::Global->modInstance('webadmin')->setAsChanged();
 }
 

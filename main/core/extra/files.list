@@ -1,5 +1,6 @@
 keyring.gpg /usr/share/zentyal
-zentyal-qa.pub /usr/share/zentyal
+zentyal-qa.asc /etc/apt/trusted.gpg.d
+99zentyal /etc/apt/apt.conf.d
 ebox.passwd /var/lib/zentyal/conf
 cron/zentyal /etc/cron.daily
 cron/90zentyal-manage-logs /etc/cron.hourly

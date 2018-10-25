@@ -1,4 +1,6 @@
 6.0
+	+ Avoid use of apt-key add installing zentyal-qa pubkey in /etc/apt/trusted.gpg.d
+	  as gnupg is no longer installed as dependency
 	+ Login page form is now centered in a responsive way
 	+ Simplify interpreter code and avoid warnings with HTML::Mason templates
 	+ Allow new status field in daemon description to use a different daemon
