@@ -210,7 +210,6 @@ sub _setConf
         $self->_writeMachineConf($name, $vncport, $vncPasswords{$name});
         $backend->writeConf($name);
     }
-    $backend->createInternalNetworks();
 
     # Delete non-referenced VMs
     my $existingVMs = $backend->listVMs();
