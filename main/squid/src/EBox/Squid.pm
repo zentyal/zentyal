@@ -24,10 +24,10 @@ use base qw(
 );
 use EBox::Global;
 if (EBox::Global->modExists('samba')) {
-    use EBox::Module::Kerberos;
+    require EBox::Module::Kerberos;
     push (@EBox::Squid::ISA, 'EBox::Module::Kerberos');
 } else {
-    use EBox::Module::Service;
+    require EBox::Module::Service;
     push (@EBox::Squid::ISA, 'EBox::Module::Service');
 }
 
@@ -576,7 +576,7 @@ sub _writeSquidConf
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
 
-    if ($users->isEnabled() and $users->isProvisioned()) {
+    if ($users and $users->isEnabled() and $users->isProvisioned()) {
         push @writeParam, ('dn'       => $users->ldap()->dn());
         push @writeParam, ('roDn'     => $self->_kerberosServiceAccountDN());
         push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());

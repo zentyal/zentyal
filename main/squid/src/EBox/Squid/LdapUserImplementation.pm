@@ -18,10 +18,13 @@ use warnings;
 
 package EBox::Squid::LdapUserImplementation;
 
-use base qw(EBox::LdapUserBase);
+use EBox::Global;
+if (EBox::Global->modExists('samba')) {
+    require EBox::LdapUserBase;
+    push (@EBox::Squid::ISA, 'EBox::LdapUserBase');
+}
 
 use EBox::Gettext;
-use EBox::Global;
 
 sub _delGroup
 {
