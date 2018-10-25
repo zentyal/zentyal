@@ -769,7 +769,12 @@ sub _setEdition
         if (substr($lk, 0, 2) eq 'NS') {
             $version .= '-nss';
         }
-        push (@cmds, "echo 'deb https://$lk:lk\@archive.zentyal.com/zentyal-qa $version main' > /etc/apt/sources.list.d/zentyal-qa.list", 'sed -i "/archive.zentyal.org/d" /etc/apt/sources.list');
+        push (@cmds,
+            "echo 'deb https://archive.zentyal.com/zentyal-qa $version main' > /etc/apt/sources.list.d/zentyal-qa.list",
+            "echo 'machine archive.zentyal.com login $lk password lk' > /etc/apt/auth.conf",
+            'chmod 600 /etc/apt/auth.conf',
+            'sed -i "/archive.zentyal.org/d" /etc/apt/sources.list'
+        );
     }
     EBox::Sudo::root(@cmds);
 }
