@@ -31,7 +31,7 @@ use EBox::Radius::LogHelper;
 use EBox::Radius::LdapUser;
 
 use constant CONFDIR => "/etc/freeradius/3.0/";
-use constant USERSCONFFILE => CONFDIR . 'users';
+use constant USERSCONFFILE => CONFDIR . 'mods-config/files/authorize';
 use constant LDAPCONFFILE => CONFDIR . 'mods-available/ldap';
 use constant RADIUSDCONFFILE => CONFDIR . 'radiusd.conf';
 use constant CLIENTSCONFFILE => CONFDIR . 'clients.conf';
@@ -237,7 +237,7 @@ sub _setUsers
     push (@params, bygroup => $model->getByGroup());
     push (@params, group => $model->getGroup());
 
-    $self->writeConfFile(USERSCONFFILE, "radius/users.mas", \@params,
+    $self->writeConfFile(USERSCONFFILE, "radius/authorize.mas", \@params,
                             { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 }
 

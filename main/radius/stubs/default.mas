@@ -8,7 +8,7 @@
 #	directory to these files.  This is done in a normal installation.
 #
 #	If you are using 802.1X (EAP) authentication, please see also
-#	the "inner-tunnel" virtual server.  You wll likely have to edit
+#	the "inner-tunnel" virtual server.  You will likely have to edit
 #	that, too, for authentication to work.
 #
 #	$Id$
@@ -278,7 +278,7 @@ authorize {
 	#
 	#  See policy.d/filter for the definition of the filter_username policy.
 	#
-	filter_username
+#	filter_username
 
 	#
 	#  Some broken equipment sends passwords with embedded zeros.
@@ -356,7 +356,7 @@ authorize {
 	#  Otherwise, when the first style of realm doesn't match,
 	#  the other styles won't be checked.
 	#
-	suffix
+#	suffix
 #	ntdomain
 
 	#
@@ -412,7 +412,7 @@ authorize {
 
 	#
 	#  The ldap module reads passwords from the LDAP database.
-	-ldap
+#	-ldap
 
 	#
 	#  Enforce daily limits on time spent logged in.
@@ -434,6 +434,14 @@ authorize {
 	#  get a chance to set Auth-Type for themselves.
 	#
 	pap
+
+    # If no Auth-Type was sent, we assume PAP but that we should
+    # use ntlm_auth for AD authentication through ntlm_auth.
+    if (!control:Auth-Type) {
+        update control {
+            Auth-Type = "LDAP"
+        }
+    }
 
 	#
 	#  If "status_server = yes", then Status-Server messages are passed
@@ -506,7 +514,7 @@ authenticate {
 	#  If you have a Cisco SIP server authenticating against
 	#  FreeRADIUS, uncomment the following line, and the 'digest'
 	#  line in the 'authorize' section.
-	digest
+#	digest
 
 	#
 	#  Pluggable Authentication Modules.
@@ -675,7 +683,7 @@ accounting {
 #  or rlm_sql module can handle this.
 #  The rlm_sql module is *much* faster
 session {
-	radutmp
+#	radutmp
 
 	#
 	#  See "Simultaneous Use Checking Queries" in mods-available/sql
@@ -828,13 +836,13 @@ post-auth {
 	#
 	Post-Auth-Type REJECT {
 		# log failed authentications in SQL, too.
-		-sql
+#		-sql
 		attr_filter.access_reject
 
 		# Insert EAP-Failure message if the request was
 		# rejected by policy instead of because of an
 		# authentication failure
-		eap
+#		eap
 
 		#  Remove reply message if the response contains an EAP-Message
 		remove_reply_message_if_eap
