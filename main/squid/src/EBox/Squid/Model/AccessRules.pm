@@ -351,7 +351,7 @@ sub filterProfiles
 
     my $objectMod = $self->global()->modInstance('network');
     my $userMod = $self->global()->modInstance('samba');
-    my $domainUsers = $userMod ? $userMod->ldap->domainUsersGroup->get('samAccountName') : '';
+    my $domainUsers = ($userMod and $userMod->isProvisioned()) ? $userMod->ldap->domainUsersGroup->get('samAccountName') : '';
     my $commercial = (not $self->global()->communityEdition());
 
     my @profiles;
