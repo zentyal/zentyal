@@ -21,7 +21,7 @@ package EBox::Squid::LdapUserImplementation;
 use EBox::Global;
 if (EBox::Global->modExists('samba')) {
     require EBox::LdapUserBase;
-    push (@EBox::Squid::ISA, 'EBox::LdapUserBase');
+    push (@EBox::Squid::LdapUserImplementation::ISA, 'EBox::LdapUserBase');
 }
 
 use EBox::Gettext;
