@@ -1,5 +1,5 @@
 6.0
-	+ Set version to 6.0
+	+ Depend on gnupg as it is used by spamassassin postinst script
 5.1
 	+ Set version to 5.1
 5.0.1
