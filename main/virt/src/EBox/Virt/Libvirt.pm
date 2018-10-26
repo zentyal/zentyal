@@ -755,7 +755,11 @@ sub vmsPath
 
 sub daemons
 {
-    return [ { name => 'virtlogd' }, { name => 'libvirtd' } ];
+    return [
+        { name => 'virtlogd' },
+        { name => 'libvirtd' },
+        { name => 'zentyal.vncproxy' }
+    ];
 }
 
 sub ifaces

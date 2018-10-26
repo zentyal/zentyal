@@ -167,7 +167,6 @@ sub _writeNginxConfFile
     push @confFileParams, (port                => $self->listeningPort());
     push @confFileParams, (tmpdir              => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir      => EBox::Config::conf());
-    push @confFileParams, (includes            => $self->_nginxIncludes(1));
     push @confFileParams, (servers             => $self->_nginxServers(1));
     push @confFileParams, (restrictedresources => $self->get_list('restricted_resources') );
     if (@{$self->_CAs(1)}) {
@@ -413,93 +412,6 @@ sub _nginxServers
     }
 
     return \@servers;
-}
-
-# Method: addNginxInclude
-#
-#      Add an "include" directive to the nginx configuration. If it is already
-#      added, it does nothing
-#
-#      Added only in the webadmin server file
-#
-# Parameters:
-#
-#      includeFilePath - String the configuration file path to include
-#      in nginx configuration
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#      argument is missing
-#
-sub addNginxInclude
-{
-    my ($self, $includeFilePath) = @_;
-
-    unless(defined($includeFilePath)) {
-        throw EBox::Exceptions::MissingArgument('includeFilePath');
-    }
-
-    my @includes = @{$self->_nginxIncludes(0)};
-    unless ( grep { $_ eq $includeFilePath } @includes) {
-        push(@includes, $includeFilePath);
-        $self->set_list(NGINX_INCLUDE_KEY, 'string', \@includes);
-    }
-
-}
-
-# Method: removeNginxInclude
-#
-#      Remove an "include" directive to the nginx configuration. If the
-#      "include" was not in the configuration, it does nothing
-#
-#
-# Parameters:
-#
-#      includeFilePath - String the configuration file path to remove
-#      from nginx configuration
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#      argument is missing
-#
-#
-sub removeNginxInclude
-{
-    my ($self, $includeFilePath) = @_;
-
-    unless(defined($includeFilePath)) {
-        throw EBox::Exceptions::MissingArgument('includeFilePath');
-    }
-    my @includes = @{$self->_nginxIncludes(0)};
-    my @newIncludes = grep { $_ ne $includeFilePath } @includes;
-    if ( @newIncludes == @includes ) {
-        return;
-    }
-    $self->set_list(NGINX_INCLUDE_KEY, 'string', \@newIncludes);
-
-}
-
-# Return those include files that has been added
-sub _nginxIncludes
-{
-    my ($self, $check) = @_;
-    my $includeList = $self->get_list(NGINX_INCLUDE_KEY);
-    if (not $check) {
-        return $includeList;
-    }
-
-    my @includes;
-    foreach my $incPath (@{ $includeList }) {
-        if ((-f $incPath) and (-r $incPath)) {
-            push @includes, $incPath;
-        } else {
-            EBox::warn("Ignoring nginx include $incPath: cannot read the file or it is not a regular file");
-        }
-    }
-
-    return \@includes;
 }
 
 # Method: certificates
