@@ -1,4 +1,7 @@
 6.0
+	+ Fix undefined $actualValue warning in ViewCustomizer
+	+ Fix unitialized $filter warning in tableBody.mas
+	+ Set default size of EBox::Types::Int to 6
 	+ Use /etc/apt/auth.conf instead of embedding login info in sources.list
 	+ Avoid use of apt-key add installing zentyal-qa pubkey in /etc/apt/trusted.gpg.d
 	  as gnupg is no longer installed as dependency

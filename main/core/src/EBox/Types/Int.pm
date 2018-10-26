@@ -71,7 +71,8 @@ sub size
 {
     my ($self) = @_;
 
-    return $self->{'size'};
+    my $size = $self->{size};
+    return $size ? $size : 6;
 }
 
 # Method: cmp

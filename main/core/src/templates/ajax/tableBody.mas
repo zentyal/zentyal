@@ -118,7 +118,7 @@ my %checkAllControls = %{ $model->checkAllControls()  };
 % }
 </div>
 
-% if (@ids or length($filter) > 0)  {
+% if (@ids or ($filter and (length($filter) > 0)))  {
 %
 %   unless ((defined $onlyCustomActions) and $onlyCustomActions)   {
 %    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
