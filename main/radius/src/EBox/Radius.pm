@@ -225,6 +225,18 @@ sub _setConf
     $self->_setClients();
 }
 
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    return unless $enabled;
+
+    EBox::Sudo::silentRoot('grep "ntlm auth = yes" /etc/samba/smb.conf');
+    if ($? != 0) {
+        $self->global()->addModuleToPostSave('samba');
+    }
+}
+
 # set up the Users configuration
 sub _setUsers
 {
