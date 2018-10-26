@@ -236,7 +236,7 @@ sub _writeSOGoApacheFile
     my $array = [];
     push (@{$array}, activesync => $self->_activeSyncEnabled());
     $self->writeConfFile(SOGO_APACHE_FILE,
-        'sogo/SOGo.conf.mas',
+        'sogo/SOGo.conf-apache.mas',
         $array, { uid => 0, gid => 0, mode => '755' });
 }
 
