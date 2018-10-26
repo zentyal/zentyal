@@ -67,7 +67,7 @@ sub mailQueueList
 
     my $mailqOutput = EBox::Sudo::root('/usr/bin/mailq');
     foreach my $line (@{ $mailqOutput  }) {
-        if ($line =~ m/^-/) {
+        if (($line =~ m/^-/) or ($line =~ m/^Mail queue is empty/)) {
             next;
         } elsif ($line =~ m/^[\w*]+\s/) {
             # this is the id + info line
