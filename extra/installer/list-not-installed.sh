@@ -14,6 +14,8 @@ fi
 # If we do a normal installation, without using LVM, cryptsetup or RAID, we should
 # avoid deleting the following packages
 MANDATORY_PACKAGES="
+libksba8
+libnpth0
 crda
 grub
 libfuse2
