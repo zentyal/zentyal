@@ -42,8 +42,6 @@ use POSIX qw(setsid setlocale LC_ALL);
 use TryCatch;
 
 # Constants
-use constant NGINX_INCLUDE_KEY => 'nginxIncludes';
-use constant NGINX_SERVER_KEY => 'nginxServers';
 use constant CAS_KEY => 'cas';
 use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
 use constant CA_CERT_FILE  => CA_CERT_PATH . 'nginx-ca.pem';
@@ -167,7 +165,6 @@ sub _writeNginxConfFile
     push @confFileParams, (port                => $self->listeningPort());
     push @confFileParams, (tmpdir              => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir      => EBox::Config::conf());
-    push @confFileParams, (servers             => $self->_nginxServers(1));
     push @confFileParams, (restrictedresources => $self->get_list('restricted_resources') );
     if (@{$self->_CAs(1)}) {
         push @confFileParams, (caFile => CA_CERT_FILE);
@@ -329,89 +326,6 @@ sub showModuleStatus
 #
 sub addModuleStatus
 {
-}
-
-# Method: addNginxServer
-#
-#      Add an "server" directive to the nginx configuration. If it is already
-#      added, it does nothing
-#
-# Parameters:
-#
-#      serverFilePath - String the configuration file path to include
-#      in nginx configuration with the server section
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#      argument is missing
-#
-sub addNginxServer
-{
-    my ($self, $serverFilePath) = @_;
-
-    unless(defined($serverFilePath)) {
-        throw EBox::Exceptions::MissingArgument('serverFilePath');
-    }
-    my @servers = @{$self->_nginxServers(0)};
-    unless ( grep { $_ eq $serverFilePath } @servers) {
-        push(@servers, $serverFilePath);
-        $self->set_list(NGINX_SERVER_KEY, 'string', \@servers);
-    }
-
-}
-
-# Method: removeNginxServer
-#
-#      Remove a "server" directive from the nginx configuration. If the
-#      "server" was not in the configuration, it does nothing
-#
-# Parameters:
-#
-#      serverFilePath - String the configuration file path to remove
-#      from nginx configuration
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#      argument is missing
-#
-#
-sub removeNginxServer
-{
-    my ($self, $serverFilePath) = @_;
-
-    unless(defined($serverFilePath)) {
-        throw EBox::Exceptions::MissingArgument('serverFilePath');
-    }
-    my @servers = @{$self->_nginxServers(0)};
-    my @newServers = grep { $_ ne $serverFilePath } @servers;
-    if (@newServers == @servers) {
-        return;
-    }
-    $self->set_list(NGINX_SERVER_KEY, 'string', \@newServers);
-
-}
-
-# Return those server files that has been added
-sub _nginxServers
-{
-    my ($self, $check) = @_;
-    my $serverList = $self->get_list(NGINX_SERVER_KEY);
-    if (not $check) {
-        return $serverList;
-    }
-
-    my @servers;
-    foreach my $servPath (@{ $serverList }) {
-        if ((-f $servPath) and (-r $servPath)) {
-            push @servers, $servPath;
-        } else {
-            EBox::warn("Ignoring nginx include server $servPath: cannot read the file or it is not a regular file");
-        }
-    }
-
-    return \@servers;
 }
 
 # Method: certificates

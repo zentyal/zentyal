@@ -6,7 +6,6 @@ Parameters:
     port - Int the listening port.
     tmpdir - String the path to the WebAdmin temporary directory.
     zentyalconfdir - String the path to the WebAdmin configuration folder.
-    servers - Array The list of configuration files with servers definition.
     restrictedresources - Array containing a hash ref structure which contains
                           the following elements:
                           - allowedIPs - array ref containing the allowed IPs
@@ -19,7 +18,6 @@ Parameters:
     $tmpdir
     $zentyalconfdir
     $caFile
-    @servers => ()
     @restrictedresources => ()
 </%args>
 <%init>
@@ -182,10 +180,6 @@ http {
         }
     }
 
-% foreach my $serverFile (@servers) {
-
-    include <% $serverFile %>;
-% }
 }
 <%def .restricted>
 <%args>
