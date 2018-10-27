@@ -245,6 +245,7 @@ sub skipField
     my $actions = $self->{onChangeActions};
     for my $triggerField (keys %$values) {
         my $actualValue = $values->{$triggerField};
+        next unless defined ($actualValue);
         my $actionTriggered = $actions->{$triggerField}->{$actualValue};
         my $disable = $actionTriggered->{disable};
         my $hide = $actionTriggered->{hide};

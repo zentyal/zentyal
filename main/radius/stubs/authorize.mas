@@ -8,13 +8,13 @@ DEFAULT LDAP-Group != "<% $group %>", Auth-Type := Reject
 % } else {
 DEFAULT Service-Type := Login-User
 % }
+
+# 	Configuration file for the rlm_files module.
+# 	Please see rlm_files(5) manpage for more information.
 #
-#	Please read the documentation file ../doc/processing_users_file,
-#	or 'man 5 users' (after installing the server) for more information.
-#
-#	This file contains authentication security and configuration
+# 	This file contains authentication security and configuration
 #	information for each user.  Accounting requests are NOT processed
-#	through this file.  Instead, see 'acct_users', in this directory.
+#	through this file.  Instead, see 'accounting', in this directory.
 #
 #	The first field is the user's name and can be up to
 #	253 characters in length.  This is followed (on the same line) with
@@ -37,10 +37,6 @@ DEFAULT Service-Type := Login-User
 #	matches the login-request will stop processing unless you use
 #	the Fall-Through variable.
 #
-#	If you use the database support to turn this file into a .db or .dbm
-#	file, the DEFAULT entries _have_ to be at the end of this file and
-#	you can't have multiple entries for one username.
-#
 #	Indented (with the tab character) lines following the first
 #	line indicate the configuration values to be passed back to
 #	the comm server to allow the initiation of a user session.
@@ -48,13 +44,14 @@ DEFAULT Service-Type := Login-User
 #	or the host to log the user onto.
 #
 #	You can include another `users' file with `$INCLUDE users.other'
-#
 
 #
 #	For a list of RADIUS attributes, and links to their definitions,
-#	see:
+#	see: http://www.freeradius.org/rfc/attributes.html
 #
-#	http://www.freeradius.org/rfc/attributes.html
+#	Entries below this point are examples included in the server for
+#	educational purposes. They may be deleted from the deployed
+#	configuration without impacting the operation of the server.
 #
 
 #
@@ -94,8 +91,20 @@ DEFAULT Service-Type := Login-User
 #	Framed-Compression = Van-Jacobsen-TCP-IP
 
 #
+# The canonical testing user which is in most of the
+# examples.
+#
+#bob	Cleartext-Password := "hello"
+#	Reply-Message := "Hello, %{User-Name}"
+#
+
+#
 # This is an entry for a user with a space in their name.
-# Note the double quotes surrounding the name.
+# Note the double quotes surrounding the name.  If you have
+# users with spaces in their names, you must also change
+# the "filter_username" policy to allow spaces.
+#
+# See raddb/policy.d/filter, filter_username {} section.
 #
 #"John Doe"	Cleartext-Password := "hello"
 #		Reply-Message = "Hello, %{User-Name}"
@@ -129,7 +138,7 @@ DEFAULT Service-Type := Login-User
 # the following DEFAULT entries
 #
 #swilson	Service-Type == Framed-User, Huntgroup-Name == "alphen"
-#		Framed-IP-Address = 192.168.1.65,
+#		Framed-IP-Address = 192.0.2.65,
 #		Fall-Through = Yes
 
 #
@@ -157,11 +166,11 @@ DEFAULT Service-Type := Login-User
 # IP address. The Port-Id (S0, S1 etc) will be added to it.
 #
 #DEFAULT	Service-Type == Framed-User, Huntgroup-Name == "alphen"
-#		Framed-IP-Address = 192.168.1.32+,
+#		Framed-IP-Address = 192.0.2.32+,
 #		Fall-Through = Yes
 
 #DEFAULT	Service-Type == Framed-User, Huntgroup-Name == "delft"
-#		Framed-IP-Address = 192.168.2.32+,
+#		Framed-IP-Address = 198.51.100.32+,
 #		Fall-Through = Yes
 
 #
@@ -179,22 +188,22 @@ DEFAULT Service-Type := Login-User
 #	by the terminal server in which case there may not be a "P" suffix.
 #	The terminal server sends "Framed-Protocol = PPP" for auto PPP.
 #
-#DEFAULT	Framed-Protocol == PPP
-#	Framed-Protocol = PPP,
-#	Framed-Compression = Van-Jacobson-TCP-IP
+DEFAULT	Framed-Protocol == PPP
+	Framed-Protocol = PPP,
+	Framed-Compression = Van-Jacobson-TCP-IP
 
 #
 # Default for CSLIP: dynamic IP address, SLIP mode, VJ-compression.
 #
-#DEFAULT	Hint == "CSLIP"
-#	Framed-Protocol = SLIP,
-#	Framed-Compression = Van-Jacobson-TCP-IP
+DEFAULT	Hint == "CSLIP"
+	Framed-Protocol = SLIP,
+	Framed-Compression = Van-Jacobson-TCP-IP
 
 #
 # Default for SLIP: dynamic IP address, SLIP mode.
 #
-#DEFAULT	Hint == "SLIP"
-#	Framed-Protocol = SLIP
+DEFAULT	Hint == "SLIP"
+	Framed-Protocol = SLIP
 
 #
 # Last default: rlogin to our main server.
@@ -210,4 +219,12 @@ DEFAULT Service-Type := Login-User
 # DEFAULT
 # 	Service-Type = Administrative-User
 
+
 # On no match, the user is denied access.
+
+
+#########################################################
+# You should add test accounts to the TOP of this file! #
+# See the example user "bob" above.                     #
+#########################################################
+

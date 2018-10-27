@@ -1,0 +1,9 @@
+[Unit]
+Description=Zentyal vncproxy daemon
+
+[Service]
+ExecStart=/usr/bin/websockify --ssl-only --key=/var/lib/zentyal/conf/ssl/ssl.key --cert=/var/lib/zentyal/conf/ssl/ssl.pem --token-plugin TokenFile --token-source /var/lib/zentyal/conf/vnc-tokens --web /usr/share/novnc 6900
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

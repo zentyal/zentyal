@@ -41,6 +41,7 @@ use constant DEFAULT_VNC_PORT => 5900;
 use constant LIBVIRT_BIN => '/usr/bin/virsh';
 use constant DEFAULT_VIRT_USER => 'ebox';
 use constant VNC_PASSWD_FILE => '/var/lib/zentyal/conf/vnc-passwd';
+use constant VNC_TOKENS_FILE => '/var/lib/zentyal/conf/vnc-tokens';
 
 my $SYSTEMD_PATH = '/lib/systemd/system';
 my $WWW_PATH = EBox::Config::www();
@@ -179,6 +180,7 @@ sub _setConf
             $vncPasswords{$machine} = $pass;
         }
     }
+    my %vncPorts;
 
     $backend->initInternalNetworks();
 
@@ -207,10 +209,10 @@ sub _setConf
         }
 
         my $vncport = $vm->valueByName('vncport');
+        $vncPorts{$name} = $vncport;
         $self->_writeMachineConf($name, $vncport, $vncPasswords{$name});
         $backend->writeConf($name);
     }
-    $backend->createInternalNetworks();
 
     # Delete non-referenced VMs
     my $existingVMs = $backend->listVMs();
@@ -224,6 +226,11 @@ sub _setConf
     @lines = map { "$_:$vncPasswords{$_}\n" } keys %vncPasswords;
     write_file(VNC_PASSWD_FILE, @lines);
     chmod (0600, VNC_PASSWD_FILE);
+
+    # Write vncproxy tokens file
+    @lines = map { "$_: 127.0.0.1:$vncPorts{$_}\n" } keys %vncPorts;
+    write_file(VNC_TOKENS_FILE, @lines);
+    chmod (0600, VNC_TOKENS_FILE);
 }
 
 sub updateFirewallService
@@ -254,13 +261,6 @@ sub machineDaemon
     my ($self, $name) = @_;
 
     return "zentyal-virt.$name";
-}
-
-sub vncDaemon
-{
-    my ($self, $name) = @_;
-
-    return "zentyal-virt.vnc.$name";
 }
 
 sub vmRunning
@@ -305,12 +305,6 @@ sub _manageVM
     my $manageScript = $self->manageScript($name);
     $manageScript = shell_quote($manageScript);
     EBox::Sudo::root("$manageScript $action");
-
-    my $vncDaemon = $self->vncDaemon($name);
-    my $currentStatus = EBox::Service::running($vncDaemon) ? 'start' : 'stop';
-    if ($action ne $currentStatus) {
-        EBox::Service::manage($vncDaemon, $action);
-    }
 }
 
 sub pauseVM
@@ -540,20 +534,11 @@ sub _writeMachineConf
             { uid => 0, gid => 0, mode => '0644' }
     );
 
-    EBox::Module::Base::writeConfFileNoCheck(
-            "$SYSTEMD_PATH/" . $self->vncDaemon($name) . '.service',
-            '/virt/vncproxy.mas',
-            [ vncport => $vncport, listenport => $listenport ],
-            { uid => 0, gid => 0, mode => '0644' }
-    );
-
-    my $width = $self->consoleWidth();
-    my $height = $self->consoleHeight();
     my $gid = getgrnam('www-data'); # nginx needs to read it
     EBox::Module::Base::writeConfFileNoCheck(
             EBox::Config::www() . "/vncviewer-$name.html",
             '/virt/vncviewer.html.mas',
-            [ port => $listenport, password => $vncpass, width => $width, height => $height ],
+            [ token => $name, password => $vncpass ],
             { uid => 0, gid => $gid, mode => '0640' }
     );
 }
@@ -642,21 +627,6 @@ sub firstFreeVNCPort
     }
 
     return $prev + 1;
-}
-
-sub consoleWidth
-{
-    my ($self) = @_;
-
-    my $vncport = EBox::Config::configkey('view_console_width');
-    return $vncport ? $vncport : 800;
-}
-
-sub consoleHeight
-{
-    my ($self) = @_;
-    my $vncport = EBox::Config::configkey('view_console_height');
-    return $vncport ? $vncport : 600;
 }
 
 sub viewNewWindow

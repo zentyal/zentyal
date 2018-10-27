@@ -6,7 +6,6 @@ Parameters:
     port - Int the listening port.
     tmpdir - String the path to the WebAdmin temporary directory.
     zentyalconfdir - String the path to the WebAdmin configuration folder.
-    includes - Array. The list of configuration files to include.
     servers - Array The list of configuration files with servers definition.
     restrictedresources - Array containing a hash ref structure which contains
                           the following elements:
@@ -20,7 +19,6 @@ Parameters:
     $tmpdir
     $zentyalconfdir
     $caFile
-    @includes => ()
     @servers => ()
     @restrictedresources => ()
 </%args>
@@ -160,6 +158,8 @@ http {
         }
 <& .restricted, restrictions => $sectionrestrictions{''} &>
 
+        include /var/lib/zentyal/conf/nginx-*.conf;
+
         location @proxy {
             uwsgi_pass unix:///run/zentyal-webadmin/webadmin.sock;
 
@@ -180,10 +180,6 @@ http {
             uwsgi_param SERVER_NAME $server_name;
             uwsgi_param HTTP_X_FORWARDED_PROTO https;
         }
-% foreach my $includeFile (@includes) {
-
-        include <% $includeFile %>;
-% }
     }
 
 % foreach my $serverFile (@servers) {

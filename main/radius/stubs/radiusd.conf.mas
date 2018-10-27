@@ -1,6 +1,6 @@
 # -*- text -*-
 ##
-## radiusd.conf	-- FreeRADIUS server configuration file.
+## radiusd.conf	-- FreeRADIUS server configuration file - 3.0.16
 ##
 ##	http://www.freeradius.org/
 ##	$Id$
@@ -314,7 +314,7 @@ log {
 	auth_goodpass = no
 
 	#  Log additional text at the end of the "Login OK" messages.
-	#  for these to work, the "auth" and "auth_goopass" or "auth_badpass"
+	#  for these to work, the "auth" and "auth_goodpass" or "auth_badpass"
 	#  configurations above have to be set to "yes".
 	#
 	#  The strings below are dynamically expanded, which means that
@@ -324,6 +324,10 @@ log {
 	#
 #	msg_goodpass = ""
 #	msg_badpass = ""
+
+	#  The message when the user exceeds the Simultaneous-Use limit.
+	#
+	msg_denied = "You are already logged in - access denied"
 }
 
 #  The program to execute to do concurrency checks.
@@ -672,32 +676,10 @@ modules {
 #
 instantiate {
 	#
-	#  Allows the execution of external scripts.
-	#  The entire command line (and output) must fit into 253 bytes.
-	#
-	#  e.g. Framed-Pool = `%{exec:/bin/echo foo}`
-	exec
-
-	#
-	#  The expression module doesn't do authorization,
-	#  authentication, or accounting.  It only does dynamic
-	#  translation, of the form:
-	#
-	#	Session-Timeout = `%{expr:2 + 3}`
-	#
-	#  So the module needs to be instantiated, but CANNOT be
-	#  listed in any other section.  See 'doc/rlm_expr' for
-	#  more information.
-	#
-	expr
-
-	#
-	# We add the counter module here so that it registers
-	# the check-name attribute before any module which sets
+	# We list the counter module here so that it registers
+	# the check_name attribute before any module which sets
 	# it
 #	daily
-	expiration
-	logintime
 
 	# subsections here can be thought of as "virtual" modules.
 	#

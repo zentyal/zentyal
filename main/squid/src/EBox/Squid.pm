@@ -18,14 +18,20 @@ use warnings;
 package EBox::Squid;
 
 use base qw(
-    EBox::Module::Service
     EBox::FirewallObserver
     EBox::LogObserver
     EBox::NetworkObserver
 );
+use EBox::Global;
+if (EBox::Global->modExists('samba')) {
+    require EBox::Module::Kerberos;
+    push (@EBox::Squid::ISA, 'EBox::Module::Kerberos');
+} else {
+    require EBox::Module::Service;
+    push (@EBox::Squid::ISA, 'EBox::Module::Service');
+}
 
 use EBox::Service;
-use EBox::Global;
 use EBox::Config;
 use EBox::Firewall;
 use EBox::Validate qw( :all );
@@ -38,6 +44,7 @@ use EBox::Exceptions::Sudo::Command;
 
 use EBox::Squid::Firewall;
 use EBox::Squid::LogHelper;
+use EBox::Squid::LdapUserImplementation;
 use EBox::Squid::Types::ListArchive;
 
 use EBox::DBEngineFactory;
@@ -67,6 +74,8 @@ use constant MAXDOMAINSIZ => 255;
 use constant DGLISTSDIR => DGDIR . '/lists';
 use constant DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian';
 use constant CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf';
+use constant KEYTAB_FILE => '/etc/squid/HTTP.keytab';
+use constant SQUID_DEFAULT_FILE => '/etc/default/squid';
 use constant CRONFILE => '/etc/cron.d/zentyal-squid';
 
 use constant SQUID_ZCONF_FILE => '/etc/zentyal/squid.conf';
@@ -80,6 +89,21 @@ sub _create
     $self->{logger} = EBox::logger();
     bless ($self, $class);
     return $self;
+}
+
+sub _kerberosServicePrincipals
+{
+    return [ 'HTTP' ];
+}
+
+sub _kerberosKeytab
+{
+    return {
+        path => KEYTAB_FILE,
+        user => 'root',
+        group => 'proxy',
+        mode => '440',
+    };
 }
 
 # Method: initialSetup
@@ -106,6 +130,14 @@ sub initialSetup
             $mod->saveConfigRecursive();
         }
     }
+}
+
+sub setupLDAP
+{
+    my ($self) = @_;
+
+    my $netbiosName = $self->global()->modInstance('samba')->model('DomainSettings')->value('netbiosName');
+    EBox::Sudo::root("samba-tool group addmembers 'Domain Admins' zentyal-squid-$netbiosName");
 }
 
 # Method: usedFiles
@@ -204,6 +236,16 @@ sub usedFiles
              'file' =>    DGLISTSDIR . '/authplugins/ipgroups',
              'module' => 'squid',
              'reason' => __('Filter groups per IP'),
+            },
+            {
+             'file' => SQUID_DEFAULT_FILE,
+             'module' => 'squid',
+             'reason' => __('Set the kerberos keytab path'),
+            },
+            {
+             'file' => KEYTAB_FILE,
+             'module' => 'squid',
+             'reason' => __('Extract the service principal key'),
             }
     ];
 }
@@ -349,6 +391,42 @@ sub filterNeeded
     return 0;
 }
 
+sub authNeeded
+{
+    my ($self) = @_;
+
+    unless ($self->isEnabled()) {
+        return 0;
+    }
+
+    my $rules = $self->model('AccessRules');
+    return $rules->rulesUseAuth();
+}
+
+sub kerberosNeeded
+{
+    my ($self) = @_;
+
+    unless ($self->isEnabled()) {
+        return 0;
+    }
+
+    my $global = $self->global();
+    if ($global->communityEdition()) {
+        return 0;
+    }
+
+    my $samba = $global->modInstance('samba');
+    unless ($samba and $samba->isEnabled()) {
+        return 0;
+    }
+
+    my $settings = $self->model('GeneralSettings');
+    if ($settings->kerberosValue()) {
+        return 1;
+    }
+}
+
 sub httpsBlockNeeded
 {
     my ($self) = @_;
@@ -406,6 +484,7 @@ sub _setConf
 
     my $filter = $self->filterNeeded();
 
+    $self->_writeDefaultConf();
     $self->_writeSquidConf($filter);
     $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
 
@@ -454,6 +533,17 @@ sub notifyAntivirusEnabled
     $self->setAsChanged();
 }
 
+sub _writeDefaultConf
+{
+    my ($self) = @_;
+
+    my $vars = [];
+    push (@{$vars}, 'keytab' => KEYTAB_FILE);
+    $self->writeConfFile(SQUID_DEFAULT_FILE,
+        'squid/squid.default.mas', $vars,
+        { mode => '0644'});
+}
+
 sub _writeSquidConf
 {
     my ($self, $filter) = @_;
@@ -467,6 +557,10 @@ sub _writeSquidConf
     my $global  = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
     my $network = $global->modInstance('network');
+    my $users = $global->modInstance('samba');
+    my $kerberos = $self->kerberosNeeded();
+    my $krbRealm = ($users and $kerberos) ? $users->kerberosRealm() : '';
+    my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my @writeParam = ();
     push @writeParam, ('port' => $filter ? DGPORT : $self->port());
@@ -478,6 +572,15 @@ sub _writeSquidConf
     push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
     push @writeParam, ('hostfqdn' => $sysinfo->fqdn());
+    push @writeParam, ('auth' => $self->authNeeded());
+    push @writeParam, ('principal' => $krbPrincipal);
+    push @writeParam, ('realm'     => $krbRealm);
+
+    if ($users and $users->isEnabled() and $users->isProvisioned()) {
+        push @writeParam, ('dn'       => $users->ldap()->dn());
+        push @writeParam, ('roDn'     => $self->_kerberosServiceAccountDN());
+        push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());
+    }
 
     my $append_domain = $network->model('SearchDomain')->domainValue();
     push (@writeParam, append_domain => $append_domain);
@@ -707,8 +810,15 @@ sub writeDgGroups
         }
     }
 
+    my $realm = '';
+    if ($self->kerberosNeeded()) {
+        my $samba = $self->global()->modInstance('samba');
+        $realm = '@' . $samba->kerberosRealm();
+    }
+
     my @writeParams = ();
     push (@writeParams, groups => \@groups);
+    push (@writeParams, realm => $realm);
     $self->writeConfFile(DGLISTSDIR . '/filtergroupslist',
                          'squid/filtergroupslist.mas',
                          \@writeParams, { mode => '0644'});
@@ -957,6 +1067,12 @@ sub aroundRestoreConfig
     $categorizedLists->beforeRestoreConfig();
     $self->SUPER::aroundRestoreConfig($dir, %options);
     $categorizedLists->afterRestoreConfig();
+}
+
+# LdapModule implementation
+sub _ldapModImplementation
+{
+    return new EBox::Squid::LdapUserImplementation();
 }
 
 # Method: regenGatewaysFailover

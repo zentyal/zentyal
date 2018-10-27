@@ -104,8 +104,10 @@ sub _groups
 
     my @sortedGroups = sort { $a->name() cmp $b->name() } @{$users->securityGroups()};
     for my $group (@sortedGroups) {
+        my $gid = $group->get('gidNumber');
+        next if ($gid < 3000);
         push (@groups, {
-            value => $group->get('gidNumber'),
+            value => $gid,
             printableValue => $group->name()
         });
     }

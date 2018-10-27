@@ -1,21 +1,26 @@
 <%args>
-    $port
+    $token
     $password
-    $width
-    $height
 </%args>
-<%init>
-# add vnc status bar height to contents height to get frame height
-$height += 35;
-</%init>
-<iframe id="vnc_frame" src="" width="<% $width %>" height="<% $height %>">This browser does not support frames</iframe>
+<iframe onload="showIfVNCReady()" id="vnc_frame" src="/vncws/?path=websockify?token=<% $token %>&password=<% $password %>">This browser does not support frames</iframe>
 <script>
-var src = 'https://' + document.domain + ':<% $port %>/vnc_auto.html?host=' + document.domain + '&port=<% $port %>&password=<% $password %>';
-var vncFrame = document.querySelector('#vnc_frame');
-vncFrame.setAttribute('src', src);
-var dialog = document.querySelector('#load_in_dialog');
-if (dialog.length > 0) {
-    dialog.dialog('option', 'height', vncFrame.getAttribute('height'));
-    dialog.dialog('option', 'width', vncFrame.getAttribute('width'));
+function showIfVNCReady() {
+    var vnc = document.querySelector("#vnc_frame");
+    var canvas = vnc.contentDocument.querySelector("#noVNC_canvas");
+    if (canvas.height > 20) {
+        var w = canvas.width + 10;
+        var h = canvas.height + 35;
+        var dialog = document.querySelector("#load_in_dialog");
+        if (dialog) {
+            dialog.style.width = w + "px";
+            dialog.style.height = h + "px";
+        } else {
+            vnc.setAttribute('width', w);
+            vnc.setAttribute('height', h);
+        }
+        vnc.style.display = 'block';
+    } else {
+        setTimeout(showIfVNCReady, 10);
+    }
 }
 </script>

@@ -2011,13 +2011,15 @@ body.first-install {
 **************************************************************************************/
 
 .VMConsole{
-    width: 80% !important;
-    top: 50px !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    height: auto !important;
+    width: auto !important;
 }
-#load_in_dialog iframe {
+#vnc_frame {
+    display: none;
     border: 0 solid white;
     height: 100%;
-    min-height: 600px;
     width: 100%;
 }
 .moveRowHandle {

@@ -10,6 +10,12 @@
     $mode => ''
 
     $hostfqdn
+    $auth
+    $principal
+    $realm
+    $dn           => undef
+    $roDn         => undef
+    $roPasswd     => undef
 
     $memory
     $cacheDirSize
@@ -34,6 +40,7 @@
 </%args>
 <%shared>
 our $objectPrefix = 'obj~';
+our $groupPrefix = 'grp~';
 our $adPrefix = 'ad~';
 our $timeDaysPrefix = 'timeDays~';
 our $timeHoursPrefix = 'timeHours~';
@@ -107,16 +114,22 @@ sub _rulesACLs
 {
   my %args = @_;
   my @rules = @{ $args{rules} };
+  my $realm = $args{realm};
   my %seenACL;
 
   foreach my $rule (@rules) {
     my $object = $rule->{object};
+    my $group = $rule->{group};
     my $adDN = $rule->{adDN};
-    my $aclName;
+    my ($aclName, $groupName);
     if ($rule->{any}) {
         # for any object rule, there is not specific acl
     } elsif ($object) {
         $aclName = $objectPrefix . $object;
+    } elsif ($group) {
+        ($groupName) = $group =~ m/^CN=(.*?),/;
+        $groupName =~ s{ }{\\ }g;  # escape group name
+        $aclName = $groupPrefix . $groupName;
     } elsif ($adDN) {
         $aclName = $adPrefix . $adDN;
     } else  {
@@ -131,6 +144,8 @@ sub _rulesACLs
         } elsif ($object) {
             my $acl = "acl $aclName src";
             _printSplitAcl($acl, $rule->{addresses});
+        } elsif ($group) {
+            $m->print("acl $aclName external ldapgroup $groupName\n");
         }  else {
             next;
         }
@@ -171,6 +186,13 @@ sub _rulesACLs
        $aclName = $objectPrefix . $object;
    }
 
+   my $group = $rule->{'group'};
+   if ($group) {
+      my ($groupName) = $group =~ m/^CN=(.*?),/;
+       $groupName =~ s{ }{\\ }g;  # escape group name
+       $aclName = $groupPrefix . $groupName;
+   }
+
    my $acl = _aclName($aclName);
 
    my $timeAcls = _timeAclsInPolicy($rule);
@@ -182,7 +204,12 @@ sub _rulesACLs
         $policy = 'allow';
     }  else {
         # expand rules stubs
-        my $baseAcls = "$timeAcls $acl ";
+        my $baseAcls;
+        if ($group) {
+            $baseAcls = "$timeAcls authorized $acl ";
+        } else {
+            $baseAcls = "$timeAcls $acl ";
+        }
         foreach my $stub (@{$rulesStubs  }) {
             my $ruleStr = $stub->{type};
             $ruleStr .= ' ' . $stub->{policy};
@@ -195,6 +222,10 @@ sub _rulesACLs
         next;
     }
    }
+
+   if ($group) {
+      $acl = "authorized $acl";
+   }
 </%perl>
 http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % }
@@ -203,6 +234,7 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
 <%def .rulesACLs>
 <%args>
     @rules
+    $realm
 </%args>
 % foreach my $rule (@rules) {
 %   if ($rule->{any}) {
@@ -215,6 +247,13 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
 %   my $aclName = _aclName($src);
 %   if ($object) {
 acl <% $aclName %> src <% join ' ', @{ $rule->{addresses} } %>
+%   } else {
+%       # escape user names
+%       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
+%       if ($realm) {
+%           @users = map { $_ . '@' . $realm } @users;
+%       }
+acl <% $aclName %> proxy_auth <% join (' ', @users) %>
 %   }
    <& .timeACLs, rule => $rule, id => $src &>
 % }
@@ -345,12 +384,24 @@ refresh_pattern .               0       20%     4320
 cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest <% $peerAuth %>
 % }
 
+% if ($realm) {
+auth_param negotiate program /usr/lib/squid/negotiate_kerberos_auth -i -s <% $principal %>@<% $realm %>
+auth_param negotiate children 10
+auth_param negotiate keep_alive on
+external_acl_type ldapgroup  ipv4 %LOGIN /usr/lib/squid/ext_ldap_group_acl -v3 -b <% $dn %> -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P -F "(&(userPrincipalName=%s)(objectclass=user))" -f "(&(samAccountName=%g)(objectclass=group)(member=%u))"
+% } else {
+auth_param basic realm Zentyal HTTP proxy
+auth_param basic program /usr/lib/squid/basic_ldap_auth -v3 -b <% $dn %> -f "(&(samAccountName=%s)(objectclass=user))" -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P
+external_acl_type ldapgroup  ipv4 %LOGIN /usr/lib/squid/ext_ldap_group_acl -v3 -b <% $dn %> -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P -F "(&(samAccountName=%s)(objectclass=user))" -f "(&(samAccountName=%g)(objectclass=group)(member=%u))"
+% }
+
 % if ($urlRewriteProgram) {
 url_rewrite_program <% $urlRewriteProgram %>
 % }
 
-<& .rulesACLs, rules => [ @objectsDelayPools ] &>
+<& .rulesACLs, rules => [ @objectsDelayPools ], realm => $realm &>
 acl_uses_indirect_client on
+acl authorized proxy_auth REQUIRED
 
 # no cache domains acl
 % foreach my $domain (@notCachedDomains) {
@@ -413,14 +464,14 @@ never_direct allow all
 
 <& .delayPools, objectsDelayPools => \@objectsDelayPools &>
 
-% if ( $snmpEnabled ) {
+% if ($snmpEnabled) {
 <& .snmp &>
 % }
 
 ##
 ## ACLs from model rules
 ##
-% _rulesACLs(rules => \@rules);
+% _rulesACLs(rules => \@rules, realm => $realm );
 ##
 ## Access
 ##

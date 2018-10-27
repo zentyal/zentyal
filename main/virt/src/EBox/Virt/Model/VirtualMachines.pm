@@ -241,16 +241,13 @@ sub _viewConsoleClicked
         return "return false";
     }
 
-    my $width = $virt->consoleWidth() . 'px';
-    my $height = $virt->consoleHeight() . 'px';
-
     my $viewConsoleURL = "/data/vncviewer-$name.html";
     my $viewConsoleCaption = __('View Console') . " ($name)";
 
     if ($virt->viewNewWindow()) {
         return "window.open('$viewConsoleURL'); return false";
     } else {
-        return "Zentyal.Dialog.showURL('$viewConsoleURL', {title: '$viewConsoleCaption', width: '$width', height: '$height', wideWindow : true, dialogClass: 'VMConsole' }); return false";
+        return "Zentyal.Dialog.showURL('$viewConsoleURL', {title: '$viewConsoleCaption', wideWindow : true, dialogClass: 'VMConsole' }); return false";
     }
 }
 
