@@ -102,6 +102,7 @@ sub _table
         printableRowName   => __('interface'),
         defaultActions     => [ 'add', 'del', 'editField', 'changeView', 'move' ],
         tableDescription   => \@tableHeader,
+        insertPosition     => 'back',
         order              => 1,
         enableProperty     => 1,
         defaultEnabledValue => 1,

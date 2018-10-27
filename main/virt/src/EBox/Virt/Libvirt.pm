@@ -31,8 +31,7 @@ use File::Slurp;
 
 my $VM_PATH = '/var/lib/zentyal/machines';
 my $NET_PATH = '/var/lib/zentyal/vnets';
-my $LIBVIRT_NET_CONF_PATH = '/etc/libvirt/qemu/networks';
-my $LIBVIRT_NET_PATH = '/var/lib/libvirt/network';
+my $LIBVIRT_NET_PATH = '/var/run/libvirt/network';
 my $KEYMAP_PATH = '/usr/share/qemu/keymaps';
 my $VM_FILE = 'domain.xml';
 my $VIRTCMD = EBox::Virt::LIBVIRT_BIN();
@@ -431,7 +430,9 @@ sub setIface
         if (not exists $self->{netConf}->{$source}) {
             $self->{netConf}->{$source} = {};
             $self->{netConf}->{$source}->{num} = $self->{netNum}++;
-            $self->{netConf}->{$source}->{bridge} = $self->_freeBridgeId();
+            my $id = $self->_freeBridgeId();
+            $self->{netConf}->{$source}->{bridge} = $id;
+            $self->{usedBridgeIds}->{$id} = 1;
         }
     }
 
@@ -564,17 +565,17 @@ sub createInternalNetworks
             [ name => $name, bridge => $bridge, prefix => $netprefix ],
             { uid => 0, gid => 0, mode => '0644' }
          );
-         $self->_createBridge($file, $bridge, $netprefix);
+         $self->_createBridge($name, $file, $bridge, $netprefix);
     }
 }
 
 sub _createBridge
 {
-    my ($self, $file, $bridge, $net) = @_;
+    my ($self, $name, $file, $bridge, $net) = @_;
 
-    _run("$VIRTCMD net-create $file");
+    _run("$VIRTCMD net-create $file", 1);
     if ($? != 0) {
-        _run("pkill -f \"dnsmasq.* --listen-address ${net}.1\"");
+        _run("pkill -f \"dnsmasq.*/${name}.conf\"");
         _run("ifconfig virbr${bridge} down");
         _run("brctl delbr virbr${bridge}");
         _run("$VIRTCMD net-create $file");
@@ -585,7 +586,7 @@ sub _netExists
 {
     my ($self, $name) = @_;
 
-    my $path = "$LIBVIRT_NET_CONF_PATH/$name.xml";
+    my $path = "$LIBVIRT_NET_PATH/$name.xml";
     return EBox::Sudo::fileTest('-e', $path);
 }
 
@@ -651,7 +652,7 @@ sub initDeviceNumbers
         scsi => 'a',
         sata => 'a',
         virtio => 'a',
-       };
+    };
 }
 
 sub initInternalNetworks
@@ -684,8 +685,8 @@ sub _usedBridgeIds
     my @files = glob ("$tmpdir/*.xml");
     foreach my $file (@files) {
         my $content = read_file($file);
-        my $id = $content =~ /<bridge name="virbr(\d+)"/;
-        if ($id) {
+        my ($id) = ($content =~ /<bridge name='virbr(\d+)'/);
+        if (defined $id) {
             $usedBridges->{$id} = 1;
         }
     }
@@ -707,10 +708,14 @@ sub _freeBridgeId
 
 sub _run
 {
-    my ($cmd) = @_;
+    my ($cmd, $silent) = @_;
 
     EBox::debug("Running: $cmd");
-    EBox::Sudo::rootWithoutException($cmd);
+    if ($silent) {
+        EBox::Sudo::silentRoot($cmd);
+    } else {
+        EBox::Sudo::rootWithoutException($cmd);
+    }
 }
 
 sub diskFile

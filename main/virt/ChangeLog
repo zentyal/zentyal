@@ -1,7 +1,7 @@
 6.0
 	+ Auto-resize View Console window to match VM resolution
 	+ Simplify VNC management and fix SSL problems
-	+ Remove duplicated call to createInternalNetworks()
+	+ Fix virtual networks management
 	+ Add support for EFI or Hybrid ISO files
 	+ Adapt to Ubuntu 18.04
 	+ Add virtlogd as managed daemon to avoid some random VM start errors
