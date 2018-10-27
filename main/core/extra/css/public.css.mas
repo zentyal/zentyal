@@ -2017,7 +2017,6 @@ body.first-install {
     width: auto !important;
 }
 #vnc_frame {
-    display: none;
     border: 0 solid white;
     height: 100%;
     width: 100%;

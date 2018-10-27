@@ -2,14 +2,15 @@
     $token
     $password
 </%args>
-<iframe onload="showIfVNCReady()" id="vnc_frame" src="/vncws/?path=websockify?token=<% $token %>&password=<% $password %>">This browser does not support frames</iframe>
+<iframe onload="setupResizeWatcher()" id="vnc_frame" src="/vncws/?path=websockify?token=<% $token %>&password=<% $password %>">This browser does not support frames</iframe>
 <script>
-function showIfVNCReady() {
+function setupResizeWatcher() {
     var vnc = document.querySelector("#vnc_frame");
     var canvas = vnc.contentDocument.querySelector("#noVNC_canvas");
-    if (canvas.height > 20) {
-        var w = canvas.width + 10;
-        var h = canvas.height + 35;
+
+    function onResize() {
+        var w = canvas.width;
+        var h = canvas.height + 38;
         var dialog = document.querySelector("#load_in_dialog");
         if (dialog) {
             dialog.style.width = w + "px";
@@ -18,9 +19,10 @@ function showIfVNCReady() {
             vnc.setAttribute('width', w);
             vnc.setAttribute('height', h);
         }
-        vnc.style.display = 'block';
-    } else {
-        setTimeout(showIfVNCReady, 10);
     }
+
+    new MutationObserver(function (mutations) {
+        if (mutations.length > 0) onResize();
+    }).observe(canvas, { attributes: true, attributeFilter: ['width', 'height'] });
 }
 </script>
