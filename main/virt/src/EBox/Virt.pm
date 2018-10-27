@@ -110,6 +110,9 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
 
         $firewall->saveConfigRecursive();
+
+        # Force load of nginx-virt.conf
+        EBox::Sudo::silentRoot("systemctl restart zentyal.webadmin-nginx");
     }
 }
 
