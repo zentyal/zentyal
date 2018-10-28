@@ -1,5 +1,8 @@
 #!/bin/bash
 
+mkdir -p /var/log/quagga
+chown quagga:quagga /var/log/quagga
+
 # create zebra.conf if it does not exist
 test -e /etc/quagga/zebra.conf || touch /etc/quagga/zebra.conf
 # create zebra.conf if it does not exist

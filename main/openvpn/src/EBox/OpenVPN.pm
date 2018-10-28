@@ -788,12 +788,18 @@ sub CAIsReady
 sub _daemons
 {
     my ($self) = @_;
-    my @daemons;
-    #first quagga daemon
-    push @daemons, {
-           name => 'zebra',
-           precondition => sub {  return $self->ripDaemonService() },
-       };
+
+    my @daemons = (
+        {
+            name => 'zebra',
+            precondition => sub {  return $self->ripDaemonService() },
+        },
+        {
+            name => 'ripd',
+            precondition => sub {  return $self->ripDaemonService() },
+        },
+    );
+
     foreach my $daemon ($self->daemons()) {
         push @daemons, $daemon->toDaemonHash();
     }
