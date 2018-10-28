@@ -1,0 +1,20 @@
+_zs_complete()
+{
+    local cur prev
+
+    COMPREPLY=()
+    cur=${COMP_WORDS[COMP_CWORD]}
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+
+    if [ $COMP_CWORD -eq 1 ]; then
+        FILTER="global|software|sysinfo"
+        MODULES=$(for i in `ls /usr/share/zentyal/modules/*.yaml`; do basename -s .yaml $i; done | egrep -v "$FILTER" | xargs)
+        COMPREPLY=($(compgen -W "$MODULES" -- $cur))
+    elif [ $COMP_CWORD -eq 2 ]; then
+        COMPREPLY=($(compgen -W "start stop status enabled restart" -- $cur))
+    fi
+
+    return 0
+}
+
+complete -F _zs_complete zs

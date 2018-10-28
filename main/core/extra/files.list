@@ -8,3 +8,4 @@ css /usr/share/zentyal/stubs
 mysql/zentyal.cnf /etc/mysql/conf.d
 eboxlog.conf /var/lib/zentyal/conf
 zs /usr/bin
+bash-completion/zs /usr/share/bash-completion/completions
