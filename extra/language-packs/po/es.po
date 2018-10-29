@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2018-03-19 03:39+0200\n"
+"PO-Revision-Date: 2018-10-29 13:40+0200\n"
 "Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -1193,9 +1193,8 @@ msgid "Type"
 msgstr "Tipo"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:76
-#, fuzzy
 msgid "Bridged to"
-msgstr "En puente de red"
+msgstr "En puente de red con"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:83
 msgid "Internal Network Name"
@@ -1351,7 +1350,7 @@ msgid "Only one CD connected to a host drive is supported"
 msgstr "Solo es posible conectar un CD a la unidad del anfitrión"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:289
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Device file for CD \"{f}\" does not exists"
 msgstr "El fichero de dispositivo para el CD \"{f]\" no existe"
 
@@ -1360,9 +1359,8 @@ msgid "HardDisk name"
 msgstr "Nombre de Disco Duro"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:313
-#, fuzzy
 msgid "The name should contain only characters, digits and underscores"
-msgstr "La ruta debe contener únicamente caracteres, digitos y barras bajas"
+msgstr "El nombre debe contener únicamente caracteres, digitos y barras bajas"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:322
 #, perl-brace-format
@@ -3537,13 +3535,13 @@ msgid "Apply Filter Profile"
 msgstr "Aplicar perfil de filtrado"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:124
-#, fuzzy
 msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
 msgstr ""
-"Aquí se puede filtrar, bloquear o permitir el acceso por objetos de red. Las "
-"reglas sólo se aplican durante el periodo de tiempo seleccionado."
+"Aquí se puede filtrar, bloquear o permitir el acceso por objetos de red o "
+"grupos de usuarios. Las reglas sólo se aplican durante el periodo de tiempo "
+"seleccionado."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:125
 msgid ""
@@ -4213,11 +4211,9 @@ msgid "Create RADIUS certificates for TTLS"
 msgstr "Crear certificados de RADIUS para TTLS"
 
 #: ../../main/radius/src/EBox/Radius.pm:73
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Zentyal will create the needed certificates for TTLS in {d}."
-msgstr ""
-"Zentyal creará los certificados necesarios para TTLS en /etc/freeradius/"
-"certs/."
+msgstr "Zentyal creará los certificados necesarios para TTLS en {d}."
 
 #: ../../main/radius/src/EBox/Radius.pm:78
 msgid "Allow others to read /var/log/freeradius"
@@ -4260,9 +4256,8 @@ msgid "To configure RADIUS inner-tunnel vhost."
 msgstr "Configurar el vhost del túnel interno de RADIUS."
 
 #: ../../main/radius/src/EBox/Radius.pm:126
-#, fuzzy
 msgid "To configure RADIUS mschap."
-msgstr "Configurar RADIUS EAP."
+msgstr "Configurar RADIUS mschap."
 
 #: ../../main/radius/src/EBox/Radius.pm:151
 msgid "Zentyal RADIUS system"
@@ -6386,13 +6381,13 @@ msgid "Administrator sessions"
 msgstr "Sesiones del administrador"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:192
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a "
 "FREE 45-day Trial!"
 msgstr ""
 "¿Está interesado en una de las Ediciones Comerciales del Servidor Zentyal? "
-"¡Obtenga un Trial GRATUITO de 30 días!"
+"¡{oh}Obtenga{ch} un Trial GRATUITO de 45 días!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:197
 #, perl-brace-format
@@ -6503,16 +6498,14 @@ msgstr ""
 "Además, algunos paqeutes actualizados requieren un reinicio para aplicarse"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:116
-#, fuzzy
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
 "In production environments we recommend using the Commercial Zentyal Server "
 "Edition."
 msgstr ""
 "Aviso: Estas actualizaciones son actualizaciones no probadas de comunidad y "
-"pueden dañar tu sistema. En entornos de producción recomendamos usar la "
-"Edición Professional, Business o Premium: ediciones comerciales del Servidor "
-"Zentyal, con soporte completo de Zentyal S.L. y Canonical/Ubuntu."
+"pueden dañar tu sistema. En entornos de producción recomendamos usar las "
+"ediciones comerciales del servidor Zentyal."
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:121
 #: ../../main/software/src/templates/updateNote.mas:11
@@ -6681,7 +6674,7 @@ msgstr "Validación de Licencia"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:60
 msgid "Perpetual"
-msgstr ""
+msgstr "Perpetua"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:64
 #: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:11
@@ -6707,9 +6700,8 @@ msgstr "Validar Licencia"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:104
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:108
-#, fuzzy
 msgid "License key is invalid or expired."
-msgstr "La clave de licencia ha expirado."
+msgstr "La clave de licencia es inválida o ha expirado."
 
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:114
 msgid "License key is expired."
@@ -8352,17 +8344,14 @@ msgid "network object"
 msgstr "objeto de red"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/System.pm:51
-#, fuzzy
 msgid "Full Report"
-msgstr "Informes completos"
+msgstr "Informe Completo"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/System.pm:58
-#, fuzzy
 msgid "System Scanning"
-msgstr "Configuración del sistema"
+msgstr "Análisis del Sistema"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:77
-#, fuzzy
 msgid "On-Access Scanning"
 msgstr "Análisis en Acceso"
 
@@ -8381,24 +8370,20 @@ msgstr ""
 "explícitamente incluida es excluída por defecto."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:97
-#, fuzzy
 msgid "Include"
-msgstr "Incluir ruta"
+msgstr "Incluir"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:101
-#, fuzzy
 msgid "Exclude"
-msgstr "Excluir ruta"
+msgstr "Excluir"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Composite/Updates.pm:49
-#, fuzzy
 msgid "Last Database Updates"
-msgstr "Estado de actualización de la base de datos de virus"
+msgstr "Últimas actualizaciones de la base de datos"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Composite/Updates.pm:50
-#, fuzzy
 msgid "No recent updates."
-msgstr "No hay actualizaciones"
+msgstr "No hay actualizaciones recientes."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Composite/General.pm:38
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:70
@@ -12228,10 +12213,9 @@ msgstr ""
 "Por favor contacta con {href} si todavía no tienes una clave de licencia."
 
 #: ../../main/core/src/templates/activation.mas:14
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "You can get one by requesting a free 45-day trial at {href}"
-msgstr ""
-"Puedes obtener una solicitando una prueba gratuita de 30 días en {href}"
+msgstr "Puedes obtener una solicitando una prueba gratuita de 45 días en {href}"
 
 #: ../../main/core/src/templates/activation.mas:23
 msgid "Please enter your license key"
@@ -13599,7 +13583,7 @@ msgid "Configure"
 msgstr "Configurar"
 
 #: ../../main/software/src/templates/updateNote.mas:14
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
 "In production environments we recommend using the {oh}Commercial Zentyal "
@@ -13607,8 +13591,7 @@ msgid ""
 msgstr ""
 "Aviso: Estas actualizaciones son actualizaciones no probadas de comunidad y "
 "pueden dañar tu sistema. En entornos de producción recomendamos usar la "
-"Edición Professional, Business o Premium: ediciones comerciales del Servidor "
-"Zentyal, con soporte completo de Zentyal S.L. y Canonical/Ubuntu."
+"{oh}Edición Comercial del Servidor Zentyal{ch}."
 
 #: ../../main/software/src/templates/updates.mas:71
 msgid ""
