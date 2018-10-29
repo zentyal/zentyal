@@ -1,5 +1,8 @@
 6.0
     + Based on Ubuntu 18.04.1
+    + Install Zentyal menu entries are now translated
+    + Fix bug asking language again if already selected on installer menu
+    + Faster installation equiring less user input during the first stage
 5.1
     + Based on Ubuntu 16.04.4
     + Use HWE kernel by default
