@@ -53,7 +53,7 @@ msgid "To configure sogo parameters"
 msgstr "A Sogo paramétereinek beállítása"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:373 ../../main/mail/src/EBox/Mail.pm:98
-#: ../../main/mail/src/EBox/Mail.pm:1480 ../../main/mail/src/EBox/Mail.pm:1634
+#: ../../main/mail/src/EBox/Mail.pm:1481 ../../main/mail/src/EBox/Mail.pm:1635
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "Levelezés"
@@ -97,86 +97,85 @@ msgstr ""
 msgid "{x} is only recommended for mailboxes of 1GB of data or less."
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS.pm:288 ../../main/dns/src/EBox/DNS.pm:370
-#: ../../main/dns/src/EBox/DNS.pm:431 ../../main/dns/src/EBox/DNS.pm:459
-#: ../../main/dns/src/EBox/DNS.pm:1734
+#: ../../main/dns/src/EBox/DNS.pm:288 ../../main/dns/src/EBox/DNS.pm:409
+#: ../../main/dns/src/EBox/DNS.pm:437 ../../main/dns/src/EBox/DNS.pm:1712
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:685
 msgid "domain"
 msgstr "tartomány"
 
-#: ../../main/dns/src/EBox/DNS.pm:563
+#: ../../main/dns/src/EBox/DNS.pm:541
 msgid "Zentyal will set the required environment variables for bind9 daemon"
 msgstr "A Zentyal beállítja a szükséges környezeti változókat a bind9 démonhoz"
 
-#: ../../main/dns/src/EBox/DNS.pm:568
+#: ../../main/dns/src/EBox/DNS.pm:546
 msgid "main bind9 configuration file"
 msgstr "elsődleges bind9 konfigurációs fájl"
 
-#: ../../main/dns/src/EBox/DNS.pm:573
+#: ../../main/dns/src/EBox/DNS.pm:551
 msgid "bind9 options configuration file"
 msgstr "bind9 beállítások konfigurációs fájlja"
 
-#: ../../main/dns/src/EBox/DNS.pm:578
+#: ../../main/dns/src/EBox/DNS.pm:556
 msgid "local bind9 configuration file"
 msgstr "helyi bind9 konfigurációs fájl"
 
-#: ../../main/dns/src/EBox/DNS.pm:583
+#: ../../main/dns/src/EBox/DNS.pm:561
 msgid "Keys configuration file"
 msgstr "Kulcsok konfigurációs fájlja"
 
-#: ../../main/dns/src/EBox/DNS.pm:598
+#: ../../main/dns/src/EBox/DNS.pm:576
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr ""
 "Módosítsa a(z) {dir} könyvtár írási jogosultságát a bind csoportba való írás "
 "engedélyezéséhez"
 
-#: ../../main/dns/src/EBox/DNS.pm:600
+#: ../../main/dns/src/EBox/DNS.pm:578
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "A bind démon dinamikus frissítésének engedélyezése"
 
-#: ../../main/dns/src/EBox/DNS.pm:604
+#: ../../main/dns/src/EBox/DNS.pm:582
 msgid "Remove bind9 init script link"
 msgstr "A bind9 init szkript link törlése"
 
-#: ../../main/dns/src/EBox/DNS.pm:605 ../../main/squid/src/EBox/Squid.pm:234
-#: ../../main/squid/src/EBox/Squid.pm:240 ../../main/ntp/src/EBox/NTP.pm:81
+#: ../../main/dns/src/EBox/DNS.pm:583 ../../main/squid/src/EBox/Squid.pm:268
+#: ../../main/squid/src/EBox/Squid.pm:274 ../../main/ntp/src/EBox/NTP.pm:81
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "A Zentyal gondoskodik a szolgáltatások indításáról és leállításáról."
 
-#: ../../main/dns/src/EBox/DNS.pm:610
+#: ../../main/dns/src/EBox/DNS.pm:588
 msgid "Override named apparmor profile"
 msgstr "A megnevezett AppArmor profil felülbírálása"
 
-#: ../../main/dns/src/EBox/DNS.pm:611
+#: ../../main/dns/src/EBox/DNS.pm:589
 msgid "To allow samba daemon load Active Directory zone"
 msgstr "A Samba démon betölthesse az Active Directory zónát"
 
-#: ../../main/dns/src/EBox/DNS.pm:636
+#: ../../main/dns/src/EBox/DNS.pm:614
 msgid "Domain Name Service"
 msgstr "Tartománynév-szolgáltatás"
 
-#: ../../main/dns/src/EBox/DNS.pm:1016
+#: ../../main/dns/src/EBox/DNS.pm:994
 #, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
 msgstr "„{key}” kulcs a beállítófájlban: {value}"
 
-#: ../../main/dns/src/EBox/DNS.pm:1760
+#: ../../main/dns/src/EBox/DNS.pm:1738
 msgid "hostname"
 msgstr "gépnév"
 
-#: ../../main/dns/src/EBox/DNS.pm:1765
+#: ../../main/dns/src/EBox/DNS.pm:1743
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:2301
+#: ../../main/samba/src/EBox/Samba.pm:2305
 msgid "alias"
 msgstr "álnév"
 
-#: ../../main/dns/src/EBox/DNS.pm:1981
+#: ../../main/dns/src/EBox/DNS.pm:1959
 #, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
 msgstr "Már létezik {x} gépnév a(z) {y} tartományban"
 
-#: ../../main/dns/src/EBox/DNS.pm:2049
+#: ../../main/dns/src/EBox/DNS.pm:2027
 #, fuzzy, perl-brace-format
 msgid "The IP '{a}' is already in '{d}'"
 msgstr "A(z) {ip} IP-cím már hozzá van rendelve a(z) „{iface}” csatolóhoz"
@@ -246,7 +245,7 @@ msgstr "Ez a tartomány"
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:183
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:203
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:231
-#: ../../main/mail/src/EBox/Mail.pm:1507
+#: ../../main/mail/src/EBox/Mail.pm:1508
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:254
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:280
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
@@ -326,6 +325,7 @@ msgstr "Gépnév"
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:84
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:104
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:241
+#: ../../main/radius/src/EBox/Radius/Model/Clients.pm:110
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:82
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:147
 msgid "IP Address"
@@ -491,16 +491,17 @@ msgid "Enable transparent DNS cache"
 msgstr "Transzparens DNS gyorsítótár engedélyezése"
 
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:121
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:200
 #: ../../main/software/src/EBox/Software.pm:668
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
 msgstr "Beállítások"
 
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:88
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:76
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:84
 msgid "Settings changed"
 msgstr "Beállítások módosítva"
 
@@ -534,14 +535,14 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:582
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
-#: ../../main/squid/src/EBox/Squid.pm:929
+#: ../../main/squid/src/EBox/Squid.pm:974
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:53
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
-#: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:71
-#: ../../main/samba/src/EBox/Samba.pm:1613
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
+#: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:44
+#: ../../main/samba/src/EBox/Samba.pm:1617
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
 #: ../../main/samba/src/EBox/Samba/Composite/Domain.pm:39
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 msgid "Domain"
@@ -635,20 +636,20 @@ msgstr "IP"
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:89
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:91
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:225
-#: ../../main/core/src/EBox/NetWrappers.pm:121
-#: ../../main/core/src/EBox/NetWrappers.pm:151
-#: ../../main/core/src/EBox/NetWrappers.pm:243
+#: ../../main/core/src/EBox/NetWrappers.pm:122
+#: ../../main/core/src/EBox/NetWrappers.pm:152
+#: ../../main/core/src/EBox/NetWrappers.pm:244
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:117
-#: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:76
+#: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:49
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:192
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:85
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:110
-#: ../../main/network/src/EBox/Network.pm:1230
-#: ../../main/network/src/EBox/Network.pm:1262
-#: ../../main/network/src/EBox/Network.pm:1347
-#: ../../main/network/src/EBox/Network.pm:1386
-#: ../../main/network/src/EBox/Network.pm:1414
-#: ../../main/network/src/EBox/Network.pm:1505
+#: ../../main/network/src/EBox/Network.pm:1233
+#: ../../main/network/src/EBox/Network.pm:1265
+#: ../../main/network/src/EBox/Network.pm:1350
+#: ../../main/network/src/EBox/Network.pm:1389
+#: ../../main/network/src/EBox/Network.pm:1417
+#: ../../main/network/src/EBox/Network.pm:1508
 #: ../../main/network/src/EBox/Network.pm:1706
 #: ../../main/network/src/EBox/Network.pm:1799
 #: ../../main/network/src/EBox/Network.pm:1901
@@ -694,8 +695,8 @@ msgstr "A gépnév az IP-címek ezen listájára lesz feloldva."
 #: ../../main/network/src/EBox/Network/Model/MemberTable.pm:64
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:185
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:284
-#: ../../main/network/src/EBox/Network.pm:1130
-#: ../../main/network/src/EBox/Network.pm:1508
+#: ../../main/network/src/EBox/Network.pm:1136
+#: ../../main/network/src/EBox/Network.pm:1511
 #: ../../main/network/src/EBox/Network.pm:3960
 #: ../../main/network/src/EBox/Network.pm:3994
 #: ../../main/network/src/EBox/Network.pm:4029
@@ -710,30 +711,6 @@ msgstr "IP-cím"
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:107
 msgid "The domain name will be resolved to this list of IP addresses."
 msgstr "A tartománynév az IP-címek ezen listájára lesz feloldva."
-
-#: ../../main/partner-tools/src/EBox/PartnerTools.pm:52
-#: ../../main/partner-tools/src/EBox/PartnerTools/CGI/Tools.pm:31
-#: ../../main/partner-tools/src/EBox/PartnerTools/CGI/Tools.pm:42
-msgid "Partner Tools"
-msgstr ""
-
-#: ../../main/partner-tools/src/EBox/PartnerTools/CGI/Tools.pm:53
-#: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:229
-#: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:77
-#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
-#: ../../main/partner-tools/src/templates/tools.mas:14
-#: ../../main/mail/src/templates/externalAccounts.mas:14
-#: ../../main/core/src/templates/login/index.mas:52
-#: ../../main/network/src/templates/ifaces.mas:180
-#: ../../main/samba/src/templates/adduser.mas:30
-#: ../../main/samba/src/templates/edituser.mas:86
-msgid "Password"
-msgstr "Jelszó"
 
 #: ../../main/ca/src/EBox/CA/CGI/Index.pm:38
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:42
@@ -838,14 +815,15 @@ msgid "Problems creating Certification Authority has happened"
 msgstr "A hitelesítésszolgáltató létrehozásakor hiba történt"
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:75
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:76
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/Model/Composite.pm:521
 #: ../../main/core/src/EBox/Model/Composite.pm:536
 #: ../../main/core/src/EBox/Model/DataTable.pm:1764
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:61
-#: ../../main/samba/src/EBox/Samba.pm:2775
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/System.pm:43
+#: ../../main/samba/src/EBox/Samba.pm:2787
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:477
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
@@ -1065,7 +1043,7 @@ msgstr "A megújítandó tanúsítvány NEM létezik"
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "A(z) {cn} általános nevű tanúsítvány NEM létezik ebben a CA-ban"
 
-#: ../../main/ca/src/EBox/CA.pm:1749 ../../main/mail/src/EBox/Mail.pm:1536
+#: ../../main/ca/src/EBox/CA.pm:1749 ../../main/mail/src/EBox/Mail.pm:1537
 #: ../../main/core/src/EBox/SysInfo.pm:110
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:164
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
@@ -1144,6 +1122,441 @@ msgstr "Csak {dns}, {ip} és {email} érvényes alternatív tárgynévként"
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Nem lehet elindítani az OpenSSL parancsértelmezőt. ({errval})"
+
+#: ../../main/virt/src/EBox/Virt/Libvirt.pm:528
+msgid "Windows Vista | Windows 2008 or newer"
+msgstr "Windows Vista | Windows 2008 vagy újabb"
+
+#: ../../main/virt/src/EBox/Virt/Libvirt.pm:529
+msgid "Windows XP | Windows 2003 or older"
+msgstr "Windows XP | Windows 2003 vagy régebbi"
+
+#: ../../main/virt/src/EBox/Virt/Libvirt.pm:530
+msgid "Linux"
+msgstr "Linux"
+
+#: ../../main/virt/src/EBox/Virt/Libvirt.pm:531
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:313
+msgid "Other"
+msgstr "Másik"
+
+#: ../../main/virt/src/EBox/Virt/Libvirt.pm:538
+msgid "i686 compatible"
+msgstr "i686 kompatibilis"
+
+#: ../../main/virt/src/EBox/Virt/Libvirt.pm:539
+msgid "amd64 compatible"
+msgstr "amd64 kompatibilis"
+
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:42
+#: ../../main/network/src/templates/ifaces.mas:94
+#: ../../main/network/src/templates/ifaces.mas:95
+msgid "Bridged"
+msgstr "Bridged"
+
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:43
+msgid "Internal Network"
+msgstr "Belső hálózat"
+
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:55
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
+#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:191
+#: ../../main/core/src/EBox/CGI/Search.pm:49
+#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:260
+#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:276
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:332
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:367
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:379
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:388
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:421
+msgid "None"
+msgstr "Nincs"
+
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:70
+#: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1416
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:68
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:201
+#: ../../main/core/src/templates/report/raid.mas:127
+#: ../../main/core/src/templates/report/diskUsage.mas:63
+#: ../../main/samba/src/templates/editgroup.mas:26
+#: ../../main/samba/src/templates/addgroup.mas:10
+msgid "Type"
+msgstr "Típus"
+
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:76
+#, fuzzy
+msgid "Bridged to"
+msgstr "Bridged"
+
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:83
+msgid "Internal Network Name"
+msgstr "Belső hálózat neve"
+
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:90
+msgid "MAC Address"
+msgstr "MAC-cím"
+
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:101
+msgid "Network Settings"
+msgstr "Hálózati beállítások "
+
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:102
+#: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:137
+#: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:148
+msgid "interface"
+msgstr "csatoló"
+
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:110
+msgid "Here you can define the network interfaces of the virtual machine."
+msgstr "Itt adhatja meg a virtuális gép hálózati csatolóit."
+
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:182
+#, perl-brace-format
+msgid "A maximum of {num} network interfaces are allowed"
+msgstr "Legfeljebb {num} hálózati csatoló engedélyezett"
+
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:193
+msgid "'None' interface is not allowed in your virtual machine backend"
+msgstr "A „Nincs” csatolót nem engedélyezi a virtuális gép háttérprogramja"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:45
+msgid "Hard Disk"
+msgstr "Merevlemez"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:54
+#, fuzzy
+msgid "Create a new disk"
+msgstr "Új fürt létrehozása"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:55
+msgid "Use a existing image file"
+msgstr "Létező lemezkép használata"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:70
+msgid "Drive Type"
+msgstr "Meghajtó típusa"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:83
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:114
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:204
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:45
+#: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:70
+#: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:47
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:44
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
+#: ../../main/network/src/EBox/Network/Model/ObjectTable.pm:66
+#: ../../main/network/src/EBox/Network/Model/MemberTable.pm:58
+#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:178
+#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:184
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:194
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:192
+#: ../../main/dns/src/templates/index.mas:20
+#: ../../main/ca/src/templates/index.mas:99
+#: ../../main/network/src/templates/ifaces.mas:33
+#: ../../main/network/src/templates/ifaces.mas:233
+#: ../../main/samba/src/templates/addou.mas:10
+msgid "Name"
+msgstr "Név"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:90
+msgid "Use host CD drive"
+msgstr "A gazda CD meghajtó használata"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:98
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:60
+msgid "Path"
+msgstr "Útvonal"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:106
+msgid "Size"
+msgstr "Méret"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:117
+msgid "Device Settings"
+msgstr "Eszközbeállítások"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:118
+msgid "drive"
+msgstr "meghajtó"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:125
+msgid "Here you can define the storage drives of the virtual machine"
+msgstr "Itt adhatja meg a virtuális gép tárolóeszközeit"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:186
+msgid "ISO image"
+msgstr "ISO lemezkép"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:190
+#, perl-brace-format
+msgid "The CD disk image {img} should be in ISO format"
+msgstr "A(z) „{img}” CD-képnek ISO formátumúnak kell lennie"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:198
+msgid "Hard disk image"
+msgstr "Merevlemezkép"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:205
+#, perl-brace-format
+msgid "The hard disk image {img} should be in qcow2 format"
+msgstr "A(z) „{img}” merevlemezképnek qcow2 formátumúnak kell lennie"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:213
+msgid "You need to specify a name for the new hard disk"
+msgstr "Meg kell adnia az új merevlemezkép nevét"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:223
+msgid ""
+"It already exists a disk file with this name. Save changes to synchronize "
+"disk files status"
+msgstr ""
+"Már létezik ilyen nevű lemezfájl. Mentse el a változtatásokat a lemezfájlok "
+"állapotának szinkronizálásához"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:226
+msgid ""
+"You cannot modify an already created disk. You need to delete it and add a "
+"new one if you want to change the size."
+msgstr ""
+"Létező lemez méretét nem lehet megváltoztatni. Törölje, majd adjon hozzá egy "
+"új lemezt, ha méretet szeretne változtatni."
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:243
+#, perl-brace-format
+msgid "A maximum of {num} IDE drives are allowed"
+msgstr "Maximum {num} IDE meghajtó engedélyezett"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:254
+#, perl-brace-format
+msgid "A maximum of {num} CD/DVD drives are allowed"
+msgstr "Maximum {num} CD/DVD meghajtó engedélyezett"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:259
+#, perl-brace-format
+msgid "A maximum of {num} Hard Disk drives are allowed"
+msgstr "Maximum {num} merevlemez eszköz engedélyezett"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:280
+msgid "Only one CD connected to a host drive is supported"
+msgstr "Csak egy, a gazda meghajtóhoz csatlakoztatott CD támogatott"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:289
+#, perl-brace-format
+msgid "Device file for CD \"{f}\" does not exists"
+msgstr "A(z) „{f}” CD eszközfájlja nem létezik"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:311
+msgid "HardDisk name"
+msgstr "Merevlemez neve"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:313
+#, fuzzy
+msgid "The name should contain only characters, digits and underscores"
+msgstr ""
+"Az útvonal csak betűket, számokat, pontokat, kötőjeleket, "
+"könyvtárelválasztókat és aláhúzásokat tartalmazhat"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:322
+#, perl-brace-format
+msgid "You need to provide the path of a {name}"
+msgstr "Meg kell adnia egy {name} lemezkép útvonalát"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:330
+msgid ""
+"The path should contain only characters, digits, dots, dashes, directory "
+"separators  and underscores"
+msgstr ""
+"Az útvonal csak betűket, számokat, pontokat, kötőjeleket, "
+"könyvtárelválasztókat és aláhúzásokat tartalmazhat"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:335
+#, perl-brace-format
+msgid "{name} '{img}' does not exist"
+msgstr "A(z) „{img}” {name} nem létezik"
+
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:341
+#, perl-brace-format
+msgid "{name} '{img}' is not readable"
+msgstr "A(z) „{img}” {name} nem olvasható"
+
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:98
+msgid "Operating System"
+msgstr "Operációs rendszer"
+
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:104
+msgid "Architecture"
+msgstr "Architektúra"
+
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:111
+msgid "Base Memory"
+msgstr "Alapmemória"
+
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:122
+msgid "Manage only"
+msgstr "Csak felügyelet"
+
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:124
+msgid ""
+"Configuration will no longer be overwritten after activating this and the "
+"machine should be directly edited from VirtualBox GUI or using the "
+"vboxmanage command"
+msgstr ""
+"A beállítások nem lesznek felülírva, és a gépet közvetlenül kell "
+"szerkeszteni a VirtualBox GUI-ról, vagy a vboxmanage paranccsal."
+
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:131
+msgid "System Settings"
+msgstr "Rendszerbeállítások"
+
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:135
+msgid "Here you can define the basic hardware configuration of the machine"
+msgstr "Itt adhatja meg a gép alapvető hardverbeállításait"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:54
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:245
+msgid "View Console"
+msgstr "Konzol megjelenítése"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:64
+#: ../../main/core/src/EBox/SysInfo.pm:457
+#: ../../main/virt/src/templates/vmstatus.mas:30
+msgid "Start"
+msgstr "Indítás"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:66
+msgid "Virtual Machine started"
+msgstr "Virtuális gép elindítva"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:71
+#: ../../main/virt/src/templates/vmstatus.mas:29
+msgid "Stop"
+msgstr "Leállítás"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:73
+msgid "Virtual Machine stopped"
+msgstr "Virtuális gép leállítva"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:84
+msgid "Pause"
+msgstr "Szünet"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:86
+msgid "Virtual Machine paused"
+msgstr "Virtuális gép szüneteltetve"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:91
+msgid "Resume"
+msgstr "Folytatás"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:93
+msgid "Virtual Machine resumed"
+msgstr "Virtuális gép folytatva"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:110
+#: ../../main/mail/src/EBox/Mail.pm:1498 ../../main/mail/src/EBox/Mail.pm:1609
+#: ../../main/network/src/EBox/Network.pm:4382
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/System.pm:47
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
+#: ../../main/mail/src/templates/qmanager.mas:17
+#: ../../main/core/src/templates/moduleStatusTable.mas:65
+#: ../../main/core/src/templates/report/raid.mas:100
+msgid "Status"
+msgstr "Állapot"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:129
+msgid "Autostart"
+msgstr "Automatikus indítás"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:138
+msgid "List of Virtual Machines"
+msgstr "Virtuális gépek listája"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:139
+#: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:53
+#: ../../main/virt/src/EBox/Virt.pm:53 ../../main/virt/src/EBox/Virt.pm:579
+msgid "Virtual Machines"
+msgstr "Virtuális gépek"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:140
+msgid "virtual machine"
+msgstr "virtuális gép"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:144
+#, fuzzy
+msgid "List of configured Virtual Machines."
+msgstr "Virtuális gépek listája"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:206
+msgid ""
+"You have either invalid characters or spaces. Valid characters are: '[A-Z][a-"
+"z][0-9]-_'"
+msgstr ""
+"Érvénytelen karakterek vagy szóköz. Érvényes karakterek: „[A-Z][a-z][0-9]-_”"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:216
+msgid ""
+"Cannot add more virtual machines because its maximum allowed number has been "
+"reached"
+msgstr ""
+"Nem lehet több virtuális gépet hozzáadni, mert a maximálisan engedélyezett "
+"mennyiség el lett érve"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:279
+#, perl-brace-format
+msgid ""
+"The Virtual Machines module is not enabled, please go to the {openref}Module "
+"Status{closeref} section and enable it prior to try to start any machine."
+msgstr ""
+"A Virtuális gépek modul nincs engedélyezve, nyissa meg a {openref}"
+"Modulállapot{closeref} oldalt, és engedélyezze a gépek indítása előtt."
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:282
+msgid ""
+"Virtual machines cannot be started if there are pending unsaved changes on "
+"the Virtual Machines module, please save changes first and try again."
+msgstr ""
+"Nem indíthatók virtuális gépek, amíg függőben lévő mentetlen változtatások "
+"vannak a Virtuális gépek modulban, először mentse a módosításokat, és "
+"próbálja újra."
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:302
+#, perl-brace-format
+msgid "Couldn't start virtual machine '{vm}'"
+msgstr "Nem sikerült elindítani a(z) „{vm}” virtuális gépet"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:331
+#, perl-brace-format
+msgid "Couldn't stop virtual machine '{vm}'"
+msgstr "Nem sikerült leállítani a(z) „{vm}” virtuális gépet"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:345
+msgid "Cannot pause a stopped machine. You have to start it first."
+msgstr ""
+"Nem lehet szüneteltetni egy leállított gépet. Először el kell indítani."
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:446
+msgid "Remove virtual machine"
+msgstr "Virtuális gép eltávolítása"
+
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:447
+msgid ""
+"Are you sure about removing this virtual machine?. All its data will be "
+"lost. "
+msgstr "Biztosan eltávolítja a virtuális gépet? Minden adata el fog veszni."
+
+#: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:40
+msgid "Virtual Machine Settings"
+msgstr "Virtuális gép beállításai"
+
+#: ../../main/virt/src/EBox/Virt.pm:93 ../../main/virt/src/EBox/Virt.pm:255
+msgid "Virtual Machines VNC"
+msgstr "Virtuális gépek és VNC"
+
+#: ../../main/virt/src/EBox/Virt.pm:94 ../../main/virt/src/EBox/Virt.pm:256
+msgid "VNC connections for Zentyal VMs"
+msgstr "VNC kapcsolatok a Zentyal virtuális gépekhez"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:615
 msgid "Firewall failed to add rules for the following modules: "
@@ -1231,13 +1644,12 @@ msgid "SNAT"
 msgstr "SNAT"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/mail/src/EBox/Mail.pm:1599 ../../main/squid/src/EBox/Squid.pm:925
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1409
+#: ../../main/mail/src/EBox/Mail.pm:1600 ../../main/squid/src/EBox/Squid.pm:970
+#: ../../main/radius/src/EBox/Radius.pm:372
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1413
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
-#: ../../main/ips/src/EBox/IPS.pm:297
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:402
-#: ../../main/ipsec/src/EBox/IPsec.pm:414
-#: ../../main/samba/src/EBox/Samba.pm:2772
+#: ../../main/ips/src/EBox/IPS.pm:297 ../../main/ipsec/src/EBox/IPsec.pm:414
+#: ../../main/samba/src/EBox/Samba.pm:2784
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:475
 #: ../../main/dhcp/src/EBox/DHCP.pm:967
 #: ../../main/ca/src/templates/index.mas:99
@@ -1260,10 +1672,9 @@ msgstr "Kimenő csatoló"
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:49
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:83
 #: ../../main/ips/src/EBox/IPS.pm:300
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:94
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:403
 msgid "Source"
 msgstr "Forrás"
 
@@ -1288,7 +1699,7 @@ msgstr "Cél port"
 #: ../../main/firewall/src/EBox/Firewall.pm:794
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:148
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:99
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:69
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:89
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:161
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:43
 msgid "Decision"
@@ -1317,9 +1728,9 @@ msgstr "A Zentyalról kifelé menő forgalom"
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:165
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:77
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:76
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:103
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:123
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:206
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:206
+#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:207
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:129
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:182
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:67
@@ -1339,12 +1750,12 @@ msgstr "Kimenő csatoló"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:280
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:113
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:144
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:63
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:70
 #: ../../main/core/src/EBox/Types/Service.pm:185
 #: ../../main/core/src/EBox/Types/PortRange.pm:289
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:99
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:127
-#: ../../main/network/src/EBox/Network.pm:5109
+#: ../../main/network/src/EBox/Network.pm:5064
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:129
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:138
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:129
@@ -1369,7 +1780,7 @@ msgstr "Forrás objektum"
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:108
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:245
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:93
-#: ../../main/network/src/EBox/Network.pm:5794
+#: ../../main/network/src/EBox/Network.pm:5750
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:156
 msgid "Object"
 msgstr "Objektum"
@@ -1385,7 +1796,7 @@ msgstr ""
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:132
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:330
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:217
+#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:218
 msgid "Log"
 msgstr "Naplózás"
 
@@ -1443,7 +1854,6 @@ msgid "External Input"
 msgstr "Külső bemenet"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
-#: ../../main/partner-tools/src/templates/tools.mas:20
 #: ../../main/network/src/templates/diag.mas:66
 msgid "Output"
 msgstr "Kimenet"
@@ -1483,16 +1893,6 @@ msgstr "Szabály"
 #: ../../main/core/src/templates/enable.mas:20
 msgid "Enabled"
 msgstr "Bekapcsolva"
-
-#: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1412
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:201
-#: ../../main/core/src/templates/report/raid.mas:127
-#: ../../main/core/src/templates/report/diskUsage.mas:63
-#: ../../main/samba/src/templates/editgroup.mas:26
-#: ../../main/samba/src/templates/addgroup.mas:10
-msgid "Type"
-msgstr "Típus"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:143
 msgid "Condition"
@@ -1536,7 +1936,8 @@ msgstr "Cél IP"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:305
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:43
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:55
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
+#: ../../main/radius/src/EBox/Radius.pm:376
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:911
 #: ../../main/mail/src/templates/externalAccounts.mas:16
 msgid "Port"
@@ -1545,10 +1946,6 @@ msgstr "Port"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:310
 msgid "Same"
 msgstr "Ugyanaz"
-
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:313
-msgid "Other"
-msgstr "Másik"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:321
 msgid "Replace source address"
@@ -1758,81 +2155,72 @@ msgstr "Gép levelezőneve"
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "A levelezőnév és a virtuális levelező tartománynév azonosak"
 
-#: ../../main/mail/src/EBox/Mail.pm:1426
+#: ../../main/mail/src/EBox/Mail.pm:1427
 msgid "SMTP service"
 msgstr "SMTP szolgáltatás"
 
-#: ../../main/mail/src/EBox/Mail.pm:1433
+#: ../../main/mail/src/EBox/Mail.pm:1434
 msgid "POP3 service"
 msgstr "POP3 szolgáltatás"
 
-#: ../../main/mail/src/EBox/Mail.pm:1439
+#: ../../main/mail/src/EBox/Mail.pm:1440
 msgid "POP3S service"
 msgstr "POP3S szolgáltatás"
 
-#: ../../main/mail/src/EBox/Mail.pm:1445
+#: ../../main/mail/src/EBox/Mail.pm:1446
 msgid "IMAP service"
 msgstr "IMAP szolgáltatás"
 
-#: ../../main/mail/src/EBox/Mail.pm:1451
+#: ../../main/mail/src/EBox/Mail.pm:1452
 msgid "IMAPS service"
 msgstr "IMAPS szolgáltatás"
 
-#: ../../main/mail/src/EBox/Mail.pm:1495
+#: ../../main/mail/src/EBox/Mail.pm:1496
 msgid "enabled"
 msgstr "bekapcsolva"
 
-#: ../../main/mail/src/EBox/Mail.pm:1495
+#: ../../main/mail/src/EBox/Mail.pm:1496
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 msgid "disabled"
 msgstr "kikapcsolva"
 
-#: ../../main/mail/src/EBox/Mail.pm:1497 ../../main/mail/src/EBox/Mail.pm:1608
-#: ../../main/network/src/EBox/Network.pm:4382
-#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
-#: ../../main/mail/src/templates/qmanager.mas:17
-#: ../../main/core/src/templates/moduleStatusTable.mas:65
-#: ../../main/core/src/templates/report/raid.mas:100
-msgid "Status"
-msgstr "Állapot"
-
-#: ../../main/mail/src/EBox/Mail.pm:1499
+#: ../../main/mail/src/EBox/Mail.pm:1500
 msgid "Mail server's filter"
 msgstr "Levelezőszerver szűrője"
 
-#: ../../main/mail/src/EBox/Mail.pm:1506 ../../main/mail/src/EBox/Mail.pm:1513
+#: ../../main/mail/src/EBox/Mail.pm:1507 ../../main/mail/src/EBox/Mail.pm:1514
 msgid "Filter type"
 msgstr "Szűrő típusa"
 
-#: ../../main/mail/src/EBox/Mail.pm:1509
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1268
+#: ../../main/mail/src/EBox/Mail.pm:1510
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1272
 msgid "Address"
 msgstr "Cím"
 
-#: ../../main/mail/src/EBox/Mail.pm:1544
+#: ../../main/mail/src/EBox/Mail.pm:1545
 msgid "Virtual Mail Domains"
 msgstr "Virtuális levelezőtartományok"
 
-#: ../../main/mail/src/EBox/Mail.pm:1551
+#: ../../main/mail/src/EBox/Mail.pm:1552
 msgid "Greylist"
 msgstr "Szürkelista"
 
-#: ../../main/mail/src/EBox/Mail.pm:1558
+#: ../../main/mail/src/EBox/Mail.pm:1559
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Sorkezelés"
 
-#: ../../main/mail/src/EBox/Mail.pm:1585
+#: ../../main/mail/src/EBox/Mail.pm:1586
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "Levél letöltése külső fiókból"
 
-#: ../../main/mail/src/EBox/Mail.pm:1600
+#: ../../main/mail/src/EBox/Mail.pm:1601
 msgid "Message ID"
 msgstr "Üzenetazonosító"
 
-#: ../../main/mail/src/EBox/Mail.pm:1601
+#: ../../main/mail/src/EBox/Mail.pm:1602
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:190
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
@@ -1840,7 +2228,7 @@ msgstr "Üzenetazonosító"
 msgid "From"
 msgstr "Ettől:"
 
-#: ../../main/mail/src/EBox/Mail.pm:1602
+#: ../../main/mail/src/EBox/Mail.pm:1603
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:196
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
@@ -1848,96 +2236,95 @@ msgstr "Ettől:"
 msgid "To"
 msgstr "Eddig:"
 
-#: ../../main/mail/src/EBox/Mail.pm:1603
+#: ../../main/mail/src/EBox/Mail.pm:1604
 msgid "From hostname"
 msgstr "Feladó gépnév"
 
-#: ../../main/mail/src/EBox/Mail.pm:1604
+#: ../../main/mail/src/EBox/Mail.pm:1605
 msgid "From host ip"
 msgstr "Feladó IP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1605
+#: ../../main/mail/src/EBox/Mail.pm:1606
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Méret (bájt)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1606
+#: ../../main/mail/src/EBox/Mail.pm:1607
 msgid "Relay"
 msgstr "Levéltovábbítás"
 
-#: ../../main/mail/src/EBox/Mail.pm:1607
+#: ../../main/mail/src/EBox/Mail.pm:1608
 msgid "Message type"
 msgstr "Üzenet típusa"
 
-#: ../../main/mail/src/EBox/Mail.pm:1609 ../../main/squid/src/EBox/Squid.pm:932
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1410
+#: ../../main/mail/src/EBox/Mail.pm:1610 ../../main/squid/src/EBox/Squid.pm:977
+#: ../../main/radius/src/EBox/Radius.pm:373
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1414
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/ips/src/EBox/IPS.pm:303
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:404
-#: ../../main/ipsec/src/EBox/IPsec.pm:415
+#: ../../main/ips/src/EBox/IPS.pm:303 ../../main/ipsec/src/EBox/IPsec.pm:415
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:478
 #: ../../main/dhcp/src/EBox/DHCP.pm:971
 msgid "Event"
 msgstr "Esemény"
 
-#: ../../main/mail/src/EBox/Mail.pm:1610
+#: ../../main/mail/src/EBox/Mail.pm:1611
 msgid "Additional Info"
 msgstr "További információk"
 
-#: ../../main/mail/src/EBox/Mail.pm:1621
+#: ../../main/mail/src/EBox/Mail.pm:1622
 msgid "Successful messages"
 msgstr "Elküldött levelek"
 
-#: ../../main/mail/src/EBox/Mail.pm:1622
+#: ../../main/mail/src/EBox/Mail.pm:1623
 msgid "Maximum message size exceeded"
 msgstr "Túllépte a megengedett levélméretet"
 
-#: ../../main/mail/src/EBox/Mail.pm:1623
+#: ../../main/mail/src/EBox/Mail.pm:1624
 msgid "User quota exceeded"
 msgstr "Túllépte a felhasználói kvótát"
 
-#: ../../main/mail/src/EBox/Mail.pm:1624
+#: ../../main/mail/src/EBox/Mail.pm:1625
 msgid "Relay access denied"
 msgstr "Levéltovábbítás elérése megtiltva"
 
-#: ../../main/mail/src/EBox/Mail.pm:1625
+#: ../../main/mail/src/EBox/Mail.pm:1626
 msgid "Account does not exist"
 msgstr "A postafiók nem létezik"
 
-#: ../../main/mail/src/EBox/Mail.pm:1626
+#: ../../main/mail/src/EBox/Mail.pm:1627
 msgid "Host unreachable"
 msgstr "A gép nem érhető el"
 
-#: ../../main/mail/src/EBox/Mail.pm:1627
+#: ../../main/mail/src/EBox/Mail.pm:1628
 msgid "Authentication error"
 msgstr "Hitelesítési hiba"
 
-#: ../../main/mail/src/EBox/Mail.pm:1628
+#: ../../main/mail/src/EBox/Mail.pm:1629
 msgid "Greylisted"
 msgstr "Szürkelistára téve"
 
-#: ../../main/mail/src/EBox/Mail.pm:1629
+#: ../../main/mail/src/EBox/Mail.pm:1630
 msgid "Relay rejected by the smarthost"
 msgstr "A továbbítást visszautasította a levéltovábbító"
 
-#: ../../main/mail/src/EBox/Mail.pm:1630
+#: ../../main/mail/src/EBox/Mail.pm:1631
 msgid "Other events"
 msgstr "Más események"
 
-#: ../../main/mail/src/EBox/Mail.pm:1708
+#: ../../main/mail/src/EBox/Mail.pm:1709
 msgid "Mail SMTP server"
 msgstr "Levelező SMTP szerver"
 
-#: ../../main/mail/src/EBox/Mail.pm:1716
+#: ../../main/mail/src/EBox/Mail.pm:1717
 msgid "Mail POP/IMAP server"
 msgstr "Levelező POP/IMAP szerver"
 
-#: ../../main/mail/src/EBox/Mail.pm:1793
+#: ../../main/mail/src/EBox/Mail.pm:1794
 msgid "Mailboxes"
 msgstr "Postafiókok"
 
-#: ../../main/mail/src/EBox/Mail.pm:1829
+#: ../../main/mail/src/EBox/Mail.pm:1830
 #, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "A címet ({addr}) már használatban van külső álnévként"
@@ -2097,6 +2484,22 @@ msgstr "{al} álnév hozzáadva"
 msgid "External account"
 msgstr "Külső postafiók"
 
+#: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:229
+#: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
+#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:77
+#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
+#: ../../main/mail/src/templates/externalAccounts.mas:14
+#: ../../main/core/src/templates/login/index.mas:52
+#: ../../main/network/src/templates/ifaces.mas:180
+#: ../../main/samba/src/templates/adduser.mas:30
+#: ../../main/samba/src/templates/edituser.mas:86
+msgid "Password"
+msgstr "Jelszó"
+
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:41
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
@@ -2239,26 +2642,6 @@ msgstr "Külső postafiók hozzáadva"
 #, perl-brace-format
 msgid "External account {ac} removed"
 msgstr "A(z) {ac} külső postafiók törölve"
-
-#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:45
-#: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:70
-#: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:47
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:44
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
-#: ../../main/network/src/EBox/Network/Model/ObjectTable.pm:66
-#: ../../main/network/src/EBox/Network/Model/MemberTable.pm:58
-#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:178
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:184
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:194
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:192
-#: ../../main/dns/src/templates/index.mas:20
-#: ../../main/ca/src/templates/index.mas:99
-#: ../../main/network/src/templates/ifaces.mas:33
-#: ../../main/network/src/templates/ifaces.mas:233
-#: ../../main/samba/src/templates/addou.mas:10
-msgid "Name"
-msgstr "Név"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:52
 msgid "Virtual domain aliases"
@@ -2508,29 +2891,17 @@ msgstr "A formátum: gép[:port], ahol a port 25 lesz, ha nem ad meg másikat"
 msgid "Smarthost authentication"
 msgstr "Levéltovábbító hitelesítése"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
-#: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:191
-#: ../../main/core/src/EBox/CGI/Search.pm:49
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:260
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:276
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:332
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:367
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:379
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:388
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:421
-msgid "None"
-msgstr "Nincs"
-
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:93
 msgid "User and password"
 msgstr "Felhasználó és jelszó"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
-#: ../../main/squid/src/EBox/Squid.pm:927
+#: ../../main/squid/src/EBox/Squid.pm:972
+#: ../../main/radius/src/EBox/Radius.pm:374
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:70
-#: ../../main/samba/src/EBox/Samba.pm:2774
+#: ../../main/samba/src/EBox/Samba.pm:2786
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:302
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
 #: ../../main/samba/src/templates/addobject.mas:11
@@ -2785,8 +3156,8 @@ msgstr "Szürkelista szolgáltatás"
 msgid "Mail server options"
 msgstr "Levelezőszerver beállításai"
 
-#: ../../main/squid/src/EBox/Squid.pm:81 ../../main/squid/src/EBox/Squid.pm:941
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:94
+#: ../../main/squid/src/EBox/Squid.pm:87 ../../main/squid/src/EBox/Squid.pm:986
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:114
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:203
@@ -2794,87 +3165,91 @@ msgstr "Levelezőszerver beállításai"
 msgid "HTTP Proxy"
 msgstr "HTTP proxy"
 
-#: ../../main/squid/src/EBox/Squid.pm:124
+#: ../../main/squid/src/EBox/Squid.pm:153
 msgid "Front HTTP Proxy configuration file"
 msgstr "Első HTTP proxy beállító fájl"
 
-#: ../../main/squid/src/EBox/Squid.pm:129
+#: ../../main/squid/src/EBox/Squid.pm:158
 msgid "Content filter configuration file"
 msgstr "Tartalomszűrő beállító fájl"
 
-#: ../../main/squid/src/EBox/Squid.pm:134
+#: ../../main/squid/src/EBox/Squid.pm:163
 msgid "Default filter group configuration"
 msgstr "Alapértelmezett szűrőcsoport beállításai"
 
-#: ../../main/squid/src/EBox/Squid.pm:139
+#: ../../main/squid/src/EBox/Squid.pm:168
 msgid "Filter groups membership"
 msgstr "Szűrőcsoportok tagsága"
 
-#: ../../main/squid/src/EBox/Squid.pm:144
+#: ../../main/squid/src/EBox/Squid.pm:173
 msgid "Content filter banned extension list"
 msgstr "Tartalomszűrő letiltott kiterjesztéslistája"
 
-#: ../../main/squid/src/EBox/Squid.pm:149
+#: ../../main/squid/src/EBox/Squid.pm:178
 msgid "Content filter banned mime type list"
 msgstr "Tartalomszűrő letiltott MIME listája"
 
-#: ../../main/squid/src/EBox/Squid.pm:154
+#: ../../main/squid/src/EBox/Squid.pm:183
 msgid "Content filter exception site list"
 msgstr "Tartalomszűrő honlap kivétellistája"
 
-#: ../../main/squid/src/EBox/Squid.pm:159
+#: ../../main/squid/src/EBox/Squid.pm:188
 msgid "Content filter grey site list"
 msgstr "Tartalomszűrő szürke kivétellistája"
 
-#: ../../main/squid/src/EBox/Squid.pm:164
+#: ../../main/squid/src/EBox/Squid.pm:193
 msgid "Content filter banned site list"
 msgstr "Tartalomszűrő letiltott honlaplistája"
 
-#: ../../main/squid/src/EBox/Squid.pm:169
+#: ../../main/squid/src/EBox/Squid.pm:198
 msgid "Content filter exception URL list"
 msgstr "Tartalomszűrő URL kivétellistája"
 
-#: ../../main/squid/src/EBox/Squid.pm:174
+#: ../../main/squid/src/EBox/Squid.pm:203
 msgid "Content filter grey URL list"
 msgstr "Tartalomszűrő szürke URL listája"
 
-#: ../../main/squid/src/EBox/Squid.pm:179
+#: ../../main/squid/src/EBox/Squid.pm:208
 msgid "Content filter banned URL list"
 msgstr "Tartalomszűrő letiltott URL listája"
 
-#: ../../main/squid/src/EBox/Squid.pm:184
+#: ../../main/squid/src/EBox/Squid.pm:213
 msgid "Forbidden phrases list"
 msgstr "Tiltott kifejezések listája"
 
-#: ../../main/squid/src/EBox/Squid.pm:189
+#: ../../main/squid/src/EBox/Squid.pm:218
 msgid "Exception phrases list"
 msgstr "Kivétel kifejezések listája"
 
-#: ../../main/squid/src/EBox/Squid.pm:194
+#: ../../main/squid/src/EBox/Squid.pm:223
 msgid "PICS ratings configuration"
 msgstr "PICS értékelések beállítása"
 
-#: ../../main/squid/src/EBox/Squid.pm:199
+#: ../../main/squid/src/EBox/Squid.pm:228
 msgid "Dansguardian's log rotation configuration"
 msgstr "DansGuardian naplóforgatásának beállítása"
 
-#: ../../main/squid/src/EBox/Squid.pm:204
+#: ../../main/squid/src/EBox/Squid.pm:233
 msgid "Dansguardian's antivirus scanner configuration"
 msgstr "A DansGuardian víruskereső beállítása"
 
-#: ../../main/squid/src/EBox/Squid.pm:209
+#: ../../main/squid/src/EBox/Squid.pm:238
 msgid "Filter groups per IP"
 msgstr "IP alapú csoportszűrés"
 
-#: ../../main/squid/src/EBox/Squid.pm:214
-msgid "Configuration of adzapper"
-msgstr "Adzapper beállítása"
+#: ../../main/squid/src/EBox/Squid.pm:243
+msgid "Set the kerberos keytab path"
+msgstr "A Kerberos keytab útvonal beállítása"
 
-#: ../../main/squid/src/EBox/Squid.pm:227
+#: ../../main/squid/src/EBox/Squid.pm:248
+msgid "Extract the service principal key"
+msgstr "A szolgáltatás-résztvevő kulcsának kinyerése"
+
+#: ../../main/squid/src/EBox/Squid.pm:261
 msgid "Overwrite blocked page templates"
 msgstr "Blokkolt lapok sablonjának felülírása"
 
-#: ../../main/squid/src/EBox/Squid.pm:228
+#: ../../main/squid/src/EBox/Squid.pm:262
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
@@ -2882,30 +3257,30 @@ msgstr ""
 "A Dansguardian által blokkolt lapok sablonja felül lesz írva a Zentyal "
 "személyre szabott sablonjaival."
 
-#: ../../main/squid/src/EBox/Squid.pm:233
+#: ../../main/squid/src/EBox/Squid.pm:267
 msgid "Override squid upstart job"
 msgstr "Squid upstart feladat felülbírálása"
 
-#: ../../main/squid/src/EBox/Squid.pm:239
+#: ../../main/squid/src/EBox/Squid.pm:273
 msgid "Remove dansguardian init script link"
 msgstr "A dansguardian init szkript link törlése"
 
-#: ../../main/squid/src/EBox/Squid.pm:254
+#: ../../main/squid/src/EBox/Squid.pm:288
 msgid ""
 "To enable the HTTP proxy module, you need to have a least one external "
 "network interface"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:265
+#: ../../main/squid/src/EBox/Squid.pm:299
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr "Meg kell adni a cache_mem változót a Zentyal beállítófájljában"
 
-#: ../../main/squid/src/EBox/Squid.pm:274
+#: ../../main/squid/src/EBox/Squid.pm:308
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr "Meg kell adni a max_object_size változót a Zentyal beállítófájljában"
 
-#: ../../main/squid/src/EBox/Squid.pm:798
+#: ../../main/squid/src/EBox/Squid.pm:843
 #, perl-brace-format
 msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
@@ -2914,32 +3289,32 @@ msgstr ""
 "Ez a közösségi változat. Szerezze be az egyik teljesen támogatott {oh}"
 "kereskedelmi változatot{ch} az automatikus biztonsági frissítésekhez."
 
-#: ../../main/squid/src/EBox/Squid.pm:886
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:71
+#: ../../main/squid/src/EBox/Squid.pm:931
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:79
 msgid "General Settings"
 msgstr "Általános beállítások"
 
-#: ../../main/squid/src/EBox/Squid.pm:889
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:95
+#: ../../main/squid/src/EBox/Squid.pm:934
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:115
 msgid "Access Rules"
 msgstr "Hozzáférési szabályok"
 
-#: ../../main/squid/src/EBox/Squid.pm:892
+#: ../../main/squid/src/EBox/Squid.pm:937
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:47
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 msgid "Filter Profiles"
 msgstr "Szűrőprofilok"
 
-#: ../../main/squid/src/EBox/Squid.pm:895
+#: ../../main/squid/src/EBox/Squid.pm:940
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:73
 msgid "Categorized Lists"
 msgstr "Kategorizált listák"
 
-#: ../../main/squid/src/EBox/Squid.pm:898
+#: ../../main/squid/src/EBox/Squid.pm:943
 msgid "Bandwidth Throttling"
 msgstr "Sávszélesség-szabályozás"
 
-#: ../../main/squid/src/EBox/Squid.pm:926
+#: ../../main/squid/src/EBox/Squid.pm:971
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:65
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:72
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:154
@@ -2948,31 +3323,31 @@ msgstr "Sávszélesség-szabályozás"
 msgid "Host"
 msgstr "Gép"
 
-#: ../../main/squid/src/EBox/Squid.pm:928
+#: ../../main/squid/src/EBox/Squid.pm:973
 msgid "URL"
 msgstr "URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:930
+#: ../../main/squid/src/EBox/Squid.pm:975
 msgid "Bytes"
 msgstr "Bájt"
 
-#: ../../main/squid/src/EBox/Squid.pm:931
+#: ../../main/squid/src/EBox/Squid.pm:976
 msgid "Mime/type"
 msgstr "MIME-típus"
 
-#: ../../main/squid/src/EBox/Squid.pm:937
+#: ../../main/squid/src/EBox/Squid.pm:982
 msgid "Accepted"
 msgstr "Elfogadott"
 
-#: ../../main/squid/src/EBox/Squid.pm:938
+#: ../../main/squid/src/EBox/Squid.pm:983
 msgid "Denied"
 msgstr "Tiltott"
 
-#: ../../main/squid/src/EBox/Squid.pm:939
+#: ../../main/squid/src/EBox/Squid.pm:984
 msgid "Filtered"
 msgstr "Szűrt"
 
-#: ../../main/squid/src/EBox/Squid.pm:1043
+#: ../../main/squid/src/EBox/Squid.pm:1094
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get one of the {oh}"
@@ -3109,33 +3484,48 @@ msgstr "A tartomány vége nagyobb, mint a kezdőértéke"
 msgid "The time period must be at least active on one day"
 msgstr "Az időtartamnak legalább egy napon aktívnak kell lennie"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:43
-msgid "Time period"
-msgstr "Időintervallum"
-
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:44
-msgid "Time period when the rule is applied"
-msgstr "Az az időszak, amikor a szabály alkalmazva lesz"
-
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:57
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:49
 msgid "Network Object"
 msgstr "Hálózati objektum"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:74
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:58
+#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:136
+msgid "Users Group"
+msgstr "Felhasználócsoport"
+
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:77
+msgid "Time period"
+msgstr "Időintervallum"
+
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:78
+msgid "Time period when the rule is applied"
+msgstr "Az az időszak, amikor a szabály alkalmazva lesz"
+
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:94
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
 msgid "Allow All"
 msgstr "Összes engedélyezése"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:78
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:98
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:192
 msgid "Deny All"
 msgstr "Összes tiltása"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:82
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:102
 msgid "Apply Filter Profile"
 msgstr "Szűrőprofil alkalmazása"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:104
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:124
+#, fuzzy
+msgid ""
+"Here you can filter, block or allow access by user group or network object. "
+"Rules are only applied during the selected time period."
+msgstr ""
+"Itt szűrheti, blokkolhatja vagy engedélyezheti a hozzáférést csoportonként "
+"vagy hálózati objektumonként. A szabályok csak a kiválasztott időszakban "
+"kerülnek alkalmazásra."
+
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:125
 #, fuzzy
 msgid ""
 "Here you can filter, block or allow access by network object. Rules are only "
@@ -3145,7 +3535,30 @@ msgstr ""
 "vagy hálózati objektumonként. A szabályok csak a kiválasztott időszakban "
 "kerülnek alkalmazásra."
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:146
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:155
+msgid ""
+"Source matching by user group is not compatible with transparent proxy mode"
+msgstr ""
+"A felhasználói csoport szerinti forrásillesztés nem kompatibilis a "
+"transzparens proxy móddal"
+
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:186
+msgid ""
+"You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
+"you have group rules"
+msgstr ""
+"Nem vehet fel „Allow” vagy „Profile” szabályt egy objektumhoz vagy "
+"tetszőleges címhez, ha csoportszabályokat használ"
+
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:191
+msgid ""
+"You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
+"for objects or any address"
+msgstr ""
+"Nem vehet fel csoportalapú szabályt, ha már van „Allow” vagy „Profile” "
+"szabály objektumokhoz vagy tetszőleges címhez"
+
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:201
 #, perl-brace-format
 msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
@@ -3154,12 +3567,18 @@ msgstr ""
 "A szabály időtartama ({t1}) átfedi ({t2}) időtartamát, amely ugyanazon "
 "{sourceType} egy másik szabálya"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:357
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:480
 #, perl-brace-format
 msgid "Object: {o}"
 msgstr "Objektum: {o}"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:368
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:482
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:356
+#, perl-brace-format
+msgid "Group: {g}"
+msgstr "Csoport: {g}"
+
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:493
 #, perl-brace-format
 msgid "Apply '{p}' profile"
 msgstr "„{p}” profil alkalmazása"
@@ -3590,28 +4009,36 @@ msgstr "Tartományszűrő beállításai"
 msgid "Filtering settings changed"
 msgstr "A szűrés beállításai módosítva"
 
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:42
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:45
 msgid "Transparent Proxy"
 msgstr "Transzparens proxy"
 
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:48
-msgid "Ad Blocking"
-msgstr "Reklámblokkolás"
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:54
+msgid "Enable Single Sign-On (Kerberos)"
+msgstr "Egyszeres bejelentkezés (Kerberos) engedélyezése"
 
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:51
-msgid "Remove advertisements from all HTTP traffic"
-msgstr "Reklámok eltávolítása az összes HTTP-forgalomból"
-
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:61
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:69
 msgid "Cache files size (MB)"
 msgstr "Gyorsítótár fájljainak mérete (MB)"
 
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:104
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:105
+msgid ""
+"Transparent proxy is incompatible with the users group authorization policy "
+"found in some access rules"
+msgstr ""
+"A transzparens proxy nem kompatibilis az egyes hozzáférési szabályokban "
+"talált felhasználóicsoport-hitelesítési házirenddel."
+
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:114
+msgid "Transparent proxy is incompatible with Kerberos authentication"
+msgstr "A transzparens proxy nem kompatibilis a Kerberos-hitelesítéssel"
+
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:132
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
 msgstr "A(z) {port} port már használatban van. Válasszon másikat."
 
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:110
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:138
 #, perl-brace-format
 msgid ""
 "Want to remove ads from the websites your users browse? Get the {oh}"
@@ -3711,6 +4138,130 @@ msgstr "Vírusok szűrése"
 msgid "Domains and URLs"
 msgstr "Tartományok és URL-címek"
 
+#: ../../main/squid/src/EBox/Squid/LdapUserImplementation.pm:47
+msgid "HTTP proxy access rules"
+msgstr "HTTP proxy hozzáférési szabályok"
+
+#: ../../main/radius/src/EBox/Radius/Model/Clients.pm:103
+#: ../../main/radius/src/EBox/Radius.pm:375
+msgid "Client"
+msgstr "Kliens"
+
+#: ../../main/radius/src/EBox/Radius/Model/Clients.pm:116
+msgid "Shared Secret"
+msgstr "Megosztott titkosítás"
+
+#: ../../main/radius/src/EBox/Radius/Model/Clients.pm:124
+msgid "RADIUS Clients"
+msgstr "RADIUS kliensek"
+
+#: ../../main/radius/src/EBox/Radius/Model/Clients.pm:125
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:112
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:72
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:152
+msgid "client"
+msgstr "kliens"
+
+#: ../../main/radius/src/EBox/Radius/Model/Auth.pm:101
+msgid "All users"
+msgstr "Összes felhasználó"
+
+#: ../../main/radius/src/EBox/Radius/Model/Auth.pm:130
+msgid "Group allowed to authenticate"
+msgstr "A csoport részére az azonosítás engedélyezve"
+
+#: ../../main/radius/src/EBox/Radius/Model/Auth.pm:140
+#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:58
+#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:59
+msgid "General configuration"
+msgstr "Általános beállítások"
+
+#: ../../main/radius/src/EBox/Radius/Model/Auth.pm:144
+msgid "RADIUS server configuration"
+msgstr "RADIUS szerver beállításai"
+
+#: ../../main/radius/src/EBox/Radius/Model/Auth.pm:146
+msgid "RADIUS server configuration updated"
+msgstr "A RADIUS szerver beállításai frissítve"
+
+#: ../../main/radius/src/EBox/Radius/Composite/General.pm:40
+#: ../../main/radius/src/EBox/Radius.pm:353
+#: ../../main/radius/src/EBox/Radius.pm:386
+msgid "RADIUS"
+msgstr "RADIUS"
+
+#: ../../main/radius/src/EBox/Radius.pm:72
+msgid "Create RADIUS certificates for TTLS"
+msgstr "RADIUS tanúsítványok létrehozása a TTLS-hez"
+
+#: ../../main/radius/src/EBox/Radius.pm:73
+#, fuzzy, perl-brace-format
+msgid "Zentyal will create the needed certificates for TTLS in {d}."
+msgstr ""
+"A Zentyal létrehozza a szükséges TTLS tanúsítványokat az /etc/freeradius/"
+"certs/ könyvtárba."
+
+#: ../../main/radius/src/EBox/Radius.pm:78
+msgid "Allow others to read /var/log/freeradius"
+msgstr "/var/log/freeradius olvasásának engedélyezése mások számára"
+
+#: ../../main/radius/src/EBox/Radius.pm:79
+msgid ""
+"Zentyal will change default permissions on RADIUS log directory to allow to "
+"read the logs."
+msgstr ""
+"A Zentyal meg fogja változtatni a RADIUS naplókönyvtárának alapértelmezett "
+"jogait, hogy el lehessen olvasni a naplókat."
+
+#: ../../main/radius/src/EBox/Radius.pm:98
+msgid "To configure allowed LDAP group."
+msgstr "Az engedélyezett LDAP csoport beállítása."
+
+#: ../../main/radius/src/EBox/Radius.pm:102
+msgid "To configure RADIUS LDAP module."
+msgstr "A RADIUS LDAP moduljának beállítása."
+
+#: ../../main/radius/src/EBox/Radius.pm:106
+msgid "To configure RADIUS daemon."
+msgstr "A RADIUS démon beállítása."
+
+#: ../../main/radius/src/EBox/Radius.pm:110
+msgid "To configure RADIUS clients."
+msgstr "A RADIUS kliensek beállítása."
+
+#: ../../main/radius/src/EBox/Radius.pm:114
+msgid "To configure RADIUS EAP."
+msgstr "A RADIUS EAP moduljának beállítása."
+
+#: ../../main/radius/src/EBox/Radius.pm:118
+msgid "To configure default RADIUS vhost."
+msgstr "Az alapértelmezett RADIUS vhost beállítása."
+
+#: ../../main/radius/src/EBox/Radius.pm:122
+msgid "To configure RADIUS inner-tunnel vhost."
+msgstr "A RADIUS belső csatornás vhost-jának beállítása."
+
+#: ../../main/radius/src/EBox/Radius.pm:126
+#, fuzzy
+msgid "To configure RADIUS mschap."
+msgstr "A RADIUS EAP moduljának beállítása."
+
+#: ../../main/radius/src/EBox/Radius.pm:151
+msgid "Zentyal RADIUS system"
+msgstr "Zentyal RADIUS rendszer"
+
+#: ../../main/radius/src/EBox/Radius.pm:377
+msgid "MAC"
+msgstr "MAC"
+
+#: ../../main/radius/src/EBox/Radius.pm:382
+msgid "Login OK"
+msgstr "Sikeres bejelentkezés"
+
+#: ../../main/radius/src/EBox/Radius.pm:383
+msgid "Login incorrect"
+msgstr "Sikertelen bejelentkezés"
+
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:71
 msgid "VPN"
 msgstr "VPN"
@@ -3755,77 +4306,77 @@ msgstr "A(z) {n} név nem használható, mert már van ilyen nevű kliens"
 msgid "Cannot use the name {n} because there is a server with the same name"
 msgstr "A(z) {n} név nem használható, mert már van ilyen nevű szerver"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1213
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1217
 #, perl-brace-format
 msgid "Client {c} does not exist"
 msgstr "A kliens ({c}) nem létezik"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1240
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1244
 msgid "Servers"
 msgstr "Szerverek"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1247
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1251
 msgid "Clients"
 msgstr "Kliensek"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1268
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1272
 msgid "Common name"
 msgstr "Közös név"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1268
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1272
 msgid "Connected since"
 msgstr "Csatlakozva ez óta:"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1295
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1299
 msgid "No users connected to the VPN"
 msgstr "Nem kapcsolódik felhasználó a VPN-hez"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1335
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1339
 msgid "OpenVPN daemons"
 msgstr "OpenVPN démonok"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1413
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1417
 msgid "Remote IP"
 msgstr "Távoli IP"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1414
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1418
 msgid "Remote Certificate"
 msgstr "Távoli tanúsítvány"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1419
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1423
 #: ../../main/ipsec/src/EBox/IPsec.pm:421
 msgid "Initialization sequence completed"
 msgstr "Előkészítési folyamat befejezve"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1421
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1425
 msgid "Certificate issuer not authorized"
 msgstr "A tanúsítványkibocsátó nincs felhatalmazva"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1422
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1426
 msgid "Certificate common name not authorized"
 msgstr "A tanúsítvány közös neve nincs felhatalmazva"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1423
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1427
 msgid "Certificate verification failed"
 msgstr "A tanúsítvány ellenőrzése sikertelen"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1425
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1429
 msgid "Client connection initiated"
 msgstr "A kliens kapcsolódása kezdeményezve"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1426
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1430
 msgid "Client connection terminated"
 msgstr "A kliens kapcsolódása megszakítva"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1428
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1432
 msgid "Connection to server initiated"
 msgstr "A kapcsolat a szerverrel kezdeményezve"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1429
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1433
 msgid "Server connection terminated"
 msgstr "A kapcsolat a szerverrel megszakítva"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1457
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1461
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr "Az insecure_rip_conf paramétert a yes vagy no egyikére kell állítania"
 
@@ -3855,12 +4406,16 @@ msgstr "{name} kliens"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:896
 #: ../../main/core/src/EBox/SysInfo.pm:460
+#: ../../main/virt/src/templates/statusViewer.mas:9
+#: ../../main/virt/src/templates/vmstatus.mas:16
 msgid "Running"
 msgstr "Fut"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:896
 #: ../../main/core/src/EBox/SysInfo.pm:465
+#: ../../main/virt/src/templates/statusViewer.mas:11
+#: ../../main/virt/src/templates/vmstatus.mas:20
 msgid "Stopped"
 msgstr "Leállítva"
 
@@ -4018,12 +4573,6 @@ msgstr "Kliensek listája"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:105
 msgid "VPN Clients"
 msgstr "VPN kliensek"
-
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:112
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:72
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:152
-msgid "client"
-msgstr "kliens"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:149
 msgid ""
@@ -4876,7 +5425,7 @@ msgid "Uptime"
 msgstr "Rendszeridő"
 
 #: ../../main/core/src/EBox/SysInfo.pm:319
-#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:61
+#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:68
 #: ../../main/samba/src/EBox/Samba/CGI/DeleteOU.pm:42
 #: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:44
 #: ../../main/samba/src/EBox/Samba/CGI/DeleteUser.pm:37
@@ -4885,10 +5434,6 @@ msgstr "Rendszeridő"
 #: ../../main/samba/src/templates/editgroup.mas:42
 msgid "Users"
 msgstr "Felhasználók"
-
-#: ../../main/core/src/EBox/SysInfo.pm:457
-msgid "Start"
-msgstr "Indítás"
 
 #: ../../main/core/src/EBox/SysInfo.pm:458
 #: ../../main/core/src/templates/dashboard/status.mas:13
@@ -5032,13 +5577,18 @@ msgstr "A jelszó minimális hossza {minLength} karakter"
 msgid "Upgrade to Zentyal 4.2"
 msgstr "Frissítés a Zentyal 3.4-re"
 
+#: ../../main/core/src/EBox/CGI/ActivationSaveChanges.pm:31
+#: ../../main/software/src/EBox/Software.pm:1005
+msgid "Save Changes"
+msgstr "Módosítások mentése"
+
 #: ../../main/core/src/EBox/CGI/ActivationRequired.pm:31
 #: ../../main/core/src/templates/activation.mas:5
 msgid "Activation Required"
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/ActivationRequired.pm:51
-#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:94
+#: ../../main/core/src/EBox/CGI/ActivationRequired.pm:53
+#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:110
 #, fuzzy
 msgid ""
 "License key cannot be validated. Please try again or check your Internet "
@@ -5194,13 +5744,13 @@ msgid "Enter a float number"
 msgstr "Adjon meg egy lebegőpontos számot"
 
 #: ../../main/core/src/EBox/Types/Float.pm:85
-#: ../../main/core/src/EBox/Types/Int.pm:141
+#: ../../main/core/src/EBox/Types/Int.pm:142
 #, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
 msgstr "Az értéknek nem kellene nagyobbnak lennie, mint {m}"
 
 #: ../../main/core/src/EBox/Types/Float.pm:94
-#: ../../main/core/src/EBox/Types/Int.pm:150
+#: ../../main/core/src/EBox/Types/Int.pm:151
 #, perl-brace-format
 msgid "The value shouldn't be less than {m}"
 msgstr "Az értéknek nem kellene kisebbnek lennie, mint {m}"
@@ -5232,7 +5782,7 @@ msgstr "Porttartomány"
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "A(z) {from} kezdőértéknek nagyobbnak kell lennie a(z) {to} végértéknél"
 
-#: ../../main/core/src/EBox/Types/Int.pm:134
+#: ../../main/core/src/EBox/Types/Int.pm:135
 msgid "Enter an integer number"
 msgstr "Adjon meg egy egész számot"
 
@@ -5669,15 +6219,15 @@ msgstr "Ez a tábla nem létezik: {table}."
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "Az élettartam paraméter pozitív óraszám kell legyen"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:67
+#: ../../main/core/src/EBox/WebAdmin.pm:65
 msgid "Zentyal Webadmin"
 msgstr "Zentyal webadmin"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:515
+#: ../../main/core/src/EBox/WebAdmin.pm:341
 msgid "Zentyal Administration Web Server"
 msgstr "Zentyal adminisztrációs webszerver"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:680
+#: ../../main/core/src/EBox/WebAdmin.pm:506
 #, fuzzy, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
@@ -5686,7 +6236,7 @@ msgstr ""
 "A Zentyal már be van állítva a(z) port használatára ehhez: {use}. Válasszon "
 "másik portot, vagy szabadítsa ezt fel, és próbálja újra."
 
-#: ../../main/core/src/EBox/WebAdmin.pm:693
+#: ../../main/core/src/EBox/WebAdmin.pm:519
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
@@ -5800,10 +6350,10 @@ msgid "Administrator sessions"
 msgstr "Rendszergazdai munkamenetek"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:192
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a "
-"FREE 30-day Trial!"
+"FREE 45-day Trial!"
 msgstr ""
 "Érdekli egy kereskedelmi Zentyal szerver változat? {oh}Szerezzen be{ch} egy "
 "INGYENES 30 napos próbaverziót!"
@@ -5924,9 +6474,8 @@ msgstr ""
 #, fuzzy
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
-"In production environments we recommend using the Commercial Edition: "
-"commercial Zentyal Server editions fully supported by Zentyal S.L. and "
-"Canonical/Ubuntu."
+"In production environments we recommend using the Commercial Zentyal Server "
+"Edition."
 msgstr ""
 "Figyelmeztetés: Ezek nem tesztelt közösségi frissítések, amelyek árthatnak "
 "rendszerének. Éles környezetekben a Professional, Business vagy Premium "
@@ -6099,23 +6648,37 @@ msgid "License Validation"
 msgstr "Helyi alkalmazások"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:60
+msgid "Perpetual"
+msgstr ""
+
+#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:64
+#: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:11
+msgid "Unlimited"
+msgstr "Korlátlan"
+
+#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:67
 msgid "Server edition"
 msgstr "Szerver változat"
 
-#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:62
+#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:69
 msgid "Renovation date"
 msgstr "Megújítási dátum"
 
-#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:69
+#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:76
 msgid "License Key"
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:78
-#: ../../main/core/src/templates/activation.mas:24
+#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:85
+#: ../../main/core/src/templates/activation.mas:26
 msgid "Validate License"
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:98
+#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:104
+#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:108
+msgid "License key is invalid or expired."
+msgstr ""
+
+#: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:114
 msgid "License key is expired."
 msgstr ""
 
@@ -6194,11 +6757,6 @@ msgid ""
 msgstr ""
 "A DNS nevek csak kisbetűket (a-z), számokat (0-9) és a mínusz jelet (-) "
 "tartalmazhatják"
-
-#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:58
-#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:59
-msgid "General configuration"
-msgstr "Általános beállítások"
 
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:61
 msgid "On this page you can set different general system settings"
@@ -6625,37 +7183,28 @@ msgstr "IPS"
 msgid "Alert"
 msgstr "Riasztás"
 
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:200
+#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:201
 msgid "Rules"
 msgstr "Szabályok"
 
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:207
+#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:208
 msgid ""
 "Select the sets of rules you want apply when scanning the network traffic"
 msgstr ""
 "Válassza ki a hálózati forgalom vizsgálatakor alkalmazni kívánt "
 "szabályhalmazokat"
 
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:218
+#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:219
 msgid "Block"
 msgstr "Blokkolás"
 
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:219
-msgid "Log & Block"
-msgstr "Naplózás és blokkolás"
-
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:131
 #: ../../main/network/src/EBox/Network.pm:4453
-#: ../../main/network/src/EBox/Network.pm:5004
-#: ../../main/network/src/EBox/Network.pm:5043
+#: ../../main/network/src/EBox/Network.pm:4959
+#: ../../main/network/src/EBox/Network.pm:4998
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:142
 msgid "Interfaces"
 msgstr "Csatolók"
-
-#: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:137
-#: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:148
-msgid "interface"
-msgstr "csatoló"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:139
 msgid "Select in which interfaces IPS system will be enabled"
@@ -6915,11 +7464,11 @@ msgstr ""
 msgid "Network Interfaces"
 msgstr "Hálózati csatolók"
 
-#: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:84
+#: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:57
 msgid "Search Domain"
 msgstr "Keresési tartomány"
 
-#: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:88
+#: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:61
 msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
@@ -7257,7 +7806,7 @@ msgstr ""
 "csatolón"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:187
-#: ../../main/network/src/EBox/Network.pm:115
+#: ../../main/network/src/EBox/Network.pm:116
 #: ../../main/network/src/EBox/Network.pm:4448
 msgid "Network"
 msgstr "Hálózat"
@@ -7468,11 +8017,11 @@ msgstr ""
 msgid "Gateways and Proxy"
 msgstr "Átjárók és proxy"
 
-#: ../../main/network/src/EBox/Network.pm:132
+#: ../../main/network/src/EBox/Network.pm:133
 msgid "Add default routers to the default table"
 msgstr "Adja hozzá az alapértelmezett routereket az alapértelmezett táblához"
 
-#: ../../main/network/src/EBox/Network.pm:133
+#: ../../main/network/src/EBox/Network.pm:134
 msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
@@ -7480,11 +8029,11 @@ msgstr ""
 "Ez szükséges a többátjárós működéshez. Az alapértelmezett útvonalak "
 "megjelenítéséhez a következő parancsot kell futtatni:"
 
-#: ../../main/network/src/EBox/Network.pm:139
+#: ../../main/network/src/EBox/Network.pm:140
 msgid "Enable Zentyal DHCP hook"
 msgstr "A Zentyal DHCP hook bekapcsolása"
 
-#: ../../main/network/src/EBox/Network.pm:140
+#: ../../main/network/src/EBox/Network.pm:141
 msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
@@ -7492,11 +8041,11 @@ msgstr ""
 "Ez hozzá fogja adni a DHCP által kiosztott alapértelmezett átjárót az "
 "alapértelmezett útvonaltáblához. "
 
-#: ../../main/network/src/EBox/Network.pm:145
+#: ../../main/network/src/EBox/Network.pm:146
 msgid "Disable IPv6"
 msgstr "IPv6 kikapcsolása"
 
-#: ../../main/network/src/EBox/Network.pm:146
+#: ../../main/network/src/EBox/Network.pm:147
 msgid ""
 "Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
 "can cause problems on some services"
@@ -7504,51 +8053,51 @@ msgstr ""
 "A Zentyal még nem támogatja az IPv6-ot, a csatolókhoz v6 címek rendelése "
 "problémákat okozhat egyes szolgáltatásoknál"
 
-#: ../../main/network/src/EBox/Network.pm:165
+#: ../../main/network/src/EBox/Network.pm:166
 msgid "Zentyal will set your network configuration"
 msgstr "A Zentyal elvégzi a hálózati beállításokat"
 
-#: ../../main/network/src/EBox/Network.pm:170
+#: ../../main/network/src/EBox/Network.pm:171
 msgid "Zentyal will set the order of systems resolvers"
 msgstr "A Zentyal be fogja állítani a rendszer feloldóinak sorrendjét"
 
-#: ../../main/network/src/EBox/Network.pm:175
-#: ../../main/network/src/EBox/Network.pm:180
-#: ../../main/network/src/EBox/Network.pm:185
+#: ../../main/network/src/EBox/Network.pm:176
+#: ../../main/network/src/EBox/Network.pm:181
+#: ../../main/network/src/EBox/Network.pm:186
 msgid "Zentyal will set the resolvconf configuration"
 msgstr "A Zentyal elvégzi a resolvconf beállításokat"
 
-#: ../../main/network/src/EBox/Network.pm:190
+#: ../../main/network/src/EBox/Network.pm:191
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "A Zentyal elvégzi a DHCP kliens beállításokat"
 
-#: ../../main/network/src/EBox/Network.pm:195
+#: ../../main/network/src/EBox/Network.pm:196
 msgid "Zentyal will disable IPV6 on this system"
 msgstr "A Zentyal kikapcsolja az IPv6-ot ezen a rendszeren"
 
-#: ../../main/network/src/EBox/Network.pm:202
+#: ../../main/network/src/EBox/Network.pm:203
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
 msgstr "A Zentyal hozzáadja a DSL szolgáltató adatai a PPPoE beállításaihoz"
 
-#: ../../main/network/src/EBox/Network.pm:209
+#: ../../main/network/src/EBox/Network.pm:210
 msgid "Zentyal will set HTTP proxy for all users"
 msgstr "A Zentyal beállítja a HTTP proxyt minden felhasználónak"
 
-#: ../../main/network/src/EBox/Network.pm:212
+#: ../../main/network/src/EBox/Network.pm:213
 msgid "Zentyal will set HTTP proxy for APT"
 msgstr "A Zentyal beállítja a HTTP proxyt az APT számára"
 
-#: ../../main/network/src/EBox/Network.pm:875
+#: ../../main/network/src/EBox/Network.pm:881
 msgid "Argument must be a IP address"
 msgstr "Az argumentumnak IP-címnek kell lennie"
 
-#: ../../main/network/src/EBox/Network.pm:1127
-#: ../../main/network/src/EBox/Network.pm:1131
+#: ../../main/network/src/EBox/Network.pm:1133
+#: ../../main/network/src/EBox/Network.pm:1137
 msgid "Virtual interface name"
 msgstr "Virtuális csatoló neve"
 
-#: ../../main/network/src/EBox/Network.pm:1130
-#: ../../main/network/src/EBox/Network.pm:1508
+#: ../../main/network/src/EBox/Network.pm:1136
+#: ../../main/network/src/EBox/Network.pm:1511
 #: ../../main/network/src/EBox/Network.pm:3960
 #: ../../main/network/src/templates/wizard/network.mas:49
 #: ../../main/network/src/templates/ifaces.mas:128
@@ -7556,22 +8105,22 @@ msgstr "Virtuális csatoló neve"
 msgid "Netmask"
 msgstr "Hálózati maszk"
 
-#: ../../main/network/src/EBox/Network.pm:1136
+#: ../../main/network/src/EBox/Network.pm:1142
 #, perl-brace-format
 msgid "Address {ip} is already in use by interface {iface}"
 msgstr "A címet ({ip}) már használja a(z) {iface} csatoló"
 
-#: ../../main/network/src/EBox/Network.pm:1302
+#: ../../main/network/src/EBox/Network.pm:1305
 #, perl-brace-format
 msgid "There is already an interface called {al}"
 msgstr "Már létezik {al} nevű csatoló"
 
-#: ../../main/network/src/EBox/Network.pm:1314
+#: ../../main/network/src/EBox/Network.pm:1317
 #, perl-brace-format
 msgid "There is already a interface with the alias {al}"
 msgstr "Már létezik {al} álnevű csatoló"
 
-#: ../../main/network/src/EBox/Network.pm:1322
+#: ../../main/network/src/EBox/Network.pm:1325
 msgid ""
 "Cannot set an alias with the character \":\". This character is reserved for "
 "virtual interfaces"
@@ -7579,7 +8128,7 @@ msgstr ""
 "Nem állítható be „:” karaktert tartalmazó álnév. Ez a karakter virtuális "
 "csatolók számára van fenntartva"
 
-#: ../../main/network/src/EBox/Network.pm:1533
+#: ../../main/network/src/EBox/Network.pm:1536
 #, perl-brace-format
 msgid "The IP {ip} is already assigned to interface {iface}"
 msgstr "A(z) {ip} IP-cím már hozzá van rendelve a(z) „{iface}” csatolóhoz"
@@ -7679,130 +8228,120 @@ msgstr "Átjárók"
 msgid "Tools"
 msgstr "Eszközök"
 
-#: ../../main/network/src/EBox/Network.pm:5110
+#: ../../main/network/src/EBox/Network.pm:5065
 msgid "Any protocol and port"
 msgstr "Bármely protokoll és port"
 
-#: ../../main/network/src/EBox/Network.pm:5117
+#: ../../main/network/src/EBox/Network.pm:5072
 msgid "Any UDP"
 msgstr "Bármely UDP"
 
-#: ../../main/network/src/EBox/Network.pm:5118
+#: ../../main/network/src/EBox/Network.pm:5073
 msgid "Any UDP port"
 msgstr "Bármely UDP port"
 
-#: ../../main/network/src/EBox/Network.pm:5125
+#: ../../main/network/src/EBox/Network.pm:5080
 msgid "Any TCP"
 msgstr "Bármely TCP"
 
-#: ../../main/network/src/EBox/Network.pm:5126
+#: ../../main/network/src/EBox/Network.pm:5081
 msgid "Any TCP port"
 msgstr "Bármely TCP port"
 
-#: ../../main/network/src/EBox/Network.pm:5133
+#: ../../main/network/src/EBox/Network.pm:5088
 msgid "Any ICMP"
 msgstr "Bármely ICMP"
 
-#: ../../main/network/src/EBox/Network.pm:5134
+#: ../../main/network/src/EBox/Network.pm:5089
 msgid "Any ICMP packet"
 msgstr "Bármely ICMP csomag"
 
-#: ../../main/network/src/EBox/Network.pm:5150
+#: ../../main/network/src/EBox/Network.pm:5105
 msgid "Secure Shell"
 msgstr "Biztonságos parancsértelmező (SSH)"
 
-#: ../../main/network/src/EBox/Network.pm:5158
+#: ../../main/network/src/EBox/Network.pm:5113
 msgid "HyperText Transport Protocol"
 msgstr "HyperText Transport Protocol (HTTP)"
 
-#: ../../main/network/src/EBox/Network.pm:5166
+#: ../../main/network/src/EBox/Network.pm:5121
 msgid "HyperText Transport Protocol over SSL"
 msgstr "HyperText Transport Protocol SSL felett (HTTPS)"
 
-#: ../../main/network/src/EBox/Network.pm:5734
+#: ../../main/network/src/EBox/Network.pm:5689
 msgid "network object"
 msgstr "hálózati objektum"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/Settings.pm:42
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/System.pm:51
 #, fuzzy
-msgid "Enable On-Access Prevention"
-msgstr "POP3 hozzáférés bekapcsolása"
+msgid "Full Report"
+msgstr "Teljes jelentések"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/Settings.pm:45
-msgid "Deny access to infected files in the included paths above."
-msgstr ""
-
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/Settings.pm:51
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/System.pm:58
 #, fuzzy
-msgid "On-Access Scan"
+msgid "System Scanning"
+msgstr "Rendszerbeállítások"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:77
+#, fuzzy
+msgid "On-Access Scanning"
 msgstr "Hozzáférés-felület"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:67
-msgid "Path"
-msgstr "Útvonal"
-
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:78
-#, fuzzy
-msgid "Include/Exclude Paths"
-msgstr "Útvonal felvétele"
-
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:79
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:113
 #: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:106
 msgid "path"
 msgstr "útvonal"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:87
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:86
 msgid ""
 "Inclusions and Exclusions are recursive. Please also note that any path that "
 "is not explicitly included is excluded by default."
 msgstr ""
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:99
-msgid "Include Path"
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:97
+#, fuzzy
+msgid "Include"
 msgstr "Útvonal felvétele"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:103
-msgid "Exclude path"
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/Paths.pm:101
+#, fuzzy
+msgid "Exclude"
 msgstr "Útvonal kizárása"
 
+#: ../../main/antivirus/src/EBox/AntiVirus/Composite/Updates.pm:49
+#, fuzzy
+msgid "Last Database Updates"
+msgstr "Adatbázis-frissítés állapota"
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Composite/Updates.pm:50
+#, fuzzy
+msgid "No recent updates."
+msgstr "Nincs frissítés"
+
 #: ../../main/antivirus/src/EBox/AntiVirus/Composite/General.pm:38
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:73
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:368
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:373
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:432
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:70
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:241
 msgid "Antivirus"
 msgstr "Vírusirtó"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:158
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:133
 msgid " To configure clamd daemon"
 msgstr "Clamd démon beállítása"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:163
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:138
 msgid "To schedule the launch of the updater"
 msgstr "Frissítő indításának időzítése"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:168
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:143
 #, perl-brace-format
 msgid "Custom {app} profile configuration for {bin} binary"
 msgstr "Egyéni {app} profil beállítása a(z) {bin} binárishoz"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:175
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:150
 #, perl-brace-format
 msgid "Disable {app} profile for {bin} binary"
 msgstr "{app} profil letiltása a(z) {bin} binárishoz"
-
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:408
-msgid "Success"
-msgstr "Sikerült"
-
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:408
-msgid "Failure"
-msgstr "Hiba"
-
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:411
-msgid "Antivirus DB updates"
-msgstr "Vírusirtó adatbázis-frissítései"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:69
 #, fuzzy
@@ -7933,10 +8472,6 @@ msgstr "PFS engedélyezése"
 msgid "Phase 2"
 msgstr "2. fázis"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:136
-msgid "Users Group"
-msgstr "Felhasználócsoport"
-
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:147
 msgid "Manual list of users"
 msgstr "Felhasználók kézi listája"
@@ -7988,7 +8523,7 @@ msgid "The type of IPSec VPN."
 msgstr "Az IPSec VPN típusa."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:215
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:109
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:110
 #: ../../main/core/src/templates/configurationFiles.mas:24
 msgid "Comment"
 msgstr "Megjegyzés"
@@ -8370,7 +8905,7 @@ msgstr "Kiterjesztett attribútumok és ACL-ek engedélyezése."
 msgid "Domain and File sharing protocols"
 msgstr "Tartomány- és fájlmegosztó protokollok"
 
-#: ../../main/samba/src/EBox/Samba.pm:350
+#: ../../main/samba/src/EBox/Samba.pm:355
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8384,7 +8919,7 @@ msgstr ""
 "most került beállításra), vagy egy kölcsönzésre várakozás megoldhatja ezt a "
 "helyzetet."
 
-#: ../../main/samba/src/EBox/Samba.pm:354
+#: ../../main/samba/src/EBox/Samba.pm:359
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -8395,43 +8930,43 @@ msgstr ""
 "nem érhetők el IP-címek. {oh}A hálózati csatolók beállítása{ch} és a "
 "módosítások mentése megoldhatja ezt a helyzetet."
 
-#: ../../main/samba/src/EBox/Samba.pm:1289
+#: ../../main/samba/src/EBox/Samba.pm:1293
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr "{count} találat „{name}” csoporthoz, de csak egynek kellene lennie."
 
-#: ../../main/samba/src/EBox/Samba.pm:1621
+#: ../../main/samba/src/EBox/Samba.pm:1625
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
 msgid "Users and Computers"
 msgstr "Felhasználók és számítógépek"
 
-#: ../../main/samba/src/EBox/Samba.pm:1626
+#: ../../main/samba/src/EBox/Samba.pm:1630
 msgid "Manage"
 msgstr "Kezelés"
 
-#: ../../main/samba/src/EBox/Samba.pm:1630
+#: ../../main/samba/src/EBox/Samba.pm:1634
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:70
 msgid "User Template"
 msgstr "Felhasználói sablon"
 
-#: ../../main/samba/src/EBox/Samba.pm:1634
+#: ../../main/samba/src/EBox/Samba.pm:1638
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
 msgid "LDAP Settings"
 msgstr "LDAP beállítások"
 
-#: ../../main/samba/src/EBox/Samba.pm:1637
+#: ../../main/samba/src/EBox/Samba.pm:1641
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
 msgid "File Sharing"
 msgstr "Fájlmegosztás"
 
-#: ../../main/samba/src/EBox/Samba.pm:1769
+#: ../../main/samba/src/EBox/Samba.pm:1773
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1785
+#: ../../main/samba/src/EBox/Samba.pm:1789
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -8441,7 +8976,7 @@ msgstr ""
 "rendszerfelhasználóként. Törölje vagy nevezze át ezt a felhasználót, majd "
 "próbálja újra."
 
-#: ../../main/samba/src/EBox/Samba.pm:1802
+#: ../../main/samba/src/EBox/Samba.pm:1806
 #, perl-brace-format
 msgid ""
 "We cannot recreate the samba provision with the data from the backup because "
@@ -8449,7 +8984,7 @@ msgid ""
 "{ex}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1812
+#: ../../main/samba/src/EBox/Samba.pm:1816
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
@@ -8457,7 +8992,7 @@ msgstr ""
 "A visszaállítás csak akkor lehetséges, ha a szerver az erdő egyedi "
 "tartományvezérlője"
 
-#: ../../main/samba/src/EBox/Samba.pm:2076
+#: ../../main/samba/src/EBox/Samba.pm:2080
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
@@ -8465,62 +9000,62 @@ msgstr ""
 "A gépnév vagy tartomány nem változtatható meg, ha a Zentyal kiegészítő "
 "tartományvezérlőként van beállítva."
 
-#: ../../main/samba/src/EBox/Samba.pm:2169
+#: ../../main/samba/src/EBox/Samba.pm:2173
 msgid "Users data and Filesystem shares"
 msgstr "Felhasználói adatok és fájlrendszer-megosztások"
 
-#: ../../main/samba/src/EBox/Samba.pm:2312
+#: ../../main/samba/src/EBox/Samba.pm:2316
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "A címet ({addr}) már használja a(z) {type} {name}"
 
-#: ../../main/samba/src/EBox/Samba.pm:2773
+#: ../../main/samba/src/EBox/Samba.pm:2785
 msgid "Client address"
 msgstr "Kliens címe"
 
-#: ../../main/samba/src/EBox/Samba.pm:2776
+#: ../../main/samba/src/EBox/Samba.pm:2788
 msgid "Resource"
 msgstr "Erőforrás"
 
-#: ../../main/samba/src/EBox/Samba.pm:2780
+#: ../../main/samba/src/EBox/Samba.pm:2792
 msgid "Connect"
 msgstr "Kapcsolat"
 
-#: ../../main/samba/src/EBox/Samba.pm:2781
+#: ../../main/samba/src/EBox/Samba.pm:2793
 msgid "Access to directory"
 msgstr "Könyvtárhoz való hozzáférés"
 
-#: ../../main/samba/src/EBox/Samba.pm:2782
+#: ../../main/samba/src/EBox/Samba.pm:2794
 msgid "Read file"
 msgstr "Fájl olvasás"
 
-#: ../../main/samba/src/EBox/Samba.pm:2783
+#: ../../main/samba/src/EBox/Samba.pm:2795
 msgid "Write file"
 msgstr "Fájl írás"
 
-#: ../../main/samba/src/EBox/Samba.pm:2784
+#: ../../main/samba/src/EBox/Samba.pm:2796
 msgid "Disconnect"
 msgstr "Bontás"
 
-#: ../../main/samba/src/EBox/Samba.pm:2785
+#: ../../main/samba/src/EBox/Samba.pm:2797
 #: ../../main/mail/src/templates/qmanager.mas:37
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 msgid "Remove"
 msgstr "Eltávolítás"
 
-#: ../../main/samba/src/EBox/Samba.pm:2786
+#: ../../main/samba/src/EBox/Samba.pm:2798
 msgid "Create directory"
 msgstr "Könyvtár létrehozása"
 
-#: ../../main/samba/src/EBox/Samba.pm:2787
+#: ../../main/samba/src/EBox/Samba.pm:2799
 msgid "Remove directory"
 msgstr "Könyvtár eltávolítása"
 
-#: ../../main/samba/src/EBox/Samba.pm:2788
+#: ../../main/samba/src/EBox/Samba.pm:2800
 msgid "Rename"
 msgstr "Átnevezés"
 
-#: ../../main/samba/src/EBox/Samba.pm:2792
+#: ../../main/samba/src/EBox/Samba.pm:2804
 msgid "Samba access"
 msgstr "Samba hozzáférés"
 
@@ -8600,37 +9135,37 @@ msgid "Domain Name"
 msgstr "Tartománynév"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:72
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:135
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:136
 #: ../../main/samba/src/templates/wizard/users.mas:112
 msgid "Domain controller FQDN"
 msgstr "Tartományvezérlő FQDN"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:73
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:140
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:141
 #: ../../main/samba/src/templates/wizard/users.mas:116
 msgid "Domain DNS server IP"
 msgstr "Tartomány DNS-szerverének IP-címe"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:74
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:147
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:148
 #: ../../main/samba/src/templates/wizard/users.mas:120
 msgid "Administrator account"
 msgstr "Rendszergazdai fiók"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:75
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:153
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:154
 #: ../../main/samba/src/templates/wizard/users.mas:123
 msgid "Administrator password"
 msgstr "Rendszergazdai jelszó"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:76
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:159
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:160
 #: ../../main/samba/src/templates/wizard/users.mas:126
 msgid "NetBIOS domain name"
 msgstr "NetBIOS tartománynév"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:77
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:171
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:172
 #: ../../main/samba/src/templates/wizard/users.mas:128
 msgid "NetBIOS computer name"
 msgstr "NetBIOS számítógépnév"
@@ -8964,61 +9499,61 @@ msgstr ""
 "Érvénytelen zónanév. A zóna gyakran a helyi DNS tartomány nagybetűs "
 "változata."
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:82
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:83
 msgid "NetBIOS computer name and NetBIOS domain name must be different"
 msgstr ""
 "A NetBIOS számítógépnévnek és a NetBIOS tartománynévnek eltérőnek kell "
 "lenniük"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:93
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:94
 msgid "NetBIOS name field is empty"
 msgstr "A NetBIOS név üres"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:96
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:97
 msgid "NetBIOS name is too long"
 msgstr "A NetBIos név túl hosszú"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:99
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:100
 msgid "NetBIOS names cannot contain dots"
 msgstr "A NetBIos nevek nem tartalmazhatnak pontokat"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:108
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:109
 msgid "Description string is empty"
 msgstr "A leírás karakterlánc üres"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:111
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:112
 msgid "Description string is too long"
 msgstr "A leírás karakterlánc túl hosszú"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:123
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:124
 msgid "Server Role"
 msgstr "Szerver szerepe"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:129
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:130
 msgid "Realm"
 msgstr "Zóna"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:165
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:166
 msgid "Site"
 msgstr "Hely"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:177
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:178
 msgid "Server description"
 msgstr "Szerver leírása"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:183
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:184
 msgid "Enable roaming profiles"
 msgstr "Barangoló profil bekapcsolása"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:189
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:190
 msgid "Drive letter"
 msgstr "Meghajtó betűjele"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:204
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:205
 msgid "On this page you can set different general settings for Samba"
 msgstr "Itt lehet a Samba általános beállításaitól eltérőket megadni"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:256
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:249
 msgid ""
 "Changing the domain name will cause to reprovision the samba database.\n"
 "\n"
@@ -9030,7 +9565,7 @@ msgstr ""
 "A felhasználók és csoportok importálva lesznek a Zentyal LDAP-ból, de újra "
 "kell csatlakoztatnia az összes számítógépet az új tartományhoz."
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:260
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:253
 msgid ""
 "Joining a domain will delete all your users and groups from Zentyal and "
 "import the domain ones."
@@ -9038,11 +9573,11 @@ msgstr ""
 "A tartományhoz való csatlakozás a Zentyal összes felhasználóját és "
 "csoportját törli, és a tartományban lévőket importálja."
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:272
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:265
 msgid "Domain controller"
 msgstr "Tartományvezérlő"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:273
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:266
 #: ../../main/samba/src/templates/wizard/users.mas:22
 msgid "Additional domain controller"
 msgstr "További tartományvezérlő"
@@ -9086,7 +9621,7 @@ msgstr ""
 "kell a beállításait a használathoz."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:121
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:140
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:141
 msgid "share"
 msgstr "megosztás"
 
@@ -9206,7 +9741,7 @@ msgid "User/Group"
 msgstr "Felhasználó/csoport"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:219
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:133
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:134
 msgid "Shares"
 msgstr "Megosztások"
 
@@ -9267,11 +9802,6 @@ msgstr ""
 msgid "User: {u}"
 msgstr "Felhasználó: {u}"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:356
-#, perl-brace-format
-msgid "Group: {g}"
-msgstr "Csoport: {g}"
-
 #: ../../main/samba/src/EBox/Samba/Model/PAM.pm:104
 msgid "Enable PAM"
 msgstr "PAM engedélyezése"
@@ -9292,57 +9822,57 @@ msgstr "Ez a jövőben létrehozott felhasználókra lesz csak érvényes."
 msgid "PAM settings"
 msgstr "PAM beállítások"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:88
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:89
 msgid "Share name"
 msgstr "Megosztás neve"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:93
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:94
 msgid "Share path"
 msgstr "Megosztás útvonala"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:97
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:98
 msgid "Directory under Zentyal"
 msgstr "Könyvtár a Zentyal alatt"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:102
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:103
 msgid "File system path"
 msgstr "Fájlrendszer-útvonal"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:114
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:115
 msgid "Guest access"
 msgstr "Vendég hozzáférés"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:117
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:118
 msgid "This share will not require authentication."
 msgstr "Ez a megosztás nem igényel hitelesítést."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:121
 msgid "Access control"
 msgstr "Hozzáférés-felület"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:251
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:245
 #, perl-brace-format
 msgid "Zentyal could not access to directory '{x}': {y}"
 msgstr "A Zentyal nem fér hozzá a(z) „{x}”: {y} könyvtárhoz."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:266
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:260
 msgid "Samba share absolute path"
 msgstr "Samba-megosztás abszolút útvonala"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:269
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:263
 #, perl-brace-format
 msgid "Path {p} is not a directory"
 msgstr "Az útvonal ({p}) nem könyvtár"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:276
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:270
 msgid "Samba share directory"
 msgstr "Samba-megosztás könyvtára"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:302
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:296
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "A könyvtár nem üres. Biztos, hogy törölni akarja?"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:347
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:341
 #, perl-brace-format
 msgid ""
 "Domain guest account should be enabled for guest access to shares. You can "
@@ -9352,7 +9882,7 @@ msgstr ""
 "eléréséhez. Ezt a {oh}felhasználók és csoportok kezelése{ch} oldalon teheti "
 "meg."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:375
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:369
 #, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
@@ -9363,7 +9893,7 @@ msgstr ""
 "directory könyvtár a {sharesPath} mappán belül. {br}A {openit}Fájlrendszer-"
 "útvonal{closeit} lehetővé teszi egy már létező könyvtár megosztását."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:389
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:383
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let Zentyal create it for "
@@ -9373,22 +9903,22 @@ msgstr ""
 "jogosultságokkal. Megoszthat egy már létező könyvtárat, vagy adja meg a "
 "nevét, és a Zentyal létrehozza azt."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:433
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:427
 #, perl-brace-format
 msgid "Error getting filesystem format in {m}"
 msgstr "Hiba a fájlrendszer formátumának lekérésekor ebben: {m}"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:438
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:432
 #, perl-brace-format
 msgid "Filesystem format '{x}' does not support storing ACLs."
 msgstr "A fájlrendszer-formátum ({x}) nem támogatja az ACL-ek tárolását."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:451
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:445
 #, perl-brace-format
 msgid "Error reading mount options in {m}"
 msgstr "Hiba a csatolási beállítások olvasásakor: {m}"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:456
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:450
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'acl' option. This is "
@@ -9397,7 +9927,7 @@ msgstr ""
 "A csatolási pontot ({mountPoint}) az „acl” beállítással kell csatolni. Ez a "
 "jogosultságok megfelelő működéséhez szükséges."
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:462
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:456
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'user_xattr' option. "
@@ -9475,31 +10005,31 @@ msgstr ""
 msgid "The user {x} has not gidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:745
-#: ../../main/samba/src/EBox/Samba/User.pm:844
-#: ../../main/samba/src/EBox/Samba/User.pm:854
+#: ../../main/samba/src/EBox/Samba/User.pm:757
+#: ../../main/samba/src/EBox/Samba/User.pm:856
+#: ../../main/samba/src/EBox/Samba/User.pm:866
 msgid "user quota"
 msgstr "felhasználói kvóta"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:747
+#: ../../main/samba/src/EBox/Samba/User.pm:759
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 "A felhasználói kvótának egész számnak kell lennie. Korlátlan kvótához nullát "
 "adjon meg."
 
-#: ../../main/samba/src/EBox/Samba/User.pm:847
+#: ../../main/samba/src/EBox/Samba/User.pm:859
 msgid ""
 "User quota must be a positive integer. To set an unlimited quota, enter zero."
 msgstr ""
 "A felhasználói kvótának pozitív egész számnak kell lennie. Korlátlan "
 "kvótához nullát adjon meg."
 
-#: ../../main/samba/src/EBox/Samba/User.pm:856
+#: ../../main/samba/src/EBox/Samba/User.pm:868
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
 msgstr "A maximális érték: {max} MB"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:875
+#: ../../main/samba/src/EBox/Samba/User.pm:887
 #, perl-brace-format
 msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
@@ -9508,15 +10038,15 @@ msgstr ""
 "Nem állítható be {uid} azonosító kvótája erre: {userQuota}. Lehet, hogy a "
 "fájlrendszer nem támogatja a kvóta használatát."
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1047
+#: ../../main/samba/src/EBox/Samba/User.pm:1059
 msgid "Maximum number of system users reached"
 msgstr "A rendszerfelhasználók maximális száma elérve"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1052
+#: ../../main/samba/src/EBox/Samba/User.pm:1064
 msgid "Maximum number of users reached"
 msgstr "A felhasználók maximális száma elérve"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1069
+#: ../../main/samba/src/EBox/Samba/User.pm:1081
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -9524,7 +10054,7 @@ msgstr ""
 "Érvénytelen felhasználói UID: {uid}. Ennek nagyobbnak vagy egyenlőnek kell "
 "lennie, mint {min}"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1079
+#: ../../main/samba/src/EBox/Samba/User.pm:1091
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
@@ -9685,7 +10215,7 @@ msgid "The system components are up to date."
 msgstr "A rendszer naprakész"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:34
-#: ../../main/software/src/EBox/Software.pm:1000
+#: ../../main/software/src/EBox/Software.pm:1003
 msgid "Installation"
 msgstr "Telepítés"
 
@@ -9833,7 +10363,7 @@ msgstr "Zentyal komponensek"
 msgid "System Updates"
 msgstr "Rendszerfrissítések"
 
-#: ../../main/software/src/EBox/Software.pm:914
+#: ../../main/software/src/EBox/Software.pm:917
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -9841,17 +10371,13 @@ msgstr ""
 "A szoftverkezelés jelenleg zárolva van a(z) {locker} által. Próbálja újra "
 "később."
 
-#: ../../main/software/src/EBox/Software.pm:999
+#: ../../main/software/src/EBox/Software.pm:1002
 msgid "Package Selection"
 msgstr "Csomagok kiválasztása"
 
-#: ../../main/software/src/EBox/Software.pm:1001
+#: ../../main/software/src/EBox/Software.pm:1004
 msgid "Initial Configuration"
 msgstr "Alapértelmezett beállítások"
-
-#: ../../main/software/src/EBox/Software.pm:1002
-msgid "Save Changes"
-msgstr "Módosítások mentése"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:59
 msgid " To configure spamassassin daemon"
@@ -10883,19 +11409,6 @@ msgstr "törlés"
 msgid "Host list for domain {domain}"
 msgstr "A(z) {domain} tartomány gépeinek listája"
 
-#: ../../main/partner-tools/stubs/vsftpd.conf.mas:73
-#: ../../main/ftp/stubs/vsftpd.conf.mas:73
-msgid "Welcome to Zentyal FTP service."
-msgstr "Üdvözöljük a Zentyal FTP szolgáltatásban."
-
-#: ../../main/partner-tools/src/templates/tools.mas:14
-msgid "PostgreSQL Database Setup for IM and Presence Service on Cisco UCM"
-msgstr ""
-
-#: ../../main/partner-tools/src/templates/tools.mas:17
-msgid "Setup"
-msgstr "Beállítás"
-
 #: ../../main/ca/src/templates/index.mas:44
 #: ../../main/ca/src/templates/createCA.mas:14
 msgid "City"
@@ -11128,6 +11641,18 @@ msgstr "Hitelesítésszolgáltató tanúsítványának létrehozása"
 #: ../../main/ca/src/templates/formReissue.mas:32
 msgid "Reissue a certificate"
 msgstr "Tanúsítvány megújítása"
+
+#: ../../main/virt/src/templates/statusViewer.mas:10
+msgid "Paused"
+msgstr "Szüneteltetve"
+
+#: ../../main/virt/src/templates/vmstatus.mas:17
+msgid "The virtual machine is running"
+msgstr "A virtuális gép fut"
+
+#: ../../main/virt/src/templates/vmstatus.mas:21
+msgid "The virtual machine is not running"
+msgstr "A virtuális gép nem fut"
 
 #: ../../main/firewall/src/templates/filter.mas:16
 msgid "Filtering rules from internal networks to Zentyal"
@@ -11459,10 +11984,6 @@ msgstr ""
 msgid "Powered by"
 msgstr "Powered by"
 
-#: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:11
-msgid "Unlimited"
-msgstr "Korlátlan"
-
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:16
 msgid "Days of the week"
 msgstr "A hét napjai"
@@ -11583,17 +12104,18 @@ msgstr "December"
 msgid "Trial Expired"
 msgstr "Lejárt"
 
-#: ../../main/core/src/templates/activation.mas:11
+#: ../../main/core/src/templates/activation.mas:12
+#: ../../main/core/src/templates/activation.mas:13
 #, perl-brace-format
 msgid "Please contact {href} if you still do not have a license key."
 msgstr ""
 
-#: ../../main/core/src/templates/activation.mas:12
+#: ../../main/core/src/templates/activation.mas:14
 #, perl-brace-format
-msgid "You can get one by requesting a free 30-day trial at {href}"
+msgid "You can get one by requesting a free 45-day trial at {href}"
 msgstr ""
 
-#: ../../main/core/src/templates/activation.mas:21
+#: ../../main/core/src/templates/activation.mas:23
 #, fuzzy
 msgid "Please enter your license key"
 msgstr "Adjon meg egy értéket"
@@ -12002,22 +12524,22 @@ msgstr "Biztosan bezárja a munkamenetet?"
 msgid "Discard current changes"
 msgstr "Jelenlegi módosítások elvetése"
 
-#: ../../main/core/src/templates/wizard/software-setup-finish.mas:11
+#: ../../main/core/src/templates/wizard/software-setup-finish.mas:12
 msgid "Congratulations!"
 msgstr "Gratulálunk!"
 
-#: ../../main/core/src/templates/wizard/software-setup-finish.mas:11
+#: ../../main/core/src/templates/wizard/software-setup-finish.mas:12
 msgid "Your Zentyal installation has successfully finished!"
 msgstr "A Zentyal telepítése sikeresen befejeződött!"
 
-#: ../../main/core/src/templates/wizard/software-setup-finish.mas:12
+#: ../../main/core/src/templates/wizard/software-setup-finish.mas:13
 msgid ""
 "Now you can go to the dashboard and start using your brand new Zentyal "
 "server."
 msgstr ""
 "Lépjen a Vezérlőpultra, és kezdje meg az új Zentyal szervere használatát."
 
-#: ../../main/core/src/templates/wizard/software-setup-finish.mas:13
+#: ../../main/core/src/templates/wizard/software-setup-finish.mas:14
 msgid "Go to the Dashboard"
 msgstr "Ugrás a Vezérlőpultra"
 
@@ -12318,6 +12840,10 @@ msgstr ""
 msgid "No entries in this list"
 msgstr "Nincsenek bejegyzések ebben a listában"
 
+#: ../../main/ftp/stubs/vsftpd.conf.mas:73
+msgid "Welcome to Zentyal FTP service."
+msgstr "Üdvözöljük a Zentyal FTP szolgáltatásban."
+
 #: ../../main/network/src/templates/confirmremove.mas:11
 #: ../../main/network/src/templates/confirm.mas:19
 msgid ""
@@ -12466,11 +12992,6 @@ msgstr "Broadcast"
 #: ../../main/network/src/templates/ifaces.mas:89
 msgid "Trunk (802.1q)"
 msgstr "Trunk (802.1q)"
-
-#: ../../main/network/src/templates/ifaces.mas:94
-#: ../../main/network/src/templates/ifaces.mas:95
-msgid "Bridged"
-msgstr "Bridged"
 
 #: ../../main/network/src/templates/ifaces.mas:100
 #: ../../main/network/src/templates/ifaces.mas:101
@@ -12953,13 +13474,12 @@ msgstr "beállítás"
 #, fuzzy, perl-brace-format
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
-"In production environments we recommend using the {oh}Commercial "
-"Edition{ch}: commercial Zentyal server editions fully supported by Zentyal S."
-"L. and Canonical/Ubuntu."
+"In production environments we recommend using the {oh}Commercial Zentyal "
+"Server Edition{ch}."
 msgstr ""
 "Figyelmeztetés: Ezek nem tesztelt közösségi frissítések, amelyek árthatnak "
-"rendszerének. Éles környezetekben a {oh}Professional, Business vagy "
-"Premium{ch} változatok használatát javasoljuk: a kereskedelmi Zentyal Server "
+"rendszerének. Éles környezetekben a Professional, Business vagy Premium "
+"változatok használatát javasoljuk: a kereskedelmi Zentyal Server "
 "változatokat teljes mértékben támogatja a Zentyal S.L. és a Canonical/Ubuntu."
 
 #: ../../main/software/src/templates/updates.mas:71
@@ -13014,6 +13534,51 @@ msgstr "A Zentyal alapesetben használja az automatikus QA frissítéseket"
 #: ../../main/software/src/templates/config.mas:25
 msgid "Automatic operations start time"
 msgstr "Automatikus műveletek indítási ideje"
+
+#~ msgid "Configuration of adzapper"
+#~ msgstr "Adzapper beállítása"
+
+#~ msgid "Ad Blocking"
+#~ msgstr "Reklámblokkolás"
+
+#~ msgid "Remove advertisements from all HTTP traffic"
+#~ msgstr "Reklámok eltávolítása az összes HTTP-forgalomból"
+
+#~ msgid "Log & Block"
+#~ msgstr "Naplózás és blokkolás"
+
+#, fuzzy
+#~ msgid "Enable On-Access Prevention"
+#~ msgstr "POP3 hozzáférés bekapcsolása"
+
+#, fuzzy
+#~ msgid "Include/Exclude Paths"
+#~ msgstr "Útvonal felvétele"
+
+#~ msgid "Success"
+#~ msgstr "Sikerült"
+
+#~ msgid "Failure"
+#~ msgstr "Hiba"
+
+#~ msgid "Antivirus DB updates"
+#~ msgstr "Vírusirtó adatbázis-frissítései"
+
+#~ msgid "Setup"
+#~ msgstr "Beállítás"
+
+#, fuzzy
+#~ msgid ""
+#~ "Warning: These are untested community updates that might harm your "
+#~ "system. In production environments we recommend using the {oh}Commercial "
+#~ "Edition{ch}: commercial Zentyal server editions fully supported by "
+#~ "Zentyal S.L. and Canonical/Ubuntu."
+#~ msgstr ""
+#~ "Figyelmeztetés: Ezek nem tesztelt közösségi frissítések, amelyek "
+#~ "árthatnak rendszerének. Éles környezetekben a {oh}Professional, Business "
+#~ "vagy Premium{ch} változatok használatát javasoljuk: a kereskedelmi "
+#~ "Zentyal Server változatokat teljes mértékben támogatja a Zentyal S.L. és "
+#~ "a Canonical/Ubuntu."
 
 #~ msgid ""
 #~ "Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for "
@@ -13184,9 +13749,6 @@ msgstr "Automatikus műveletek indítási ideje"
 
 #~ msgid "Signatures"
 #~ msgstr "Frissítések"
-
-#~ msgid "Database Update Status"
-#~ msgstr "Adatbázis-frissítés állapota"
 
 #~ msgid ""
 #~ "The antivirus database has not been updated since the module was enabled."
@@ -13861,9 +14423,6 @@ msgstr "Automatikus műveletek indítási ideje"
 #~ msgid "Company"
 #~ msgstr "Cég"
 
-#~ msgid "Size"
-#~ msgstr "Méret"
-
 #, fuzzy
 #~ msgid "Automatic"
 #~ msgstr "Statikus"
@@ -14473,9 +15032,6 @@ msgstr "Automatikus műveletek indítási ideje"
 #~ msgid ""
 #~ "If you change any setting, you may suffer a service cluster disruption,"
 #~ msgstr "Ha bármely beállítást módosít, a fürt működése megszakadhat."
-
-#~ msgid "Create a new cluster"
-#~ msgstr "Új fürt létrehozása"
 
 #~ msgid "Join this node to an existing cluster"
 #~ msgstr "Csomópont meglévő fürthöz csatlakoztatása"
@@ -15155,28 +15711,6 @@ msgstr "Automatikus műveletek indítási ideje"
 #~ msgid "Squid's log rotation configuration"
 #~ msgstr "Squid naplóforgatásának beállítása"
 
-#~ msgid "Set the kerberos keytab path"
-#~ msgstr "A Kerberos keytab útvonal beállítása"
-
-#~ msgid "Extract the service principal key"
-#~ msgstr "A szolgáltatás-résztvevő kulcsának kinyerése"
-
-#~ msgid "HTTP proxy access rules"
-#~ msgstr "HTTP proxy hozzáférési szabályok"
-
-#~ msgid "Enable Single Sign-On (Kerberos)"
-#~ msgstr "Egyszeres bejelentkezés (Kerberos) engedélyezése"
-
-#~ msgid ""
-#~ "Transparent proxy is incompatible with the users group authorization "
-#~ "policy found in some access rules"
-#~ msgstr ""
-#~ "A transzparens proxy nem kompatibilis az egyes hozzáférési szabályokban "
-#~ "talált felhasználóicsoport-hitelesítési házirenddel."
-
-#~ msgid "Transparent proxy is incompatible with Kerberos authentication"
-#~ msgstr "A transzparens proxy nem kompatibilis a Kerberos-hitelesítéssel"
-
 #~ msgid ""
 #~ "Note that you cannot proxy HTTPS transparently. You will need to add a "
 #~ "firewall rule if you enable this mode."
@@ -15197,27 +15731,6 @@ msgstr "Automatikus műveletek indítási ideje"
 #~ msgstr ""
 #~ "AD hiba {error_name}: {error_desc}. Ha ez a hiba átmeneti lehet, akkor "
 #~ "próbálja újra később"
-
-#~ msgid ""
-#~ "Source matching by user group is not compatible with transparent proxy "
-#~ "mode"
-#~ msgstr ""
-#~ "A felhasználói csoport szerinti forrásillesztés nem kompatibilis a "
-#~ "transzparens proxy móddal"
-
-#~ msgid ""
-#~ "You cannot add a 'Allow' or 'Profile' rule for an object or any address "
-#~ "if you have group rules"
-#~ msgstr ""
-#~ "Nem vehet fel „Allow” vagy „Profile” szabályt egy objektumhoz vagy "
-#~ "tetszőleges címhez, ha csoportszabályokat használ"
-
-#~ msgid ""
-#~ "You cannot add a group-based rule if you have an 'Allow' or 'Profile' "
-#~ "rule for objects or any address"
-#~ msgstr ""
-#~ "Nem vehet fel csoportalapú szabályt, ha már van „Allow” vagy „Profile” "
-#~ "szabály objektumokhoz vagy tetszőleges címhez"
 
 #~ msgid "Exempt address from Auth and Cache"
 #~ msgstr "Cím kizárása a hitelesítésből és a gyorsítótárból"
@@ -17382,9 +17895,6 @@ msgstr "Automatikus műveletek indítási ideje"
 #~ msgid "Standalone"
 #~ msgstr "Önálló"
 
-#~ msgid "Client"
-#~ msgstr "Kliens"
-
 #~ msgid ""
 #~ "Setting {s} successfully updated. It may take some seconds to reflect the "
 #~ "change."
@@ -17415,80 +17925,6 @@ msgstr "Automatikus műveletek indítási ideje"
 
 #~ msgid "To configure the NUT client"
 #~ msgstr "A NUT kliens beállítása"
-
-#~ msgid "Create RADIUS certificates for TTLS"
-#~ msgstr "RADIUS tanúsítványok létrehozása a TTLS-hez"
-
-#~ msgid ""
-#~ "Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
-#~ "certs/."
-#~ msgstr ""
-#~ "A Zentyal létrehozza a szükséges TTLS tanúsítványokat az /etc/freeradius/"
-#~ "certs/ könyvtárba."
-
-#~ msgid "Allow others to read /var/log/freeradius"
-#~ msgstr "/var/log/freeradius olvasásának engedélyezése mások számára"
-
-#~ msgid ""
-#~ "Zentyal will change default permissions on RADIUS log directory to allow "
-#~ "to read the logs."
-#~ msgstr ""
-#~ "A Zentyal meg fogja változtatni a RADIUS naplókönyvtárának "
-#~ "alapértelmezett jogait, hogy el lehessen olvasni a naplókat."
-
-#~ msgid "To configure allowed LDAP group."
-#~ msgstr "Az engedélyezett LDAP csoport beállítása."
-
-#~ msgid "To configure RADIUS LDAP module."
-#~ msgstr "A RADIUS LDAP moduljának beállítása."
-
-#~ msgid "To configure RADIUS daemon."
-#~ msgstr "A RADIUS démon beállítása."
-
-#~ msgid "To configure RADIUS clients."
-#~ msgstr "A RADIUS kliensek beállítása."
-
-#~ msgid "To configure RADIUS EAP."
-#~ msgstr "A RADIUS EAP moduljának beállítása."
-
-#~ msgid "To configure default RADIUS vhost."
-#~ msgstr "Az alapértelmezett RADIUS vhost beállítása."
-
-#~ msgid "To configure RADIUS inner-tunnel vhost."
-#~ msgstr "A RADIUS belső csatornás vhost-jának beállítása."
-
-#~ msgid "Zentyal RADIUS system"
-#~ msgstr "Zentyal RADIUS rendszer"
-
-#~ msgid "RADIUS"
-#~ msgstr "RADIUS"
-
-#~ msgid "MAC"
-#~ msgstr "MAC"
-
-#~ msgid "Login OK"
-#~ msgstr "Sikeres bejelentkezés"
-
-#~ msgid "Login incorrect"
-#~ msgstr "Sikertelen bejelentkezés"
-
-#~ msgid "All users"
-#~ msgstr "Összes felhasználó"
-
-#~ msgid "Group allowed to authenticate"
-#~ msgstr "A csoport részére az azonosítás engedélyezve"
-
-#~ msgid "RADIUS server configuration"
-#~ msgstr "RADIUS szerver beállításai"
-
-#~ msgid "RADIUS server configuration updated"
-#~ msgstr "A RADIUS szerver beállításai frissítve"
-
-#~ msgid "Shared Secret"
-#~ msgstr "Megosztott titkosítás"
-
-#~ msgid "RADIUS Clients"
-#~ msgstr "RADIUS kliensek"
 
 #~ msgid "WebMail backend"
 #~ msgstr "WebMail háttérprogramja"
@@ -19874,225 +20310,6 @@ msgstr "Automatikus műveletek indítási ideje"
 #~ msgid "No users connected."
 #~ msgstr "Nincs csatlakozott felhasználó."
 
-#~ msgid "Virtual Machines"
-#~ msgstr "Virtuális gépek"
-
-#~ msgid "Virtual Machines VNC"
-#~ msgstr "Virtuális gépek és VNC"
-
-#~ msgid "VNC connections for Zentyal VMs"
-#~ msgstr "VNC kapcsolatok a Zentyal virtuális gépekhez"
-
-#~ msgid "Internal Network"
-#~ msgstr "Belső hálózat"
-
-#~ msgid "Internal Network Name"
-#~ msgstr "Belső hálózat neve"
-
-#~ msgid "MAC Address"
-#~ msgstr "MAC-cím"
-
-#~ msgid "Network Settings"
-#~ msgstr "Hálózati beállítások "
-
-#~ msgid "Here you can define the network interfaces of the virtual machine."
-#~ msgstr "Itt adhatja meg a virtuális gép hálózati csatolóit."
-
-#~ msgid "A maximum of {num} network interfaces are allowed"
-#~ msgstr "Legfeljebb {num} hálózati csatoló engedélyezett"
-
-#~ msgid "'None' interface is not allowed in your virtual machine backend"
-#~ msgstr "A „Nincs” csatolót nem engedélyezi a virtuális gép háttérprogramja"
-
-#~ msgid "View Console"
-#~ msgstr "Konzol megjelenítése"
-
-#~ msgid "Virtual Machine started"
-#~ msgstr "Virtuális gép elindítva"
-
-#~ msgid "Stop"
-#~ msgstr "Leállítás"
-
-#~ msgid "Virtual Machine stopped"
-#~ msgstr "Virtuális gép leállítva"
-
-#~ msgid "Pause"
-#~ msgstr "Szünet"
-
-#~ msgid "Virtual Machine paused"
-#~ msgstr "Virtuális gép szüneteltetve"
-
-#~ msgid "Resume"
-#~ msgstr "Folytatás"
-
-#~ msgid "Virtual Machine resumed"
-#~ msgstr "Virtuális gép folytatva"
-
-#~ msgid "Autostart"
-#~ msgstr "Automatikus indítás"
-
-#~ msgid "List of Virtual Machines"
-#~ msgstr "Virtuális gépek listája"
-
-#~ msgid "virtual machine"
-#~ msgstr "virtuális gép"
-
-#~ msgid ""
-#~ "You have either invalid characters or spaces. Valid characters are: '[A-Z]"
-#~ "[a-z][0-9]-_'"
-#~ msgstr ""
-#~ "Érvénytelen karakterek vagy szóköz. Érvényes karakterek: „[A-Z][a-z][0-9]-"
-#~ "_”"
-
-#~ msgid ""
-#~ "Cannot add more virtual machines because its maximum allowed number has "
-#~ "been reached"
-#~ msgstr ""
-#~ "Nem lehet több virtuális gépet hozzáadni, mert a maximálisan "
-#~ "engedélyezett mennyiség el lett érve"
-
-#~ msgid ""
-#~ "The Virtual Machines module is not enabled, please go to the {openref}"
-#~ "Module Status{closeref} section and enable it prior to try to start any "
-#~ "machine."
-#~ msgstr ""
-#~ "A Virtuális gépek modul nincs engedélyezve, nyissa meg a {openref}"
-#~ "Modulállapot{closeref} oldalt, és engedélyezze a gépek indítása előtt."
-
-#~ msgid ""
-#~ "Virtual machines cannot be started if there are pending unsaved changes "
-#~ "on the Virtual Machines module, please save changes first and try again."
-#~ msgstr ""
-#~ "Nem indíthatók virtuális gépek, amíg függőben lévő mentetlen "
-#~ "változtatások vannak a Virtuális gépek modulban, először mentse a "
-#~ "módosításokat, és próbálja újra."
-
-#~ msgid "Couldn't start virtual machine '{vm}'"
-#~ msgstr "Nem sikerült elindítani a(z) „{vm}” virtuális gépet"
-
-#~ msgid "Couldn't stop virtual machine '{vm}'"
-#~ msgstr "Nem sikerült leállítani a(z) „{vm}” virtuális gépet"
-
-#~ msgid "Cannot pause a stopped machine. You have to start it first."
-#~ msgstr ""
-#~ "Nem lehet szüneteltetni egy leállított gépet. Először el kell indítani."
-
-#~ msgid "Remove virtual machine"
-#~ msgstr "Virtuális gép eltávolítása"
-
-#~ msgid "Hard Disk"
-#~ msgstr "Merevlemez"
-
-#~ msgid "Use a existing image file"
-#~ msgstr "Létező lemezkép használata"
-
-#~ msgid "Drive Type"
-#~ msgstr "Meghajtó típusa"
-
-#~ msgid "Device Settings"
-#~ msgstr "Eszközbeállítások"
-
-#~ msgid "drive"
-#~ msgstr "meghajtó"
-
-#~ msgid "Here you can define the storage drives of the virtual machine"
-#~ msgstr "Itt adhatja meg a virtuális gép tárolóeszközeit"
-
-#~ msgid "ISO image"
-#~ msgstr "ISO lemezkép"
-
-#~ msgid "The CD disk image {img} should be in ISO format"
-#~ msgstr "A(z) „{img}” CD-képnek ISO formátumúnak kell lennie"
-
-#~ msgid "Hard disk image"
-#~ msgstr "Merevlemezkép"
-
-#~ msgid "The hard disk image {img} should be in qcow2 format"
-#~ msgstr "A(z) „{img}” merevlemezképnek qcow2 formátumúnak kell lennie"
-
-#~ msgid "You need to specify a name for the new hard disk"
-#~ msgstr "Meg kell adnia az új merevlemezkép nevét"
-
-#~ msgid ""
-#~ "It already exists a disk file with this name. Save changes to synchronize "
-#~ "disk files status"
-#~ msgstr ""
-#~ "Már létezik ilyen nevű lemezfájl. Mentse el a változtatásokat a "
-#~ "lemezfájlok állapotának szinkronizálásához"
-
-#~ msgid ""
-#~ "You cannot modify an already created disk. You need to delete it and add "
-#~ "a new one if you want to change the size."
-#~ msgstr ""
-#~ "Létező lemez méretét nem lehet megváltoztatni. Törölje, majd adjon hozzá "
-#~ "egy új lemezt, ha méretet szeretne változtatni."
-
-#~ msgid "A maximum of {num} IDE drives are allowed"
-#~ msgstr "Maximum {num} IDE meghajtó engedélyezett"
-
-#~ msgid "A maximum of {num} CD/DVD drives are allowed"
-#~ msgstr "Maximum {num} CD/DVD meghajtó engedélyezett"
-
-#~ msgid "A maximum of {num} Hard Disk drives are allowed"
-#~ msgstr "Maximum {num} merevlemez eszköz engedélyezett"
-
-#~ msgid "Device file for CD \"{f}\" does not exists"
-#~ msgstr "A(z) „{f}” CD eszközfájlja nem létezik"
-
-#~ msgid "HardDisk name"
-#~ msgstr "Merevlemez neve"
-
-#~ msgid "You need to provide the path of a {name}"
-#~ msgstr "Meg kell adnia egy {name} lemezkép útvonalát"
-
-#~ msgid ""
-#~ "The path should contain only characters, digits, dots, dashes, directory "
-#~ "separators  and underscores"
-#~ msgstr ""
-#~ "Az útvonal csak betűket, számokat, pontokat, kötőjeleket, "
-#~ "könyvtárelválasztókat és aláhúzásokat tartalmazhat"
-
-#~ msgid "{name} '{img}' does not exist"
-#~ msgstr "A(z) „{img}” {name} nem létezik"
-
-#~ msgid "{name} '{img}' is not readable"
-#~ msgstr "A(z) „{img}” {name} nem olvasható"
-
-#~ msgid "Operating System"
-#~ msgstr "Operációs rendszer"
-
-#~ msgid "Architecture"
-#~ msgstr "Architektúra"
-
-#~ msgid "Base Memory"
-#~ msgstr "Alapmemória"
-
-#~ msgid "Manage only"
-#~ msgstr "Csak felügyelet"
-
-#~ msgid ""
-#~ "Configuration will no longer be overwritten after activating this and the "
-#~ "machine should be directly edited from VirtualBox GUI or using the "
-#~ "vboxmanage command"
-#~ msgstr ""
-#~ "A beállítások nem lesznek felülírva, és a gépet közvetlenül kell "
-#~ "szerkeszteni a VirtualBox GUI-ról, vagy a vboxmanage paranccsal."
-
-#~ msgid "System Settings"
-#~ msgstr "Rendszerbeállítások"
-
-#~ msgid "Here you can define the basic hardware configuration of the machine"
-#~ msgstr "Itt adhatja meg a gép alapvető hardverbeállításait"
-
-#~ msgid "Virtual Machine Settings"
-#~ msgstr "Virtuális gép beállításai"
-
-#~ msgid "i686 compatible"
-#~ msgstr "i686 kompatibilis"
-
-#~ msgid "amd64 compatible"
-#~ msgstr "amd64 kompatibilis"
-
 #~ msgid "Zentyal LTSP"
 #~ msgstr "Zentyal LTSP"
 
@@ -20558,15 +20775,6 @@ msgstr "Automatikus műveletek indítási ideje"
 
 #~ msgid "Upgrade"
 #~ msgstr "Frissítés"
-
-#~ msgid "The virtual machine is running"
-#~ msgstr "A virtuális gép fut"
-
-#~ msgid "The virtual machine is not running"
-#~ msgstr "A virtuális gép nem fut"
-
-#~ msgid "Paused"
-#~ msgstr "Szüneteltetve"
 
 #~ msgid "Hide help notes"
 #~ msgstr "Súgó megjegyzések elrejtése"
@@ -21515,26 +21723,6 @@ msgstr "Automatikus műveletek indítási ideje"
 
 #~ msgid "subscription page"
 #~ msgstr "előfizetési oldalon"
-
-#~ msgid ""
-#~ "Are you sure about removing this virtual machine?. All its data will be "
-#~ "lost. "
-#~ msgstr "Biztosan eltávolítja a virtuális gépet? Minden adata el fog veszni."
-
-#~ msgid "Use host CD drive"
-#~ msgstr "A gazda CD meghajtó használata"
-
-#~ msgid "Only one CD connected to a host drive is supported"
-#~ msgstr "Csak egy, a gazda meghajtóhoz csatlakoztatott CD támogatott"
-
-#~ msgid "Windows Vista | Windows 2008 or newer"
-#~ msgstr "Windows Vista | Windows 2008 vagy újabb"
-
-#~ msgid "Windows XP | Windows 2003 or older"
-#~ msgstr "Windows XP | Windows 2003 vagy régebbi"
-
-#~ msgid "Linux"
-#~ msgstr "Linux"
 
 #~ msgid ""
 #~ "Skipped member {name} from object {obj1} because it has the same name "
