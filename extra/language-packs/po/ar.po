@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2015-10-31 13:27+0200\n"
-"Last-Translator: akram <sahrynajd@gmail.com>\n"
+"PO-Revision-Date: 2018-06-07 13:31+0200\n"
+"Last-Translator: xWaLeEdOoOx <k.tolbah@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -20,17 +20,16 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:58
-#, fuzzy
 msgid "SOGo Webmail"
-msgstr "البريد الصوتي"
+msgstr "بريد SOGo الالكتروني"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:137
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
-msgstr ""
+msgstr "قم بتفعيل الموديولات (proxy, proxy_http) في الـApache"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:138
 msgid "To make SOGo Webmail be accesible at http://ip/SOGo/."
-msgstr ""
+msgstr "ليدعم الوصول لبريد SOGo الالكتروني عن طريق الرابط http://ip/SOGo"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:158
 #, perl-brace-format
@@ -38,37 +37,33 @@ msgid ""
 "SOGo Webmail module needs IMAP or IMAPS service enabled if using Zentyal "
 "mail service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
+"في حالة تفعيل خدمة بريد Zentyal، موديول بريد SOGo الالكتروني يتطلب تفعيل "
+"خدمة IMAP او IMAPS. يمكن تفعيلها عن طريق الرابط التالي {openurl}Mail -> "
+"General{closeurl}"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:180
-#, fuzzy
 msgid "To configure sogo daemon"
-msgstr "لتهيئة مترقب الclamd"
+msgstr "لإعداد خادم sogo"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:185
-#, fuzzy
 msgid "To configure sogo parameters"
-msgstr "لتهيئة محدث الfreshclam"
+msgstr "لإعداد خصائص sogo"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:373 ../../main/mail/src/EBox/Mail.pm:98
 #: ../../main/mail/src/EBox/Mail.pm:1480 ../../main/mail/src/EBox/Mail.pm:1634
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
-msgstr ""
+msgstr "البريد الالكتروني"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:380
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:52
 #: ../../main/sogo/src/EBox/SOGo/Composite/Configuration.pm:39
-#, fuzzy
 msgid "ActiveSync"
-msgstr ""
-"#-#-#-#-#  ar.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"التاثير\n"
-"#-#-#-#-#  ar.po (ebox-ca 0.12)  #-#-#-#-#\n"
-"إجراء"
+msgstr "ActiveSync"
 
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:55
 msgid "Enable ActiveSync support for all the mail domains"
-msgstr ""
+msgstr "تفعيل خاصية ActiveSync لجميع نطاقات البريد الالكتروني"
 
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:75
@@ -83,7 +78,7 @@ msgstr "الاعدادات"
 
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:64
 msgid "The ActiveSync gateway, standard protocol for several mobile devices."
-msgstr ""
+msgstr "بوابة ActiveSync، هو بروتوكل يدعمه العديد من الاجهزة النقالة."
 
 #: ../../main/sogo/src/EBox/SOGo/Composite/Disclaimer.pm:46
 #, perl-brace-format
@@ -91,78 +86,79 @@ msgid ""
 "{x} and {y} are registered trademarks of Microsoft Corporation, and are "
 "registered in the USA and other countries."
 msgstr ""
+"{x} و {y} هما علامتان تجاريتان مسجلتان لصالح شركة Microsoft، وهما مسجلتان في "
+"الولايات المتحدة الامريكية ودول اخرى."
 
 #: ../../main/sogo/src/EBox/SOGo/Composite/Warning.pm:48
 #, perl-brace-format
 msgid "{x} is only recommended for mailboxes of 1GB of data or less."
-msgstr ""
+msgstr "{x} مفضل فقط في حالة ان صناديق البريد مساحتها 1جيجا او اقل"
 
 #: ../../main/dns/src/EBox/DNS.pm:288 ../../main/dns/src/EBox/DNS.pm:370
 #: ../../main/dns/src/EBox/DNS.pm:431 ../../main/dns/src/EBox/DNS.pm:459
 #: ../../main/dns/src/EBox/DNS.pm:1734
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:685
 msgid "domain"
-msgstr "النطاق"
+msgstr "نطاق"
 
 #: ../../main/dns/src/EBox/DNS.pm:563
 msgid "Zentyal will set the required environment variables for bind9 daemon"
-msgstr ""
+msgstr "سيقوم Zentyal الآن بإعداد متغيرات النظام لخدمة bind9."
 
 #: ../../main/dns/src/EBox/DNS.pm:568
 msgid "main bind9 configuration file"
-msgstr "الملف الرئيسي لإعدادات bind9"
+msgstr "ملف اعدادات Bind9 الرئيسي."
 
 #: ../../main/dns/src/EBox/DNS.pm:573
 msgid "bind9 options configuration file"
-msgstr ""
+msgstr "ملف خيارات الاعداد لـbind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:578
 msgid "local bind9 configuration file"
-msgstr ""
+msgstr "ملف اعدادات bind9 المحلي."
 
 #: ../../main/dns/src/EBox/DNS.pm:583
 msgid "Keys configuration file"
-msgstr ""
+msgstr "ملف اعداد مفاتيح التشفير"
 
 #: ../../main/dns/src/EBox/DNS.pm:598
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
-msgstr ""
+msgstr "لتفعيل امكانية الكتابة لمجموعة Bind، عدل صلاحيات المجلد {dir}"
 
 #: ../../main/dns/src/EBox/DNS.pm:600
 msgid "Let the bind daemon to be dynamically updated"
-msgstr ""
+msgstr "لجعل خدمة bind متاحة للتحديث التلقائي."
 
 #: ../../main/dns/src/EBox/DNS.pm:604
 msgid "Remove bind9 init script link"
-msgstr ""
+msgstr "قم بإزالة bind9 init script link"
 
 #: ../../main/dns/src/EBox/DNS.pm:605 ../../main/squid/src/EBox/Squid.pm:234
 #: ../../main/squid/src/EBox/Squid.pm:240 ../../main/ntp/src/EBox/NTP.pm:81
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr ""
+msgstr "سيقوم Zentyal بمهمة تشغيل وايقاف الخدمات."
 
 #: ../../main/dns/src/EBox/DNS.pm:610
 msgid "Override named apparmor profile"
-msgstr ""
+msgstr "Override named apparmor profile"
 
 #: ../../main/dns/src/EBox/DNS.pm:611
 msgid "To allow samba daemon load Active Directory zone"
-msgstr ""
+msgstr "للسماح لخدمة samba لتحميل منطقة الـActive Directory"
 
 #: ../../main/dns/src/EBox/DNS.pm:636
-#, fuzzy
 msgid "Domain Name Service"
-msgstr "خادم DNS"
+msgstr "خدمة اسماء النطاقات DNS"
 
 #: ../../main/dns/src/EBox/DNS.pm:1016
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "الملف الرئيسي لإعدادات bind9"
+msgstr "المفتاح {key} في ملف الاعدادات {value}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1760
 msgid "hostname"
-msgstr ""
+msgstr "hostname"
 
 #: ../../main/dns/src/EBox/DNS.pm:1765
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
@@ -171,23 +167,23 @@ msgid "alias"
 msgstr "اسم بديل"
 
 #: ../../main/dns/src/EBox/DNS.pm:1981
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
-msgstr "توجد كنية بنفس اﻹسم \"{name}\" ل \"{hostname}\" في نفس النطاق."
+msgstr "الاسم \"{x}\" موجود في النطاق {y} بالفعل"
 
 #: ../../main/dns/src/EBox/DNS.pm:2049
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP '{a}' is already in '{d}'"
-msgstr "توجد كنية بنفس اﻹسم \"{name}\" ل \"{hostname}\" في نفس النطاق."
+msgstr "عنوان الـIP المدخل {a} موجود بالفعل في النطاق {d}"
 
 #: ../../main/dns/src/EBox/DNS/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
-msgstr ""
+msgstr "يجب ادخال اسم نطاق او (*) "
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:132
 #: ../../main/network/src/EBox/Network/Model/ServiceTable.pm:122
 msgid "Service name"
-msgstr ""
+msgstr "اسم الخدمة"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:137
 #: ../../main/firewall/src/EBox/Firewall.pm:791
@@ -197,48 +193,49 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Model/ServiceConfigurationTable.pm:144
 #: ../../main/mail/src/templates/externalAccounts.mas:18
 msgid "Protocol"
-msgstr ""
+msgstr "بروتوكول"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:143
 #: ../../main/ips/src/EBox/IPS.pm:298
 msgid "Priority"
-msgstr ""
+msgstr "الاولوية"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:148
 msgid "Lower value is greater priority"
-msgstr ""
+msgstr "القيمة الاقل هي للأولوية الأعلى"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:152
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:200
 msgid "Weight"
-msgstr ""
+msgstr "الثقل"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:157
 msgid ""
 "0 indicates no weighting and a greater value more chances to be selected "
 "with equal priority"
 msgstr ""
+"الصفر يعني لا ثقل، وقيمة الثقل الاعلى يكون لها الفرصة الاكبر عند تساوي "
+"الاولوية."
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:163
 msgid "Target port"
-msgstr ""
+msgstr "الـport المستهدف"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:168
 msgid "Target"
-msgstr ""
+msgstr "الهدف"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:170
 msgid ""
 "If you select the \"Custom\", it should be a Fully Qualified Domain Name"
-msgstr ""
+msgstr "الرجاء ادخال FQDN في حالة اختيار \"مخصص\""
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:176
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:195
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:223
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:150
-#, fuzzy
 msgid "This domain"
-msgstr "النطاق"
+msgstr "هذا النطاق"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:183
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:203
@@ -251,43 +248,39 @@ msgstr "النطاق"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:361
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
-#, fuzzy
 msgid "Custom"
-msgstr ""
-"#-#-#-#-#  ar.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"مخصص\n"
-"#-#-#-#-#  ar.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"الزبون"
+msgstr "مخصص"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:193
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:632
 #: ../../main/network/src/EBox/Network/Model/ServiceTable.pm:150
 #: ../../main/network/src/EBox/Network.pm:4469
 msgid "Services"
-msgstr ""
+msgstr "الخدمات"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:199
 msgid ""
 "It manages the SRV records for this domain. They are useful to select a host "
 "based on the priority for a service."
 msgstr ""
+"تدير سجلات SRV لهذا النطاق. مفيدة لاختيار الخادم بناء على اولوية الخدمة."
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:202
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{srv} record"
-msgstr "سجل بدالة البريد"
+msgstr "سجل {srv}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:294
 #, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
-msgstr ""
+msgstr "الخدمة {srv} غير موجودة في {file}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:312
 #, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
-msgstr ""
+msgstr "الاسم المدخل ليس FQDN. هل تقصد {srv}.{name}  ؟"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:324
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:108
@@ -295,14 +288,14 @@ msgstr ""
 msgid ""
 "A custom host name cannot be set from the same domain. Use \"This domain\" "
 "option instead"
-msgstr ""
+msgstr "لا يمكن استخدام نفس اسم الجهاز لهذا النطاق. لذلك اختر \"هذا النطاق\"."
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:87
 #, perl-brace-format
 msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
-msgstr "توجد كنية بنفس اﻹسم \"{name}\" ل \"{hostname}\" في نفس النطاق."
+msgstr "توجد كنية بنفس اﻹسم \"{name}\" لـ \"{hostname}\" في نفس النطاق."
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:186
@@ -314,7 +307,7 @@ msgstr "توجد كنية بنفس اﻹسم \"{name}\" ل \"{hostname}\" في �
 #: ../../main/dhcp/src/EBox/DHCP.pm:1068
 #: ../../main/dns/src/templates/edit.mas:18
 msgid "Host name"
-msgstr "اسم المضيف"
+msgstr "اسم الجهاز"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:84

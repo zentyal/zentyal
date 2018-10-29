@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2017-11-29 11:50+0200\n"
-"Last-Translator: fabrice <fbriand@cheznoo.net>\n"
+"PO-Revision-Date: 2018-10-05 21:52+0200\n"
+"Last-Translator: taupe <taupe@live.be>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -20,38 +20,34 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:58
-#, fuzzy
 msgid "SOGo Webmail"
 msgstr "Webmail (Mail par internet)"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:137
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
-msgstr ""
+msgstr "activer proxy,proxy_http et les en-têtes du module apache 2"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:138
-#, fuzzy
 msgid "To make SOGo Webmail be accesible at http://ip/SOGo/."
-msgstr "Le webmail sera accessible à l'adresse http://ip/webmail/."
+msgstr "Le webmail est accessible à l'adresse http://ip/webmail/."
 
 #: ../../main/sogo/src/EBox/SOGo.pm:158
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "SOGo Webmail module needs IMAP or IMAPS service enabled if using Zentyal "
 "mail service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
 "Le module Webmail nécessite que le service IMAP ou IMAPS soit activé dès "
 "lors qu'il utilise le service mail de Zentyal. Vous pouvez les activer ici "
-"{openurl}Courrier -> Général{closeurl}."
+"{open url}Courrier -> Général{close url}."
 
 #: ../../main/sogo/src/EBox/SOGo.pm:180
-#, fuzzy
 msgid "To configure sogo daemon"
-msgstr " Configurer le service clamd"
+msgstr " Configurer le service sogo"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:185
-#, fuzzy
 msgid "To configure sogo parameters"
-msgstr "Pour configurer le nom d'hôte de messagerie"
+msgstr "Pour configurer les paramètres sogo"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:373 ../../main/mail/src/EBox/Mail.pm:98
 #: ../../main/mail/src/EBox/Mail.pm:1480 ../../main/mail/src/EBox/Mail.pm:1634
@@ -62,14 +58,13 @@ msgstr "Courrier"
 #: ../../main/sogo/src/EBox/SOGo.pm:380
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:52
 #: ../../main/sogo/src/EBox/SOGo/Composite/Configuration.pm:39
-#, fuzzy
 msgid "ActiveSync"
-msgstr "Activer Active Sync"
+msgstr "Active Sync"
 
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:55
-#, fuzzy
 msgid "Enable ActiveSync support for all the mail domains"
-msgstr "Envoyer une copie de tous les domaines de messagerie"
+msgstr ""
+"Activer la prise en charge ActiveSync pour tous les domaines de messagerie"
 
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:75
@@ -85,6 +80,8 @@ msgstr "Configuration"
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:64
 msgid "The ActiveSync gateway, standard protocol for several mobile devices."
 msgstr ""
+"La passerelle ActiveSync, protocole standard pour plusieurs appareils "
+"mobiles."
 
 #: ../../main/sogo/src/EBox/SOGo/Composite/Disclaimer.pm:46
 #, perl-brace-format
@@ -92,11 +89,15 @@ msgid ""
 "{x} and {y} are registered trademarks of Microsoft Corporation, and are "
 "registered in the USA and other countries."
 msgstr ""
+"{x} et {y} sont des marques déposées de Microsoft Corporation et sont "
+"déposées aux États-Unis et dans d'autres pays."
 
 #: ../../main/sogo/src/EBox/SOGo/Composite/Warning.pm:48
 #, perl-brace-format
 msgid "{x} is only recommended for mailboxes of 1GB of data or less."
 msgstr ""
+"{x} n'est recommandé que pour les boîtes aux lettres de 1 Go de données ou "
+"moins."
 
 #: ../../main/dns/src/EBox/DNS.pm:288 ../../main/dns/src/EBox/DNS.pm:370
 #: ../../main/dns/src/EBox/DNS.pm:431 ../../main/dns/src/EBox/DNS.pm:459
@@ -108,20 +109,19 @@ msgstr "domaine"
 #: ../../main/dns/src/EBox/DNS.pm:563
 msgid "Zentyal will set the required environment variables for bind9 daemon"
 msgstr ""
-"Zentyal va définir les variables d'environnement nécessaires pour le service "
-"bind9"
+"Zentyal définira les variables d'environnement requises pour le démon bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:568
 msgid "main bind9 configuration file"
-msgstr "Fichier de configuration principale de bind9"
+msgstr "fichier de configuration principal bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:573
 msgid "bind9 options configuration file"
-msgstr "Fichier de configuration de bind9"
+msgstr "Fichier de configuration des options bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:578
 msgid "local bind9 configuration file"
-msgstr "Fichier local de configuration bind9"
+msgstr " fichier de configuration local bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:583
 msgid "Keys configuration file"
@@ -131,8 +131,8 @@ msgstr "Fichier de configuration des clefs"
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr ""
-"Changer les permission pour {dir} afin de permettre l'écriture dans le "
-"groupe bind"
+"Modifier les autorisations de {dir} pour permettre l'écriture sur le groupe "
+"de liaisons"
 
 #: ../../main/dns/src/EBox/DNS.pm:600
 msgid "Let the bind daemon to be dynamically updated"
@@ -140,16 +140,16 @@ msgstr "Laisse le service bind être mis-à-jour automatiquement"
 
 #: ../../main/dns/src/EBox/DNS.pm:604
 msgid "Remove bind9 init script link"
-msgstr "Supprimer le lien au script d'initialisation bind9"
+msgstr "Supprimer le lien de script d'initialisation bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:605 ../../main/squid/src/EBox/Squid.pm:234
 #: ../../main/squid/src/EBox/Squid.pm:240 ../../main/ntp/src/EBox/NTP.pm:81
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr "Zentyal va prendre en charge le démarrage et l'arrêt des services."
+msgstr "Zentyal se chargera de démarrer et d’arrêter les services."
 
 #: ../../main/dns/src/EBox/DNS.pm:610
 msgid "Override named apparmor profile"
-msgstr "Remplacer le profil apparmor"
+msgstr " Ignorer le profil nommé apparmor"
 
 #: ../../main/dns/src/EBox/DNS.pm:611
 msgid "To allow samba daemon load Active Directory zone"
@@ -162,7 +162,7 @@ msgstr "Serveur de nom de domaine (DNS)"
 #: ../../main/dns/src/EBox/DNS.pm:1016
 #, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "Clef '{key}' dans le fichier principal de configuration {value}"
+msgstr "clé '{clé}' dans le fichier de configuration {valeur}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1760
 msgid "hostname"
@@ -177,18 +177,16 @@ msgstr "alias"
 #: ../../main/dns/src/EBox/DNS.pm:1981
 #, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
-msgstr "Un hôte avec le nom {x} est déjà présent dans le domaine {y}"
+msgstr "Le nom d'hôte {x} est déjà défini dans le domaine {y}"
 
 #: ../../main/dns/src/EBox/DNS.pm:2049
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP '{a}' is already in '{d}'"
-msgstr "L'adresse {ip} est déjà affectée à l'interface {iface}"
+msgstr "L'IP '{a}' est déjà dans '{d}'"
 
 #: ../../main/dns/src/EBox/DNS/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
-msgstr ""
-"Un nom de domaine valide ou un caractère de remplacement (*) doit être "
-"renseigné"
+msgstr "Un nom de domaine valide ou une valeur générique (*) doit être fournie."
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:132
 #: ../../main/network/src/EBox/Network/Model/ServiceTable.pm:122
@@ -239,8 +237,8 @@ msgstr "Cible"
 msgid ""
 "If you select the \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
-"Si vous choisissez 'Personnalisé\", alors cela devrait être un nom de "
-"domaine complet"
+"Si vous sélectionnez 'Personnalisé', il devrait s'agir d'un nom de domaine "
+"complet."
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:176
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:195
@@ -276,8 +274,8 @@ msgid ""
 "It manages the SRV records for this domain. They are useful to select a host "
 "based on the priority for a service."
 msgstr ""
-"Gère les enregistrements SRV pour ce domaine. Ils sont utiles pour "
-"sélectionner un serveur selon un ordre de priorité défini pour un service."
+" Il gère les enregistrements SRV pour ce domaine. Ils sont utiles pour "
+"sélectionner un hôte en fonction de la priorité d'un service."
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:202
 #, perl-brace-format
@@ -305,8 +303,8 @@ msgid ""
 "A custom host name cannot be set from the same domain. Use \"This domain\" "
 "option instead"
 msgstr ""
-"Un nom d'hôte personnalisé ne peut pas être paramétré pour un domaine "
-"identique. Utilisez plutôt l'option \"Ce domaine\""
+"Un nom d'hôte personnalisé ne peut être paramétré pour un domaine identique. "
+"Utilisez plutôt l'option \"Ce domaine\""
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:87
 #, perl-brace-format
@@ -314,8 +312,8 @@ msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
 msgstr ""
-"Il existe un alias avec le même nom \"{name}\" pour \"{hostname}\" dans le "
-"même domaine"
+" Il y a un alias du même nom '{nom}' pour '{nom d'hôte}' dans le même "
+"domaine"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:186
@@ -357,7 +355,7 @@ msgid ""
 "domain, only first match will be used by reverse resolution. Dynamic zones "
 "may erase your manual reverse resolution."
 msgstr ""
-"La résolution inverse automatique est effectuée. Si vous répétez une adresse "
+"La résolution inverse automatique est terminée. Si vous répétez une adresse "
 "IP pour un autre domaine, seule la première entrée sera utilisée pour la "
 "résolution inverse. Les zones dynamiques peuvent éventuellement effacer les "
 "résolutions inverses saisies manuellement."
@@ -379,15 +377,15 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "mx.{name}?"
 msgstr ""
-"Le nom de domaine fournit n'est pas un fully qualified domain name (FQDN). "
+"Le nom de domaine fournit n'est pas un nom de domaine complet (FQDN). "
 "Voulez-vous dire mx.{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:189
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:217
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
-"Si vous choisissez 'Personnalisé\", alors cela devrait être un Fully "
-"Qualified Domain Name"
+"Si vous choisissez 'Personnalisé\", alors cela devrait être un un nom de "
+"domaine complet"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:211
 msgid "Preference"
@@ -405,9 +403,9 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
-"Le plus petit nombre \"préférence\" possède la plus haute priorité et sera "
-"le premier serveur a être interrogé quand un client distant (typiquement un "
-"autre serveur de courrier) fera un MX lookup pour ce nom de domaine. "
+"Le plus petit nombre possède la plus haute priorité et sera le premier "
+"serveur a être interrogé quand un client distant (généralement un autre "
+"serveur de courrier) effectue une recherche MX pour le nom de domaine "
 "L'intervalle de nombre autorisé pour \"préférence\" est ({min}, {max})"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:232
@@ -416,11 +414,11 @@ msgstr "Enregistrement du gestionnaire de courrier"
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:76
 msgid "Forwarder"
-msgstr "Redirecteur"
+msgstr "Rediriger"
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:85
 msgid "Forwarders"
-msgstr "Redirecteurs"
+msgstr "Redirigé"
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:90
 msgid ""
@@ -432,13 +430,12 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:92
 msgid "forwarder"
-msgstr "redirecteur"
+msgstr "rediriger"
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:117
 #, perl-brace-format
 msgid "Forwarder cannot be a loopback address like {forw}"
-msgstr ""
-"Le relais ne peut pas être une adresse de boucle locale telle que {forw}"
+msgstr "Le redirecteur ne peut pas être une adresse de bouclage comme {forw}"
 
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:69
 #, perl-brace-format

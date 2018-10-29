@@ -9,50 +9,46 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2016-01-10 01:36+0200\n"
+"PO-Revision-Date: 2018-07-04 15:45+0200\n"
 "Last-Translator: Basas <vytautas@basas.lt>\n"
 "Language-Team: none\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:58
-#, fuzzy
 msgid "SOGo Webmail"
-msgstr "Web Paštas"
+msgstr "SoGo Paštas"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:137
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
-msgstr ""
+msgstr "Įjungti proxi, proxy_http ir antrasštės Aoache 2 moduliai."
 
 #: ../../main/sogo/src/EBox/SOGo.pm:138
-#, fuzzy
 msgid "To make SOGo Webmail be accesible at http://ip/SOGo/."
-msgstr "Web paštas bus prieinamas adresu http://ip/webmail/."
+msgstr "Web paštas bus prieinamas adresu http://ip/SOGo/."
 
 #: ../../main/sogo/src/EBox/SOGo.pm:158
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "SOGo Webmail module needs IMAP or IMAPS service enabled if using Zentyal "
 "mail service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
-"Web pašto moduliui reikalingas įjungtas IMAP ar IMAPS servisas norint "
+"SoGo Web pašto  moduliui reikalingas įjungtas IMAP ar IMAPS servisas norint "
 "naudoti Zentyal pašto servisą. Galite įjungti {openurl}Paštas -> "
 "Bendra{closeurl}."
 
 #: ../../main/sogo/src/EBox/SOGo.pm:180
-#, fuzzy
 msgid "To configure sogo daemon"
-msgstr " Clamd tarnybos konfigūravimas"
+msgstr "Sogo tarnybos konfigūravimas"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:185
-#, fuzzy
 msgid "To configure sogo parameters"
-msgstr "Konfigūruoti pašto pavadinimą"
+msgstr "Konfigūruoti sogo parametrus"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:373 ../../main/mail/src/EBox/Mail.pm:98
 #: ../../main/mail/src/EBox/Mail.pm:1480 ../../main/mail/src/EBox/Mail.pm:1634
@@ -63,14 +59,12 @@ msgstr "Paštas"
 #: ../../main/sogo/src/EBox/SOGo.pm:380
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:52
 #: ../../main/sogo/src/EBox/SOGo/Composite/Configuration.pm:39
-#, fuzzy
 msgid "ActiveSync"
-msgstr "Įjungti Active Sync"
+msgstr "ActiveSync"
 
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:55
-#, fuzzy
 msgid "Enable ActiveSync support for all the mail domains"
-msgstr "Siųsti kopiją visų pašto sričių"
+msgstr "Įjungti ActiveSync palaikymą visiems domenams"
 
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:75
@@ -85,19 +79,19 @@ msgstr "Konfigūracija"
 
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:64
 msgid "The ActiveSync gateway, standard protocol for several mobile devices."
-msgstr ""
+msgstr "ActiveSync vartai, standartinis protokolas mobiliems įrenginiams"
 
 #: ../../main/sogo/src/EBox/SOGo/Composite/Disclaimer.pm:46
 #, perl-brace-format
 msgid ""
 "{x} and {y} are registered trademarks of Microsoft Corporation, and are "
 "registered in the USA and other countries."
-msgstr ""
+msgstr "{x} ir {y} yra registruoti Microsoft Korporacijos ženklai,"
 
 #: ../../main/sogo/src/EBox/SOGo/Composite/Warning.pm:48
 #, perl-brace-format
 msgid "{x} is only recommended for mailboxes of 1GB of data or less."
-msgstr ""
+msgstr "{x} rekomenduojama pašto dėžutėms iki 1GB ar mažiau."
 
 #: ../../main/dns/src/EBox/DNS.pm:288 ../../main/dns/src/EBox/DNS.pm:370
 #: ../../main/dns/src/EBox/DNS.pm:431 ../../main/dns/src/EBox/DNS.pm:459
@@ -108,7 +102,7 @@ msgstr "sritis"
 
 #: ../../main/dns/src/EBox/DNS.pm:563
 msgid "Zentyal will set the required environment variables for bind9 daemon"
-msgstr ""
+msgstr "Zentyal nustatys reikalingus nustatymus bind9 demonui"
 
 #: ../../main/dns/src/EBox/DNS.pm:568
 msgid "main bind9 configuration file"
@@ -146,20 +140,20 @@ msgstr "Zentyal prižiūrės paleidimo ir stabdymo servisus."
 
 #: ../../main/dns/src/EBox/DNS.pm:610
 msgid "Override named apparmor profile"
-msgstr ""
+msgstr "Perrašyti appamor profilį"
 
 #: ../../main/dns/src/EBox/DNS.pm:611
 msgid "To allow samba daemon load Active Directory zone"
-msgstr ""
+msgstr "Leisti samba demonui įkelti Active Direktory zoną"
 
 #: ../../main/dns/src/EBox/DNS.pm:636
 msgid "Domain Name Service"
 msgstr "Vardų sričių serveris (DNS)"
 
 #: ../../main/dns/src/EBox/DNS.pm:1016
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "{daemon} pagrindinis konfigūracinis failas"
+msgstr "Raktas '{key}' konfiguracijos faile {value}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1760
 msgid "hostname"

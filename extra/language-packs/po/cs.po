@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2017-08-28 07:54+0200\n"
-"Last-Translator: Tchunass <libor.kunst@gmail.com>\n"
+"PO-Revision-Date: 2018-04-04 10:30+0200\n"
+"Last-Translator: pep_in <pepster99@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -94,9 +94,9 @@ msgstr ""
 "dalších zemích."
 
 #: ../../main/sogo/src/EBox/SOGo/Composite/Warning.pm:48
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "{x} is only recommended for mailboxes of 1GB of data or less."
-msgstr ""
+msgstr "{x} je doporučeno jen pro mailové schránky o velikosti 1GB nebo menší."
 
 #: ../../main/dns/src/EBox/DNS.pm:288 ../../main/dns/src/EBox/DNS.pm:370
 #: ../../main/dns/src/EBox/DNS.pm:431 ../../main/dns/src/EBox/DNS.pm:459
@@ -519,10 +519,13 @@ msgstr ""
 "Vždy ji ale můžete přejmenovat nebo pro ni vytvořit alternativní název."
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:551
+#, fuzzy
 msgid ""
 "Domain added. Zentyal IP addresses not added as all of them were in other "
 "domain already."
 msgstr ""
+"Doména přidána. IP adresa Zentyal serveru nebyla přidána, protože již v "
+"doméně je."
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:582
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
@@ -2790,22 +2793,18 @@ msgid "HTTP Proxy"
 msgstr "HTTP Proxy"
 
 #: ../../main/squid/src/EBox/Squid.pm:124
-#, fuzzy
 msgid "Front HTTP Proxy configuration file"
-msgstr "NTP konfigurační soubor"
+msgstr "Konfigurační soubor veřejné HTTP Proxy"
 
 #: ../../main/squid/src/EBox/Squid.pm:129
-#, fuzzy
 msgid "Content filter configuration file"
-msgstr "Hlavní soubor s nastaveními pro zebra"
+msgstr "Konfigurační soubor Obsahového (content) filtru"
 
 #: ../../main/squid/src/EBox/Squid.pm:134
-#, fuzzy
 msgid "Default filter group configuration"
-msgstr "Použít výchozí konfiguraci profilu"
+msgstr "Výchozí konfigurace filtrovací skupiny"
 
 #: ../../main/squid/src/EBox/Squid.pm:139
-#, fuzzy
 msgid "Filter groups membership"
 msgstr "Členy této skupiny jsou"
 

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2017-03-21 23:49+0200\n"
-"Last-Translator: andreabiasi <andrea.biasi@gmail.com>\n"
+"PO-Revision-Date: 2018-10-05 17:38+0200\n"
+"Last-Translator: andreamangini <andrea.mangini.03@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -20,21 +20,19 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:58
-#, fuzzy
 msgid "SOGo Webmail"
-msgstr "Webmail"
+msgstr "Webmail SOGo"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:137
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
-msgstr ""
+msgstr "Abilita proxy, proxy_http ed intestazioni 2 moduli Apache"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:138
-#, fuzzy
 msgid "To make SOGo Webmail be accesible at http://ip/SOGo/."
 msgstr "La webmail sarà accessibile all'indirizzo http://ip/webmail/."
 
 #: ../../main/sogo/src/EBox/SOGo.pm:158
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "SOGo Webmail module needs IMAP or IMAPS service enabled if using Zentyal "
 "mail service. You can enable it at {openurl}Mail -> General{closeurl}."
@@ -44,14 +42,12 @@ msgstr ""
 "Generale{closeurl}."
 
 #: ../../main/sogo/src/EBox/SOGo.pm:180
-#, fuzzy
 msgid "To configure sogo daemon"
-msgstr "Per configurare il demone clamd"
+msgstr "Per configurare il Webmail Daemon"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:185
-#, fuzzy
 msgid "To configure sogo parameters"
-msgstr "Per configurare il nome dell'host della posta"
+msgstr "Per configurare la casella di posta"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:373 ../../main/mail/src/EBox/Mail.pm:98
 #: ../../main/mail/src/EBox/Mail.pm:1480 ../../main/mail/src/EBox/Mail.pm:1634
@@ -62,14 +58,12 @@ msgstr "Posta"
 #: ../../main/sogo/src/EBox/SOGo.pm:380
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:52
 #: ../../main/sogo/src/EBox/SOGo/Composite/Configuration.pm:39
-#, fuzzy
 msgid "ActiveSync"
-msgstr "Abilita l'Active Sync"
+msgstr "ActiveSync"
 
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:55
-#, fuzzy
 msgid "Enable ActiveSync support for all the mail domains"
-msgstr "Invia una copia di tutti i messaggi del dominio"
+msgstr "Attiva il supporto ActiveSync per tutti i domini di posta elettronica"
 
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:75
@@ -85,6 +79,8 @@ msgstr "Configurazione"
 #: ../../main/sogo/src/EBox/SOGo/Model/ActiveSync.pm:64
 msgid "The ActiveSync gateway, standard protocol for several mobile devices."
 msgstr ""
+"Il gateway di ActiveSync, il protocollo standard per alcuni dispositivi "
+"mobili"
 
 #: ../../main/sogo/src/EBox/SOGo/Composite/Disclaimer.pm:46
 #, perl-brace-format
@@ -92,11 +88,13 @@ msgid ""
 "{x} and {y} are registered trademarks of Microsoft Corporation, and are "
 "registered in the USA and other countries."
 msgstr ""
+"{x} e {y} sono marchi registrati di Microsoft Corporation negli Stati Uniti "
+"e altre nazioni"
 
 #: ../../main/sogo/src/EBox/SOGo/Composite/Warning.pm:48
 #, perl-brace-format
 msgid "{x} is only recommended for mailboxes of 1GB of data or less."
-msgstr ""
+msgstr "{x} è raccomandato per le caselle di posta con 1GB di spazio o meno."
 
 #: ../../main/dns/src/EBox/DNS.pm:288 ../../main/dns/src/EBox/DNS.pm:370
 #: ../../main/dns/src/EBox/DNS.pm:431 ../../main/dns/src/EBox/DNS.pm:459
@@ -107,8 +105,7 @@ msgstr "dominio"
 
 #: ../../main/dns/src/EBox/DNS.pm:563
 msgid "Zentyal will set the required environment variables for bind9 daemon"
-msgstr ""
-"Zentyal imposterà le variabili d'ambiente richieste per il demone bind9"
+msgstr "Zentyal imposterà le variabili d'ambiente richieste per il bind9 daemon"
 
 #: ../../main/dns/src/EBox/DNS.pm:568
 msgid "main bind9 configuration file"

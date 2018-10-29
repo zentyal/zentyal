@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2018-02-16 09:29+0200\n"
-"Last-Translator: Osakana <osakanataro@gmail.com>\n"
+"PO-Revision-Date: 2018-08-13 15:09+0200\n"
+"Last-Translator: kazuo <kazu.nito@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -20,32 +20,30 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:58
-#, fuzzy
 msgid "SOGo Webmail"
-msgstr "ウェブメール"
+msgstr "SOGo Webmail"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:137
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
 msgstr "プロキシ、proxy_httpとヘッダのApache 2のモジュールを有効にします。"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:138
-#, fuzzy
 msgid "To make SOGo Webmail be accesible at http://ip/SOGo/."
-msgstr "OpenChange Webメールにhttpでアクセスするには：http://ip/SOGo/です。"
+msgstr "http://ip/SOGo/ でSOGo Webmailにアクセスできるようにする。"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:158
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "SOGo Webmail module needs IMAP or IMAPS service enabled if using Zentyal "
 "mail service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
-"OpenChange WebメールモジュールはZentyalメールサービスを使用している場合は有効"
-"にIMAPまたはIMAPSサービスを有効にする必要があります。{openurl}メール->一般"
-"{closeurl}でそれを有効にすることができます。"
+"Zentyalメールサービスを使用している場合、SOGo "
+"WebmailモジュールはIMAPまたはIMAPSサービスを有効にする必要があります。{openurl}Mail -> "
+"General{closeurl} で有効にすることができます。"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:180
 msgid "To configure sogo daemon"
-msgstr "sogoデーモンを設定する"
+msgstr "sogo デーモンを設定する"
 
 #: ../../main/sogo/src/EBox/SOGo.pm:185
 msgid "To configure sogo parameters"
