@@ -3961,7 +3961,7 @@ msgid ""
 "Cannot use name {name} because there arready a directory for this name: "
 "{dir}.\n"
 " Maybe a uncommited removal?."
-msgstr "Nie można użyć podanej nazwy ponieważ katalog z tą nazwą {dir}.\n"
+msgstr "Nie można użyć podanej nazwy ponieważ katalog z tą nazwą {dir}."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:53
 #, perl-brace-format
@@ -12064,10 +12064,7 @@ msgstr ""
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:6
 msgid "Virtual mail domain"
 msgstr ""
-"#-#-#-#-#  pl.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Wirtualna domena pocztowa\n"
-"#-#-#-#-#  pl.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Wirtualna domena pocztowa\n"
+"Wirtualna domena pocztowa"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:9
 msgid "Set up the default virtual mail domain"
