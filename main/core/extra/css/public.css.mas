@@ -3412,3 +3412,10 @@ OVERRIDED MODEL STYLES
 #System_tbody td:last-child {
     display: none;
 }
+div[id*='ClientConfiguration_'] {
+    margin-top: 10px;
+}
+div[id*='ClientConfiguration_'] label {
+    font-weight: bold;
+    color: #333;
+}
