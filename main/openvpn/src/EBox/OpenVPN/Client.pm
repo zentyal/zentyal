@@ -270,7 +270,7 @@ sub confFileParams
     push @templateParams, (dev => $self->iface());
 
     my @paramsNeeded = qw(name caCertificate certificate certificateKey
-                          proto user group dh localAddr lport routeUpCmd);
+                          proto user group localAddr lport routeUpCmd);
     foreach my $param (@paramsNeeded) {
         my $accessor_r = $self->can($param);
         defined $accessor_r or die "Cannot found accessor for param $param";
