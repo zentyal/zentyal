@@ -1683,7 +1683,7 @@ sub dumpConfig
 
         # Backup private. TDB and LDB files must be backed up using tdbbackup
         my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
-        my $tdbFiles = EBox::Sudo::root("find $privateDir -name '*.tdb'");
+        my $tdbFiles = EBox::Sudo::root("find $privateDir -name '*.tdb' | grep -v netlogon_creds_cli");
         foreach my $dbFile ((@{$ldbFiles}, @{$tdbFiles})) {
             chomp ($dbFile);
             push (@cmds, "tdbbackup '$dbFile'");
