@@ -9,4 +9,4 @@ RESOLVCONF="yes"
 RESOLVCONF="no"
 % }
 
-OPTIONS="-u bind -4"
+OPTIONS="-u bind"
