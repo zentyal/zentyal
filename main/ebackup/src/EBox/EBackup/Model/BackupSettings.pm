@@ -16,11 +16,11 @@
 use strict;
 use warnings;
 
-package EBox::EBackup::Model::RemoteSettings;
+package EBox::EBackup::Model::BackupSettings;
 
 use base 'EBox::Model::DataForm';
 
-# Class: EBox::EBackup::Model::RemoteSettings
+# Class: EBox::EBackup::Model::BackupSettings
 #
 #       Form to set the general configuration for the remote backup server
 #
@@ -41,13 +41,13 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use File::Basename;
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 
 # Constructor: new
 #
-#       Create the new RemoteSettings model
+#       Create the new BackupSettings model
 #
 # Overrides:
 #
@@ -55,7 +55,7 @@ use TryCatch::Lite;
 #
 # Returns:
 #
-#       <EBox::EBackup::Model::RemoteSettings> - the recently created model
+#       <EBox::EBackup::Model::BackupSettings> - the recently created model
 #
 sub new
 {
@@ -306,7 +306,7 @@ sub _table
 
     my $dataTable =
     {
-        tableName          => 'RemoteSettings',
+        tableName          => 'BackupSettings',
         printableTableName => __('General Configuration'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,

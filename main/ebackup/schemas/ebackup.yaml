@@ -1,15 +1,15 @@
 class: 'EBox::EBackup'
 
 models:
-    - RemoteSettings
-    - RemoteExcludes
-    - RemoteStatus
-    - RemoteFileList
-    - RemoteRestoreLogs
-    - RemoteRestoreConf
-    - RemoteStorage
+    - BackupSettings
+    - BackupExcludes
+    - BackupStatus
+    - BackupFileList
+    - BackupRestoreLogs
+    - BackupRestoreConf
+    - BackupStorage
 
 composites:
-    RemoteGeneral: [RemoteSettings, RemoteStorage, RemoteStatus]
-    Remote: [RemoteGeneral, RemoteFileList, ServicesRestore, RemoteExcludes]
-    ServicesRestore: [RemoteRestoreConf, RemoteRestoreLogs]
+    BackupGeneral: [BackupSettings, BackupStorage, BackupStatus]
+    General: [BackupGeneral, BackupFileList, ServicesRestore, BackupExcludes]
+    ServicesRestore: [BackupRestoreConf, BackupRestoreLogs]

@@ -16,11 +16,11 @@
 use strict;
 use warnings;
 
-package EBox::EBackup::Model::RemoteExcludes;
+package EBox::EBackup::Model::BackupExcludes;
 
 use base 'EBox::Model::DataTable';
 
-# Class: EBox::EBackup::Model::RemoteExcludes
+# Class: EBox::EBackup::Model::BackupExcludes
 #
 #
 #
@@ -35,7 +35,7 @@ use EBox::Exceptions::NotConnected;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::FileSystem;
-use TryCatch::Lite;
+use TryCatch;
 use String::ShellQuote;
 
 # Group: Public methods
@@ -93,7 +93,7 @@ sub _table
 
     my $dataTable =
     {
-        tableName          => 'RemoteExcludes',
+        tableName          => 'BackupExcludes',
         printableTableName => __('Includes and Excludes'),
         printableRowName   => __('exclude or include'),
         rowUnique          => 1,

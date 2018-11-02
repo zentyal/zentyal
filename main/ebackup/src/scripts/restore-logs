@@ -38,7 +38,7 @@ use EBox::Global;
 use  EBox::EBackup::DBRestore;
 
 
-use TryCatch::Lite;
+use TryCatch;
 
 
 sub checkDate

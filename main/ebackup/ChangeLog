@@ -1,4 +1,5 @@
-HEAD
+6.0
+	+ Remove old events and cloud-prof integrations
 	+ Do not escape bash metacharacters in restore as it is not
 	  required once shell quote is in place
 3.5

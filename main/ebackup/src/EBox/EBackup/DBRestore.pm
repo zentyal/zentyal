@@ -26,7 +26,7 @@ use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
-use TryCatch::Lite;
+use TryCatch;
 use Date::Parse;
 
 sub restoreEBoxLogs
@@ -37,7 +37,7 @@ sub restoreEBoxLogs
 
     my $ebackup = EBox::Global->modInstance('ebackup');
     my $dumpDir = backupDir();
-    my $dumpDirTmp = EBox::Config::tmp() . 'eboxlogs.restore';
+    my $dumpDirTmp = EBox::Config::tmp() . 'zentyal.restore';
     EBox::Sudo::root("rm -rf $dumpDirTmp");
     mkdir ($dumpDirTmp) or
         throw EBox::Exceptions::Internal("Cannot create dir $dumpDirTmp");
@@ -73,7 +73,7 @@ sub backupDir
 
 sub dumpBasename
 {
-    return 'eboxlogs';
+    return 'zentyal';
 }
 
 1;

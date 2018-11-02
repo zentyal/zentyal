@@ -1,4 +1,0 @@
-- Fix class naming. Most classes are named Remote* as we had local backup
-  and remote backup. Now it's unified so it doesn't make to call them Remote*
-  anymore
-- ebox-remote-backup has too much code that should be done in EBackup.pm

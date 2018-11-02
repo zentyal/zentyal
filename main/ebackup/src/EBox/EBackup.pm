@@ -17,7 +17,7 @@ use warnings;
 
 package EBox::EBackup;
 
-use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
+use base qw(EBox::Module::Service);
 
 use EBox;
 use EBox::Config;
@@ -35,7 +35,7 @@ use EBox::EBackup::Password;
 use MIME::Base64;
 use String::ShellQuote;
 use Date::Parse;
-use TryCatch::Lite;
+use TryCatch;
 use EBox::Util::Lock;
 
 use EBox::Exceptions::MissingArgument;
@@ -116,17 +116,6 @@ sub postBackupHook
 {
     my ($self) = @_;
     $self->_hook('postbackup');
-}
-
-# Method: eventWatchers
-#
-# Overrides:
-#
-#      <EBox::Events::WatcherProvider::eventWatchers>
-#
-sub eventWatchers
-{
-    return [ 'EBackup' ];
 }
 
 # Method: restoreFile
@@ -250,7 +239,7 @@ sub _escapeFile
 #
 #  Warning:
 #    the information is getted from the cache, remember you could call
-#    _syncRemoteCaches to refresh the cache
+#    _syncBackupCaches to refresh the cache
 sub lastBackupDate
 {
     my ($self, $urlParams) = @_;
@@ -357,7 +346,7 @@ sub remoteFileSelectionArguments
 
     $args .= $self->_autoExcludesArguments();
 
-    my $excludesModel = $self->model('RemoteExcludes');
+    my $excludesModel = $self->model('BackupExcludes');
     $args .= $excludesModel->fileSelectionArguments();
     return $args;
 }
@@ -372,7 +361,7 @@ sub _autoExcludesArguments
     $args .= "--exclude=/proc --exclude=/sys ";
 
     # exclude backup directory if we are using 'filesystem' mode
-    my $settings = $self->model('RemoteSettings');
+    my $settings = $self->model('BackupSettings');
     my $row = $settings->row();
     if ($row->valueByName('method') eq 'file') {
         my $dir = $row->valueByName('target');
@@ -395,7 +384,7 @@ sub remoteDelOldArguments
     defined $urlParams
         or $urlParams = {};
 
-    my $model = $self->model('RemoteSettings');
+    my $model = $self->model('BackupSettings');
     my $removeArgs = $model->removeArguments();
 
     return DUPLICITY_WRAPPER . " $removeArgs --force " . $self->_remoteUrl(%{ $urlParams });
@@ -415,7 +404,7 @@ sub remoteListFileArguments
     defined $urlParams
         or $urlParams = {};
 
-    my $model = $self->model('RemoteSettings');
+    my $model = $self->model('BackupSettings');
 
     return DUPLICITY_WRAPPER . ' list-current-files ' .
              $self->_remoteUrl(%{ $urlParams });
@@ -488,7 +477,7 @@ sub remoteStatus
     }
 
     if ($retrieve) {
-        my $status = $self->_retrieveRemoteStatus($noCacheUrl);
+        my $status = $self->_retrieveBackupStatus($noCacheUrl);
         if (not $status) {
             throw EBox::Exceptions::External(
                                              __('Could not get backup collection status, check whether the parameters and passwords are correct')
@@ -556,7 +545,7 @@ sub remoteGenerateStatusCache
 {
     my ($self, $urlParams) = @_;
     $self->_clearStorageUsageCache();
-    my $status = $self->_retrieveRemoteStatus($urlParams);
+    my $status = $self->_retrieveBackupStatus($urlParams);
     $self->_setCurrentStatus($status);
 }
 
@@ -572,7 +561,7 @@ sub _setCurrentStatus
     }
 }
 
-sub _retrieveRemoteStatusInBackground
+sub _retrieveBackupStatusInBackground
 {
     my ($self, $urlParams) = @_;
     my $args = '';
@@ -587,7 +576,7 @@ sub _retrieveRemoteStatusInBackground
     system $cmd;
 }
 
-sub _retrieveRemoteStatus
+sub _retrieveBackupStatus
 {
     my ($self, $urlParams,) = @_;
     defined $urlParams
@@ -731,17 +720,17 @@ sub remoteListFiles
     return $self->{files};
 }
 
-# Method: setRemoteBackupCron
+# Method: setBackupBackupCron
 #
 #   configure crontab according to user configuration
 #   to call our backup script
 #
-sub setRemoteBackupCron
+sub setBackupBackupCron
 {
     my ($self) = @_;
 
     my @lines;
-    my $strings = $self->model('RemoteSettings')->crontabStrings();
+    my $strings = $self->model('BackupSettings')->crontabStrings();
 
     my $nice = EBox::Config::configkey('ebackup_scheduled_priority');
     my $script = '';
@@ -789,7 +778,7 @@ sub setRemoteBackupCron
     EBox::Sudo::root("install --mode=0644 $tmpFile $dst");
 }
 
-sub removeRemoteBackupCron
+sub removeBackupBackupCron
 {
     my $rmCmd = "rm -f " . backupCronFile();
     EBox::Sudo::root($rmCmd);
@@ -797,7 +786,7 @@ sub removeRemoteBackupCron
 
 sub backupCronFile
 {
-    return '/etc/cron.d/ebox-ebackup';
+    return '/etc/cron.d/zentyal-ebackup';
 }
 
 # Method: _setConf
@@ -811,11 +800,11 @@ sub _setConf
     my ($self) = @_;
 
     if (not $self->configurationIsComplete()) {
-        $self->removeRemoteBackupCron();
+        $self->removeBackupBackupCron();
         return;
     }
 
-    my $model = $self->model('RemoteSettings');
+    my $model = $self->model('BackupSettings');
 
     # Store password
     my $pass = $model->row()->valueByName('password');
@@ -829,22 +818,22 @@ sub _setConf
     EBox::EBackup::Password::setSymmetricPassword($symPass);
 
     if ($self->isEnabled()) {
-        $self->setRemoteBackupCron();
+        $self->setBackupBackupCron();
     } else {
-        $self->removeRemoteBackupCron();
+        $self->removeBackupBackupCron();
     }
 
-    $self->_syncRemoteCachesInBackground;
+    $self->_syncBackupCachesInBackground;
 }
 
 # this calls to remoteGenerateStatusCache and if there was change it regenerates
 # also the files list
 
-sub _syncRemoteCachesInBackground
+sub _syncBackupCachesInBackground
 {
     my ($self) = @_;
     $self->_clearStorageUsageCache();
-    $self->_retrieveRemoteStatusInBackground();
+    $self->_retrieveBackupStatusInBackground();
 }
 
 # Method: menu
@@ -857,18 +846,10 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $system = new EBox::Menu::Folder('name' => 'SysInfo',
-                                        'icon' => 'system',
-                                        'text' => __('System'),
-                                        'order' => 30);
-
-    $system->add(new EBox::Menu::Item(
-            'url' => 'SysInfo/EBackup',
-            'separator' => 'Core',
-            'order' => 40,
-            'text' => $self->printableName()));
-
-    $root->add($system);
+    $root->add(new EBox::Menu::Item('url' => 'EBackup/Composite/General',
+                                    'icon' => 'ebackup',
+                                    'text' => $self->printableName(),
+                                    'order' => 800));
 }
 
 # XXX TODO: refactor parameters from model and/or subscription its own method
@@ -878,7 +859,7 @@ sub _remoteUrl
 
     my ($method, $user, $target);
     my ($encSelected, $encValue);
-    my $model = $self->model('RemoteSettings');
+    my $model = $self->model('BackupSettings');
 
     my $sshKnownHosts = 0;
 
@@ -998,7 +979,7 @@ sub configurationIsComplete
 {
     my ($self) = @_;
 
-    my $model = $self->model('RemoteSettings');
+    my $model = $self->model('BackupSettings');
     return $model->configurationIsComplete();
 }
 
@@ -1064,7 +1045,7 @@ sub storageUsage
 
     my ($total, $used, $available);
 
-    my $model  = $self->model('RemoteSettings');
+    my $model  = $self->model('BackupSettings');
     my $method = $model->row()->valueByName('method');
     my $target = $model->row()->valueByName('target');
 
@@ -1116,7 +1097,7 @@ sub checkTargetStatus
         throw EBox::Exceptions::External(__('Backup configuration not complete'));
     }
 
-    my $model  = $self->model('RemoteSettings');
+    my $model  = $self->model('BackupSettings');
     my $method = $model->row()->valueByName('method');
     my $target = $model->row()->valueByName('target');
     my $checkSize;

@@ -4,7 +4,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use TryCatch::Lite;
+use TryCatch;
 
 my %urlParams = @ARGV;
 
@@ -21,7 +21,7 @@ $ebackup->isEnabled() or
 $ebackup->updateStatusInBackgroundLock();
 try {
     my $oldStatus  = _oldStatus($ebackup);
-    my $status = $ebackup->_retrieveRemoteStatus(\%urlParams);
+    my $status = $ebackup->_retrieveBackupStatus(\%urlParams);
     $ebackup->_setCurrentStatus($status);
 
     # look if we need to regenearate files list

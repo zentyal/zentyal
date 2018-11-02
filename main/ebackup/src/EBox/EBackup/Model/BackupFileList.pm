@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::EBackup::Model::RemoteFileList;
+package EBox::EBackup::Model::BackupFileList;
 
 use base 'EBox::Model::DataTable';
 
@@ -26,7 +26,7 @@ use EBox::Types::Text;
 use EBox::View::Customizer;
 use EBox::Exceptions::DataInUse;
 
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 
@@ -189,7 +189,7 @@ sub _table
 
     my $dataTable =
     {
-        tableName          => 'RemoteFileList',
+        tableName          => 'BackupFileList',
         printableTableName => __('Restore Files'),
         printableRowName   => __('file restore operation'),
         printableActionName   => __('Restore'),

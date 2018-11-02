@@ -16,11 +16,11 @@
 use strict;
 use warnings;
 
-package EBox::EBackup::Model::RemoteStorage;
+package EBox::EBackup::Model::BackupStorage;
 
 use base 'EBox::Model::DataForm::ReadOnly';
 
-# Class: EBox::EBackup::Model::RemoteStorage
+# Class: EBox::EBackup::Model::BackupStorage
 #
 #   TODO: Document the class
 #
@@ -31,7 +31,7 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Exceptions::Command;
 use EBox::Exceptions::NotConnected;
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 
@@ -179,7 +179,7 @@ sub _table
 
     my $dataTable =
     {
-        tableName          => 'RemoteStorage',
+        tableName          => 'BackupStorage',
         printableTableName => __('Remote Storage Usage'),
         printableRowName   => __('backup'),
         tableDescription   => \@tableHeader,

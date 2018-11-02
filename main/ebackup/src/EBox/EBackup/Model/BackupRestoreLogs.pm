@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::EBackup::Model::RemoteRestoreConf;
+package EBox::EBackup::Model::BackupRestoreLogs;
 
 use base 'EBox::Model::DataForm::Action';
 
@@ -23,13 +23,39 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Exceptions::DataInUse;
-use EBox::Exceptions::External;
+use EBox::EBackup::DBRestore;
 
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 
+# Constructor: new
+#
+#       Create the new Hosts model
+#
+# Overrides:
+#
+#       <EBox::Model::DataForm::new>
+#
+# Returns:
+#
+#       <EBox::EBackup::Model::Hosts> - the recently created model
+#
+sub new
+{
+    my $class = shift;
+
+    my $self = $class->SUPER::new(@_);
+
+    bless ( $self, $class );
+
+    return $self;
+}
+
 # Method: precondition
+#
+#      The preconditionFailMsg method is only implemented
+#      in BackupRestoreConf to avoid showing it twice
 #
 # Overrides:
 #
@@ -38,36 +64,37 @@ use TryCatch::Lite;
 sub precondition
 {
     my ($self) = @_;
+    $self->{_precondition_msg} = undef;
 
     my @status;
-    my $statusFailure;
     try {
         @status = @{$self->{confmodule}->remoteStatus()};
     } catch (EBox::Exceptions::External $e) {
-        $statusFailure = $e->text();
+        # ignore error, it will be shown in the same composite by the model
+        # BackupRestoreConf
     }
+    return 0 if not @status;
+    my $logs = $self->global()->modInstance('logs');
+    if (not $logs) {
+        $self->{_precondition_msg} = __('To be able to restore logs you need the logs module installed and enabled');
+        return 0;
+    }
+    if (not $logs->configured()) {
+        $self->{_precondition_msg} = __('To be able to restore logs you need the logs module enabled');
+        return 0;
 
-    if ($statusFailure) {
-        $self->{preconditionFailMsg} = $statusFailure;
-        return 0;
-    } elsif (@status == 0) {
-        $self->{preconditionFailMsg} = __('There are no backed up files yet');
-        return 0;
     }
 
     return 1;
 }
 
-# Method: preconditionFailMsg
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::preconditionFailMsg>
-#
 sub preconditionFailMsg
 {
     my ($self) = @_;
-    return $self->{preconditionFailMsg};
+    my $msg = $self->{_precondition_msg};
+    defined $msg or
+        $msg = '';
+    return $msg;
 }
 
 # Group: Protected methods
@@ -94,18 +121,15 @@ sub _table
 
     my $dataTable =
     {
-        tableName          => 'RemoteRestoreConf',
-        printableTableName => __('Restore Zentyal configuration from backup'),
+        tableName          => 'BackupRestoreLogs',
+        printableTableName => __('Restore logs database'),
         defaultActions     => ['editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
         modelDomain        => 'EBackup',
         defaultEnabledValue => 1,
         customFilter       => 1,
-        help => __('Loads the configuration found in the backup' ),
-        messages => {
-                      'update' => __('Please wait...'),
-                    },
+        help => __('Restores the Zentyal logs found in the selected backup'),
     };
 
     return $dataTable;
@@ -132,38 +156,9 @@ sub _backupVersion
 sub formSubmitted
 {
     my ($self, $row) = @_;
-
     my $date = $row->valueByName('date');
+    EBox::EBackup::DBRestore::restoreEBoxLogs($date);
 
-    my $backupFile = $self->_backupFile($date);
-
-    my $url = "/SysInfo/Backup?restoreFromFile=1&backupfile=$backupFile";
-
-    $self->pushRedirection($url)
-}
-
-sub _backupFile
-{
-    my ($self, $date) = @_;
-    my $ebackup  = EBox::Global->modInstance('ebackup');
-    my $settings = $ebackup->model('RemoteSettings');
-
-    my $tmpFile = EBox::Config::tmp() . 'eboxbackup-tmp.tar';
-
-    try {
-        my $bakFile  =   EBox::EBackup::extraDataDir()  . '/confbackup.tar';
-        $ebackup->restoreFile($bakFile, $date, $tmpFile);
-    } catch (EBox::Exceptions::External $e) {
-        my $text = $e->stringify();
-        if ($text =~ m/not found in backup/) {
-            throw EBox::Exceptions::External(__x('Configuration backup not found in backup for {d}. Maybe you could try another date?',
-                                                 d => $date));
-        }
-
-        $e->throw();
-    }
-
-    return $tmpFile;
 }
 
 1;

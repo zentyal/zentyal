@@ -39,7 +39,7 @@ use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Event;
 
-use TryCatch::Lite;
+use TryCatch;
 
 use constant EBACKUP_CONF => EBox::Config::etc() . 'ebackup.conf';
 
@@ -47,27 +47,7 @@ sub _sendEvent
 {
     my ($msg, $level, $additionalInfo) = @_;
 
-    # Generate event
-    my $enabled = 0;
-    my $global = EBox::Global->getInstance(0); # must be RW to update with
-                                               # latest event watcher
-    if ($global->modExists('events')) {
-        my $events = $global->modInstance('events');
-        if ((defined $events)  and ($events->isRunning())) {
-            $enabled = $events->isEnabledWatcher('EBox::Event::Watcher::EBackup');
-            if ($enabled) {
-                $events->sendEvent(
-                    message => $msg,
-                    source  => 'ebackup',
-                    level   => $level,
-                    additional => $additionalInfo );
-            }
-        }
-    }
-
-    if (not $enabled) {
-        EBox::info("EBackup event [$level]: $msg");
-    }
+    EBox::info("EBackup event [$level]: $msg");
 }
 
 sub _prepareAndSendEvent
@@ -257,7 +237,7 @@ sub _removeExpiredBackups
         my $removeArguments = $ebackup->remoteDelOldArguments();
         EBox::Sudo::root($removeArguments);
         # Delete orphaned metadata
-        my $settingsModel = $ebackup->model('RemoteSettings');
+        my $settingsModel = $ebackup->model('BackupSettings');
         my $method = $settingsModel->row()->valueByName('method');
     } catch (EBox::Exceptions::Sudo::Command $e) {
         my $errorMsg = $e->error()->[-1];
@@ -531,10 +511,5 @@ if ($success) {
 # update logs, we do this even with a failed backup bz it could change disk
 # usage, with leftover files..
 $ebackup->gatherReportInfo($type, $backupStats);
-my $roGlobal  = EBox::Global->getInstance(1);
-if ( $roGlobal->modExists('cloud-prof') ) {
-    my $cloudProf = $roGlobal->modInstance('cloud-prof');
-    $cloudProf->ebackupAlerts();
-}
 
 exit 0;

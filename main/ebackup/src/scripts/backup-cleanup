@@ -23,7 +23,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::EBackup;
 use EBox::EBackup::Password;
-use TryCatch::Lite;
+use TryCatch;
 
 my %subByMode;
 

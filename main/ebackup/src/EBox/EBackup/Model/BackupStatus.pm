@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::EBackup::Model::RemoteStatus;
+package EBox::EBackup::Model::BackupStatus;
 
 use base 'EBox::Model::DataTable';
 
@@ -23,7 +23,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
-use TryCatch::Lite;
+use TryCatch;
 
 # Group: Public methods
 
