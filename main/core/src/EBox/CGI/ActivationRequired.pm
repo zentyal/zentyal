@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Sudo;
 use TryCatch;
 
 sub new
@@ -48,6 +49,7 @@ sub _process
             my $sysinfo = EBox::Global->modInstance('sysinfo');
             my $license = $sysinfo->model('Edition');
             $license->set(key => $key);
+            EBox::Sudo::rootWithoutException('apt update');
             $self->{redirect} = $url;
         } catch {
             $self->{params} = [ error => __("License key cannot be validated. Please try again or check your Internet connection.") ];

@@ -121,7 +121,9 @@ sub updatedRowNotify
 
     my $key = $self->row->valueByName('key');
     EBox::Sudo::root("echo '$key' > /var/lib/zentyal/.license");
-    EBox::Global->modInstance('webadmin')->setAsChanged();
+    my $webadmin = EBox::Global->modInstance('webadmin');
+    $webadmin->_setEdition();
+    $webadmin->reload();
 }
 
 1;

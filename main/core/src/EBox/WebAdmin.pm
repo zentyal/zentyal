@@ -549,7 +549,7 @@ sub updateAdminPortService
 
 sub _setEdition
 {
-    my ($self, $rs) = @_;
+    my ($self) = @_;
 
     my $themePath = EBox::Config::share() . 'zentyal/www';
 
