@@ -84,7 +84,7 @@ create_repository # Set up local package repository
 
 update_if_network # apt-get update if we are connected to the internet
 
-DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y zentyal
+DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y -o DPkg::Options::="--force-confdef" zentyal
 
 gen_locales
 

@@ -23,7 +23,7 @@ mkdir $BUILD_DIR/indices
 
 for i in autobuild build_cd.sh generate_extras.sh setup-base-cd-image.sh extract-core-deps.sh \
          regen_iso.sh list-duplicated.sh list-not-installed.sh replace-debs-ppa.sh \
-         set-debug.sh zenbuntu-core zenbuntu-desktop zinstaller-remote zinstaller-headless data images
+         set-debug.sh zenbuntu-core zenbuntu-desktop zinstaller-headless data images
 do
     ln -s $cwd/$i $BUILD_DIR/$i
 done

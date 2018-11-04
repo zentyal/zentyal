@@ -28,13 +28,4 @@ d-i time/zone string Europe/Madrid
 # finish
 d-i finish-install/reboot_in_progress note
 
-zinstaller-remote zinstaller-remote/user string REMOTE_USER
-zinstaller-remote zinstaller-remote/pass password REMOTE_PASS
-zinstaller-remote zinstaller-remote/auth_ok_community note
-zinstaller-remote zinstaller-remote/auth_ok_sb note
-zinstaller-remote zinstaller-remote/auth_ok_enterprise note
-zinstaller-remote zinstaller-remote/select_bundle select
-zinstaller-remote zinstaller-remote/select_hostname_recover select HOSTNAME_RECOVER
-#zinstaller-remote zinstaller-remote/no_register note
-
 d-i debian-installer/allow-unauthenticated string true

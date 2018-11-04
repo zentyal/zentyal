@@ -35,16 +35,6 @@ pushd $TMPDIR/zinstaller-headless
 dpkg-buildpackage
 popd
 
-if [[ $VERSION = *"commercial"* ]]
-then
-    # Build zinstaller-remote udeb
-    cp -rL zinstaller-remote $TMPDIR/zinstaller-remote
-    pushd $TMPDIR/zinstaller-remote
-    [ -f zinstaller-remote/jq ] || ./build-jq.sh
-    dpkg-buildpackage
-    popd
-fi
-
 for ARCH in $ARCHS
 do
     if [ -n "$SELECTED_ARCH" ] && [ "$ARCH" != "$SELECTED_ARCH" ]
@@ -71,15 +61,6 @@ do
             cp $dir/*.deb $EXTRAS_DIR/
         fi
     done
-
-    # Add zinstaller-remote udeb
-    if [[ $VERSION = *"commercial"* ]]
-    then
-        UDEB_DIR=$CD_BUILD_DIR/pool/main/z/zinstaller-remote
-        mkdir -p $UDEB_DIR
-        rm $UDEB_DIR/*
-        cp $TMPDIR/zinstaller-remote*.udeb $UDEB_DIR/
-    fi
 
     # Add zinstaller-headless udeb
     UDEB_DIR=$CD_BUILD_DIR/pool/main/z/zinstaller-headless

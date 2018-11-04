@@ -23,16 +23,6 @@ fi
 
 UDEB_INCLUDE=$CD_BUILD_DIR/.disk/udeb_include
 
-if [[ $VERSION = *"commercial"* ]]
-then
-    if ! grep -q zinstaller-remote $UDEB_INCLUDE
-    then
-        echo zinstaller-remote >> $UDEB_INCLUDE
-    fi
-
-    sed -i '/zentyal.org/d' $CD_BUILD_DIR/preseed/*.seed
-fi
-
 if ! grep -q zinstaller-headless $UDEB_INCLUDE
 then
     echo zinstaller-headless >> $UDEB_INCLUDE
@@ -95,3 +85,8 @@ cp -r $DATA_DIR $TMPDIR
 cp -r $TMPDIR/* $CD_ZENTYAL_DIR/
 
 rm -rf $TMPDIR
+
+if [[ $VERSION = *"commercial"* ]]
+then
+    touch $CD_ZENTYAL_DIR/commercial-edition
+fi

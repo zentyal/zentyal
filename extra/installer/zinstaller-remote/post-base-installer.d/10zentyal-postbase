@@ -1,7 +1,0 @@
-#!/bin/sh -e
-
-cp /tmp/zinstaller-remote/qa-key.pub /target/tmp/
-chroot /target apt-key add /tmp/qa-key.pub
-chroot /target apt-get update
-
-exit 0

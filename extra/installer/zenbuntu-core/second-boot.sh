@@ -11,9 +11,6 @@ then
     rm -rf /var/tmp/zentyal-packages
     apt-get clean
 
-    # Remove autosubscription data
-    rm -rf /var/lib/zinstaller-remote
-
     # Restore default rc.local and execute it
     cp /usr/share/zenbuntu-core/rc.local /etc/rc.local
     . /etc/rc.local
