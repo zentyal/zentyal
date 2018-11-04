@@ -1497,9 +1497,11 @@ border-radius: 2px;
 
 #activation-required{
     position: absolute;
-    left: -210px;
-    margin-top: 20px;
     width: 100vw;
+    top: 50%;
+    left: 50%;
+    margin-bottom: 15px;
+    transform: translate(-50%, -50%);
     text-align: center;
     background-color: #eee;
 }
@@ -1532,6 +1534,22 @@ border-radius: 2px;
     border: 1px dashed <% $error_border %>;
     padding: 10px 15px;
     font-size: 14px;
+}
+#ActivationRequired #content {
+    position: static;
+    margin-top: 0;
+    height: 100vh;
+}
+@media (max-height: 400px) {
+    #activation-required {
+        margin-top: -70px;
+        transform: translateX(-50%);
+    }
+}
+@media (max-width: 600px) {
+    #activation-required #error{
+        display: inline-block;
+    }
 }
 
 body.first-install {
