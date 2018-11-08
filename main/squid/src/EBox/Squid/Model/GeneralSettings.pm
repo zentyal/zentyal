@@ -106,10 +106,8 @@ sub validateTypedRow
                );
         }
 
-        my $kerberos =  exists $params_r->{kerberos} ?
-                         $params_r->{kerberos}->value() :
-                         $actual_r->{kerberos}->value() ;
-        if ($kerberos) {
+        if (($params_r->{kerberos} and $params_r->{kerberos}->value()) or
+            ($actual_r->{kerberos} and $actual_r->{kerberos}->value())) {
             throw EBox::Exceptions::External(
                 __('Transparent proxy is incompatible with Kerberos authentication')
                );

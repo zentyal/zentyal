@@ -1,3 +1,5 @@
+HEAD
+	+ Fix regression in GeneralSettings model when samba is not installed
 6.0
 	+ Group-based user authentication for commercial editions
 	+ Remove adzapper integration as it is no longer maintained in 18.04
