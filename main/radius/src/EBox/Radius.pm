@@ -351,7 +351,7 @@ sub certificates
             {
              serviceId => 'RADIUS',
              service =>  __('RADIUS'),
-             path    =>  CERTSDIR . 'freeradius.pem',
+             path    =>  CERTSDIR . '/freeradius.pem',
              user => 'root',
              group => 'freerad',
              mode => '0440',

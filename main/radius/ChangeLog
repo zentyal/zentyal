@@ -1,3 +1,5 @@
+HEAD
+	+ Add missing slash in freeradius.pem path
 6.0
 	+ Adapt to freeradius 3.0 in Ubuntu 18.04
 	+ Integrate community patch by julio
