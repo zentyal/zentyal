@@ -38,6 +38,8 @@ use EBox::Gettext;
     template shell = <% $shell %>
     template homedir = /home/%U
 
+    rpc server dynamic port range = 49152-65535
+
 % if ($ifaces) {
     interfaces = <% $ifaces %>
     bind interfaces only = yes

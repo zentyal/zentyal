@@ -330,6 +330,21 @@ sub initialSetup
         EBox::Sudo::silentRoot('systemctl unmask samba-ad-dc');
     }
 
+    if (defined ($version) and (EBox::Util::Version::compare($version, '6.0.1') < 0)) {
+        my $network = $self->global()->modInstance('network');
+        my $svcs = $network->model('ServiceTable');
+        $svcs->row($svcs->findId(name => 'samba'))->subModel('configuration')->addRow(
+            protocol => 'tcp',
+            source_range_type => 'any',
+            destination_range_type => 'range',
+            destination_from_port => 49152,
+            destination_to_port => 65535,
+            internal => 1,
+            readOnly => 1,
+        );
+        $network->saveConfigRecursive();
+    }
+
     system('mkdir -p /var/lib/zentyal/conf/samba/sync_shares');
 }
 
@@ -495,6 +510,8 @@ sub _startDaemon
 
     my $services = $self->_services($daemon->{name});
     foreach my $service (@{$services}) {
+        next if $service->{skipWaitService};
+
         my $port = $service->{destinationPort};
         next unless $port;
 
@@ -616,6 +633,13 @@ sub _services
                 'sourcePort' => 'any',
                 'destinationPort' => '3269',
                 'description' => 'Microsoft global catalog over SSL',
+            },
+            { # rpc
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '49152:65535',
+                'description' => 'RPC server dynamic port range',
+                'skipWaitService' => 1,
             },
         ];
 }
