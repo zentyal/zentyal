@@ -165,9 +165,9 @@ sub masonParameters
     }
 
     if (EBox::Global->communityEdition()) {
-        my $RELEASE_ANNOUNCEMENT_URL = 'http://wiki.zentyal.org/wiki/Zentyal_5.1_Announcement';
-        my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal 5.1')";
-        my $msg = { name => 'upgrade', text =>__sx('{oh}Zentyal 5.1{ch} is available! {ob}Upgrade now{cb}',
+        my $RELEASE_ANNOUNCEMENT_URL = 'http://wiki.zentyal.org/wiki/Zentyal_6.0_Announcement';
+        my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal 6.0')";
+        my $msg = { name => 'upgrade', text =>__sx('{oh}Zentyal 6.0{ch} is available! {ob}Upgrade now{cb}',
                     oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", ch => '</a>',
                     ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>') };
         push (@params, 'message' => $msg);
