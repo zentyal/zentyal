@@ -51,38 +51,50 @@ sub _process
     $self->{title} = __('Queue Management');
     my $mail = EBox::Global->modInstance('mail');
 
-	my @array = ();
-	if ($mail->_postfixIsRunning()) {
+    my @array = ();
+    if ($mail->_postfixIsRunning()) {
+        my @mqlist = @{mailQueueList()};
 
-		my @mqlist = @{mailQueueList()};
-		$page = 1;
+        $tpages = ceil(scalar(@mqlist) / PAGESIZE);
 
-		$info = $self->param('getinfo');
-		unless ($self->param('getinfo')) {
-			$info = 'none';
-		}
-		@data = ('');
-		if ($info ne 'none') {
-			@data = @{infoMail($info)};
-		}
+        $page = $self->param('page');
+        unless ($page) {
+            $page = 0;
+        }
+        if ($self->param('tofirst')) {
+            $page = 0;
+        } elsif ($self->param('tolast')) {
+            $page = $tpages - 1;
+        } elsif ($self->param('tonext')) {
+            $page++;
+        } elsif ($self->param('toprev')) {
+            $page--;
+        }
 
-		my $aux = ($page - 1) * PAGESIZE;
-		if (($aux + PAGESIZE - 1) >= (scalar(@mqlist) - 1)) {
-			@showlist = @mqlist[$aux..(scalar(@mqlist) - 1)];
-		} else {
-			@showlist = @mqlist[$aux..($aux + PAGESIZE - 1)];
-		}
+        $info = $self->param('getinfo');
+        unless ($self->param('getinfo')) {
+            $info = 'none';
+        }
+        @data = ('');
+        if ($info ne 'none') {
+            @data = @{infoMail($info)};
+        }
 
-		$tpages = ceil(scalar(@mqlist) / PAGESIZE);
-	}
+        my $aux = $page * PAGESIZE;
+        if ($aux + PAGESIZE >= scalar(@mqlist)) {
+            @showlist = @mqlist[$aux..(scalar(@mqlist) - 1)];
+        } else {
+            @showlist = @mqlist[$aux..($aux + PAGESIZE - 1)];
+        }
+    }
 
-	push(@array, 'mqlist'	=> \@showlist);
-	push(@array, 'page'	=> $page);
-	push(@array, 'tpages'	=> $tpages);
-	push(@array, 'getinfo'	=> $info);
-	push(@array, 'data'	=> \@data);
+    push(@array, 'mqlist' => \@showlist);
+    push(@array, 'page' => $page);
+    push(@array, 'tpages' => $tpages);
+    push(@array, 'getinfo' => $info);
+    push(@array, 'data' => \@data);
 
-	$self->{params} = \@array;
+    $self->{params} = \@array;
 }
 
 1;
