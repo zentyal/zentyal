@@ -17,6 +17,14 @@ do
     fi
 done
 
+# workaround in case of broken apt
+if ! apt -v
+then
+    wget http://archive.ubuntu.com/ubuntu/pool/main/a/apt/libapt-pkg5.0_1.2.29_amd64.deb
+    dpkg --install --force-downgrade libapt-pkg5.0_1.2.29_amd64.deb
+    rm -f libapt-pkg5.0_1.2.29_amd64.deb
+fi
+
 SOURCES=/etc/apt/sources.list
 if ! grep -v "^#" $SOURCES | grep -q "ubuntu.com"
 then
