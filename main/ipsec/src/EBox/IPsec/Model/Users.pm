@@ -103,7 +103,7 @@ sub _populateGroups
     }
 
     my @securityGroups;
-    foreach my $group (@{$usersMod->ldap()->securityGroups()}) {
+    foreach my $group (@{$usersMod->securityGroups()}) {
         my $name = $group->name();
         push (@securityGroups, {
             value => $name,
