@@ -83,9 +83,9 @@ use EBox::Gettext;
       <input type='submit' value='<% __('Remove all messages') %>' size=30 />
 </form>
 
-<form action='QueueManager' method='POST' style="float:right;>
+<form action='QueueManager' method='POST' style="float:right">
 <input type='hidden' name='page' value='<% $page %>'>
-%	if ($page != 0) {
+%	if ($page > 0) {
 		<input name='tofirst' type='submit'
             class="btn-only-icon btn-first"
 			alt="<% __('first') %>"
@@ -95,12 +95,10 @@ use EBox::Gettext;
 			alt="<% __('prev') %>"
 			value='<% __('prev') %>'>
 %	}
-%	if ($tpages <= 0) {
-		<% __('Page') %> <% $page %>
-%	} else {
-		<% __('Page') %> <% $page %> <% __('of') %> <%$tpages%>
+%	if ($tpages > 1) {
+		<% __('Page') %> <% $page + 1 %> <% __('of') %> <% $tpages %>
 %	}
-%	if ($page != $tpages) {
+%	if ($page < $tpages - 1) {
 		<input name='tonext' type='submit'
             class="btn-only-icon btn-next"
 			alt="<% __('next') %>"
