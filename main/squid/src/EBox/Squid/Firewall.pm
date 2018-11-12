@@ -169,7 +169,7 @@ sub preForward
 
     my (undef, $min, $hour, undef, undef, undef, $day) = localtime();
     foreach my $profile (@{$sq->model('AccessRules')->filterProfiles()}) {
-        next unless $profile->{usesHTTPS};
+        next unless ($profile->{usesHTTPS} and not $profile->{group});
 
         if ($profile->{timePeriod}) {
             next unless ($profile->{days}->{$day});
