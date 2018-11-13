@@ -157,6 +157,8 @@ http {
         }
 <& .restricted, restrictions => $sectionrestrictions{''} &>
 
+        include /var/lib/zentyal/conf/nginx-*.conf;
+
         location @proxy {
             uwsgi_pass unix:///run/zentyal-webadmin/webadmin.sock;
 

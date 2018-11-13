@@ -1,3 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
-sudo /usr/share/zentyal/release-upgrade > /var/log/zentyal/upgrade.log 2>&1
+LOG=/var/log/zentyal/upgrade.log
+NGINX_UPGRADE_CONF=/var/lib/zentyal/conf/nginx-upgrade.conf
+
+/usr/share/zentyal/upgrade-log-server &
+
+echo 'location /ReleaseUpgradeOutput { proxy_pass http://127.0.0.1:1500/; }' > $NGINX_UPGRADE_CONF
+sudo systemctl restart zentyal.webadmin-nginx
+
+sleep 5
+
+sudo /usr/share/zentyal/release-upgrade > $LOG 2>&1
+
+rm -f $NGINX_UPGRADE_CONF

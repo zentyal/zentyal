@@ -71,7 +71,21 @@ systemctl restart redis-server
 upgrade
 
 # workaround ejabberd upgrade
-rm -f /var/lib/dpkg/info/ejabberd.postinst
+EJABBERD_NODE=$(grep "the database is owned by" /var/log/ejabberd/error.log |tail -1 | sed "s/'//"|rev|cut -d[ -f1|rev|cut -d] -f1)
+if [ -z "$EJABBERD_NODE" ]
+then
+    EJABBERD_NODE="ejabberd@$HOSTNAME"
+fi
+echo "ERLANG_NODE=$EJABBERD_NODE" >> /etc/ejabberd/ejabberdctl.cfg
+
+# get clamav files if needed
+if [ -d /var/lib/clamav ] && ! [ -f /var/lib/clamav/main.cvd ]
+then
+    freshclam
+    zs antivirus restart
+fi
+
+rm -f /var/lib/dpkg/info/spamassassin.postinst
 
 if dpkg --configure -a --force-confdef
 then
@@ -95,6 +109,9 @@ then
     fi
 
     echo; echo "Zentyal upgrade finished! Please restart your server now."
+
+    sleep 2
+    pkill -f upgrade-log-server
 else
     echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
 fi
