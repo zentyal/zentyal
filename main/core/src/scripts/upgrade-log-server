@@ -1,0 +1,14 @@
+#!/usr/bin/python
+
+import BaseHTTPServer
+from collections import deque
+
+class Handler(BaseHTTPServer.BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        for line in deque(open('/var/log/zentyal/upgrade.log'), 10):
+            self.wfile.write(line)
+
+httpd = BaseHTTPServer.HTTPServer(('localhost', 1500), Handler)
+httpd.serve_forever()

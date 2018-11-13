@@ -9,28 +9,46 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/dialog.js">//</script>
 <script>
+    var started = false;
+    var done = false;
     var aboutToFinish = false;
+    var errors = 0;
+
+    function upgradeFinished() {
+        $('#webadmin_ko').hide();
+        $('#output').hide();
+        $('#ajax_loader_upgrade').hide();
+        $('#finished').show();
+        $('#close_button').show();
+        done = true;
+    }
+
     function updateOutput() {
-        $.ajax({
-            url: '/ReleaseUpgrade?action=output',
-            dataType: 'json',
-            success: function(response) {
-                $('#output').html(response.output);
-                if (aboutToFinish || response.finished) {
-                    $('#webadmin_ko').hide();
-                    $('#ajax_loader_upgrade').hide();
-                    $('#finished').show();
-                    $('#close_button').show();
+        $.get('/ReleaseUpgradeOutput').always(function (response, textStatus) {
+            if (textStatus == "success") {
+                errors = 0;
+                if (!started && response.length > 0) {
+                    $('#output').show();
+                    started = true;
+                }
+                $('#output').html(response);
+                if (response.includes('Zentyal upgrade finished!')) {
+                    upgradeFinished();
+                }
+            } else if (aboutToFinish && response.status >= 500) {
+                upgradeFinished();
+            } else {
+                errors++;
+                if ((errors > 5) && !aboutToFinish) {
+                    aboutToFinish = true;
+                    $('#output').hide();
+                    $('#webadmin_ko').show();
                 }
             }
-        }).fail(function (jqXHR) {
-            if ((jqXHR.status == 404) && !aboutToFinish) {
-                aboutToFinish = true;
-                $('#output').hide();
-                $('#webadmin_ko').show();
-            }
         });
-        setTimeout(updateOutput, 1000);
+        if (!done) {
+            setTimeout(updateOutput, 1000);
+        }
     }
 
     function doReleaseUpgrade() {
@@ -40,8 +58,7 @@ use EBox::Gettext;
         $.ajax({
             url: '/ReleaseUpgrade?action=upgrade',
             success: function(response) {
-                $('#output').show();
-                updateOutput();
+                setTimeout(updateOutput, 3000);
             }
         });
     }
@@ -72,11 +89,11 @@ use EBox::Gettext;
 </div>
 
 <div id="webadmin_ko" class="warning" style="display: none">
-The server is currently unavailable while the upgrade is in progress. The process is almost done and should finish in few minutes. In the meanwhile, you can keep track of the status with the following command: <b>tail -f /var/log/zentyal/upgrade.log</b>.
+The server is currently unavailable while the upgrade is in progress. The process should finish eventually. In the meanwhile, you can keep track of the status with the following command: <b>tail -f /var/log/zentyal/upgrade.log</b>.
 </div>
 
 <div id="finished" class="note" style="display: none">
-Upgrade finished! You will be redirected to the login page of Zentyal 6.0 after closing this dialog but <b>please note that it is highly recommended to reboot your server before resuming normal operations</b>.
+Upgrade finished! You will be redirected to Zentyal 6.0 after closing this dialog but <b>please note that it is highly recommended to reboot your server before resuming normal operations</b>.
 </div>
 
 <pre id="output" style="display: none; white-space: pre-wrap;">
