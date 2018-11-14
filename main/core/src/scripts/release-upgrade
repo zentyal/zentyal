@@ -62,7 +62,7 @@ sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 echo; echo "Upgrading your current system to the latest packages..."; echo
 upgrade
 
-echo; echo "Upgrading from Ubuntu 16.04 to 18.04 with Zentyal 5.0..."; echo
+echo; echo "Upgrading from Ubuntu 16.04 to 18.04 with Zentyal 6.0..."; echo
 sed -i 's/xenial/bionic/g' /etc/apt/sources.list
 sed -ri '/zentyal(.)5.1/d' /etc/apt/sources.list
 echo 'deb http://archive.zentyal.org/zentyal 6.0 main' > /etc/apt/sources.list.d/zentyal-archive.list
