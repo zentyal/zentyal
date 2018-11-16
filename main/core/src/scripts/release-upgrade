@@ -87,8 +87,15 @@ fi
 
 rm -f /var/lib/dpkg/info/spamassassin.postinst
 
+dpkg --configure -a --force-confdef
+
+rm -f /var/lib/dpkg/info/ejabberd.postinst
+
 if dpkg --configure -a --force-confdef
 then
+    systemctl disable lxdm
+    systemctl enable zentyal.lxdm
+
     # Purge all no longer needed running services
     dpkg -l | grep 'zentyal-' | cut -d' ' -f3 | xargs apt-mark manual
     apt-get autoremove --purge -y -o DPkg::Options::="--force-confdef"
