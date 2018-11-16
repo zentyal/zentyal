@@ -5,6 +5,7 @@ NGINX_UPGRADE_CONF=/var/lib/zentyal/conf/nginx-upgrade.conf
 
 /usr/share/zentyal/upgrade-log-server &
 
+sudo /usr/share/zentyal/shell 'instance webadmin; $webadmin->_setConf();'
 echo 'location /ReleaseUpgradeOutput { proxy_pass http://127.0.0.1:1500/; }' > $NGINX_UPGRADE_CONF
 sudo systemctl restart zentyal.webadmin-nginx
 

@@ -100,6 +100,10 @@ dpkg --configure -a --force-confdef
 
 rm -f /var/lib/dpkg/info/ejabberd.postinst
 
+dpkg --configure -a --force-confdef
+
+apt-get -f install -y -o DPkg::Options::="--force-confdef"
+
 if dpkg --configure -a --force-confdef
 then
     systemctl disable lxdm
