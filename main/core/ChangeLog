@@ -1,3 +1,5 @@
+HEAD
+	+ Remove conflicting ubuntu-minimal metapackage in release-upgrade script
 5.0.13
 	+ Show upgrade to 6.0 button in dashboard
 	+ Update release-upgrade script for 6.0
