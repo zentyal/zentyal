@@ -62,6 +62,9 @@ sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 echo; echo "Upgrading your current system to the latest packages..."; echo
 upgrade
 
+# remove unnecessary metapackage to avoid it from being kept back and appear as available update
+apt-get purge -y ubuntu-minimal
+
 echo; echo "Upgrading from Ubuntu 16.04 to 18.04 with Zentyal 6.0..."; echo
 sed -i 's/xenial/bionic/g' /etc/apt/sources.list
 sed -ri '/zentyal(.)5.1/d' /etc/apt/sources.list
