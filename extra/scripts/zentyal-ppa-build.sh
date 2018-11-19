@@ -46,7 +46,7 @@ do
     cd debs-ppa
     dpkg-source -x zentyal-${i}_*.dsc || exit 1
     cd zentyal-${i}-*
-    dpkg-buildpackage S -sa || exit 1
+    dpkg-buildpackage -S -us -uc || exit 1
     cp debian/changelog "../../$changelog"
     cd $cwd
 done
