@@ -8,7 +8,11 @@ CD_BUILD_DIR="$CD_BUILD_DIR_BASE-$ARCH"
 
 pushd $BASE_DIR
 
+sudo sh -c 'echo "deb-src http://archive.ubuntu.com/ubuntu/ bionic main restricted" > /etc/apt/sources.list.d/apt-setup-bionic.list'
+sudo apt-get update
 apt-get source apt-setup
+sudo rm -rf /etc/apt/sources.list.d/apt-setup-bionic.list
+
 wget https://launchpadlibrarian.net/363997187/replace_apt_key_add.patch
 
 pushd apt-setup-*
