@@ -64,10 +64,10 @@ use EBox::NetWrappers qw(to_network_with_mask);
 
 # Module local conf stuff
 use constant SQUID_CONF_FILE => '/etc/squid/squid.conf';
-use constant SQUID_PORT => '3128';
-
 use constant DGDIR => '/etc/dansguardian';
-use constant DGPORT => '3129';
+
+use constant DEFAULT_PORT => '3128';
+use constant PROXYPORT_FILTER => '3129';
 
 use constant SQUIDCSSFILE => '/etc/squid/errorpage.css';
 use constant MAXDOMAINSIZ => 255;
@@ -355,7 +355,7 @@ sub port
     my $port = $self->model('GeneralSettings')->value('port');
 
     unless (defined($port) and ($port =~ /^\d+$/)) {
-        return SQUID_PORT;
+        return DEFAULT_PORT;
     }
 
     return $port;
@@ -455,11 +455,11 @@ sub usesPort
 
     ($protocol eq 'tcp') or return undef;
 
-    # DGPORT is hard-coded, they are reported as used even
+    # PROXYPORT_FILTER is hard-coded, they are reported as used even
     # if the services are disabled.
-    ($port eq DGPORT) and return 1;
+    ($port eq PROXYPORT_FILTER) and return 1;
 
-    # the port selected by the user (by default SQUID_PORT) is only reported
+    # the port selected by the user (by default DEFAULT_PORT) is only reported
     # if the service is enabled
     ($self->isEnabled()) or return undef;
     ($port eq $self->port()) and return 1;
@@ -563,7 +563,7 @@ sub _writeSquidConf
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my @writeParam = ();
-    push @writeParam, ('port' => $filter ? DGPORT : $self->port());
+    push @writeParam, ('port' => $filter ? PROXYPORT_FILTER : $self->port());
     if ($self->transproxy() and not $filter) {
         push @writeParam, ('mode' => 'intercept');
     }
@@ -643,7 +643,7 @@ sub _writeDgConf
 
     push(@writeParam, 'port' => $self->port());
     push(@writeParam, 'lang' => $lang);
-    push(@writeParam, 'squidport' => DGPORT);
+    push(@writeParam, 'squidport' => PROXYPORT_FILTER);
     push(@writeParam, 'weightedPhraseThreshold' => $self->_banThresholdActive);
     push(@writeParam, 'nGroups' => scalar @dgProfiles);
 
@@ -810,6 +810,9 @@ sub writeDgGroups
         }
     }
 
+    # FIXME: only configure auth if auth (samba installed + group rules),
+    # this is completely broken with zentyal-samba not installed
+    # modify .mas accordingly
     my $realm = '';
     if ($self->kerberosNeeded()) {
         my $samba = $self->global()->modInstance('samba');
@@ -953,12 +956,12 @@ sub _daemons
 {
     return [
         {
+            name => 'squid'
+        },
+        {
             name => 'dansguardian',
             precondition => \&filterNeeded
         },
-        {
-            name => 'squid'
-        }
     ];
 }
 

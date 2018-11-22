@@ -1,4 +1,5 @@
 HEAD
+	+ Minor improvements for auth+filter mode
 	+ Skip group rules in firewall integration for blocked HTTPS domains
 6.0.1
 	+ Fix regression in GeneralSettings model when samba is not installed
