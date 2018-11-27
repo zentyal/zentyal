@@ -384,15 +384,18 @@ refresh_pattern .               0       20%     4320
 cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest <% $peerAuth %>
 % }
 
-% if ($realm) {
+% if ($auth) {
+%   if ($realm) {
 auth_param negotiate program /usr/lib/squid/negotiate_kerberos_auth -i -s <% $principal %>@<% $realm %>
 auth_param negotiate children 10
 auth_param negotiate keep_alive on
 external_acl_type ldapgroup  ipv4 %LOGIN /usr/lib/squid/ext_ldap_group_acl -v3 -b <% $dn %> -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P -F "(&(userPrincipalName=%s)(objectclass=user))" -f "(&(samAccountName=%g)(objectclass=group)(member=%u))"
-% } else {
+%   } else {
 auth_param basic realm Zentyal HTTP proxy
 auth_param basic program /usr/lib/squid/basic_ldap_auth -v3 -b <% $dn %> -f "(&(samAccountName=%s)(objectclass=user))" -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P
 external_acl_type ldapgroup  ipv4 %LOGIN /usr/lib/squid/ext_ldap_group_acl -v3 -b <% $dn %> -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P -F "(&(samAccountName=%s)(objectclass=user))" -f "(&(samAccountName=%g)(objectclass=group)(member=%u))"
+%   }
+acl authorized proxy_auth REQUIRED
 % }
 
 % if ($urlRewriteProgram) {
@@ -401,7 +404,6 @@ url_rewrite_program <% $urlRewriteProgram %>
 
 <& .rulesACLs, rules => [ @objectsDelayPools ], realm => $realm &>
 acl_uses_indirect_client on
-acl authorized proxy_auth REQUIRED
 
 # no cache domains acl
 % foreach my $domain (@notCachedDomains) {

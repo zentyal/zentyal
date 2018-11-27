@@ -1,4 +1,5 @@
 HEAD
+	+ Do not write auth directives in squid.conf if samba is not installed
 	+ Minor improvements for auth+filter mode
 	+ Skip group rules in firewall integration for blocked HTTPS domains
 6.0.1
