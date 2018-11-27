@@ -109,6 +109,13 @@ sub validateTypedRow
     }
 }
 
+sub _authOnly
+{
+    my ($self) = @_;
+
+    return $self->parentModule()->model('AccessRules')->existsPoliciesForGroupOnly();
+}
+
 # Method: idByRowId
 #
 #  Returns:
@@ -118,7 +125,7 @@ sub idByRowId
     my ($self) = @_;
 
     my %idByRowId;
-    my $id = 3;
+    my $id = $self->_authOnly() ? 1 : 3;
     foreach my $rowId (@{ $self->ids() }) {
         $idByRowId{$rowId} = $id++;
     }
@@ -131,8 +138,13 @@ sub dgProfiles
     my ($self) = @_;
     my @profiles = ();
 
-    # groups will have ids greater that this number
     my $id = 1;
+    unless ($self->_authOnly()) {
+        push (@profiles, { number => 1, policy => 'deny', groupName => 'defaultDeny' });
+        push (@profiles, { number => 2, policy => 'allow', groupName => 'defaultAllow' });
+        $id = 3;
+    }
+
     foreach my $rowId ( @{ $self->ids() } ) {
         my $row = $self->row($rowId);
         my $name  = $row->valueByName('name');

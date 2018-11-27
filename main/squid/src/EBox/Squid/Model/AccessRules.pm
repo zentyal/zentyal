@@ -327,6 +327,18 @@ sub existsPoliciesForGroup
     return 0;
 }
 
+sub existsPoliciesForGroupOnly
+{
+    my ($self, $group) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $source = $row->elementByName('source');
+        return 0 if ($source->selectedType() ne 'group');
+    }
+
+    return 1;
+}
+
 sub delPoliciesForGroup
 {
     my ($self, $group) = @_;

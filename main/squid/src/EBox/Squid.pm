@@ -646,6 +646,7 @@ sub _writeDgConf
     push(@writeParam, 'squidport' => PROXYPORT_FILTER);
     push(@writeParam, 'weightedPhraseThreshold' => $self->_banThresholdActive);
     push(@writeParam, 'nGroups' => scalar @dgProfiles);
+    push(@writeParam, 'auth' => $self->authNeeded());
 
     my $antivirus = $self->_antivirusNeeded(\@dgProfiles);
     push(@writeParam, 'antivirus' => $antivirus);
@@ -801,7 +802,7 @@ sub writeDgGroups
             if ($anyAddressProfileSeen) {
                 next;
             }
-            $anyAddressProfileSeen  = 1;
+            $anyAddressProfileSeen = 1;
             push @objects, $profile;
         }  elsif ($profile->{group}) {
             push (@groups, $profile);
@@ -810,9 +811,6 @@ sub writeDgGroups
         }
     }
 
-    # FIXME: only configure auth if auth (samba installed + group rules),
-    # this is completely broken with zentyal-samba not installed
-    # modify .mas accordingly
     my $realm = '';
     if ($self->kerberosNeeded()) {
         my $samba = $self->global()->modInstance('samba');
@@ -831,7 +829,6 @@ sub writeDgGroups
                          [ objects => \@objects ], { mode => '0644'});
 }
 
-# FIXME: template format has changed, reimplement this
 sub _writeDgTemplates
 {
     my ($self) = @_;

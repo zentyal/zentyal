@@ -4,6 +4,8 @@
     $squidport
     $weightedPhraseThreshold
 
+    $auth
+
     $nGroups
 
     $antivirus => 1
@@ -426,7 +428,9 @@ contentscanexceptions = off
 #
 # If you do not use multiple filter groups, you need not specify this option.
 #
+% if ($auth) {
 authplugin = '/etc/dansguardian/authplugins/proxy-basic.conf'
+% }
 #authplugin = '/etc/dansguardian/authplugins/proxy-digest.conf'
 #authplugin = '/etc/dansguardian/authplugins/proxy-ntlm.conf'
 #authplugin = '/etc/dansguardian/authplugins/ident.conf'
