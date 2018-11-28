@@ -220,6 +220,13 @@ sub _setConf
     $self->writeConfFile(SURICATA_DEFAULT_FILE, 'ips/suricata.mas',
                          [ enabled => $self->isEnabled(),
                            nfQueueNum => $self->nfQueueNum() ]);
+
+    # workaround for broken systemd service, enforce use of init.d script
+    my $systemdsvc = '/lib/systemd/system/suricata.service';
+    if (-f $systemdsvc) {
+        EBox::Sudo::silentRoot("rm -f $systemdsvc",
+                               'systemctl daemon-reload');
+    }
 }
 
 # Group: Public methods
