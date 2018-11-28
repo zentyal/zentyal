@@ -4605,7 +4605,7 @@ sub regenGateways
 
     $self->saveConfig();
     my @commands;
-    push (@commands, '/sbin/ip route del table default || true');
+    push (@commands, '/sbin/ip route flush table default || true');
     my $cmd = $self->_multipathCommand();
     if ($cmd) {
         push (@commands, $cmd);

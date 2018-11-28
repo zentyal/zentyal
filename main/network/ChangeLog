@@ -1,3 +1,5 @@
+HEAD
+	+ Use ip route flush instead of ip route del in regenGateways()
 6.0
 	+ Disable systemd-resolved
 	+ Import network configuration from netplan if present
