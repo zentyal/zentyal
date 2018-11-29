@@ -893,10 +893,14 @@ sub _remoteUrl
         $encValue = $forceParams{encValue};
         $sshKnownHosts = ($method eq 'scp');
 
-    }  else {
+    } else {
         $method = $model->row()->valueByName('method');
         $target = $model->row()->valueByName('target');
         $user = $model->row()->valueByName('user');
+    }
+
+    if ($method eq 'ftp') {
+        $method = 'ncftp+ftp';
     }
 
     my $url = "$method://";
