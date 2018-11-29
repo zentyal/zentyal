@@ -899,11 +899,15 @@ sub _remoteUrl
         $user = $model->row()->valueByName('user');
     }
 
+    my $url = "$method://";
+
     if ($method eq 'ftp') {
-        $method = 'ncftp+ftp';
+        $url = "ncftp+$url";
+    }
+    if ($method eq 'scp') {
+        $url = "pexpect+$url";
     }
 
-    my $url = "$method://";
     if ($user and ($method ne 'file')) {
         $url .= "$user@";
     }
