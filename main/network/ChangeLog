@@ -1,4 +1,4 @@
-HEAD
+6.0.1
 	+ Use ip route flush instead of ip route del in regenGateways()
 6.0
 	+ Disable systemd-resolved
