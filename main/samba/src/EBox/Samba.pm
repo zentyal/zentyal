@@ -2499,8 +2499,10 @@ sub sambaInterfaces
     }
     my %seenBridges;
     foreach my $iface (@{$netIfaces}) {
+        my $method = $net->ifaceMethod($iface);
+        next if ($method eq 'notset');
         push @ifaces, $iface;
-        if ($net->ifaceMethod($iface) eq 'bridged') {
+        if ($method eq 'bridged') {
             my $br = $net->ifaceBridge($iface);
             if (not $seenBridges{$br}) {
                 push (@ifaces, "br$br");
@@ -2513,8 +2515,6 @@ sub sambaInterfaces
             push @ifaces, @{$vifacesNames};
         }
     }
-    my @moduleGeneratedIfaces = ();
-    push @ifaces, @moduleGeneratedIfaces;
     return \@ifaces;
 }
 sub writeSambaConfig
