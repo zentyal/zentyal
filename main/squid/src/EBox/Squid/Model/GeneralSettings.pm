@@ -133,8 +133,8 @@ sub _checkPortAvailable
 
 sub _commercialMsg
 {
-    return __sx('Want to remove ads from the websites your users browse? Get the {oh}Commercial editions{ch} that will keep your Ad blocking rules always up-to-date.',
-                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
+    return __x('Want to remove ads from the websites your users browse? Get the {oh}Commercial editions{ch} that will keep your Ad blocking rules always up-to-date.',
+               oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 1;

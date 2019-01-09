@@ -8,10 +8,10 @@ my $msg;
 my $class;
 
 if ($qa) {
-    $msg = __s('Your commercial server edition guarantees that these are quality assured software updates and will be automatically applied to your system.');
+    $msg = __('Your commercial server edition guarantees that these are quality assured software updates and will be automatically applied to your system.');
     $class = 'ad';
 } else {
-    $msg =  __sx("Warning: These are untested community updates that might harm your system. In production environments we recommend using the {oh}Commercial Zentyal Server Edition{ch}.", oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
+    $msg =  __x("Warning: These are untested community updates that might harm your system. In production environments we recommend using the {oh}Commercial Zentyal Server Edition{ch}.", oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 	$class = 'adwarning';
 }
 </%init>

@@ -162,7 +162,7 @@ var pkgTable = new Array(
          </li>
 %   }
       </ul>
-      <h3><% __s('Additional services') %></h3>
+      <h3><% __('Additional services') %></h3>
       <ul>
 %   foreach my $pkg (@allpkgs) {
 %        # Hide some packages (objects+services), virtual, no removables

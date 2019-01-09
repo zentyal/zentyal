@@ -28,13 +28,12 @@ BEGIN {
     our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
     @ISA = qw(Exporter);
-    @EXPORT = qw{ __ __x __s __sx __p __px langs __n};
+    @EXPORT = qw{ __ __x langs};
     %EXPORT_TAGS = ( DEFAULT => \@EXPORT );
     @EXPORT_OK = qw();
 }
 
 my $DEFAULT_DOMAIN = 'zentyal';
-my $PROF_DOMAIN = 'zentyal-prof';
 
 my $_lang = undef;
 
@@ -77,41 +76,6 @@ sub __d # (text,domain)
     textdomain($cur_domain);
 
     return $string;
-}
-
-sub __dx # (text,domain, %variables)
-{
-    my ($string, $domain, %vars) = @_;
-
-    return __expand(__d($string, $domain), %vars);
-}
-
-sub __s # (text)
-{
-    my ($text) = @_;
-
-    return (_lang() eq 'es') ? __($text) : $text;
-}
-
-sub __sx # (text, %variables)
-{
-    my ($text, %vars) = @_;
-
-    return (_lang() eq 'es') ? __x($text, %vars) : __expand($text, %vars);
-}
-
-sub __p # (text)
-{
-    my ($text) = @_;
-    return __d($text, $PROF_DOMAIN);
-
-}
-
-sub __px # (text, %variables)
-{
-    my ($text, %vars) = @_;
-
-    return __dx($text, $PROF_DOMAIN, %vars);
 }
 
 sub __expand
@@ -193,13 +157,6 @@ sub langs
     }
 
     return $langs;
-}
-
-# FIXME: this is kept for compatibility with zentyal-cloud-prof
-# but should be removed at some point
-sub __n
-{
-    return __(@_);
 }
 
 1;

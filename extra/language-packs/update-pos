@@ -2,7 +2,7 @@
 
 set -e
 
-KEYWORDS="-k__ -k__n -k__x -k__d -k__d -k__s -k__sx"
+KEYWORDS="-k__ -k__x"
 
 SRC=../../main
 

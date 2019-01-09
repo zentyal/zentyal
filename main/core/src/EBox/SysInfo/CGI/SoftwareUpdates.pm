@@ -113,12 +113,12 @@ sub _process
 # Return commercial message for QA updates
 sub _commercialMsg
 {
-    return __s('Warning: These are untested community updates that might harm your system. In production environments we recommend using the Commercial Zentyal Server Edition.');
+    return __('Warning: These are untested community updates that might harm your system. In production environments we recommend using the Commercial Zentyal Server Edition.');
 }
 
 sub _secureMsg
 {
-    return __s('Your commercial server edition guarantees that these are quality assured software updates and will be automatically applied to your system.');
+    return __('Your commercial server edition guarantees that these are quality assured software updates and will be automatically applied to your system.');
 }
 
 1;

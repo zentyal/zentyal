@@ -840,8 +840,8 @@ sub _writeDgTemplates
     my $edition = $self->global()->edition();
 
     if (($edition eq 'community') or ($edition eq 'basic')) {
-        $extra_messages = __sx('This is a Community Edition. Get one of the fully supported {oh}Commercial Editions{ch} for automatic security updates.',
-                               oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
+        $extra_messages = __x('This is a Community Edition. Get one of the fully supported {oh}Commercial Editions{ch} for automatic security updates.',
+                              oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
     }
 
     EBox::Module::Base::writeConfFileNoCheck($file,
@@ -1091,8 +1091,8 @@ sub regenGatewaysFailover
 # Security Updates Add-On message
 sub _commercialMsg
 {
-    return __sx('Want to avoid threats such as malware, phishing and bots? Get one of the {oh}Commercial Editions{ch} that will keep your Content Filtering rules always up-to-date.',
-                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
+    return __x('Want to avoid threats such as malware, phishing and bots? Get one of the {oh}Commercial Editions{ch} that will keep your Content Filtering rules always up-to-date.',
+               oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 

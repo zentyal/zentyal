@@ -147,7 +147,7 @@ my %printableTypeById = (
 </%init>
 % if(@backups){
 <div class="item-block">
-<h3><% __("Backups' list") %></h3>
+<h3><% __("List of backups") %></h3>
 <table class='dataTable' cellspacing='0'>
         <thead>
                 <tr>

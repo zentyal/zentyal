@@ -36,16 +36,16 @@ $community = 1;
 <div class="linksBlock">
          <ul>
             <li><a class="i-commercial" target="_blank" href="<% $EDITIONS_URL %>"
-                   title="<% __s('Fully supported Zentyal Server editions') %>">
-                   <% __s('Commercial Editions') %></a>
+                   title="<% __('Fully supported Zentyal Server editions') %>">
+                   <% __('Commercial Editions') %></a>
             </li>
             <li><a class="i-train" target="_blank" href="http://www.zentyal.com/training/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=training"
-                   title="<% __s('Learn to use all Zentyal based network services in production environments.') %>">
-                   <% __s('Certified Training') %></a>
+                   title="<% __('Learn to use all Zentyal based network services in production environments.') %>">
+                   <% __('Certified Training') %></a>
             </li>
             <li><a class="i-book" target="_blank" href="<% $BOOK_URL %>"
-                   title="<% __s('"Zentyal for Network Administrators" book in English and Spanish.') %>">
-                   <% __s('Official Manual') %></a>
+                   title="<% __('"Zentyal for Network Administrators" book in English and Spanish.') %>">
+                   <% __('Official Manual') %></a>
             </li>
         </ul>
 </div>
@@ -55,12 +55,12 @@ $community = 1;
 <div class="linksBlock">
    <ul>
       <li><a class="i-support" target="_blank" href="https://zentyal.atlassian.net/servicedesk/customer/portal/4/create/32"
-             title="<% __s('Contact our Support Team') %>">
-             <% __s('Contact Support') %></a>
+             title="<% __('Contact our Support Team') %>">
+             <% __('Contact Support') %></a>
       </li>
       <li><a class="i-book" target="_blank" href="<% $BOOK_URL %>"
-               title="<% __s('"Zentyal for Network Administrators" book in English and Spanish.') %>">
-               <% __s('Official Manual') %></a>
+               title="<% __('"Zentyal for Network Administrators" book in English and Spanish.') %>">
+               <% __('Official Manual') %></a>
         </li>
 
     </ul>
@@ -68,8 +68,8 @@ $community = 1;
 <div class="linksBlock">
     <ul>
       <li><a class="i-train" target="_blank" href="http://www.zentyal.com/training/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=training"
-             title="<% __s('Learn to use all Zentyal based network services in production environments.') %>">
-             <% __s('Certified Training') %></a>
+             title="<% __('Learn to use all Zentyal based network services in production environments.') %>">
+             <% __('Certified Training') %></a>
       </li>
       <li><a class="i-doc" target="_blank" href="http://doc.zentyal.org/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=documentation"
            title="<% __('Official documentation in English and Spanish.') %>">
