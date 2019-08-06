@@ -416,7 +416,6 @@ cache deny noCached
 
 
 acl from_localhost src 127.0.0.0/8 ::1
-acl to_localhost dst 127.0.0.0/8 ::1
 acl manager url_regex -i ^cache_object:// +i ^https?://[^/]+/squid-internal-mgr/
 acl SSL_ports port 443          # https, snews
 acl SSL_ports port 873          # rsync
