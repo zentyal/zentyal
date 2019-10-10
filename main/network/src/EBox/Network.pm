@@ -3633,7 +3633,9 @@ sub _preSetConf
                     }
                     if ($self->ifaceMethod($if) eq 'bundled') {
                         my $bond = $self->ifaceBond($if);
-                        push (@cmds, "/sbin/ifenslave --force -d bond$bond $if");
+                        if($self->ifaceIsBond($if)) {
+                            push (@cmds, "/sbin/ifenslave --force -d bond$bond $if");
+                        }
                     }
                     EBox::Sudo::silentRoot("grep ^'iface $ifname inet' $file");
                     if ($? == 0) {
