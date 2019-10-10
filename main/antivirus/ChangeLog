@@ -1,3 +1,5 @@
+6.1
+	+ Set version to 6.1
 6.0
 	+ Remove deprecated AllowSupplementaryGroups conf option for clamav 0.100
 	+ On-Demand System Scanning configurable in /etc/zentyal/antivirius.conf

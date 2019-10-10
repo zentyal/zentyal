@@ -1,3 +1,5 @@
+6.1
+	+ Set version number to 6.1
 6.0.2
 	+ Do not write auth directives in squid.conf if samba is not installed
 	+ Minor improvements for auth+filter mode

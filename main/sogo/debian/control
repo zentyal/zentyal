@@ -2,7 +2,7 @@ Source: zentyal-sogo
 Section: web
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
-Uploaders: José A. Calvo <jacalvo@zentyal.com>
+Uploaders: Bruno Lorente <blorente@zentyal.com>
 Build-Depends: zbuildtools
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
@@ -11,7 +11,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-sogo
 Architecture: all
-Depends: zentyal-core (>= 6.0), zentyal-core (<< 6.1),
+Depends: zentyal-core (>= 6.1), zentyal-core (<< 6.2),
          zentyal-mail, sogo (>= 4.0), sogo-activesync (>= 4.0),
          apache2, sope4.9-gdl1-mysql, zip, libstring-random-perl,
          memcached

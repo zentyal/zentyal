@@ -1,4 +1,5 @@
-HEAD
+6.1
+	+ Set version number to 6.1
 	+ Do not try to listen on unconfigured network interfaces
 6.0.1
 	+ Add missing dynamic RPC ports in firewall rules

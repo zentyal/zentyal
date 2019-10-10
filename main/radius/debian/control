@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-radius
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 6.0), zentyal-core (<< 6.1), zentyal-samba,
+Depends: zentyal-core (>= 6.1), zentyal-core (<< 6.2), zentyal-samba,
          freeradius, freeradius-ldap, make, ${misc:Depends}
 Description: Zentyal - RADIUS
  Zentyal is a Linux small business server that can act as

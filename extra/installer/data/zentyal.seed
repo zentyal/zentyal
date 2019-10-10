@@ -5,8 +5,8 @@
 ##
 
 # add zentyal repository
-d-i apt-setup/local0/repository string http://archive.zentyal.org/zentyal 6.0 main
-d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-6.0-archive.asc
+d-i apt-setup/local0/repository string http://archive.zentyal.org/zentyal 6.1 main
+d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-6.1-archive.asc
 
 # ignore error downloading key if not internet connection
 d-i apt-setup/local/key-error select Ignore
