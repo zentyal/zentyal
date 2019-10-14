@@ -2,6 +2,16 @@
 
 set -e
 
+#PATHS#
+
+file_name=`date +%Y-%m-%d-%s`-crl.pem
+path_key_file=/var/lib/zentyal/CA/private/cakey.pem
+path_cert_file=/var/lib/zentyal/CA/cacert.pem
+path_out_file=/var/lib/zentyal/CA/crl/$file_name
+config_path=/var/lib/zentyal/conf/openssl.cnf
+symbolic_link_path=/var/lib/zentyal/CA/crl/latest.pem
+
+
 #DEBHELPER#
 
 case "$1" in
@@ -15,5 +25,15 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
     ;;
 esac
+
+#RENEW CERT FILE WHEN IS UPGRADED FROM 5.1#
+
+if [ -e "$path_key_file" ] && [ -e "$path_cert_file" ] && [ -e "$config_path" ]; then
+    openssl ca -gencrl -keyfile $path_key_file -cert $path_cert_file -out $path_out_file -config $config_path
+    rm -f $symbolic_link_path
+    ln -s $path_out_file $symbolic_link_path
+else
+    echo "Path not exist .."
+fi
 
 exit 0
