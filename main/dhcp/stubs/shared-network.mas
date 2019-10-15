@@ -1,8 +1,9 @@
 <%args>
 	$iface
 	%ifaces
+	$dynDnsSamba => 0
 </%args>
 shared-network <% $iface %> {
 <& includes.mas, iface => $iface &>
-<& subnet.mas, info => $ifaces{$iface} &>
+<& subnet.mas, info => $ifaces{$iface}, dynDnsSamba => $dynDnsSamba &>
 }

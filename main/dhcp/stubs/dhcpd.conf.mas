@@ -11,6 +11,7 @@ Parameters:
     dnsone - String the default primary DNS server
     dnstwo - String the default secondary DNS server
     dynamicDNSEnabled - Boolean indicating whether the dynamic DNS feature is on or not
+    dynDnsSamba - Boolen infication wheter the dynamic DNS feature is on or not whit samba included
     keysFile - String with the file path to shared secret keys to update DNS server
     pidFile - String the path to the file which stores the daemon PID
 </%doc>
@@ -21,6 +22,7 @@ Parameters:
     $dnsone => ''
     $dnstwo => ''
     $dynamicDNSEnabled => 0
+    $dynDnsSamba => 0
     $keysFile => undef
     $pidFile
 </%args>
@@ -39,7 +41,11 @@ option shoretel-director-server code 155 = ip-address;
 pid-file-name "<% $pidFile %>";
 
 %       if ($dynamicDNSEnabled) {
+% if ($dynDnsSamba){
+ddns-update-style    none;
+%}else{
 ddns-update-style    interim;
+%}
 ddns-updates         on;
 update-static-leases on;
 %       } else {
@@ -80,7 +86,7 @@ include "<% $keysFile %>";
             }
 </%perl>
 %           if ($ifaceToWrite) {
-<& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces &>
+<& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces , dynDnsSamba => $dynDnsSamba &>
 %           }
 % }
 

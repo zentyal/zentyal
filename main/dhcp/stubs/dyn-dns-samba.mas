@@ -1,0 +1,38 @@
+    on commit {
+        set noname = concat("dhcp-", binary-to-ascii(10, 8, "-", leased-address));
+        set ClientIP = binary-to-ascii(10, 8, ".", leased-address);
+        set ClientDHCID = concat (
+        suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,1,1))),2), ":",
+        suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,2,1))),2), ":",
+        suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,3,1))),2), ":",
+        suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,4,1))),2), ":",
+        suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,5,1))),2), ":",
+        suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,6,1))),2)
+        );
+        set ClientName = pick-first-value(option host-name, config-option-host-name, client-name, noname);
+        log(concat("Commit: IP: ", ClientIP, " DHCID: ", ClientDHCID, " Name: ", ClientName));
+        execute("/usr/share/zentyal-dhcp/dhcp-dyndns.sh", "add", ClientIP, ClientDHCID, ClientName);
+    }
+
+    on release {
+        set ClientIP = binary-to-ascii(10, 8, ".", leased-address);
+        set ClientDHCID = concat (
+        suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,1,1))),2), ":",
+        suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,2,1))),2), ":",
+        suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,3,1))),2), ":",
+        suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,4,1))),2), ":",
+        suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,5,1))),2), ":",
+        suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,6,1))),2)
+        );
+        log(concat("Release: IP: ", ClientIP));
+        execute("/usr/share/zentyal-dhcp/dhcp-dyndns.sh", "delete", ClientIP, ClientDHCID);
+    }
+
+    on expiry {
+        set ClientIP = binary-to-ascii(10, 8, ".", leased-address);
+        # cannot get a ClientMac here, apparently this only works when actually receiving a packet
+        log(concat("Expired: IP: ", ClientIP));
+        # cannot get a ClientName here, for some reason that always fails
+        execute("/usr/share/zentyal-dhcp/dhcp-dyndns.sh", "delete", ClientIP, "", "0");
+    }
+    

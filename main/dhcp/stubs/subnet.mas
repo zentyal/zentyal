@@ -4,6 +4,7 @@
 </%doc>
 <%args>
   %info
+  $dynDnsSamba => 0
 </%args>
 % if (exists $info{'staticRoutes'} ) {
 <& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw =>  $info{'gateway'}   &>
@@ -19,6 +20,10 @@
         }
 % }
     }
+
+%if ($dynDnsSamba){
+<& dyn-dns-samba.mas &>
+%}
 
     group { <& .options, info => \%info, fixed => 1 &>
 % foreach my $groupFixed (values %{$info{'fixed'}}) {

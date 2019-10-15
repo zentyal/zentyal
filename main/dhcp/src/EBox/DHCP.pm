@@ -61,6 +61,7 @@ use constant TFTP_SERVICE => "tftpd-hpa";
 use constant CONF_DIR => EBox::Config::conf() . 'dhcp/';
 use constant KEYS_DIR => '/etc/dhcp/ddns-keys';
 use constant KEYS_FILE => KEYS_DIR . '/keys';
+use constant SAMBA_KEY_DIR => '/etc/dhcp/samba-keys';
 use constant PLUGIN_CONF_SUBDIR => 'plugins/';
 use constant TFTPD_CONF_DIR => '/var/lib/tftpboot/';
 use constant INCLUDE_DIR => EBox::Config::etc() . 'dhcp/';
@@ -1139,12 +1140,84 @@ sub _setDHCPConf
             my $keys = $dns->getTsigKeys();
             $self->writeConfFile(KEYS_FILE, 'dns/keys.mas', [ keys => $keys ],
                 {uid => 'root', 'gid' => 'dhcpd', mode => '640'});
+
+            EBox::info("Checking by config of DDNS for dhcp dns and samba");
+            if (EBox::Global->modExists('samba')){
+                my $samba = EBox::Global->modInstance('samba');
+                if ($samba->isEnabled()){
+                    $self->_setDynDnsConf();
+                    push (@params, ('dynDnsSamba' => 1));
+                }
+            }
         }
     }
     push(@params, ('pidFile' => PIDFILE));
     $self->writeConfFile(DHCPCONFFILE, "dhcp/dhcpd.conf.mas", \@params);
 
 }
+
+# Method: _createUserDhcpdUser
+#
+#   Creates the dhcpd user and adds it to the DsnAdmins group to be called by the script that updates dynamic dns.
+#
+sub _createUserDhcpdUser
+{
+    my ($self) = @_;
+    my @cmds1;
+
+    EBox::Sudo::silentRoot("samba-tool user list | grep ^dhcpduser");
+    if ($? == 0) {
+        EBox::info("Creating dhcpduser for dynamic dns DON'T NEED, ignore step.");
+    }else{
+        my $samba = EBox::Global->modInstance('samba');
+
+        if (defined $samba and $samba->isEnabled()){
+            require EBox::Samba::User;
+            my $ldapDN = $samba->ldap->dn();
+            my $userDN = sprintf("CN=dhcpduser,CN=Users,%s",$ldapDN);
+            EBox::info("Creating dhcpduser for dynamic dns");
+            my $newUid = EBox::Samba::User->_newUserUidNumber(1);
+            EBox::info("dhcpduser uid: $newUid");
+            my $cmdFunction = sprintf ('samba-tool user create dhcpduser --uid-number %s --description="Unprivileged user for TSIG-GSSAPI DNS updates via ISC DHCP server" --random-password', $newUid);
+            push (@cmds1, $cmdFunction);
+            push (@cmds1, 'samba-tool user setexpiry dhcpduser --noexpiry');
+            EBox::Sudo::root(@cmds1);
+            EBox::Sudo::silentRoot('samba-tool group addmembers DnsAdmins dhcpduser');
+            my $user = EBox::Samba::User->new(dn => $userDN);
+            $user->setCritical(1);
+
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+# Method: _setDynDnsConf
+#
+#   Generate user and keys for dhcpduser
+#
+sub _setDynDnsConf
+{
+    my ($self) = @_;
+    my @cmds;
+
+    # Get the host domain
+    if($self->_createUserDhcpdUser()) {
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        my $ownDomain = $sysinfo->hostDomain();
+        my $cmd = sprintf('samba-tool domain exportkeytab --principal=dhcpduser@%s %s/dhcpduser.keytab', $ownDomain, SAMBA_KEY_DIR);
+
+        push(@cmds, 'mkdir -p ' . SAMBA_KEY_DIR);
+        push(@cmds, 'chown root:dhcpd ' . SAMBA_KEY_DIR);
+        push(@cmds, 'chmod 0750 ' . SAMBA_KEY_DIR);
+        push(@cmds, $cmd);
+        push(@cmds, 'chown root:dhcpd ' . SAMBA_KEY_DIR . '/dhcpduser.keytab');
+        push(@cmds, 'chmod 440 ' . SAMBA_KEY_DIR . '/dhcpduser.keytab');
+        EBox::Sudo::root(@cmds);
+    }
+}
+
 
 # Method: _setTFTPDConf
 #
