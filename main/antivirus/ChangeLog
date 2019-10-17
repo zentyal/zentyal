@@ -1,3 +1,5 @@
+5.1.4
+	+ Use AlertBrokenExecutables instead of deprecated DetectBrokenExecutables option for clamav 0.101.4
 5.1.3
 	+ Remove deprecated AllowSupplementaryGroups conf option for clamav 0.100.1
 5.1.2

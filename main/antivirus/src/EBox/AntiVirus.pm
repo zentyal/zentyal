@@ -30,6 +30,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
+use EBox::Util::Version;
 use EBox::Exceptions::Internal;
 
 use constant {

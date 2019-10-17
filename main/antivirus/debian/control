@@ -2,7 +2,7 @@ Source: zentyal-antivirus
 Section: web
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
-Uploaders: José A. Calvo <jacalvo@zentyal.com>
+Uploaders: Bruno Lorente <blorente@zentyal.com>
 Build-Depends: zbuildtools
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
@@ -11,9 +11,12 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-antivirus
 Architecture: all
+Pre-Depends: libclamav9, clamav, clamav-base, clamav-daemon, 
+            clamav-freshclam, libfile-readbackwards-perl
 Depends: zentyal-core (>= 5.1), zentyal-core (<< 6.0), zentyal-firewall,
-         clamav, clamav-daemon, clamav-freshclam,
-         libfile-readbackwards-perl, ${misc:Depends}
+        libclamav9 (= 0.101.4+dfsg-0ubuntu0.16.04.1), clamav (= 0.101.4+dfsg-0ubuntu0.16.04.1), 
+        clamav-base (= 0.101.4+dfsg-0ubuntu0.16.04.1), clamav-daemon (= 0.101.4+dfsg-0ubuntu0.16.04.1), 
+        clamav-freshclam (= 0.101.4+dfsg-0ubuntu0.16.04.1),libfile-readbackwards-perl, ${misc:Depends}
 Description: Zentyal - Antivirus
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
