@@ -62,12 +62,13 @@ sub _getDate
     return $self->_convertTimestamp($ts, '%Y-%b-%d %T');
 }
 
-#Nov  6 16:53:35 cz3 amavis[27701]: (27701-01) Passed CLEAN, <test@gmail.com> -> <user1@vdomain1.org>, Hits: 0.202, tag=0, tag2=5, kill=5, queued_as: 262662952C, L/Y/0/0
+# Oct 17 14:27:03 zentyal6-dev amavis[3388]: (03388-04) Passed CLEAN, [127.0.0.1] <root@zentyal6-dev.zentyal-domain.lan> -> <bruno@zentyal-domain.lan>, Message-ID: <20191017122700.GA4648@zentyal6-dev.zentyal-domain.lan>, Hits: 1.984
 my $amavisLineRe = qr{^\s\(.*?\)\s
-               (\w+)\s([\w\-]+).*?, # action (Passed or Blocked) and event type
-               \s<(.*?)>\s->\s<(.*?)>,  # mail sender and receiver
-               \sHits:\s([\d\.\-]+), # Spam hits ('-' for none)
-              }x;
+                (\w+)\s([\w\-]+).*?, # action (Passed or Blocked) and event type
+                \s(\[.*?\])\s<(.*?)>\s->\s<(.*?)>, # mail sender and receiver
+                \s(Message-ID:\s.*?), # Message-ID
+                \sHits:\s([\d\.\-]+) # Spam hits ('-' for none)
+                }x;
 
 sub processLine
 {
@@ -86,7 +87,7 @@ sub processLine
         return;
     }
 
-    my ($action, $event, $from, $to, $hits) = ($1, $2, $3, $4, $5);
+    my ($action, $event, $from, $to, $hits) = ($1, $2, $4, $5, $7);
 
     my $mailname = $self->{mailname};
     if (($from =~ m/@\Q$mailname\E$/) and ($to =~ m/@\Q$mailname\E$/)) {

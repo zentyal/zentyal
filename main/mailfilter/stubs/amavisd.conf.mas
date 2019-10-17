@@ -332,9 +332,37 @@ $log_level = 1;
 # |, from=[?%o|(?)|<%o>], to=[<%R>|,][? %i ||, quarantine %i]]';
 
 # log both infected and noninfected messages (default):
-$log_templ = '[? %#V |[? %#F |[?%#D|Not-Delivered|Passed]|BANNED name/type (%F)]|INFECTED (%V)], #
-[?%o|(?)|<%o>] -> [<%R>|,][? %i ||, quarantine %i], Message-ID: %m,
-Hits: %c';
+
+$log_templ = '
+[?%#D||Passed #
+[? [?%#V|1] |INFECTED (%V)|#
+[? [?%#F|1] |BANNED (%F)|#
+[? [? %2|1] |SPAM|#
+[? [?%#X|1] |BAD-HEADER|CLEAN]]]]#
+, [? %p ||%p ][?%a||[?%l||LOCAL ]\[%a\] ]<%o> -> [%D|,]#
+[? %q ||, quarantine: %i]#
+[? %m ||, Message-ID: %m]#
+[? %r ||, Resent-Message-ID: %r]#
+, Hits: %c#
+#, size: %z#
+#[? %j ||, Subject: "%j"]#
+#[? %#T ||, tests=[%T|,]]#
+]
+[?%#O||Blocked #
+[? [?%#V|1] |INFECTED (%V)|#
+[? [?%#F|1] |BANNED (%F)|#
+[? [? %2|1] |SPAM|#
+[? [?%#X|1] |BAD-HEADER|CLEAN]]]]#
+, [? %p ||%p ][?%a||[?%l||LOCAL ]\[%a\] ]<%o> -> [%O|,]#
+[? %q ||, quarantine: %i]#
+[? %m ||, Message-ID: %m]#
+[? %r ||, Resent-Message-ID: %r]#
+, Hits: %c#
+#, size: %z#
+#[? %j ||, Subject: "%j"]#
+#[? %#T ||, tests=[%T|,]]#
+]';
+
 $log_recip_templ = undef;
 </%text>
 
