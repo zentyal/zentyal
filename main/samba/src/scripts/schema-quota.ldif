@@ -1,0 +1,35 @@
+dn: CN=quota,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.19937.1.1.1
+cn: quota
+name: quota
+ldapDisplayName: quota
+description: Quotas (FileSystem:BlocksSoft,BlocksHard,InodesSoft,InodesHard)
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+
+dn: CN=systemQuotas,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: classSchema
+governsID: 1.3.6.1.4.1.19937.1.2.1
+cn: systemQuotas
+name: systemQuotas
+ldapDisplayName: systemQuotas
+subClassOf: posixAccount
+objectClassCategory: 3
+mustContain: uidNumber
+mayContain: quota
+defaultObjectCategory: CN=systemQuotas,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+possSuperiors: top
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1

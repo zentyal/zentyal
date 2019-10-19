@@ -9,7 +9,7 @@ use EBox::Sudo;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Internal;
 
-use Authen::Krb5::Simple qw(kinit kinit_pwd klist kdestroy kerror);
+use Authen::Krb5::Easy qw(kinit kinit_pwd klist kdestroy kerror);
 
 my $singleton;
 

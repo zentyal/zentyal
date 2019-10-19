@@ -1226,4 +1226,86 @@ sub _krb5Keys
     return $blobs;
 }
 
+# Method: showPaginationForm
+#
+#   Show pagination form in the view.
+#
+sub showPaginationForm
+{
+    return 1;
+}
+
+# Method: defaultPageSize
+#
+#   Return the default amount of elements to show
+#
+sub defaultPageSize
+{
+    return 10;
+}
+
+# Method: table
+#
+#   Configure table to show in the pagination of the tree.
+#
+sub table
+{
+    my $dataTable = {
+        'tableName'          => "Users",
+        'printableTableName' => __('Users'),
+        'confdir'            => "User"
+    };
+
+    return $dataTable;
+}
+
+# Method: changeViewJS
+#
+#     Return the javascript function to change view to
+#     add a row
+#
+# Parameters:
+#
+#    (NAMED)
+#    changeType - changeAdd or changeList
+#    editId - edit id
+#    page - page number
+#    isFilter - boolean indicating if comes from filtering
+#
+#
+# Returns:
+#
+#     string - holding a javascript funcion
+sub changeViewJS
+{
+    my ($self, %args) = @_;
+
+    my ($type, $editId, $page, $isFilter) = ($args{changeType},$args{editId}, $args{page},$args{isFilter},);
+
+    my $function = "Zentyal.TableHelper.changeView('%s','%s','%s','%s','%s', %s, %s)";
+
+    my $table = $self->table();
+    return sprintf ($function,
+                    '/Samba/ListContainer',
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $type,
+                    $editId,
+                    $page,
+                    $isFilter);
+}
+
+# Method: pageNumbersText
+#
+#  returns the localized string used in the pager.
+sub pageNumbersText
+{
+    my ($self, $page, $nPages) = @_;
+   if ($nPages == 1) {
+        return __('Page 1');
+   } else {
+        return __x('Page {i} of {n}', i => $page + 1, n => $nPages);
+   }
+}
+
 1;

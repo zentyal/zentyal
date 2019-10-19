@@ -1,0 +1,161 @@
+<%args>
+  $dn => ''
+  $model
+  @users => ()
+  $page => 0
+  $tpages => 0
+  $filter => ''
+  $pageSize => 0
+</%args>
+<%init>
+use EBox::Gettext;
+my $filterId = "Users_filter";
+</%init>
+<style>
+.list_user_table{
+    margin: 10px;
+}
+#<% $model->table()->{tableName}%>_top{
+    margin-bottom: 10px;
+}
+</style>
+
+<%perl>
+   my $tableName = $model->table()->{'tableName'};
+   my $pagerId = $tableName . '_pagerId';
+</%perl>
+<div id="<% $tableName %>">
+    <h3 class="icon-user"><% __('Users') %></h3>
+    <div id='ListUsers_message' class='note' style='display:none'></div>
+    <div id='ListUsers_error' class='error' style='display:none'></div>
+
+    <div class="list_user_table">
+        <div id="<% $tableName%>_top">
+            <button type="button" class="btn btn-icon btn-delete"
+            name="show_delete" id="<% $tableName %>_delete_button"><% __('Delete') %></button>
+            <div class="tableSearch">
+                <input type='text' id='<% $filterId %>' value="<% $filter %>"/>
+                <input type='submit'
+                    id = "Users_filter_btn"
+                    name='filter'
+                    value='<% __("Search") %>'
+                    title='Apply'
+                    onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => $dn, page => 0, isFilter => 1) %>; return false"
+                    />
+            </div>
+        </div>
+
+
+    <table id="<% $model->table()->{tableName} %>" class="dataTable">
+      <thead>
+        <td><input id="SelectAllUsers" type="checkbox"></th>
+        <th><% __("User")  %></th>
+        <th><% __("First name") %></th>
+        <th><% __("Last name")  %></th>
+        <th><% __("E-Mail")  %></th>
+        <th class="thOptions"><% __("Actions") %></th>
+      </thead>
+      <tbody>
+%   foreach my $user (@users) {
+            <tr>
+% if (defined $user->isInternal() and $user->isInternal() eq 0){
+                <td><input class="UserCheck" type="checkbox" id="<% $user->dn() %>" disabled></td>
+%}else{
+     <td><input class="UserCheck" type="checkbox" id="<% $user->dn() %>" ></td>
+%}
+                <td><% $user->name() %></td>
+                <td><% $user->givenName() %></td>
+                <td><% $user->surname() %></td>
+                <td><% $user->mail() %></td>
+                <td class="tcenter">
+% if (defined $user->isInternal() and $user->isInternal() eq 0){
+                    <button class="btn-only-icon btn-delete deleteUser"
+                    id="<% $user->dn() %>" disabled>
+%}else{
+                  <button class="btn-only-icon btn-delete deleteUser"
+                    id="<% $user->dn() %>">
+%}
+                    <button class="btn-only-icon btn-edit editUser"
+                    id="<% $user->dn() %>" >
+                 </td>
+            </tr>
+%   }
+      </tbody>
+    </table>
+
+    <div class="bDataTable">
+
+% if ($model->showPaginationForm()) {
+     <& /samba/ajax/tablePagerSamba.mas,
+       model => $model,
+       page => $page,
+       tpages => $tpages,
+       pageSize => $pageSize,
+       dn => $dn
+    &>
+% }
+    </div>
+</div>
+<script>
+$("#Users_filter").keypress(function(e){
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13'){
+        $("#Users_filter_btn").click();
+    }
+});
+
+$("#SelectAllUsers").change(function(){
+    if(this.checked){
+        $(".UserCheck").each(function(){
+            if(!this.hasAttribute('disabled')){
+                $(this).prop("checked",true);
+            }
+        });
+    }
+    else{
+        $(".UserCheck").each(function(){
+            if(!this.hasAttribute('disabled')){
+                $(this).prop("checked",false);
+            }
+        });
+    }
+});
+
+$(".deleteUser").each(function() {
+    $(this).click(function() {
+        var idUser = $(this).attr('id');
+        var metadata = {};
+        metadata.dn = idUser;
+        Zentyal.Dialog.showURL('/Samba/DeleteUser',
+                    { title: '<% __('Delete') %>',
+                      width: 640,
+                      data: metadata });
+    })
+});
+$(".editUser").each(function() {
+    $(this).click(function() {
+        var idUser = $(this).attr('id');
+        var metadata = {};
+        metadata.dn = idUser;
+        Zentyal.Form.setLoading('#treeviewer_Manage');
+            $('#treeviewer_Manage').load('/Samba/EditUser', metadata);
+    })
+});
+
+$("#<% $model->table()->{tableName}%>_delete_button").click(function() {
+        var dns = [];
+        $(".UserCheck").each(function(){
+            if(this.checked){
+                var idUser = $(this).attr('id');
+                dns.push(idUser);
+            }
+        });
+        if (dns.length != 0){
+            Zentyal.Dialog.showURL('/Samba/DeleteUsers',
+                { title: '<% __('Delete') %>',
+                  width: 640,
+                  data: { dns: dns}
+                });
+        }
+});
+</script>

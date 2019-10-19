@@ -1,0 +1,42 @@
+<%args>
+    @users => ()
+    @warns => ()
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<h3><%__('Delete') %> <% __('Users')%></h3>
+<div id='delUserForm_error' class='error' style='display:none'></div>
+
+<div class='note'>
+    <% __('This operation will cause the removal of the user and all its dependent data') %>
+%   if (@warns) {
+     <ul>
+%      foreach my $warn(@warns) {
+           <li><% $warn %></li>
+%      }
+     </ul>
+%   }
+</div>
+<form action='/Samba/DeleteUsers' method='POST' id='delUserForm'>
+<p>
+% foreach my $user (@users){
+    <input type="hidden" name="dn[]" value="<% $user->dn() %>" />
+%}
+<input class='inputButton' type='submit' id='deluser'
+                   value="<% __('Accept') %>"
+                   alt="<% __('Accept') %>" />
+<& /input/dialogCancel.mas &>
+</p>
+</form>
+
+
+<script>
+$(function() {
+   $('#deluser').on('click', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#delUserForm', { extraData: {deluser: 1}});
+    });
+});
+</script>

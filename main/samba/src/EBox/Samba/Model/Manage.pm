@@ -46,8 +46,8 @@ sub rootNodes
 
     my $usersMod = $self->parentModule();
     my $defaultNamingContext = $usersMod->defaultNamingContext();
-
-    return [ { id => 'root', printableName => $defaultNamingContext->baseName(), type => 'domain', metadata => { dn => $defaultNamingContext->dn() } } ];
+    my $temp = [ { id => 'root', printableName => $defaultNamingContext->baseName(), type => 'domain', metadata => { dn => $defaultNamingContext->dn() } } ];
+    return  $temp;
 }
 
 sub childNodes
@@ -75,6 +75,7 @@ sub childNodes
     my $type = undef;
     my @childNodes = ();
     foreach my $child (@{$parentObject->children()}) {
+        next if ($child->isa('EBox::Samba::User'));
         my $dn = $child->dn();
         if ($child->isa('EBox::Samba::OU')) {
             $type = 'ou';
@@ -160,8 +161,8 @@ sub nodeTypes
 
     return {
         domain => { actions => { filter => 0, add => $rw }, actionObjects => { add => 'OU' } },
-        ou => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
-        container => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
+        ou => { actions => { filter => 0, add => $rw, delete => $rw, edit => $rw}, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
+        container => { actions => { filter => 0, edit => $rw, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
         user => { printableName => __('Users'), actions => { filter => 1, edit => 1, delete => $rw } },
         duser => { printableName => __('Disabled Users'), actions => { filter => 1, edit => 1, delete => $rw },
                                                           actionObjects => { edit => 'User', delete => 'User' } },
@@ -240,6 +241,19 @@ sub _hiddenContainer
     my $name = $e->{CN};
 
     return $self->{containersToHide}->{$name};
+}
+
+sub clickHandlerJS
+{
+    my ($self, $type) = @_;
+
+    if ($type eq 'container'){
+        $self->actionHandlerJS('list', $type);
+    }elsif($type eq 'ou'){
+        $self->actionHandlerJS('list', 'container');
+    }elsif($type eq ''){}else{
+        $self->actionHandlerJS('edit', $type);
+    }
 }
 
 1;

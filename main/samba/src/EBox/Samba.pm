@@ -1162,6 +1162,64 @@ sub users
     return \@list;
 }
 
+# Method: usersToTable
+#
+#   Returns an array containing all the users (not system users)
+#
+# Parameters:
+#
+#   filter - filter to apply to users (default: ')
+#
+# Returns:
+#
+#   array ref - holds the users. Each user is represented by an
+#               EBox::Samba::User object
+#
+sub usersToTable
+{
+    my ($self, $filterParam, $dn) = @_;
+    my @list;
+
+    return [] if (not $self->isEnabled());
+
+    # Quering the containers stored in the root DN and skipping the ignored ones
+    # Note that 'OrganizationalUnit' and 'msExchSystemObjectsContainer' are
+    # subclasses of 'Container'.
+    my @containers;
+    my $base = $self->ldap->dn();
+    if (defined $dn){
+        $base = $dn;
+    }
+
+    # Quering the users stored in the non ignored containers
+    my $filterCN='';
+    if($filterParam and !($filterParam eq '')){
+        $filterCN = sprintf ("(|(samAccountName=*%s*)(givenName=*%s*)(sn=*%s*)(mail=*%s*))",$filterParam,$filterParam,$filterParam,$filterParam);
+    }
+    my $filter = sprintf ("(&(&(objectclass=user)%s(!(objectclass=computer)))(!(isDeleted=*)))",$filterCN);
+    my $params = {
+            # base   => $container->dn(),
+            base   => $base,
+            scope  => 'sub',
+            filter => $filter,
+            attrs  => ['*', 'unicodePwd', 'supplementalCredentials'],
+        };
+    my @entries = @{$self->ldap->pagedSearch($params)};
+    foreach my $entry (@entries) {
+        my $user = new EBox::Samba::User(entry => $entry);
+        next if ($user->isSystem());
+        push (@list, $user);
+    }
+
+    @list = sort {
+        my $aValue = $a->get('samAccountName');
+        my $bValue = $b->get('samAccountName');
+        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+    } @list;
+
+    return @list;
+}
+
 # Method: realUsers
 #
 #       Returns an array containing all the non-internal users

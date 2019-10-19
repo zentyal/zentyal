@@ -1,0 +1,98 @@
+<%args>
+        $model
+        $page
+        $tpages
+        $pageSize
+        $dn => 'undefined'
+</%args>
+<%init>
+    use EBox::Gettext;
+    my $tableName = $model->table()->{'tableName'};
+    my @sizeOptions;
+
+    my $defaultSize = $model->defaultPageSize();
+    my @sizes = (50, 100, 200, 500);
+    # if  default size isn't in size options add it
+    my $defaultSizeIncluded = grep { $_ == $defaultSize  } @sizes;
+    if ( not $defaultSizeIncluded) {
+       push @sizes, $defaultSize;
+       @sizes = sort { $a <=> $b }@sizes;
+   }
+
+    foreach my $size (@sizes) {
+        push (@sizeOptions, {
+                            'value' => $size,
+                            'printableValue' => $size
+                        });
+    }
+    push (@sizeOptions, {
+        'value' => '_all',
+        'printableValue' => __('View all'),
+     });
+</%init>
+<%perl>
+    my $pageSizeId = $tableName . '_pageSizeId';
+    my $changeViewJS =  $model->changeViewJS(
+                            changeType => "changeList",
+                            editId     => "undefined",
+                            page       => 0,
+                            isFilter   => 1,
+                            editId     => $dn
+   );
+
+   my $pagerId = $tableName . '_pagerId';
+   my $firstPage = ($page == 0);
+   my $lastPage = ($page == $tpages);
+</%perl>
+<div id='<% $tableName %>_pager'>
+  <& /input/select.mas,
+       'name'        => $tableName . '_pageSize',
+       'value'       => $pageSize,
+       'options'     => \@sizeOptions,
+       'id'          => $tableName . '_pageSize',
+       'onchange'    => qq{Zentyal.TableHelper.setLoading('$pageSizeId'); $changeViewJS;return false}
+  &>
+
+  <button id="<% $tableName %>_tofirst"
+          name="tofirst" type="button"
+          class="btn-only-icon btn-small btn-first tablePrevPageControl"
+          alt="<% __('first') %>"
+          value="<% __('first') %>"
+          onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => $dn, page => 0, isFilter => 1) %>; return false"
+          <% $firstPage ? 'disabled' : '' %>
+  >
+  </button>
+  <button id="<% $tableName %>_toprev"
+          name="toprev" type="button"
+          class="btn-only-icon btn-small btn-prev tablePrevPageControl"
+          alt="<% __('prev') %>"
+          value="<% __('prev') %>"
+          onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => $dn, page => $page - 1, isFilter => 1) %>; return false"
+          <% $firstPage ? 'disabled' : '' %>
+  >
+  </button>
+  <span id="<% $pageSizeId %>"></span>
+  <span id="<% $tableName %>_page_numbers" class="pagination_n">
+   <% $model->pageNumbersText($page, $tpages+1) %>
+  </span>
+  <span id="<% $pagerId %>"></span>
+  <button id="<% $tableName %>_tonext"
+          name="tonext" type="button"
+          class="btn-only-icon btn-small btn-next tableNextPageControl"
+          alt="<% __('next') %>"
+          value="<% __('next') %>"
+          onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%
+              $model->changeViewJS( changeType => 'changeList', editId => $dn, page => $page + 1, isFilter => 1) %>; return false"
+           <% $lastPage ? 'disabled' : '' %>
+  >
+  </button>
+  <button id="<% $tableName %>_tolast"
+          name="tolast" type="button"
+          class="btn-only-icon btn-small btn-last tableNextPageControl"
+          alt="<% __('last') %>"
+          value="<% __('last') %>"
+          onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>'); <% $model->changeViewJS( changeType => 'changeList', editId => $dn, page => $tpages, isFilter => 1) %>;return false"
+         <% $lastPage ? 'disabled' : '' %>
+  >
+  </button>
+</div>
