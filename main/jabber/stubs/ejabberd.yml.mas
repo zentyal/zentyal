@@ -26,13 +26,15 @@ log_rate_limit: 100
 hosts:
   - "<% $domain %>"
 
+certfiles:
+  - "/etc/ejabberd/ejabberd.pem"
+
 listen:
   -
     port: 5222
     ip: "0.0.0.0"
     module: ejabberd_c2s
 % if ($ssl =~ /ssl/) {
-    certfile: "/etc/ejabberd/ejabberd.pem"
     starttls: true
 % }
 % if ($ssl eq 'forcessl') {
@@ -71,8 +73,7 @@ ldap_rootdn: "<% $ldapRoot %>"
 ldap_password: "<% $ldapPasswd %>"
 ldap_base: "<% $ldapBase %>"
 ldap_uids:
-  "jabberUid": "%u"
-ldap_filter: "(objectClass=userJabberAccount)"
+  - "jabberUid": "%u"
 
 shaper:
   normal: 1000
@@ -131,8 +132,8 @@ modules:
   mod_muc:
     host: "conference.@HOST@"
     access: muc
-    access_create: muc_create
-    access_persistent: muc_create
+    access_create: muc
+    access_persistent: muc_admin
     access_admin: muc_admin
 % }
   mod_offline:
@@ -156,14 +157,15 @@ modules:
   mod_roster: {}
 % if ($sharedroster) {
   mod_shared_roster_ldap:
-    ldap_rfilter: "(&(objectClass=group)(!(isCriticalSystemObject=*)))"
-    ldap_gfilter: "(&(objectClass=group)(cn=%g))"
+    ldap_filter: "(&(objectClass=userJabberAccount)(!(objectClass=computer)))"
     ldap_ufilter: "(&(objectClass=userJabberAccount)(distinguishedName=%u))"
+    ldap_rfilter: "(objectClass=user)"
+    ldap_gfilter: "(!(isCriticalSystemObject=*))"
     ldap_groupattr: "cn"
     ldap_groupdesc: "cn"
-    ldap_memberattr: "member"
+    ldap_memberattr: "sAMAccountName"
     ldap_useruid: "jabberUid"
-    ldap_userdesc: "displayName"
+    ldap_userdesc: "sAMAccountName"
 % }
   mod_sic: {}
   mod_stats: {}
