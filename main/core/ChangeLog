@@ -1,6 +1,8 @@
 6.1
+	+ Update external link in EBox::Config
+	+ Add "Smart" Admin menu entry
+	+ Add smart-admin-report script to /usr/share/zentyal to get a complete system status report
 	+ Distribution base is now Ubuntu 18.04.3 LTS
-	+ Set version to 6.1
 6.0.1
 	+ Fix CSS for Activation Required page
 	+ License activation after first login in commercial edition

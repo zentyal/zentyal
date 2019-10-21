@@ -416,7 +416,7 @@ sub hideExternalLinks
 
 sub urlEditions
 {
-    return 'http://bit.ly/1e83s5u';
+    return 'https://zentyal.com/get-offer/';
 }
 
 1;
