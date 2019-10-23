@@ -30,7 +30,7 @@ cp -v ../ubuntu-keyring*deb $CD_BUILD_DIR/pool/main/u/ubuntu-keyring
 
 sudo unsquashfs $CD_BUILD_DIR/install/filesystem.squashfs
 sudo cp ../ubuntu-keyring*.deb squashfs-root/
-sudo cp ../zenbuntu-core/zentyal-archive.asc squashfs-root/etc/apt/trusted.gpg.d/
+sudo cp ../zenbuntu-core/zentyal-6.1-packages.asc squashfs-root/etc/apt/trusted.gpg.d/
 sudo chroot squashfs-root sh -c "dpkg -i ubuntu-keyring*.deb"
 sudo rm squashfs-root/ubuntu-keyring*.deb
 
