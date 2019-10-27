@@ -1,6 +1,7 @@
 6.1
+    + Remove 11_patch_apt-setup.sh because is no longer needed
     + Update GPG signing key for packages.zentyal.org
-    + Added packages.zentyal.org repository
+    + Add new packages.zentyal.org
     + Based on Ubuntu 18.04.3
 6.0
     + Based on Ubuntu 18.04.1
