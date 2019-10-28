@@ -27,7 +27,8 @@ function checkBrowser() {
             document.getElementById("loginButton").disabled="disabled";
         }
     } else if (!/Firefox/.test(navigator.userAgent) &&
-               !/Chrome/.test(navigator.userAgent)) {
+               !/Chrome/.test(navigator.userAgent) &&
+               !/Safari/.test(navigator.userAgent)) {
         document.getElementById("ffWarning").style.display="block";
     }
 }
