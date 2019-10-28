@@ -5,13 +5,13 @@
 </%args>
 
 options {
-%if (EBox::Config::boolean('sortlist')) {
-     sortlist {
-%    foreach my $intnet (@intnet) {
-            { <% $intnet %> ;{ <% $intnet %> ; };};
-%    }
-    };
-%}
+%   if (EBox::Config::boolean('sortlist')) {
+        sortlist {
+%           foreach my $intnet (@intnet) {
+                <% $intnet %>;
+%           }
+        };
+%   }
     directory "/var/cache/bind";
 
     // If there is a firewall between you and nameservers you want
@@ -24,20 +24,20 @@ options {
     //transfer-source * port 53;
     //notify-source * port 53;
 
-% if ( @forwarders > 0 ) {
-    // If your ISP provided one or more IP addresses for stable
-    // nameservers, you probably want to use them as forwarders.
-    forward first;
-    forwarders {
-%   foreach my $forwarder (@forwarders) {
-        <% $forwarder %>;
+%   if ( @forwarders > 0 ) {
+        // If your ISP provided one or more IP addresses for stable
+        // nameservers, you probably want to use them as forwarders.
+        forward first;
+        forwarders {
+%           foreach my $forwarder (@forwarders) {
+                <% $forwarder %>;
+%           }
+        };
 %   }
-    };
-% }
 
-% if (defined $keytabPath) {
-    tkey-gssapi-keytab "<% $keytabPath %>";
-% }
+%   if (defined $keytabPath) {
+        tkey-gssapi-keytab "<% $keytabPath %>";
+%   }
 
     auth-nxdomain no;    # conform to RFC1035
 
