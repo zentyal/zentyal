@@ -1,0 +1,19 @@
+<%args>
+$data
+</%args>
+%   my $value = $data->value();
+%   if (defined ($value) and ($value eq 'available')) {
+        <button class="btn-only-icon btn-download" onclick=downloadReport()>
+            <% __('Download System Status report') %>
+        </button>
+        <script>
+        function downloadReport() {
+            window.location.href='/SysInfo/SmartAdminReport?action=download';
+        }
+        </script>
+
+%   } else {
+        <btn class="btn-only-icon btn-download disabledCustomAction">
+            <% __('Download System Status report') %>
+        </button>
+%   }

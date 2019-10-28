@@ -12,10 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
-package EBox::SysInfo::CGI::SysInfoReport;
+package EBox::SysInfo::CGI::SmartAdmin;
 
 use base 'EBox::CGI::ClientBase';
 
@@ -28,9 +29,8 @@ use TryCatch;
 sub new # (cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new(@_);
     my $self = $class->SUPER::new('title' => __('SmartAdmin'),
-                                  'template' => '/sysinfo/report.mas',
+                                  'template' => '/sysinfo/smartAdmin.mas',
                                   @_);
     bless($self, $class);
     return $self;
@@ -40,7 +40,8 @@ sub _process
 {
     my $self = shift;
     unless (EBox::Global->communityEdition()) {
-        $self->_runReportScript();
+        my $response = $self->response();
+        $response->redirect('/SysInfo/Composite/SmartAdmin');
     }
     $self->{params} = $self->masonParameters();  
 }
@@ -74,12 +75,5 @@ sub _checkLicense
     }
 
     return $commercial;
-}
-
-sub _runReportScript
-{
-    my $cmd = EBox::Config::scripts() . "smart-admin-report";
-    EBox::Sudo::root($cmd);
-    EBox::info(EBox::Sudo::root($cmd));
 }
 1;

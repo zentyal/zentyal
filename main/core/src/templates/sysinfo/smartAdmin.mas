@@ -6,18 +6,16 @@ $edition
 use EBox::Config;
 my $msg;
 my $class;
-my $title = __('Status report');
+my $title = __('System status report');
 $msg =  __sx("Warning: this GUI feature is just available for {oh}Commercial Zentyal Server Edition{ch} if you don't update your Zentyal version, you need to use it from CLI.", oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 $class = 'adwarning';
 </%init>
 
 <div class="item-block">
     <h3><% $title %></h3>
-% if ($edition) {
-    <!-- TODO -->
-% } else {
+% if (! $edition) {
     <div class='<% $class %>'>
         <% $msg %>
     </div>
-% }
+% } 
 </div>

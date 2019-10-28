@@ -7,9 +7,11 @@ models:
     - ManageAdmins
     - Debug
     - Edition
+    - SystemStatusReport
 
 composites:
     General: ['sysinfo/ManageAdmins', 'webadmin/Language','webadmin/AdminPort', 'sysinfo/HostName']
+    SmartAdmin: ['sysinfo/SystemStatusReport']
     DateAndTime: []
 
 # NOTE: DateAnDtime composite components are dynamic in componentNames()

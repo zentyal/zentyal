@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+RUNNING=/var/lib/zentyal/tmp/.smart-admin-running
+
+touch $RUNNING
 
 function system_check () {
 	echo -e "\n##################"
@@ -420,3 +423,5 @@ dpkg -l | grep -q 'zentyal-mail'
 if [[ ${?} -eq 0 ]] && zs mail enabled | grep -qo "ENABLED"; then 
 	mail_status
 fi
+
+rm -f $RUNNING

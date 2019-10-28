@@ -1,6 +1,7 @@
 6.1
+	+ Add "Smart Admin" > "System Status Report" feature to GUI
 	+ Update external link in EBox::Config
-	+ Add "Smart" Admin menu entry
+	+ Add "Smart Admin" menu entry
 	+ Add smart-admin-report script to /usr/share/zentyal to get a complete system status report
 	+ Distribution base is now Ubuntu 18.04.3 LTS
 6.0.1

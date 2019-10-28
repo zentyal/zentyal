@@ -129,10 +129,10 @@ sub menu
                                       'text' => __('Halt/Reboot'),
                                       'order' => 60));
 
-    $system->add(new EBox::Menu::Item('url' => 'SysInfo/SysInfoReport',
+    $system->add(new EBox::Menu::Item('url' => 'SysInfo/SmartAdmin',
                                       'text' => __('Smart Admin'),
                                       'order' => 70));
-
+                                      
     $root->add($system);
 }
 
