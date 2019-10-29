@@ -15,11 +15,11 @@
 use strict;
 use warnings;
 
-# Class: EBox::SysInfo::Model::SystemStatusReport
+# Class: EBox::SysInfo::Model::SmartAdminReport
 #
 #   This model is used to manage the system status report feature
 #
-package EBox::SysInfo::Model::SystemStatusReport;
+package EBox::SysInfo::Model::SmartAdminReport;
 
 use base 'EBox::Model::DataTable';
 
@@ -58,7 +58,7 @@ sub _table
 
     my $dataTable =
     {
-        tableName          => 'System',
+        tableName          => 'SystemStatusReport',
         printableTableName => __('System status report'),
         defaultActions     => [ 'changeView' ],
         tableDescription   => \@tableHeader,

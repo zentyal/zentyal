@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Types::AntiVirus::Status;
+# Class: EBox::SysInfo::Types::Download;
 #
 use strict;
 use warnings;
@@ -72,11 +72,11 @@ sub optional
 sub value
 {
     my ($self) = @_;
-    EBox::info('checking status');
+
     if (-f '/var/lib/zentyal/tmp/.smart-admin-running') {
         return 'in-progress';
     } else {
-        my $log = '/usr/share/zentyal/www/smart-admin-report.log';
+        my $log = '/usr/share/zentyal/www/smart-admin.report';
         if (-f $log) {
             return 'available';
         } else {

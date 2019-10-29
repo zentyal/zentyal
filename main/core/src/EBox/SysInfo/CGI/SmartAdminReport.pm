@@ -13,6 +13,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# Class: EBox::SysInfo::CGI::SmartAdminReport;
+#
 use strict;
 use warnings;
 
@@ -72,7 +74,7 @@ sub _runSystemStatusReportScript
     my $cmd = EBox::Config::scripts() . "smart-admin-report";
     EBox::info("Running report generation from Smart Admin component");
     EBox::WebAdmin::cleanupForExec();
-    EBox::Sudo::root($cmd . ' > /usr/share/zentyal/www/smart-admin-report.log');
+    EBox::Sudo::root($cmd . ' > /usr/share/zentyal/www/smart-admin.report');
 }
 
 # Method: _generateSystemStatusReport
@@ -97,7 +99,7 @@ sub _generateSystemStatusReport
 sub _downloadSystemStatusReport
 {
     my ($self) = @_;
-    my $path = '/usr/share/zentyal/www/smart-admin-report.log';
+    my $path = '/usr/share/zentyal/www/smart-admin.report';
     my $temp = '/var/lib/zentyal/tmp/.smart-admin-running';
 
     unless (-e $temp) {

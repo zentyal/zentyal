@@ -44,6 +44,7 @@ use EBox::Exceptions::Internal;
 
 use constant LATEST_VERSION => '/var/lib/zentyal/latestversion';
 use constant UPDATES_URL => 'http://update.zentyal.org/updates';
+use constant SMARTADMINREPORT_CRON_FILE => '/etc/cron.d/smart_admin-status_report';
 
 sub _create
 {
@@ -164,6 +165,8 @@ sub _setConf
         }
         EBox::Sudo::root($cmd);
     }
+    
+    $self->setSmartAdminReportCron();
 }
 
 # Method: fqdn
@@ -483,6 +486,52 @@ sub dashboardStatusStrings
      };
 
     return $_dashboardStatusStrings;
+}
+
+# Method: setSmartAdminReportCron
+#
+#   configure crontab according to user configuration
+#   to call our report script
+#
+sub setSmartAdminReportCron
+{
+    my ($self) = @_;
+
+    my @lines;
+    my $strings = $self->model('SmartAdminReportSettings')->crontabStrings();
+
+    my $nice = 10;
+    my $script = '';
+    if ($nice) {
+        if ($nice =~ m/^\d+$/) {
+            $script = "nice -n $nice " if $nice > 0;
+        } 
+    }
+
+    $script .= EBox::Config::scripts() . "smart-admin-report  > /usr/share/zentyal/www/smart-admin.report";
+  
+    my $tmpFile = EBox::Config::tmp() . 'smartadmin_report-cron';
+    open(my $tmp, '>', $tmpFile);
+
+    my $onceList = $strings->{once};
+    if ($onceList) {
+        foreach my $once (@{ $onceList }) {
+            push (@lines, "$once $script");
+        }
+    }
+    for my $line (@lines) {
+        print $tmp "$line\n";
+    }
+
+    close($tmp);
+
+    my $dst = smartAdminReportCronFile();
+    EBox::Sudo::root("install --mode=0644 $tmpFile $dst");
+}
+
+sub smartAdminReportCronFile
+{
+    return SMARTADMINREPORT_CRON_FILE;
 }
 
 1;
