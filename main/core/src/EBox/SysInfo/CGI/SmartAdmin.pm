@@ -39,10 +39,10 @@ sub new # (cgi=?)
 sub _process
 {
     my $self = shift;
-    # unless (EBox::Global->communityEdition()) {
+    unless (EBox::Global->communityEdition()) {
         my $response = $self->response();
         $response->redirect('/SysInfo/Composite/SmartAdmin');
-    # }
+    }
     $self->{params} = $self->masonParameters();  
 }
 

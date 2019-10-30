@@ -12,7 +12,7 @@ $community = 1;
  if (substr ($ENV{LANG}, 0, 2) eq 'es') {
     $lang = 'es';
  }
- my $BOOK_URL = "https://store.zentyal.com/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=book_$lang";
+ my $BOOK_URL = "https://zentyal.com/training/#book";
  my $EDITIONS_URL = EBox::Config::urlEditions();
 </%init>
 % if ($community) {
@@ -26,7 +26,7 @@ $community = 1;
                title="<% __('Community Support Forum to give and get help.') %>">
                <% __('Forum') %></a>
         </li>
-        <li><a class="i-bug" target="_blank" href="https://tracker.zentyal.org/projects/zentyal/issues/new?utm_source=zentyal&utm_medium=dashboard&utm_campaign=newticket"
+        <li><a class="i-bug" target="_blank" href="https://github.com/zentyal/zentyal/issues"
                title="<% __('Help us to improve by reporting any bug you find!') %>">
                <% __('Report a bug') %></a>
         </li>
