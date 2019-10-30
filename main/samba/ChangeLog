@@ -1,4 +1,5 @@
 6.1
+	+ Add users/groups import/export scripts to /usr/share/zentyal-samba. (fixes #1852)
 	+ Add pagination to the tree view
 	+ Do not try to listen on unconfigured network interfaces
 6.0.1
