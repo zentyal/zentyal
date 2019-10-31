@@ -12,7 +12,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 Package: zentyal-antivirus
 Architecture: all
 Depends: zentyal-core (>= 6.1), zentyal-core (<< 6.2), zentyal-firewall,
-         clamav, clamav-daemon, clamav-freshclam,
+         clamav (>= 0.101.4), clamav-daemon, clamav-freshclam,
          libfile-readbackwards-perl, ${misc:Depends}
 Description: Zentyal - Antivirus
  Zentyal is a Linux small business server that can act as
