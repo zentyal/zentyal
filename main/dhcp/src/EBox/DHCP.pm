@@ -738,6 +738,30 @@ sub fixedAddresses
     return $model->addresses($iface, $readOnly);
 }
 
+# Method: dhcpEnabled
+#
+#   Return dhcp interface state
+#
+# Parameters:
+#
+#   iface - String interface name
+#
+# Returns:
+#
+#   Boolean - true if dhcp is enabled for iface
+#
+# Exceptions:
+#
+
+sub dhcpEnabled
+{
+    my ($self, $iface) = @_;
+
+    my $ifaceModel = $self->model('Interfaces');
+    my $ifaceRow = $ifaceModel->findRow(iface => $iface);
+    return $ifaceRow->valueByName('enabled') ? 1 : 0;
+}
+
 # Group: Static or class methods
 
 # Method: ConfDir
@@ -1266,6 +1290,8 @@ sub _ifacesInfo
             $iflist{$iface}->{'netmask'} = $netmask;
             $iflist{$iface}->{'ranges'} = $self->ranges($iface);
             $iflist{$iface}->{'fixed'} = $self->fixedAddresses($iface, 'readonly');
+
+            $iflist{$iface}->{'enabled'} = $self->dhcpEnabled($iface);
 
             # look if we have static routes for this network
             my $netWithMask = EBox::NetWrappers::to_network_with_mask($network, $netmask);
