@@ -77,7 +77,7 @@ include "<% $keysFile %>";
 <%perl>
             # Write configuration if there are any range or fixed addresses
             my $ifaceToWrite = 0;
-            if (exists $ifaces{$iface}) {
+            if (exists $ifaces{$iface} && $ifaces{$iface}->{enabled}) {
                 if (@{$ifaces{$iface}->{ranges}} > 0) {
                     $ifaceToWrite = 1;
                 } elsif  (values %{$ifaces{$iface}->{fixed}} > 0 ) {

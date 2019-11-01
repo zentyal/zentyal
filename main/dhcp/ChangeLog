@@ -1,3 +1,5 @@
+HEAD
+	+ Respect the dhcp interface state when generating the dhcpd.conf fix #1903 and closes #1905
 6.1
 	+ Fix Dynamic DNS updates
 	+ Set version to 6.1
