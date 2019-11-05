@@ -1,3 +1,5 @@
+HEAD
+	+ to_localhost ACL not required as it's an implicit rule now
 6.1
 	+ Set version number to 6.1
 6.0.2
