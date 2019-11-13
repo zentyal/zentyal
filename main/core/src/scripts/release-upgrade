@@ -73,7 +73,7 @@ function checkBrokenPackages
     echo;
     echo -e "${GREEN} - Checking for broken packages...${NC}"
     touch $TMPFILE && dpkg -l | awk '{ if ( NR > 5  ) { print } }' > $TMPFILE
-    if grep -vE '^ii' $TMPFILE
+    if grep -vE '^(ii|rc)' $TMPFILE
     then
         echo -e "${RED}  You have broken packages, please, try to execute dpkg --configure -a before to continue${NC}"
         exit 1

@@ -50,13 +50,13 @@ use EBox::Gettext;
 <div id="confirmation">
 
 <div class="note">
-<p>This will upgrade your Zentyal 4.1 to Zentyal 4.2 Development Edition.</p>
+<p>This will upgrade your Zentyal 6.0 to Zentyal 6.1 Community Edition.</p>
 <p>Close this dialog if you do not want to upgrade now.</p>
 </div>
 
 % if (@removedModules) {
 <div class="error">
-<p>The upgrade process will remove the following modules as they are no longer part of Zentyal 4.2 officially maintained modules (data related to these modules will be deleted):</p>
+<p>The upgrade process will remove the following modules as they are no longer part of Zentyal 6.1 officially maintained modules (data related to these modules will be deleted):</p>
 <ul>
 % foreach my $module (@removedModules) {
 <li><% $module %></li>
@@ -66,7 +66,7 @@ use EBox::Gettext;
 % }
 
 <div class="warning">
-<p>Before upgrading please read also carefully the <a target="_blank" href="http://wiki.zentyal.org/wiki/Zentyal_4.2_Announcement"><b>release notes</b></a>.</p>
+<p>Before upgrading please read also carefully the <a target="_blank" href="http://wiki.zentyal.org/wiki/Zentyal_6.1_Announcement"><b>release notes</b></a>.</p>
 </div>
 
 </div>
@@ -76,7 +76,7 @@ The server is currently unavailable while the upgrade is in progress. The proces
 </div>
 
 <div id="finished" class="note" style="display: none">
-Upgrade finished! You will be redirected to the login page of Zentyal 4.2 after closing this dialog but <b>please note that it is highly recommended to reboot your server before resuming normal operations</b>.
+Upgrade finished! You will be redirected to the login page of Zentyal 6.1 after closing this dialog but <b>please note that it is highly recommended to reboot your server before resuming normal operations</b>.
 </div>
 
 <pre id="output" style="display: none; white-space: pre-wrap;">

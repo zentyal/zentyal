@@ -165,6 +165,9 @@ sub masonParameters
     }
 
     if (EBox::Global->communityEdition()) {
+        my $upgradeMsgData = $self->_upgradeMessage();
+        push (@params, 'upgradeMsg' => $upgradeMsgData);
+
         my $state = $sysinfo->get_state();
         my $lastTime = $state->{lastMessageTime};
         my $currentTime = time();
@@ -176,10 +179,10 @@ sub masonParameters
             if ($offset >= $msg->{days}) {
                 push (@params, 'message' => $msg);
                 last;
-            }
+            } 
         }
     }
-
+    EBox::info(@params);
     return \@params;
 }
 
@@ -189,15 +192,39 @@ sub _periodicMessages
     return [
         {
          name => 'trial',
-         text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 45-day Trial!', oh => '<a href="http://www.zentyal.com/zentyal-server/trial/">', ch => '</a>'),
+         text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 45-day Trial!', 
+         oh => '<a href="http://www.zentyal.com/zentyal-server/trial/">', 
+         ch => '</a>'),
          days => 7,
         },
         {
          name => 'community',
-         text => __sx('Are you a happy Zentyal Server user? Do you want to help the project? Get involved in the {oh}Community{ch}!', oh => '<a href="http://www.zentyal.org">', ch => '</a>'),
+         text => __sx('Are you a happy Zentyal Server user? Do you want to help the project? Get involved in the {oh}Community{ch}!', 
+         oh => '<a href="http://www.zentyal.org">', 
+         ch => '</a>'),
          days => 30,
         },
     ];
+}
+
+# Method: _upgradeMessage
+#
+# Returns:
+#
+#       Returns an array that will be pushed to @params array at masonParameters method
+#
+sub _upgradeMessage
+{
+    my ($self) = @_;
+    my $RELEASE_ANNOUNCEMENT_URL = 'http://wiki.zentyal.org/wiki/Zentyal_6.1_Announcement';
+    my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal 6.1')";
+    my $msg = { name => 'upgrade', 
+                text =>__sx('{oh}Zentyal 6.1{ch} is available! {ob}Upgrade now{cb}',
+                oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", 
+                ch => '</a>',
+                ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", 
+                cb => '</button>') };
+    return $msg;
 }
 
 1;
