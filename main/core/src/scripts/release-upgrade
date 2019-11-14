@@ -28,12 +28,12 @@ function checkZentyalVersion
     if [ $CURMAJORV -gt $DESTMAJOR ]; 
     then
         echo -e "${RED}${BOLD} Your system is up to date${NC}${NORM}" 
-        exit 1
+        exit 130
     else
         if [ $CURMINORV -gt $DESTMINOR ] || [ $CURMINORV -eq $DESTMINOR ];
         then
             echo -e "${RED}${BOLD} Your system is up to date${NC}${NORM}" 
-            exit 1
+            exit 130
         fi
     fi
     echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
@@ -45,7 +45,7 @@ function checkDiskSpace
     if [ $(df /boot | tail -1 | awk '{print $4}') -lt 51200 ];
     then
         echo "${RED}  Upgrade cannot be performed due to low disk space (less than 50MB available on /boot)${NC}"
-        exit 2
+        exit 130
     fi
 
     for i in / /var
@@ -53,7 +53,7 @@ function checkDiskSpace
         if [ `df $i | tail -1 | awk '{print $4}'` -lt 358400 ];
         then
             echo -e "${RED}  Upgrade cannot be performed due to low disk space (less than 350MB available on $i)${NC}"
-            exit 2
+            exit 130
         fi
     done
     echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
@@ -71,6 +71,22 @@ function checkUbuntuReposotories
     echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }
 
+function repairPkgs
+{
+    counter=0;
+    pkgs=$(dpkg -l | grep -vE '^(ii|rc)'| awk '{ if ( NR > 5  ) { print $2} }')
+    while [[ $pkgs ]] && [[ $counter < 10 ]]; 
+    do
+        for i in $pkgs
+        do
+            echo 'Working on '.$i
+            dpkg --configure $i
+            sleep 1
+        done
+        ((counter++))
+    done;
+}
+
 function checkBrokenPackages
 {
     echo -e "${GREEN} - Installed Zentyal packages:${NC}"
@@ -82,7 +98,7 @@ function checkBrokenPackages
     then
         echo -e "${RED}  You have broken packages, trying to execute dpkg --configure -a before to continue${NC}"
         dpkg --configure -a
-        exit 1
+        repairPkgs
     fi  
     rm -f $TMPFILE
     echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
