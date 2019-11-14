@@ -5,10 +5,15 @@ UPGRADE_FILE=/var/lib/zentyal/.upgrade-finished
 TMPFILE=/tmp/packages-list
 QALIST=/etc/apt/sources.list.d/zentyal-qa.list
 
-DESTMAJOR=6
-DESTMINOR=1
 CURMAJORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f1`
 CURMINORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f2`
+#TODO: Change use "curl -s -k" instead of wget
+DESTMAJOR=`wget --quiet -O - http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINORV}.txt|cut -d'.' -f1`
+DESTMINOR=`wget --quiet -O - http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINORV}.txt|cut -d'.' -f2`
+CURRV="${CURMAJORV}.${CURMINORV}"
+DESTV="${DESTMAJOR}.${DESTMINOR}"
+KEYURL="keys.zentyal.org/zentyal-${DESTV}-packages.asc"
+
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -75,7 +80,8 @@ function checkBrokenPackages
     touch $TMPFILE && dpkg -l | awk '{ if ( NR > 5  ) { print } }' > $TMPFILE
     if grep -vE '^(ii|rc)' $TMPFILE
     then
-        echo -e "${RED}  You have broken packages, please, try to execute dpkg --configure -a before to continue${NC}"
+        echo -e "${RED}  You have broken packages, trying to execute dpkg --configure -a before to continue${NC}"
+        dpkg --configure -a
         exit 1
     fi  
     rm -f $TMPFILE
@@ -149,10 +155,10 @@ function upgrade
 
 function prepareZentyalRepositories
 {
-    wget -qO - keys.zentyal.org/zentyal-6.1-packages.asc | sudo apt-key add -
+    wget -qO - $KEYURL | sudo apt-key add -
 
-    sed -ri '/zentyal(.)6.0/d' /etc/apt/sources.list
-    echo 'deb http://packages.zentyal.org/zentyal 6.1 main extra' > /etc/apt/sources.list.d/zentyal-packages.list
+    sed -ri "/zentyal(.)${CURRV}/d" /etc/apt/sources.list
+    echo "deb http://packages.zentyal.org/zentyal ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal-packages.list
 
     if [ -f '/etc/apt/sources.list.d/zentyal-archive.list' ];
     then
@@ -162,7 +168,7 @@ function prepareZentyalRepositories
     if [ -f $QALIST ];
     then
         sed -i 's/archive/packages/g' $QALIST
-        sed -i 's/zentyal-qa 6.0/zentyal-qa 6.1/g' $QALIST
+        sed -i "s/zentyal-qa ${CURRV}/zentyal-qa ${DESTV}/g" $QALIST
     fi
     
     apt-get update
@@ -177,17 +183,6 @@ function configureRedis
     systemctl restart redis-server
 }
 
-function eJabberdUpgrade
-{
-    # https://docs.ejabberd.im/admin/upgrade/
-    EJABBERD_NODE=$(grep "the database is owned by" /var/log/ejabberd/error.log |tail -1 | sed "s/'//"|rev|cut -d[ -f1|rev|cut -d] -f1)
-    if [ -z "$EJABBERD_NODE" ]
-    then
-        EJABBERD_NODE="ejabberd@$HOSTNAME"
-    fi
-    echo "ERLANG_NODE=$EJABBERD_NODE" >> /etc/ejabberd/ejabberdctl.cfg
-}
-
 function getCVDs
 {
     if [ -d /var/lib/clamav ] && ! [ -f /var/lib/clamav/main.cvd ]
@@ -197,18 +192,44 @@ function getCVDs
     fi
 }
 
-function postCheckPackages
+function postUpgradeProcedure
 {
-    echo;echo;echo -e "${GREEN} - Installed Zentyal packages:${NC}"
-    dpkg -l | grep 'zentyal-'
-    touch $TMPFILE && dpkg -l | awk '{ if ( NR > 5  ) { print } }' > $TMPFILE
-    if grep -vE '^(ii|rc)' $TMPFILE
+    # Purge all no longer needed running services
+    dpkg -l | grep 'zentyal-' | cut -d' ' -f3 | xargs apt-mark manual
+    apt-get autoremove --purge -y -o DPkg::Options::="--force-confdef"
+    dpkg --configure -a --force-confdef
+    apt-get -f install -y -o DPkg::Options::="--force-confdef"
+    checkBrokenPackages
+
+    sleep 2
+    apt-get clean
+
+    echo; echo -e "${GREEN}${BOLD}*** Zentyal upgrade finished! Please restart your server now.${NC}${NORM}"
+
+    sleep 2
+    pkill -f upgrade-log-server
+}
+
+function forceZentyalLXDM
+{
+    systemctl disable lxdm
+    systemctl enable zentyal.lxdm
+}
+
+function finishUpgrade
+{
+    if dpkg --configure -a --force-confdef
     then
-        echo -e "${RED}  You have broken packages, please, try to execute dpkg --configure -a before to continue${NC}"
-        exit 1
-    fi  
-    rm -f $TMPFILE
-    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+        forceZentyalLXDM
+        postUpgradeProcedure
+    else
+        echo; echo -e "${RED}${BOLD}*** Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log.${NC}${NORM}"
+    fi
+
+    sleep 2
+    apt-get clean
+
+    touch $UPGRADE_FILE
 }
 
 echo; echo -e "${YELLOW}*** Preparing your system for the upgrade...${NC}"; echo
@@ -217,48 +238,12 @@ prepareUpgrade
 echo; echo -e "${YELLOW}*** Upgrading your current system to the latest packages...${NC}"; echo
 upgrade
 
-echo; echo -e "${YELLOW}*** Preparing for upgrade to Zentyal 6.1...${NC}"; echo
+echo; echo -e "${YELLOW}*** Preparing for upgrade to Zentyal ${DESTV}...${NC}"; echo
 apt-get purge -y ubuntu-minimal # remove unnecessary metapackage to avoid it from being kept back and appear as available update
 prepareZentyalRepositories
 configureRedis # workaround Redis crash during dist-upgrade
 
 echo; echo -e "${YELLOW}*** Upgrading Zentyal from ${CURMAJORV}.${CURMINORV} to ${DESTMAJOR}.${DESTMINOR}...${NC}"; echo
 upgrade
-eJabberdUpgrade # eJabberd upgrade
 getCVDs # update ClamAV Virus Database files
-
-rm -f /var/lib/dpkg/info/spamassassin.postinst
-
-dpkg --configure -a --force-confdef
-
-rm -f /var/lib/dpkg/info/ejabberd.postinst
-
-dpkg --configure -a --force-confdef
-
-apt-get -f install -y -o DPkg::Options::="--force-confdef"
-
-if dpkg --configure -a --force-confdef
-then
-    systemctl disable lxdm
-    systemctl enable zentyal.lxdm
-
-    # Purge all no longer needed running services
-    dpkg -l | grep 'zentyal-' | cut -d' ' -f3 | xargs apt-mark manual
-    apt-get autoremove --purge -y -o DPkg::Options::="--force-confdef"
-
-    apt-get -f install -y -o DPkg::Options::="--force-confdef"
-
-    dpkg --configure -a --force-confdef
-
-    postCheckPackages
-    echo; echo -e "${GREEN}${BOLD}*** Zentyal upgrade finished! Please restart your server now.${NC}${NORM}"
-
-    sleep 2
-    pkill -f upgrade-log-server
-else
-    echo; echo -e "${RED}${BOLD}*** Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log.${NC}${NORM}"
-fi
-
-apt-get clean
-
-touch $UPGRADE_FILE
+finishUpgrade
