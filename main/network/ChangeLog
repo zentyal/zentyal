@@ -2,6 +2,8 @@ HEAD
 	+ Use of TryCatch instead of TryCatch::Lite
 6.1
 	+ Set version to 6.1
+6.0.2
+	+ Fix bonding crashes after an upgrade from 5.1
 6.0.1
 	+ Use ip route flush instead of ip route del in regenGateways()
 6.0

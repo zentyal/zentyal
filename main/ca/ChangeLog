@@ -1,5 +1,7 @@
 6.1
 	+ Set version to 6.1
+6.0.1
+	+ Fix issue related with CRL cert and upgrade from 5.1
 6.0
 	+ Use openssl1.0 for backwards compatibility
 	+ Fix Mason template paths

@@ -22,6 +22,8 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Config;
+use EBox::WebAdmin;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Item;
 use POSIX qw(INT_MAX);
@@ -165,6 +167,9 @@ sub masonParameters
     }
 
     if (EBox::Global->communityEdition()) {
+        my $upgradeMsgData = $self->_upgradeMessage();
+        push (@params, 'upgradeMsg' => $upgradeMsgData);
+
         my $state = $sysinfo->get_state();
         my $lastTime = $state->{lastMessageTime};
         my $currentTime = time();
@@ -176,10 +181,10 @@ sub masonParameters
             if ($offset >= $msg->{days}) {
                 push (@params, 'message' => $msg);
                 last;
-            }
+            } 
         }
     }
-
+    EBox::info(@params);
     return \@params;
 }
 
@@ -189,15 +194,104 @@ sub _periodicMessages
     return [
         {
          name => 'trial',
-         text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 45-day Trial!', oh => '<a href="http://www.zentyal.com/zentyal-server/trial/">', ch => '</a>'),
+         text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 45-day Trial!', 
+         oh => '<a href="http://www.zentyal.com/zentyal-server/trial/">', 
+         ch => '</a>'),
          days => 7,
         },
         {
          name => 'community',
-         text => __sx('Are you a happy Zentyal Server user? Do you want to help the project? Get involved in the {oh}Community{ch}!', oh => '<a href="http://www.zentyal.org">', ch => '</a>'),
+         text => __sx('Are you a happy Zentyal Server user? Do you want to help the project? Get involved in the {oh}Community{ch}!', 
+         oh => '<a href="http://www.zentyal.org">', 
+         ch => '</a>'),
          days => 30,
         },
     ];
+}
+
+# Method: _upgradeMessage
+#
+# Returns:
+#
+#       Returns an array that will be pushed to @params array at masonParameters method
+#
+sub _upgradeMessage
+{
+    my ($self) = @_;
+
+    my ($curMajor, $curMinor) = split('[\.]',$self->_getCurrentVersion());
+    my $newVersion = $self->_getNewVersionFromCloud();
+    my ($newMajor, $newMinor) = split('[\.]', $newVersion);
+    chomp($newVersion);
+    my $RELEASE_ANNOUNCEMENT_URL = "http://wiki.zentyal.org/wiki/Zentyal_".$newVersion."_Announcement";
+    my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal ".$newVersion."')";
+    my $msg;
+    
+    if ($curMajor < $newMajor ||
+        $curMinor < $newMinor && 
+        $curMajor == $newMajor) {
+        $msg = { 
+                name => 'upgrade', 
+                text =>__sx("{oh}Zentyal ".$newVersion."{ch} is available! {ob}Upgrade now{cb}",
+                oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", 
+                ch => '</a>',
+                ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", 
+                cb => '</button>') };
+    } else {
+        $msg = undef;
+    } 
+
+    return $msg;
+}
+
+# Method: _getCurrentVersion
+#
+# Returns:
+#
+#       Returns an string that contains the current release minor and major version
+#
+sub _getCurrentVersion
+{
+    my ($self) = @_;
+    my $versionString = EBox::Config::version();
+
+    return $versionString;
+}
+
+# Method: _getNewVersionFromCloud
+#
+# Returns:
+#
+#       Returns an string that contains the new release minor and major version
+#
+sub _getNewVersionFromCloud
+{
+    my ($self) = @_;
+
+    my $version = EBox::Config::version();
+    my $newVersionString;
+    system("wget --quiet -O /tmp/new-release - http://update.zentyal.org/update-from-'$version'.txt");
+    try {
+        $newVersionString = $self->_readVersion();
+    } catch($ex) {
+        EBox::error("Error getting last release update from update.zentyal.com: $ex");
+    }
+
+    if ($newVersionString eq "") {
+        $newVersionString = $version;
+    } 
+
+    return $newVersionString;
+}
+
+sub _readVersion
+{
+    my $version;
+    open (my $fh, '/tmp/new-release');
+    read ($fh, $version, 16);
+    close ($fh);
+    system('rm /tmp/new-release');
+    return $version;
 }
 
 1;
