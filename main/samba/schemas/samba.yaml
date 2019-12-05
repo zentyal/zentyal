@@ -21,6 +21,8 @@ models:
     - SambaDeletedShares
     - RecycleDefault
     - RecycleExceptions
+    - ExportUsers
+    - ExportGroups
 
 composites:
     Domain: [DomainSettings, GPOs]
@@ -29,6 +31,7 @@ composites:
     RecycleBin: [RecycleDefault, RecycleExceptions]
     FileSharing: [SambaShares, RecycleBin]
     GPOs: []
+    ImportExport: [samba/ExportUsers, samba/ExportGroups]
 
 modeldepends:
     RecycleExceptions:

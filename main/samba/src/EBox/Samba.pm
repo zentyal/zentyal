@@ -1694,37 +1694,56 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item(name => 'Domain',
-                                    url => 'Samba/Composite/Domain',
-                                    text => __('Domain'),
-                                    icon => 'domain',
-                                    tag => 'main',
-                                    order => 2));
+    $root->add(new EBox::Menu::Item(
+        name => 'Domain',
+        url => 'Samba/Composite/Domain',
+        text => __('Domain'),
+        icon => 'domain',
+        tag => 'main',
+        order => 2)
+    );
 
-
-    my $folder = new EBox::Menu::Folder(name => 'Users',
-                                        icon => 'samba',
-                                        text => __('Users and Computers'),
-                                        tag => 'main',
-                                        order => 1);
-    $folder->add(new EBox::Menu::Item(
-        'url'  => 'Samba/Tree/Manage',
-        'text' => __('Manage'), order => 10));
-
-    $folder->add(new EBox::Menu::Item(
-        'url'  => 'Samba/Composite/UserTemplate',
-        'text' => __('User Template'), order => 30));
+    my $folder = new EBox::Menu::Folder(
+        name    => 'Users',
+        icon    => 'samba',
+        text    => __('Users and Computers'),
+        tag     => 'main',
+        order   => 1
+    );
 
     $folder->add(new EBox::Menu::Item(
-        'url'  => 'Samba/Composite/Settings',
-        'text' => __('LDAP Settings'), order => 50));
+        'url'   => 'Samba/Tree/Manage',
+        'text'  => __('Manage'), 
+        order   => 10
+    ));
+
+    $folder->add(new EBox::Menu::Item(
+        'url'   => 'Samba/Composite/UserTemplate',
+        'text'  => __('User Template'), 
+        order   => 30
+    ));
+
+    $folder->add(new EBox::Menu::Item(
+        'url'   => 'Samba/Composite/Settings',
+        'text'  => __('LDAP Settings'), 
+        order   => 50
+    ));
+
+    $folder->add(new EBox::Menu::Item(
+        'url'   => 'Samba/Composite/ImportExport',
+        'text'  => __('Import/Export'),
+        'order' => 40
+    ));
+
     $root->add($folder);
 
-    $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
-                                    url       => 'Samba/Composite/FileSharing',
-                                    icon      => 'sharing',
-                                    tag       => 'main',
-                                    order     => 3));
+    $root->add(new EBox::Menu::Item(
+        text      => __('File Sharing'),
+        url       => 'Samba/Composite/FileSharing',
+        icon      => 'sharing',
+        tag       => 'main',
+        order     => 3
+    ));
 }
 
 # LdapModule implementation
@@ -2167,7 +2186,6 @@ sub _hostOrDomainChanged
     }
 }
 
-
 # Method: reprovision
 #
 #   Destroys all LDAP/Kerberos configuration and creates a new
@@ -2575,6 +2593,7 @@ sub sambaInterfaces
     }
     return \@ifaces;
 }
+
 sub writeSambaConfig
 {
     my ($self) = @_;
