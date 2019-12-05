@@ -504,13 +504,13 @@ sub setSmartAdminReportCron
     my $script = '';
     if ($nice) {
         if ($nice =~ m/^\d+$/) {
-            $script = "nice -n $nice " if $nice > 0;
+            $script = "/usr/bin/nice -n $nice " if $nice > 0;
         } 
     }
 
     my $destination = $strings->{mail};
     if (defined $destination) {
-        $script .= EBox::Config::scripts() . "smart-admin-report  > /usr/share/zentyal/www/smart-admin.report | sendmail " . $strings->{mail} . '< /usr/share/zentyal/www/smart-admin.report';
+        $script .= EBox::Config::scripts() . "smart-admin-report  > /usr/share/zentyal/www/smart-admin.report | /usr/sbin/sendmail " . $strings->{mail} . ' < /usr/share/zentyal/www/smart-admin.report';
     } else {
         $script .= EBox::Config::scripts() . "smart-admin-report  > /usr/share/zentyal/www/smart-admin.report";
     }
