@@ -1,3 +1,6 @@
+6.1.1
+	+ Change allow_duplicated_ips to yes. fix #1920 
+	+ Fix issue with semmantic versioning. fix #1925
 6.1
 	+ Use proper dlz library for bind9.11
 	+ Remove duplicated vars from named.con.options.mas file
