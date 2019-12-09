@@ -64,6 +64,7 @@ sub writeCSV
     print $fh getUsers();
     close $fh;
     print "Users have been exported on file " . $p . "\n";
+    return 1;
 }
 
 sub getParms 
@@ -77,4 +78,7 @@ sub getParms
     }
 }
 
+EBox::Sudo::root('/usr/bin/touch /var/lib/zentyal/tmp/.users_exporter-running');
 getParms(@ARGV);
+EBox::Sudo::root('/bin/rm /var/lib/zentyal/tmp/.users_exporter-running');
+

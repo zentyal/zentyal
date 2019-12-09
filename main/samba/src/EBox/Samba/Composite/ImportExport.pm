@@ -31,7 +31,7 @@ use EBox::Global;
 #
 # Returns:
 #
-#   <EBox::SysInfo::Model::General> - the newly create object
+#   <EBox::Samba::Composite::ImportExport> - the newly create object
 #
 sub new
 {

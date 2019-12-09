@@ -31,7 +31,7 @@ composites:
     RecycleBin: [RecycleDefault, RecycleExceptions]
     FileSharing: [SambaShares, RecycleBin]
     GPOs: []
-    ImportExport: [samba/ExportUsers, samba/ExportGroups]
+    ImportExport: [ExportUsers, ExportGroups]
 
 modeldepends:
     RecycleExceptions:

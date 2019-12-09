@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Samba::CGI::ExportUsers;
+# Class: EBox::Samba::CGI::ExportGroups;
 #
 use strict;
 use warnings;
 
-package EBox::Samba::CGI::ExportUsers;
+package EBox::Samba::CGI::ExportGroups;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -33,11 +33,11 @@ use File::Basename;
 
 # Method: new
 #
-#       Constructor for user exporter CGI
+#       Constructor for group exporter CGI
 #
 # Returns:
 #
-#       <EBox::Samba::CGI::ExportUsers> - The object recently created
+#       <EBox::Samba::CGI::ExportGroups> - The object recently created
 sub new # (cgi=?)
 {
     my $class = shift;
@@ -61,39 +61,39 @@ sub _process
     my $self = shift;
     my $action = $self->param('action');
     if ( $action eq 'download') {
-        EBox::info('Downloading users CSV');
-        $self->_downloadUsersCSV();
+        EBox::info('Downloading groups CSV');
+        $self->_downloadGroupsCSV();
     } else {
-        EBox::info("Running users exporter");
-        $self->_generateUsersCSV($action);
+        EBox::info("Running groups exporter");
+        $self->_generateGroupsCSV($action);
     }
 }
 
 # Method: _generateSystemStatusReport
 #
-sub _generateUsersCSV
+sub _generateGroupsCSV
 {
     my ($self, $action) = @_;
     if ($action eq 'run') {
         $SIG{CHLD} = 'IGNORE';
         if (fork() == 0) {
             EBox::WebAdmin::cleanupForExec();
-            EBox::Sudo::root('/usr/share/zentyal-samba/users-export.pl /tmp/users-export.csv');
+            EBox::Sudo::root('/usr/share/zentyal-samba/groups-export.pl /tmp/groups-export.csv');
         }
         $self->{redirect} = '/Samba/Composite/ImportExport';
     } elsif ($action eq 'status') {
-        my $finished = not (-f '/var/lib/zentyal/tmp/.users_exporter-running');
+        my $finished = not (-f '/var/lib/zentyal/tmp/.groups_exporter-running');
         $self->{json} = { finished => $finished };
     }
 }
 
 # Method: _downloadSystemStatusReport
 #
-sub _downloadUsersCSV
+sub _downloadGroupsCSV
 {
     my ($self) = @_;
-    my $path = '/tmp/users-export.csv';
-    my $temp = '/var/lib/zentyal/tmp/.users_exporter-running';
+    my $path = '/tmp/groups-export.csv';
+    my $temp = '/var/lib/zentyal/tmp/.groups_exporter-running';
 
     unless (-e $temp) {
         if (-f $path) {

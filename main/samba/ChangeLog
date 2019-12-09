@@ -1,3 +1,5 @@
+HEAD
+	+ Add users and groups exporter GUI feature for commercial edition
 6.1
 	+ Add users/groups import/export scripts to /usr/share/zentyal-samba. (fixes #1852)
 	+ Add pagination to the tree view

@@ -15,19 +15,21 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Model::ExportUsers
+# Class: EEBox::Samba::Model::ExportGroups
 #
 #   This model is used to manage the system status report feature
 #
 package EBox::Samba::Model::ExportGroups;
 
-use base 'EBox::Model::DataForm::ReadOnly';
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
-use EBox::Samba::Types::DownloadGroups;
-
 use EBox::Gettext;
 use EBox::Types::Text;
+use EBox::Types::Link;
+use EBox::Samba::Types::RunExportGroups;
+use EBox::Samba::Types::StatusExportGroups;
+use EBox::Samba::Types::DownloadExportGroups;
 
 # Constructor: new
 #
@@ -61,28 +63,52 @@ sub _table
     my ($self) = @_;
 
     my @tableHeader = (
-        new EBox::Samba::Types::DownloadUsers(
-           fieldName => 'downloadExportedGroups',
-           printableName => __('Export groups'),
+        new EBox::Samba::Types::RunExportGroups(
+            fieldName       => 'exportGroups',
+            printableName   => __('Export groups'),
+        ),
+        new EBox::Samba::Types::StatusExportGroups(
+           fieldName => 'status',
+           printableName => __('CSV available'),
+        ),
+        new EBox::Samba::Types::DownloadExportGroups(
+            fieldName       => 'downloadExportedGroups',
+            printableName   => __('Download csv'),
         ),
     );
-
     my $dataTable =
     {
-        tableName          => 'ExportGroups',
+        tableName          => 'ManageExportGroups',
         modelDomain        => 'Samba',
         printableTableName => __('Export domain groups'),
         tableDescription   => \@tableHeader,
-        defaultEnabledValue => 1,
+        defaultActions     => [ 'changeView' ],
     };
 
     return $dataTable;
 }
 
+# Method: syncRows
+#
+#   Overrides <EBox::Model::DataTable::syncRows>
+#
+sub syncRows
+{
+    my ($self, $currentRows) = @_;
+
+    if (@{$currentRows}) {
+        return 0;
+    } else {
+        $self->add(status => 'noreport');
+        return 1;
+    }
+}
+
+1;
 
 # Method: precondition
 #
-#   Check if usersandgroups is enabled.
+#   Check if groupsandgroups is enabled.
 #
 # Overrides:
 #
@@ -101,7 +127,7 @@ sub precondition
 #
 sub preconditionFailMsg
 {
-    return __('You must enable the Users and Groups module to access the LDAP information.');
+    return __('You must enable the Groups and Groups module to access the LDAP information.');
 }
 
 1;

@@ -50,6 +50,7 @@ sub writeCSV
     print $fh getGroups();
     close $fh;
     print "Groups have been exported on file " . $p . "\n";
+    return 1;
 }
 
 sub getParms 
@@ -62,5 +63,7 @@ sub getParms
         writeCSV( $args[0] );
     }
 }
-
+EBox::Sudo::root('/usr/bin/touch /var/lib/zentyal/tmp/.groups_exporter-running');
 getParms(@ARGV);
+EBox::Sudo::root('/bin/rm /var/lib/zentyal/tmp/.groups_exporter-running');
+

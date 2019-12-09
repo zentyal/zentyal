@@ -13,14 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::SysInfo::Types::Download;
+# Class: EBox::Samba::Types::RunExportGroups;
 #
 use strict;
 use warnings;
 
-package EBox::Samba::Types::DownloadUsers;
+package EBox::Samba::Types::RunExportGroups;
 
-use base 'EBox::Types::Link';
+use base 'EBox::Types::Basic';
 
 sub new
 {
@@ -73,15 +73,10 @@ sub value
 {
     my ($self) = @_;
 
-    if (-f '/var/lib/zentyal/tmp/.smart-admin-running') {
-        return 'in-progress';
+    if (-f '/var/lib/zentyal/tmp/.groups_exporter-running') {
+        return 'running';
     } else {
-        my $log = '/usr/share/zentyal/www/smart-admin.report';
-        if (-f $log) {
-            return 'available';
-        } else {
-            return 'noreport';
-        }
+        return '';
     }
 }
 
@@ -120,7 +115,7 @@ sub storeInHash
 #
 sub HTMLViewer
 {
-    return '/samba/downloadViewer.mas';
+    return '/samba/runExportGroupsViewer.mas';
 }
 
 1;

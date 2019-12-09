@@ -8,7 +8,7 @@ $data
         </button>
         <script>
         function downloadReport() {
-            window.location.href='/SysInfo/SmartAdminReport?action=download';
+            window.location.href='/Samba/ExportGroups?action=download';
         }
         </script>
 

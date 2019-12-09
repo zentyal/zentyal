@@ -1,0 +1,25 @@
+<%args>
+$data
+</%args>
+%   my $value = $data->value();
+%   if (defined ($value) and ($value eq 'running')) {
+		<img src="/data/images/ajax-loader.gif"/>
+        <script>
+        function checkFinished() {
+            $.ajax({
+                url: '/Samba/ExportGroups?action=status',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.finished) {
+                        window.location.reload();
+                        $('#close_button').show();
+                    }
+                }
+            });
+            setTimeout(checkFinished, 5000);
+        }
+        checkFinished();
+        </script>
+%   } else {
+		<button onclick="window.location.href='/Samba/ExportGroups?action=run'" class="btn-only-icon btn-start" title="export" type="image" name="export">Export users</button>
+%   }

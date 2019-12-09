@@ -21,14 +21,15 @@ use warnings;
 #
 package EBox::Samba::Model::ExportUsers;
 
-use base 'EBox::Model::DataForm::ReadOnly';
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
-use EBox::Samba::Types::DownloadUsers;
-
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Link;
+use EBox::Samba::Types::RunExportUsers;
+use EBox::Samba::Types::StatusExportUsers;
+use EBox::Samba::Types::DownloadExportUsers;
 
 # Constructor: new
 #
@@ -61,29 +62,49 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableHeader = (                     
-        new EBox::Samba::Types::DownloadUsers(
-            fieldName       => 'downloadExportedUsers',
+    my @tableHeader = (
+        new EBox::Samba::Types::RunExportUsers(
+            fieldName       => 'exportUsers',
             printableName   => __('Export users'),
-            volatile        => 1,
-            optionalLabel   => 0,
-            HTMLViewer      => '/samba/downloadViewer.mas',
-            HTMLSetter      => '/samba/downloadViewer.mas',
+        ),
+        new EBox::Samba::Types::StatusExportUsers(
+           fieldName => 'status',
+           printableName => __('CSV available'),
+        ),
+        new EBox::Samba::Types::DownloadExportUsers(
+            fieldName       => 'downloadExportedUsers',
+            printableName   => __('Download csv'),
         ),
     );
-
     my $dataTable =
     {
-        tableName          => 'ExportUsers',
+        tableName          => 'ManageExportUsers',
         modelDomain        => 'Samba',
         printableTableName => __('Export domain users'),
         tableDescription   => \@tableHeader,
-        defaultEnabledValue => 1,
-        defaultActions      => ['changeView'],
+        defaultActions     => [ 'changeView' ],
     };
 
     return $dataTable;
 }
+
+# Method: syncRows
+#
+#   Overrides <EBox::Model::DataTable::syncRows>
+#
+sub syncRows
+{
+    my ($self, $currentRows) = @_;
+
+    if (@{$currentRows}) {
+        return 0;
+    } else {
+        $self->add(status => 'noreport');
+        return 1;
+    }
+}
+
+1;
 
 # Method: precondition
 #
@@ -107,22 +128,6 @@ sub precondition
 sub preconditionFailMsg
 {
     return __('You must enable the Users and Groups module to access the LDAP information.');
-}
-
-sub value
-{
-    my ($self) = @_;
-
-    if (-f '/var/lib/zentyal/tmp/.smart-admin-running') {
-        return 'in-progress';
-    } else {
-        my $log = '/usr/share/zentyal/www/smart-admin.report';
-        if (-f $log) {
-            return 'available';
-        } else {
-            return 'noreport';
-        }
-    }
 }
 
 1;
