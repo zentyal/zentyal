@@ -23,6 +23,8 @@ models:
     - RecycleExceptions
     - ExportUsers
     - ExportGroups
+    - ImportUsers
+    - ImportGroups
 
 composites:
     Domain: [DomainSettings, GPOs]
@@ -31,7 +33,7 @@ composites:
     RecycleBin: [RecycleDefault, RecycleExceptions]
     FileSharing: [SambaShares, RecycleBin]
     GPOs: []
-    ImportExport: [ExportUsers, ExportGroups]
+    ImportExport: [ExportUsers, ImportUsers, ExportGroups, ImportGroups]
 
 modeldepends:
     RecycleExceptions:

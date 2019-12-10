@@ -104,11 +104,9 @@ sub syncRows
     }
 }
 
-1;
-
 # Method: precondition
 #
-#   Check if groupsandgroups is enabled.
+#   Check if usersandgroups is enabled.
 #
 # Overrides:
 #
@@ -118,16 +116,19 @@ sub precondition
 {
     my ($self) = @_;
 
-    return $self->parentModule()->isEnabled();
-}
+    my $ed = EBox::Global->communityEdition();
+    my $dep = $self->parentModule()->isEnabled();
 
-# Method: preconditionFailMsg
-#
-#   Returns message to be shown on precondition fail
-#
-sub preconditionFailMsg
-{
-    return __('You must enable the Groups and Groups module to access the LDAP information.');
+    # Return false if this is a community edition
+    if ($ed) {
+        return 0;
+    }
+
+    if (! $dep) {
+        return 0;
+    }
+
+    return 1;
 }
 
 1;

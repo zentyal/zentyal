@@ -104,8 +104,6 @@ sub syncRows
     }
 }
 
-1;
-
 # Method: precondition
 #
 #   Check if usersandgroups is enabled.
@@ -118,16 +116,43 @@ sub precondition
 {
     my ($self) = @_;
 
-    return $self->parentModule()->isEnabled();
+    my $ed = EBox::Global->communityEdition();
+    my $dep = $self->parentModule()->isEnabled();
+
+    # Return false if this is a community edition
+    if ($ed) {
+        return 0;
+    }
+
+    if (! $dep) {
+        return 0;
+    }
+
+    return 1;
 }
 
 # Method: preconditionFailMsg
 #
 #   Returns message to be shown on precondition fail
 #
+# Overrides:
+#
+#       <EBox::Model::preconditionFailMsg>
+#
 sub preconditionFailMsg
 {
-    return __('You must enable the Users and Groups module to access the LDAP information.');
+    my ($self) = @_;
+    
+    my $ed = EBox::Global->communityEdition();
+    my $dep = $self->parentModule()->isEnabled();
+
+    if ($ed) {
+        return __sx("This GUI feature is just available for {oh}Commercial Zentyal Server Edition{ch} if you don't update your Zentyal version, you need to use it from CLI.", oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>')
+    }
+
+    if (! $dep) {
+        return __('You must enable the Users and Groups module to access the LDAP information.');
+    }
 }
 
 1;
