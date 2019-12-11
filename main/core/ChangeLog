@@ -1,4 +1,6 @@
 HEAD
+	+ Fix repo name
+	+ Add curl as core dependency
 	+ Fixed wrong image name
 	+ Add smart alerts to Smart Admin feature
 	+ Add kernel management to Smart Admin feature

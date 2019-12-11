@@ -14,7 +14,7 @@ Architecture: all
 Pre-Depends: mysql-server, redis-server
 Depends: adduser, anacron, cracklib-runtime, cron, dbus, debconf, gpgv,
          sudo, iproute2, liblog-dispatch-perl, liblog-log4perl-perl,
-         libhtml-mason-perl (>= 1:1.56+zentyal1-1),
+         libhtml-mason-perl (>= 1:1.56+zentyal1-1), curl,
          liblocale-gettext-perl, libtrycatch-perl,
          libdevel-stacktrace-perl, libintl-perl, libnet-ip-perl, gettext,
          libfile-slurp-perl, libreadonly-perl, libreadonly-xs-perl,
