@@ -9,10 +9,11 @@ models:
     - Edition
     - SmartAdminReport
     - SmartAdminReportSettings
+    - KernelManagement
 
 composites:
     General: ['sysinfo/ManageAdmins', 'webadmin/Language','webadmin/AdminPort', 'sysinfo/HostName']
-    SmartAdmin: ['sysinfo/SmartAdminReportSettings','sysinfo/SmartAdminReport']
+    SmartAdmin: ['sysinfo/KernelManagement', 'sysinfo/SmartAdminReportSettings','sysinfo/SmartAdminReport']
     DateAndTime: []
 
 # NOTE: DateAnDtime composite components are dynamic in componentNames()

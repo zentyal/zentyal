@@ -45,6 +45,7 @@ use EBox::Exceptions::Internal;
 use constant LATEST_VERSION => '/var/lib/zentyal/latestversion';
 use constant UPDATES_URL => 'http://update.zentyal.org/updates';
 use constant SMARTADMINREPORT_CRON_FILE => '/etc/cron.d/smart_admin-status_report';
+use constant SMARTADMINKM_CRON_FILE => '/etc/cron.d/smart_admin-kernel_management';
 
 sub _create
 {
@@ -167,6 +168,7 @@ sub _setConf
     }
     
     $self->setSmartAdminReportCron();
+    $self->setSmartAdminKMCron();
 }
 
 # Method: fqdn
@@ -537,6 +539,50 @@ sub setSmartAdminReportCron
 sub smartAdminReportCronFile
 {
     return SMARTADMINREPORT_CRON_FILE;
+}
+
+sub setSmartAdminKMCron
+{
+    my ($self) = @_;
+
+    my @lines;
+    my $strings = $self->model('KernelManagement')->crontabStrings();
+
+    if ($strings) {
+        my $nice = 10;
+        my $script = '';
+        if ($nice) {
+            if ($nice =~ m/^\d+$/) {
+                $script = "/usr/bin/nice -n $nice " if $nice > 0;
+            } 
+        }
+
+        $script .= EBox::Config::scripts() . "kernel-management";
+
+        my $tmpFile = EBox::Config::tmp() . 'smartadmin_kernel-management';
+        open(my $tmp, '>', $tmpFile);
+
+        my $onceList = $strings->{once};
+        if ($onceList) {
+            foreach my $once (@{ $onceList }) {
+                push (@lines, "$once $script");
+            }
+        }
+        for my $line (@lines) {
+            print $tmp "$line\n";
+        }
+
+        close($tmp);
+
+        my $dst = smartAdminKMCronFile();
+        EBox::Sudo::root("install --mode=0644 $tmpFile $dst");
+    }
+    
+}
+
+sub smartAdminKMCronFile
+{
+    return SMARTADMINKM_CRON_FILE;
 }
 
 1;
