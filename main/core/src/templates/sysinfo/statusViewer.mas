@@ -7,5 +7,5 @@ $data
 %   } elsif (defined ($value) and ($value eq 'in-progress')) {
 		<img src="/data/images/synchronizing-small.png"/>
 %   } else {
-		<img src="/data/images/noreport.png"/>
+		<img src="/data/images/disabled.gif"/>
 %   }
