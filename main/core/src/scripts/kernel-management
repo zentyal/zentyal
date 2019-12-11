@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Parse version string to integer for ordering
 function calc {
@@ -32,7 +32,7 @@ COUNTER=0
 calc ${VERSUSEDKERN}
 NUMUSEDKERN=${integer}
 
-if [[ $APTSTATUS == 0 ]]
+if [[ $APTSTATUS -eq 0 ]]
 then
 	echo "Your active kernel $USEDKERNEL won't be processed"
 
@@ -41,7 +41,7 @@ then
 	do	
 		prepare ${k}
 		calc ${v2}
-		if [[ ${integer} != ${NUMUSEDKERN}  ]]; then
+		if [[ ${integer} -ne ${NUMUSEDKERN}  ]]; then
 			#echo ${integer}		
 			VERSION["${integer}"]=${v2}
 			#echo ${VERSION[*]}
@@ -52,7 +52,7 @@ then
 
 	for ind in ${indexes}
 	do	
-		if [[ ${ind} > ${USEDK} ]]; then
+		if [[ ${ind} -gt ${USEDK} ]]; then
 			USEDK=${ind}
 		fi
 	done
@@ -60,14 +60,14 @@ then
 	VERSION[${USEDK}]=0
 	echo "Number of packages to process: ${#VERSION[*]}"
 
-	if [[ ${#VERSION[*]} > 2 ]]; then  
+	if [[ ${#VERSION[*]} -gt 2 ]]; then  
  		for k in ${VERSION[*]}
  		do
-			if [[ ${COUNTER} < $(( ${#VERSION[*]} - 2 )) ]]; then
+			if [[ ${COUNTER} -lt $(( ${#VERSION[*]} - 2 )) ]]; then
 				echo "Processing ${PREFIXK}-${k} package"
  				apt-get remove ${PREFIXK}-${k}-generic ${PREFIXM}-${k}-generic --purge  -y
 
- 				if [[ $? == 0 ]]; then
+ 				if [[ $? -eq 0 ]]; then
  					echo "${PREFIXK}-${k}-generic was successfully removed from your system"
 				fi
 
@@ -75,7 +75,6 @@ then
 			fi
  		done
 		
- 
 	else 
 		echo "Your system only has ${#VERSION[*]} additionally kernels. Aborting process."
 	fi

@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+CPUCORES=$(nproc)
+NOTIFICATION=80
+NOTIFIVALUE=$(perl -E "say ${CPUCORES} * ${NOTIFICATION} / 100")
+TRIES=2
+COUNT=0
+
+notification_telegram() {
+
+template=$(cat <<TEMPLATE
+$(hostname -f) - ${1}
+
+$(date "+%X - %x")
+
+${2} 
+TEMPLATE
+)
+    curl --silent --output /dev/null \
+    --data-urlencode "chat_id=${3}" \
+    --data-urlencode "text=${template}" \
+    --data-urlencode "parse_mode=HTML" \
+    --data-urlencode "disable_web_page_preview=true" \
+    "https://api.telegram.org/bot${4}/sendMessage"
+
+    echo ""
+}
+
+
+for (( c=1; c<=${TRIES}; c++ )); do
+  CPULOAD=$(awk '{print $1}' /proc/loadavg)
+  CONVLOAD=$(echo | awk "{print ${CPULOAD} * 100}")
+  CONVNOTIFI=$(echo | awk "{print ${NOTIFIVALUE} * 100}")
+
+  if [[ ${CONVLOAD} -ge ${CONVNOTIFI} ]]; then
+    let COUNT++
+    sleep 65
+  fi
+done
+
+if [[ ${COUNT} -gt 1 ]]; then
+  notification_telegram "${1}" "${2} ${CPULOAD}" "${3}" "${4}"
+else
+    echo -e "\nYour CPU is ok."
+fi

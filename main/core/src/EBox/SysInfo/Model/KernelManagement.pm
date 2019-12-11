@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-# Class: EBox::SysInfo::Model::SmartAdminReportSettings
+# Class: EBox::SysInfo::Model::KernelManagement
 #
 #   This model is used to manage the system status report feature
 #
@@ -31,7 +31,7 @@ use EBox::Types::Boolean;
 
 # Constructor: new
 #
-#       Create the new SmartAdminReportSettings model
+#       Create the new KernelManagement model
 #
 # Overrides:
 #
@@ -39,7 +39,7 @@ use EBox::Types::Boolean;
 #
 # Returns:
 #
-#       <EBox::SysInfo::Model::SmartAdminReportSettings> - the recently created model
+#       <EBox::SysInfo::Model::KernelManagement> - the recently created model
 #
 sub new
 {
@@ -92,9 +92,7 @@ sub _table
 #
 #       Hash ref:
 #
-#               full => scheduling crontab lines for full backup
-#               incremental => scheduling crontab lines for incremental backup
-#               once        => scheduling crontab lines for full backup once mode
+#               once        => scheduling crontab lines for kernel management once a day
 #
 #       Note that, it only returns the scheduling part '30 1 * * * *' and not
 #       the command

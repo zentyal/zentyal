@@ -4,6 +4,7 @@ RUNNING=/var/lib/zentyal/tmp/.smart-admin-running
 touch $RUNNING
 
 function system_check () {
+	echo -e "Subject: System report\n"
 	echo -e "\n##################"
 	echo -e "# GENERAL CHECKS #"
 	echo -e "##################"
