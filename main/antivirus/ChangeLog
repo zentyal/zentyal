@@ -1,4 +1,4 @@
-HEAD
+6.1.1
 	+ Use AlertBrokenExecutables instead of deprecated DetectBrokenExecutables option 
 	  for clamav 0.101.4 (fix #1898)
 6.1
