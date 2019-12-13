@@ -7,7 +7,7 @@ use EBox::Gettext;
         <h1><% __('Initial Setup') %></h1>
     </header>
     <section>
-        <h3><% __x('Thank your for choosing Zentyal, only few steps left to start enjoying it:') %></h3>
+        <h3><% __x('Thank you for choosing Zentyal, only a few steps left to start enjoying it:') %></h3>
         <div class="install-splash-steps">
             <div><img src="/data/software/images/select-server-installation.png"></img><p><% __('Select') %></p></div>
             <div><img src="/data/software/images/install-server-installation.png"></img><p><% __('Install') %></p></div>
