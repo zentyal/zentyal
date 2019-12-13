@@ -86,14 +86,14 @@ sub _table
         ),
         new EBox::Types::Text(
             fieldName     => 'telegramId',
-            printableName => __("Telegram's chat_id"),
+            printableName => __("Telegram chat ID"),
             editable      => 1,
             unique        => 0,
             size          => 30,
         ),
         new EBox::Types::Text(
             fieldName     => 'telegramApiToken',
-            printableName => __("Telegram's bot api token"),
+            printableName => __("Telegram Bot API token"),
             editable      => 1,
             unique        => 0,
             size          => 50,
