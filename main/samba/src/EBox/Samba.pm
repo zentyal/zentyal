@@ -2644,7 +2644,19 @@ sub writeSambaConfig
     $prefix = 'zentyal' unless $prefix;
 
     push (@array, 'prefix' => $prefix);
-    push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
+
+    if ($self->global()->communityEdition()) {
+        push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
+    } else {
+        if ($self->sambaSettingByName('enable_full_audit')) {
+            # If this option is enabled we need to disable the disabler (LOL)
+            push (@array, 'disableFullAudit' => 0);
+        } else {
+            push (@array, 'disableFullAudit' => 1);
+        }
+        
+    }
+
     push (@array, 'unmanagedAcls' => EBox::Config::boolean('unmanaged_acls'));
     push (@array, 'shares' => $self->shares());
 
@@ -3056,6 +3068,18 @@ sub shareByFilename
     }
 
     return undef;
+}
+
+# Method: sambaSettingByName
+#
+#     Get samba parameters by its key name
+#
+sub sambaSettingByName
+{
+    my ($self, $name) = @_;
+    my $val = $self->model('SambaSettings')->value($name);
+
+    return $val; 
 }
 
 sub _cleanModulesForReprovision

@@ -25,13 +25,14 @@ models:
     - ExportGroups
     - ImportUsers
     - ImportGroups
+    - SambaSettings
 
 composites:
     Domain: [DomainSettings, GPOs]
     Settings: [LdapInfo, PAM]
     UserTemplate: []
     RecycleBin: [RecycleDefault, RecycleExceptions]
-    FileSharing: [SambaShares, RecycleBin]
+    FileSharing: [SambaShares, RecycleBin, SambaSettings]
     GPOs: []
     ImportExport: [ExportUsers, ImportUsers, ExportGroups, ImportGroups]
 
