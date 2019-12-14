@@ -105,7 +105,7 @@ keepalive 10 120
 
 # client certificate common name authentication
 % if (defined $tlsRemote) {
-verify-x509-name <% $tlsRemote %> name
+verify-x509-name <% $tlsRemote %> name-prefix
 % }
 
 # For extra security beyond that provided
