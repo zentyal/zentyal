@@ -1,3 +1,6 @@
+HEAD
+	+ Adapt conf template to ubuntu 18.04, fix #1916 
+	+ Prevent log warnings, fix #1915
 6.1
 	+ Fix shared roster and MUC. (fixes #1842)
 6.0
