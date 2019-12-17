@@ -1,4 +1,4 @@
-HEAD
+6.1.2
 	+ Improve upgrade process
 	+ Set to 85% the min value for ram usage before the notification has been triggered
 	+ Remove -x from ram checker script
