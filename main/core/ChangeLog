@@ -1,4 +1,6 @@
 HEAD
+	+ Set to 85% the min value for ram usage before the notification has been triggered
+	+ Remove -x from ram checker script
 	+ Fix several typos
 6.1.1
 	+ Fix repo name

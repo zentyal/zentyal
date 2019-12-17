@@ -1,4 +1,6 @@
-#!/bin/bash -x
+#!/bin/bash
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # Parse version string to integer for ordering
 function calc {
