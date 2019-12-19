@@ -173,20 +173,19 @@ function prepareZentyalRepositories
 {
     wget -qO - $KEYURL | sudo apt-key add -
 
-    sed -ri "/zentyal(.)${CURRV}/d" /etc/apt/sources.list
-    echo "deb http://packages.zentyal.org/zentyal ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal-packages.list
-
     if [ -f '/etc/apt/sources.list.d/zentyal-archive.list' ];
     then
         rm -f /etc/apt/sources.list.d/zentyal-archive.list
-    fi 
-
-    if [ -f $QALIST ];
-    then
-        sed -i 's/archive/packages/g' $QALIST
-        sed -i "s/zentyal-qa ${CURRV}/zentyal-qa ${DESTV}/g" $QALIST
     fi
-    
+
+    if [  -f '/var/lib/zentyal/.commercial-edition' ] && [ -s '/var/lib/zentyal/.license' ];
+    then
+        sed -i "s/zentyal-qa ${CURRV}/zentyal-qa ${DESTV}/g" $QALIST
+    else
+        sed -ri "/zentyal(.)${CURRV}/d" /etc/apt/sources.list
+        echo "deb http://packages.zentyal.org/zentyal ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal-packages.list
+    fi
+
     apt-get update
 }
 
