@@ -14,9 +14,9 @@ Architecture: all
 Pre-Depends: libclamav9, clamav, clamav-base, clamav-daemon, 
             clamav-freshclam, libfile-readbackwards-perl
 Depends: zentyal-core (>= 5.1), zentyal-core (<< 6.0), zentyal-firewall,
-        libclamav9 (= 0.101.4+dfsg-0ubuntu0.16.04.1), clamav (= 0.101.4+dfsg-0ubuntu0.16.04.1), 
-        clamav-base (= 0.101.4+dfsg-0ubuntu0.16.04.1), clamav-daemon (= 0.101.4+dfsg-0ubuntu0.16.04.1), 
-        clamav-freshclam (= 0.101.4+dfsg-0ubuntu0.16.04.1),libfile-readbackwards-perl, ${misc:Depends}
+        libclamav9 (= 0.102.1+dfsg-0ubuntu0.16.04.2), clamav (= 0.102.1+dfsg-0ubuntu0.16.04.2), 
+        clamav-base (= 0.102.1+dfsg-0ubuntu0.16.04.2), clamav-daemon (= 0.102.1+dfsg-0ubuntu0.16.04.2), 
+        clamav-freshclam (= 0.102.1+dfsg-0ubuntu0.16.04.2),libfile-readbackwards-perl, ${misc:Depends}
 Description: Zentyal - Antivirus
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

@@ -1,0 +1,16 @@
+[Unit]
+Description=Executable for On-Access scans
+Requires=clamav-daemon.service
+After=clamav-daemon.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/bin/clamonacc --log=/var/log/clamav/clamonacc.log --foreground
+KillSignal=15
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

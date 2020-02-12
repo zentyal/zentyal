@@ -8,4 +8,6 @@ case "$1" in
        dpkg-trigger --no-await zentyal-core
 esac
 
+# cp /usr/share/zentyal-antivirus/zentyal.antivirus-clamonacc.service /lib/systemd/system/
+
 exit 0
