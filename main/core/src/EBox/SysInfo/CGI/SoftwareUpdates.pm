@@ -63,7 +63,8 @@ sub _process
     if ($qaUpdates) {
         my $msg = $self->_secureMsg();
         $updatesStr = qq{<a title="$msg">$updatesStr</a>};
-    } elsif (not $ignore) {
+    } 
+    if (not $ignore) {
         my $msg = $self->_commercialMsg();
 
         # This fixes wrong information of apt-check
