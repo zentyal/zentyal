@@ -1,3 +1,5 @@
+HEAD
+	+ Fix NS updates. fix #1952
 6.1.1
 	+ Change allow_duplicated_ips to yes. fix #1920 
 	+ Fix issue with semmantic versioning. fix #1925
