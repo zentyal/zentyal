@@ -118,6 +118,9 @@ case "$1" in
         # enable auto-start
         systemctl enable zentyal
 
+        # enable AppArmor
+        systemctl enable apparmor
+
         dpkg-trigger --no-await zentyal-core
     ;;
     triggered)
