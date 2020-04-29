@@ -520,7 +520,7 @@ sub setSmartAdminReportCron
     if (defined $destination) {
         $script .= EBox::Config::scripts() . "smart-admin-report > /usr/share/zentyal/www/smart-admin.report && /usr/sbin/sendmail " . $strings->{mail} . ' < /usr/share/zentyal/www/smart-admin.report >/dev/null 2>&1';
     } else {
-        $script .= EBox::Config::scripts() . "smart-admin-report > /usr/share/zentyal/www/smart-admin.report >/dev/null 2>&1";
+        $script .= EBox::Config::scripts() . "smart-admin-report > /usr/share/zentyal/www/smart-admin.report 2>&1";
     }
   
     my $tmpFile = EBox::Config::tmp() . 'smartadmin_report-cron';
