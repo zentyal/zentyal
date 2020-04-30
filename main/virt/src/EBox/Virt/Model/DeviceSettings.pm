@@ -198,7 +198,7 @@ sub validateTypedRow
             $self->_checkDevicePath($path, 1, __('Hard disk image'));
             my @qcow2Re = (
                 qr/Format:\s+Qcow\s+,\s+Version:\s+2/,
-                qr/QEMU\s+QCOW\s+Image\s+\(v2\)/
+                qr/QEMU\s+QCOW\s+Image\s+\(v[2-3]\)/
                );
             unless (_checkFileOutput($path, @qcow2Re)) {
                 throw EBox::Exceptions::External(
