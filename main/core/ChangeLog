@@ -1,4 +1,5 @@
 HEAD
+	+ Fix wrong exit code from zentyal cron job
 	+ Fix wrong redirection in smart admin report generation
 	+ Add AppArmor as enabled service
 	+ Add AppArmor as dependency
