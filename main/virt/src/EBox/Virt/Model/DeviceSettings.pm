@@ -372,32 +372,25 @@ sub deletedRowNotify
 sub viewCustomizer
 {
     my ($self) = @_;
-
     my $customizer = new EBox::View::Customizer();
+
     $customizer->setModel($self);
-
     $customizer->setHTMLTitle([]);
-
-    my @onlyCd = ( 'useDevice', 'path' );
-    my @onlyHd = ( 'disk_action', 'name', 'size' );
     $customizer->setOnChangeActions(
-            {
-              type =>
-                {
-                  'cd' => { show => \@onlyCd,  hide => \@onlyHd },
-                  'hd' => { show  => \@onlyHd, hide =>\@onlyCd },
-
-                },
-              disk_action =>
-                {
-                  'create' => { show => [ 'name', 'size' ], hide => [ 'path' ] },
-                  'use' => { show  => [ 'path' ], hide => [ 'name', 'size' ] },
-                },
-              useDevice =>  {
-                   on  => { hide => ['path']  },
-                   off => { show => ['path' ]},
-               },
-            });
+        {
+            type => {
+                'cd' => { show => [ 'useDevice', 'path' ],  hide => [ 'disk_action', 'name', 'size' ] },
+                'hd' => { show  => [ 'disk_action', 'name', 'path' ], hide => [ 'useDevice' ] },
+            },
+            disk_action => {
+                'create' => { show => [ 'name', 'size' ], hide => [ 'path' ] },
+                'use' => { show  => [ 'path' ], hide => [ 'name', 'size' ] },
+            },
+            useDevice => {
+                on  => { hide => ['path'] },
+                off => { show => ['path' ]},
+            },
+        });
 
     $customizer->setInitHTMLStateOrder(['type', 'disk_action']);
 
