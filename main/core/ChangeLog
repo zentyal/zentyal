@@ -3,7 +3,7 @@ HEAD
 	+ Improve Smart Admin report
 	+ Fix wrong exit code from zentyal cron job
 	+ Fix wrong redirection in smart admin report generation
-	+ Add AppArmor as enabled service
+	+ Add AppArmor as disabled service (waiting for new profiles)
 	+ Add AppArmor as dependency
 6.1.2
 	+ Improve upgrade process
