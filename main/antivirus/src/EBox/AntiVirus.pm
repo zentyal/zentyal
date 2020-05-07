@@ -156,7 +156,15 @@ sub usedFiles
 
 sub _daemons
 {
-    return [ { name => 'clamav-daemon' } ];
+    return [ 
+        { 
+            name => 'clamav-daemon' 
+        },
+        {   
+            name => 'zentyal.antivirus-clamonacc.service',
+            type => 'systemd',
+        },
+    ];
 }
 
 # Method: _daemonsToDisable
@@ -167,7 +175,16 @@ sub _daemons
 #
 sub _daemonsToDisable
 {
-    return [ { 'name' => 'clamav-freshclam', 'type' => 'init.d' } ];
+    return [ 
+        {
+            'name' => 'clamav-freshclam',
+            'type' => 'init.d' 
+        },
+        {
+            'name' => 'zentyal.antivirus-clamonacc.service',
+            'type' => 'systemd'
+        },
+    ];
 }
 
 

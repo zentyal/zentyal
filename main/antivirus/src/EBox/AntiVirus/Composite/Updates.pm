@@ -45,7 +45,7 @@ sub _description
 
 sub permanentMessage
 {
-    my $events = `bash -c "grep -h 'Database updated' /var/log/clamav/freshclam.log{.1,}|sed 's/ from.*//'|tac"`;
+    my $events = `bash -c "egrep -h '(main|daily|bytecode)(.cvd|.cld) updated' /var/log/clamav/freshclam.log{.1,}|tac"`;
     my $msg = '<h3>' . __('Last Database Updates') . '</h3>';
     $msg .= $events ? '<pre>' . $events . '</pre>' : '<p>' .__('No recent updates.') . '</p>';
     return $msg;
