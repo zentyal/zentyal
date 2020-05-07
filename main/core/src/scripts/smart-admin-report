@@ -167,7 +167,7 @@ function system_check () {
 
 	for user in $(ls /var/mail/); do
 		echo -n "Number of emails for user '${user}': "
-			grep 'From' /var/mail/${user} | wc -l | awk '{print $1}'
+		grep 'Message-Id:' /var/mail/${user} | wc -l
 	done
 
 
