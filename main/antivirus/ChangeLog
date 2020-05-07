@@ -1,4 +1,5 @@
 HEAD
+	+ Improve zentyal.antivirus-clamonacc service management
 	+ Add new scripts to freshclam's apparmor profile
 	+ Remove ScanOnAccess in favor of OnAccessExcludeUname
 	+ Add new systemd service for antivirus-clamonacc
