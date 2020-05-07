@@ -1,4 +1,5 @@
 HEAD
+	+ Fix VM manage command to exit with status code 0 when the VM is finished in less than 30 seconds
 	+ Fix VM devices edit form
 	+ Fix VM shutdown
 	+ Fix vm hard disk version
