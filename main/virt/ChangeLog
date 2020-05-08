@@ -1,4 +1,4 @@
-HEAD
+6.1.1
 	+ Improve device settings
 	+ Fix VM manage command to exit with status code 0 when the VM is finished in less than 30 seconds
 	+ Fix VM devices edit form
