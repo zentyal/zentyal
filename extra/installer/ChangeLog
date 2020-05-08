@@ -1,3 +1,5 @@
+HEAD
+    + Based in ubuntu 18.04.4
 6.1
     + Update public key in seed file
     + Remove 11_patch_apt-setup.sh because is no longer needed
