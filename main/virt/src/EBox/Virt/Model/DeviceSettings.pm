@@ -42,6 +42,7 @@ use constant MAX_SCSI_NUM => 16;
 sub _populateDriveTypes
 {
     return [
+            { value => '', printableValue => '--' },
             { value => 'hd', printableValue => __('Hard Disk') },
             { value => 'cd', printableValue => 'CD/DVD' },
     ];
@@ -70,6 +71,7 @@ sub _table
                                printableName => __('Drive Type'),
                                populate      => \&_populateDriveTypes,
                                editable      => 1,
+                               disasbleCache  => 1,
                               ),
        new EBox::Types::Select(
                                fieldName      => 'disk_action',
@@ -77,6 +79,7 @@ sub _table
                                populate       => \&_populateDiskAction,
                                editable       => 1,
                                hiddenOnViewer => 1,
+                               disasbleCache  => 1,
                               ),
        new EBox::Types::Text(
                              fieldName     => 'name',
@@ -375,23 +378,22 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
 
     $customizer->setModel($self);
-    $customizer->setHTMLTitle([]);
-    $customizer->setOnChangeActions(
-        {
-            type => {
-                'cd' => { show => [ 'useDevice', 'path' ],  hide => [ 'disk_action', 'name', 'size' ] },
-                'hd' => { show  => [ 'disk_action', 'name', 'path' ], hide => [ 'useDevice' ] },
-            },
-            disk_action => {
-                'create' => { show => [ 'name', 'size' ], hide => [ 'path' ] },
-                'use' => { show  => [ 'path' ], hide => [ 'name', 'size' ] },
-            },
-            useDevice => {
-                on  => { hide => ['path'] },
-                off => { show => ['path' ]},
-            },
-        });
+    $customizer->setOnChangeActions({
+		type => {
+            ''   => { show => [], hide => ['disk_action','name', 'path', 'size', 'useDevice' ]},
+			'cd' => { show => [ 'useDevice', 'path' ],  hide => [ 'disk_action', 'name', 'size' ] },
+			'hd' => { show  => [ 'disk_action', 'name', 'path' ], hide => [ 'useDevice' ]  },
 
+		},
+        disk_action => {
+            'create' => { show => [ 'disk_action', 'name', 'size' ], hide => [ 'path', 'useDevice' ] },
+            'use' => { show  => [ 'disk_action', 'path', 'name' ], hide => [ 'size', 'useDevice'] },
+        },
+        useDevice =>  {
+            on  => { hide => ['path']  },
+            off => { show => ['path' ]},
+        },
+    });
     $customizer->setInitHTMLStateOrder(['type', 'disk_action']);
 
     return $customizer;
