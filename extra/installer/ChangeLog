@@ -1,5 +1,9 @@
-HEAD
-    + Based in ubuntu 18.04.4
+6.2.0
+    + Update zenbuntu-core, zenbuntu-desktop and zinstaller-headless to 6.2.0
+    + Update GPG signing key for packages.zentyal.org
+    + Update splash and plymmouth with the new logos
+    + Add new version for packages.zentyal.org
+    + Based on ubuntu 18.04.4
 6.1
     + Update public key in seed file
     + Remove 11_patch_apt-setup.sh because is no longer needed
