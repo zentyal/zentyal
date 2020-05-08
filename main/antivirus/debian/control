@@ -11,7 +11,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-antivirus
 Architecture: all
-Depends: zentyal-core (>= 6.1), zentyal-core (<< 6.2), zentyal-firewall,
+Depends: zentyal-core (>= 6.2.0), zentyal-core (<< 7.0.0), zentyal-firewall,
          libclamav9 (= 0.102.2+dfsg-0ubuntu0.18.04.1), clamav (= 0.102.2+dfsg-0ubuntu0.18.04.1), 
          clamav-base (= 0.102.2+dfsg-0ubuntu0.18.04.1), clamav-daemon (= 0.102.2+dfsg-0ubuntu0.18.04.1), 
          clamav-freshclam (= 0.102.2+dfsg-0ubuntu0.18.04.1),libfile-readbackwards-perl, ${misc:Depends}	

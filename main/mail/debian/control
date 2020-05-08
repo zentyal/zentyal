@@ -12,7 +12,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 Package: zentyal-mail
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 6.1), zentyal-core (<< 6.2), zentyal-samba,
+Depends: zentyal-core (>= 6.2.0), zentyal-core (<< 7.0.0), zentyal-samba,
          postfix, postfix-ldap, postfix-pcre, ssl-cert, libsasl2-modules, dovecot-common,
          dovecot-imapd, dovecot-pop3d, dovecot-sieve, dovecot-managesieved, dovecot-ldap,
          dovecot-gssapi, dovecot-sqlite, postgrey, fetchmail, archivemail, libcrypt-rijndael-perl,
