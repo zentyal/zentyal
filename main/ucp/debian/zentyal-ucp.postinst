@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        /usr/share/zentyal/initial-setup ucp $2
+
+        dpkg-trigger --no-await zentyal-core
+    ;;
+esac
+
+exit 0
