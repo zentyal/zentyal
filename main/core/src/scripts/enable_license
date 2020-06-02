@@ -1,0 +1,108 @@
+#!/bin/bash
+
+# Preparing files to persist the response data
+LK_CODE_FILE="/var/lib/zentyal/.license"
+LK_ID_FILE="/var/lib/zentyal/.license_id"
+LK_TYPE_FILE="/var/lib/zentyal/.license_type"
+LK_EXPIRATION_FILE="/var/lib/zentyal/.license_expiration"
+LK_USERS_FILE="/var/lib/zentyal/.license_users"
+LK_STATUS_FILE="/var/lib/zentyal/.license_status"
+SERVER_HASH_FILE="/var/lib/zentyal/.server_hash"
+UCP_COMM_CLIENT_ID_FILE="/var/lib/zentyal/.ucp_comm_id"
+UCP_COMM_CLIENT_SECRET_FILE="/var/lib/zentyal/.ucp_comm_secret"
+RESPONSE_DATA_FILE_TMP=$(mktemp /tmp/XXXXXXX)
+
+# Preparing request data
+SERVER_UUID=$(cat /sys/class/dmi/id/product_uuid)
+SERVER_VERSION=$(/usr/share/zentyal/shell EBox::Config::version)
+LK=$1
+
+if [ -z $LK ]
+then 
+	LK=$(cat $LK_CODE_FILE)
+
+	if [ $LK == "ACTIVATION-REQUIRED" ]
+	then
+		echo "Usage: $0 XXXXX-XXXXX-XXXXX-XXXXX"
+		exit 126;
+	fi
+	exit 1
+else
+	if ! echo "$LK" | grep -E -q "^[A-Z0-9]{5}-[A-Z0-9]{5}.[A-Z0-9]{5}-[A-Z0-9]{5}$"
+	then
+		echo "Invalid key format."
+		echo "Make sure your license matchs the following format: XXXXX-XXXXX-XXXXX-XXXXX"
+		exit 1
+	fi
+	if [ $LK == $(cat $LK_CODE_FILE) ]
+	then
+		exit 0
+	fi
+fi
+
+# Preparing the data with JSON encoding
+JSON_STRING=$( jq -n \
+                  --arg lk "$LK" \
+                  --arg pc "$SERVER_UUID" \
+				  --arg v "ZS$SERVER_VERSION" \
+                  '{
+                      lk: $lk,
+                      server_uuid: $pc,
+					  server_version: $v
+                    }' 
+            )
+
+# Run the request to "activate the license"
+REQUEST=$(/usr/bin/curl --silent -X POST -H "Content-Type: application/json" -d "$JSON_STRING" https://ucp.zentyal.com/api/lk/activate -w "%{http_code}" -o $RESPONSE_DATA_FILE_TMP)
+
+if [ $REQUEST -eq "200" ]; then
+	# Persisting LK data in a system file
+	LK_DATA=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".data")
+
+	# Gets the expiration date and persisting the expiration date in a system file
+	LK_EXPIRATION=$(echo $LK_DATA | jq -r ".expiration_date")
+	echo $LK_EXPIRATION > $LK_EXPIRATION_FILE
+
+	# Gets the license type
+	LK_TYPE=$(echo $LK_DATA | jq -r ".license_key_type.code")
+	echo $LK_TYPE > $LK_TYPE_FILE
+
+	# Gets the number of users for this license and persisting in a system file
+	LK_USERS=$(echo $LK_DATA | jq -r ".users")
+	echo $LK_USERS > $LK_USERS_FILE
+
+	# Get the license key status id
+	LK_STATUS=$(echo $LK_DATA | jq -r ".status")
+	echo $LK_STATUS > $LK_STATUS_FILE
+
+	# Gets the lk hash
+	SERVER_HASH=$(echo $LK_DATA | jq -r ".server_hash")
+	echo $SERVER_HASH > $SERVER_HASH_FILE
+
+	# Get the license key ID
+	LK_ID=$(echo $LK_DATA | jq -r ".id")
+
+	# Get the oauth machine to machine client id
+	UCP_CLIENT_ID=$(echo $LK_DATA | jq -r ".oaut_client.id")
+	echo $UCP_CLIENT_ID > $UCP_COMM_CLIENT_ID_FILE
+
+	# Get the ucp machine to machine secret
+	UCP_CLIENT_SECRET=$(echo $LK_DATA | jq -r ".oaut_client.secret")
+	echo $UCP_CLIENT_SECRET > $UCP_COMM_CLIENT_SECRET_FILE
+
+	# Save the license key code
+	LK_CODE=$(echo $LK_DATA | jq -r ".code")
+	echo $LK_CODE > $LK_CODE_FILE
+	check_license
+	echo "machine packages.zentyal.com login $LK_CODE password $SERVER_HASH" > /etc/apt/auth.conf
+
+	touch /var/lib/zentyal/.commercial-edition
+	logger UCP[$$] INFO: License key $LK_CODE was enabled.
+	exit 0;
+else
+	LK_ERR=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".data.error")
+	RES_MSG=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".message")
+	logger UCP[$$] ERROR: $RES_MSG.
+	logger UCP[$$] ERROR: Something was wrong. $LK_ERR.
+	exit 1;
+fi

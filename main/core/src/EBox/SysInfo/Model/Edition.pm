@@ -64,12 +64,18 @@ sub _table
             $users = __('Unlimited');
         }
 
-        my $html = '<p><label>' . __('Server edition') . "</label>$edition</p>";
-        $html .= '<p><label>' . __('Users') . "</label>$users</p>";
-        $html .= '<p><label>' . __('Renovation date') . "</label>$date</p>";
-
-        push (@tableHead, new EBox::Types::HTML(fieldName => 'info',
-                                                defaultValue => $html));
+        push (@tableHead, new EBox::Types::HTML(fieldName => 'edition-label',
+                                                defaultValue => '<p><label>' . __('Server edition') . "</label><p>"));
+        push (@tableHead, new EBox::Types::HTML(fieldName => 'edition',
+                                                defaultValue => '<p>'.$edition.'</p>'));
+        push (@tableHead, new EBox::Types::HTML(fieldName => 'users-label',
+                                                defaultValue => '<p><label>' . __('Users') . "</label><p>"));
+        push (@tableHead, new EBox::Types::HTML(fieldName => 'users',
+                                                defaultValue => '<p>'.$users.'</p>'));
+        push (@tableHead, new EBox::Types::HTML(fieldName => 'date-label',
+                                                defaultValue => '<p><label>' . __('Renovation date') . "</label><p>"));
+        push (@tableHead, new EBox::Types::HTML(fieldName => 'date',
+                                                defaultValue => '<p>'.$date.'</p>'));
     }
 
     push (@tableHead, new EBox::Types::Text(fieldName     => 'key',
@@ -96,8 +102,11 @@ sub validateTypedRow
     my ($self, $action, $changed, $all) = @_;
 
     my $key = defined $changed->{key} ? $changed->{key}->value() : $all->{key}->value();
-    EBox::Sudo::silentRoot("wget --user=$key --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep Index");
+    # FIXME/TODO: Change by the new script enable_license
+    # EBox::Sudo::silentRoot("wget --user=$key --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep Index");
+    EBox::Sudo::silentRoot("/usr/share/zentyal/enable_license ".$key);
     if ($? != 0) {
+    # END FIXME/TODO
         if (substr($key, 0, 2) eq 'NS') {
             EBox::Sudo::silentRoot("wget --user=$key --password=lk archive.zentyal.com/zentyal-qa/ -O- 2>&1 | grep '401 Authorization Required'");
             if ($? == 0) {

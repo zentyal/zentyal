@@ -1,0 +1,16 @@
+[Unit]
+Description=Zentyal license manager service
+Requires=clamav-daemon.service
+After=clamav-daemon.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=echo "test"
+KillSignal=15
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
