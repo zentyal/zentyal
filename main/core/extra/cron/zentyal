@@ -11,9 +11,6 @@ if [ $(/usr/share/zentyal/shell '$global->edition()') == "trial-expired" ]; then
   zs restart >/dev/null
 fi
 
-# Stop services if expired
-[ $(/usr/share/zentyal/shell '$global->edition()') == "trial-expired" ] && zs restart >/dev/null
-
 if [ -f '/var/lib/zentyal/.commercial-edition' ]; then
   /usr/share/zentyal/check_license
 fi

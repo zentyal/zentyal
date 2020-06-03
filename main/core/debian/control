@@ -35,7 +35,7 @@ Depends: adduser, anacron, cracklib-runtime, cron, dbus, debconf, gpgv,
          libdatetime-timezone-perl, libyaml-libyaml-perl,
          mysql-server, nginx, nmap, update-notifier-common, libpam-cap,
          openssl, redis-server (>= 2:2.8.4), uwsgi-plugin-psgi,
-         apt-transport-https, libdate-calc-xs-perl, screen, at,
+         apt-transport-https, libdate-calc-xs-perl, screen, at, jq,
          ${misc:Depends}
 Description: Zentyal - Core
  Zentyal is a Linux small business server that can act as
