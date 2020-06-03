@@ -1187,8 +1187,13 @@ sub edition
     }
 
     my ($level, $users, $exp_date) = $self->_decodeLicense($key);
-    my $file = read_file('/var/lib/zentyal/.license_status');
-    my $status = decode_json($file);
+    my $status;
+    my $file;
+
+    if (-e '/var/lib/zentyal/.license_status') {
+        $file = read_file('/var/lib/zentyal/.license_status');
+        $status = decode_json($file);
+    }
 
     if (not defined ($level) or not defined ($exp_date)) {
         return 'community';
@@ -1404,9 +1409,23 @@ sub _decodeLicense
     if (@parts != 4) {
         return (undef, undef, undef);
     }
+    my $level, 
+    my $users;
+    my $date;
 
-    my $level = read_file('/var/lib/zentyal/.license_type');
-    chomp($level);
+    if (-e '/var/lib/zentyal/.license_users' &&
+        -e '/var/lib/zentyal/.license_expiration' &&
+        -e '/var/lib/zentyal/.license_type') {
+        $level = read_file('/var/lib/zentyal/.license_type');
+        chomp($level);
+        $users = read_file('/var/lib/zentyal/.license_users');
+        chomp($users);
+        $date = read_file('/var/lib/zentyal/.license_expiration');
+        chomp($date);
+    } else {
+        return (undef, undef, undef);
+    }
+    
     if ($level eq'TR') {
         $level = "trial";
     } elsif ($level eq 'PF') {
@@ -1421,10 +1440,7 @@ sub _decodeLicense
         $level = "premium";
     }
 
-    my $users = read_file('/var/lib/zentyal/.license_users');
-    chomp($users);
-    my $date = read_file('/var/lib/zentyal/.license_expiration');
-    chomp($date);
+    
     my $exp_date = Time::Piece->strptime("$date", "%Y-%m-%d");
     my $date_str = $exp_date->strftime("%Y-%m-%d");
 

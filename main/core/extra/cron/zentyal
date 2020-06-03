@@ -7,9 +7,17 @@ DEST="/var/lib/zentyal/latestversion"
 wget --timeout $TIMEOUT $URL -O $DEST >/dev/null 2>&1
 
 # Stop services if commercial trial expired
-[ $(/usr/share/zentyal/shell '$global->edition()') == "trial-expired" ] && zs restart >/dev/null
-
-# Stop services if commercial trial expired
 if [ $(/usr/share/zentyal/shell '$global->edition()') == "trial-expired" ]; then
   zs restart >/dev/null
+fi
+
+# Stop services if expired
+[ $(/usr/share/zentyal/shell '$global->edition()') == "trial-expired" ] && zs restart >/dev/null
+
+if [ -f '/var/lib/zentyal/.commercial-edition' ]; then
+  /usr/share/zentyal/check_license
+fi
+
+if [ $? == 1 ]; then
+  zs webadmin stop
 fi

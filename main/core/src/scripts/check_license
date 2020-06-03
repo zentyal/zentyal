@@ -7,7 +7,7 @@ LK_TYPE_FILE="/var/lib/zentyal/.license_type"
 LK_EXPIRATION_FILE="/var/lib/zentyal/.license_expiration"
 LK_USERS_FILE="/var/lib/zentyal/.license_users"
 LK_STATUS_FILE="/var/lib/zentyal/.license_status"
-SERVER_HASH_FILE="/var/lib/zentyal/.server_hash"
+SERVER_HASH_FILE="/var/lib/zentyal/.server_uuid"
 UCP_COMM_CLIENT_ID_FILE="/var/lib/zentyal/.ucp_comm_id"
 UCP_COMM_CLIENT_SECRET_FILE="/var/lib/zentyal/.ucp_comm_secret"
 RESPONSE_DATA_FILE_TMP=$(mktemp /tmp/XXXXXXX)
@@ -48,7 +48,7 @@ if [ $REQUEST -eq "200" ]; then
 	echo $LK_STATUS > $LK_STATUS_FILE
 
 	# Gets the lk hash
-	SERVER_HASH=$(echo $LK_DATA | jq -r ".server_hash")
+	SERVER_HASH=$(echo $LK_DATA | jq -r ".server_uuid")
 	echo $SERVER_HASH > $SERVER_HASH_FILE
 	
 	# Get the license key ID

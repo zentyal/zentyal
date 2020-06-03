@@ -102,11 +102,8 @@ sub validateTypedRow
     my ($self, $action, $changed, $all) = @_;
 
     my $key = defined $changed->{key} ? $changed->{key}->value() : $all->{key}->value();
-    # FIXME/TODO: Change by the new script enable_license
-    # EBox::Sudo::silentRoot("wget --user=$key --password=lk archive.zentyal.com/zentyal-qa/ -O- | grep Index");
     EBox::Sudo::silentRoot("/usr/share/zentyal/enable_license ".$key);
     if ($? != 0) {
-    # END FIXME/TODO
         if (substr($key, 0, 2) eq 'NS') {
             EBox::Sudo::silentRoot("wget --user=$key --password=lk archive.zentyal.com/zentyal-qa/ -O- 2>&1 | grep '401 Authorization Required'");
             if ($? == 0) {
@@ -127,7 +124,6 @@ sub validateTypedRow
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
-
     my $key = $self->row->valueByName('key');
     EBox::Sudo::root("echo '$key' > /var/lib/zentyal/.license");
     my $webadmin = EBox::Global->modInstance('webadmin');

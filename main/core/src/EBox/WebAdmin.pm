@@ -595,8 +595,11 @@ sub _setEdition
         if (substr($lk, 0, 2) eq 'NS') {
             $version .= '-nss';
         }
-        my $hash = read_file('/var/lib/zentyal/.server_hash');
-        chomp ($hash);
+        my $hash;
+        if (-f '/var/lib/zentyal/.server_uuid') {
+            $hash = read_file('/var/lib/zentyal/.server_uuid');
+            chomp ($hash);
+        }
         push (@cmds,
             "echo 'deb https://packages.zentyal.com/zentyal-qa $version main' > /etc/apt/sources.list.d/zentyal-qa.list",
             "echo 'machine packages.zentyal.com login $lk password $hash' > /etc/apt/auth.conf",
