@@ -1,5 +1,10 @@
 #!/bin/bash
 
+CURMAJORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f1`
+CURMINORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f2`
+CURV="${CURMAJORV}.${CURMINORV}"
+KEYURL="keys.zentyal.org/zentyal-${CURV}-packages-com.asc"
+
 # Preparing files to persist the response data
 LK_CODE_FILE="/var/lib/zentyal/.license"
 LK_ID_FILE="/var/lib/zentyal/.license_id"
@@ -16,6 +21,20 @@ RESPONSE_DATA_FILE_TMP=$(mktemp /tmp/XXXXXXX)
 SERVER_UUID=$(cat /sys/class/dmi/id/product_uuid)
 SERVER_VERSION=$(/usr/share/zentyal/shell EBox::Config::version)
 LK=$1
+
+function checkGPG
+{
+	logger UCP[$$] INFO: Looking for gnupg package...
+    dpkg -s gnupg &> /dev/null
+    if [ $? -eq 0 ]; 
+    then
+        logger UCP[$$] INFO: gnupg already installed
+    else
+        logger UCP[$$] INFO: gnupg is NOT installed! Trying to install it...
+        apt-get install gnupg -y
+		wget -qO - $KEYURL | sudo apt-key add -
+    fi
+}
 
 if [ -z $LK ]
 then 
@@ -98,6 +117,7 @@ if [ $REQUEST -eq "200" ]; then
 
 	touch /var/lib/zentyal/.commercial-edition
 	logger UCP[$$] INFO: License key $LK_CODE was enabled.
+	checkGPG
 	exit 0;
 else
 	LK_ERR=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".data.error")
