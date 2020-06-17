@@ -1438,9 +1438,16 @@ sub _decodeLicense
         $level = "commercial";
     } elsif ($level eq 'NS') {
         $level = "premium";
+    } elsif ($level = "LC_MC") {
+        $level = "commercial";
+    } elsif ($level = "LC_SM") {
+        $level = "commercial";
+    } elsif ($level = "LC_MD") {
+        $level = "commercial";
+    } elsif ($level = "LC_EN") {
+        $level = "commercial";
     }
 
-    
     my $exp_date = Time::Piece->strptime("$date", "%Y-%m-%d");
     my $date_str = $exp_date->strftime("%Y-%m-%d");
 
