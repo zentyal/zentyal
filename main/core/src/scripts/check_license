@@ -1,5 +1,5 @@
 #!/bin/bash
-# Debo meterlo en /cron/zentyal
+
 # Preparing files to persist the response data
 LK_CODE_FILE="/var/lib/zentyal/.license"
 LK_ID_FILE="/var/lib/zentyal/.license_id"
