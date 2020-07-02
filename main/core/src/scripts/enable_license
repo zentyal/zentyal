@@ -32,8 +32,9 @@ function checkGPG
     else
         logger UCP[$$] INFO: gnupg is NOT installed! Trying to install it...
         apt-get install gnupg -y
-		wget -qO - $KEYURL | sudo apt-key add -
     fi
+	# Importing key
+	wget -qO - $KEYURL | sudo apt-key add -
 }
 
 if [ -z $LK ]
