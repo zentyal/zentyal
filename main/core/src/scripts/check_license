@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Preparing files to persist the response data
 LK_CODE_FILE="/var/lib/zentyal/.license"
 LK_ID_FILE="/var/lib/zentyal/.license_id"
 LK_TYPE_FILE="/var/lib/zentyal/.license_type"
@@ -45,6 +44,8 @@ if [ $REQUEST -eq "200" ]; then
 
 	# Get the license key status id
 	LK_STATUS=$(echo $LK_DATA | jq -r ".status")
+	LK_STATUS_CODE=$(echo $LK_DATA | jq -r ".status.code")
+	LK_STATUS_LABEL=$(echo $LK_DATA | jq -r ".status.label")
 	echo $LK_STATUS > $LK_STATUS_FILE
 
 	# Gets the lk hash
@@ -66,16 +67,43 @@ if [ $REQUEST -eq "200" ]; then
 	LK_CODE=$(echo $LK_DATA | jq -r ".code")
 	echo $LK_CODE > $LK_CODE_FILE
 
+	# exit codes according to /usr/include/sysexits.h
+	echo LK_STATUS
 	touch /var/lib/zentyal/.commercial-edition
-	logger UCP[$$] INFO: License key $LK_CODE is valid.
 	zs webadmin restart
+	
+	if [ $LK_STATUS_CODE -eq "L_ACTIVE" ]; then
+		logger UCP[$$] INFO: License key $LK_CODE is valid.
+		exit 0;
 
-	exit 0;
+	elif [ $LK_STATUS_CODE -eq "L_INACTIVE" ]; then
+		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is valid.
+		exit 0;
+
+	elif [ $LK_STATUS_CODE -eq "L_DUPLICATED" ]; then
+		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
+		exit 77;
+
+	elif [ $LK_STATUS_CODE -eq "L_DISABLED" ]; then
+		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
+		exit 77;
+
+	elif [ $LK_STATUS_CODE -eq "L_EXPIRED" ]; then
+		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
+		exit 77;
+
+	elif [ $LK_STATUS_CODE -eq "L_CANCELLED" ]; then
+		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
+		exit 77;
+	else
+		logger UCP[$$] INFO: The license key status is unknow, nothing to do.
+		exit 1;
+	fi
 else
 	LK_ERR=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".data.error")
 	RES_MSG=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".message")
-	echo '{ "code": "L_INVALID", "label": "Invalid" }' > $LK_STATUS_FILE
+
 	logger UCP[$$] ERROR: $RES_MSG.
-	logger UCP[$$] ERROR: License key not valid. $LK_ERR.
-	exit 1;
+	logger UCP[$$] ERROR: The connection with UCP cannot be established or the service is not available. $LK_ERR.
+	exit 0;
 fi
