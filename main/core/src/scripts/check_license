@@ -72,27 +72,27 @@ if [ $REQUEST -eq "200" ]; then
 	touch /var/lib/zentyal/.commercial-edition
 	zs webadmin restart
 	
-	if [ $LK_STATUS_CODE -eq "L_ACTIVE" ]; then
+	if [ $LK_STATUS_CODE == "L_ACTIVE" ]; then
 		logger UCP[$$] INFO: License key $LK_CODE is valid.
 		exit 0;
 
-	elif [ $LK_STATUS_CODE -eq "L_INACTIVE" ]; then
+	elif [ $LK_STATUS_CODE == "L_INACTIVE" ]; then
 		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is valid.
 		exit 0;
 
-	elif [ $LK_STATUS_CODE -eq "L_DUPLICATED" ]; then
+	elif [ $LK_STATUS_CODE == "L_DUPLICATED" ]; then
 		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
 		exit 77;
 
-	elif [ $LK_STATUS_CODE -eq "L_DISABLED" ]; then
+	elif [ $LK_STATUS_CODE == "L_DISABLED" ]; then
 		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
 		exit 77;
 
-	elif [ $LK_STATUS_CODE -eq "L_EXPIRED" ]; then
+	elif [ $LK_STATUS_CODE == "L_EXPIRED" ]; then
 		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
 		exit 77;
 
-	elif [ $LK_STATUS_CODE -eq "L_CANCELLED" ]; then
+	elif [ $LK_STATUS_CODE == "L_CANCELLED" ]; then
 		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
 		exit 77;
 	else
