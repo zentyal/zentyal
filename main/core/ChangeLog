@@ -1,3 +1,5 @@
+HEAD
+	+ Improve the release upgrade script
 6.1.4
 	+ Fix several typos in update manager
 	+ Stop and disable apparmor by debault for legacy compat
