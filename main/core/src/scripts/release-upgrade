@@ -13,6 +13,7 @@ DESTMINOR=`wget --quiet -O - http://update.zentyal.org/update-from-${CURMAJORV}.
 CURRV="${CURMAJORV}.${CURMINORV}"
 DESTV="${DESTMAJOR}.${DESTMINOR}"
 KEYURL="keys.zentyal.org/zentyal-${DESTV}-packages.asc"
+KEYCOMURL="keys.zentyal.org/zentyal-${DESTV}-packages-com.asc"
 
 
 RED='\033[0;31m'
@@ -171,21 +172,35 @@ function upgrade
 
 function prepareZentyalRepositories
 {
-    wget -qO - $KEYURL | sudo apt-key add -
-
     if [ -f '/etc/apt/sources.list.d/zentyal-archive.list' ];
     then
         rm -f /etc/apt/sources.list.d/zentyal-archive.list
     fi
 
-    if [  -f '/var/lib/zentyal/.commercial-edition' ] && [ -s '/var/lib/zentyal/.license' ];
-    then
-        sed -i "s/zentyal-qa ${CURRV}/zentyal-qa ${DESTV}/g" $QALIST
-    else
-        sed -ri "/zentyal(.)${CURRV}/d" /etc/apt/sources.list
-        echo "deb http://packages.zentyal.org/zentyal ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal-packages.list
-    fi
+    wget -qO - $KEYURL | sudo apt-key add -
 
+    sed -ri "/zentyal(.)${CURRV}/d" /etc/apt/sources.list
+    echo "deb http://packages.zentyal.org/zentyal ${DESTV} main extra" >> /etc/apt/sources.list
+
+    apt-get update
+}
+
+function prepareZentyalRepositoriesCommercial
+{
+    if [ -f '/etc/apt/sources.list.d/zentyal-archive.list' ];
+    then
+        rm -f /etc/apt/sources.list.d/zentyal-archive.list
+    fi
+ 
+    wget -qO - $KEYURL | apt-key add -
+    wget -qO - $KEYCOMURL | apt-key add -
+    
+    sed -i "/zentyal-qa/d" $QALIST
+    rm /etc/apt/auth.conf
+    rm /etc/apt/apt.conf.d/99zentyal
+    
+    echo "deb http://packages.zentyal.org/zentyal ${DESTV} main extra" >> /etc/apt/sources.list
+    
     apt-get update
 }
 
@@ -245,6 +260,8 @@ function finishUpgrade
     apt-get clean
 
     touch $UPGRADE_FILE
+
+    echo 'ACTIVATION-REQUIRED' > /var/lib/zentyal/.license
 }
 
 echo; echo -e "${YELLOW}*** Preparing your system for the upgrade...${NC}"; echo
@@ -255,7 +272,13 @@ upgrade
 
 echo; echo -e "${YELLOW}*** Preparing for upgrade to Zentyal ${DESTV}...${NC}"; echo
 apt-get purge -y ubuntu-minimal # remove unnecessary metapackage to avoid it from being kept back and appear as available update
-prepareZentyalRepositories
+
+if [  -f '/var/lib/zentyal/.commercial-edition' ] && [ -s '/var/lib/zentyal/.license' ];
+then
+    prepareZentyalRepositoriesCommercial
+else
+    prepareZentyalRepositories
+fi
 configureRedis # workaround Redis crash during dist-upgrade
 
 echo; echo -e "${YELLOW}*** Upgrading Zentyal from ${CURMAJORV}.${CURMINORV} to ${DESTMAJOR}.${DESTMINOR}...${NC}"; echo
