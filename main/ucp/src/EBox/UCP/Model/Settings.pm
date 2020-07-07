@@ -46,15 +46,15 @@ sub _table
             fieldName => 'apiId',
             printableName => __('Your API id.'),
             editable => 1,
-            size => '8',
+            size => '30',
             help => __("Your UCP client's id."),
         ),
         new EBox::Types::Text(
             fieldName => 'apiKey',
             printableName => __('API key'),
             editable => 1,
-            size => '250',
-            help => __("Your UCP client's id."),
+            size => '30',
+            help => __("Your UCP client's key."),
         ),
     );
 
