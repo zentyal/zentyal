@@ -261,7 +261,10 @@ function finishUpgrade
 
     touch $UPGRADE_FILE
 
-    echo 'ACTIVATION-REQUIRED' > /var/lib/zentyal/.license
+    if [  -f '/var/lib/zentyal/.commercial-edition' ] && [ -s '/var/lib/zentyal/.license' ];
+    then
+        echo 'ACTIVATION-REQUIRED' > /var/lib/zentyal/.license
+    fi
 }
 
 echo; echo -e "${YELLOW}*** Preparing your system for the upgrade...${NC}"; echo
