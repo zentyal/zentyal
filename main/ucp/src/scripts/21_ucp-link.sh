@@ -9,7 +9,7 @@ LK=$(cat /var/lib/zentyal/.license)
 # The UUID that is going to be used to the remote login
 UUID=$(cat /var/lib/zentyal/.uuid) 
 # The cmd to run the tunnel in a random port
-cmd="ssh -i ucp_rsa -o StrictHostKeyChecking=no -f -R $PORT:localhost:8443 -N ucp@ra.zentyal.com"
+cmd="ssh -i /var/lib/zentyal/ucp_rsa -o StrictHostKeyChecking=no -f -R $PORT:localhost:8443 -N ucp@ra.zentyal.com"
 
 # Gets the tunnel PID
 function get_pid {

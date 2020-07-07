@@ -35,8 +35,10 @@ if [ $REQUEST -eq "200" ]; then
     TOKEN=$(cat $TMP_TOKEN_FILE| jq -r ".access_token")
     # Persist the token
     echo $TOKEN > /var/lib/zentyal/ucp-token
+    rm $TMP_TOKEN_FILE
+    logger UCP[$$] Info: UCP token OK
+    exit 0
 else
     logger UCP[$$] WARNING: Error obtaining the UCP token
+    exit 1
 fi
-
-rm $TMP_TOKEN_FILE

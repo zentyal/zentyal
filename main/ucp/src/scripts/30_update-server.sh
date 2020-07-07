@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # If the server is already registered and the token exists...
 if [ -f /var/lib/zentyal/ucp-server_data ] && [ -f /var/lib/zentyal/ucp-token ] && [ -f /var/lib/zentyal/.license ]; then
@@ -7,7 +7,7 @@ if [ -f /var/lib/zentyal/ucp-server_data ] && [ -f /var/lib/zentyal/ucp-token ] 
     do 
         # Preparing the request vars' data, some of these vars could be outside the loop, but I prefer to put them innside to get a cleaner code
         ID=$(cat /var/lib/zentyal/ucp-server_id)
-        NOW=$(date +"%Y-%m-%d %H:%M:%S")
+        NOW=$(date -u +"%Y-%m-%d %H:%M:%S")
         TOKEN=$(cat /var/lib/zentyal/ucp-token)
 
         HOSTNAME=$(hostname)
@@ -64,12 +64,17 @@ if [ -f /var/lib/zentyal/ucp-server_data ] && [ -f /var/lib/zentyal/ucp-token ] 
                             }'
                     )
 
+        . /etc/ucp.conf
+
         # Run the request to update the server
-        REQUEST=$(/usr/bin/curl --silent -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d "$JSON_STRING" http://192.168.1.122/api/servers/$ID -o /dev/null -w "%{http_code}")
+        REQUEST=$(/usr/bin/curl --silent -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d "$JSON_STRING" $destination/api/servers/$ID -o /dev/null -w "%{http_code}")
         if [ $REQUEST -ne "200" ]; then
             logger UCP[$$] WARNING: The update server\'s status request failed
         else 
             sleep 5;
         fi
     done
+    exit 0
+else
+    exit 1
 fi

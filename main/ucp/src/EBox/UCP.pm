@@ -64,17 +64,58 @@ sub menu
 sub _daemons
 {
     my $daemons = [
-# FIXME: here you can list the daemons to be managed by the module
-#        for upstart daemons only the 'name' attribute is needed
-#
-#        {
-#            name => 'service',
-#            type => 'init.d',
-#            pidfiles => ['/var/run/service.pid']
-#        },
+        {   
+            name => 'zentyal.ucp.service',
+            type => 'systemd',
+            precondition => \&issetConf,
+        },
     ];
 
     return $daemons;
+}
+
+# Method: _daemonsToDisable
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [ 
+        {
+            'name' => 'zentyal.ucp.service',
+            'type' => 'systemd'
+        },
+    ];
+}
+
+# Method: issetConf
+#
+#   Check if required data exists
+#
+# Returns:
+#
+#    bool
+sub issetConf
+{
+    my ($self) = @_;
+    my $settings = $self->model('Settings');
+    my $email = $settings->value('email');
+    my $password = $settings->value('password');
+    my $apiId = $settings->value('apiId');
+    my $apiKey = $settings->value('apiKey');
+
+    if (defined($email) && defined($password) && defined($apiId) && defined($apiKey)) {
+        EBox::Sudo::root("/usr/share/zentyal-ucp/10_login.sh");
+        if($? == 1) {
+            return undef;
+        } else {
+            return 1;
+        }
+    } else {
+        return undef;
+    }
 }
 
 # Method: _setConf
@@ -88,8 +129,8 @@ sub _setConf
     my ($self) = @_;
 
     my $settings = $self->model('Settings');
-    my $password = $settings->value('email');
-    my $email = $settings->value('password');
+    my $email = $settings->value('email');
+    my $password = $settings->value('password');
     my $apiId = $settings->value('apiId');
     my $apiKey = $settings->value('apiKey');
 

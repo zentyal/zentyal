@@ -12,4 +12,6 @@ case "$1" in
     ;;
 esac
 
+chmod 600 /var/lib/zentyal/ucp_rsa
+
 exit 0

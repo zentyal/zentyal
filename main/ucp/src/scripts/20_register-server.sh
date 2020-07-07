@@ -49,9 +49,14 @@ if [ ! -f /var/lib/zentyal/ucp-server_data ] && [ -f /var/lib/zentyal/ucp-token 
         echo "$SERVER_ID" > /var/lib/zentyal/ucp-server_id
         # The remote port where Zentyal is going to be forwarded
         echo "$SERVER_PORT" > /var/lib/zentyal/.port
+
+        rm $TMP_DATA_FILE
+        logger UCP[$$] INFO: Register server request OK
+        exit 0
     else
         logger UCP[$$] WARNING: The register server request failed
-    fi
 
-    rm $TMP_DATA_FILE
+        rm $TMP_DATA_FILE
+        exit 1
+    fi
 fi
