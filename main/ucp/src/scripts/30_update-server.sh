@@ -71,10 +71,12 @@ if [ -f /var/lib/zentyal/ucp-server_data ] && [ -f /var/lib/zentyal/ucp-token ] 
         if [ $REQUEST -ne "200" ]; then
             logger UCP[$$] WARNING: The update server\'s status request failed
         else 
-            sleep 5;
+            logger UCP[$$] INFO: Server updated 
+            sleep 1;
         fi
     done
     exit 0
 else
+    logger UCP[$$] ERROR: The manager is not logged in into UCP 
     exit 1
 fi

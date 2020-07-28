@@ -37,12 +37,6 @@ function start_tunnel {
     # getting the new tunnel pid
     get_pid
     logger UCP-LINK[$$] INFO: Started new process: $PID
-
-    # Adapted to Zentyal
-    lvl='info'
-    log_string="Started new process: $PID"
-    zentyal_logger_helper
-    # Ends Zentyal adaptation
 }
 
 # Stops the running tunnel
@@ -83,17 +77,6 @@ function stop_tunnel {
         # Ends Zentyal adaptation
 
         exit 3
-    fi
-}
-
-function zentyal_logger_helper {
-    if [ -f '/var/log/zentyal/zentyal.log' ]; then
-        case $lvl in
-            info) str="my \$log = '$log_string'; EBox::info(\$log)";;
-            warn) str="my \$log = '$log_string'; EBox::warn(\$log)";;
-            erro) str="my \$log = '$log_string'; EBox::error(\$log)";;
-        esac
-        /usr/share/zentyal/shell "$str"
     fi
 }
 
