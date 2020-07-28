@@ -7,7 +7,7 @@ if [ -f /var/lib/zentyal/ucp-server_data ] && [ -f /var/lib/zentyal/ucp-token ] 
     do 
         # Preparing the request vars' data, some of these vars could be outside the loop, but I prefer to put them innside to get a cleaner code
         ID=$(cat /var/lib/zentyal/ucp-server_id)
-        NOW=$(date -u +"%Y-%m-%d %H:%M:%S")
+        NOW=$(TZ=":UTC" date -u +"%Y-%m-%d %H:%M:%S")
         TOKEN=$(cat /var/lib/zentyal/ucp-token)
 
         HOSTNAME=$(hostname)

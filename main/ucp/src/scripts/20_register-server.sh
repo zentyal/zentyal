@@ -9,7 +9,7 @@ if [ ! -f /var/lib/zentyal/ucp-server_data ] && [ -f /var/lib/zentyal/ucp-token 
 
     # Preparing request vars
     HOSTNAME=$(hostname)
-    NOW=$(date +"%Y-%m-%d %H:%M:%S")
+    NOW=$(TZ=":UTC" date -u +"%Y-%m-%d %H:%M:%S")
     UUID=$(cat /sys/class/dmi/id/product_uuid)
     USER_UUID=$(cat /var/lib/zentyal/.uuid)
     LK=$(cat /var/lib/zentyal/.license)
