@@ -1,0 +1,3 @@
+#!/usr/bin/make -f
+
+include /usr/share/zbuildtools/1/rules/zentyal.mk
