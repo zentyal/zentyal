@@ -926,6 +926,7 @@ td[class^="icon"] {
 .icon-register { background-image: url("/data/images/package-icons/zentyal-register.png");}
 .icon-samba { background-image: url("/data/images/package-icons/zentyal-samba.png");}
 .icon-sharing { background-image: url("/data/images/package-icons/zentyal-sharing.png");}
+.icon-ucp { background-image: url("/data/images/package-icons/zentyal-register.png");}
 .icon-domain { background-image: url("/data/images/package-icons/zentyal-domain.png");}
 .icon-status { background-image: url("/data/images/package-icons/zentyal-mstatus.png");}
 .icon-system { background-image: url("/data/images/package-icons/zentyal-system.png");}
