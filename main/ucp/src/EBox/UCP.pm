@@ -9,7 +9,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
 
-my $UCPCONFFILE = '/etc/ucp.conf';
+my $UCPCONFFILE = '/etc/zentyal/ucp.conf';
 
 # Method: _create
 #

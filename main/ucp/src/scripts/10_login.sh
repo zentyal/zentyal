@@ -24,7 +24,7 @@ JSON_STRING=$( jq -n \
                     }' 
             )
 
-. /etc/ucp.conf
+. /etc/zentyal/ucp.conf
 
 # Run the request
 REQUEST=$(/usr/bin/curl --silent -X POST -H "Content-Type: application/json" -d "$JSON_STRING" $destination/oauth/token -w "%{http_code}" -o $TMP_TOKEN_FILE)

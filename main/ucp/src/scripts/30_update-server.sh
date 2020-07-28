@@ -64,7 +64,7 @@ if [ -f /var/lib/zentyal/ucp-server_data ] && [ -f /var/lib/zentyal/ucp-token ] 
                             }'
                     )
 
-        . /etc/ucp.conf
+        . /etc/zentyal/ucp.conf
 
         # Run the request to update the server
         REQUEST=$(/usr/bin/curl --silent -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d "$JSON_STRING" $destination/api/servers/$ID -o /dev/null -w "%{http_code}")

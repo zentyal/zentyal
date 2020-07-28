@@ -32,7 +32,7 @@ if [ ! -f /var/lib/zentyal/ucp-server_data ] && [ -f /var/lib/zentyal/ucp-token 
                     }' 
                 )
 
-    . /etc/ucp.conf
+    . /etc/zentyal/ucp.conf
     
     # Run the request to register the machine in the API's backend and save locally the server's data
     REQUEST=$(/usr/bin/curl --silent -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d "$JSON_STRING" $destination/api/servers  -w "%{http_code}" -o $TMP_DATA_FILE)
