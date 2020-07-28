@@ -45,11 +45,11 @@ sub menu
     return if $self->global()->communityEdition();
 
     my $item = new EBox::Menu::Item(
-        text => __('UCP'),
-        icon => 'register',
-        url => 'UCP/View/Settings',
-        separator => 'Core',
-        order => 999
+        'text' => __('UCP'),
+        'icon' => 'register',
+        'url' => 'UCP/View/Settings',
+        'separator' => 'Core',
+        'order' => 999
     );
 
     $root->add($item);
