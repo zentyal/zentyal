@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # saving the pid
 echo $$ > /var/run/ucp.pid
