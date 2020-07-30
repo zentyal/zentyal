@@ -22,12 +22,6 @@ function start_tunnel {
 
     if [[ -n "$PID" ]]; then
         logger UCP-LINK[$$] WARNING: Another tunnel is already running \(pid $PID\)
-
-        # Adapted to Zentyal
-        lvl='warn'
-        log_string="Another tunnel is already running (pid $PID)"
-        zentyal_logger_helper
-        # Ends Zentyal adaptation
         exit 1
     fi
 
@@ -45,13 +39,6 @@ function stop_tunnel {
 
     if [[ -z "$PID" ]]; then
         logger UCP-LINK[$$] WARNING: Couldn\'t find a running tunnel
-
-        # Adapted to Zentyal
-        lvl='warn'
-        log_string="Couldn\'t find a running tunnel"
-        zentyal_logger_helper
-        # Ends Zentyal adaptation
-
         exit 2
     fi
  
@@ -61,21 +48,8 @@ function stop_tunnel {
 
     if [[ -z $PID ]]; then
         logger UCP-LINK[$$] INFO: Killed process $oldpid
-
-        # Adapted to Zentyal
-        lvl='info'
-        log_string="Killed process $oldpid"
-        zentyal_logger_helper
-        # Ends Zentyal adaptation
     else
         logger UCP-LINK[$$] ERROR: Unable to terminate process $PID
-
-         # Adapted to Zentyal
-        lvl='erro'
-        log_string="Unable to terminate process $PID"
-        zentyal_logger_helper
-        # Ends Zentyal adaptation
-
         exit 3
     fi
 }
