@@ -141,6 +141,9 @@ http {
         # To allow POST on static pages (needed for vncviewer in zentyal-virt)
         error_page 405 =200 $uri;
 
+        # To redirect http to https
+        error_page 497 301 =307 https://$host:$server_port$request_uri;
+
         location /data/ {
 <& .restricted, restrictions => $sectionrestrictions{'/data/'} &>
             root /usr/share/zentyal/www;
