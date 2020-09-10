@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+notification_telegram() {
+
+template=$(cat <<TEMPLATE
+$(hostname -f) - ${1}
+
+$(date "+%X - %x")
+
+${2} 
+TEMPLATE
+)
+    curl --silent --output /dev/null \
+    --data-urlencode "chat_id=${3}" \
+    --data-urlencode "text=${template}" \
+    --data-urlencode "parse_mode=HTML" \
+    --data-urlencode "disable_web_page_preview=true" \
+    "https://api.telegram.org/bot${4}/sendMessage"
+
+    echo ""
+}
+
+
+WARNPOR=85
+TRIES=3
+COUNT=0
+
+for (( c=1; c<=${TRIES}; c++ )); do 
+  MEMUSED=$(free -m | awk 'NR==2{printf "%.2f\n", $3*100/$2}')
+  if [[ $(echo ${MEMUSED} | cut -d "." -f1) -ge ${WARNPOR} ]]; then
+    let COUNT++
+    sleep 15
+  fi
+done
+
+if [[ ${COUNT} -gt 1 ]]; then
+    notification_telegram "${1}" "${2} ${MEMUSED}%" "${3}" "${4}"
+else
+    echo "Your used RAM is ok."
+fi

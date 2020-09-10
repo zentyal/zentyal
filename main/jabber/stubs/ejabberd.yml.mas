@@ -29,6 +29,30 @@ hosts:
 certfiles:
   - "/etc/ejabberd/ejabberd.pem"
 
+define_macro:
+  'TLS_CIPHERS': "HIGH:!aNULL:!eNULL:!3DES:@STRENGTH"
+  'TLS_OPTIONS':
+    - "no_sslv3"
+    - "no_tlsv1"
+    - "cipher_server_preference"
+    - "no_compression"
+
+c2s_ciphers: 'TLS_CIPHERS'
+s2s_ciphers: 'TLS_CIPHERS'
+c2s_protocol_options: 'TLS_OPTIONS'
+s2s_protocol_options: 'TLS_OPTIONS'
+s2s_use_starttls: required
+
+auth_method: ldap
+ldap_servers:
+  - "<% $ldapHost %>"
+ldap_port: <% $ldapPort %>
+ldap_rootdn: "<% $ldapRoot %>"
+ldap_password: "<% $ldapPasswd %>"
+ldap_base: "<% $ldapBase %>"
+ldap_uids:
+  - "jabberUid": "%u"
+
 listen:
   -
     port: 5222
@@ -40,19 +64,19 @@ listen:
 % if ($ssl eq 'forcessl') {
     starttls_required: true
 % }
-    protocol_options:
-      - "no_sslv3"
+    protocol_options: 'TLS_OPTIONS'
     max_stanza_size: 65536
     shaper: c2s_shaper
     access: c2s
     zlib: true
-    resend_on_timeout: if_offline
+
 % if ($s2s) {
   -
     port: 5269
     ip: "0.0.0.0"
     module: ejabberd_s2s_in
 % }
+
 % if ($stun) {
   -
     port: 3478
@@ -60,20 +84,6 @@ listen:
     module: ejabberd_stun
 % }
 
-s2s_use_starttls: required
-s2s_certfile: "/etc/ejabberd/ejabberd.pem"
-s2s_protocol_options:
-  - "no_sslv3"
-
-auth_method: ldap
-ldap_servers:
-  - "<% $ldapHost %>"
-ldap_port: <% $ldapPort %>
-ldap_rootdn: "<% $ldapRoot %>"
-ldap_password: "<% $ldapPasswd %>"
-ldap_base: "<% $ldapBase %>"
-ldap_uids:
-  - "jabberUid": "%u"
 
 shaper:
   normal: 1000
@@ -135,6 +145,7 @@ modules:
     access_create: muc
     access_persistent: muc_admin
     access_admin: muc_admin
+  mod_muc_admin: {}
 % }
   mod_offline:
     access_max_user_messages: max_user_offline_messages
@@ -157,10 +168,8 @@ modules:
   mod_roster: {}
 % if ($sharedroster) {
   mod_shared_roster_ldap:
-    ldap_filter: "(&(objectClass=userJabberAccount)(!(objectClass=computer)))"
+    ldap_rfilter: "(&(objectClass=user)(!(isCriticalSystemObject=*)))"
     ldap_ufilter: "(&(objectClass=userJabberAccount)(distinguishedName=%u))"
-    ldap_rfilter: "(objectClass=user)"
-    ldap_gfilter: "(!(isCriticalSystemObject=*))"
     ldap_groupattr: "cn"
     ldap_groupdesc: "cn"
     ldap_memberattr: "sAMAccountName"
@@ -172,7 +181,10 @@ modules:
   mod_time: {}
   mod_vcard: {}
 % if ($vcard) {
-  mod_vcard_ldap:
+  mod_vcard:
+    db_type: ldap
+    search: true
+    allow_return_all: true
     ldap_vcard_map:
       "NICKNAME": {"%u": []}
       "FIRST": {"%s": ["givenName"]}
@@ -209,4 +221,6 @@ modules:
       "Nickname": "NICKNAME"
       "Email": "EMAIL"
 % }
+  mod_stream_mgmt:
+    resend_on_timeout: if_offline
   mod_version: {}

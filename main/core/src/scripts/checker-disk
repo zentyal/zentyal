@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+notification_telegram() {
+
+template=$(cat <<TEMPLATE
+$(hostname -f) - ${1}
+
+$(date "+%X - %x")
+
+${2} 
+TEMPLATE
+)
+    curl --silent --output /dev/null \
+    --data-urlencode "chat_id=${3}" \
+    --data-urlencode "text=${template}" \
+    --data-urlencode "parse_mode=HTML" \
+    --data-urlencode "disable_web_page_preview=true" \
+    "https://api.telegram.org/bot${4}/sendMessage"
+
+    echo ""
+}
+
+WARNPOR=30
+TMPFILE="/var/lib/zentyal/tmp/temp_partitions.txt"
+
+if [[ ! -f ${TMPFILE} ]]; then
+  touch ${TMPFILE}
+else
+  echo "" > ${TMPFILE}
+fi
+
+TMPPARTFILE=$(df -T | egrep -v 'tmpfs|udev' | awk '{if(NR>1)print}' > ${TMPFILE})
+
+while IFS='' read -r line; do
+  DISKMOUNT=$(echo ${line} | awk '{print $7}')
+  DISKTOTAL=$(echo ${line} | awk '{print $3}')
+  DISKAVAIL=$(echo ${line} | awk '{print $5}')
+  DISKHM=$( df -h ${DISKMOUNT} | awk '{print $4}' | tail -1)
+  WARNNOT=$(expr ${DISKTOTAL} \* ${WARNPOR} / 100)
+  
+  if [[ ${WARNNOT} -ge ${DISKAVAIL} ]]; then
+    notification_telegram "${1}" "${2} ${DISKHM}" "${3}" "${4}"
+  fi
+
+done < "${TMPFILE}"
+rm ${TMPFILE}

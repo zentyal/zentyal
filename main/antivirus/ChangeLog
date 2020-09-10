@@ -1,4 +1,14 @@
-HEAD
+6.2.1
+	+ Fix control file
+6.2.0
+	+ Set version number to 6.2.0
+6.1.2
+	+ Improve zentyal.antivirus-clamonacc service management
+	+ Add new scripts to freshclam's apparmor profile
+	+ Remove ScanOnAccess in favor of OnAccessExcludeUname
+	+ Add new systemd service for antivirus-clamonacc
+	+ Add new regex for logging purposes
+6.1.1
 	+ Use AlertBrokenExecutables instead of deprecated DetectBrokenExecutables option 
 	  for clamav 0.101.4 (fix #1898)
 6.1

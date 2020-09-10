@@ -5,6 +5,7 @@
     @brokenPackages
     $softwareInstalled => 0
     $message => undef
+    $upgradeMsg => undef
 </%args>
 <%init>
 use utf8;
@@ -19,6 +20,13 @@ my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStr
 <script type="text/javascript" src="/data/js/format.js">//</script>
 <script type="text/javascript" src="/data/js/jquery.flot.js">//</script>
 % if ($message) {
+<div class="notification_container tip">
+<span class="notification_text"><% $message->{text} %></span>
+<a id="popx" onclick="Zentyal.Dashboard.closeNotification('<% $message->{name} %>'); return false">×</a>
+</div>
+% }
+
+% if ($upgradeMsg) {
 <script>
 function releaseUpgrade(title) {
       Zentyal.Dialog.showURL('/ReleaseUpgrade', {
@@ -27,9 +35,9 @@ function releaseUpgrade(title) {
       });
 }
 </script>
-<div class="notification_container tip">
-<span class="notification_text"><% $message->{text} %></span>
-<a id="popx" onclick="Zentyal.Dashboard.closeNotification('<% $message->{name} %>'); return false">×</a>
+<div class="notification_container note">
+<span class="notification_text"><% $upgradeMsg->{text} %></span>
+<a id="popx" onclick="Zentyal.Dashboard.closeNotification('<% $upgradeMsg->{name} %>'); return false">×</a>
 </div>
 % }
 

@@ -38,6 +38,7 @@ use File::Basename;
 use File::Glob;
 use File::Slurp;
 use YAML::XS;
+use JSON::XS;
 use Log::Log4perl;
 use POSIX qw(setuid setgid setlocale LC_ALL);
 use Perl6::Junction qw(any all);
@@ -1186,14 +1187,24 @@ sub edition
     }
 
     my ($level, $users, $exp_date) = $self->_decodeLicense($key);
+    my $status;
+    my $file;
+
+    if (-e '/var/lib/zentyal/.license_status') {
+        $file = read_file('/var/lib/zentyal/.license_status');
+        $status = decode_json($file);
+    }
 
     if (not defined ($level) or not defined ($exp_date)) {
         return 'community';
     } elsif (localtime > $exp_date) {
         return "$level-expired";
+    } elsif ($$status{'label'} ne "Active") {
+        return "$level-expired";
     } else {
         return $level;
     }
+
 }
 
 # Method: communityEdition
@@ -1393,16 +1404,28 @@ sub _base24to10
 sub _decodeLicense
 {
     my ($self, $key) = @_;
-
     my @parts = split ('-', $key);
 
     if (@parts != 4) {
         return (undef, undef, undef);
     }
+    my $level, 
+    my $users;
+    my $date;
 
-    my ($prefix, undef, $date, undef) = split ('-', $key);
-
-    my $level = substr($prefix, 0, 2);
+    if (-e '/var/lib/zentyal/.license_users' &&
+        -e '/var/lib/zentyal/.license_expiration' &&
+        -e '/var/lib/zentyal/.license_type') {
+        $level = read_file('/var/lib/zentyal/.license_type');
+        chomp($level);
+        $users = read_file('/var/lib/zentyal/.license_users');
+        chomp($users);
+        $date = read_file('/var/lib/zentyal/.license_expiration');
+        chomp($date);
+    } else {
+        return (undef, undef, undef);
+    }
+    
     if ($level eq'TR') {
         $level = "trial";
     } elsif ($level eq 'PF') {
@@ -1415,14 +1438,17 @@ sub _decodeLicense
         $level = "commercial";
     } elsif ($level eq 'NS') {
         $level = "premium";
+    } elsif ($level = "LC_MC") {
+        $level = "commercial";
+    } elsif ($level = "LC_SM") {
+        $level = "commercial";
+    } elsif ($level = "LC_MD") {
+        $level = "commercial";
+    } elsif ($level = "LC_EN") {
+        $level = "commercial";
     }
 
-    my $users = substr($prefix, 2, 3);
-    $users =~ s/Z//g;
-    $users = $self->_base24to10($users);
-
-    $date = $self->_base24to10(substr($date, 1, 4));
-    my $exp_date = Time::Piece->strptime("$date", "%y%m%d");
+    my $exp_date = Time::Piece->strptime("$date", "%Y-%m-%d");
     my $date_str = $exp_date->strftime("%Y-%m-%d");
 
     return ($level, $users, $exp_date);

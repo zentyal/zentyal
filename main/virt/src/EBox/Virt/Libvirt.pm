@@ -175,7 +175,7 @@ sub runningVMCommand
 {
     my ($self, $name) = @_;
 
-    return "$VIRTCMD domstate $name | grep -q ^running";
+    return "$VIRTCMD list | grep $name | grep -q ^running";
 }
 
 sub _state

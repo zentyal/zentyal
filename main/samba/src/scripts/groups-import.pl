@@ -25,16 +25,16 @@ sub createLDAPGroups
     for my $line(@lines) {
         my($groupname, $parentDN, $description, $mail, $isSecurityGroup, $isSystemGroup, $gidNumber) = split(';', $line);
         try {
-                EBox::Samba::Group -> create(
-                    name => $groupname, 
-                    parent => getLDAPContainer($parentDN),
-                    description => $description,
-                    mail => $mail,
-                    isSecurityGroup => $isSecurityGroup,
-                    isSystemGroup => $isSystemGroup,
-                    gidNumber => $gidNumber
-                );
-                print "$groupname OK\n";
+            EBox::Samba::Group -> create(
+                name => $groupname, 
+                parent => getLDAPContainer($parentDN),
+                description => $description,
+                mail => $mail,
+                isSecurityGroup => $isSecurityGroup,
+                isSystemGroup => $isSystemGroup,
+                gidNumber => $gidNumber
+            );
+            print "$groupname OK\n";
         } catch ($e){
             warn "Caught error: $e";
         }

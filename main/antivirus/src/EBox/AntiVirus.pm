@@ -30,6 +30,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
+use EBox::Sudo;
 use EBox::Exceptions::Internal;
 
 use constant {
@@ -156,7 +157,37 @@ sub usedFiles
 
 sub _daemons
 {
-    return [ { name => 'clamav-daemon' } ];
+    my ($self) = @_;
+
+    return [ 
+        { 
+            name => 'clamav-daemon' 
+        },
+        {   
+            name => 'zentyal.antivirus-clamonacc.service',
+            type => 'systemd',
+            precondition => \&issetPath,
+        },
+    ];
+}
+
+# Method: existPath
+#
+#   Check on whether anny path haven't been provided
+#
+# Returns:
+#
+#    bool
+sub issetPath
+{
+    my ($self) = @_;
+    my $paths = $self->model('Paths')->includes();
+
+    if (scalar(@$paths)) {
+        return 1;
+    } else {
+        return undef;
+    }
 }
 
 # Method: _daemonsToDisable
@@ -167,7 +198,16 @@ sub _daemons
 #
 sub _daemonsToDisable
 {
-    return [ { 'name' => 'clamav-freshclam', 'type' => 'init.d' } ];
+    return [ 
+        {
+            'name' => 'clamav-freshclam',
+            'type' => 'init.d' 
+        },
+        {
+            'name' => 'zentyal.antivirus-clamonacc.service',
+            'type' => 'systemd'
+        },
+    ];
 }
 
 
@@ -186,12 +226,17 @@ sub _setConf
 {
     my ($self) = @_;
 
+    my $cmdStop = "systemctl stop zentyal.antivirus-clamonacc";
+    my $cmdDisable = "systemctl disable zentyal.antivirus-clamonacc";
+
     my $localSocket = $self->localSocket();
 
     my @clamdParams = (localSocket => $localSocket);
 
     unless ($self->global()->communityEdition()) {
         push (@clamdParams, paths => $self->model('Paths')->includes());
+        EBox::Sudo::root($cmdStop);
+        EBox::Sudo::root($cmdDisable);
     }
 
     $self->writeConfFile(CLAMD_CONF_FILE, "antivirus/clamd.conf.mas", \@clamdParams);

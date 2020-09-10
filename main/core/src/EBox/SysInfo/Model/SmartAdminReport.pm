@@ -42,27 +42,27 @@ sub _table
     my ($self) = @_;
 
     my @tableHeader = (
-       new EBox::SysInfo::Types::Run(
-                                     fieldName => 'run',
-                                     printableName => __('Run checker'),
-                                    ),
-       new EBox::SysInfo::Types::Status(
-                                     fieldName => 'status',
-                                     printableName => __('Execution status'),
-                                    ),
-       new EBox::SysInfo::Types::Download(
-                                     fieldName => 'download',
-                                     printableName => __('Download full report'),
-                                    ),
+        new EBox::SysInfo::Types::Run(
+           fieldName => 'run',
+           printableName => __('Run checker'),
+        ),
+        new EBox::SysInfo::Types::Status(
+           fieldName => 'status',
+           printableName => __('Execution status'),
+        ),
+        new EBox::SysInfo::Types::Download(
+           fieldName => 'download',
+           printableName => __('Download full report'),
+        ),
     );
 
     my $dataTable =
     {
         tableName          => 'SystemStatusReport',
-        printableTableName => __('System status report'),
-        defaultActions     => [ 'changeView' ],
-        tableDescription   => \@tableHeader,
         modelDomain        => 'SysInfo',
+        printableTableName => __('System status report'),
+        tableDescription   => \@tableHeader,
+        defaultActions     => [ 'changeView' ],
         defaultEnabledValue => 1,
     };
 

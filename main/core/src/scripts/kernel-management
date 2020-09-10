@@ -1,0 +1,90 @@
+#!/bin/bash
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# Parse version string to integer for ordering
+function calc {
+	str=$(echo ${1} | tr "-" ".")
+	vnumber=$(($(echo ${str} | cut -d '.' -f 1) * 1000 ))
+	vnumber2=$(($(echo ${str} | cut -d '.' -f 2) * 100 ))
+	vnumber3=$(($(echo ${str} | cut -d '.' -f 3) * 10 ))
+	vnumber4=$(($(echo ${str} | cut -d '.' -f 4) * 1))
+		
+	integer=$(( $vnumber + $vnumber2 + $vnumber3 + $vnumber4 ))
+}
+
+function prepare {
+	v1=${1##/boot/vmlinuz-}
+	v2=${v1%%-generic}
+}
+
+apt-get update
+
+APTSTATUS=$?
+BOOTFOLDER="/boot/"
+PREFIX="vmlinuz-"
+PREFIXK="linux-image"
+PREFIXM="linux-modules"
+USEDKERNEL=$(uname -r)
+VERSUSEDKERN=${USEDKERNEL%%-generic}
+VERSION=()
+USEDK=0
+RESERVEK=0
+COUNTER=0
+calc ${VERSUSEDKERN}
+NUMUSEDKERN=${integer}
+
+if [[ $APTSTATUS -eq 0 ]]
+then
+	echo "Your active kernel $USEDKERNEL won't be processed"
+
+	# Saving unused kernels in array
+	for k in `ls ${BOOTFOLDER}${PREFIX}*`
+	do	
+		prepare ${k}
+		calc ${v2}
+		if [[ ${integer} -ne ${NUMUSEDKERN}  ]]; then
+			#echo ${integer}		
+			VERSION["${integer}"]=${v2}
+			#echo ${VERSION[*]}
+		fi
+	done
+
+	indexes=${!VERSION[*]}
+
+	for ind in ${indexes}
+	do	
+		if [[ ${ind} -gt ${USEDK} ]]; then
+			USEDK=${ind}
+		fi
+	done
+
+	VERSION[${USEDK}]=0
+	echo "Number of packages to process: ${#VERSION[*]}"
+
+	if [[ ${#VERSION[*]} -gt 2 ]]; then  
+ 		for k in ${VERSION[*]}
+ 		do
+			if [[ ${COUNTER} -lt $(( ${#VERSION[*]} - 2 )) ]]; then
+				echo "Processing ${PREFIXK}-${k} package"
+ 				apt-get remove ${PREFIXK}-${k}-generic ${PREFIXM}-${k}-generic --purge  -y
+
+ 				if [[ $? -eq 0 ]]; then
+ 					echo "${PREFIXK}-${k}-generic was successfully removed from your system"
+				fi
+
+				COUNTER=$(( ${COUNTER} + 1 ))
+			fi
+ 		done
+		
+	else 
+		echo "Your system only has ${#VERSION[*]} additionally kernels. Aborting process."
+	fi
+
+
+else
+	echo "Your apt index can't be updated. Aborting process"
+fi
+
+
+

@@ -1,0 +1,11 @@
+<%args>
+$data
+</%args>
+%   my $value = $data->value();
+%   if (defined ($value) and ($value eq 'available')) {
+		<img src="/data/images/available.png"/>
+%   } elsif (defined ($value) and ($value eq 'in-progress')) {
+		<img src="/data/images/synchronizing-small.png"/>
+%   } else {
+		<img src="/data/images/disabled.gif"/>
+%   }

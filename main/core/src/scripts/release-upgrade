@@ -1,10 +1,153 @@
 #!/bin/bash
 
+SOURCES=/etc/apt/sources.list
 UPGRADE_FILE=/var/lib/zentyal/.upgrade-finished
+TMPFILE=/tmp/packages-list
+QALIST=/etc/apt/sources.list.d/zentyal-qa.list
 
-rm -f $UPGRADE_FILE
+CURMAJORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f1`
+CURMINORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f2`
+#TODO: Change use "curl -s -k" instead of wget
+DESTMAJOR=`wget --quiet -O - http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINORV}.txt|cut -d'.' -f1`
+DESTMINOR=`wget --quiet -O - http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINORV}.txt|cut -d'.' -f2`
+CURRV="${CURMAJORV}.${CURMINORV}"
+DESTV="${DESTMAJOR}.${DESTMINOR}"
+KEYURL="keys.zentyal.org/zentyal-${DESTV}-packages.asc"
 
-export DEBIAN_FRONTEND=noninteractive
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+BOLD=$(tput bold)
+NORM=$(tput sgr0)
+
+function checkZentyalVersion
+{
+    echo -e "${GREEN} - Checking the zentyal-core version...${NC}" 
+    if [ $CURMAJORV -gt $DESTMAJOR ]; 
+    then
+        echo -e "${RED}${BOLD} Your system is up to date${NC}${NORM}" 
+        exit 130
+    else
+        if [ $CURMINORV -gt $DESTMINOR ] || [ $CURMINORV -eq $DESTMINOR ];
+        then
+            echo -e "${RED}${BOLD} Your system is up to date${NC}${NORM}" 
+            exit 130
+        fi
+    fi
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
+
+function checkDiskSpace
+{
+    echo -e "${GREEN} - Checking for available disk space...${NC}"
+    if [ $(df /boot | tail -1 | awk '{print $4}') -lt 51200 ];
+    then
+        echo "${RED}  Upgrade cannot be performed due to low disk space (less than 50MB available on /boot)${NC}"
+        exit 130
+    fi
+
+    for i in / /var
+    do
+        if [ `df $i | tail -1 | awk '{print $4}'` -lt 358400 ];
+        then
+            echo -e "${RED}  Upgrade cannot be performed due to low disk space (less than 350MB available on $i)${NC}"
+            exit 130
+        fi
+    done
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
+
+function checkUbuntuReposotories
+{
+    echo -e "${GREEN} - Checking and setting ubuntu repositories...${NC}"
+    if ! grep -v "^#" $SOURCES | grep -q "ubuntu.com"
+    then
+        echo "deb http://archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse" >> $SOURCES
+        echo "deb http://archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse" >> $SOURCES
+        echo "deb http://security.ubuntu.com/ubuntu/ bionic-security main restricted universe multiverse" >> $SOURCES        
+    fi
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
+
+function repairPkgs
+{
+    counter=0;
+    pkgs=$(dpkg -l | grep -vE '^(ii|rc)'| awk '{ if ( NR > 5  ) { print $2} }')
+    while [[ $pkgs ]] && [[ $counter < 10 ]]; 
+    do
+        for i in $pkgs
+        do
+            echo 'Working on '.$i
+            dpkg --configure $i
+            sleep 1
+        done
+        ((counter++))
+    done;
+}
+
+function checkBrokenPackages
+{
+    echo -e "${GREEN} - Installed Zentyal packages:${NC}"
+    dpkg -l | grep 'zentyal-'
+    echo;
+    echo -e "${GREEN} - Checking for broken packages...${NC}"
+    touch $TMPFILE && dpkg -l | awk '{ if ( NR > 5  ) { print } }' > $TMPFILE
+    if grep -vE '^(ii|rc)' $TMPFILE
+    then
+        echo -e "${RED}  You have broken packages, trying to execute dpkg --configure -a before to continue${NC}"
+        dpkg --configure -a
+        repairPkgs
+    fi  
+    rm -f $TMPFILE
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
+
+function checkGPG
+{
+    echo -e "${GREEN} - Looking for gnupg package...${NC}"
+    dpkg -s gnupg &> /dev/null
+    if [ $? -eq 0 ]; 
+    then
+        echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+    else
+        echo -e "${RED}  Package is NOT installed! Trying to install it...${NC}";echo
+        apt-get install gnupg -y
+    fi
+}
+
+function checkZentyalMySQL
+{
+    echo -e "${GREEN} - Checking Zentyal's MySQL db...${NC}"
+    mysqlcheck --databases zentyal
+    echo;
+}
+
+function cleanPreviousUpgrade
+{
+    echo -e "${GREEN} - Cleaning $UPGRADE_FILE if exists...${NC}"
+    if [ -f $UPGRADE_FILE ]
+    then
+        rm -f $UPGRADE_FILE
+    fi
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
+
+function prepareUpgrade
+{
+    checkZentyalVersion
+    checkDiskSpace
+    checkUbuntuReposotories
+    checkBrokenPackages
+    checkGPG
+    checkZentyalMySQL
+    cleanPreviousUpgrade
+
+    export DEBIAN_FRONTEND=noninteractive
+    sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
 
 function upgrade
 {
@@ -12,46 +155,110 @@ function upgrade
 
     for i in `seq 1 10`
     do
-        if apt-get dist-upgrade -y --force-yes --download-only
+        if apt-get dist-upgrade -y --download-only
         then
             break
         else
-            echo "Download failed, retrying in 5 seconds..."
+            echo -e "${RED}  Download failed, retrying in 5 seconds...${NC}"
             sleep 5
         fi
     done
 
-    apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+    apt-get dist-upgrade -y -o DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef"
+
+    checkBrokenPackages
 }
 
-sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
+function prepareZentyalRepositories
+{
+    wget -qO - $KEYURL | sudo apt-key add -
 
-echo; echo "Upgrading your current system to the latest packages..."; echo
-upgrade
+    if [ -f '/etc/apt/sources.list.d/zentyal-archive.list' ];
+    then
+        rm -f /etc/apt/sources.list.d/zentyal-archive.list
+    fi
 
-echo; echo "Upgrading from Zentyal 4.1 to Zentyal 4.2..."; echo
-sed -ri '/zentyal(.)4.1/d' /etc/apt/sources.list
-echo 'deb http://archive.zentyal.org/zentyal 4.2 main extra' > /etc/apt/sources.list.d/zentyal-archive.list
-sed -i 's/zentyal-qa-4.1/zentyal-qa-4.2/g' /etc/apt/sources.list.d/zentyal-qa.list
-# Workaround to avoid dependency problems when packages are hold
-for e in `grep -R "a=zentyal-qa" /etc/apt | cut -f1 -d:`; do rm -f $e; done
+    if [  -f '/var/lib/zentyal/.commercial-edition' ] && [ -s '/var/lib/zentyal/.license' ];
+    then
+        sed -i "s/zentyal-qa ${CURRV}/zentyal-qa ${DESTV}/g" $QALIST
+    else
+        sed -ri "/zentyal(.)${CURRV}/d" /etc/apt/sources.list
+        echo "deb http://packages.zentyal.org/zentyal ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal-packages.list
+    fi
 
-upgrade
+    apt-get update
+}
 
-if apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
-then
+function configureRedis
+{
+    cp /etc/redis/redis.conf /etc/redis/redis.conf.bak
+    apt-get install -y -o DPkg::Options::="--force-confnew" redis-server
+    sed -i 's/^bind.*/bind 127.0.0.1/' /etc/redis/redis.conf
+    dpkg --configure -a
+    systemctl restart redis-server
+}
+
+function getCVDs
+{
+    if [ -d /var/lib/clamav ] && ! [ -f /var/lib/clamav/main.cvd ]
+    then
+        freshclam
+        zs antivirus restart
+    fi
+}
+
+function postUpgradeProcedure
+{
     # Purge all no longer needed running services
     dpkg -l | grep 'zentyal-' | cut -d' ' -f3 | xargs apt-mark manual
-    apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+    apt-get autoremove --purge -y -o DPkg::Options::="--force-confdef"
+    dpkg --configure -a --force-confdef
+    apt-get -f install -y -o DPkg::Options::="--force-confdef"
+    checkBrokenPackages
 
-    # Restart Zentyal UI
-    zs webadmin restart
+    sleep 2
+    apt-get clean
 
-    echo; echo "Zentyal upgrade finished!"
-else
-    echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
-fi
+    echo; echo -e "${GREEN}${BOLD}*** Zentyal upgrade finished! Please restart your server now.${NC}${NORM}"
 
-apt-get clean
+    sleep 2
+    pkill -f upgrade-log-server
+}
 
-touch $UPGRADE_FILE
+function forceZentyalLXDM
+{
+    systemctl disable lxdm
+    systemctl enable zentyal.lxdm
+}
+
+function finishUpgrade
+{
+    if dpkg --configure -a --force-confdef
+    then
+        forceZentyalLXDM
+        postUpgradeProcedure
+    else
+        echo; echo -e "${RED}${BOLD}*** Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log.${NC}${NORM}"
+    fi
+
+    sleep 2
+    apt-get clean
+
+    touch $UPGRADE_FILE
+}
+
+echo; echo -e "${YELLOW}*** Preparing your system for the upgrade...${NC}"; echo
+prepareUpgrade
+
+echo; echo -e "${YELLOW}*** Upgrading your current system to the latest packages...${NC}"; echo
+upgrade
+
+echo; echo -e "${YELLOW}*** Preparing for upgrade to Zentyal ${DESTV}...${NC}"; echo
+apt-get purge -y ubuntu-minimal # remove unnecessary metapackage to avoid it from being kept back and appear as available update
+prepareZentyalRepositories
+configureRedis # workaround Redis crash during dist-upgrade
+
+echo; echo -e "${YELLOW}*** Upgrading Zentyal from ${CURMAJORV}.${CURMINORV} to ${DESTMAJOR}.${DESTMINOR}...${NC}"; echo
+upgrade
+getCVDs # update ClamAV Virus Database files
+finishUpgrade

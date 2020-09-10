@@ -1,3 +1,37 @@
+HEAD
+	+ Added UCP icon
+6.2.3
+	+ Fix the import apt key process
+	+ Remove old activate-license
+	+ Improve the way in the license key code status is verified
+6.2.2
+	+ Add public key for .com repository
+	+ Add new license key types
+6.2.1
+	+ Add extra component to sources.list
+	+ License management improved
+	+ License activation improved
+6.2.0
+	+ Set version number to 6.2.0
+6.1.3
+	+ Fix root's emails counter in the smart admin report
+	+ Improve Smart Admin report
+	+ Fix wrong exit code from zentyal cron job
+	+ Fix wrong redirection in smart admin report generation
+	+ Add AppArmor as disabled service (waiting for new profiles)
+	+ Add AppArmor as dependency
+6.1.2
+	+ Improve upgrade process
+	+ Set to 85% the min value for ram usage before the notification has been triggered
+	+ Remove -x from ram checker script
+	+ Fix several typos
+6.1.1
+	+ Fix repo name
+	+ Add curl as core dependency
+	+ Fixed wrong image name
+	+ Add smart alerts to Smart Admin feature
+	+ Add kernel management to Smart Admin feature
+	+ Add mail recipient for smart admin report
 6.1
 	+ Fix broken link to zentyal store and tracker in dashboard widget
 	+ Add log rotation for uwsgi.log
@@ -9,6 +43,9 @@
 	+ Add "Smart Admin" menu entry
 	+ Add smart-admin-report script to /usr/share/zentyal to get a complete system status report
 	+ Distribution base is now Ubuntu 18.04.3 LTS
+6.0.2
+	+ Fix upgrade button
+	+ Add release upgrade code (available to update from 6.0 to 6.1)
 6.0.1
 	+ Fix CSS for Activation Required page
 	+ License activation after first login in commercial edition

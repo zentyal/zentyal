@@ -29,7 +29,7 @@ my $LOGFILE = '/var/log/zentyal/upgrade.log';
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => __('Upgrade to Zentyal 4.2'),
+    my $self = $class->SUPER::new('title' => __('Upgrade Zentyal'),
                                   'template' => '/upgrade.mas', @_);
     bless($self, $class);
     return $self;

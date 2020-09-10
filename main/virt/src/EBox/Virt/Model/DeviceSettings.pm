@@ -42,6 +42,7 @@ use constant MAX_SCSI_NUM => 16;
 sub _populateDriveTypes
 {
     return [
+            { value => '', printableValue => '--' },
             { value => 'hd', printableValue => __('Hard Disk') },
             { value => 'cd', printableValue => 'CD/DVD' },
     ];
@@ -70,6 +71,7 @@ sub _table
                                printableName => __('Drive Type'),
                                populate      => \&_populateDriveTypes,
                                editable      => 1,
+                               disasbleCache  => 1,
                               ),
        new EBox::Types::Select(
                                fieldName      => 'disk_action',
@@ -77,6 +79,7 @@ sub _table
                                populate       => \&_populateDiskAction,
                                editable       => 1,
                                hiddenOnViewer => 1,
+                               disasbleCache  => 1,
                               ),
        new EBox::Types::Text(
                              fieldName     => 'name',
@@ -198,7 +201,7 @@ sub validateTypedRow
             $self->_checkDevicePath($path, 1, __('Hard disk image'));
             my @qcow2Re = (
                 qr/Format:\s+Qcow\s+,\s+Version:\s+2/,
-                qr/QEMU\s+QCOW\s+Image\s+\(v2\)/
+                qr/QEMU\s+QCOW\s+Image\s+\(v[2-3]\)/
                );
             unless (_checkFileOutput($path, @qcow2Re)) {
                 throw EBox::Exceptions::External(
@@ -372,33 +375,25 @@ sub deletedRowNotify
 sub viewCustomizer
 {
     my ($self) = @_;
-
     my $customizer = new EBox::View::Customizer();
+
     $customizer->setModel($self);
+    $customizer->setOnChangeActions({
+		type => {
+            ''   => { show => [], hide => ['disk_action','name', 'path', 'size', 'useDevice' ]},
+			'cd' => { show => [ 'useDevice', 'path' ],  hide => [ 'disk_action', 'name', 'size' ] },
+			'hd' => { show  => [ 'disk_action', 'name', 'path' ], hide => [ 'useDevice' ]  },
 
-    $customizer->setHTMLTitle([]);
-
-    my @onlyCd = ( 'useDevice', 'path' );
-    my @onlyHd = ( 'disk_action', 'name', 'size' );
-    $customizer->setOnChangeActions(
-            {
-              type =>
-                {
-                  'cd' => { show => \@onlyCd,  hide => \@onlyHd },
-                  'hd' => { show  => \@onlyHd, hide =>\@onlyCd },
-
-                },
-              disk_action =>
-                {
-                  'create' => { show => [ 'name', 'size' ], hide => [ 'path' ] },
-                  'use' => { show  => [ 'path' ], hide => [ 'name', 'size' ] },
-                },
-              useDevice =>  {
-                   on  => { hide => ['path']  },
-                   off => { show => ['path' ]},
-               },
-            });
-
+		},
+        disk_action => {
+            'create' => { show => [ 'disk_action', 'name', 'size' ], hide => [ 'path', 'useDevice' ] },
+            'use' => { show  => [ 'disk_action', 'path', 'name' ], hide => [ 'size', 'useDevice'] },
+        },
+        useDevice =>  {
+            on  => { hide => ['path']  },
+            off => { show => ['path' ]},
+        },
+    });
     $customizer->setInitHTMLStateOrder(['type', 'disk_action']);
 
     return $customizer;

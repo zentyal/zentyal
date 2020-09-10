@@ -1,0 +1,19 @@
+<%args>
+$data
+</%args>
+%   my $value = $data->value();
+%   if (defined ($value) and ($value eq 'available')) {
+        <button class="btn-only-icon btn-download" onclick=downloadUsersCSV()>
+            <% __('Download domain users csv') %>
+        </button>
+        <script>
+        function downloadUsersCSV() {
+            window.location.href='/Samba/ExportUsers?action=download';
+        }
+        </script>
+
+%   } else {
+        <btn class="btn-only-icon btn-download disabledCustomAction">
+            <% __('Download System Status report') %>
+        </button>
+%   }

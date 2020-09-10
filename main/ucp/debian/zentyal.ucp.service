@@ -1,0 +1,18 @@
+[Unit]
+Description=Executable for UCP sync
+Requires=zentyal.webadmin-nginx.service
+After=zentyal.webadmin-nginx.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/share/zentyal-ucp/ucp-manager.sh
+ExecStop=/usr/share/zentyal-ucp/21_ucp-link.sh stop && rm /var/lib/zentyal/ucp-token
+PIDFile=/var/run/ucp.pid
+KillSignal=15
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

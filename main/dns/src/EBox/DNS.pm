@@ -747,7 +747,6 @@ sub _setConf
         # journal file has been already created
         if ($domdata->{samba}) {
             my $sambaDomData = $self->_completeDomain($domainId);
-            delete $sambaDomData->{'nameServers'};
             $self->_updateDynDirectZone($sambaDomData);
         } elsif ($domdata->{'dynamic'} and -e "${file}.jnl") {
             $self->_updateDynDirectZone($domdata);
@@ -1466,7 +1465,14 @@ sub _updateDynReverseZone
     }
 }
 
-# Update the dynamic direct zone
+# Method: _updateDynDirectZone
+#
+#   Update the dynamic direct zone
+#
+# Parameters:
+#
+#   domData - hash ref with the domain structured data
+#
 sub _updateDynDirectZone
 {
     my ($self, $domData) = @_;

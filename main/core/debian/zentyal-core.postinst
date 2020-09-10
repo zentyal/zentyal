@@ -118,6 +118,11 @@ case "$1" in
         # enable auto-start
         systemctl enable zentyal
 
+        # enable AppArmor
+        # TODO: Enable the service when all the new profiles have been verified and tested
+        systemctl disable apparmor
+        systemctl stop apparmor
+
         dpkg-trigger --no-await zentyal-core
     ;;
     triggered)

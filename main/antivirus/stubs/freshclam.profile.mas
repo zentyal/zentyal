@@ -1,2 +1,4 @@
 /run/clamav/clamd.ctl rw,
 /proc/*/status r,
+/run/samba/winbindd/pipe rw,
+/etc/ssl/openssl.cnf r,

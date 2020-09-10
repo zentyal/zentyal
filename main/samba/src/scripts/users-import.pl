@@ -22,15 +22,15 @@ sub createLDAPUsers
 	    try {
             EBox::Samba::User->create(
                 samAccountName => $samAccountName, 
-								parent => getLDAPContainer($parentDN),
+                parent => getLDAPContainer($parentDN),
                 givenName => $givenName,
                 initials => $initials,
-								sn => $sn,
-								displayName => $displayName,
-								description => $description,
-								mail => $mail,
-								name => $samAccountName,
-								password => $password,
+                sn => $sn,
+                displayName => $displayName,
+                description => $description,
+                mail => $mail,
+                name => $samAccountName,
+                password => $password,
             );
             print "$samAccountName OK\n";
         } catch ($e){

@@ -27,11 +27,7 @@ use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Types::Text;
 use EBox::Types::Select;
-use EBox::Types::Password;
-use EBox::Types::Int;
-use EBox::Types::Union::Text;
-use EBox::Types::Union;
-use EBox::Types::Password;
+use EBox::Types::MailAddress;
 use EBox::View::Customizer;
 use EBox::Validate;
 use EBox::Exceptions::NotConnected;
@@ -82,6 +78,13 @@ sub _table
            editable      => 1,
            populate      => \&_startingTime,
         ),
+        new EBox::Types::MailAddress(
+            'fieldName' => 'email',
+            'printableName' => __('Destination mail account'),
+            'size' => '30',
+            'optional' => 1,
+            'editable' => 1,
+        ),
     );
 
     my $dataTable =
@@ -90,9 +93,8 @@ sub _table
         printableTableName => __('System status report settings'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
-        messages           =>
-            {
-                update => __('System Status Report configuration updated'),
+        messages           => {
+            update => __('System Status Report configuration updated')
         },
         modelDomain        => 'SysInfo',
         help               => __('Here you have can schedule the report generation.'),
@@ -121,9 +123,11 @@ sub crontabStrings
     my ($self) = @_;
 
     my $time = $self->row()->valueByName('start');
-    my $once = _crontabStringOnce($time);
+    my $email = $self->row()->valueByName('email');
+    my $once = _crontabString($time);
     my $strings = {
-                    once => $once
+                    once => $once,
+                    mail => $email
                 };
 
     return $strings;
@@ -151,7 +155,7 @@ sub _crontabMinute
     return 0;
 }
 
-sub _crontabStringOnce
+sub _crontabString
 {
     my ($hour) = @_;
 
