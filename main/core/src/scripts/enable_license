@@ -113,7 +113,6 @@ if [ $REQUEST -eq "200" ]; then
 	# Save the license key code
 	LK_CODE=$(echo $LK_DATA | jq -r ".code")
 	echo $LK_CODE > $LK_CODE_FILE
-	check_license
 	echo "machine packages.zentyal.com login $LK_CODE password $SERVER_HASH" > /etc/apt/auth.conf
 
 	touch /var/lib/zentyal/.commercial-edition
