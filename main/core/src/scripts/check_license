@@ -26,7 +26,7 @@ JSON_STRING=$( jq -n \
 # Run the request to "check the license status"
 REQUEST=$(/usr/bin/curl --silent -X POST -H "Content-Type: application/json" -d "$JSON_STRING" https://ucp.zentyal.com/api/lk/status -w "%{http_code}" -o $RESPONSE_DATA_FILE_TMP)
 
-if [ $REQUEST -eq "200" ]; then
+if [ $REQUEST -eq "200" ] || [ $REQUEST -eq "201" ]; then
 	# Persisting LK data in a system file
 	LK_DATA=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".data")
 
@@ -68,7 +68,6 @@ if [ $REQUEST -eq "200" ]; then
 	echo $LK_CODE > $LK_CODE_FILE
 
 	# exit codes according to /usr/include/sysexits.h
-	echo LK_STATUS
 	touch /var/lib/zentyal/.commercial-edition
 	zs webadmin restart
 	
@@ -87,6 +86,10 @@ if [ $REQUEST -eq "200" ]; then
 	elif [ $LK_STATUS_CODE == "L_DISABLED" ]; then
 		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
 		exit 77;
+
+	elif [ $LK_STATUS_CODE == "L_EXPIRED" ] && [ $LK_TYPE == "TR" ]; then
+		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
+		exit 1;
 
 	elif [ $LK_STATUS_CODE == "L_EXPIRED" ]; then
 		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
