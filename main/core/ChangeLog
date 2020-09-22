@@ -1,4 +1,5 @@
 HEAD
+	+ Redirect http to https on webadmin
 	+ Add AuthRemote middleware
 	+ Added UCP icon
 6.2.3
