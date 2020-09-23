@@ -1,4 +1,6 @@
 HEAD
+	+ Prevent to use more than one trial license at the same machine
+	+ Fix UCP API response handler
 	+ Redirect http to https on webadmin
 	+ Add AuthRemote middleware
 	+ Added UCP icon
