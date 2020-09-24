@@ -131,7 +131,7 @@ sub validateTypedRow
             EBox::error('Something was wrong with UCP server disabling the new trial');
         }
         if ($res->code() eq 200 ) {
-            EBox::error('The trial '.$lk.' was disabled in UCP becuase you cannot use a trial license twice');
+            EBox::error('The trial '.$key.' was disabled in UCP because you cannot use a trial license twice');
         }
 
         throw EBox::Exceptions::External(__("You cannot use a trial more than one time."));
