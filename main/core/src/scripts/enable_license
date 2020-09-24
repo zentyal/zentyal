@@ -39,25 +39,15 @@ function checkGPG
 
 if [ -z $LK ]
 then 
-	LK=$(cat $LK_CODE_FILE)
+	echo "Usage: $0 XXXXX-XXXXX-XXXXX-XXXXX"
+	exit 126;
+fi
 
-	if [ $LK == "ACTIVATION-REQUIRED" ]
-	then
-		echo "Usage: $0 XXXXX-XXXXX-XXXXX-XXXXX"
-		exit 126;
-	fi
+if ! echo "$LK" | grep -E -q "^[A-Z0-9]{5}-[A-Z0-9]{5}.[A-Z0-9]{5}-[A-Z0-9]{5}$"
+then
+	echo "Invalid key format."
+	echo "Make sure your license matchs the following format: XXXXX-XXXXX-XXXXX-XXXXX"
 	exit 1
-else
-	if ! echo "$LK" | grep -E -q "^[A-Z0-9]{5}-[A-Z0-9]{5}.[A-Z0-9]{5}-[A-Z0-9]{5}$"
-	then
-		echo "Invalid key format."
-		echo "Make sure your license matchs the following format: XXXXX-XXXXX-XXXXX-XXXXX"
-		exit 1
-	fi
-	if [ $LK == $(cat $LK_CODE_FILE) ]
-	then
-		exit 0
-	fi
 fi
 
 # Preparing the data with JSON encoding

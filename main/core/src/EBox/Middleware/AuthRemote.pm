@@ -26,13 +26,16 @@ sub checkValidUser
     my ($self, $uuid) = @_;
 
     my $uuid_file = '/var/lib/zentyal/.uuid';
-    my $file_content = read_file($uuid_file);
-    chomp($file_content);
 
-    if ((-f $uuid_file) and ($uuid eq $file_content)) {
-        return 1;
-    } else {
-        return 0;
+    if (-f $uuid_file) {
+        my $file_content = read_file($uuid_file);
+        chomp($file_content);
+
+        if ($uuid eq $file_content) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
 
