@@ -112,7 +112,7 @@ http {
 
         ssl on;
         ssl_certificate <% $zentyalconfdir %>ssl/ssl.pem;
-        ssl_certificate_key <% $zentyalconfdir %>ssl/ssl.pem;
+        ssl_certificate_key <% $zentyalconfdir %>ssl/ssl.key;
 % if ($caFile) {
         ssl_client_certificate <% $caFile %>;
         ssl_verify_client optional;
