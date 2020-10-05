@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        /usr/share/zentyal/initial-setup ucp $2
+
+        dpkg-trigger --no-await zentyal-core
+    ;;
+esac
+
+chmod 600 /var/lib/zentyal/ucp_rsa
+
+exit 0

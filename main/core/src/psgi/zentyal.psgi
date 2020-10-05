@@ -56,6 +56,8 @@ $builder->add_middleware("+EBox::WebAdmin::Middleware::SubAppAuth");
 $builder->add_middleware_if(sub { exists($ENV{ZENTYAL_WEBADMIN_ENV}) and ($ENV{ZENTYAL_WEBADMIN_ENV} eq 'anste') },
                             "+EBox::Middleware::NoAuth");
 
+# TODO: Check if is commerciall
+$builder->add_middleware("+EBox::Middleware::AuthRemote", app_name => 'webadmin');
 $builder->add_middleware("+EBox::Middleware::AuthPAM", app_name => 'webadmin');
 foreach my $appConf (@{EBox::WebAdmin::PSGI::subApps()}) {
     $builder->mount($appConf->{url} => $appConf->{app});

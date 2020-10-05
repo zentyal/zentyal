@@ -31,6 +31,8 @@ use EBox::Types::HTML;
 use EBox::Exceptions::External;
 use File::Slurp;
 use Time::Piece;
+use LWP::UserAgent;
+use JSON::XS;
 use TryCatch;
 
 sub _license
@@ -101,7 +103,10 @@ sub validateTypedRow
 {
     my ($self, $action, $changed, $all) = @_;
 
+    my $curKey = read_file("/var/lib/zentyal/.license");
+    my ($curEdition, $curUsers, $curExpiration) = EBox::GlobalImpl->_decodeLicense($curKey);
     my $key = defined $changed->{key} ? $changed->{key}->value() : $all->{key}->value();
+
     EBox::Sudo::silentRoot("/usr/share/zentyal/enable_license ".$key);
     if ($? != 0) {
         if (substr($key, 0, 2) eq 'NS') {
@@ -115,7 +120,23 @@ sub validateTypedRow
         }
         throw EBox::Exceptions::External(__("License key cannot be validated. Please try again or check your Internet connection."));
     }
+
     my ($edition, $users, $expiration) = EBox::GlobalImpl->_decodeLicense($key);
+    if (($curEdition eq "trial") and ($edition eq "trial")) {
+        my $ua = LWP::UserAgent->new;
+        my $url = "https://ucp.zentyal.com/api/lk/disable";
+        my $data = {"code" => $key};
+        my $res = $ua->post($url, $data);
+        if ($res->code() eq 500 ) {
+            EBox::error('Something was wrong with UCP server disabling the new trial');
+        }
+        if ($res->code() eq 200 ) {
+            EBox::error('The trial '.$key.' was disabled in UCP because you cannot use a trial license twice');
+        }
+
+        throw EBox::Exceptions::External(__("You cannot use a trial more than one time."));
+    }
+   
     if (localtime > $expiration) {
         throw EBox::Exceptions::External(__("License key is expired."));
     }
