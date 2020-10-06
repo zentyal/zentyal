@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 # Updates the debian changelogs when you are on the top of a packaging branch,
 # i.e. packaging/debian/jaunty/trunk/
