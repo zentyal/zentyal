@@ -10,7 +10,7 @@ version=$1
 shift
 packs=$@
 
-dist="precise"
+dist="focal"
 
 if [ -z "$version" ]
 then
