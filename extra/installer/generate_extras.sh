@@ -25,7 +25,10 @@ sudo debootstrap --arch=$ARCH --include=gnupg $DIST $CHROOT
 
 sudo cp sources.list $CHROOT/etc/apt/sources.list
 
-cat zenbuntu-core/zentyal-6.2-packages.asc | sudo chroot $CHROOT apt-key add -
+cat zenbuntu-core/zentyal-7.0-packages.asc | sudo chroot $CHROOT apt-key add -
+
+sudo mount none -t devpts /dev/pts
+export LC_ALL=C
 
 sudo chroot $CHROOT apt-get update
 

@@ -12,7 +12,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 Package: zentyal-ips
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 6.2.0), zentyal-core (<< 7.0.0), zentyal-firewall,
+Depends: zentyal-core (>= 7.0.0), zentyal-core (<< 7.1.0), zentyal-firewall,
          suricata, snort-rules-default, libtcmalloc-minimal4, ${misc:Depends}
 Description: Zentyal - Intrusion Prevention System
  Zentyal is a Linux small business server that can act as
