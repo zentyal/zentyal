@@ -23,6 +23,20 @@ function increment
         fi
         echo "$dir - $new_version"
         sed -i "s/HEAD/$new_version/" ChangeLog
+
+    else
+        current_version=`sed -n "/^[0-9]/p" ChangeLog|head -1`
+        new_version=$new_version_orig
+	#TODO: Just for major releases
+	#if [ -z $new_version ]
+	#then
+        #    major=`echo $current_version | cut -d'.' -f1`
+    	#    minor=`echo $current_version | cut -d'.' -f2`
+        #    revision=`echo $current_version | cut -d'.' -f3`
+        #    #new_version="`expr $major + 1`.$minor.$revision"
+    #fi
+	    echo "$dir - $new_version"
+        sed -i "1i$new_version\n\t+ Set version number to $new_version" ChangeLog
     fi
 }
 
