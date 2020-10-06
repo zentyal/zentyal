@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 # Updates the debian changelogs when you are on the top of a packaging branch,
 # i.e. packaging/debian/jaunty/trunk/
@@ -25,14 +25,14 @@ fi
 
 for dir in $packs
 do
-    if [ ! -f $dir/debian/$dist/changelog ]
+    if [ ! -f $dir/debian/changelog ]
     then
         continue
     fi
 
     module="zentyal-$dir"
 
-    cat > $dir/debian/$dist/changelog.new <<EOF
+    cat > $dir/debian/changelog.new <<EOF
 $module ($version) $dist; urgency=low
 
   * New upstream release
@@ -41,6 +41,6 @@ $module ($version) $dist; urgency=low
 
 EOF
 
-cat $dir/debian/$dist/changelog >> $dir/debian/$dist/changelog.new
-mv $dir/debian/$dist/changelog.new $dir/debian/$dist/changelog
+cat $dir/debian/changelog >> $dir/debian/changelog.new
+mv $dir/debian/changelog.new $dir/debian/changelog
 done
