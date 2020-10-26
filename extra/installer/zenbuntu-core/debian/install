@@ -4,6 +4,6 @@ rc.local /usr/share/zenbuntu-core
 motd.tail /usr/share/zenbuntu-core
 core-install /usr/share/zenbuntu-core
 get-zentyal-url /usr/share/zenbuntu-core
-zentyal-7.0-packages.asc /usr/share/zenbuntu-core
+zentyal-7.0-packages-org.asc /usr/share/zenbuntu-core
 plymouth-text/* /usr/share/plymouth/themes/zentyal-text
 80-zentyal-interface /etc/update-motd.d

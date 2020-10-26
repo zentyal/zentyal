@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 db_name="zentyal"
 db_user="zentyal"
@@ -43,8 +43,9 @@ create_db()
     # Also create zentyal user (and change root password so it has the zentyal one)
     echo "Creating the $db_name database"
     echo "CREATE DATABASE $db_name CHARACTER SET utf8 COLLATE utf8_unicode_ci;" | mysql --defaults-file=/etc/mysql/debian.cnf
-    echo "GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$PASSWD\";" | mysql --defaults-file=/etc/mysql/debian.cnf
-    echo "UPDATE mysql.user SET authentication_string=PASSWORD('$PASSWD') WHERE user='root';" | mysql --defaults-file=/etc/mysql/debian.cnf
+    echo "CREATE USER '$db_user'@'localhost' IDENTIFIED BY \"$PASSWD\";"  | mysql --defaults-file=/etc/mysql/debian.cnf
+    echo "GRANT ALL ON $db_name.* TO '$db_user'@'localhost';"  | mysql --defaults-file=/etc/mysql/debian.cnf
+    echo "UPDATE mysql.user SET authentication_string=('$PASSWD') WHERE user='root';" | mysql --defaults-file=/etc/mysql/debian.cnf    
     echo "FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 
     perl -MEBox -MEBox::Util::SQL -e'EBox::init(); EBox::Util::SQL::createCoreTables(); 1';

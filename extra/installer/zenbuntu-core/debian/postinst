@@ -6,7 +6,7 @@ LOG=/var/tmp/zentyal-installer.log
 cp /usr/share/zenbuntu-core/motd.tail /etc/motd.tail
 
 # Import archive key to avoid warnings
-apt-key add /usr/share/zenbuntu-core/zentyal-7.0-packages.asc >> $LOG 2>&1
+apt-key add /usr/share/zenbuntu-core/zentyal-7.0-packages-org.asc >> $LOG 2>&1
 
 ln -sf /usr/share/plymouth/themes/zentyal-text/zentyal-text.plymouth /etc/alternatives/text.plymouth
 
