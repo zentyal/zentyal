@@ -8,6 +8,10 @@
 d-i apt-setup/local0/repository string http://packages.zentyal.org/zentyal 7.0 main extra testing
 d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-7.0-packages-org.asc
 
+# add suricata repository
+d-i apt-setup/local0/repository deb http://ppa.launchpad.net/oisf/suricata-stable/ubuntu focal main
+d-i apt-setup/local0/key string https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xd7f87b2966eb736f
+
 # ignore error downloading key if not internet connection
 d-i apt-setup/local/key-error select Ignore
 

@@ -2,3 +2,4 @@ deb http://archive.ubuntu.com/ubuntu focal main restricted universe multiverse
 deb http://archive.ubuntu.com/ubuntu focal-updates main restricted universe multiverse
 deb http://security.ubuntu.com/ubuntu focal-security main restricted universe
 deb http://packages.zentyal.org/zentyal 7.0 main extra testing
+deb http://ppa.launchpad.net/oisf/suricata-stable/ubuntu focal main
