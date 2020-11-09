@@ -29,6 +29,7 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Sudo;
 use EBox::Util::Version;
+use EBox::Util::Init;
 use EBox::Dashboard::Section;
 use EBox::Virt::Dashboard::VMStatus;
 use EBox::Virt::Model::NetworkSettings;
@@ -292,6 +293,8 @@ sub startVM
     my ($self, $name) = @_;
 
     $self->_manageVM($name, 'start');
+
+    EBox::Util::Init::moduleRestart('firewall');
 }
 
 sub stopVM

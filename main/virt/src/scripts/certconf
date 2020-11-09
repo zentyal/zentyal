@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Fix the  KEY_VALUES_MISMATCH error produced when the CA module is configured
+# The issue is produced because when generated the CA private key, it is copied
+# as /var/lib/zentyal/conf/ssl/ssl.key but the certificate corresponding to the
+# new key isn't issued 
+
+
+readonly NOCAPEM=/var/lib/zentyal/conf/ssl/ssl.pem
+readonly NOCAKEY=/var/lib/zentyal/conf/ssl/ssl.key
+declare FLAG
+FLAG=0
+
+
+function check_modulus () {
+    modkey=$(openssl rsa -noout -modulus -in $NOCAKEY | openssl md5)
+    modcert=$(openssl x509 -noout -modulus -in $NOCAPEM | openssl md5)
+    if [[ $modkey == $modcert ]]
+    then
+        FLAG=1
+    fi
+}
+
+check_modulus
+
+if [[ $FLAG -eq 1  ]]
+then
+    /usr/bin/websockify --ssl-only --key=$NOCAKEY --cert=$NOCAPEM --token-plugin TokenFile --token-source /var/lib/zentyal/conf/vnc-tokens --web /usr/share/novnc 6900
+else
+    openssl req -key $NOCAKEY -new -x509 -days 365 -out $NOCAPEM -subj "/CN=Zentyal_vncproxy" &>/dev/null
+    if [[ $? -eq 0 ]]
+    then 
+        /usr/bin/websockify --ssl-only --key=$NOCAKEY --cert=$NOCAPEM --token-plugin TokenFile --token-source /var/lib/zentyal/conf/vnc-tokens --web /usr/share/novnc 6900
+    else
+        logger "Unable to create the required certificate for the zentyal.vpnproxy service"
+        exit 1
+    fi
+fi
+
+exit 0
