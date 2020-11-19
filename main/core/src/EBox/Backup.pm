@@ -827,7 +827,8 @@ sub _moveToArchives
 sub makeBugReport
 {
     my ($self) = @_;
-    return $self->_makeBackup(description => 'Bug report', 'bug' => 1);
+    my $time = time();
+    return $self->_makeBackup(description => 'Bug report', 'bug' => 1, time => $time);
 }
 
 # unpacks a backup file into a temporary directory and verifies the md5sum
