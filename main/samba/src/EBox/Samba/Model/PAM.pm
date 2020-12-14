@@ -28,7 +28,7 @@ use EBox::Types::Boolean;
 use EBox::Types::Select;
 use File::Basename;
 
-use constant DEFAULT_SHELL => '/bin/bash';
+use constant DEFAULT_SHELL => '/usr/bin/bash';
 
 # Group: Public methods
 
@@ -115,7 +115,7 @@ sub _table
              disableCache => 1,
              populate => \&validShells,
              editable => 1,
-             defaultValue => '/bin/bash',
+             defaultValue => DEFAULT_SHELL,
              help => __('This will apply only to new users from now on.')
             )
         );

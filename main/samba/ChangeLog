@@ -1,4 +1,6 @@
 7.0.0
+	+ Change default login shell under PAM to /usr/bin/bash
+	+ Integrate Samba 4.11
 	+ Set version number to 7.0.0
 6.2.0
 	+ Set version number to 6.2.0
