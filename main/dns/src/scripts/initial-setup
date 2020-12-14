@@ -2,6 +2,6 @@
 
 chmod g+w /etc/bind
 
-systemctl enable bind9-resolvconf
+systemctl enable named-resolvconf
 
 exit 0

@@ -50,14 +50,14 @@ use Net::IP;
 use Perl6::Junction qw(any);
 use Tie::File;
 
-use constant BIND9DEFAULTFILE     => "/etc/default/bind9";
+use constant BIND9DEFAULTFILE     => "/etc/default/named";
 use constant BIND9CONFDIR         => "/etc/bind";
 use constant BIND9CONFFILE        => "/etc/bind/named.conf";
 use constant BIND9CONFOPTIONSFILE => "/etc/bind/named.conf.options";
 use constant BIND9CONFLOCALFILE   => "/etc/bind/named.conf.local";
 use constant BIND9_UPDATE_ZONES   => "/var/lib/bind";
 
-use constant PIDFILE       => "/var/run/bind/run/named.pid";
+use constant PIDFILE       => "/var/run/named/named.pid";
 use constant KEYSFILE => BIND9CONFDIR . '/keys';
 
 use constant DNS_CONF_FILE => EBox::Config::etc() . 'dns.conf';
@@ -652,7 +652,7 @@ sub _daemons
 {
     return [
         {
-            'name' => 'bind9'
+            'name' => 'named'
         }
     ];
 }
