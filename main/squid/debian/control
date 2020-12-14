@@ -13,7 +13,7 @@ Package: zentyal-squid
 Architecture: all
 Pre-Depends: zentyal-core
 Depends: zentyal-core (>= 7.0.0), zentyal-core (<< 7.1.0), zentyal-firewall,
-         squid, dansguardian, adduser, ${misc:Depends}
+         squid, e2guardian, adduser, ${misc:Depends}
 Description: Zentyal - HTTP Proxy
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
