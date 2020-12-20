@@ -28,7 +28,7 @@ d-i pkgsel/language-pack-patterns string
 d-i pkgsel/install-language-support boolean false
 
 # install the system-customization package
-d-i pkgsel/include string zenbuntu-desktop
+d-i pkgsel/include string zenbuntu-desktop zenbuntu-desktop
 
 # disable automatic updates, Zentyal will take care of that
 d-i pkgsel/update-policy select none
