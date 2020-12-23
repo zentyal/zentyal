@@ -31,7 +31,7 @@ use EBox::Validate;
 use POSIX qw(strftime);
 
 use constant SQUIDLOGFILE => '/var/log/squid/access.log';
-use constant DANSGUARDIANLOGFILE => '/var/log/dansguardian/access.log';
+use constant E2GUARDIANLOGFILE => '/var/log/e2guardian/access.log';
 
 # TODO: Clear this periodically
 my %temp;
@@ -59,7 +59,7 @@ sub new
 #
 sub logFiles
 {
-    return [SQUIDLOGFILE, DANSGUARDIANLOGFILE];
+    return [SQUIDLOGFILE, E2GUARDIANLOGFILE];
 }
 
 # Method: processLine
@@ -89,7 +89,7 @@ sub processLine # (file, line, logger)
     my $event;
     given($fields[3]) {
         when (m{TCP_DENIED(_ABORTED)?/403}) {
-            if ($file eq  DANSGUARDIANLOGFILE) {
+            if ($file eq  E2GUARDIANLOGFILE) {
                 $event = 'filtered';
             } else {
                 $event = 'denied';
@@ -106,12 +106,12 @@ sub processLine # (file, line, logger)
 
     # Trim URL string as DB stores it as a varchar(1024)
     my $url = substr($fields[6], 0, 1023);
-    if ($file eq  DANSGUARDIANLOGFILE) {
+    if ($file eq  E2GUARDIANLOGFILE) {
         my $time = strftime ('%Y-%m-%d %H:%M:%S', localtime $fields[0]);
         my $domain = $self->_domain($fields[6]);
 
         if ($url =~ m/$domain$/) {
-            # Squid logs adds a final slash as dansguardian does not
+            # Squid logs adds a final slash as e2guardian does not
             # So we must add final slash
             $url .= '/';
         }
