@@ -35,7 +35,7 @@ reportinglevel = 3
 # and easier to customise the access denied page.
 # The language file is used no matter what setting however.
 #
-languagedir = '/etc/dansguardian/languages'
+languagedir = '/etc/e2guardian/languages'
 
 # language to use from languagedir.
 language = <% $lang %>
@@ -77,7 +77,7 @@ logfileformat = 3
 # Log file location
 #
 # Defines the log directory and filename.
-loglocation = '/var/log/dansguardian/access.log'
+loglocation = '/var/log/e2guardian/access.log'
 
 
 # Statistics log file location
@@ -108,7 +108,7 @@ proxyip = 127.0.0.1
 proxyport = <% $squidport %>
 
 # accessdeniedaddress is the address of your web server to which the cgi
-# dansguardian reporting script was copied. Only used in reporting levels 1 and 2.
+# e2guardian reporting script was copied. Only used in reporting levels 1 and 2.
 #
 # This webserver must be either:
 #  1. Non-proxied. Either a machine on the local network, or listed as an exception
@@ -119,7 +119,7 @@ proxyport = <% $squidport %>
 #
 # Individual filter groups can override this setting in their own configuration.
 #
-accessdeniedaddress = 'http://YOURSERVER.YOURDOMAIN/cgi-bin/dansguardian.pl'
+accessdeniedaddress = 'http://YOURSERVER.YOURDOMAIN/cgi-bin/e2guardian.pl'
 
 # Non standard delimiter (only used with accessdeniedaddress)
 # To help preserve the full banned URL, including parameters, the variables
@@ -137,22 +137,22 @@ nonstandarddelimiter = on
 # icons from banned domains.
 # on (default) | off
 usecustombannedimage = on
-custombannedimagefile = '/usr/share/dansguardian/transparent1x1.gif'
+custombannedimagefile = '/usr/share/e2guardian/transparent1x1.gif'
 
 # Filter groups options
 # filtergroups sets the number of filter groups. A filter group is a set of content
 # filtering options you can apply to a group of users.  The value must be 1 or more.
-# DansGuardian will automatically look for dansguardianfN.conf where N is the filter
+# DansGuardian will automatically look for e2guardianfN.conf where N is the filter
 # group.  To assign users to groups use the filtergroupslist option.  All users default
 # to filter group 1.  You must have some sort of authentication to be able to map users
 # to a group.  The more filter groups the more copies of the lists will be in RAM so
 # use as few as possible.
 filtergroups = <% $nGroups %>
-filtergroupslist = '/etc/dansguardian/lists/filtergroupslist'
+filtergroupslist = '/etc/e2guardian/lists/filtergroupslist'
 
 # Authentication files location
-bannediplist = '/etc/dansguardian/lists/bannediplist'
-exceptioniplist = '/etc/dansguardian/lists/exceptioniplist'
+bannediplist = '/etc/e2guardian/lists/bannediplist'
+exceptioniplist = '/etc/e2guardian/lists/exceptioniplist'
 
 # Show weighted phrases found
 # If enabled then the phrases found that made up the total which excedes
@@ -382,9 +382,9 @@ trickledelay = 10
 # one is forced to match as the default, regardless of user agent
 # and other matching mechanisms.
 #
-downloadmanager = '/etc/dansguardian/downloadmanagers/fancy.conf'
-#downloadmanager = '/etc/dansguardian/downloadmanagers/trickle.conf'
-downloadmanager = '/etc/dansguardian/downloadmanagers/default.conf'
+#downloadmanager = '/etc/e2guardian/downloadmanagers/fancy.conf'
+#downloadmanager = '/etc/e2guardian/downloadmanagers/trickle.conf'
+downloadmanager = '/etc/e2guardian/downloadmanagers/default.conf'
 
 # Content Scanners (Also known as AV scanners)
 # These are plugins that scan the content of all files your browser fetches
@@ -397,7 +397,7 @@ downloadmanager = '/etc/dansguardian/downloadmanagers/default.conf'
 # See the individual plugin conf file for more options (if any).
 #
 % if ($antivirus) {
-contentscanner = '/etc/dansguardian/contentscanners/clamdscan.conf'
+contentscanner = '/etc/e2guardian/contentscanners/clamdscan.conf'
 % }
 
 # Content scanner timeout
@@ -429,12 +429,12 @@ contentscanexceptions = off
 # If you do not use multiple filter groups, you need not specify this option.
 #
 % if ($auth) {
-authplugin = '/etc/dansguardian/authplugins/proxy-basic.conf'
+authplugin = '/etc/e2guardian/authplugins/proxy-basic.conf'
 % }
-#authplugin = '/etc/dansguardian/authplugins/proxy-digest.conf'
-#authplugin = '/etc/dansguardian/authplugins/proxy-ntlm.conf'
-#authplugin = '/etc/dansguardian/authplugins/ident.conf'
-authplugin = '/etc/dansguardian/authplugins/ip.conf'
+#authplugin = '/etc/e2guardian/authplugins/proxy-digest.conf'
+#authplugin = '/etc/e2guardian/authplugins/proxy-ntlm.conf'
+#authplugin = '/etc/e2guardian/authplugins/ident.conf'
+authplugin = '/etc/e2guardian/authplugins/ip.conf'
 
 
 
@@ -519,23 +519,23 @@ maxips = 0
 # IPC filename
 #
 # Defines IPC server directory and filename used to communicate with the log process.
-ipcfilename = '/tmp/.dguardianipc'
+ipcfilename = '/tmp/.e2guardianipc'
 # URL list IPC filename
 #
 # Defines URL list IPC server directory and filename used to communicate with the URL
 # cache process.
-urlipcfilename = '/tmp/.dguardianurlipc'
+urlipcfilename = '/tmp/.e2guardianurlipc'
 
 # IP list IPC filename
 #
 # Defines IP list IPC server directory and filename, for communicating with the client
 # IP cache process.
-ipipcfilename = '/tmp/.dguardianipipc'
+ipipcfilename = '/tmp/.e2guardianipipc'
 
 # PID filename
 #
 # Defines process id directory and filename.
-#pidfilename = '/var/run/dansguardian.pid'
+#pidfilename = '/var/run/e2guardian.pid'
 
 # Disable daemoning
 # If enabled the process will not fork into the background.

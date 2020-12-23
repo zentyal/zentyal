@@ -15,7 +15,7 @@ clamdudsfile = '<% $clamdSocket %>'
 # form "/downloads/tf*" instead of "/var/clamdchroot/downloads/tf*".
 #pathprefix = '/var/clamdchroot'
 
-exceptionvirusmimetypelist = '/etc/dansguardian/lists/contentscanners/exceptionvirusmimetypelist'
-exceptionvirusextensionlist = '/etc/dansguardian/lists/contentscanners/exceptionvirusextensionlist'
-exceptionvirussitelist = '/etc/dansguardian/lists/contentscanners/exceptionvirussitelist'
-exceptionvirusurllist = '/etc/dansguardian/lists/contentscanners/exceptionvirusurllist'
+exceptionvirusmimetypelist = '/etc/e2guardian/lists/contentscanners/exceptionvirusmimetypelist'
+exceptionvirusextensionlist = '/etc/e2guardian/lists/contentscanners/exceptionvirusextensionlist'
+exceptionvirussitelist = '/etc/e2guardian/lists/contentscanners/exceptionvirussitelist'
+exceptionvirusurllist = '/etc/e2guardian/lists/contentscanners/exceptionvirusurllist'

@@ -82,8 +82,8 @@ sub test_domain_name : Test(5)
             expected => undef,
         },
         {
-            name => 'Test domain name (dansguardian)',
-            file => '/var/log/dansguardian/access.log',
+            name => 'Test domain name (e2guardian)',
+            file => '/var/log/e2guardian/access.log',
             line => '1372580242.251      0 192.168.100.3 TCP_MEM_HIT/200 1516 GET http://db.local.clamav.net/daily-17404.cdiff - NONE/- text/plain',
             expected => undef,
         },
@@ -116,8 +116,8 @@ sub test_ip_addr_domain : Test(10)
             expected => undef,
         },
         {
-            name => 'IPv4 domain (dansguardian)',
-            file => '/var/log/dansguardian/access.log',
+            name => 'IPv4 domain (e2guardian)',
+            file => '/var/log/e2guardian/access.log',
             line => '1372578572.975    233 192.168.100.3 TCP_MISS/304 398 GET http://131.12.32.1/ubuntu/dists/precise/Release - FIRST_UP_PARENT/localhost -',
             expected => undef,
         },
@@ -140,8 +140,8 @@ sub test_ip_addr_domain : Test(10)
             expected => undef,
         },
         {
-            name => 'IPv6 domain (dansguardian)',
-            file => '/var/log/dansguardian/access.log',
+            name => 'IPv6 domain (e2guardian)',
+            file => '/var/log/e2guardian/access.log',
             line => '1372580239.517    108 192.168.100.21 TCP_MISS/200 427 GET http://[2001:db8:85a3::8a2e:370:7334]/nic/checkip - DIRECT/194.245.148.135 text/html',
             expected => undef,
         },
@@ -211,7 +211,7 @@ sub tests_denied_by_auth : Test
 }
 
 
-sub tests_filtered_by_dg : Test(10)
+sub tests_filtered_by_e2g : Test(10)
 {
     my ($self) = @_;
 
@@ -230,7 +230,7 @@ sub tests_filtered_by_dg : Test(10)
         },
         {
             name => 'Dansguardian',
-            file => '/var/log/dansguardian/access.log',
+            file => '/var/log/e2guardian/access.log',
             line => '1372578572.575    233 192.168.100.3 TCP_DENIED/403 398 GET http://foo.bar/foo - DEFAULT_PARENT/127.0.0.1 -',
             expected => {
                 bytes  => 398,   code      => 'TCP_DENIED/403',      elapsed    => 233, event => 'filtered',
@@ -254,7 +254,7 @@ sub tests_filtered_by_dg : Test(10)
         },
         {
             name => 'Dansguardian porn domain',
-            file => '/var/log/dansguardian/access.log',
+            file => '/var/log/e2guardian/access.log',
             line => '1379459436.811    234 10.0.2.15 TCP_DENIED/403 48740 GET http://www.pornsite.com embrace@zentyal-domain.lan DEFAULT_PARENT/127.0.0.1 text/html',
             expected => {
                 bytes  => 10795,   code      => 'TCP_DENIED/403',      elapsed    => 234,

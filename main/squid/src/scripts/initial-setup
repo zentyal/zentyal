@@ -8,8 +8,8 @@ systemctl stop squid || true
 # add ebox to proxy to read squid logs
 adduser --quiet ebox proxy || true
 
-# directory for extra dg domain lists
-DG_EXTRALISTS=/etc/dansguardian/extralists
-test -d $DG_EXTRALISTS || mkdir -p -m 0755 $DG_EXTRALISTS
+# directory for extra e2g domain lists
+E2G_EXTRALISTS=/etc/e2guardian/extralists
+test -d $E2G_EXTRALISTS || mkdir -p -m 0755 $E2G_EXTRALISTS
 
 exit 0;

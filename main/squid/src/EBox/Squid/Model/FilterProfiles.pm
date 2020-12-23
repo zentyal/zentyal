@@ -150,7 +150,7 @@ sub e2gProfiles
         my $name  = $row->valueByName('name');
 
         if ($id > MAX_E2G_GROUP) {
-            EBox::info("Filter group $name and following groups will use default content filter policy because the maximum number of Dansguardian groups is reached");
+            EBox::info("Filter group $name and following groups will use default content filter policy because the maximum number of e2guardian groups is reached");
             last;
         }
 

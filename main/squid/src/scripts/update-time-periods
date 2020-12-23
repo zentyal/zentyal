@@ -28,8 +28,8 @@ my $global = EBox::Global->getInstance(1);
 
 my $squid = $global->modInstance('squid');
 if ($squid->filterNeeded()) {
-    $squid->writeDgGroups();
-    EBox::Sudo::root('dansguardian -g');
+    $squid->writeE2gGroups();
+    EBox::Sudo::root('e2guardian -g');
 
     # Regen firewall rules for HTTPS block
     if ($squid->httpsBlockNeeded()) {

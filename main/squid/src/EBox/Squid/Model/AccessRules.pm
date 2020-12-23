@@ -31,7 +31,7 @@ use EBox::Squid::Types::TimePeriod;
 
 use TryCatch;
 
-use constant MAX_E2G_GROUP => 99; # max group number allowed by dansguardian
+use constant MAX_E2G_GROUP => 99; # max group number allowed by e2guardian
 
 sub _table
 {
