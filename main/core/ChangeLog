@@ -1,4 +1,5 @@
 7.0.0
+	+ Remove deprecated ssl on in favor of listen ssl
 	+ Increase default rsa key length to 4096
 	+ Set version number to 7.0.0
 6.2.5
