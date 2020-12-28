@@ -304,9 +304,10 @@ sub _setupSOGoDatabase
     my $db = EBox::DBEngineFactory::DBEngine();
     $db->updateMysqlConf();
     $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");
-    $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " .
+    $db->sqlAsSuperuser(sql => "CREATE USER $dbUser\@$dbHost " .
                                "IDENTIFIED BY \"$dbPass\";");
-    $db->sqlAsSuperuser(sql => 'flush privileges;');
+    $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " . ";");
+    $db->sqlAsSuperuser(sql => 'FLUSH PRIVILEGES;');
 }
 
 sub _sogoDBEngine
