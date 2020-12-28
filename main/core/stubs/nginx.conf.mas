@@ -112,7 +112,7 @@ http {
 
         ssl on;
         ssl_certificate <% $zentyalconfdir %>ssl/ssl.pem;
-        ssl_certificate_key <% $zentyalconfdir %>ssl/ssl.pem;
+        ssl_certificate_key <% $zentyalconfdir %>ssl/ssl.key;
 % if ($caFile) {
         ssl_client_certificate <% $caFile %>;
         ssl_verify_client optional;
@@ -140,9 +140,6 @@ http {
 
         # To allow POST on static pages (needed for vncviewer in zentyal-virt)
         error_page 405 =200 $uri;
-
-        # To redirect http to https
-        error_page 497 301 =307 https://$host:$server_port$request_uri;
 
         location /data/ {
 <& .restricted, restrictions => $sectionrestrictions{'/data/'} &>
