@@ -99,13 +99,41 @@ loglocation = '/var/log/e2guardian/access.log'
 filterip =
 
 # the port that DansGuardian listens to.
-filterport = <% $port %>
+filterports = <% $port %>
+
+# Map ports to IPs
+# If enabled map filterports to filterip - number of filterports must then be same as
+# number of filterip
+# If disabled will listen on all filterports on all filterips.
+# on (default) | off
+mapportstoips = off
 
 # the ip of the proxy (default is the loopback - i.e. this server)
 proxyip = 127.0.0.1
 
 # the port DansGuardian connects to proxy on
 proxyport = <% $squidport %>
+
+# Proxy timeout
+# Set tcp timeout between the Proxy and e2guardian
+# This is a connection timeout
+# If proxy is remote you may need to increase this to 10 or more.
+# Min 5 - Max 100
+proxytimeout = 5
+
+# Proxy header exchange
+# Set timeout between the Proxy and e2guardian
+# Min 20 - Max 300
+# If this is higher than proxies timeout user will get proxy Gateway error page
+# If lower e2guardian Gateway error page
+proxyexchange = 61
+
+# Pconn timeout
+# how long a persistent connection will wait for other requests
+# squid apparently defaults to 1 minute (persistent_request_timeout),
+# so wait slightly less than this to avoid duff pconns.
+# Min 5 - Max 300
+pcontimeout = 55
 
 # accessdeniedaddress is the address of your web server to which the cgi
 # e2guardian reporting script was copied. Only used in reporting levels 1 and 2.
@@ -470,8 +498,16 @@ usexforwardedfor = on
 # it on or off
 logconnectionhandlingerrors = off
 
-
-
+#sets the number of worker threads to use
+#
+# This figure is the maximum number of concurrent connections.
+# If more connections are made, connections will queue until a worker thread is free.
+# On large site you might want to try 5000 (max value 20000)
+# 500 is the default suitable for home or samll office use on 64-bit systems
+# On 32-bit systems reduce this to 300 to avoid exceeding the <4GB
+# virtual memory limit and on Linux decrease the thread stack size from
+# 10MB to 2MB (ulimit -s 2048)
+httpworkers = 500
 
 # Fork pool options
 
@@ -570,3 +606,11 @@ loguseragent = off
 # This is not to be confused with the -g run time option - they are not related.
 # on|off (defaults to off)
 softrestart = off
+
+# Storyboard tracing
+# Warning - produces verbose output - do not use in production
+# Output goes to syslog (or stderr in debug mode)
+# default off
+storyboardtrace = on
+
+preauthstoryboard = '/etc/e2guardian/preauth.story'

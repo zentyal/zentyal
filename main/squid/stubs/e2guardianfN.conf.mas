@@ -238,7 +238,7 @@ deepurlanalysis = off
 # If defined, this overrides the global setting in e2guardian.conf for
 # members of this filter group.
 #
-#reportinglevel = 3
+reportinglevel = 3
 
 # accessdeniedaddress is the address of your web server to which the cgi
 # e2guardian reporting script was copied. Only used in reporting levels
@@ -336,3 +336,17 @@ violations = 0
 # notifaction will be sent.
 threshold = 0
 
+# Much logic has moved to storyboard files
+storyboard = '/etc/e2guardian/examplef1.story'
+
+# POST protection (web upload and forms)
+# does not block forms without any file upload, i.e. this is just for
+# blocking or limiting uploads
+# measured in kibibytes after MIME encoding and header bumph
+# use 0 for a complete block
+# use higher (e.g. 512 = 512Kbytes) for limiting
+# use -1 for no blocking
+# NOTE: POST PROTECTION IS NOT YET IMPLIMENTED IN V5
+#maxuploadsize = 512
+#maxuploadsize = 0
+maxuploadsize = -1
