@@ -111,7 +111,7 @@ http {
         listen <% $port %> ssl;
 
         ssl_certificate <% $zentyalconfdir %>ssl/ssl.pem;
-        ssl_certificate_key <% $zentyalconfdir %>ssl/ssl.key;
+        ssl_certificate_key <% $zentyalconfdir %>ssl/ssl.pem;
 % if ($caFile) {
         ssl_client_certificate <% $caFile %>;
         ssl_verify_client optional;

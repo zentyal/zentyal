@@ -1,4 +1,5 @@
 7.0.0
+	+ Fix regression on vnc service unit file
 	+ Add bridge-utils
 	+ Add libvirt-clients
 	+ Replace libvirt-bin by libvirt-daemon-system
