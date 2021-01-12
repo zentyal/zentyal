@@ -1,3 +1,6 @@
+HEAD
+	+ Fix regression on certificate key path (avoiding CA generation 
+	  issue and vnc issues)
 6.2.5
 	+ Fix configuration report date
 6.2.4
