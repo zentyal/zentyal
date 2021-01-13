@@ -117,7 +117,7 @@ logging {
 // query logging on (and off again) using command ‘rndc querylog’
 //
      channel queries_log {
-          file "/var/log/named/queries" versions 600 size 20m;
+          file "/var/log/named/queries" versions 10 size 80m;
           print-time yes;
           print-category yes;
           print-severity yes;
@@ -252,11 +252,11 @@ logging {
 // by default, make sure you add option ‘querylog no;’ - then you can toggle
 // query logging on (and off again) using command ‘rndc querylog’
 //
-     category queries { queries_log; };
+     category queries { queries_log; default_syslog; };
 //
 // This logging category will only emit messages at debug levels of 1 or
 // higher - it can be useful to troubleshoot problems where queries are
 // resulting in a SERVFAIL response.
 //
-     category query-errors {query-errors_log; };
+     category query-errors {query-errors_log; default_syslog; };
 };
