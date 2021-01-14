@@ -1,4 +1,4 @@
-HEAD
+6.2.6
 	+ Fix regression on certificate key path (avoiding CA generation 
 	  issue and vnc issues)
 6.2.5
