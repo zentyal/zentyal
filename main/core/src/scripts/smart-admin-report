@@ -394,7 +394,7 @@ function antivirus_check() {
 	echo -e "###################\n"
 
 	for db in main daily bytecode; do
-  	DBCHECK=$(egrep "${db}(.cvd|.cld) updated" /var/log/clamav/freshclam.log{.1,} | tac | head -1 | cut -d ":" -f2 | awk '{print $1,$2,$3}')
+	DBCHECK=$(egrep "${db}(.cvd|.cld) updated" /var/log/clamav/freshclam.log{.1,} 2>/dev/null | tac | head -1 | cut -d ":" -f2 | awk '{print $1,$2,$3}')
 	  echo "Last update of the '${db}' database file: ${DBCHECK}"
 	done
 
