@@ -88,7 +88,7 @@ sub initialSetup
 #
 # Overrides:
 #
-#       <EBox::Module::Service::_setConf>
+#       <EBox::Module::Base::_setConf>
 #
 sub _setConf
 {
@@ -304,7 +304,7 @@ sub _setupSOGoDatabase
     my $db = EBox::DBEngineFactory::DBEngine();
     $db->updateMysqlConf();
     $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");
-    $db->sqlAsSuperuser(sql => "CREATE USER $dbUser\@$dbHost " .
+    $db->sqlAsSuperuser(sql => "CREATE USER IF NOT EXISTS $dbUser\@$dbHost " .
                                "IDENTIFIED BY \"$dbPass\";");
     $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " . ";");
     $db->sqlAsSuperuser(sql => 'FLUSH PRIVILEGES;');
