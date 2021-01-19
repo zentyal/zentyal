@@ -1,4 +1,5 @@
 7.0.0
+	+ Fix VM shutdown (just for virsh)
 	+ Fix regression on vnc service unit file
 	+ Add bridge-utils
 	+ Add libvirt-clients
