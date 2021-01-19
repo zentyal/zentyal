@@ -1,4 +1,5 @@
 7.0.0
+	+ Fix tftpd-hpa service (HPA's ftp server used for thin clients)
 	+ Set version number to 7.0.0
 6.2.1
 	+ Fix DHCP disabled interface not disabled. Add ifaceStatus method.
