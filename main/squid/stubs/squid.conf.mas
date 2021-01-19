@@ -339,7 +339,7 @@ access_log /var/log/squid/access.log squid
 cache_log /var/log/squid/cache.log
 cache_store_log /var/log/squid/store.log
 
-pid_filename /var/run/squid.pid
+pid_filename /run/squid.pid
 
 % if (@nameservers) {
 %   my $dns_nameservers = '';
