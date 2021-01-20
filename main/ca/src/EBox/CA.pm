@@ -44,7 +44,7 @@ use EBox::Sudo;
 use EBox::AuditLogging;
 use EBox::Util::Version;
 
-use constant OPENSSLPATH => "/usr/lib/ssl1.0/openssl";
+use constant OPENSSLPATH => "/usr/bin/openssl";
 
 use constant CATOPDIR => EBox::Config->home() . "CA/";
 
