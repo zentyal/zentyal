@@ -1002,6 +1002,7 @@ sub generateCRL
     # Set the link to the last
     unlink (LASTESTCRL) if ( -l LASTESTCRL );
     symlink ( CRLDIR . $date . "-crl.pem", LASTESTCRL );
+
 }
 
 # Method: listCertificates
@@ -2250,7 +2251,7 @@ sub _obtain # (certFile, attribute)
 
     my $arg = "";
     if ($attribute eq 'DN') {
-        $arg = "-subject";
+        $arg = "-subject -nameopt compat";
     } elsif ($attribute eq 'serial') {
         $arg = "-serial";
     } elsif ($attribute eq 'endDate'
