@@ -1,4 +1,5 @@
 7.0.0
+	+ Fix issue related with tar option and config backup
 	+ Fix Smart Admin report minor error
 	+ Fix regression on certificate key path (avoiding CA generation 
 	  issue and vnc issues)
