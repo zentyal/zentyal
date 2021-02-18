@@ -622,7 +622,8 @@ sub _setMailConf
                          $filePermissions
                         );
 
-    $self->_setArchivemailConf();
+    # TODO: Uncomment this when the package will be maintained again by blorente
+    # $self->_setArchivemailConf();
 
     #my $manager = new EBox::ServiceManager;
     # Do not run postmap if we can't overwrite SASL_PASSWD_FILE

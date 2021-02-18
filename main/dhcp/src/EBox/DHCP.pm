@@ -812,7 +812,7 @@ sub TftpdRootDir
 
     # Create directory unless it already exists
     unless ( -d TFTPD_CONF_DIR ) {
-        mkdir ( TFTPD_CONF_DIR, 0755 );
+        EBox::Sudo::root("mkdir " . TFTPD_CONF_DIR . " --mode=0755");
     }
     return TFTPD_CONF_DIR;
 }
@@ -1255,6 +1255,7 @@ sub _setTFTPDConf
 {
     my ($self) = @_;
 
+    $self->TftpdRootDir();
     $self->writeConfFile(TFTPD_DEFAULT_CONF, "dhcp/tftpd-hpa.mas", []);
 }
 

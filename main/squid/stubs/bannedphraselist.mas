@@ -22,7 +22,7 @@
 #
 #
 # Extra phrase-list files to include
-# .Include</etc/dansguardian/testphrase>
+# .Include</etc/e2guardian/testphrase>
 #
 #
 # All phrases need to be within < and > to work, othewise they will be
@@ -34,6 +34,6 @@
 # listed in the exceptionphraselist file.
 #
 
-#.Include</etc/dansguardian/phraselists/pornography/banned>
-#.Include</etc/dansguardian/phraselists/illegaldrugs/banned>
-#.Include</etc/dansguardian/phraselists/gambling/banned>
+#.Include</etc/e2guardian/lists/phraselists/pornography/banned>
+#.Include</etc/e2guardian/lists/phraselists/illegaldrugs/banned>
+#.Include</etc/e2guardian/lists/phraselists/gambling/banned>

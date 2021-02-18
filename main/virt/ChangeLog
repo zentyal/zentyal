@@ -1,3 +1,9 @@
+7.0.0
+	+ Fix VM shutdown (just for virsh)
+	+ Fix regression on vnc service unit file
+	+ Add bridge-utils
+	+ Add libvirt-clients
+	+ Replace libvirt-bin by libvirt-daemon-system
 6.2.0
 	+ Set version number to 6.2.0
 6.1.1

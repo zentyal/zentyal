@@ -64,16 +64,16 @@ use EBox::NetWrappers qw(to_network_with_mask);
 
 # Module local conf stuff
 use constant SQUID_CONF_FILE => '/etc/squid/squid.conf';
-use constant DGDIR => '/etc/dansguardian';
+use constant E2GDIR => '/etc/e2guardian';
 
 use constant DEFAULT_PORT => '3128';
 use constant PROXYPORT_FILTER => '3129';
 
 use constant SQUIDCSSFILE => '/etc/squid/errorpage.css';
 use constant MAXDOMAINSIZ => 255;
-use constant DGLISTSDIR => DGDIR . '/lists';
-use constant DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian';
-use constant CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf';
+use constant E2GLISTSDIR => E2GDIR . '/lists';
+use constant E2G_LOGROTATE_CONF => '/etc/logrotate.d/e2guardian';
+use constant CLAMD_SCANNER_CONF_FILE => E2GDIR . '/contentscanners/clamdscan.conf';
 use constant KEYTAB_FILE => '/etc/squid/HTTP.keytab';
 use constant SQUID_DEFAULT_FILE => '/etc/default/squid';
 use constant CRONFILE => '/etc/cron.d/zentyal-squid';
@@ -153,87 +153,88 @@ sub usedFiles
              'reason' => __('Front HTTP Proxy configuration file')
             },
             {
-             'file' => DGDIR . '/dansguardian.conf',
+             'file' => E2GDIR . '/e2guardian.conf',
              'module' => 'squid',
              'reason' => __('Content filter configuration file')
             },
             {
-             'file' => DGDIR . '/dansguardianf1.conf',
+             'file' => E2GDIR . '/e2guardianf1.conf',
              'module' => 'squid',
              'reason' => __('Default filter group configuration')
             },
             {
-             'file' => DGLISTSDIR . '/filtergroupslist',
+             'file' => E2GLISTSDIR . '/filtergroupslist',
              'module' => 'squid',
              'reason' => __('Filter groups membership')
             },
             {
-             'file' => DGLISTSDIR . '/bannedextensionlist',
+             'file' => E2GLISTSDIR . '/bannedextensionlist',
              'module' => 'squid',
              'reason' => __('Content filter banned extension list')
             },
             {
-             'file' => DGLISTSDIR . '/bannedmimetypelist',
+             'file' => E2GLISTSDIR . '/bannedmimetypelist',
              'module' => 'squid',
              'reason' => __('Content filter banned mime type list')
             },
             {
-             'file' => DGLISTSDIR . '/exceptionsitelist',
+             'file' => E2GLISTSDIR . '/exceptionsitelist',
              'module' => 'squid',
              'reason' => __('Content filter exception site list')
             },
             {
-             'file' => DGLISTSDIR . '/greysitelist',
+             'file' => E2GLISTSDIR . '/greysitelist',
              'module' => 'squid',
              'reason' => __('Content filter grey site list')
             },
             {
-             'file' => DGLISTSDIR . '/bannedsitelist',
+             'file' => E2GLISTSDIR . '/bannedsitelist',
              'module' => 'squid',
              'reason' => __('Content filter banned site list')
             },
             {
-             'file' => DGLISTSDIR . '/exceptionurllist',
+             'file' => E2GLISTSDIR . '/exceptionurllist',
              'module' => 'squid',
              'reason' => __('Content filter exception URL list')
             },
             {
-             'file' => DGLISTSDIR . '/greyurllist',
+             'file' => E2GLISTSDIR . '/greyurllist',
              'module' => 'squid',
              'reason' => __('Content filter grey URL list')
             },
             {
-             'file' => DGLISTSDIR . '/bannedurllist',
+             'file' => E2GLISTSDIR . '/bannedurllist',
              'module' => 'squid',
              'reason' => __('Content filter banned URL list')
             },
             {
-             'file' =>    DGLISTSDIR . '/bannedphraselist',
+             'file' =>    E2GLISTSDIR . '/bannedphraselist',
              'module' => 'squid',
              'reason' => __('Forbidden phrases list'),
             },
             {
-             'file' =>    DGLISTSDIR . '/exceptionphraselist',
+             'file' =>    E2GLISTSDIR . '/exceptionphraselist',
              'module' => 'squid',
              'reason' => __('Exception phrases list'),
             },
+            # # obsolete https://github.com/e2guardian/e2guardian/issues/125
+            # {
+            #  'file' =>    E2GLISTSDIR . '/pics',
+            #  'module' => 'squid',
+            #  'reason' => __('PICS ratings configuration'),
+            # },
             {
-             'file' =>    DGLISTSDIR . '/pics',
+             'file' => E2G_LOGROTATE_CONF,
              'module' => 'squid',
-             'reason' => __('PICS ratings configuration'),
-            },
-            {
-             'file' => DG_LOGROTATE_CONF,
-             'module' => 'squid',
-             'reason' => __(q{Dansguardian's log rotation configuration}),
+             'reason' => __(q{E2guardian's log rotation configuration}),
             },
             {
              'file' => CLAMD_SCANNER_CONF_FILE,
              'module' => 'squid',
-             'reason' => __(q{Dansguardian's antivirus scanner configuration}),
+             'reason' => __(q{E"guardian's antivirus scanner configuration}),
             },
             {
-             'file' =>    DGLISTSDIR . '/authplugins/ipgroups',
+             'file' =>    E2GLISTSDIR . '/authplugins/ipgroups',
              'module' => 'squid',
              'reason' => __('Filter groups per IP'),
             },
@@ -259,7 +260,7 @@ sub actions
     return [
             {
              'action' => __('Overwrite blocked page templates'),
-             'reason' => __('Dansguardian blocked page templates will be overwritten with Zentyal'
+             'reason' => __('E2guardian blocked page templates will be overwritten with Zentyal'
                            . ' customized templates.'),
              'module' => 'squid'
             },
@@ -270,7 +271,7 @@ sub actions
              'module' => 'squid'
             },
             {
-             'action' => __('Remove dansguardian init script link'),
+             'action' => __('Remove e2guardian init script link'),
              'reason' => __('Zentyal will take care of starting and stopping ' .
                             'the services.'),
              'module' => 'squid'
@@ -489,7 +490,7 @@ sub _setConf
     $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
 
     if ($filter) {
-        $self->_writeDgConf();
+        $self->_writeE2gConf();
     }
 
     EBox::Squid::Types::ListArchive->commitAllPendingRemovals();
@@ -630,14 +631,14 @@ sub _objectsDelayPools
     return \@delayPools;
 }
 
-sub _writeDgConf
+sub _writeE2gConf
 {
     my ($self) = @_;
 
     # FIXME - get a proper lang name for the current locale
-    my $lang = $self->_DGLang();
+    my $lang = $self->_E2GLang();
 
-    my @dgProfiles = @{ $self->_dgProfiles };
+    my @e2gProfiles = @{ $self->_e2gProfiles };
 
     my @writeParam = ();
 
@@ -645,10 +646,10 @@ sub _writeDgConf
     push(@writeParam, 'lang' => $lang);
     push(@writeParam, 'squidport' => PROXYPORT_FILTER);
     push(@writeParam, 'weightedPhraseThreshold' => $self->_banThresholdActive);
-    push(@writeParam, 'nGroups' => scalar @dgProfiles);
+    push(@writeParam, 'nGroups' => scalar @e2gProfiles);
     push(@writeParam, 'auth' => $self->authNeeded());
 
-    my $antivirus = $self->_antivirusNeeded(\@dgProfiles);
+    my $antivirus = $self->_antivirusNeeded(\@e2gProfiles);
     push(@writeParam, 'antivirus' => $antivirus);
 
     my $maxchildren = EBox::Config::configkey('maxchildren');
@@ -669,23 +670,23 @@ sub _writeDgConf
     my $maxagechildren = EBox::Config::configkey('maxagechildren');
     push(@writeParam, 'maxagechildren' => $maxagechildren);
 
-    $self->writeConfFile(DGDIR . '/dansguardian.conf',
-            'squid/dansguardian.conf.mas', \@writeParam, { mode => '0644'});
+    $self->writeConfFile(E2GDIR . '/e2guardian.conf',
+            'squid/e2guardian.conf.mas', \@writeParam, { mode => '0644'});
 
     # disable banned, exception phrases lists, regex URLs and PICS ratings
-    $self->writeConfFile(DGLISTSDIR . '/bannedphraselist',
+    $self->writeConfFile(E2GLISTSDIR . '/bannedphraselist',
                          'squid/bannedphraselist.mas', [], { mode => '0644'});
 
-    $self->writeConfFile(DGLISTSDIR . '/exceptionphraselist',
+    $self->writeConfFile(E2GLISTSDIR . '/exceptionphraselist',
                          'squid/exceptionphraselist.mas', [], { mode => '0644'});
 
-    $self->writeConfFile(DGLISTSDIR . '/pics',
+    $self->writeConfFile(E2GLISTSDIR . '/pics',
                          'squid/pics.mas', [], { mode => '0644'});
 
-    $self->writeConfFile(DGLISTSDIR . '/bannedregexpurllist',
+    $self->writeConfFile(E2GLISTSDIR . '/bannedregexpurllist',
                          'squid/bannedregexpurllist.mas', [],  { mode => '0644'});
 
-    $self->writeDgGroups();
+    $self->writeE2gGroups();
 
     if ($antivirus) {
         my $avMod = $self->global()->modInstance('antivirus');
@@ -694,7 +695,7 @@ sub _writeDgConf
                              [ clamdSocket => $avMod->localSocket() ]);
     }
 
-    foreach my $group (@dgProfiles) {
+    foreach my $group (@e2gProfiles) {
         my $number = $group->{number};
         my $policy = $group->{policy};
 
@@ -706,17 +707,17 @@ sub _writeDgConf
         push(@writeParam, 'threshold' => $group->{threshold});
         push(@writeParam, 'groupName' => $group->{groupName});
         push(@writeParam, 'defaults' => $group->{defaults});
-        EBox::Module::Base::writeConfFileNoCheck(DGDIR . "/dansguardianf$number.conf",
-                'squid/dansguardianfN.conf.mas', \@writeParam, { mode => '0644'});
+        EBox::Module::Base::writeConfFileNoCheck(E2GDIR . "/e2guardianf$number.conf",
+                'squid/e2guardianfN.conf.mas', \@writeParam, { mode => '0644'});
 
         if ($policy eq 'filter') {
-             $self->_writeDgDomainsConf($group);
+             $self->_writeE2gDomainsConf($group);
         }
     }
 
     $self->_writeCronFile();
-    $self->_writeDgTemplates();
-    $self->writeConfFile(DG_LOGROTATE_CONF, 'squid/dansguardian.logrotate', []);
+    $self->_writeE2gTemplates();
+    $self->writeConfFile(E2G_LOGROTATE_CONF, 'squid/e2guardian.logrotate', []);
 }
 
 sub _writeCronFile
@@ -730,7 +731,7 @@ sub _writeCronFile
     foreach my $profile (@{$rules->filterProfiles()}) {
         next unless $profile->{usesFilter} and $profile->{timePeriod};
         if ($profile->{policy} eq 'deny') {
-            # this is managed in squid, we don't need to rewrite DG files for it
+            # this is managed in squid, we don't need to rewrite E2G files for it
             next;
         }
         foreach my $day (keys %{$profile->{days}}) {
@@ -758,7 +759,7 @@ sub _writeCronFile
     $self->writeConfFile(CRONFILE, 'squid/zentyal-squid.cron.mas', [ times => \@cronTimes ]);
 }
 
-sub writeDgGroups
+sub writeE2gGroups
 {
     my ($self) = @_;
 
@@ -820,21 +821,21 @@ sub writeDgGroups
     my @writeParams = ();
     push (@writeParams, groups => \@groups);
     push (@writeParams, realm => $realm);
-    $self->writeConfFile(DGLISTSDIR . '/filtergroupslist',
+    $self->writeConfFile(E2GLISTSDIR . '/filtergroupslist',
                          'squid/filtergroupslist.mas',
                          \@writeParams, { mode => '0644'});
 
-    $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
+    $self->writeConfFile(E2GLISTSDIR . '/authplugins/ipgroups',
                          'squid/ipgroups.mas',
                          [ objects => \@objects ], { mode => '0644'});
 }
 
-sub _writeDgTemplates
+sub _writeE2gTemplates
 {
     my ($self) = @_;
 
-    my $lang = $self->_DGLang();
-    my $file = DGDIR . '/languages/' . $lang . '/template.html';
+    my $lang = $self->_E2GLang();
+    my $file = E2GDIR . '/languages/' . $lang . '/template.html';
 
     my $extra_messages = '';
     my $edition = $self->global()->edition();
@@ -856,8 +857,8 @@ sub _banThresholdActive
 {
     my ($self) = @_;
 
-    my @dgProfiles = @{ $self->_dgProfiles };
-    foreach my $group (@dgProfiles) {
+    my @e2gProfiles = @{ $self->_e2gProfiles };
+    foreach my $group (@e2gProfiles) {
         if ($group->{threshold} > 0) {
             return 1;
         }
@@ -873,15 +874,15 @@ sub _notCachedDomains
     my $model = $self->model('NoCacheDomains');
     return $model->notCachedDomains();
 }
-sub _dgProfiles
+sub _e2gProfiles
 {
     my ($self) = @_;
 
     my $profileModel = $self->model('FilterProfiles');
-    return $profileModel->dgProfiles();
+    return $profileModel->e2gProfiles();
 }
 
-sub _writeDgDomainsConf
+sub _writeE2gDomainsConf
 {
     my ($self, $group) = @_;
 
@@ -893,7 +894,7 @@ sub _writeDgDomainsConf
     foreach my $file (@domainsFiles) {
         next if (exists $group->{defaults}->{$file});
 
-        my $path = DGLISTSDIR . '/' . $file . $number;
+        my $path = E2GLISTSDIR . '/' . $file . $number;
         my $template = "squid/$file.mas";
         EBox::Module::Base::writeConfFileNoCheck($path,
                                                  $template,
@@ -956,7 +957,7 @@ sub _daemons
             name => 'squid'
         },
         {
-            name => 'dansguardian',
+            name => 'e2guardian',
             precondition => \&filterNeeded
         },
     ];
@@ -999,9 +1000,9 @@ sub logHelper
     return (new EBox::Squid::LogHelper);
 }
 
-# Method to return the language to use with DG depending on the locale
+# Method to return the language to use with E2G depending on the locale
 # given by EBox
-sub _DGLang
+sub _E2GLang
 {
     my $locale = EBox::locale();
     my $lang = 'ukenglish';

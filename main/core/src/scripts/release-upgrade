@@ -64,9 +64,9 @@ function checkUbuntuReposotories
     echo -e "${GREEN} - Checking and setting ubuntu repositories...${NC}"
     if ! grep -v "^#" $SOURCES | grep -q "ubuntu.com"
     then
-        echo "deb http://archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse" >> $SOURCES
-        echo "deb http://archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse" >> $SOURCES
-        echo "deb http://security.ubuntu.com/ubuntu/ bionic-security main restricted universe multiverse" >> $SOURCES        
+        echo "deb http://archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse" >> $SOURCES
+        echo "deb http://archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse" >> $SOURCES
+        echo "deb http://security.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse" >> $SOURCES        
     fi
     echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }

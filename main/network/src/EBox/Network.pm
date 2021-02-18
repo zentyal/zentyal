@@ -3472,7 +3472,7 @@ sub _multigwRoutes
         }
 
         # Write mark rules first to avoid local output problems
-        push(@cmds, "/sbin/ip route flush table $table");
+        push(@cmds, "/sbin/ip route flush table $table || true");
         push(@markRules, "/sbin/ip rule add fwmark $mark/0xFF table $table");
         push(@addrRules, "/sbin/ip rule add from $ip table $table");
 
@@ -3769,7 +3769,7 @@ sub _enforceServiceState
     $self->_multigwRoutes($dynIfaces);
     $self->_cleanupVlanIfaces();
 
-    EBox::Sudo::root('/sbin/ip route flush cache');
+    EBox::Sudo::root('/sbin/ip route flush cache || true');
 
     $self->SUPER::_enforceServiceState();
 }
@@ -4624,7 +4624,7 @@ sub regenGateways
     }
     $self->_multigwRoutes();
 
-    EBox::Sudo::root('/sbin/ip route flush cache');
+    EBox::Sudo::root('/sbin/ip route flush cache || true');
 
     $global->modRestarted('network');
 

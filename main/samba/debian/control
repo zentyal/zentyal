@@ -11,13 +11,13 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-samba
 Architecture: all
-Depends: zentyal-core (>= 6.2.0), zentyal-core (<< 7.0.0),
+Depends: zentyal-core (>= 7.0.0), zentyal-core (<< 7.1.0),
          zentyal-firewall, zentyal-dns, zentyal-ntp,
          samba, samba-vfs-modules, samba-dsdb-modules,
          winbind, ldb-tools, apache2-utils, adduser, quota, acl, imagemagick,
          libgssapi3-heimdal, libsasl2-modules-gssapi-heimdal, heimdal-clients,
          libquota-perl, liburi-encode-perl, libnss-winbind, libpam-winbind,
-         libpam-pwquality, libsys-filesystem-perl, libgssapi-perl,
+         libpam-pwquality, libsys-filesystem-perl, libgssapi-perl, python2,
          auth-client-config, libauthen-sasl-perl, libnet-ntp-perl,
          libnet-dns-perl, libnet-ping-perl, rsync, libdate-calc-xs-perl,
          libnet-ldap-perl, libnet-ntp-perl, libuuid-perl,

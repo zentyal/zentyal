@@ -1,4 +1,4 @@
-/var/log/dansguardian/access.log {
+/var/log/e2guardian/access.log {
     daily
     compress
     delaycompress
@@ -7,6 +7,6 @@
     nocreate
     sharedscripts
     postrotate
-        test ! -e /var/run/dansguardian.pid || /usr/sbin/dansguardian -r
+        test ! -e /var/run/e2guardian.pid || /usr/sbin/e2guardian -r
     endscript
 }

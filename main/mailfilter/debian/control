@@ -12,7 +12,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 Package: zentyal-mailfilter
 Architecture: all
 Pre-Depends: gnupg, zentyal-core
-Depends: zentyal-core (>= 6.2.0), zentyal-core (<< 7.0.0),
+Depends: zentyal-core (>= 7.0.0), zentyal-core (<< 7.1.0),
          zentyal-firewall, zentyal-mail, zentyal-antivirus, gnupg,
          amavisd-new, spamassassin, spamc, dovecot-antispam, libnet-dns-perl,
          arj, unrar-free, p7zip, razor, pyzor, libmail-spf-perl,

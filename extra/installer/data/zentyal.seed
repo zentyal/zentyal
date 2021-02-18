@@ -5,8 +5,12 @@
 ##
 
 # add zentyal repository
-d-i apt-setup/local0/repository string http://packages.zentyal.org/zentyal 6.2 main extra
-d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-6.2-packages.asc
+d-i apt-setup/local0/repository string http://packages.zentyal.org/zentyal 7.0 main extra testing
+d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-7.0-packages-org.asc
+
+# add suricata repository
+d-i apt-setup/local1/repository deb http://ppa.launchpad.net/oisf/suricata-stable/ubuntu focal main
+d-i apt-setup/local1/key string https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xd7f87b2966eb736f
 
 # ignore error downloading key if not internet connection
 d-i apt-setup/local/key-error select Ignore
@@ -24,7 +28,7 @@ d-i pkgsel/language-pack-patterns string
 d-i pkgsel/install-language-support boolean false
 
 # install the system-customization package
-d-i pkgsel/include string zenbuntu-desktop
+d-i pkgsel/include string zenbuntu-core zenbuntu-desktop
 
 # disable automatic updates, Zentyal will take care of that
 d-i pkgsel/update-policy select none

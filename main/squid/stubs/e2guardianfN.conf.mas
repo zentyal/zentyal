@@ -48,9 +48,9 @@ groupmode = 1
 groupname = '<% $groupName %>'
 
 # Content filtering files location
-bannedphraselist = '/etc/dansguardian/lists/bannedphraselist'
-weightedphraselist = '/etc/dansguardian/lists/weightedphraselist'
-exceptionphraselist = '/etc/dansguardian/lists/exceptionphraselist'
+bannedphraselist = '/etc/e2guardian/lists/bannedphraselist'
+weightedphraselist = '/etc/e2guardian/lists/weightedphraselist'
+exceptionphraselist = '/etc/e2guardian/lists/exceptionphraselist'
 
 # empty lists, this ACLs are completly managed by squid
 bannedsitelist='/dev/null'
@@ -64,15 +64,15 @@ bannedmimetypelist='/dev/null'
 #
 % if ($policy eq 'filter') {
 %   foreach my $configFile (@groupConfigFiles) {
-<% $configFile %> = '/etc/dansguardian/lists/<% $configFile . $group %>'
+<% $configFile %> = '/etc/e2guardian/lists/<% $configFile . $group %>'
 %   }
 % }
 
-exceptionregexpurllist = '/etc/dansguardian/lists/exceptionregexpurllist'
-bannedregexpurllist = '/etc/dansguardian/lists/bannedregexpurllist'
-picsfile = '/etc/dansguardian/lists/pics'
-contentregexplist = '/etc/dansguardian/lists/contentregexplist'
-urlregexplist = '/etc/dansguardian/lists/urlregexplist'
+exceptionregexpurllist = '/etc/e2guardian/lists/exceptionregexpurllist'
+bannedregexpurllist = '/etc/e2guardian/lists/bannedregexpurllist'
+picsfile = '/etc/e2guardian/lists/pics'
+contentregexplist = '/etc/e2guardian/lists/contentregexplist'
+urlregexplist = '/etc/e2guardian/lists/urlregexplist'
 
 # Filetype filtering
 #
@@ -86,22 +86,22 @@ urlregexplist = '/etc/dansguardian/lists/urlregexplist'
 # (on | off)
 #
 blockdownloads = off
-exceptionextensionlist = '/etc/dansguardian/lists/exceptionextensionlist'
-exceptionmimetypelist = '/etc/dansguardian/lists/exceptionmimetypelist'
+exceptionextensionlist = '/etc/e2guardian/lists/exceptionextensionlist'
+exceptionmimetypelist = '/etc/e2guardian/lists/exceptionmimetypelist'
 #
 # In either file filtering mode, the following list can be used to override
 # MIME type & extension blocks for particular domains & URLs (trusted download sites).
 #
-exceptionfilesitelist = '/etc/dansguardian/lists/exceptionfilesitelist'
-exceptionfileurllist = '/etc/dansguardian/lists/exceptionfileurllist'
+exceptionfilesitelist = '/etc/e2guardian/lists/exceptionfilesitelist'
+exceptionfileurllist = '/etc/e2guardian/lists/exceptionfileurllist'
 
 # Categorise without blocking:
 # Supply categorised lists here and the category string shall be logged against
 # matching requests, but matching these lists does not perform any filtering
 # action.
-#logsitelist = '/etc/dansguardian/lists/logsitelist'
-#logurllist = '/etc/dansguardian/lists/logurllist'
-#logregexpurllist = '/etc/dansguardian/lists/logregexpurllist'
+#logsitelist = '/etc/e2guardian/lists/logsitelist'
+#logurllist = '/etc/e2guardian/lists/logurllist'
+#logregexpurllist = '/etc/e2guardian/lists/logregexpurllist'
 
 # Outgoing HTTP header rules:
 # Optional lists for blocking based on, and modification of, outgoing HTTP
@@ -112,8 +112,8 @@ exceptionfileurllist = '/etc/dansguardian/lists/exceptionfileurllist'
 # Headers are matched/replaced on a line-by-line basis, not as a contiguous
 # block.
 # Use for example, to remove cookies or prevent certain user-agents.
-headerregexplist = '/etc/dansguardian/lists/headerregexplist'
-bannedregexpheaderlist = '/etc/dansguardian/lists/bannedregexpheaderlist'
+headerregexplist = '/etc/e2guardian/lists/headerregexplist'
+bannedregexpheaderlist = '/etc/e2guardian/lists/bannedregexpheaderlist'
 
 # Naughtyness limit
 # This the limit over which the page will be blocked.  Each weighted phrase is given
@@ -152,7 +152,7 @@ categorydisplaythreshold = 0
 #
 # NB: Currently, this feature uses regular expressions that require the PCRE library.
 # As such, it is only available if you compiled DansGuardian with '--enable-pcre=yes'.
-# You can check compile-time options by running 'dansguardian -v'.
+# You can check compile-time options by running 'e2guardian -v'.
 #
 # Set to 0 to disable.
 # Defaults to 0.
@@ -172,7 +172,7 @@ enablepics = off
 # secure it uses a random hashed secret generated at daemon startup.  You define the
 # number of seconds the bypass will function for before the deny will appear again.
 # To allow the link on the denied page to appear you will need to edit the template.html
-# or dansguardian.pl file for your language.
+# or e2guardian.pl file for your language.
 # 300 = enable for 5 minutes
 # 0 = disable ( defaults to 0 )
 # -1 = enable but you require a separate program/CGI to generate a valid link
@@ -235,13 +235,13 @@ deepurlanalysis = off
 #  2 = report fully
 #  3 = use HTML template file (accessdeniedaddress ignored) - recommended
 #
-# If defined, this overrides the global setting in dansguardian.conf for
+# If defined, this overrides the global setting in e2guardian.conf for
 # members of this filter group.
 #
-#reportinglevel = 3
+reportinglevel = 3
 
 # accessdeniedaddress is the address of your web server to which the cgi
-# dansguardian reporting script was copied. Only used in reporting levels
+# e2guardian reporting script was copied. Only used in reporting levels
 # 1 and 2.
 #
 # This webserver must be either:
@@ -251,23 +251,23 @@ deepurlanalysis = off
 #     only for users using both transparent proxying and a non-local server
 #     to host this script.
 #
-# If defined, this overrides the global setting in dansguardian.conf for
+# If defined, this overrides the global setting in e2guardian.conf for
 # members of this filter group.
 #
-#accessdeniedaddress = 'http://YOURSERVER.YOURDOMAIN/cgi-bin/dansguardian.pl'
+#accessdeniedaddress = 'http://YOURSERVER.YOURDOMAIN/cgi-bin/e2guardian.pl'
 
 # HTML Template override
 # If defined, this specifies a custom HTML template file for members of this
-# filter group, overriding the global setting in dansguardian.conf. This is
+# filter group, overriding the global setting in e2guardian.conf. This is
 # only used in reporting level 3.
 #
 # The default template file path is <languagedir>/<language>/template.html
-# e.g. /usr/share/dansguardian/languages/ukenglish/template.html when using 'ukenglish'
+# e.g. /usr/share/e2guardian/languages/ukenglish/template.html when using 'ukenglish'
 # language.
 #
 # This option generates a file path of the form:
 # <languagedir>/<language>/<htmltemplate>
-# e.g. /usr/share/dansguardian/languages/ukenglish/custom.html
+# e.g. /usr/share/e2guardian/languages/ukenglish/custom.html
 #
 #htmltemplate = 'custom.html'
 
@@ -282,7 +282,7 @@ usesmtp = off
 
 # mailfrom
 # who the email would come from
-# example: mailfrom = 'dansguardian@mycompany.com'
+# example: mailfrom = 'e2guardian@mycompany.com'
 mailfrom = ''
 
 # avadmin
@@ -299,13 +299,13 @@ contentadmin = ''
 # avsubject
 # Subject of the email sent when a virus is caught.
 # only applicable if notifyav is on
-# default avsubject = 'dansguardian virus block'
-avsubject = 'dansguardian virus block'
+# default avsubject = 'e2guardian virus block'
+avsubject = 'e2guardian virus block'
 
 # content
 # Subject of the email sent when violation thresholds are exceeded
-# default contentsubject = 'dansguardian violation'
-contentsubject = 'dansguardian violation'
+# default contentsubject = 'e2guardian violation'
+contentsubject = 'e2guardian violation'
 
 # notifyAV
 # This will send a notification, if usesmtp/notifyav is on, any time an
@@ -336,3 +336,17 @@ violations = 0
 # notifaction will be sent.
 threshold = 0
 
+# Much logic has moved to storyboard files
+storyboard = '/etc/e2guardian/examplef1.story'
+
+# POST protection (web upload and forms)
+# does not block forms without any file upload, i.e. this is just for
+# blocking or limiting uploads
+# measured in kibibytes after MIME encoding and header bumph
+# use 0 for a complete block
+# use higher (e.g. 512 = 512Kbytes) for limiting
+# use -1 for no blocking
+# NOTE: POST PROTECTION IS NOT YET IMPLIMENTED IN V5
+#maxuploadsize = 512
+#maxuploadsize = 0
+maxuploadsize = -1

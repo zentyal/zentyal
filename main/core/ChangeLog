@@ -1,3 +1,11 @@
+7.0.0
+	+ Fix issue related with tar option and config backup
+	+ Fix Smart Admin report minor error
+	+ Fix regression on certificate key path (avoiding CA generation 
+	  issue and vnc issues)
+	+ Remove deprecated ssl on in favor of listen ssl
+	+ Increase default rsa key length to 4096
+	+ Set version number to 7.0.0
 6.2.5
 	+ Fix configuration report date
 6.2.4

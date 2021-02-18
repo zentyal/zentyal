@@ -196,28 +196,28 @@ sub _populate
     return \@elements;
 }
 
-# Function: dgAllowed
+# Function: e2gAllowed
 #
-#       Fetch the allowed domains files for dansguardian
+#       Fetch the allowed domains files for e2guardian
 #
 # Returns:
 #
 #       Array ref - containing the files
-sub dgAllowed
+sub e2gAllowed
 {
     my ($self) = @_;
     return $self->_filesByPolicy('allow', 'domains');
 }
 
-# Function: dgAllowedUrls
+# Function: e2gAllowedUrls
 #
-#       Fetch the allowed urls files for dansguardian
+#       Fetch the allowed urls files for e2guardian
 #
 # Returns:
 #
 #       Array ref - containing the files
 #
-sub dgAllowedUrls
+sub e2gAllowedUrls
 {
     my ($self) = @_;
     return $self->_filesByPolicy('allow', 'urls');

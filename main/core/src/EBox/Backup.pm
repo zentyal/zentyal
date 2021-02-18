@@ -311,7 +311,7 @@ sub  _createBackupArchive
     }
 
     my $filesArchive = "$archiveContentsDirRelative/files.tgz";
-    EBox::Sudo::root("tar cf $backupArchive -C $tempdir $archiveContentsDirRelative --preserve-permissions  --exclude $filesArchive 2>&1");
+    EBox::Sudo::root("tar cf $backupArchive --exclude $filesArchive -C $tempdir $archiveContentsDirRelative --preserve-permissions 2>&1");
 
     # append filesArchive
     EBox::Sudo::root("tar --append -f '$backupArchive'  -C '$tempdir' '$filesArchive' 2>&1");

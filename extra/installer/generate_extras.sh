@@ -25,7 +25,13 @@ sudo debootstrap --arch=$ARCH --include=gnupg $DIST $CHROOT
 
 sudo cp sources.list $CHROOT/etc/apt/sources.list
 
-cat zenbuntu-core/zentyal-6.2-packages.asc | sudo chroot $CHROOT apt-key add -
+cat zenbuntu-core/zentyal-7.0-packages-org.asc | sudo chroot $CHROOT apt-key add -
+
+# install suricata repo GPG key
+sudo chroot $CHROOT apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D7F87B2966EB736F
+
+sudo mount none -t devpts /dev/pts
+export LC_ALL=C
 
 sudo chroot $CHROOT apt-get update
 

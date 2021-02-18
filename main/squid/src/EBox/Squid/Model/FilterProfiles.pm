@@ -29,7 +29,7 @@ use EBox::Types::Text;
 use EBox::Squid::Types::TimePeriod;
 use EBox::Types::HasMany;
 
-use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
+use constant MAX_E2G_GROUP => 99; # max group number allowed by e2guardian
 
 # Group: Public methods
 
@@ -89,7 +89,7 @@ sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
-    if (($self->size() + 1)  == MAX_DG_GROUP) {
+    if (($self->size() + 1)  == MAX_E2G_GROUP) {
         throw EBox::Exceptions::External(
                 __('Maximum number of filter groups reached')
                 );
@@ -133,7 +133,7 @@ sub idByRowId
     return \%idByRowId;
 }
 
-sub dgProfiles
+sub e2gProfiles
 {
     my ($self) = @_;
     my @profiles = ();
@@ -149,8 +149,8 @@ sub dgProfiles
         my $row = $self->row($rowId);
         my $name  = $row->valueByName('name');
 
-        if ($id > MAX_DG_GROUP) {
-            EBox::info("Filter group $name and following groups will use default content filter policy because the maximum number of Dansguardian groups is reached");
+        if ($id > MAX_E2G_GROUP) {
+            EBox::info("Filter group $name and following groups will use default content filter policy because the maximum number of e2guardian groups is reached");
             last;
         }
 
@@ -187,12 +187,12 @@ sub _setProfileDomainsPolicy
 
     $group->{exceptionsitelist} = [
                                    domains => $domainFilter->allowed(),
-                                   includes => $domainFilterFiles->dgAllowed(),
+                                   includes => $domainFilterFiles->e2gAllowed(),
                                   ];
 
     $group->{exceptionurllist} = [
                                   urls =>  $domainFilter->allowedUrls(),
-                                  includes => $domainFilterFiles->dgAllowedUrls(),
+                                  includes => $domainFilterFiles->e2gAllowedUrls(),
                                  ];
 
     my $domainFilterSettings = $policy->componentByName('DomainFilterSettings', 1);
@@ -216,10 +216,10 @@ sub antivirusNeeded
         my $policy =
             $row->elementByName('filterPolicy')->foreignModelInstance();
 
-        if ($id > MAX_DG_GROUP) {
+        if ($id > MAX_E2G_GROUP) {
             my $name  = $row->valueByName('name');
             EBox::info(
-                    "Maximum nuber of dansguardian groups reached, group $name and  following groups antivirus configuration is not used"
+                    "Maximum nuber of e2guardian groups reached, group $name and  following groups antivirus configuration is not used"
                     );
             last;
         } else {
