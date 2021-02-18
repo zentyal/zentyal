@@ -619,7 +619,7 @@ sub _setMailConf
                           relayHost => $self->relay(),
                           relayAuth => $self->relayAuth(),
                          ],
-                         $filePermissions
+                         $restrictiveFilePermissions
                         );
 
     # TODO: Uncomment this when the package will be maintained again by blorente
