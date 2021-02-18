@@ -289,4 +289,10 @@ sub menu
                                     order     => 900));
 }
 
+sub freshclamEBoxDir {
+ 
+  return FRESHCLAM_DIR;
+ 
+}
+
 1;
