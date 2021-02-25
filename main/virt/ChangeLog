@@ -1,3 +1,5 @@
+7.0.1
+	+ Fix VM modal size
 7.0.0
 	+ Fix VM shutdown (just for virsh)
 	+ Fix regression on vnc service unit file
