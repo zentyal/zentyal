@@ -6,12 +6,15 @@
 <script>
 function setupResizeWatcher() {
     var vnc = document.querySelector("#vnc_frame");
-    var canvas = vnc.contentDocument.querySelector("#noVNC_canvas");
-
+    var canvas = vnc.contentDocument.querySelector("canvas");
+    var config = { attributes: true, attributeFilter: ['width', 'height'] };
     function onResize() {
-        var w = canvas.width;
-        var h = canvas.height + 38;
+        var w = canvas.offsetWidth;
+        var h = canvas.offsetHeight + 38;
+        console.log(w, h);
         var dialog = document.querySelector("#load_in_dialog");
+        console.log(w, h);
+        console.log("he llegado xD...")
         if (dialog) {
             dialog.style.width = w + "px";
             dialog.style.height = h + "px";
@@ -23,6 +26,6 @@ function setupResizeWatcher() {
 
     new MutationObserver(function (mutations) {
         if (mutations.length > 0) onResize();
-    }).observe(canvas, { attributes: true, attributeFilter: ['width', 'height'] });
+    }).observe(canvas, config);
 }
 </script>
