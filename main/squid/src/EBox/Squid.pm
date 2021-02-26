@@ -163,6 +163,11 @@ sub usedFiles
              'reason' => __('Default filter group configuration')
             },
             {
+             'file' => E2GDIR . '/common.story',
+             'module' => 'squid',
+             'reason' => __('Default filter group configuration')
+            },
+            {
              'file' => E2GLISTSDIR . '/filtergroupslist',
              'module' => 'squid',
              'reason' => __('Filter groups membership')
