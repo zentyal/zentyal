@@ -16,8 +16,4 @@ case "$1" in
     ;;
 esac
 
-chown e2guardian:e2guardian /etc/e2guardian
-find /etc/e2guardian -type d -exec chmod 750 {} +
-find /etc/e2guardian -type f -exec chmod 640 {} +
-
 exit 0

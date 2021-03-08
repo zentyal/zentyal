@@ -4,12 +4,13 @@ set -e
 
 # Stop squid daemon
 systemctl stop squid || true
+systemctl stop e2guardian || true
 
 # add ebox to proxy to read squid logs
 adduser --quiet ebox proxy || true
 
 # directory for extra e2g domain lists
 E2G_EXTRALISTS=/etc/e2guardian/extralists
-test -d $E2G_EXTRALISTS || mkdir -p -m 0755 $E2G_EXTRALISTS
+test -d $E2G_EXTRALISTS || mkdir -p -m 0750 $E2G_EXTRALISTS
 
 exit 0;
