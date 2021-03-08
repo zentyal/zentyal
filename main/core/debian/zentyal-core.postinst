@@ -123,6 +123,10 @@ case "$1" in
         systemctl disable apparmor
         systemctl stop apparmor
 
+        # ZS-107
+        chmod 644 /etc/zentyal/pre-save/README
+        chmod 644 /etc/zentyal/post-save/README
+
         dpkg-trigger --no-await zentyal-core
     ;;
     triggered)
