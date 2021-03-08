@@ -69,6 +69,9 @@ use constant E2GDIR => '/etc/e2guardian';
 use constant DEFAULT_PORT => '3128';
 use constant PROXYPORT_FILTER => '3129';
 
+use constant CHMOD_DIRMODE => '750';
+use constant CHMOD_FILEMODE => '640';
+
 use constant SQUIDCSSFILE => '/etc/squid/errorpage.css';
 use constant MAXDOMAINSIZ => 255;
 use constant E2GLISTSDIR => E2GDIR . '/lists';
@@ -124,6 +127,14 @@ sub initialSetup
                                          policy => { allow => undef });
     }
 
+    # Setting the right permissions for e2guardian
+    my @cmds;
+    push (@cmds, 'chown -R e2guardian:e2guardian '. E2GDIR);
+    push (@cmds, 'find '. E2GDIR .' -type d -exec chmod '. CHMOD_DIRMODE .' {} +');
+    push (@cmds, 'find '. E2GDIR .' -type f -exec chmod '. CHMOD_FILEMODE .' {} +');
+    EBox::info('changing permissions');
+    EBox::Sudo::root(@cmds);
+
     foreach my $name ('squid', 'logs') {
         my $mod = $self->global()->modInstance($name);
         if ($mod and $mod->changed()) {
@@ -159,6 +170,11 @@ sub usedFiles
             },
             {
              'file' => E2GDIR . '/e2guardianf1.conf',
+             'module' => 'squid',
+             'reason' => __('Default filter group configuration')
+            },
+            {
+             'file' => E2GDIR . '/common.story',
              'module' => 'squid',
              'reason' => __('Default filter group configuration')
             },
@@ -712,6 +728,20 @@ sub _writeE2gConf
 
         if ($policy eq 'filter') {
              $self->_writeE2gDomainsConf($group);
+        }
+
+        if (not exists $group->{defaults}->{bannedextensionlist}) {
+            @writeParam = ();
+            push(@writeParam, 'extensions'  => $group->{bannedExtensions});
+            EBox::Module::Base::writeConfFileNoCheck(E2GLISTSDIR . "/bannedextensionlist",
+                    'squid/bannedextensionlist.mas', \@writeParam);
+        }
+
+        if (not exists $group->{defaults}->{bannedmimetypelist}) {
+            @writeParam = ();
+            push(@writeParam, 'mimeTypes' => $group->{bannedMIMETypes});
+            EBox::Module::Base::writeConfFileNoCheck(E2GLISTSDIR . "/bannedmimetypelist",
+                    'squid/bannedmimetypelist.mas', \@writeParam);
         }
     }
 
