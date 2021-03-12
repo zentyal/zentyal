@@ -602,7 +602,7 @@ sub _setEdition
         }
         push (@cmds,
             "echo 'deb http://packages.zentyal.com/zentyal-qa $version main extra' > /etc/apt/sources.list.d/zentyal-qa.list",
-            "echo 'machine packages.zentyal.com login $lk password $hash' > /etc/apt/auth.conf",
+            "echo 'machine http://packages.zentyal.com login $lk password $hash' > /etc/apt/auth.conf",
             'chmod 600 /etc/apt/auth.conf',
             'sed -i "/packages.zentyal/d" /etc/apt/sources.list'
         );
