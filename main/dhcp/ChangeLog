@@ -1,3 +1,5 @@
+7.0.1
+	+ Fix dyndns deps in order to fix the config backup restore
 7.0.0
 	+ Fix tftpd-hpa service (HPA's ftp server used for thin clients)
 	+ Set version number to 7.0.0
