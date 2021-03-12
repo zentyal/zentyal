@@ -82,8 +82,9 @@ use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant SHARESCONFFILE       => '/etc/samba/shares.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
-use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
-use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
+use constant SAMBA_DNS_DIR        => '/var/lib/samba/bind-dns/';
+use constant SAMBA_DNS_ZONE       => SAMBA_DNS_DIR . 'named.conf';
+use constant SAMBA_DNS_POLICY     => SAMBA_DNS_DIR . 'named.conf.update';
 use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
 use constant SECRETS_KEYTAB       => PRIVATE_DIR . 'secrets.keytab';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
@@ -105,13 +106,9 @@ use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-zentyal';
 
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
-use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 
 use constant SHARES_DIR           => SAMBA_DIR . 'shares';
-
-use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
-
 use constant PROFILE_PHOTO_CRON_FILE => '/etc/cron.d/zentyal-profile-photo';
 
 # Kerberos constants
@@ -1806,6 +1803,15 @@ sub dumpConfig
         push (@cmds, "tar pcjf $dir/private.tar.bz2 --hard-dereference -C $mirror private");
     }
 
+    my $bindDir = SAMBA_DNS_DIR;
+    if (EBox::Sudo::fileTest('-d', $bindDir)) {
+        # Storing all BIND DNS directory tree where DLZ and dns keytab are stored
+        push (@cmds, "rm -rf $mirror");
+        push (@cmds, "mkdir -p $mirror/bid-dns");
+        push (@cmds, "rsync -HAXavz $bindDir/ $mirror/bind-dns");
+        push (@cmds, "tar pcjf $dir/bind-dns.tar.bz2 --hard-dereference -C $mirror bind-dns");
+    }    
+
     # Backup sysvol
     my $sysvolDir = SYSVOL_DIR;
     if (EBox::Sudo::fileTest('-d', $sysvolDir)) {
@@ -1924,13 +1930,14 @@ sub restoreConfig
         $self->stopService();
     }
 
-    # Remove private and sysvol
+    # Remove bid-dns, private and sysvol
     my $privateDir = PRIVATE_DIR;
+    my $bindDir = SAMBA_DNS_DIR;
     my $sysvolDir = SYSVOL_DIR;
-    EBox::Sudo::root("rm -rf $privateDir $sysvolDir");
+    EBox::Sudo::root("rm -rf $privateDir $sysvolDir $bindDir");
 
-    # Unpack sysvol and private
-    my %dest = ( sysvol => $sysvolDir, private => $privateDir );
+    # Unpack bind-dns, sysvol and private
+    my %dest = ('bind-dns' => $bindDir, 'sysvol' => $sysvolDir, 'private' => $privateDir );
     foreach my $archive (keys %dest) {
         if (EBox::Sudo::fileTest('-f', "$dir/$archive.tar.bz2")) {
             my $destdir = dirname($dest{$archive});
@@ -1947,15 +1954,16 @@ sub restoreConfig
         $destFile =~ s/\.bak$//;
         EBox::Sudo::root("mv '$bakFile' '$destFile'");
     }
+    
     # Hard-link DomainDnsZones and ForestDnsZones partitions
-    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC*FORESTDNSZONES*");
-    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC*DOMAINDNSZONES*");
-    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/metadata.tdb");
-    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC*FORESTDNSZONES* $privateDir/dns/sam.ldb.d/");
-    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC*DOMAINDNSZONES* $privateDir/dns/sam.ldb.d/");
-    EBox::Sudo::root("ln $privateDir/sam.ldb.d/metadata.tdb $privateDir/dns/sam.ldb.d/");
-    EBox::Sudo::root("chown root:bind $privateDir/dns/*.ldb");
-    EBox::Sudo::root("chmod 660 $privateDir/dns/*.ldb");
+    EBox::Sudo::root("rm -f $bindDir/dns/sam.ldb.d/DC*FORESTDNSZONES*");
+    EBox::Sudo::root("rm -f $bindDir/dns/sam.ldb.d/DC*DOMAINDNSZONES*");
+    EBox::Sudo::root("rm -f $bindDir/dns/sam.ldb.d/metadata.tdb");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC*FORESTDNSZONES* $bindDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC*DOMAINDNSZONES* $bindDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/metadata.tdb $bindDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("chown root:bind $bindDir/dns/*.ldb");
+    EBox::Sudo::root("chmod 770 $bindDir/dns/*.ldb");
 
     # Restore stashed password
     if (EBox::Sudo::fileTest('-f', "$dir/samba.passwd")) {
