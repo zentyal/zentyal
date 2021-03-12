@@ -281,6 +281,7 @@ sub depends
     my $dependsList = $self->SUPER::depends();
     if ($self->_dynamicDNSEnabled()) {
         push (@{$dependsList}, 'dns');
+        push (@{$dependsList}, 'samba');
     }
 
     return $dependsList;
