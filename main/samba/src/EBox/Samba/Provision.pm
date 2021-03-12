@@ -1345,6 +1345,12 @@ sub provisionADC
                    " --site='$adServerSite' ";
 
         EBox::Sudo::root($cmd2);
+
+        # Workaround for https://www.talkend.net/post/193344.html#r193460 
+        # reported in https://bugzilla.samba.org/show_bug.cgi?id=14535
+        my $cmd3 = "samba_upgradedns --dns-backend=BIND9_DLZ";
+        EBox::Sudo::root($cmd3);
+        
         unlink $passwdFile;
 
         $self->setProvisioned(1);

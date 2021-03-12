@@ -10,6 +10,11 @@ bootdepends:
     - ntp
     - dns
 
+depends:
+    - network
+    - ntp
+    - dns
+
 models:
     - DomainSettings
     - Manage
