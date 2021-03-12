@@ -2,7 +2,6 @@ class: 'EBox::DHCP'
 
 depends:
     - network
-    - samba
 
 enabledepends:
     - network
