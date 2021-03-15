@@ -71,6 +71,9 @@ use constant LASTESTCRL   => CRLDIR   . "latest.pem";
 use constant CAPRIVKEY   => PRIVDIR . "cakey.pem";
 use constant CAPUBKEY    => KEYSDIR . "capubkey.pem";
 
+# RND file
+use constant RNDFILE     => EBox::Config->home() . '.rnd';
+
 # Directory mode to allow only owner and readable from others
 # Others means openvpn user (nobody)
 use constant DIRMODE        => 00751;
@@ -386,6 +389,12 @@ sub initialSetup
         if (-d $dir) {
             push (@cmds, 'chmod ' . CHMOD_DIRMODE . " $dir ");
         }
+    }
+
+    if (! -f RNDFILE ) {
+        push (@cmds, 'touch ' . RNDFILE);
+        push (@cmds, 'chown ebox:ebox ' . RNDFILE);
+        push (@cmds, 'chmod 0600 ' . RNDFILE);
     }
 
     if (-d PRIVDIR) {
