@@ -1573,7 +1573,7 @@ sub _launchNSupdate
     my ($self, $fh, $reverse) = @_;
 
     my $auth = $reverse ? '-l' : '-g';
-    my $cmd = NS_UPDATE_CMD . " $auth -t 10 " . $fh->filename();
+    my $cmd = NS_UPDATE_CMD . " $auth -4 -t 10 " . $fh->filename();
     $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
     push (@{$self->{nsupdateCmds}}, $cmd);
     $fh->unlink_on_destroy(0);
