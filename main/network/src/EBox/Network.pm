@@ -142,13 +142,6 @@ sub actions
                 ' given by a DHCP server to the default route table. '),
         'module' => 'network'
     },
-    {
-        'action' => __('Disable IPv6'),
-        'reason' => __('Zentyal does not support yet IPv6, having v6 ' .
-                       'addresses asigned to interfaces can cause problems ' .
-                       'on some services'),
-        'module' => 'network'
-    },
     ];
 }
 
@@ -189,11 +182,6 @@ sub usedFiles
     {
         'file' => DHCLIENTCONF_FILE,
         'reason' => __('Zentyal will set your DHCP client configuration'),
-        'module' => 'network'
-    },
-    {
-        'file' => SYSCTL_FILE,
-        'reason' => __('Zentyal will disable IPV6 on this system'),
         'module' => 'network'
     },
     );
@@ -277,22 +265,6 @@ sub initialSetup
 sub enableActions
 {
     my ($self) = @_;
-
-    # Disable IPv6 if it is enabled
-    if (-d  '/proc/sys/net/ipv6') {
-        my @cmds;
-        push (@cmds, 'sed -ri "/net\.ipv6\.conf\.all\.disable_ipv6/d" ' . SYSCTL_FILE);
-        push (@cmds, 'sed -ri "/net\.ipv6\.conf\.default\.disable_ipv6/d" ' . SYSCTL_FILE);
-        push (@cmds, 'sed -ri "/net\.ipv6\.conf\.lo\.disable_ipv6/d" ' . SYSCTL_FILE);
-
-        push (@cmds, 'echo "net.ipv6.conf.all.disable_ipv6 = 1" >> ' . SYSCTL_FILE);
-        push (@cmds, 'echo "net.ipv6.conf.default.disable_ipv6 = 1" >> ' . SYSCTL_FILE);
-        push (@cmds, 'echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> ' . SYSCTL_FILE);
-
-        push (@cmds, 'sysctl -p');
-
-        EBox::Sudo::root(@cmds);
-    }
     $self->_importDHCPAddresses();
 }
 

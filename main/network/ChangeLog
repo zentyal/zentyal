@@ -11,6 +11,7 @@
 6.0.1
 	+ Use ip route flush instead of ip route del in regenGateways()
 6.0
+	+ Allow IPv6, as able: most underlying components support it now
 	+ Disable systemd-resolved
 	+ Import network configuration from netplan if present
 	+ Fix Mason template paths
