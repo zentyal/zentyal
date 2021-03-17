@@ -18,7 +18,8 @@ UCP_COMM_CLIENT_SECRET_FILE="/var/lib/zentyal/.ucp_comm_secret"
 RESPONSE_DATA_FILE_TMP=$(mktemp /tmp/XXXXXXX)
 
 # Preparing request data
-SERVER_UUID=$(cat /sys/class/dmi/id/product_uuid)
+SERVER_UUID=$(cat /sys/class/dmi/id/product_uuid | sed -E "s/$/$(date +-%s)/" | tee /var/lib/zentyal/.product_uuid)
+
 SERVER_VERSION=$(/usr/share/zentyal/shell EBox::Config::version)
 LK=$1
 
