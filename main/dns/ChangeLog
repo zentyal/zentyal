@@ -1,3 +1,5 @@
+7.0.1
+	+ Force to use ipv4 in nsupdate in order to prevent FORMERR
 7.0.0
 	+ Add db.root file by default
 	+ Adapt to bind9 9.16.1
