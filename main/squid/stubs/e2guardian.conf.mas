@@ -425,7 +425,7 @@ maxcontentfiltersize = 2048
 # The size is in Kibibytes - eg 10240 = 10Mb
 # use 0 to set it to maxcontentfilecachescansize
 # This option may be ignored by the configured download manager.
-maxcontentramcachescansize = 2000
+maxcontentramcachescansize = 2048
 
 
 # Max content file cache scan size
@@ -723,7 +723,7 @@ preauthstoryboard = '/etc/e2guardian/preauth.story'
 # Warning - produces verbose output - do not use in production
 # Output goes to syslog (or stderr in debug mode)
 # default off
-storyboardtrace = on
+storyboardtrace = off
 
 # Abort if list is missing or unreadable
 # default is to warn but then ignore missing lists
