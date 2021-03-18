@@ -425,7 +425,7 @@ maxcontentfiltersize = 2048
 # The size is in Kibibytes - eg 10240 = 10Mb
 # use 0 to set it to maxcontentfilecachescansize
 # This option may be ignored by the configured download manager.
-maxcontentramcachescansize = 2000
+maxcontentramcachescansize = 2048
 
 
 # Max content file cache scan size
