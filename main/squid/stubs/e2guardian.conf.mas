@@ -723,7 +723,7 @@ preauthstoryboard = '/etc/e2guardian/preauth.story'
 # Warning - produces verbose output - do not use in production
 # Output goes to syslog (or stderr in debug mode)
 # default off
-storyboardtrace = on
+storyboardtrace = off
 
 # Abort if list is missing or unreadable
 # default is to warn but then ignore missing lists
