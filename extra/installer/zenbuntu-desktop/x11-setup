@@ -50,5 +50,8 @@ sed -i "s/DESKTOP_PATH/$ESCAPED_PATH/" $PANELS_DIR/bottom
 PCMANFM_DIR=$DIR/.config/pcmanfm/LXDE
 mkdir -p $PCMANFM_DIR
 mv /usr/share/zenbuntu-desktop/lxde/pcmanfm.conf $PCMANFM_DIR/
+LIBFM_DIR=$DIR/.config/libfm
+mkdir -p $LIBFM_DIR
+mv /usr/share/zenbuntu-desktop/lxde/libfm.conf $LIBFM_DIR/
 chown -R $USER_NAME:$USER_NAME $DESKTOP
 chown -R $USER_NAME:$USER_NAME $DIR/.config
