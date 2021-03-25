@@ -240,9 +240,11 @@ function upgrade_zentyal
 
 function postUpgradeProcedure
 {
-    # Checking and regeneratin webadmin cert
-    if [ `redis-cli get ca/conf/Certificates/keys/crt1 | jq .enable` -eq 0 ];
+    # Checking and regenerating webadmin cert
+    if dpkg -l | grep -q zentyal-ca && redis-cli get ca/conf/Certificates/keys/crt1 | egrep -q 'enable.*1,';
     then
+        echo -e "${GREEN} - Nginx cert ok...${NC}"
+    else
         echo -e "${GREEN} - Regenerating Nginx cert...${NC}"
         rm -rf $CERT_DIR
         /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl `hostname --fqdn`
@@ -267,6 +269,21 @@ function postUpgradeProcedure
     then
         echo '/usr/bin/bash' >> /etc/shells
         chsh -s /usr/bin/bash
+    fi
+
+    # Workaround for https://www.talkend.net/post/193344.html#r193460
+    # reported in https://bugzilla.samba.org/show_bug.cgi?id=14535
+    if [[ $(zs samba enabled 2> /dev/null) =~ 'ENABLED' ]]
+    then
+        echo -e "${GREEN} - Creating the new DNS directory for Samba DLZ...${NC}"
+        sudo mkdir -m 0664 /var/lib/samba/bind-dns/
+        sudo chown root:bind /var/lib/samba/bind-dns/
+        sudo samba_upgradedns --dns-backend=BIND9_DLZ
+
+        if ! samba-tool group listmembers DnsAdmins 2> /dev/null | grep -qi "dns-${HOSTNAME}"
+        then
+            sudo samba-tool group addmembers DnsAdmins dns-${HOSTNAME}
+        fi
     fi
 
     # Purge all no longer needed running services
