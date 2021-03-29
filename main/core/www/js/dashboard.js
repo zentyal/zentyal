@@ -6,9 +6,13 @@ Zentyal.namespace('Dashboard.ConfigureWidgets');
 
 Zentyal.Dashboard.levelHeights = function () {
     var maxHeight = 0;
+    var minHeight = 50;
     var allDashboard = $('.dashboard');
     allDashboard.each(function(index, el) {
         var height = $(el).height();
+        if (height < minHeight) {
+            height = minHeight;
+        }
         if (height > maxHeight) {
             maxHeight = height;
         }

@@ -1,3 +1,6 @@
+HEAD
+	+ Fix widget placeholder to avoid 0px when any widget 
+	  has not been placed in the dashboard. Fix #1998
 7.0.3
 	+ Improve server_uuid generation
 7.0.2
