@@ -1,4 +1,5 @@
 HEAD
+	+ Fix desktop env for new admin users
 	+ Fix widget placeholder to avoid 0px when any widget 
 	  has not been placed in the dashboard. Fix #1998
 7.0.3

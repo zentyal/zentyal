@@ -1,0 +1,52 @@
+#!/bin/bash
+
+MASTER_USER_NAME=`getent passwd uid 1000 | cut -d: -f1`
+MASTER_DIR=/home/$MASTER_USER_NAME
+USER_NAME=$1
+DIR=/home/$USER_NAME
+
+sed -i "s/theme=.*/theme=Zentyal/" /etc/lxdm/default.conf
+sed -i "s/^bg=.*/#bg=disabled/" /etc/lxdm/default.conf
+
+if ! grep -q zentyal-session /etc/xdg/lxsession/LXDE/autostart
+then
+    echo "@/usr/bin/zentyal-session" >> /etc/xdg/lxsession/LXDE/autostart
+fi
+
+echo "mode: off" > $DIR/.xscreensaver
+echo "selected: -1" >> $DIR/.xscreensaver
+chown $USER_NAME:$USER_NAME $DIR/.xscreensaver
+
+mkdir -p $DIR/.mozilla/firefox
+cp -r /usr/share/zenbuntu-desktop/firefox-profile/* $DIR/.mozilla/firefox
+
+PROFILE=$DIR/.mozilla/firefox/ebox.default
+CERT=/var/lib/zentyal/conf/ssl/ssl.cert
+ID='zentyal'
+certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
+/usr/share/zenbuntu-desktop/firefox-cert-override > $PROFILE/cert_override.txt
+
+chown -R $USER_NAME:$USER_NAME $DIR/.mozilla
+chmod -R +w $DIR/.mozilla
+
+# lxde setup
+DESKTOP=`su $USER_NAME -c "xdg-user-dir DESKTOP"`
+MASTER_DESKTOP=/home/$MASTER_USER_NAME/Desktop
+mkdir -p $DESKTOP
+
+ln -sf /usr/share/applications/zentyal.desktop $DESKTOP/zentyal.desktop
+cp $MASTER_DESKTOP/* $DESKTOP/
+PANELS_DIR=$DIR/.config/lxpanel/LXDE/panels
+MASTER_PANELS_DIR=$MASTER_DIR/.config/lxpanel/LXDE/panels
+mkdir -p $PANELS_DIR
+cp $MASTER_PANELS_DIR/bottom $PANELS_DIR/
+ESCAPED_PATH=$(echo $DESKTOP | sed 's/\//\\\//g')
+sed -i "s/DESKTOP_PATH/$ESCAPED_PATH/" $PANELS_DIR/bottom
+PCMANFM_DIR=$DIR/.config/pcmanfm/LXDE
+mkdir -p $PCMANFM_DIR
+cp $MASTER_DIR/.config/pcmanfm/LXDE/pcmanfm.conf $PCMANFM_DIR/
+LIBFM_DIR=$DIR/.config/libfm
+mkdir -p $LIBFM_DIR
+cp $MASTER_DIR/.config/libfm/libfm.conf $LIBFM_DIR/
+chown -R $USER_NAME:$USER_NAME $DESKTOP
+chown -R $USER_NAME:$USER_NAME $DIR/.config
