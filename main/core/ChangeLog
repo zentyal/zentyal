@@ -1,5 +1,5 @@
-HEAD
-	+ Minnor fix in smart admin report
+7.0.4
+	+ Minor fix in smart admin report
 	+ Fix desktop env for new admin users
 	+ Fix widget placeholder to avoid 0px when any widget 
 	  has not been placed in the dashboard. Fix #1998
