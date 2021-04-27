@@ -127,7 +127,7 @@ function system_check () {
 
 	echo -e "## Interfaces available: \n"
 		ip addr show | egrep -i "eth.:" -o | sed 's/://g'
-	
+
 	echo -e "\n## IPs configured: \n"
 		ip -4 a | egrep "(eth[0-9]:|inet)" | egrep -v '127.' | sed "s/[0-9]://"
 
@@ -141,9 +141,9 @@ function system_check () {
 
 	echo -ne "Broken packages: "
 		dpkg -l |egrep -v '^ii|rc' | awk '{if(NR>5)print}' | wc -l
-	
+
 	echo -e "Upgradable packages: \n"
-		/usr/lib/update-notifier/apt-check --human-readable
+		/usr/lib/update-notifier/apt-check --human-readable | egrep -v 'upgradable'
 
 	echo -ne "\nLast update by Zentyal: "
 		grep 'Starting automatic update' /var/log/zentyal/software.log{,.1} 2> /dev/null | cut -d ":" -f2 | awk '{print $1}' | sort | tail -1
@@ -153,7 +153,7 @@ function system_check () {
  	echo -e "\n########"
  	echo -e "## Repositories"
  	echo -e "########\n"
-  	
+
 	echo -e "## Repositorios configured: "
 		egrep -v '^(#|$)' /etc/apt/sources.list
 
@@ -175,7 +175,7 @@ function system_check () {
 	echo -e "\n########"
 	echo -e "## Mysql daemon"
 	echo -e "########\n"
-		
+
 	systemctl is-failed mysql
 
 
@@ -186,7 +186,7 @@ function system_check () {
 
 	echo -e "\n## Databases available: \n"
 		mysql -u root -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) -e "show databases;" 2> /dev/null
-		
+
 	echo -e "\n## Mysql databases check: \n"
 		mysqlcheck -u root -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) --all-databases 2> /dev/null
 }
@@ -198,10 +198,10 @@ function dc_check () {
 
 	## DNS user
 	echo -e "\n########"
-	echo -e "## DNS user"	
+	echo -e "## DNS user"
 	echo -e "########\n"
 
-	samba-tool user list 2> /dev/null | grep '^dns-' 
+	samba-tool user list 2> /dev/null | grep '^dns-'
 
 	echo -e "\n## DNS users on DnsAdmins: \n"
 		samba-tool group listmembers DnsAdmins 2> /dev/null | grep '^dns-'
@@ -223,14 +223,16 @@ function dc_check () {
 	echo -e "## DNS user ticket"
 	echo -e "########\n"
 
-	if pdbedit -Lv -u dns-${HOSTNAME} | grep "^Account Flags" | tr -s " " " " | tr -s "[]" "_" | cut -d "_" -f2 | grep -qo 'X'; then
-		echo -e "Getting a Kerberos ticket for 'dns-${HOSTNAME}' ...\n"
-			kinit -k -t /var/lib/samba/private/dns.keytab dns-${HOSTNAME}
+	DNSUSER=$(samba-tool user list 2> /dev/null | grep -oi "dns-${HOSTNAME}")
+
+	if pdbedit -Lv -u ${DNSUSER} | grep "^Account Flags" | tr -s " " " " | tr -s "[]" "_" | cut -d "_" -f2 | grep -qo 'X'; then
+		echo -e "Getting a Kerberos ticket for '${DNSUSER}' ...\n"
+			kinit -k -t /var/lib/samba/bind-dns/dns.keytab ${DNSUSER}
 		if [[ $? -eq 0 ]]; then
 			klist
 		fi
 	else
-		echo "Skipping the check for Kerberos ticket for 'dns-${HOSTNAME}' because its password isn't set as 'noexpiry'."
+		echo "Skipping the check for Kerberos ticket for '${DNSUSER}' because its password isn't set as 'noexpiry'."
 	fi
 
 
@@ -240,13 +242,13 @@ function dc_check () {
 	echo -e "########\n"
 
 	echo -ne "## Daemons' information: \n"
-	
+
 		for daemon in smbd nmbd winbind sssd; do
 			echo -n "Status of the daemon: '${daemon}': "
 				systemctl is-active ${daemon}
 
 			echo -n "State of the daemon: '${daemon}': "
-				systemctl is-enabled ${daemon} 2> /dev/null										
+				systemctl is-enabled ${daemon} 2> /dev/null
 
 			echo ""
 		done
@@ -394,7 +396,7 @@ function antivirus_check() {
 	echo -e "###################\n"
 
 	for db in main daily bytecode; do
-	DBCHECK=$(egrep "${db}(.cvd|.cld) updated" /var/log/clamav/freshclam.log{.1,} 2>/dev/null | tac | head -1 | cut -d ":" -f2 | awk '{print $1,$2,$3}')
+  	DBCHECK=$(egrep "${db}(.cvd|.cld) updated" /var/log/clamav/freshclam.log{.1,} | tac | head -1 | cut -d ":" -f2 | awk '{print $1,$2,$3}')
 	  echo "Last update of the '${db}' database file: ${DBCHECK}"
 	done
 
