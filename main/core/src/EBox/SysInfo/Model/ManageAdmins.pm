@@ -133,6 +133,15 @@ sub addTypedRow
 
             my $password = $params->{password}->value();
             $self->_changePassword($user, $password);
+
+            # Creatig desktop env for the user
+            my @dpkgOutput = `dpkg -l zenbuntu-core`;
+            my @actualParts = split('\s+', $dpkgOutput[-1], 4);
+            my $status = $actualParts[0];
+
+            if ($status eq 'ii') {
+                EBox::Sudo::root("/usr/share/zentyal/x11-user-setup $user");
+            }
         }
 
         unless ($self->_userIsAdmin($user)) {
