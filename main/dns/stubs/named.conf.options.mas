@@ -24,6 +24,10 @@ options {
     //transfer-source * port 53;
     //notify-source * port 53;
 
+    // DNSSEC configuration
+    dnssec-enable yes;
+    dnssec-validation yes;
+
 %   if ( @forwarders > 0 ) {
         // If your ISP provided one or more IP addresses for stable
         // nameservers, you probably want to use them as forwarders.
