@@ -1,3 +1,7 @@
+7.0.1
+	+ Security fix: LDAP authentication is not secure on its own. 
+	  A passive eavesdropper could learn your LDAP password by 
+	  listening in on traffic in flight, so we use Kerberos auth instead.
 7.0.0
 	+ Set version number to 7.0.0
 6.2.0

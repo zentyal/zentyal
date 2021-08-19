@@ -412,7 +412,7 @@ authorize {
 
 	#
 	#  The ldap module reads passwords from the LDAP database.
-#	-ldap
+	ldap
 
 	#
 	#  Enforce daily limits on time spent logged in.
@@ -435,13 +435,21 @@ authorize {
 	#
 	pap
 
-    # If no Auth-Type was sent, we assume PAP but that we should
-    # use ntlm_auth for AD authentication through ntlm_auth.
-    if (!control:Auth-Type) {
-        update control {
-            Auth-Type = "LDAP"
-        }
-    }
+	# If no Auth-Type was sent and User-Password was sent we should
+	# use Kerberos for AD authentication through krb5.
+	if ((!control:Auth-Type) && User-Password) {
+		update control {
+			Auth-Type := Kerberos
+		}
+	}
+
+	# If no Auth-Type was sent, we assume PAP but that we should
+	# use ntlm_auth for AD authentication through ntlm_auth.
+#	if (!control:Auth-Type) {
+#		update control {
+#			Auth-Type = "LDAP"
+#		}
+#	}
 
 	#
 	#  If "status_server = yes", then Status-Server messages are passed
@@ -517,6 +525,12 @@ authenticate {
 #	digest
 
 	#
+	# Kerberos authentication against AD.
+	Auth-Type Kerberos {
+		krb5
+	}
+
+	#
 	#  Pluggable Authentication Modules.
 #	pam
 
@@ -531,9 +545,9 @@ authenticate {
 	#  authentication server, and knows what to do with authentication.
 	#  LDAP servers do not.
 	#
-	Auth-Type LDAP {
-		ldap
-	}
+#	Auth-Type LDAP {
+#		ldap
+#	}
 
 	#
 	#  Allow EAP authentication.
