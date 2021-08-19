@@ -52,6 +52,8 @@ sub interfacePopulateSub
             push @options, { 'value' => $iface,
                              'printableValue' => $printableValue  };
         }
+        push @options, { 'value' => '+',
+                         'printableValue' => __('Any')  };
 
         return \@options;
     };
