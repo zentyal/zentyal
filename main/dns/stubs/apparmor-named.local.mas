@@ -6,6 +6,11 @@
 
 /dev/urandom rw,
 
+# Allow dynamic DNS updates
+/etc/bind/db.* rw,
+/etc/bind/tmp-* rw,
+/etc/bind/*.jnl rw,
+
 # This profile has been modified by Zentyal Server to provide
 # allow samba4 dns updates
 
