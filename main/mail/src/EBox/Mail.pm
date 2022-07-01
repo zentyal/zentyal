@@ -1752,8 +1752,12 @@ sub postmasterAddress
     my $smtpOptions = $self->model('SMTPOptions');
     my $address = $smtpOptions->postmasterAddress();
     if (($notUnaliasLocal) and  ($address eq 'root')) {
+        my $global = EBox::Global->getInstance(1);
+        my $ldap = $global->modInstance('samba')->ldap();
+        my $dcHostName = $ldap->rootDse->get_value('dnsHostName');
+        my (undef, $mailDomain) = split (/\./, $dcHostName, 2);
         # not need to unalias root
-        $address = 'postmaster';
+        $address = 'postmaster@'.$mailDomain;
     }
 
     if (not $alwaysFqdn) {
