@@ -226,6 +226,26 @@ plugin {
   sieve_dir     = <% $mailboxesDir %>/%Ld/%Ln
 }
 
+##
+## Stats
+##
+service stats {
+  unix_listener stats-reader {
+    group = postfix
+    mode = 0666
+  }
+  unix_listener stats-writer {
+    group = postfix
+    mode = 0666
+  }
+}
+service anvil {
+  unix_listener anvil {
+    group = postfix
+    mode = 0666
+  }
+}
+
 !include_try /etc/dovecot/extra.conf
 
 <%def .imap>
