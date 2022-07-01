@@ -1,3 +1,6 @@
+HEAD
+	+ Fix Dovecot's postmaster_address value reported in #2067
+	+ Fix Dovecot's permission issue reported in #2087
 7.0.1
 	+ Fix security issue reported in #1921
 7.0.0
