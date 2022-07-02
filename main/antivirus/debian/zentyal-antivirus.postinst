@@ -6,6 +6,8 @@ case "$1" in
        /usr/share/zentyal/initial-setup antivirus $2
 
        dpkg-trigger --no-await zentyal-core
+
+       systemctl daemon-reload
 esac
 
 exit 0
