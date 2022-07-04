@@ -228,6 +228,11 @@ sub _disconnect
 sub _prepare
 {
     my ($self, $sql) = @_;
+    
+    if ($self->{'dbh'}->ping ne 1) {
+        $self->_disconnect();
+        $self->_connect();
+    }
 
     $self->{'sthinsert'} =  $self->{'dbh'}->prepare($sql);
     unless ($self->{'sthinsert'}) {
