@@ -7,7 +7,7 @@ After=clamav-daemon.service
 Type=simple
 User=root
 Group=root
-ExecStart=/usr/bin/clamonacc --log=/var/log/clamav/clamonacc.log --foreground
+ExecStart=/usr/sbin/clamonacc --log=/var/log/clamav/clamonacc.log --foreground
 KillSignal=15
 Restart=on-failure
 RestartSec=5s

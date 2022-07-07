@@ -100,7 +100,11 @@ sub _daemons
 {
     return [
         { name => 'zentyal.webadmin-uwsgi' },
-        { name => 'zentyal.webadmin-nginx' }
+        { name => 'zentyal.webadmin-nginx' },
+        {
+            name => 'zentyal.cleantmp',
+            type => 'systemd',
+        },
     ];
 }
 
