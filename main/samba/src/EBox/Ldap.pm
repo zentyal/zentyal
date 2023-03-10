@@ -247,7 +247,7 @@ sub dn
 
         my $cmd = "ldbsearch -H /var/lib/samba/private/sam.ldb " .
                   "-s base 'dn' " .
-                  "--debug-stderr 2>/dev/null 1>$ldifFile";
+                  "2>/dev/null 1>$ldifFile";
         EBox::Sudo::root($cmd);
 
         my $dn = undef;
@@ -463,7 +463,7 @@ sub dnsZones
         my $ldifFile = $tmp->filename();
         my $cmd = "ldbsearch -H /var/lib/samba/private/sam.ldb -s one " .
                   "-b '$prefix' '(objectClass=dnsZone)' " .
-                  "--debug-stderr 2>/dev/null 1>$ldifFile";
+                  "2>/dev/null 1>$ldifFile";
         EBox::Sudo::root($cmd);
 
         my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'undef');
