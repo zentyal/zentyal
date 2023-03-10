@@ -1,3 +1,5 @@
+7.0.2
+	+ Remove deprecated flag from ldbsearch
 7.0.1
 	+ Fix ADC join to an existent domain
 	+ Fix config backup replacing legacy dns path in favor of bind-dns (fix #2025)
