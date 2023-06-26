@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Remove tmp files
+rm -rf /var/lib/zentyal/tmp/*
