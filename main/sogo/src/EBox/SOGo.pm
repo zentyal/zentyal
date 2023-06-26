@@ -307,6 +307,7 @@ sub _setupSOGoDatabase
     $db->sqlAsSuperuser(sql => "CREATE USER IF NOT EXISTS $dbUser\@$dbHost " .
                                "IDENTIFIED BY \"$dbPass\";");
     $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " . ";");
+    $db->sqlAsSuperuser(sql => "GRANT RELOAD,PROCESS ON *.* TO $dbUser\\@$dbHost " . ";");
     $db->sqlAsSuperuser(sql => 'FLUSH PRIVILEGES;');
 }
 
