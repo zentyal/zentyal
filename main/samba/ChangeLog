@@ -1,3 +1,5 @@
+HEAD
+	+ Disable the "Disable account" checkbox for critical system Users. Fix ZS-169
 7.0.2
 	+ Remove deprecated flag from ldbsearch
 7.0.1
