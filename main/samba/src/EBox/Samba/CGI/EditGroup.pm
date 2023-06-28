@@ -68,6 +68,7 @@ sub _process
         $self->_requireParamAllowEmpty('description', __('Description'));
         $self->_requireParamAllowEmpty('mail', __('E-Mail'));
         $self->_requireParam('type', __('type'));
+        $usersMod->checkMailNotInUse($self->unsafeParam('mail'));
 
         my $type = $self->param('type');
         my $isSecurityGroup = ($type eq 'security') ? 1 : 0;

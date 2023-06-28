@@ -52,6 +52,7 @@ sub _process
         $self->{json} = { success => 0 };
         $self->_requireParam('groupname', __('group name'));
         $self->_requireParam('type', __('group type'));
+        $users->checkMailNotInUse($self->unsafeParam('mail'));
 
         my $groupname = $self->param('groupname');
 
