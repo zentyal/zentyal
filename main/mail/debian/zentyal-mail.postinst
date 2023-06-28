@@ -8,8 +8,17 @@ case "$1" in
         # restart module
         zs mail restart || true
 
-        dpkg-trigger --no-await zentyal-usercorner
         dpkg-trigger --no-await zentyal-core
 esac
+
+if [[ -s /etc/dovecot/dh.pem ]]; then exit 0; fi
+
+if ! timeout 90 openssl dhparam -out /etc/dovecot/dh.pem 4096
+  then
+    cp /usr/share/dovecot/dh.pem /etc/dovecot/dh.pem
+fi
+
+chmod 0640 /etc/dovecot/dh.pem
+chown root:dovecot /etc/dovecot/dh.pem
 
 exit 0
