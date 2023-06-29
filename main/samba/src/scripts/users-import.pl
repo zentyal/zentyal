@@ -20,7 +20,7 @@ sub createLDAPUsers
     for my $line(@lines) {
         my($samAccountName, $parentDN, $givenName, $initials, $sn, $displayName, $description, $mail, $password, $isSystemUser, $uid, $groups) = split(';', $line);
 	    try {
-            EBox::Samba::User->create(
+            my $user = EBox::Samba::User->create(
                 samAccountName => $samAccountName, 
                 parent => getLDAPContainer($parentDN),
                 givenName => $givenName,
@@ -32,6 +32,9 @@ sub createLDAPUsers
                 name => $samAccountName,
                 password => $password,
             );
+            $user->checkMailNotInUse($mail);
+            $user->set('mail', $mail, 1);
+            $user->save();
             print "$samAccountName OK\n";
         } catch ($e){
             warn "Caught error: $e";
