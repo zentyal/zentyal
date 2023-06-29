@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Remove tmp files
-rm -rf /var/lib/zentyal/tmp/*
+find /var/lib/zentyal/tmp/ -type f -delete'
