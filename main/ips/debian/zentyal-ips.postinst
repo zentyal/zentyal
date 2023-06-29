@@ -8,4 +8,18 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
 esac
 
+module_status=$(zs ips status|grep -C RUNNING)
+if [$module_status -eq]
+then
+        zs ips stop
+fi
+
+sed -i 's#LISTEN_OPTIONS=" $NFQUEUE"#LISTEN_OPTIONS=" -q $NFQUEUE"#' /etc/init.d/suricata
+
+module_enabled=$(zs ips status|grep -C ENABLED)
+if [$module_enabled -eq 1]
+then
+        zs ips start
+fi
+
 exit 0
