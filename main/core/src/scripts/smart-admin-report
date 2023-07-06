@@ -216,7 +216,7 @@ function dc_check () {
 
 	## Domain information
 	echo -e "\n###############"
-	echo -e "## DNS information"
+	echo -e "## General information"
 	echo -e "###############\n"
 
 	echo -ne "## Domain users: "
