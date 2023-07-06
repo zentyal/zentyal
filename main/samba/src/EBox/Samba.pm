@@ -2911,14 +2911,13 @@ sub tableInfo
     my @access_order = qw(timestamp client username event resource);
     my $access_events = {
         'connect' => __('Connect'),
-        'opendir' => __('Access to directory'),
-        'readfile' => __('Read file'),
-        'writefile' => __('Write file'),
         'disconnect' => __('Disconnect'),
-        'unlink' => __('Remove'),
-        'mkdir' => __('Create directory'),
-        'rmdir' => __('Remove directory'),
-        'rename' => __('Rename'),
+        'create_file' => __('Create file'),
+        'pread_send' => __('Read file'),
+        'pwrite_send' => __('Write file'),
+        'renameat' => __('Rename'),
+        'unlinkat' => __('Remove'),
+        'mkdirat' => __('Create directory')
     };
 
     return [{

@@ -74,6 +74,13 @@ sub processLine # (file, line, logger)
         return;
     }
 
+    # Data extracted from the processed line
+    # fields[0] = User
+    # fields[1] = IP
+    # fields[2] = Action
+    # fields[3] = ok|fail
+    # fields[4-7] = Message, additional info or empty
+
     my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
     my $message = $2;
 
@@ -99,26 +106,25 @@ sub processLine # (file, line, logger)
     $dataToInsert{event} = $type;
     if (
         ($type eq 'connect') or
-        ($type eq 'opendir') or
         ($type eq 'disconnect') or
-        ($type eq 'unlink') or
-        ($type eq 'mkdir') or
-        ($type eq 'rmdir')
+        ($type eq 'pread_send') or
+        ($type eq 'pwrite_send') or
+        ($type eq 'unlinkat') or
+        ($type eq 'mkdirat')
     ) {
         $dataToInsert{resource} = $fields[4];
-    } elsif ($type eq 'open') {
-        if ($fields[4] eq 'r') {
-            $dataToInsert{event} = 'readfile';
-        } else {
-            $dataToInsert{event} = 'writefile';
-        }
-        $dataToInsert{resource} = $fields[5];
-    } elsif ($type eq 'rename') {
+    } elsif ($type eq 'renameat') {
         my $orig = $fields[4];
         my $dest = $fields[5];
         $orig =~ s/\s+$//;
         $dest =~ s/\s+$//;
         $dataToInsert{resource} = $orig . " -> " . $dest;
+    } elsif (
+            ($type eq 'create_file') and
+            ($fields[5] eq 'file') and
+            ($fields[6] eq 'create')
+    ) {
+        $dataToInsert{resource} = $fields[7];
     } else {
         # Not implemented
         return;

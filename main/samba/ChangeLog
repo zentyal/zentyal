@@ -1,4 +1,5 @@
 HEAD
+    + Fix Samba full audit for logs module. Fix ZS-146 #2094
 	+ Fix users email import. Fix ZS-159
 	+ Check if mail is already in use in groups form. Fix ZS-39 #1975
 	+ Disable the "Disable account" checkbox for critical system Users. Fix ZS-169

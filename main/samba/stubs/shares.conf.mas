@@ -29,8 +29,11 @@ use EBox::Gettext;
 %   $objects .= ' recycle';
 % }
     vfs objects = <% $objects %>
-    full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
-    full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
+    full_audit:facility = LOCAL7
+    full_audit:priority = ALERT
+    full_audit:prefix = %u|%I
+    full_audit:success = connect disconnect create_file pread_send pwrite_send renameat unlinkat mkdirat
+    full_audit:failure = connect disconnect create_file pread_send pwrite_send renameat unlinkat mkdirat
 % if ($rb) {
 %   foreach my $key (keys %{$recycle_config}) {
 %       next unless $key;
@@ -71,7 +74,10 @@ use EBox::Gettext;
 % if ($unmanagedAcls) {
     acl_xattr:ignore system acls = yes
 % }
-    full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
+    full_audit:facility = LOCAL7
+    full_audit:priority = ALERT
+    full_audit:prefix = %u|%I
+    full_audit:failure = connect disconnect create_file pread_send pwrite_send renameat unlinkat mkdirat
 % if ($rb) {
 %   foreach my $key (keys %{$recycle_config}) {
 %       next unless $key;
