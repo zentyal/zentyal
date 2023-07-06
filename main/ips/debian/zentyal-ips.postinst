@@ -1,23 +1,27 @@
 #!/bin/bash
 
 case "$1" in
-	configure)
+        configure)
 
         /usr/share/zentyal/initial-setup ips $2
 
         dpkg-trigger --no-await zentyal-core
 esac
 
-module_status=$(zs ips status|grep -C RUNNING)
-if [$module_status -eq]
+if zs ips status | grep -qo ' RUNNING '
 then
         zs ips stop
 fi
 
-sed -i 's#LISTEN_OPTIONS=" $NFQUEUE"#LISTEN_OPTIONS=" -q $NFQUEUE"#' /etc/init.d/suricata
+if systemctl is-active suricata | egrep -qo '^active$'
+then
+        systemctl stop suricata
+fi
 
-module_enabled=$(zs ips status|grep -C ENABLED)
-if [$module_enabled -eq 1]
+sed -i 's#LISTEN_OPTIONS=" $NFQUEUE"#LISTEN_OPTIONS=" -q $NFQUEUE"#' /etc/init.d/suricata
+systemctl daemon-reload
+
+if zs ips enabled | grep -oq ' ENABLED '
 then
         zs ips start
 fi
