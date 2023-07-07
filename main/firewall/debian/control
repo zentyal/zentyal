@@ -1,8 +1,8 @@
 Source: zentyal-firewall
 Section: web
 Priority: optional
-Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
-Uploaders: Bruno Lorente <blorente@zentyal.com>
+Maintainer: Bruno Lorente Cantarero <blorente@zentyal.com>
+Uploaders: Daniel Joven Gracia <djoven@zentyal.com>
 Build-Depends: zbuildtools
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
@@ -12,7 +12,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 Package: zentyal-firewall
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 7.0.0), zentyal-core (<< 7.1.0),
+Depends: zentyal-core (>= 7.1.0), zentyal-core (<< 7.2.0),
          zentyal-network, iptables, ${misc:Depends}
 Description: Zentyal - Firewall
  Zentyal is a Linux small business server that can act as
