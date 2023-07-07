@@ -1,4 +1,4 @@
-HEAD
+7.0.3
 	+ Add autoexpunge feature. Fix ZS-126 #2047
 	+ Force restart mail module in order to generate the key
 	+ Add DH key to Dovecot's conf. Fix ZS-143

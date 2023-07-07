@@ -1,4 +1,4 @@
-HEAD
+7.0.3
     + Fix Samba full audit for logs module. Fix ZS-146 #2094
 	+ Fix users email import. Fix ZS-159
 	+ Check if mail is already in use in groups form. Fix ZS-39 #1975
