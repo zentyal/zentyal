@@ -287,13 +287,7 @@ sub _writeSOGoConfFile
 
     my (undef, undef, undef, $gid) = getpwnam('sogo');
 
-    unless ($mail->imaps()) {
-
-    }
-    $self->writeConfFile(SOGO_CONF_FILE,
-    # AQUI
-        'sogo/sogo.conf.mas',
-        $array, { uid => 0, gid => $gid, mode => '640' });
+    $self->writeConfFile(SOGO_CONF_FILE, 'sogo/sogo.conf.mas', $array, { uid => 0, gid => $gid, mode => '640' });
 }
 
 sub _setupSOGoDatabase
