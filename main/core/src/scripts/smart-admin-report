@@ -148,6 +148,22 @@ function system_check() {
 	echo -en "\n## Network Interfaces where were 'Down': "
 		grep -a 'Link is Down' /var/log/syslog | wc -l
 
+
+	## Repositories
+	echo -e "\n########"
+	echo -e "## Repositories"
+	echo -e "########\n"
+
+	echo -e "## Repositories configured:\n"
+		egrep -v '^(#|$)' /etc/apt/sources.list
+
+	echo -e "\n## Custom repositories:\n"
+		find /etc/apt/sources.list.d/ -iname "*.list" -type f -exec ls {} \; -exec egrep -v '^(#|$)' {} \; -exec echo -e "" \;
+
+	echo -e "\n## Check if the repositories access is correct:\n"
+		apt update
+
+
 	## Packages
 	echo -e "\n########"
 	echo -e "## Server packages"
@@ -163,20 +179,6 @@ function system_check() {
 		grep 'Starting automatic update' /var/log/zentyal/software.log{,.1} 2> /dev/null | cut -d ":" -f2 | awk '{print $1}' | sort | tail -1
   	echo ""
 
-
-	## Repositories
- 	echo -e "\n########"
- 	echo -e "## Repositories"
- 	echo -e "########\n"
-
-	echo -e "## Repositories configured:\n"
-	egrep -v '^(#|$)' /etc/apt/sources.list
-
-  	echo -e "\n## Custom repositories:\n"
-  	find /etc/apt/sources.list.d/ -iname "*.list" -type f -exec ls {} \; -exec egrep -v '^(#|$)' {} \; -exec echo -e "" \;
-
-	echo -e "\n## Check if the repositories access is correct:\n"
-	apt update
 
 	## System emails
 	echo -e "\n########"

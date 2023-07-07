@@ -34,14 +34,14 @@ sub createLDAPUsers
             );
             my $global = EBox::Global->getInstance();
             my $mod = $global->modExists('mail') ? $global->modInstance('mail') : $global->modInstance('samba');
-            $mod->checkMailNotInUse($address);
+            $mod->checkMailNotInUse($mail);
             $user->set('mail', $mail, 1);
             $user->save();
             print "$samAccountName OK\n";
         } catch ($e){
             warn "Caught error: $e";
         }
-	    addToGroup($samAccountName, $groups)
+	    addToGroup($samAccountName, $groups);
     }
 }
 
