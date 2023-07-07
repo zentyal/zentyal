@@ -1848,7 +1848,10 @@ sub _writeCronFile
     my $expireDaysDraft = $smtpOptions->expirationForDraft();
     my $expireDaysTrash  = $smtpOptions->expirationForTrash();
 
-    $self->writeConfFile(AUTOEXPUNGE_CRON_FILE, 'mail/autoespunge.cron.mas', [
+    EBox::Module::Base::writeConfFileNoCheck(
+        AUTOEXPUNGE_CRON_FILE, 
+        'mail/autoexpunge.cron.mas', 
+    [
         expireDaysDraft => $expireDaysDraft,
         expireDaysTrash => $expireDaysTrash
     ]);

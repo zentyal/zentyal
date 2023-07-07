@@ -155,10 +155,8 @@ sub _table
              ),
          new EBox::Types::Union(
                               fieldName => 'mailboxQuota',
-                              printableName =>
-                                __('Maximum mailbox size allowed'),
-                              help =>
- __('When a mailbox reaches this size futher messages will be rejected. This can be overidden by account'),
+                              printableName =>__('Maximum mailbox size allowed'),
+                              help =>__('When a mailbox reaches this size futher messages will be rejected. This can be overidden by account'),
                               subtypes => [
                               new EBox::Types::Union::Text(
                                   'fieldName' => 'mailboxUnlimited',
@@ -241,8 +239,7 @@ sub _table
                               'min'       => 1,
                               'size'      => 5,
                               'defaultValue' => 3,
-                             ),
-        ),
+             ),
          new EBox::Types::Union(
                               fieldName => 'trashAutoExpunge',
                               printableName =>
@@ -261,7 +258,7 @@ sub _table
                                   'size'      => 5,
                                       ),
                                   ],
-        ),
+             ),
          new EBox::Types::Union(
                               fieldName => 'draftAutoExpunge',
                               printableName =>
@@ -280,6 +277,7 @@ sub _table
                                   'size'      => 5,
                                       ),
                                   ],
+             )
         );
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),

@@ -6,4 +6,4 @@ SHELL=/bin/sh
 PATH=/usr/bin:/bin
 
 * * * * <% $expireDaysDraft %> root doveadm expunge -A mailbox Draft savedbefore <% $expireDaysDraft %>
-* * * * <% $expireDaysTrash %> root doveadm expunge -A mailbox Trash savedbefore <% expireDaysTrash %>
+* * * * <% $expireDaysTrash %> root doveadm expunge -A mailbox Trash savedbefore <% $expireDaysTrash %>
