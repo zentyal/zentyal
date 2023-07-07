@@ -1847,14 +1847,19 @@ sub _writeCronFile
     my $smtpOptions      = $self->model('SMTPOptions');
     my $expireDaysDraft = $smtpOptions->expirationForDraft();
     my $expireDaysTrash  = $smtpOptions->expirationForTrash();
-
+    my $fileAttrs = {
+        uid  => 0,
+        gid  => 0,
+        mode => '0755',
+    };
     EBox::Module::Base::writeConfFileNoCheck(
         AUTOEXPUNGE_CRON_FILE, 
-        'mail/autoexpunge.cron.mas', 
-    [
-        expireDaysDraft => $expireDaysDraft,
-        expireDaysTrash => $expireDaysTrash
-    ]);
+        'mail/zentyal-autoexpunge.cron', 
+        [
+            expireDaysDraft => $expireDaysDraft,
+            expireDaysTrash => $expireDaysTrash
+        ]
+    );
 }
 
 1;
