@@ -1,1 +1,2 @@
 dovecot-pam /usr/share/zentyal-mail
+zentyal-autoexpunge /etc/cron.daily/zentyal-autoexpunge

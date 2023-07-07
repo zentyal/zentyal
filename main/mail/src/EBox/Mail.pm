@@ -79,6 +79,7 @@ use constant TRANSPORT_FILE           => '/etc/postfix/transport';
 use constant SASL_PASSWD_FILE         => '/etc/postfix/sasl_passwd';
 use constant MAILNAME_FILE            => '/etc/mailname';
 use constant VDOMAINS_MAILBOXES_DIR   => '/var/vmail';
+use constant AUTOEXPUNGE_CRON_FILE    => '/etc/cron.daily/zentyal-autoexpunge';
 use constant ARCHIVEMAIL_CRON_FILE    => '/etc/cron.daily/archivemail';
 use constant FETCHMAIL_SERVICE        => 'zentyal.fetchmail';
 use constant ALWAYS_BCC_TABLE_FILE    => '/etc/postfix/alwaysbcc';
@@ -624,6 +625,8 @@ sub _setMailConf
 
     # TODO: Uncomment this when the package will be maintained again by blorente
     # $self->_setArchivemailConf();
+
+    $self->_writeCronFile();
 
     #my $manager = new EBox::ServiceManager;
     # Do not run postmap if we can't overwrite SASL_PASSWD_FILE
@@ -1835,6 +1838,20 @@ sub checkMailNotInUse
                 __x('Address {addr} is in use as external alias', addr => $mail)
         );
     }
+}
+
+sub _writeCronFile
+{
+    my ($self) = @_;
+
+    my $smtpOptions      = $self->model('SMTPOptions');
+    my $expireDaysDraft = $smtpOptions->expirationForDraft();
+    my $expireDaysTrash  = $smtpOptions->expirationForTrash();
+
+    $self->writeConfFile(AUTOEXPUNGE_CRON_FILE, 'mail/autoespunge.cron.mas', [
+        expireDaysDraft => $expireDaysDraft,
+        expireDaysTrash => $expireDaysTrash
+    ]);
 }
 
 1;
