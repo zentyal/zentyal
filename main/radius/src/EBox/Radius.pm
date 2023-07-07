@@ -33,6 +33,7 @@ use EBox::Radius::LdapUser;
 use constant CONFDIR => "/etc/freeradius/3.0/";
 use constant USERSCONFFILE => CONFDIR . 'mods-config/files/authorize';
 use constant LDAPCONFFILE => CONFDIR . 'mods-available/ldap';
+use constant KRB5CONFFILE => CONFDIR . 'mods-available/krb5';
 use constant RADIUSDCONFFILE => CONFDIR . 'radiusd.conf';
 use constant CLIENTSCONFFILE => CONFDIR . 'clients.conf';
 use constant EAPCONFFILE => CONFDIR . 'mods-available/eap';
@@ -166,10 +167,15 @@ sub initialSetup
 sub _services
 {
     return [
-             { # radius
+             { # radius auth
                  'protocol' => 'udp',
                  'sourcePort' => 'any',
                  'destinationPort' => '1812',
+             },
+             { # radius acct
+                 'protocol' => 'udp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '1813',
              },
     ];
 }
@@ -222,6 +228,7 @@ sub _setConf
     $self->_setUsers();
     $self->_setEAP();
     $self->_setLDAP();
+    $self->_setKRB5();
     $self->_setClients();
 }
 
@@ -294,6 +301,29 @@ sub _setLDAP
     push (@params, password => $self->_kerberosServiceAccountPassword());
 
     $self->writeConfFile(LDAPCONFFILE, "radius/ldap.mas", \@params,
+                            { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
+}
+
+# set up the KRB5 configuration
+sub _setKRB5
+{
+    my ($self) = @_;
+
+    my @params = ();
+
+    my $info = $self->_kerberosKeytab();
+    my $spns = $self->_kerberosFullSPNs();
+
+    push (@params, keytab => $info->{path});
+    push (@params, service_principal => @{$spns}[0]);
+
+    use File::Basename;
+    my $krb5ConfFile = '../mods-available/' . basename(KRB5CONFFILE);
+    my $krb5LinkFile = CONFDIR . 'mods-enabled/' . basename(KRB5CONFFILE);
+    EBox::Sudo::root("ln -snf $krb5ConfFile $krb5LinkFile");
+
+    $self->_kerberosRefreshKeytab();
+    $self->writeConfFile(KRB5CONFFILE, "radius/krb5.mas", \@params,
                             { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 }
 
@@ -398,14 +428,53 @@ sub _ldapModImplementation
     return new EBox::Radius::LdapUser();
 }
 
+# Method: _kerberosServicePrincipals
+#
+#   Return the service principal names to add to the service account.
+#
+#   To be implemented by the module.
+#
+# Return:
+#
+#   Array ref - Containing the SPNs
+#
 sub _kerberosServicePrincipals
 {
-    return undef;
+    my ($self) = @_;
+
+    my $spns;
+    push (@{$spns}, "radius");
+    return \@{$spns};
 }
 
+# Method: _kerberosKeytab
+#
+#   Return the necessary information to extract the keytab for the service.
+#   The keytab will contain the service account keys with all its service
+#   principals.
+#
+#   To be implemented by the module
+#
+# Return:
+#
+#   Hash ref - Containig the following pairs:
+#       path - The path where the keytab will be extracted
+#       user - The owner user for the extracted keytab
+#       group - The owner group for the extracted keytab
+#       mode - The mode for the extracted keytab
+#
 sub _kerberosKeytab
 {
-    return undef;
+    my ($self) = @_;
+
+    my $account = $self->_kerberosServiceAccount();
+
+    return { 
+	'path'  => CONFDIR . "$account.keytab",
+        'user'  => 'root', 
+	'group' => 'freerad', 
+	'mode'  => '640' 
+    };
 }
 
 1;

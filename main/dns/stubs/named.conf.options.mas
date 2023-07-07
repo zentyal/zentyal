@@ -25,7 +25,6 @@ options {
     //notify-source * port 53;
 
     // DNSSEC configuration
-    dnssec-enable yes;
     dnssec-validation yes;
 
 %   if ( @forwarders > 0 ) {

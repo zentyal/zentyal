@@ -120,6 +120,9 @@ ldap {
 #		reply:Tunnel-Type		:= 'radiusTunnelType'
 #		reply:Tunnel-Medium-Type	:= 'radiusTunnelMediumType'
 #		reply:Tunnel-Private-Group-ID	:= 'radiusTunnelPrivategroupId'
+                reply:Framed-IP-Address         := 'radiusFramedIPAddress'
+                reply:Framed-IP-Netmask         := 'radiusFramedIPNetmask'
+                reply:Framed-Route              += 'radiusFramedRoute'
 
 		#  Where only a list is specified as the RADIUS attribute,
 		#  the value of the LDAP attribute is parsed as a valuepair

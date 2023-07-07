@@ -454,6 +454,9 @@ sub ifaceExists # (interface)
     if (iface_exists($name)) {
         return 1;
     }
+    if ($name eq '+') {
+        return 1;
+    }
     my $ifaces = $self->ifaces;
     if (grep(/^$name$/, @{$ifaces})) {
         return 1;

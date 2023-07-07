@@ -1,3 +1,6 @@
+7.0.3
+	+ Fix "option 'dnssec-enable' is obsolete and should be removed"
+	+ Update AppArmor profile to allow dynamic DNS updates
 7.0.2
 	+ Fix DNSSEC
 7.0.1
