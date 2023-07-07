@@ -27,7 +27,7 @@ function checkGPG
 {
 	logger UCP[$$] INFO: Looking for gnupg package...
     dpkg -s gnupg &> /dev/null
-    if [ $? -eq 0 ]; 
+    if [ $? -eq 0 ];
     then
         logger UCP[$$] INFO: gnupg already installed
     else
@@ -35,11 +35,11 @@ function checkGPG
         apt-get install gnupg -y
     fi
 	# Importing key
-	wget -qO - $KEYURL | sudo apt-key add -
+	sudo wget -q ${KEYURL} -P /etc/apt/trusted.gpg.d/
 }
 
 if [ -z $LK ]
-then 
+then
 	echo "Usage: $0 XXXXX-XXXXX-XXXXX-XXXXX"
 	exit 126;
 fi
@@ -60,7 +60,7 @@ JSON_STRING=$( jq -n \
                       lk: $lk,
                       server_uuid: $pc,
 					  server_version: $v
-                    }' 
+                    }'
             )
 
 # Run the request to "activate the license"
