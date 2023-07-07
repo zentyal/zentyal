@@ -8,8 +8,15 @@ case "$1" in
         # restart module
         zs mail restart || true
 
-        dpkg-trigger --no-await zentyal-usercorner
         dpkg-trigger --no-await zentyal-core
 esac
+
+if [[ ! -s /etc/dovecot/dh.pem ]]
+then
+  cp /usr/share/dovecot/dh.pem /etc/dovecot/dh.pem
+  chmod 0640 /etc/dovecot/dh.pem
+  chown root:dovecot /etc/dovecot/dh.pem
+  zs mail restart
+fi
 
 exit 0

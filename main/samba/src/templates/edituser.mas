@@ -109,7 +109,7 @@ JS_END
 
           <div class="field">
             <label >
-              <input type='checkbox' name='disabled' <% $user->isDisabled() ? "checked" : "" %> >
+              <input type='checkbox' <% $user->get('isCriticalSystemObject') ? "disabled" : "" %> name='disabled' <% $user->isDisabled() ? "checked" : "" %> >
               <% __('Disabled account') %>
             </label>
           </div>

@@ -127,6 +127,10 @@ case "$1" in
         chmod 644 /etc/zentyal/pre-save/README
         chmod 644 /etc/zentyal/post-save/README
 
+
+        # ZS-156
+        chmod 755 /etc/cron.daily/cleantmp
+
         dpkg-trigger --no-await zentyal-core
     ;;
     triggered)

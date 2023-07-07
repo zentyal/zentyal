@@ -256,6 +256,9 @@ sub _setConf
     $self->writeConfFile(FRESHCLAM_CONF_FILE,
             "antivirus/freshclam.conf.mas", \@freshclamParams);
 
+    # Grant the right permissions to log file
+    EBox::Sudo::root('chgrp ebox "' . FRESHCLAM_LOG_FILE . '"');
+    
     # Regenerate freshclam cron daily script
     $self->writeConfFile(FRESHCLAM_CRON_FILE,
                          'antivirus/clamav-freshclam.cron.mas',

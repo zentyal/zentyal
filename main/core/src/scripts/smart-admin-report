@@ -3,7 +3,7 @@ RUNNING=/var/lib/zentyal/tmp/.smart-admin-running
 
 touch $RUNNING
 
-function system_check () {
+function system_check() {
 	echo -e "Subject: System report\n"
 	echo -e "\n##################"
 	echo -e "# GENERAL CHECKS #"
@@ -55,8 +55,22 @@ function system_check () {
 	echo -e "## Modules which are enabled"
 	echo -e "########\n"
 
-	for zenmod in $(zs notexist status 2> /dev/null | tail -1); do
+	ZEN_MOD=$(zs notexist status 2> /dev/null | tail -1)
+
+	for zenmod in ${ZEN_MOD}
+	do
 		zs $zenmod enabled
+	done
+
+
+	## Modules status
+	echo -e "\n########"
+	echo -e "## Status of each modules"
+	echo -e "########\n"
+
+	for zenmod in ${ZEN_MOD}
+	do
+		zs $zenmod status
 	done
 
 
@@ -134,6 +148,22 @@ function system_check () {
 	echo -en "\n## Network Interfaces where were 'Down': "
 		grep -a 'Link is Down' /var/log/syslog | wc -l
 
+
+	## Repositories
+	echo -e "\n########"
+	echo -e "## Repositories"
+	echo -e "########\n"
+
+	echo -e "## Repositories configured:\n"
+		egrep -v '^(#|$)' /etc/apt/sources.list
+
+	echo -e "\n## Custom repositories:\n"
+		find /etc/apt/sources.list.d/ -iname "*.list" -type f -exec ls {} \; -exec egrep -v '^(#|$)' {} \; -exec echo -e "" \;
+
+	echo -e "\n## Check if the repositories access is correct:\n"
+		apt update
+
+
 	## Packages
 	echo -e "\n########"
 	echo -e "## Server packages"
@@ -142,23 +172,13 @@ function system_check () {
 	echo -ne "Broken packages: "
 		dpkg -l |egrep -v '^ii|rc' | awk '{if(NR>5)print}' | wc -l
 
-	echo -e "Upgradable packages: \n"
-		/usr/lib/update-notifier/apt-check --human-readable | egrep -v 'upgradable'
+	echo -ne "Upgradable packages: "
+		apt list --upgradable 2>/dev/null | awk 'NR!=1' | wc -l
 
-	echo -ne "\nLast update by Zentyal: "
+	echo -ne "Last update by Zentyal: "
 		grep 'Starting automatic update' /var/log/zentyal/software.log{,.1} 2> /dev/null | cut -d ":" -f2 | awk '{print $1}' | sort | tail -1
   	echo ""
 
-	## Repositories
- 	echo -e "\n########"
- 	echo -e "## Repositories"
- 	echo -e "########\n"
-
-	echo -e "## Repositorios configured: "
-		egrep -v '^(#|$)' /etc/apt/sources.list
-
-  	echo -e "\n## Custom repositories:\n"
-  	find /etc/apt/sources.list.d/ -iname "*.list" -type f -exec ls {} \; -exec egrep -v '^(#|$)' {} \; -exec echo -e "" \;
 
 	## System emails
 	echo -e "\n########"
@@ -196,6 +216,30 @@ function dc_check () {
 	echo -e "# DOMAIN CONTROLLER CHECKS #"
 	echo -e "############################"
 
+	## Domain information
+	echo -e "\n###############"
+	echo -e "## General information"
+	echo -e "###############\n"
+
+	echo -ne "## Domain users: "
+	samba-tool user list 2>/dev/null | wc -l
+
+	echo -ne "## Domain groups: "
+	samba-tool group list 2>/dev/null | wc -l
+
+	echo -ne "## Domain computers: "
+	ldbsearch -H /var/lib/samba/private/sam.ldb '(objectClass=computer)' dn 2>/dev/null | egrep '^dn: ' | wc -l
+
+	echo -ne "## Home directory size: "
+	du -hs --exclude=samba /home/ | awk '{print $1}'
+
+	echo -ne "## Default shares size: "
+	du -hs /home/samba/shares/ | awk '{print $1}'
+
+	echo -ne "## Roaming profile parent directory size: "
+	du -hs /home/samba/profiles/ | awk '{print $1}'
+
+
 	## DNS user
 	echo -e "\n########"
 	echo -e "## DNS user"
@@ -203,9 +247,12 @@ function dc_check () {
 
 	samba-tool user list 2> /dev/null | grep '^dns-'
 
-	echo -e "\n## DNS users on DnsAdmins: \n"
-		samba-tool group listmembers DnsAdmins 2> /dev/null | grep '^dns-'
+	## DnsAdmins group
+	echo -e "\n########"
+	echo -e "## DnsAdmins group"
+	echo -e "########\n"
 
+	samba-tool group listmembers DnsAdmins 2> /dev/null | grep '^dns-'
 
 	## DNS user expire
 	echo -e "\n########"
@@ -214,7 +261,7 @@ function dc_check () {
 
 	for dnsusers in $(samba-tool user list 2> /dev/null | grep 'dns-'); do
 		echo -ne "Usuario: ${dnsusers} -> "
-			pdbedit -Lv -u ${dnsusers} | grep "^Account Flags" | tr -s " " " " | tr -s "[]" "_" | cut -d "_" -f2
+			pdbedit -d0 -Lvu ${dnsusers} | grep "^Account Flags" | tr -s " " " " | tr -s "[]" "_" | cut -d "_" -f2
 	done
 
 
@@ -225,7 +272,7 @@ function dc_check () {
 
 	DNSUSER=$(samba-tool user list 2> /dev/null | grep -oi "dns-${HOSTNAME}")
 
-	if pdbedit -Lv -u ${DNSUSER} | grep "^Account Flags" | tr -s " " " " | tr -s "[]" "_" | cut -d "_" -f2 | grep -qo 'X'; then
+	if pdbedit -d0 -Lv -u ${DNSUSER} | grep "^Account Flags" | tr -s " " " " | tr -s "[]" "_" | cut -d "_" -f2 | grep -qo 'X'; then
 		echo -e "Getting a Kerberos ticket for '${DNSUSER}' ...\n"
 			kinit -k -t /var/lib/samba/bind-dns/dns.keytab ${DNSUSER}
 		if [[ $? -eq 0 ]]; then
@@ -275,7 +322,7 @@ function dc_check () {
 	echo -e "## Domain Controllers configured"
 	echo -e "########\n"
 
-	ldbsearch -H /var/lib/samba/private/sam.ldb '(invocationId=*)' --cross-ncs objectguid | egrep "(dn|objectGUID):"	
+	ldbsearch -H /var/lib/samba/private/sam.ldb '(invocationId=*)' --cross-ncs objectguid 2>/dev/null | egrep "(dn|objectGUID):"
 
 
 	## DNS aliases for Domain Controllers
@@ -283,17 +330,17 @@ function dc_check () {
 	echo -e "## DNS alias"
 	echo -e "########\n"
 
-	for dc in $(ldbsearch -H /var/lib/samba/private/sam.ldb '(invocationId=*)' --cross-ncs objectguid | egrep "(objectGUID):" | cut -d ":" -f2 | sed "s/ //"); do 
-		host -t CNAME $dc._msdcs.$(hostname -d); 
+	for dc in $(ldbsearch -H /var/lib/samba/private/sam.ldb '(invocationId=*)' --cross-ncs objectguid 2> /dev/null | egrep "(objectGUID):" | cut -d ":" -f2 | sed "s/ //"); do
+		host -t CNAME $dc._msdcs.$(hostname -d);
 	done
 
 
-	## DNS Errors on log file
+	## Domain controllers sync
 	echo -e "\n########"
-	echo -e "## DNS Errors on log file"
+	echo -e "## Domain controllers sync"
 	echo -e "########\n"
 
-	egrep -a -A2 -i "root command kinit -k -t" /var/log/zentyal/zentyal.log | tail -10
+	samba-tool drs showrepl 2>/dev/null
 }
 
 function log_files () {
@@ -319,7 +366,7 @@ function log_files () {
 	echo -e "# ZENTYAL LOG FILE  #"
 	echo -e "#####################"
 
-	echo -e "\n## Errors and Warnings found from '$(head -1 /var/log/zentyal/zentyal.log  | awk '{print $1}')' to '$(tail -1 /var/log/zentyal/zentyal.log  | awk '{print $1}')'"
+	echo -e "\n## Errors and Warnings found in the last two months."
 	echo -e "\n## Errors found:"
 		printf "%s\n" "${!ErrorModules[@]}" "${ErrorModules[@]}" | pr -2t
 	echo -e "\n## Warnings found:"
@@ -331,32 +378,41 @@ function mail_status() {
 	echo -e "# Mails status #"
 	echo -e "################\n"
 
-	maillog="/var/log/mail.log"
-	echo -e "## Status of the emails that were sent and received between the dates: '$(head -1 /var/log/mail.log | awk '{print $1,$2,$3}')' and '$(tail -1 /var/log/mail.log | awk '{print $1,$2,$3}')' :"
+	echo -ne "## Email directory size: "
+	du -hs /var/vmail/ | awk '{print $1}'
 
-	echo "Mail queue: "
-	mailq -bp
+	local CURMONTH=$(date '+%b')
+	local LASTMONTH=$(date -d "1 month ago" '+%b')
+	local maillog="/var/log/mail.log"
 
-	echo -n "Mails sent: "
-		grep -o 'status=sent' ${maillog} | wc -l
+	echo -ne "\n## Number of email in queue: "
+		expr $(mailq -bp | wc -l) - 1
 
-	echo -n "Mails rejected: "
-		grep -o 'status=reject' ${maillog} | wc -l
+	echo -e "\n## Status of the emails that were sent and received last two months:"
 
-	echo -n "Mails bounced: "
-		grep -o 'status=bounced' ${maillog} | wc -l
+	echo -en "\tSent: "
+		egrep -i "^(${CURMONTH}|${SSHLASTMONTH})" ${maillog} | grep -o 'status=sent' | wc -l
 
-	echo -n "Mails analized by Mailfilter: "
-		grep -o 'Hits: ' ${maillog} | wc -l
+	echo -en "\tRejected: "
+		egrep -i "^(${CURMONTH}|${SSHLASTMONTH})" ${maillog} | grep -o 'status=reject' | wc -l
 
-	echo -n "Mails with virus: "
-		grep -o 'Blocked INFECTED' ${maillog} | wc -l
+	echo -en "\tDeferred: "
+		egrep -i "^(${CURMONTH}|${SSHLASTMONTH})" ${maillog} | grep -o 'status=deferred' | wc -l
 
-	echo -n "Mails block by SPAM: "
-		grep -o 'Blocked SPAM' ${maillog} | wc -l
+	echo -en "\tBounced: "
+		egrep -i "^(${CURMONTH}|${SSHLASTMONTH})" ${maillog} | grep -o 'status=bounced' | wc -l
 
-	echo -n "Mails block by File Type: "
-		grep -o 'Blocked BANNED' ${maillog} | wc -l
+	echo -en "\tAnalized by Mailfilter: "
+		egrep -i "^(${CURMONTH}|${SSHLASTMONTH})" ${maillog} | grep -o 'Hits: ' | wc -l
+
+	echo -en "\tWith virus: "
+		egrep -i "^(${CURMONTH}|${SSHLASTMONTH})" ${maillog} | grep -o 'Blocked INFECTED' | wc -l
+
+	echo -en "\tBlocked for SPAM: "
+		egrep -i "^(${CURMONTH}|${SSHLASTMONTH})" ${maillog} | grep -o 'Blocked SPAM' | wc -l
+
+	echo -en "\tBlocked for the type of file: "
+		egrep -i "^(${CURMONTH}|${SSHLASTMONTH})" ${maillog} | grep -o 'Blocked BANNED' | wc -l
 }
 
 function log_access() {
@@ -364,29 +420,34 @@ function log_access() {
 	echo -e "# Login accesses #"
 	echo -e "###################\n"
 
-	zenlog="/var/log/zentyal/zentyal.log"
-	sshlog="/var/log/auth.log"
-	sogolog="/var/log/sogo/sogo.log"
-	maillog="/var/log/mail.log"
+	local ZENCURMONTH=$(date '+%Y/%m/')
+	local ZENLASTMONTH=$(date -d "1 month ago" '+%Y/%m/')
+	local zenlog="/var/log/zentyal/zentyal.log"
+	local CURMONTH=$(date '+%b')
+	local LASTMONTH=$(date -d "1 month ago" '+%b')
+	local sshlog="/var/log/auth.log"
+	local SogoCURMONTH=$(date '+%b')
+	local SogoLASTMONTH=$(date -d "1 month ago" '+%b')
+	local sogolog="/var/log/sogo/sogo.log"
 
 	echo -n "Successful accesses to the Zentyal Admin Interface: "
-		grep 'check - Successfully authenticated user' ${zenlog} | wc -l
+		egrep -a "^(${CURMONTH}|${LASTMONTH}).*>" ${zenlog} | grep -a 'check - Successfully authenticated user' | wc -l
 
 	echo -n "Failed accesses to the Zentyal Admin Interface: "
-		grep '_login - Failed login from:' ${zenlog} | wc -l
+		egrep -a "^(${CURMONTH}|${LASTMONTH}).*>" ${zenlog} | grep -a '_login - Failed login from:' | wc -l
 
 	echo -en "\nSuccessful accesses from SSH: "
-		egrep "sshd\[.*\]: Accepted password for" ${sshlog} | wc -l
+		egrep -i "^(${CURMONTH}|${SSHLASTMONTH})" ${sshlog} | egrep "sshd\[.*\]: Accepted password for" | wc -l
 
 	echo -n "Failed accesses from SSH: "
-		egrep "sshd\[.*\]: Failed password for" ${sshlog} | wc -l
+		egrep -i "^(${CURMONTH}|${SSHLASTMONTH})" ${sshlog} | egrep "sshd\[.*\]: Failed password for" | wc -l
 
 	if [[ -f ${sogolog} ]]; then
 		echo -en "\nSuccessful accesses  to Sogo Web Interface: "
-			egrep "SOGoRootPage successful login" ${sogolog} | wc -l
+			egrep -i "^(${CURMONTH}|${SSHLASTMONTH})" ${sogolog} | egrep "SOGoRootPage successful login" | wc -l
 
 		echo -n "Failed accesses to Sogo Web Interface: "
-			egrep "SOGoRootPage Login from .* might not have worked" ${sogolog} | wc -l
+			egrep -i "^(${CURMONTH}|${SSHLASTMONTH})" ${sogolog} | egrep "SOGoRootPage Login from .* might not have worked"| wc -l
 	fi
 }
 
@@ -395,9 +456,10 @@ function antivirus_check() {
 	echo -e "# Antivirus module #"
 	echo -e "###################\n"
 
-	for db in main daily bytecode; do
-  	DBCHECK=$(egrep "${db}(.cvd|.cld) updated" /var/log/clamav/freshclam.log{.1,} | tac | head -1 | cut -d ":" -f2 | awk '{print $1,$2,$3}')
-	  echo "Last update of the '${db}' database file: ${DBCHECK}"
+	for db in main daily bytecode
+	do
+		DBCHECK=$(egrep "${db}(.cvd|.cld) updated" /var/log/clamav/freshclam.log{.1,} 2>/dev/null | tac | head -1 | cut -d ":" -f2 | awk '{print $1,$2,$3}')
+		echo "Last update of the '${db}' database file: ${DBCHECK}"
 	done
 
 	echo -en "\nNumber of Virus detected: "
@@ -421,20 +483,20 @@ log_access
 log_files
 
 ## Running antivirus_check
-dpkg -l | grep -q 'zentyal-antivirus' 
-if [[ ${?} -eq 0 ]] && zs antivirus enabled | grep -qo "ENABLED"; then 
+dpkg -l | grep -q 'zentyal-antivirus'
+if [[ ${?} -eq 0 ]] && zs antivirus enabled | grep -qo "ENABLED"; then
 	antivirus_check
 fi
 
 ## Running the DC funcion
-dpkg -l | grep -q 'zentyal-samba' 
-if [[ ${?} -eq 0 ]] && zs samba enabled | grep -qo "ENABLED"; then 
+dpkg -l | grep -q 'zentyal-samba'
+if [[ ${?} -eq 0 ]] && zs samba enabled | grep -qo "ENABLED"; then
 	dc_check
 fi
 
 ## Running mail_status function
-dpkg -l | grep -q 'zentyal-mail' 
-if [[ ${?} -eq 0 ]] && zs mail enabled | grep -qo "ENABLED"; then 
+dpkg -l | grep -q 'zentyal-mail'
+if [[ ${?} -eq 0 ]] && zs mail enabled | grep -qo "ENABLED"; then
 	mail_status
 fi
 

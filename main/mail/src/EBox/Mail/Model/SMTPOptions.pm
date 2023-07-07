@@ -155,10 +155,8 @@ sub _table
              ),
          new EBox::Types::Union(
                               fieldName => 'mailboxQuota',
-                              printableName =>
-                                __('Maximum mailbox size allowed'),
-                              help =>
- __('When a mailbox reaches this size futher messages will be rejected. This can be overidden by account'),
+                              printableName =>__('Maximum mailbox size allowed'),
+                              help =>__('When a mailbox reaches this size futher messages will be rejected. This can be overidden by account'),
                               subtypes => [
                               new EBox::Types::Union::Text(
                                   'fieldName' => 'mailboxUnlimited',
@@ -241,9 +239,46 @@ sub _table
                               'min'       => 1,
                               'size'      => 5,
                               'defaultValue' => 3,
-                             ),
+             ),
+         new EBox::Types::Union(
+                              fieldName => 'trashAutoExpunge',
+                              printableName =>
+                                __('Expiration period for trash mails'),
+                              subtypes => [
+                              new EBox::Types::Union::Text(
+                                  'fieldName' => 'neverExpungeTrash',
+                                  'printableName' => __('Never'),
+                                  ),
+                              new EBox::Types::Int(
+                                  'fieldName' => 'daysExpungeTrash',
+                                  'printableName' => __('expired in'),
+                                  'trailingText'  => __('days'),
+                                  'editable'  => 1,
+                                  'min'       => 1,
+                                  'size'      => 5,
+                                      ),
+                                  ],
+             ),
+         new EBox::Types::Union(
+                              fieldName => 'draftAutoExpunge',
+                              printableName =>
+                                __('Expiration period for draft mails'),
+                              subtypes => [
+                              new EBox::Types::Union::Text(
+                                  'fieldName' => 'neverExpungeDraft',
+                                  'printableName' => __('Never'),
+                                  ),
+                              new EBox::Types::Int(
+                                  'fieldName' => 'daysExpungeDraft',
+                                  'printableName' => __('expired in'),
+                                  'trailingText'  => __('days'),
+                                  'editable'  => 1,
+                                  'min'       => 1,
+                                  'size'      => 5,
+                                      ),
+                                  ],
+             )
         );
-
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
                       printableTableName => __('Options'),
@@ -316,6 +351,18 @@ sub expirationForSpam
 {
     my ($self) = @_;
     return $self->_expiration('spamExpire', 'neverExpireSpam');
+}
+
+sub expirationForTrash
+{
+    my ($self) = @_;
+    return $self->_expiration('trashAutoExpunge', 'neverExpungeTrash');
+}
+
+sub expirationForDraft
+{
+    my ($self) = @_;
+    return $self->_expiration('draftAutoExpunge', 'neverExpungeDraft');
 }
 
 sub _expiration
