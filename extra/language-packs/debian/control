@@ -238,7 +238,8 @@ Description: Zentyal translations for language Italian
 
 Package: language-pack-zentyal-ja
 Architecture: all
-Depends: zentyal-core (>= 5.0), ${misc:Depends}
+Depends: zentyal-core (>= 5.0), fonts-arphic-uming, firefox-locale-ja,
+${misc:Depends}
 Description: Zentyal translations for language Japanese
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -249,8 +250,7 @@ Description: Zentyal translations for language Japanese
 
 Package: language-pack-zentyal-lt
 Architecture: all
-Depends: zentyal-core (>= 5.0), fonts-arphic-uming, firefox-locale-ja, 
-${misc:Depends}
+Depends: zentyal-core (>= 5.0), ${misc:Depends}
 Description: Zentyal translations for language Lithuanian
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
