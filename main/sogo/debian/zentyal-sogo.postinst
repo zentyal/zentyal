@@ -1,9 +1,5 @@
 #!/bin/bash
 
-DB_PASSWORD=$(sudo cat /var/lib/zentyal/conf/zentyal-mysql.passwd)
-QUERY_PROCESS=$(mysql -s -N -u root -p${DB_PASSWORD} -e "SELECT Process_priv from mysql.user where user='sogo';" 2> /dev/null)
-QUERY_RELOAD=$(mysql -s -N -u root -p${DB_PASSWORD} -e "SELECT Reload_priv from mysql.user where user='sogo';" 2> /dev/null)
-
 case "$1" in
 	configure)
 
@@ -11,16 +7,5 @@ case "$1" in
 
         dpkg-trigger --no-await zentyal-core
 esac
-
-# The code below addresses the issue ZS-167 and GH-2119
-if ! zs sogo enabled | grep -qo "ENABLED"
-  then
-    exit 0
-fi
-
-if [[ ${QUERY_PROCESS} != 'Y' && ${QUERY_RELOAD} != 'Y' ]]
-  then
-    mysql -u root -p${DB_PASSWORD} -e "GRANT RELOAD,PROCESS ON *.* TO 'sogo'@'127.0.0.1'; FLUSH PRIVILEGES;" 2> /dev/null
-fi
 
 exit 0
