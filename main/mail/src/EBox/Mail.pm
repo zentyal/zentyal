@@ -1858,7 +1858,8 @@ sub _writeCronFile
         [
             expireDaysDraft => $expireDaysDraft,
             expireDaysTrash => $expireDaysTrash
-        ]
+        ],
+        $fileAttrs,
     );
 }
 
