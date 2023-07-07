@@ -262,7 +262,7 @@ sub _writeSOGoConfFile
     my $retrievalServices = $mail->model('RetrievalServices');
     my $sieveEnabled = $retrievalServices->value('managesieve');
     my $sieveServer = ($sieveEnabled ? 'sieve://127.0.0.1:4190' : '');
-    my $imapServer = ($mail->imap() ? '127.0.0.1:143' : 'imaps://127.0.0.1:993');
+    my $imapServer = ($mail->imap() ? '127.0.0.1:143' : '"imaps://127.0.0.1:993/?tlsVerifyMode=allowInsecureLocalhost"');
     my $smtpServer = '127.0.0.1:25';
     push (@{$array}, imapServer => $imapServer);
     push (@{$array}, smtpServer => $smtpServer);
@@ -286,7 +286,12 @@ sub _writeSOGoConfFile
     push (@{$array}, activesync => $self->_activeSyncEnabled());
 
     my (undef, undef, undef, $gid) = getpwnam('sogo');
+
+    unless ($mail->imaps()) {
+
+    }
     $self->writeConfFile(SOGO_CONF_FILE,
+    # AQUI
         'sogo/sogo.conf.mas',
         $array, { uid => 0, gid => $gid, mode => '640' });
 }
@@ -307,7 +312,6 @@ sub _setupSOGoDatabase
     $db->sqlAsSuperuser(sql => "CREATE USER IF NOT EXISTS $dbUser\@$dbHost " .
                                "IDENTIFIED BY \"$dbPass\";");
     $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " . ";");
-    $db->sqlAsSuperuser(sql => "GRANT RELOAD,PROCESS ON *.* TO $dbUser\@$dbHost " . ";");
     $db->sqlAsSuperuser(sql => 'FLUSH PRIVILEGES;');
 }
 
