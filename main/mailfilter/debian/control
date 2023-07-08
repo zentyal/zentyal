@@ -1,8 +1,8 @@
 Source: zentyal-mailfilter
 Section: web
 Priority: optional
-Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
-Uploaders: Bruno Lorente <blorente@zentyal.com>
+Maintainer: Bruno Lorente Cantarero <blorente@zentyal.com>
+Uploaders: Daniel Joven Gracia <djoven@zentyal.com>
 Build-Depends: zbuildtools
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
@@ -12,7 +12,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 Package: zentyal-mailfilter
 Architecture: all
 Pre-Depends: gnupg, zentyal-core
-Depends: zentyal-core (>= 7.0.0), zentyal-core (<< 7.1.0),
+Depends: zentyal-core (>= 7.1.0), zentyal-core (<< 7.2.0),
          zentyal-firewall, zentyal-mail, zentyal-antivirus, gnupg,
          amavisd-new, spamassassin, spamc, dovecot-antispam, libnet-dns-perl,
          arj, unrar-free, p7zip, razor, pyzor, libmail-spf-perl,

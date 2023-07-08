@@ -1,8 +1,8 @@
 Source: zentyal-core
 Section: web
 Priority: optional
-Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
-Uploaders: Bruno Lorente <blorente@zentyal.com>
+Maintainer: Bruno Lorente Cantarero <blorente@zentyal.com>
+Uploaders: Daniel Joven Gracia <djoven@zentyal.com>
 Build-Depends: zbuildtools, po-debconf, dh-systemd
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/

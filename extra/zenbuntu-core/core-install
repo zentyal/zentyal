@@ -1,0 +1,50 @@
+#!/bin/bash -x
+
+ARCHIVE_URL="https://packages.zentyal.org/zentyal"
+
+update_if_network()
+{
+    # Check if we can connect to the archive url
+    if $(wget -T 10 -t 1 $ARCHIVE_URL); then
+        echo "Updating package database from the network..."
+        apt-get update
+        DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+    else
+        echo "Warning: Can't connect to $ARCHIVE_URL. Updates won't be installed."
+    fi
+}
+
+gen_locales()
+{
+    # load LANG variable with default locale
+    . /etc/default/locale
+
+    # Append Zentyal support languages to generate to current supported
+    # locales
+    LOCALES_FILE=/etc/locale.gen
+    TMP=/tmp/local.tmp
+    cat /tmp/zentyal/locale.gen $LOCALES_FILE > $TMP
+    sort $TMP | uniq > $LOCALES_FILE
+    rm -f $TMP
+
+    # Install language-pack-$LANG if exists
+    suffix=`echo $LANG | cut -d\. -f1 | tr '_' '-' | tr '[A-Z]' '[a-z]'`
+    apt-get install -y language-pack-zentyal-$suffix
+    if [ $? -ne 0 ]
+    then
+        # Try with xx if xx-yy not exists
+        suffix=`echo $suffix | cut -d- -f1`
+        apt-get install -y language-pack-zentyal-$suffix
+    fi
+
+    # Regenerate locales to update the new messages from Zentyal
+    /usr/sbin/locale-gen
+}
+
+update_if_network # apt-get update if we are connected to the internet
+
+gen_locales
+
+sync
+
+exit 0

@@ -1,13 +1,13 @@
 Source: zentyal-virt
 Section: web
 Priority: optional
-Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
+Maintainer: Bruno Lorente Cantarero <blorente@zentyal.com>
 Build-Depends: zbuildtools
 Standards-Version: 3.9.2
 
 Package: zentyal-virt
 Architecture: all
-Depends: zentyal-core (>= 7.0.0), zentyal-core (<< 7.1.0), zentyal-firewall,
+Depends: zentyal-core (>= 7.1.0), zentyal-core (<< 7.2.0), zentyal-firewall,
          novnc, python-numpy, libvirt-daemon-system, libvirt-clients, bridge-utils, qemu-kvm, qemu-utils,
          dmidecode, dnsmasq-base, ebtables, ${misc:Depends}
 Description: Zentyal - Virtualization Manager

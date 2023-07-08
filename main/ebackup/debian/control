@@ -1,14 +1,14 @@
 Source: zentyal-ebackup
 Section: web
 Priority: optional
-Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
+Maintainer: Bruno Lorente Cantarero <blorente@zentyal.com>
 Build-Depends: zbuildtools
 Standards-Version: 3.9.2
 
 Package: zentyal-ebackup
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 7.0.0), zentyal-core (<< 7.1.0),
+Depends: zentyal-core (>= 7.1.0), zentyal-core (<< 7.2.0),
          duplicity, libstring-shellquote-perl, libtimedate-perl,
          libdate-calc-xs-perl, cron, ncftp, sshpass, libterm-readkey-perl,
          ntpdate, python-pexpect, ${misc:Depends}

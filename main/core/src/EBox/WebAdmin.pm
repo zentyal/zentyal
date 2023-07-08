@@ -601,10 +601,11 @@ sub _setEdition
             chomp ($hash);
         }
         push (@cmds,
-            "echo 'deb http://packages.zentyal.com/zentyal-qa $version main extra' > /etc/apt/sources.list.d/zentyal-qa.list",
-            "echo 'machine http://packages.zentyal.com login $lk password $hash' > /etc/apt/auth.conf",
-            'chmod 600 /etc/apt/auth.conf',
-            'sed -i "/packages.zentyal/d" /etc/apt/sources.list'
+            "echo 'deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-$version-packages-com.asc] https://packages.zentyal.com/zentyal-qa $version main extra' > /etc/apt/sources.list.d/zentyal-qa.list",
+            "echo 'machine https://packages.zentyal.com login $lk password $hash' > /etc/apt/auth.conf.d/zentyal-commercial.conf",
+            'chmod 600 /etc/apt/auth.conf.d/zentyal-commercial.conf',
+            'sed -i "/packages.zentyal/d" /etc/apt/sources.list',
+            'if [ -f /etc/apt/sources.list.d/zentyal.list ]; then rm -f /etc/apt/sources.list.d/zentyal.list; fi'
         );
     }
     EBox::Sudo::root(@cmds);
