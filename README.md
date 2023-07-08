@@ -1,4 +1,4 @@
- ZENTYAL
+ ZENTYAL 7.1
 ==========
 Zentyal Server is open source small business server, released under the GNU General Public License (GPL) and runs on top of Ubuntu GNU/Linux.
 
