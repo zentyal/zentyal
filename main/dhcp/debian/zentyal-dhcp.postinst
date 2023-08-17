@@ -16,9 +16,12 @@ case "$1" in
     ;;
 esac
 
-# TODO: Temporary workaround, remove when new 
-# apparmor profiles have been finished
-ln -s /etc/apparmor.d/usr.sbin.dhcpd /etc/apparmor.d/disable/
-apparmor_parser -R /etc/apparmor.d/usr.sbin.dhcpd
+if [ ! -h '/etc/apparmor.d/disable/usr.sbin.dhcpd' ]
+then
+    # TODO: Temporary workaround, remove when new
+    # apparmor profiles have been finished
+    ln -s /etc/apparmor.d/usr.sbin.dhcpd /etc/apparmor.d/disable/
+    apparmor_parser -R /etc/apparmor.d/usr.sbin.dhcpd
+fi
 
 exit 0
