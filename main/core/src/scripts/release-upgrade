@@ -1,23 +1,27 @@
 #!/bin/bash
 
+####
+## GLOBAL VARIABLES
+####
+
 SOURCES=/etc/apt/sources.list
 UPGRADE_FILE=/var/lib/zentyal/.upgrade-finished
-TMPFILE=/tmp/packages-list
-QALIST=/etc/apt/sources.list.d/zentyal-qa.list
-ZENTYAL_HOME=/var/lib/zentyal/
-CERT_DIR=/var/lib/zentyal/conf/ssl
 
-CURCODE='bionic'
+CURCODE=$(lsb_release -c | awk '{print $2}')
 DSTCODE='focal'
 
-CURMAJORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f1`
-CURMINORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f2`
-#TODO: Change use "curl -s -k" instead of wget
-DESTMAJOR=`wget --quiet -O - http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINORV}.txt|cut -d'.' -f1`
-DESTMINOR=`wget --quiet -O - http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINORV}.txt|cut -d'.' -f2`
+CURMAJORV=$(dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f1)
+CURMINORV=$(dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f2)
+DESTMAJOR=$(wget --quiet -O - http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINORV}.txt|cut -d'.' -f1)
+DESTMINOR=$(wget --quiet -O - http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINORV}.txt|cut -d'.' -f2)
 CURRV="${CURMAJORV}.${CURMINORV}"
 DESTV="${DESTMAJOR}.${DESTMINOR}"
-KEYURL="keys.zentyal.org/zentyal-${DESTV}-packages.asc"
+
+ZEN_KEYS_URL="
+https://keys.zentyal.org/zentyal-${DESTV}-packages-org.asc
+https://keys.zentyal.org/zentyal-${DESTV}-packages-com.asc
+"
+IPS_KEY_ID='D7F87B2966EB736F'
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -26,129 +30,283 @@ NC='\033[0m'
 BOLD=$(tput bold)
 NORM=$(tput sgr0)
 
+####
+## FUNCTIONS
+####
+
+function help
+{
+    echo -e "\nFor a Commercial edition, the script must be run as follows:"
+    echo -e "\tbash release-upgrade XXXXX-XXXXX-XXXXX-XXXXX"; echo
+    echo "To run the upgrade using the debug mode: bash -x release-upgrade XXXXX-XXXXX-XXXXX-XXXXX"
+}
+
+
 function checkZentyalVersion
 {
-    echo -e "${GREEN} - Checking the zentyal-core version...${NC}"
+    echo -e "${GREEN} - Checking the version of Zentyal...${NC}"
+
     if [ $CURMAJORV -gt $DESTMAJOR ];
     then
-        echo -e "${RED}${BOLD} Your system is up to date${NC}${NORM}"
-        exit 130
+        echo -e "${YELLOW}${BOLD}   Your Zentyal server is already up-to-date, nothing to do.${NC}${NORM}"
+        exit 120
     elif  [ $DESTMAJOR -gt $CURMAJORV ]
     then
-            echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+        echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
     else
         if [ $CURMINORV -gt $DESTMINOR ] || [ $CURMINORV -eq $DESTMINOR ];
         then
-            echo -e "${RED}${BOLD} Your system is up to date${NC}${NORM}"
-            exit 130
+            echo -e "${YELLOW}${BOLD}   Your Zentyal server is already up-to-date, nothing to do.${NC}${NORM}"
+            exit 120
         fi
     fi
+
     echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }
+
+
+function checkUbuntuVersion
+{
+    echo -e "${GREEN} - Checking the version of Ubuntu...${NC}"
+
+    if [ $CURCODE != $DSTCODE ];
+    then
+        echo -e "${RED}${BOLD}   Your system is running an unsupported Ubuntu version for the upgrade${NC}${NORM}"
+        exit 130
+    fi
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
+
+
+function checkZentyalLicense
+{
+    echo -e "${GREEN} - Checking the license code...${NC}"
+
+    if ! [[ "${LK}" =~ ^[0-9A-Z]{5}-[0-9A-Z]{5}-[0-9A-Z]{5}-[0-9A-Z]{5}$ ]]; then
+        echo -e "${RED}${BOLD}   The license key is invalid, the format must be: XXXXX-XXXXX-XXXXX-XXXXX ${NC}${NORM}"
+        help
+        exit 130
+    fi
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
+
+
+function checkIfCommercial
+{
+    echo -e "${GREEN} - Checking if the server is a Commercial edition...${NC}"
+
+    if [ -f '/var/lib/zentyal/.commercial-edition' ] && [ -s '/var/lib/zentyal/.license' ];
+    then
+        if [ -z $LK ]
+        then
+            echo -e "${RED}${BOLD}   Your Zentyal is a commercial edition so you must pass as an argument a valid Zentyal $DESTV license${NC}${NORM}"
+            help
+            exit 130
+        fi
+    else
+        echo -e "${YELLOW}   Zentyal Development edition${NC}"
+    fi
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
+
+
+function checkInternetAccess
+{
+    echo -e "${GREEN} - Checking if there external DNS resolution...${NC}"
+
+    wget -T 15 -q --spider https://google.com
+
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}${BOLD}   Your server does not have external DNS resolution...${NC}${NORM}"
+        exit 130
+    fi
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
+
 
 function checkDiskSpace
 {
     echo -e "${GREEN} - Checking for available disk space...${NC}"
+
     if [ $(df /boot | tail -1 | awk '{print $4}') -lt 51200 ];
     then
-        echo "${RED}  Upgrade cannot be performed due to low disk space (less than 50MB available on /boot)${NC}"
+        echo "${RED} Upgrade cannot be performed due to low disk space (less than 50MB available on /boot)${NC}"
         exit 130
     fi
 
     for i in / /var
     do
-        if [ `df $i | tail -1 | awk '{print $4}'` -lt 358400 ];
+        if [ $(df $i | tail -1 | awk '{print $4}') -lt 358400 ];
         then
-            echo -e "${RED}  Upgrade cannot be performed due to low disk space (less than 350MB available on $i)${NC}"
+            echo -e "${RED} pgrade cannot be performed due to low disk space (less than 350MB available on $i)${NC}"
             exit 130
         fi
     done
+
     echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }
 
+
+function checkRepositoriesAccess
+{
+    echo -e "${GREEN} - Checking if the server has any issue with the repositories...${NC}"
+
+    if apt update 2>&1 | grep -q '^[WE]:'; then
+        echo -e "${RED} There are errors in the repositories access...${NC}"
+        exit 130
+    fi
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
+
+
 function checkPendingPackages
 {
+
+    echo -e "${GREEN} - Checking for pending updates...${NC}"
+
     IFS=';' read updates security_updates < <(/usr/lib/update-notifier/apt-check 2>&1)
     if (( $updates == 0 )) && (( $security_updates == 0 )); then
-        echo "No updates are available"
+        echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
     else
-        echo -e "${RED}  There are $updates updates available and $security_updates security updates available, please, install them before to upgrade your system${NC}"
+        echo -e "${RED} There are $updates updates available and $security_updates security updates available, please, install them before to upgrade your system${NC}"
         exit 130
     fi
 }
 
-function checkUbuntuReposotories
+
+function GetPackageStatus
 {
-    echo -e "${GREEN} - Checking and setting ubuntu repositories...${NC}"
-    if ! grep -v "^#" $SOURCES | grep -q "ubuntu.com"
-    then
-        echo "deb http://archive.ubuntu.com/ubuntu/ $DSTCODE main restricted universe multiverse" >> $SOURCES
-        echo "deb http://archive.ubuntu.com/ubuntu/ $DSTCODE-updates main restricted universe multiverse" >> $SOURCES
-        echo "deb http://security.ubuntu.com/ubuntu/ $DSTCODE-security main restricted universe multiverse" >> $SOURCES
-    fi
-    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+    echo -e "${YELLOW}   Getting the status of Zentyal packages...${NC}"
+
+    pkgs=$(dpkg -l | egrep -v '^(ii|rc|hi)' | egrep '^[A-Za-z]{2} ' | wc -l)
+
+    echo -e "${YELLOW}${BOLD}   ...OK${NC}${NORM}"
 }
+
 
 function repairPkgs
 {
-    counter=0;
-    pkgs=$(dpkg -l | grep -vE '^(ii|rc|hi)'| awk '{ if ( NR > 5  ) { print $2} }')
-    while [[ $pkgs ]] && [[ $counter < 10 ]];
+    echo -e "${YELLOW} - Trying to fix the broken packages...${NC}"
+
+    if [[ $(systemctl is-active redis) != 'active' ]]
+    then
+        systemctl restart redis
+    fi
+
+    echo -e "${YELLOW} - Attempt 1...${NC}"
+
+    for i in {1..10}
     do
-        for i in $pkgs
+        export DEBIAN_FRONTEND=noninteractive
+        dpkg --configure -a
+    done
+
+    GetPackageStatus
+
+    if [[ $pkgs -gt 0 ]]
+    then
+        echo -e "${YELLOW} - Still broken, attempt 2...${NC}"
+
+        counter=0;
+        pkg_names=$(dpkg -l | egrep -v '^(ii|rc|hi)' | egrep '^[A-Za-z]{2} ')
+        while [[ $pkgs ]] && [[ $counter < 10 ]];
         do
-            echo 'Working on '.$i
-            dpkg --configure $i
-            sleep 1
-        done
-        ((counter++))
-    done;
+            for i in $pkg_names
+            do
+                echo "${YELLOW} - Trying to fix package name '$i'...${NC}"
+                export DEBIAN_FRONTEND=noninteractive
+                dpkg --configure $i
+
+                echo -e "${YELLOW} - Current broken packages...${NC}"
+                dpkg -l | egrep -v '^(ii|rc|hi)' | egrep '^[A-Za-z]{2} '
+
+                sleep 1
+            done
+            ((counter++))
+        done;
+
+        ## Last check
+        GetPackageStatus
+
+        if [[ $pkgs -gt 0 ]]
+        then
+            echo -e "${RED}    The broken packages could not be fixed...${NC}"
+            exit 130
+        fi
+    fi
+
+    echo -e "${GREEN} - The broken packages were fixed...${NC}"
 }
+
 
 function checkBrokenPackages
 {
-    echo -e "${GREEN} - Installed Zentyal packages:${NC}"
-    dpkg -l | grep 'zentyal-'
-    echo;
     echo -e "${GREEN} - Checking for broken packages...${NC}"
-    touch $TMPFILE && dpkg -l | awk '{ if ( NR > 5  ) { print } }' > $TMPFILE
-    if grep -vE '^(ii|rc)' $TMPFILE
+
+    GetPackageStatus
+
+    if [[ $pkgs -gt 0 ]]
     then
-        if [[ $(systemctl is-active redis) != 'active' ]]
-        then
-            systemctl restart redis
-        fi
-        echo -e "${RED}  You have broken packages, trying to execute dpkg --configure -a before to continue${NC}"
-        dpkg --configure -a
+        echo -e "${RED} - You have $pkgs broken packages...${NC}"
         repairPkgs
     fi
-    rm -f $TMPFILE
+
     echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }
 
+
+function checkUbuntuRepositories
+{
+    echo -e "${GREEN} - Checking Ubuntu repositories...${NC}"
+
+    if [[ $(egrep "^deb.*archive.ubuntu.com/ubuntu/ ($DSTCODE|$DSTCODE-updates) main" $SOURCES | wc -l) -ne 2 ]]
+    then
+        echo -e "${RED} The Ubuntu repository components '$DSTCODE' and/or '$DSTCODE-updates' are not defined in $SOURCES, so the upgrade cannot be done${NC}"
+        exit 130
+    fi
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
+
+
 function checkGPG
 {
-    echo -e "${GREEN} - Looking for gnupg package...${NC}"
+    echo -e "${GREEN} - Checking if gnupg package is installed...${NC}"
+
     dpkg -s gnupg &> /dev/null
     if [ $? -eq 0 ];
     then
         echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
     else
-        echo -e "${RED}  Package is NOT installed! Trying to install it...${NC}";echo
-        apt-get install gnupg -y
+        echo -e "${YELLOW}   Package is NOT installed! Trying to install it...${NC}"
+        apt install gnupg -y
     fi
 }
 
-function checkZentyalMySQL
+
+function checkMysqlStatus
 {
-    echo -e "${GREEN} - Checking Zentyal's MySQL db...${NC}"
-    mysqlcheck --databases zentyal
-    echo;
+    echo -e "${GREEN} - Checking MySQL status...${NC}"
+
+    if [[ $(systemctl is-active mysql) != 'active' ]]
+    then
+        echo -e "${RED} - MySQL server is not running...${NC}";echo
+        exit 130
+    fi
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }
+
 
 function cleanPreviousUpgrade
 {
-    echo -e "${GREEN} - Cleaning $UPGRADE_FILE if exists...${NC}"
+    echo -e "${GREEN} - Cleaning upgrade file if exists...${NC}"
+
     if [ -f $UPGRADE_FILE ]
     then
         rm -f $UPGRADE_FILE
@@ -156,170 +314,228 @@ function cleanPreviousUpgrade
     echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }
 
-function prepareZentyalRepositories
-{
-    wget -qO - $KEYURL | sudo apt-key add -
-
-    if [ -f '/etc/apt/sources.list.d/zentyal-archive.list' ];
-    then
-        rm -f /etc/apt/sources.list.d/zentyal-archive.list
-    fi
-
-    if [  -f '/var/lib/zentyal/.commercial-edition' ] && [ -s '/var/lib/zentyal/.license' ];
-    then
-        sed -i "s/zentyal-qa ${CURRV}/zentyal-qa ${DESTV}/g" $QALIST
-    else
-        sed -ri "/zentyal(.)${CURRV}/d" /etc/apt/sources.list
-        echo "deb http://packages.zentyal.org/zentyal ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal-packages.list
-    fi
-
-    ## Adding Suricata repositorio for zentyal-ips module
-    if ! grep -qR 'http://ppa.launchpad.net/oisf/suricata-stable/ubuntu' /etc/apt/sources.list*;
-    then
-        echo "deb http://ppa.launchpad.net/oisf/suricata-stable/ubuntu ${DSTCODE} main" >> /etc/apt/sources.list
-        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D7F87B2966EB736F
-    fi
-
-    apt-get update
-}
 
 function prepareUpgrade
 {
     checkZentyalVersion
+    checkUbuntuVersion
+    checkIfCommercial
+    checkInternetAccess
     checkDiskSpace
+    checkRepositoriesAccess
     checkPendingPackages
-    checkUbuntuReposotories
     checkBrokenPackages
+    checkUbuntuRepositories
     checkGPG
-    checkZentyalMySQL
+    checkMysqlStatus
     cleanPreviousUpgrade
+}
 
-    sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
-    sed -i "s/$CURCODE/$DSTCODE/g" /etc/apt/sources.list
+
+function getIDSRepositoryKey
+{
+    echo -e "${GREEN} - Getting the repository key for IDS module...${NC}"
+
+    gpg --keyserver keyserver.ubuntu.com --recv-keys ${IPS_KEY_ID}
+    gpg --export ${IPS_KEY_ID} > /etc/apt/trusted.gpg.d/suricata.gpg
+    gpg --batch --yes --delete-keys ${IPS_KEY_ID}
+
+    if [ -f '/etc/apt/trusted.gpg.d/suricata.gpg' ] && [ $(stat -c %s /etc/apt/trusted.gpg.d/suricata.gpg) -lt 340 ]
+    then
+        echo -e "${RED} - The IDS key could not download correctly...${NC}";echo
+        exit 130
+    fi
 
     echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }
 
-function upgrade_ubuntu
+
+function getZentyalRepositoryKeys
 {
+    echo -e "${GREEN} - Getting the repository keys...${NC}"
 
-    echo "## Updating Ubuntu packages" >> /var/log/zentyal/zentyal.log
-    echo "## Updating Ubuntu packages" >> /var/log/syslog
+    for i in ${ZEN_KEYS_URL}; do
+        fname=$(basename $i)
+        if [[ -f "/etc/apt/trusted.gpg.d/$fname" ]]
+        then
+            rm -f /etc/apt/trusted.gpg.d/$fname
+        fi
 
-    ## Avoiding unexpected Zentyal packages deletion
-    PKG=$(dpkg -l | egrep '^ii.*(zenbuntu-|zentyal)' | awk '{print $2}')
-    apt-mark hold ${PKG}
+        echo -e "${YELLOW}   Downloading $i ...${NC}"
+        wget -q ${i} -P /etc/apt/trusted.gpg.d/
+    done
 
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get update
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
 
-    apt-get dist-upgrade -y -o DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef"
 
-    ## Radius workaround
-    if dpkg -l | grep zentyal-radius;
+function prepareIDSRepositories
+{
+    echo -e "${GREEN} - Setting up IDS repository...${NC}"
+
+    sed -i '/suricata-stable\/ubuntu/d' /etc/apt/sources.list
+    echo "deb [signed-by=/etc/apt/trusted.gpg.d/suricata.gpg] http://ppa.launchpad.net/oisf/suricata-stable/ubuntu $DSTCODE main" > /etc/apt/sources.list.d/ips.list
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+
+    checkRepositoriesAccess
+}
+
+
+function lkActivation
+{
+    echo -e "${GREEN} - Activating the LK for $DESTV...${NC}"
+
+    cp -p /usr/share/zentyal/enable_license /var/lib/zentyal/tmp/
+    sed -i "s/^SERVER_VERSION=.*/SERVER_VERSION='$DESTV'/g" /usr/share/zentyal/enable_license
+
+    if /usr/share/zentyal/enable_license ${LK};
     then
-        mkdir /etc/freeradius/3.0/sites-enabled/
-        chown freerad:freerad /etc/freeradius/3.0/sites-enabled/
-        ln -s /etc/freeradius/3.0/sites-available/default /etc/freeradius/3.0/sites-enabled/
-        ln -s /etc/freeradius/3.0/sites-available/inner-tunnel /etc/freeradius/3.0/sites-enabled/
+        echo -e "${GREEN}${BOLD} - License key activated...${NC}"
+    else
+        echo -e "${RED}${BOLD}   The license key validation fail...${NC}${NORM}"
+        exit 130
     fi
 
-    repairPkgs
+    mv /var/lib/zentyal/tmp/enable_license /usr/share/zentyal/
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }
+
+
+function prepareZentyalRepository
+{
+    echo -e "${GREEN} - Setting up Zentyal repository...${NC}"
+
+    if [[ -n $COMMERCIAL ]]
+    then
+        echo -e "${YELLOW}   For Commercial...${NC}"
+
+        sed -i '/packages.zentyal/d' /etc/apt/sources.list
+        echo "deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-$DESTV-packages-com.asc] https://packages.zentyal.com/zentyal-qa $DESTV main extra" > /etc/apt/sources.list.d/zentyal-qa.list
+        lkActivation
+    else
+        echo -e "${YELLOW}   For Development...${NC}"
+        if [ -f '/etc/apt/sources.list.d/zentyal-qa' ]
+        then
+            rm -f /etc/apt/sources.list.d/zentyal-qa
+        fi
+
+        sed -i '/packages.zentyal/d' /etc/apt/sources.list
+        echo "deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-$DESTV-packages-org.asc] https://packages.zentyal.org/zentyal $DESTV main extra" > /etc/apt/sources.list.d/zentyal.list
+    fi
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+
+    checkRepositoriesAccess
+
+}
+
 
 function upgrade_zentyal
 {
-    echo "## Updating Zentyal packages" >> /var/log/zentyal/zentyal.log
-    echo "## Updating Zentyal packages" >> /var/log/syslog
+    echo -e "${GREEN} - Upgrading Zentyal...${NC}"
 
-    apt-mark unhold ${PKG}
+    for log in /var/log/zentyal/zentyal.log /var/log/dpkg.log /var/log/syslog
+    do
+        echo "## DEBUG - Zentyal upgrade START from ${CURMAJORV}.${CURMINORV} to ${DESTMAJOR}.${DESTMINOR}" >> $log
+    done
 
-    apt-get dist-upgrade -y -o DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef"
+    echo -e "${YELLOW} - The status of each Zentyal package before the upgrade is...${NC}"
+    dpkg -l | egrep 'zen(buntu|tyal)-'
+
+
+    export DEBIAN_FRONTEND=noninteractive
+    apt dist-upgrade -y -o DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef"
+
     checkBrokenPackages
+
+    echo -e "${YELLOW} - The status of each Zentyal package after the upgrade is...${NC}"
+    dpkg -l | egrep 'zen(buntu|tyal)-'
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }
+
 
 function postUpgradeProcedure
 {
-    # Checking and regeneratin webadmin cert
-    if [ `redis-cli get ca/conf/Certificates/keys/crt1 | jq .enable` -eq 0 ];
-    then
-        echo -e "${GREEN} - Regenerating Nginx cert...${NC}"
-        rm -rf $CERT_DIR
-        /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl `hostname --fqdn`
-    fi
-
-    # Checking and regeneratin FTP cert
-    if [[ -f /etc/vsftpd/ssl/ssl.pem ]] && openssl x509 -text -noout -in /etc/vsftpd/ssl/ssl.pem  | grep -q 'Issuer: CN = eBox Server';
-    then
-        echo -e "${GREEN} - Regenerating FTP cert...${NC}"
-        rm -f /etc/vsftpd/ssl/ssl.*
-        /usr/share/zentyal/create-certificate /etc/vsftpd/ssl/ `hostname --fqdn`
-    fi
-
-    # Creating symlink for the new iptables daemon
-    ln -s /usr/sbin/iptables /sbin/iptables
-
-    # Creating symlink for bash shell
-    ln -s /bin/bash /usr/bin/bash
-
-    # Adding bash shell to the shells configuration file
-    if ! grep -q '/usr/bin/bash' /etc/shells
-    then
-        echo '/usr/bin/bash' >> /etc/shells
-        chsh -s /usr/bin/bash
-    fi
+    echo -e "${GREEN} - Post-configuration process...${NC}"
 
     # Purge all no longer needed running services
     dpkg -l | grep 'zentyal-' | cut -d' ' -f3 | xargs apt-mark manual
-    apt-get autoremove --purge -y -o DPkg::Options::="--force-confdef"
+    apt autoremove --purge -y -o DPkg::Options::="--force-confdef"
     dpkg --configure -a --force-confdef
-    apt-get -f install -y -o DPkg::Options::="--force-confdef"
+    apt -f install -y -o DPkg::Options::="--force-confdef"
     checkBrokenPackages
 
     sleep 2
-    apt-get clean
-
-    echo; echo -e "${GREEN}${BOLD}*** Zentyal upgrade finished! Please restart your server now.${NC}${NORM}"
-
-    sleep 2
+    apt clean
     pkill -f upgrade-log-server
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}"
 }
+
 
 function forceZentyalLXDM
 {
+    echo -e "${GREEN}${BOLD} - Configuring Zentyal LXDM...${NC}${NORM}";echo
+
     systemctl disable lxdm
     systemctl enable zentyal.lxdm
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}"
 }
+
 
 function finishUpgrade
 {
+    echo -e "${GREEN}${BOLD} - Finishing the upgrade...${NC}${NORM}";echo
+
     if dpkg --configure -a --force-confdef
     then
         forceZentyalLXDM
         postUpgradeProcedure
     else
-        echo; echo -e "${RED}${BOLD}*** Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log.${NC}${NORM}"
+        echo -e "${RED}${BOLD}   Zentyal upgrade failed. Full log at:\n\t/var/log/zentyal/upgrade.log\n\t/var/log/zentyal/zentyal.log\n\t/var/log/zentyal/software.log\n\t/var/log/syslog .${NC}${NORM}"
     fi
 
     sleep 2
-    apt-get clean
+    apt clean
 
     touch $UPGRADE_FILE
-    echo "## Update finished" >> /var/log/zentyal/zentyal.log
-    echo "## Update finished" >> /var/log/syslog
+
+    for log in /var/log/zentyal/zentyal.log /var/log/dpkg.log /var/log/syslog
+    do
+        echo "## DEBUG - Zentyal upgrade END from ${CURMAJORV}.${CURMINORV} to ${DESTMAJOR}.${DESTMINOR}" >> $log
+    done
+
+    echo; echo -e "${YELLOW}${BOLD}   Zentyal upgrade finished! Please restart your server now.${NC}${NORM}"
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }
 
-echo; echo -e "${YELLOW}*** Preparing your system for the upgrade...${NC}"; echo
+
+####
+## Calls
+####
+
+echo; echo -e "${GREEN} Doing some initial checks...${NC}"; echo
+
+## Set license key variable if an argument was passed
+if [[ $# -eq 1 ]]
+then
+    LK=${1}
+    checkZentyalLicense
+fi
 prepareUpgrade
 
-echo; echo -e "${YELLOW}*** Preparing for upgrade to Zentyal ${DESTV}...${NC}"; echo
-prepareZentyalRepositories
+echo; echo -e "${GREEN} Preparing the Zentyal upgrade from ${CURMAJORV}.${CURMINORV} to ${DESTMAJOR}.${DESTMINOR}...${NC}"; echo
+getIDSRepositoryKey
+getZentyalRepositoryKeys
+prepareIDSRepositories
+prepareZentyalRepository
 
-echo; echo -e "${YELLOW}*** Upgrading Ubuntu from ${CURCODE} to ${DSTCODE}...${NC}"; echo
-upgrade_ubuntu
-
-echo; echo -e "${YELLOW}*** Upgrading Zentyal from ${CURMAJORV}.${CURMINORV} to ${DESTMAJOR}.${DESTMINOR}...${NC}"; echo
+echo; echo -e "${GREEN} Upgrading Zentyal from ${CURMAJORV}.${CURMINORV} to ${DESTMAJOR}.${DESTMINOR}...${NC}"; echo
 upgrade_zentyal
 
-echo; echo -e "${YELLOW}*** Finishing the upgrade...${NC}"; echo
+echo; echo -e "${GREEN} Running post-upgrade tasks...${NC}"; echo
 finishUpgrade
