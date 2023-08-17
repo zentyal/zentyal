@@ -12,7 +12,7 @@ USER_NAME=`getent passwd uid 1000 | cut -d: -f1`
 DIR=/home/$USER_NAME
 LIBFM_DIR=$DIR/.config/libfm
 
-if [! -d $LIBFM_DIR ] && [ -f $DIR/Desktop/root-terminal.desktop ]
+if [ ! -d $LIBFM_DIR ] && [ -f $DIR/Desktop/root-terminal.desktop ]
 then
     mkdir -p $LIBFM_DIR
     mv /usr/share/zenbuntu-desktop/lxde/libfm.conf $LIBFM_DIR/
