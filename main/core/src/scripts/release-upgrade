@@ -42,6 +42,20 @@ function help
 }
 
 
+function checkifupgrade
+{
+    echo -e "${GREEN} - Checking if there is a Zentyal upgrade available...${NC}"
+
+    if [[ -z ${DESTMAJOR} || -z ${DESTMINOR} ]]
+    then
+        echo -e "${RED}${BOLD}   There is no any Zentyal update available or the information could not be fetched.${NC}${NORM}"
+        exit 130
+    fi
+
+    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+}
+
+
 function checkZentyalVersion
 {
     echo -e "${GREEN} - Checking the version of Zentyal...${NC}"
@@ -99,6 +113,9 @@ function checkIfCommercial
 
     if [ -f '/var/lib/zentyal/.commercial-edition' ] && [ -s '/var/lib/zentyal/.license' ];
     then
+        echo -e "${YELLOW}   Zentyal Commercial edition${NC}"
+        COMMERCIAL=1
+
         if [ -z $LK ]
         then
             echo -e "${RED}${BOLD}   Your Zentyal is a commercial edition so you must pass as an argument a valid Zentyal $DESTV license${NC}${NORM}"
@@ -213,7 +230,7 @@ function repairPkgs
         echo -e "${YELLOW} - Still broken, attempt 2...${NC}"
 
         counter=0;
-        pkg_names=$(dpkg -l | egrep -v '^(ii|rc|hi)' | egrep '^[A-Za-z]{2} ')
+        pkg_names=$(dpkg -l | egrep -v '^(ii|rc|hi)' | egrep '^[A-Za-z]{2} ' | awk '{print $2}')
         while [[ $pkgs ]] && [[ $counter < 10 ]];
         do
             for i in $pkg_names
@@ -274,21 +291,6 @@ function checkUbuntuRepositories
 }
 
 
-function checkGPG
-{
-    echo -e "${GREEN} - Checking if gnupg package is installed...${NC}"
-
-    dpkg -s gnupg &> /dev/null
-    if [ $? -eq 0 ];
-    then
-        echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
-    else
-        echo -e "${YELLOW}   Package is NOT installed! Trying to install it...${NC}"
-        apt install gnupg -y
-    fi
-}
-
-
 function checkMysqlStatus
 {
     echo -e "${GREEN} - Checking MySQL status...${NC}"
@@ -317,6 +319,7 @@ function cleanPreviousUpgrade
 
 function prepareUpgrade
 {
+    checkifupgrade
     checkZentyalVersion
     checkUbuntuVersion
     checkIfCommercial
@@ -326,7 +329,6 @@ function prepareUpgrade
     checkPendingPackages
     checkBrokenPackages
     checkUbuntuRepositories
-    checkGPG
     checkMysqlStatus
     cleanPreviousUpgrade
 }
@@ -407,7 +409,7 @@ function prepareZentyalRepository
 {
     echo -e "${GREEN} - Setting up Zentyal repository...${NC}"
 
-    if [[ -n $COMMERCIAL ]]
+    if [[ -n ${COMMERCIAL} ]]
     then
         echo -e "${YELLOW}   For Commercial...${NC}"
 
