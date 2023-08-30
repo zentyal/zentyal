@@ -291,6 +291,21 @@ function checkUbuntuRepositories
 }
 
 
+function checkGPG
+{
+    echo -e "${GREEN} - Checking if gnupg package is installed...${NC}"
+
+    dpkg -s gnupg &> /dev/null
+    if [ $? -eq 0 ];
+    then
+        echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+    else
+        echo -e "${YELLOW}   Package is NOT installed! Trying to install it...${NC}"
+        apt install gnupg -y
+    fi
+}
+
+
 function checkMysqlStatus
 {
     echo -e "${GREEN} - Checking MySQL status...${NC}"
@@ -329,6 +344,7 @@ function prepareUpgrade
     checkPendingPackages
     checkBrokenPackages
     checkUbuntuRepositories
+    checkGPG
     checkMysqlStatus
     cleanPreviousUpgrade
 }
