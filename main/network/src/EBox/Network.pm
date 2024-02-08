@@ -4901,7 +4901,7 @@ sub importInterfacesFile
     }
 
     $self->saveConfig();
-    EBox::sudo::root("rm -f $netcfg");
+    EBox::Sudo::root("rm -f $netcfg");
 }
 
 sub _importDHCPAddresses
