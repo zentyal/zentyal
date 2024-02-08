@@ -1,0 +1,11 @@
+<%args>
+$unmanagedIfaces
+</%args>
+[main]
+plugins=keyfile
+
+[logging]
+level=ERR
+
+[keyfile]
+unmanaged-devices=<% $unmanagedIfaces %>

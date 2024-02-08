@@ -1,0 +1,108 @@
+#!/bin/bash
+
+set -e
+
+####
+## Variables
+####
+
+libexec='/usr/share/zentyal-network'
+firewall_script='/usr/share/zentyal-firewall/dhcp-firewall.pl'
+interface="$1"
+action="$2"
+new_ip_address="$DHCP4_IP_ADDRESS"
+new_subnet_mask="$DHCP4_SUBNET_MASK"
+new_gateway="$IP4_GATEWAY"
+
+## Check if the interface variable is set
+if [[ -n "$interface" ]] && [[ "$interface" != 'none' ]]; then
+  interface_method=$(perl -MEBox::Global -e "print EBox::Global->getInstance()->modInstance('network')->ifaceMethod('$interface');")
+else
+  exit 0
+fi
+
+
+####
+## Functions
+####
+
+function ebox_bound() {
+  ## This function adds the network configuration of an interface in Redis
+  $libexec/dhcp-address.pl $interface $new_ip_address $new_subnet_mask
+  $libexec/dhcp-gateway.pl $interface $new_gateway
+
+  if ( [ -x $firewall_script ] ); then
+    $firewall_script
+  fi
+}
+
+
+function ebox_expire() {
+  ## This function clears the network configuration of an interface in Redis
+
+  $libexec/dhcp-clear.pl $interface
+
+  if ( [ -x $firewall_script ] ); then
+    $firewall_script $interface
+  fi
+}
+
+
+function ebox_renew() {
+    ## This function updates the network configuration of an interface in Redis
+
+    change="no"
+
+    if [ "z$new_ip_address" != "z$old_ip_address" ] ; then
+        change="yes"
+    fi
+
+    if [ "z$new_subnet_mask" != "z$old_subnet_mask" ] ; then
+        change="yes"
+    fi
+
+    if [ "$change" = "yes" ] ; then
+        $libexec/dhcp-address.pl $interface $new_ip_address $new_subnet_mask
+    fi
+
+    if [ "z$new_gateway" != "z$old_gateway" ] ; then
+        $libexec/dhcp-gateway.pl $interface $new_gateway
+    fi
+
+    if [ "$change" = "yes" ] ; then
+        if ( [ -x $firewall_script ] ); then
+            $firewall_script
+        fi
+    fi
+}
+
+
+####
+## Entry point
+####
+
+case "$action" in
+  ## The network interface might need to be configured in Redis
+  up|dhcp4-change)
+    if [ -n "$DHCP4_DHCP_LEASE_TIME" ] ; then
+      ## Check if the network interface is already configured in Redis
+      CURRENT_IP=$(perl -MEBox::Global -e "print EBox::Global->getInstance()->modInstance('network')->get_state()->{'dhcp'}->{'$interface'}->{'address'};")
+      if [[ -z ${CURRENT_IP} ]]; then
+        ebox_bound
+      else
+        old_ip_address="$CURRENT_IP"
+        old_subnet_mask=$(perl -MEBox::Global -e "print EBox::Global->getInstance()->modInstance('network')->get_state()->{'dhcp'}->{'$interface'}->{'mask'};")
+        old_gateway=$(perl -MEBox::Global -e "print EBox::Global->getInstance()->modInstance('network')->get_state()->{'dhcp'}->{'$interface'}->{'gateway'};")
+        ebox_renew
+      fi
+    fi
+    ;;
+  ## The network interface must be removed from Redis
+  down)
+    if [ "$interface_method" == 'dhcp' ]; then
+      ebox_expire
+    fi
+    ;;
+  *)
+    ;;
+esac

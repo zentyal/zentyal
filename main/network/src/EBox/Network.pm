@@ -27,7 +27,8 @@ use base qw(EBox::Module::Service);
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
 use constant IGNOREIFACES => qw(sit tun tap lo irda ppp virbr vboxnet vnet);
 use constant IFNAMSIZ => 16; #Max length name for interfaces
-use constant INTERFACES_FILE => '/etc/network/interfaces';
+use constant NETPLAN_FILE => '/etc/netplan/netplan.yaml';
+use constant NETPLAN => '/usr/sbin/netplan';
 use constant RESOLV_FILE => '/etc/resolv.conf';
 use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
@@ -36,10 +37,7 @@ use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
 use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy';
 use constant ENV_FILE       => '/etc/environment';
 use constant SYSCTL_FILE => '/etc/sysctl.conf';
-use constant RESOLVCONF_INTERFACE_ORDER => '/etc/resolvconf/interface-order';
-use constant RESOLVCONF_BASE => '/etc/resolvconf/resolv.conf.d/base';
-use constant RESOLVCONF_HEAD => '/etc/resolvconf/resolv.conf.d/head';
-use constant RESOLVCONF_TAIL => '/etc/resolvconf/resolv.conf.d/tail';
+use constant RESOLVED_FILE => '/etc/systemd/resolved.conf.d/zentyal.conf';
 use constant FAILOVER_CRON_FILE => '/etc/cron.d/zentyal-network';
 
 use Net::IP;
@@ -75,6 +73,7 @@ use EBox::DBEngineFactory;
 use File::Basename;
 use File::Slurp;
 use YAML::XS;
+use Data::Dumper;
 
 use constant FAILOVER_CHAIN => 'FAILOVER-TEST';
 use constant CHECKIP_CHAIN => 'CHECKIP-TEST';
@@ -162,28 +161,13 @@ sub usedFiles
 
     my @files = (
     {
-        'file' => INTERFACES_FILE,
+        'file' => NETPLAN_FILE,
         'reason' => __('Zentyal will set your network configuration'),
         'module' => 'network'
     },
     {
-        'file' => RESOLVCONF_INTERFACE_ORDER,
-        'reason' => __('Zentyal will set the order of systems resolvers'),
-        'module' => 'network'
-    },
-    {
-        'file' => RESOLVCONF_BASE,
-        'reason' => __('Zentyal will set the resolvconf configuration'),
-        'module' => 'network'
-    },
-    {
-        'file' => RESOLVCONF_HEAD,
-        'reason' => __('Zentyal will set the resolvconf configuration'),
-        'module' => 'network'
-    },
-    {
-        'file' => RESOLVCONF_TAIL,
-        'reason' => __('Zentyal will set the resolvconf configuration'),
+        'file' => RESOLVED_FILE,
+        'reason' => __('Zentyal will set the systemd-resolved configuration'),
         'module' => 'network'
     },
     {
@@ -217,6 +201,30 @@ sub usedFiles
     return \@files;
 }
 
+#  Method: _daemons
+#
+#   Overrides <EBox::Module::Service::_daemons>
+#
+sub _daemons
+{
+    return [
+        { name => 'systemd-resolved' },
+        { name => 'network-manager'}
+    ];
+}
+
+#  Method: _daemonsToDisable
+#
+#   Overrides <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [
+        { name => 'systemd-networkd' },
+        { name => 'systemd-networkd.socket' }
+    ];
+}
+
 # Method: initialSetup
 #
 # Overrides:
@@ -225,11 +233,6 @@ sub usedFiles
 sub initialSetup
 {
     my ($self, $version) = @_;
-
-    EBox::Sudo::silentRoot('systemctl stop systemd-resolved');
-    EBox::Sudo::silentRoot('systemctl disable systemd-resolved');
-    EBox::Sudo::silentRoot('resolvconf -d systemd-resolved');
-    EBox::Sudo::silentRoot('rm -f /etc/dhcp/dhclient-enter-hooks.d/resolved');
 
     foreach my $service (@{$self->_defaultServices()}) {
         $service->{'sourcePort'} = 'any';
@@ -675,6 +678,7 @@ sub _vlanIfaceFilterWithRemoved # (\array)
     return $ifaces;
 }
 
+# TODO: To review
 sub _cleanupVlanIfaces
 {
     my $self = shift;
@@ -861,6 +865,44 @@ sub ifaceAddresses
     #    }
     }
     return \@array;
+}
+
+# Method: ifaceGateway
+#
+#   Returns a hashe with "router" and "network" fields, the
+#   hash may be undef (i.e. for a dhcp interface that did not get an
+#   address)
+#
+# Parameters:
+#
+#   iface - the name of a interface
+#
+# Returns:
+#
+#   a hash ref - holding hashes with keys 'router' and 'network'
+#
+sub ifaceGateway()
+{
+    my ($self, $iface) = @_;
+
+    if ($self->ifaceMethod($iface) eq 'dhcp') {
+        return undef;
+    }
+
+    my @routes = list_routes(1,0);
+
+    foreach my $route (@routes) {
+        my $gwAddress  = $route->{router};
+        my $ifaceAddress = $self->ifaceAddress($iface);
+        my $ifaceNetMask = $self->ifaceNetmask($iface);
+        my $localNetwork = ip_network($ifaceAddress, $ifaceNetMask);
+
+        if(EBox::Validate::isIPInNetwork($localNetwork, $ifaceNetMask, $gwAddress)) {
+            return $route;
+        }
+    }
+
+    return undef;
 }
 
 # Method: ifaceByAddress
@@ -1418,7 +1460,7 @@ sub setIfaceDHCP
                              value => $name);
 
     my $oldm = $self->ifaceMethod($name);
-    if ($oldm eq any('dhcp', 'ppp')) {
+    if ($oldm eq any('dhcp', 'ppp', 'notset')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'trunk') {
         $self->_trunkIfaceIsUsed($name);
@@ -3075,90 +3117,53 @@ sub _setChanged # (interface)
     $self->set('interfaces', $ifaces);
 }
 
-# Method: _generateResolvconfConfig
+# Method: _generateSystemdResolvedConfig
 #
-#   This method write the /etc/resolvconf/interface-order file. This file
-#   contain the order in which the files under /var/run/resolvconf/interfaces
-#   are processes and finally result en the resolver order in /etc/resolv.conf
+#   This method write the etc/systemd/resolved.conf.d/zentyal.conf file.
 #
-#   After write the order, resolvers manually configured in the webadmin
-#   (those which interface field is zentyal.<row id>) are removed or added
-#   to the resolvconf configuration.
-#
-sub _generateResolvconfConfig
+sub _generateSystemdResolvedConfig
 {
     my ($self) = @_;
 
-    # Generate base, head and tail
-    $self->writeConfFile(RESOLVCONF_BASE,
-        'network/resolvconf-base.mas', [],
-        { mode => '0644', uid => 0, gid => 0 });
-    $self->writeConfFile(RESOLVCONF_HEAD,
-        'network/resolvconf-head.mas', [],
-        { mode => '0644', uid => 0, gid => 0 });
-    $self->writeConfFile(RESOLVCONF_TAIL,
-        'network/resolvconf-tail.mas', [],
-        { mode => '0644', uid => 0, gid => 0 });
+    # Initialize systemd-resolved configuration as an array
+    my @resolvedConfig = ("[Resolve]");
 
-    # First step, write the order list
-    my $interfaces = [];
+    # Get information from the DNSResolver model
     my $model = $self->model('DNSResolver');
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
-        my $interface = $row->valueByName('interface');
-        next unless defined $interface and length $interface;
-        push (@{$interfaces}, $interface);
-    }
-
-    # TODO SearchDomain should be a table model. Multiple search domains
-    #      can be defined
-    my $searchDomainModel = $self->model('SearchDomain');
-    my $searchDomain = $searchDomainModel->value('domain');
-    my $searchDomainIface = $searchDomainModel->value('interface');
-    if ($searchDomainIface) {
-        push (@{$interfaces}, $searchDomainIface);
-    }
-
-    my $ifaces = $self->ifaces();
-    foreach my $iface (@{$ifaces}) {
-        next unless $self->ifaceMethod($iface) eq 'dhcp';
-
-        $iface = "$iface.dhclient";
-        next if grep (/$iface/, @{$interfaces});
-
-        push (@{$interfaces}, $iface);
-    }
-
-    my $array = [];
-    push (@{$array}, interfaces => $interfaces);
-    $self->writeConfFile(RESOLVCONF_INTERFACE_ORDER,
-        'network/resolvconf-interface-order.mas', $array,
-        { mode => '0644', uid => 0, gid => 0 });
-
-    # Second step, trigger the updates
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $interface = $row->valueByName('interface');
-        next unless defined $interface and length $interface;
-
         my $resolver = $row->valueByName('nameserver');
-        next unless defined $resolver and length $resolver;
-
-        next unless ($interface =~ m/^zentyal\..+$/);
-        EBox::Sudo::root("resolvconf -d '$interface'");
-        EBox::Sudo::root("echo 'nameserver $resolver' | resolvconf -a '$interface'");
-    }
-
-    if ($searchDomainIface and ($searchDomainIface =~ m/^zentyal\..+$/)) {
-        EBox::Sudo::root("resolvconf -d '$searchDomainIface'");
-        if ($searchDomain) {
-            EBox::Sudo::root("echo 'search $searchDomain' | resolvconf -a '$searchDomainIface'");
+        if (defined $resolver and length $resolver) {
+            push @resolvedConfig, "DNS=$resolver";
         }
     }
 
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $domain = $sysinfo->hostDomain();
-    EBox::Sudo::root("echo 'domain $domain' | resolvconf -a 'zentyal.domain'");
+    # Add search domain
+    my $searchDomainModel = $self->model('SearchDomain');
+    my $searchDomain = $searchDomainModel->value('domain');
+    if ($searchDomain) {
+        push @resolvedConfig, "Domains=$searchDomain";
+    }
+
+    # Ensure the /etc/systemd/resolved.conf.d directory exists
+    if (not EBox::Sudo::fileTest('-d', '/etc/systemd/resolved.conf.d/')) {
+        EBox::info("Creating dir /etc/systemd/resolved.conf.d");
+        EBox::Sudo::root('mkdir /etc/systemd/resolved.conf.d');
+    }
+
+    # Restart systemd-resolved to apply the changes
+    $self->writeConfFile(
+        RESOLVED_FILE,
+        'network/network-resolved-conf.mas', 
+        [ resolvedConfig => \@resolvedConfig ], 
+        { mode => '0644', uid => 0, gid => 0 }
+    );
+
+    # Reinicia systemd-resolved para aplicar los cambios
+    EBox::Sudo::root('systemctl restart systemd-resolved');
+
+   # Apply the changes to the system network configuration
+    $self->_applyChangesToSystemNetwork();
 }
 
 # Generate the configuration if a HTTP proxy has been set
@@ -3306,14 +3311,19 @@ sub generateInterfaces
 {
     my ($self) = @_;
     my $iflist = $self->allIfacesWithRemoved();
-    $self->writeConfFile(INTERFACES_FILE,
-                         'network/interfaces.mas',
-                         [
-                             iflist => $iflist,
-                             networkMod => $self,
-                         ],
-                         {'uid' => 0, 'gid' => 0, mode => '755' }
-                        );
+    $self->writeConfFile(
+        NETPLAN_FILE,
+        'network/netplan.mas',
+        [
+            iflist => $iflist,
+            networkMod => $self,
+        ],
+        {
+            'uid' => 0,
+            'gid' => 0,
+            mode => '755'
+        }
+    );
 }
 
 # Generate the static routes from routes() with "ip" command
@@ -3584,31 +3594,36 @@ sub _preSetConf
         return;
     }
 
-    my $file = INTERFACES_FILE;
+    my $file = NETPLAN_FILE;
     my $restart = delete $opts{restart};
 
     try {
         EBox::Sudo::root(
             '/sbin/modprobe 8021q',
-            '/sbin/vconfig set_name_type VLAN_PLUS_VID_NO_PAD'
         );
     } catch (EBox::Exceptions::Internal $e) {
     }
 
     $self->{restartResolvconf} = 0;
 
-    # Ensure /var/run/resolvconf/resolv.conf exists
-    if (not EBox::Sudo::fileTest('-f', '/var/run/resolvconf/resolv.conf')) {
-        EBox::info("Creating file /var/run/resolvconf/resolv.conf");
-        EBox::Sudo::root('touch /var/run/resolvconf/resolv.conf');
+    # Ensure /run/systemd/resolve/stub-resolv.conf exists
+    if (not EBox::Sudo::fileTest('-f', '/run/systemd/resolve/stub-resolv.conf')) {
+        EBox::info("Creating file /run/systemd/resolve/stub-resolv.conf");
+        if (not EBox::Sudo::fileTest('-d', '/run/systemd/resolve')) {
+            EBox::Sudo::root('mkdir /run/systemd/resolve');
+        }
+        EBox::Sudo::root('touch /run/systemd/resolve/stub-resolv.conf');
         $self->{restartResolvconf} = 1;
     }
 
-    # Ensure /etc/resolv.conf is a symlink to /var/run/resolvconf/resolv.conf
-    if (not EBox::Sudo::fileTest('-L', RESOLV_FILE)) {
+    # Ensure /etc/resolv.conf is a symlink to /run/systemd/resolve/stub-resolv.conf
+    my @actual_target_output = EBox::Sudo::root("readlink -f " . RESOLV_FILE);
+    my $actual_target = $actual_target_output[0][0];
+    chomp($actual_target);
+    if (not EBox::Sudo::fileTest('-L', RESOLV_FILE) or $actual_target ne '/run/systemd/resolve/stub-resolv.conf') {
         EBox::info("Restoring symlink /etc/resolv.conf");
         EBox::Sudo::root('rm -f ' . RESOLV_FILE);
-        EBox::Sudo::root('ln -s /var/run/resolvconf/resolv.conf ' . RESOLV_FILE);
+        EBox::Sudo::root('ln -s /run/systemd/resolve/stub-resolv.conf ' . RESOLV_FILE);
         $self->{restartResolvconf} = 1;
     }
 
@@ -3631,18 +3646,12 @@ sub _preSetConf
                         push (@cmds, "/sbin/ip address flush label $if");
                         push (@cmds, "/sbin/ip address flush label $if:*");
                     }
-                    if ($self->ifaceMethod($if) eq 'bundled') {
-                        my $bond = $self->ifaceBond($if);
-                        if($self->ifaceIsBond($if)) {
-                            push (@cmds, "/sbin/ifenslave --force -d bond$bond $if");
-                        }
-                    }
-                    EBox::Sudo::silentRoot("grep ^'iface $ifname inet' $file");
+                    EBox::Sudo::silentRoot("grep '$ifname:' $file");
                     if ($? == 0) {
-                        push (@cmds, "/sbin/ifdown --force -i $file $ifname");
+                        push (@cmds, "/usr/sbin/ip address flush dev $ifname");
                     }
                     if ($self->ifaceMethod($if) eq 'bridged') {
-                        push (@cmds, "/sbin/brctl delbr $if");
+                        push (@cmds, "/usr/sbin/ip link delete $if type bridge");
                     }
                 }
 
@@ -3669,17 +3678,6 @@ sub _preSetConf
     EBox::NetWrappers::clean_ifaces_list_cache();
 }
 
-sub _postServiceHook
-{
-    my ($self, $enabled) = @_;
-
-    if ($enabled and $self->{restartResolvconf}) {
-        EBox::Service::manage('resolvconf', 'restart');
-    }
-
-    $self->SUPER::_postServiceHook($enabled);
-}
-
 sub _setConf
 {
     my ($self) = @_;
@@ -3699,7 +3697,7 @@ sub _enforceServiceState
 
     my $restart = delete $opts{restart};
 
-    my $file = INTERFACES_FILE;
+    my $file = NETPLAN_FILE;
 
     EBox::Sudo::silentRoot("ip addr add 127.0.1.1/8 dev lo");
 
@@ -3732,23 +3730,23 @@ sub _enforceServiceState
     # Only execute ifups if we are not running from init on boot
     # The interfaces are already up thanks to the networking start
     if ((exists $ENV{USER}) or (exists $ENV{PLACK_ENV})) {
-        EBox::Util::Lock::lock('ifup');
+        EBox::Util::Lock::lock('ip');
         foreach my $iface (@ifups) {
-            EBox::Sudo::silentRoot("grep ^'iface $iface inet' $file");
+            EBox::Sudo::silentRoot("grep ^'$iface' $file");
             if ($? == 0) {
-                EBox::Sudo::root(EBox::Config::scripts() . "unblock-exec /sbin/ifup --force -i $file $iface");
+                EBox::Sudo::root(EBox::Config::scripts() . "unblock-exec /usr/sbin/ip link set $iface up");
             }
             unless ($self->isReadOnly()) {
                 $self->_unsetChanged($iface);
             }
         }
-        EBox::Util::Lock::unlock('ifup');
+        EBox::Util::Lock::unlock('ip');
         # Notify if ifup has been done
         $self->_flagIfUp(\@ifups);
     }
     EBox::NetWrappers::clean_ifaces_list_cache();
 
-    $self->_generateResolvconfConfig();
+    $self->_generateSystemdResolvedConfig();
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
                            '/sbin/ip route del default');
@@ -3771,7 +3769,31 @@ sub _enforceServiceState
 
     EBox::Sudo::root('/sbin/ip route flush cache || true');
 
+    $self->_applyChangesToSystemNetwork();
     $self->SUPER::_enforceServiceState();
+}
+
+sub _disableNetworkManagerUnsetIfaces
+{
+    my ($self) = @_;
+
+    my $ifaces = $self->ifaces();
+    my $unmanagedIfaces = "";
+
+    foreach my $iface (@{$ifaces}) {
+        if($self->ifaceMethod($iface) eq 'notset') {
+            $unmanagedIfaces .= "interface-name:$iface;";
+        }
+    }
+
+    $self->writeConfFile(
+        '/etc/NetworkManager/NetworkManager.conf',
+        'network/network-manager.conf.mas', 
+        [ unmanagedIfaces => $unmanagedIfaces ], 
+        { mode => '0644', uid => 0, gid => 0 }
+    );
+
+    EBox::Sudo::root('systemctl restart network-manager');
 }
 
 # Method:  restoreConfig
@@ -3800,7 +3822,7 @@ sub _stopService
     return unless ($self->configured());
 
     my @cmds;
-    my $file = INTERFACES_FILE;
+    my $file = NETPLAN_FILE;
     my $iflist = $self->allIfaces();
     foreach my $if (@{$iflist}) {
         try {
@@ -3811,9 +3833,9 @@ sub _stopService
                 push @cmds, "/sbin/ip address flush label $if";
                 push @cmds, "/sbin/ip address flush label $if:*";
             }
-            EBox::Sudo::silentRoot("grep ^'iface $ifname inet' $file");
+            EBox::Sudo::silentRoot("grep ^'$ifname' $file");
             if ($? == 0) {
-                push @cmds, "/sbin/ifdown --force -i $file $ifname";
+                push @cmds, "/usr/sbin/ip link set $ifname down";
             }
         } catch (EBox::Exceptions::Internal $e) {
         }
@@ -3822,6 +3844,18 @@ sub _stopService
     EBox::Sudo::root(@cmds);
 
     $self->SUPER::_stopService();
+}
+
+# Method: _applyChangesToSystemNetwork
+#
+#   Run netplan apply and apply unset interfaces to NetworkManager unmanaged devices
+#
+sub _applyChangesToSystemNetwork()
+{
+    my ($self) = @_;
+    
+    $self->_disableNetworkManagerUnsetIfaces();
+    EBox::Sudo::root(NETPLAN." apply");
 }
 
 sub _routersReachableIfChange # (interface, newaddress?, newmask?)
@@ -3922,7 +3956,7 @@ sub gatewayReachable
 
             return $iface;
         }
-    }
+            }
 
     if ($name) {
         if (not $reachableByNoStaticIface) {
@@ -4328,28 +4362,30 @@ sub externalConnectionWarning
 
 sub interfacesWidget
 {
-    my ($self, $widget) = @_;
+my ($self, $widget) = @_;
 
     my @ifaces = @{$self->ifacesWithRemoved()};
-    my $size = scalar (@ifaces) * 1.25;
-    $size = 0.1 unless defined ($size);
+    my $size = scalar(@ifaces) * 1.25;
+    $size = 0.1 unless defined($size);
     $widget->{size} = "'$size'";
 
     my $linkstatus = {};
-    EBox::Sudo::silentRoot('/sbin/mii-tool > ' . EBox::Config::tmp . 'linkstatus');
+    EBox::Sudo::silentRoot('/sbin/ip link show > ' . EBox::Config::tmp . 'linkstatus');
     if (open(LINKF, EBox::Config::tmp . 'linkstatus')) {
         while (<LINKF>) {
-            if (/link ok/) {
-                my $i = (split(" ",$_))[0];
-                chop($i);
+            if (/state UP/) {
+                my $i = (split(":",$_))[1];
+                $i =~ s/^\s+|\s+$//g; # Remove leading and trailing whitespaces
                 $linkstatus->{$i} = 1;
-            } elsif(/no link/) {
-                my $i = (split(" ",$_))[0];
-                chop($i);
+            } elsif(/state DOWN/) {
+                my $i = (split(":",$_))[1];
+                $i =~ s/^\s+|\s+$//g; # Remove leading and trailing whitespaces
                 $linkstatus->{$i} = 0;
             }
         }
+        close(LINKF);
     }
+
     foreach my $iface (@ifaces) {
         iface_exists($iface) or next;
         my $upStr = __("down");
@@ -4369,10 +4405,10 @@ sub interfacesWidget
 
         my $linkStatusStr;
         if (defined($linkstatus->{$iface})) {
-            if($linkstatus->{$iface}){
-                $linkStatusStr =  __("link ok");
-            }else{
-                $linkStatusStr =  __("no link");
+            if($linkstatus->{$iface}) {
+                $linkStatusStr = __("link ok");
+            } else {
+                $linkStatusStr = __("no link");
             }
         }
 
@@ -4893,6 +4929,7 @@ sub _importDHCPAddresses
 # Only useful to ha by now
 sub _flagIfUp
 {
+    # TODO: To review: is this still necessary?
     my ($self, $ifups) = @_;
 
     if (@{$ifups}) {
