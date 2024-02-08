@@ -1,3 +1,9 @@
+HEAD
+	+ Replace network/interfaces by netplan (WIP)
+	+ Use network-manager-dispatcher instead of dhclient hooks
+	+ Replace resolvconf by systemd-resolved
+	+ Remove old network/interfaces related logic
+	+ Update interfaces widget logic
 7.1.0
 	+ Bump version number
 7.0.0
