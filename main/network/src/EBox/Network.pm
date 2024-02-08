@@ -29,6 +29,7 @@ use constant IGNOREIFACES => qw(sit tun tap lo irda ppp virbr vboxnet vnet);
 use constant IFNAMSIZ => 16; #Max length name for interfaces
 use constant NETPLAN_FILE => '/etc/netplan/netplan.yaml';
 use constant NETPLAN => '/usr/sbin/netplan';
+use constant NETWORK_MANAGER_FILE => '/etc/NetworkManager/NetworkManager.conf';
 use constant RESOLV_FILE => '/etc/resolv.conf';
 use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
@@ -73,7 +74,6 @@ use EBox::DBEngineFactory;
 use File::Basename;
 use File::Slurp;
 use YAML::XS;
-use Data::Dumper;
 
 use constant FAILOVER_CHAIN => 'FAILOVER-TEST';
 use constant CHECKIP_CHAIN => 'CHECKIP-TEST';
@@ -209,7 +209,7 @@ sub _daemons
 {
     return [
         { name => 'systemd-resolved' },
-        { name => 'network-manager'}
+        { name => 'NetworkManager'}
     ];
 }
 
@@ -3787,13 +3787,13 @@ sub _disableNetworkManagerUnsetIfaces
     }
 
     $self->writeConfFile(
-        '/etc/NetworkManager/NetworkManager.conf',
+        NETWORK_MANAGER_FILE,
         'network/network-manager.conf.mas', 
         [ unmanagedIfaces => $unmanagedIfaces ], 
         { mode => '0644', uid => 0, gid => 0 }
     );
 
-    EBox::Sudo::root('systemctl restart network-manager');
+    EBox::Sudo::root('systemctl restart NetworkManager');
 }
 
 # Method:  restoreConfig
@@ -4854,7 +4854,7 @@ sub importInterfacesFile
 {
     my ($self) = @_;
 
-    my $netcfg = '/etc/netplan/01-netcfg.yaml';
+    my $netcfg = '/etc/netplan/00-installer-config.yaml';
 
     return unless (-f $netcfg);
 
@@ -4901,6 +4901,7 @@ sub importInterfacesFile
     }
 
     $self->saveConfig();
+    EBox::sudo::root("rm -f $netcfg");
 }
 
 sub _importDHCPAddresses
