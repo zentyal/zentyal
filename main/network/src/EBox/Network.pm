@@ -3321,7 +3321,7 @@ sub generateInterfaces
         {
             'uid' => 0,
             'gid' => 0,
-            mode => '755'
+            mode => '640'
         }
     );
 }
