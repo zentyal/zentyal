@@ -6,10 +6,16 @@ LOG=/var/tmp/zentyal-installer.log
 cp /usr/share/zenbuntu-core/motd.tail /etc/motd.tail
 
 # Import archive key to avoid warnings
-if [[ ! -f '/etc/apt/trusted.gpg.d/zentyal-7.1-packages-org.asc' ]]
+if [[ ! -f '/etc/apt/trusted.gpg.d/zentyal-8.0-packages-org.asc' ]]
 then
-    cp /usr/share/zenbuntu-core/zentyal-7.1-packages-org.asc /etc/apt/trusted.gpg.d/zentyal-7.1-packages-org.asc
+    cp /usr/share/zenbuntu-core/zentyal-8.0-packages-org.asc /etc/apt/trusted.gpg.d/zentyal-8.0-packages-org.asc
 fi
+
+if [[ ! -f '/etc/apt/trusted.gpg.d/zentyal-8.0-packages-com.asc' ]]
+then
+    cp /usr/share/zenbuntu-core/zentyal-8.0-packages-com.asc /etc/apt/trusted.gpg.d/zentyal-8.0-packages-com.asc
+fi
+
 
 ln -sf /usr/share/plymouth/themes/zentyal-text/zentyal-text.plymouth /etc/alternatives/text.plymouth
 

@@ -11,7 +11,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-jabber
 Architecture: all
-Depends: zentyal-core (>= 7.1.0), zentyal-core (<< 7.2.0), zentyal-samba,
+Depends: zentyal-core (>= 8.0.0), zentyal-core (<< 8.1.0), zentyal-samba,
          ejabberd, erlang-p1-stun, ${misc:Depends}
 Conflicts: jabberd2
 Description: Zentyal - Jabber
