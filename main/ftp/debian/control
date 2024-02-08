@@ -11,7 +11,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-ftp
 Architecture: all
-Depends: zentyal-core (>= 7.1.0), zentyal-core (<< 7.2.0),
+Depends: zentyal-core (>= 8.0.0), zentyal-core (<< 8.1.0),
          zentyal-network, zentyal-firewall,
          vsftpd, ${misc:Depends}
 Description: Zentyal - FTP

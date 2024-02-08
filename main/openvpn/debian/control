@@ -12,7 +12,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 Package: zentyal-openvpn
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 7.1.0), zentyal-core (<< 7.2.0),
+Depends: zentyal-core (>= 8.0.0), zentyal-core (<< 8.1.0),
          zentyal-firewall, zentyal-ca,
          openvpn, zip, quagga, openssl, ${misc:Depends}
 Description: Zentyal - VPN
