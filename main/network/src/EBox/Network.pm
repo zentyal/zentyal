@@ -867,9 +867,9 @@ sub ifaceAddresses
     return \@array;
 }
 
-# Method: ifaceGateway
+# Method: ifaceGateways
 #
-#   Returns a hashe with "router" and "network" fields, the
+#   Returns a hash with fields, the
 #   hash may be undef (i.e. for a dhcp interface that did not get an
 #   address)
 #
@@ -879,9 +879,9 @@ sub ifaceAddresses
 #
 # Returns:
 #
-#   a hash ref - holding hashes with keys 'router' and 'network'
+#   array of hash ref - holding gw hashes
 #
-sub ifaceGateway()
+sub ifaceGateways()
 {
     my ($self, $iface) = @_;
 
@@ -889,20 +889,21 @@ sub ifaceGateway()
         return undef;
     }
 
-    my @routes = list_routes(1,0);
-
-    foreach my $route (@routes) {
-        my $gwAddress  = $route->{router};
-        my $ifaceAddress = $self->ifaceAddress($iface);
-        my $ifaceNetMask = $self->ifaceNetmask($iface);
-        my $localNetwork = ip_network($ifaceAddress, $ifaceNetMask);
-
-        if(EBox::Validate::isIPInNetwork($localNetwork, $ifaceNetMask, $gwAddress)) {
-            return $route;
+    my $allGws = $self->gateways();
+    
+    my @gws = ();
+    foreach my $gw (@{$allGws}) {
+        if ($gw->{'interface'} eq $iface and $gw->{'default'} ne 1) {
+            push (@gws, $gw);
+        }
+    }
+    foreach my $gw (@{$allGws}) {
+        if ($gw->{'interface'} eq $iface and $gw->{'default'} eq 1) {
+            unshift (@gws, $gw);
         }
     }
 
-    return undef;
+    return @gws;
 }
 
 # Method: ifaceByAddress
@@ -4854,7 +4855,12 @@ sub importInterfacesFile
 {
     my ($self) = @_;
 
-    my $netcfg = '/etc/netplan/00-installer-config.yaml';
+    my $netcfg = NETPLAN_FILE;
+    
+    my @commands;
+    push(@commands, "mv /etc/netplan/00-installer-config.yaml $netcfg");
+    push(@commands, "chmod 0644 $netcfg");
+    EBox::Sudo::root(@commands);
 
     return unless (-f $netcfg);
 
@@ -4901,7 +4907,6 @@ sub importInterfacesFile
     }
 
     $self->saveConfig();
-    EBox::Sudo::root("rm -f $netcfg");
 }
 
 sub _importDHCPAddresses

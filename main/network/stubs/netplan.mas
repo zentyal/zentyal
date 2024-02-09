@@ -7,7 +7,7 @@ use EBox::Config;
 my $hasEthernets = 0;
 my $hasBonds = 0;
 my $hasBridges = 0;
-
+my $hasVlans = 0;
 foreach my $iface (@iflist) {
     if ($networkMod->ifaceIsBond($iface)) {
         $hasBonds = 1;
@@ -59,11 +59,19 @@ network:
 %         }
         addresses: [ <% join ', ', @$dns %> ]
 %       }
-%     my $gatewayInfo = $networkMod->ifaceGateway($iface);
-%       if ($gatewayInfo) {
+%     my @gatewayInfo = $networkMod->ifaceGateways($iface);
+%       if (@gatewayInfo) {
       routes:
-        - to: <% $gatewayInfo->{router} %>
-        via: <% $gatewayInfo->{network} %>
+%         foreach my $gw (@gatewayInfo) {
+%           if ($gw->{default}) {
+        - to: 'default'
+%           } else {
+        - to: 0.0.0.0
+%           }
+          via: <% $gw->{ip} %>
+          metric: <% $gw->{weight} %> 
+          on-link: true
+%         }
 %       }
 %     }
 %     my $mtu = EBox::Config::configkey("mtu_$iface");
@@ -81,8 +89,10 @@ network:
       interfaces: [ <% join ', ', @{$networkMod->bridgeIfaces($iface)} %> ]
 %     if($networkMod->ifaceMethod($iface) eq 'dhcp') {
       dhcp4: yes
+      dhcp6: no
 %     } else {
       dhcp4: no
+      dhcp6: no
       addresses: [ "<% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>" ]
 %     }
       macaddress: "<% EBox::NetWrappers::iface_mac_address($iface) %>"
@@ -102,6 +112,10 @@ network:
       interfaces: [ <% join ', ', @{$networkMod->bondIfaces($iface)} %> ]
       parameters:
         mode: <% $networkMod->bondMode($iface) %>
+        up-delay: 200
+        down-delay: 200
+        # fail-over-mac-policy: active TODO
+        addresses: [ "<% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>" ]
 %   }
 
 % }
