@@ -1461,7 +1461,7 @@ sub setIfaceDHCP
                              value => $name);
 
     my $oldm = $self->ifaceMethod($name);
-    if ($oldm eq any('dhcp', 'ppp', 'notset')) {
+    if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'trunk') {
         $self->_trunkIfaceIsUsed($name);
@@ -4875,21 +4875,24 @@ sub importInterfacesFile
     foreach my $name (keys %{$ifaces}) {
         my $iface = $ifaces->{$name};
         my $dhcp = $iface->{dhcp4};
-        if ($dhcp and ($dhcp eq 'yes')) {
+        if ($dhcp) {
             $self->setIfaceDHCP($name, 0, 1);
         } elsif ($iface->{addresses}) {
             my ($ip, $bits) = split ('/', $iface->{addresses}->[0]);
             $self->setIfaceStatic($name, $ip, EBox::NetWrappers::mask_from_bits($bits), undef, 1);
-            if ($iface->{gateway4}) {
+
+            # Verificar si 'routes' existe y no está vacío
+            if ($iface->{routes} && @{$iface->{routes}}) {
                 my $gwModel = $self->model('GatewayTable');
                 my $defaultGwRow = $gwModel->find(name => $DEFAULT_GW_NAME);
+
                 if ($defaultGwRow) {
                     EBox::info("Already a default gateway, keeping it");
                 } else {
                     $gwModel->add(name      => $DEFAULT_GW_NAME,
-                                  ip        => $iface->{gateway4},
-                                  interface => $name,
-                                  default   => 1);
+                                ip        => $iface->{routes}->[0]{'via'},
+                                interface => $name,
+                                default   => 1);
                 }
             }
             my $ns = $iface->{nameservers};
