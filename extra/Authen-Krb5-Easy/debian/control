@@ -1,12 +1,15 @@
 Source: libauthen-krb5-easy-perl
 Section: perl
 Priority: optional
-Maintainer: Samuel Cabrero <scabrero@zentyal.com>
+Maintainer: Bruno Lorente Cantarero <blorente@zentyal.com>
+Uploaders: Daniel Joven Gracia <djoven@zentyal.com>
 Build-Depends: debhelper (>= 8),
  perl,
  heimdal-dev
 Standards-Version: 3.9.2
 Homepage: http://search.cpan.org/dist/Authen-Krb5-Easy/
+Vcs-Browser: https://github.com/zentyal/zentyal/tree/master/extra/Authen-Krb5-Easy
+Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: libauthen-krb5-easy-perl
 Architecture: any
