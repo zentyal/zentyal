@@ -1,10 +1,14 @@
 #!/bin/bash
 
-mkdir -p /var/log/quagga
-chown quagga:quagga /var/log/quagga
+set -e
 
-# create zebra.conf if it does not exist
-test -e /etc/quagga/zebra.conf || touch /etc/quagga/zebra.conf
-# create zebra.conf if it does not exist
-test -e /etc/quagga/ripd.conf || touch /etc/quagga/ripd.conf
+cd /etc/frr/
 
+# check required files
+for conf in zebra.conf ripd.conf; do
+    if [ ! -f $conf ]; then
+        touch $conf
+    fi
+    chmod 0640 $conf
+    chown frr:frr $conf
+done
