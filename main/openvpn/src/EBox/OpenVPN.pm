@@ -111,28 +111,14 @@ sub usedFiles
 {
     return [
             {
-              'file' => '/etc/quagga/daemons',
+              'file' => '/etc/frr/daemons',
               'module' => 'openvpn',
-              'reason' => __('To configure Quagga to run ripd and zebra')
+              'reason' => __('To configure frr to run ripd and zebra and to listen on the given interfaces')
             },
             {
-              'file' => '/etc/quagga/debian.conf',
+              'file' => '/etc/frr/frr.conf',
               'module' => 'openvpn',
-              'reason' =>
-                __('To configure Quagga to listen on the given interfaces')
-            },
-            {
-              'file' => '/etc/quagga/zebra.conf',
-              'module' => 'openvpn',
-              'reason' => __('Main zebra configuration file')
-            },
-            {
-              'file' => '/etc/quagga/ripd.conf',
-              'module' => 'openvpn',
-              'reason' => __(
-                             'To configure ripd to exchange routes with client '
-                               .'to client connections'
-              )
+              'reason' => __('Main frr configuration file including ripd and zebra')
             },
             {
               'file' => '/etc/default/openvpn',
@@ -791,11 +777,7 @@ sub _daemons
 
     my @daemons = (
         {
-            name => 'zebra',
-            precondition => sub {  return $self->ripDaemonService() },
-        },
-        {
-            name => 'ripd',
+            name => 'frr',
             precondition => sub {  return $self->ripDaemonService() },
         },
     );
@@ -806,7 +788,7 @@ sub _daemons
     return \@daemons;
 }
 
-#  rip daemon/quagga stuff
+#  rip daemon/frr stuff
 #
 # Method: ripDaemon
 #
@@ -878,28 +860,21 @@ sub _writeRIPDaemonConf
     my $ifaces       = $ripDaemon->{ifaces};
     my $redistribute = $ripDaemon->{redistribute};
 
-    my $confDir = '/etc/quagga';
-    my ($quaggaUser, $quaggaPasswd, $quaggaUid, $quaggaGid) =
-      getpwnam('quagga');
-    defined $quaggaUser
-      or throw EBox::Exceptions::Internal('No quagga user found in the system');
+    my $confDir = '/etc/frr';
+    my ($frrUser, $frrPasswd, $frrUid, $frrGid) =
+      getpwnam('frr');
+    defined $frrUser
+      or throw EBox::Exceptions::Internal('No frr user found in the system');
 
     my $debug = EBox::Config::boolean('debug');
 
     my $fileAttrs = {
-                     uid  => $quaggaUid,
-                     gid  => $quaggaGid,
-                     mode => '0400',
+                     uid  => $frrUid,
+                     gid  => $frrGid,
+                     mode => '0640',
     };
 
-    $self->writeConfFile("$confDir/debian.conf", '/openvpn/quagga/debian.conf.mas', [],
-                         $fileAttrs);
-    $self->writeConfFile("$confDir/daemons", '/openvpn/quagga/daemons.mas', [],
-                         $fileAttrs);
-    $self->writeConfFile("$confDir/zebra.conf", '/openvpn/quagga/zebra.conf.mas',
-                         [
-                             debug => $debug
-                         ],
+    $self->writeConfFile("$confDir/daemons", '/openvpn/frr/daemons.mas', [],
                          $fileAttrs);
 
     my @ripdConfParams = (
@@ -908,7 +883,7 @@ sub _writeRIPDaemonConf
                           insecurePasswd => _insecureRipPasswd(),
                           debug          => $debug,
                          );
-    $self->writeConfFile("$confDir/ripd.conf", '/openvpn/quagga/ripd.conf.mas',
+    $self->writeConfFile("$confDir/ffr.conf", '/openvpn/frr/ffr.conf.mas',
                          \@ripdConfParams, $fileAttrs);
 
 }
