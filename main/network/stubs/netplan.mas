@@ -42,7 +42,7 @@ network:
 % }
 % foreach my $iface (@iflist) {
 %   my $method = $networkMod->ifaceMethod($iface);
-%   next if $method eq 'bundled' or $method eq 'trunk' or $networkMod->ifaceIsBridge($iface) or $networkMod->ifaceIsBond($iface);
+%   next if $method eq 'trunk' or $networkMod->ifaceIsBridge($iface) or $networkMod->ifaceIsBond($iface);
 %   if ($method eq 'static' or $method eq 'dhcp') {
 %     my $dns = $networkMod->model('DNSResolver')->nameservers();
     <% $iface %>:
@@ -79,6 +79,11 @@ network:
       mtu: <% $mtu %>
 %     }
 %   }
+%   if ($method eq 'bundled') {
+    <% $iface %>:
+      dhcp4: false
+      dhcp6: false     
+%   }
 % }
 % if ($hasBridges) {
   bridges:
@@ -100,7 +105,6 @@ network:
         stp: false
         forward-delay: 5
 %   }
-
 % }
 
 % if ($hasBonds) {
@@ -109,13 +113,19 @@ network:
 % foreach my $iface (@iflist) {
 %   if ($networkMod->ifaceIsBond($iface)) {
     <% $iface %>:
+%     if($networkMod->ifaceMethod($iface) eq 'dhcp') {
+      dhcp4: true
+      dhcp6: false
+%     } else {
+      dhcp4: false
+      dhcp6: false
+      addresses: [ "<% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>" ]
+%     }
       interfaces: [ <% join ', ', @{$networkMod->bondIfaces($iface)} %> ]
       parameters:
         mode: <% $networkMod->bondMode($iface) %>
         up-delay: 200
         down-delay: 200
         # fail-over-mac-policy: active TODO
-        addresses: [ "<% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>" ]
 %   }
-
 % }
