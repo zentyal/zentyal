@@ -1,8 +1,0 @@
-<%args>
-$debug
-</%args>
-% if ($debug) {
-debug zebra events
-debug zebra packet
-% }
-log file /var/log/quagga/zebra.log
