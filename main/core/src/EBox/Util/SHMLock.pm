@@ -23,6 +23,7 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use Fcntl qw(:flock);
+use EBox::Sudo;
 
 sub init
 {
@@ -40,6 +41,11 @@ sub init
     unless (-d $path) {
         system ("mkdir -p $path");
     }
+
+    if (EBox::Sudo::fileTest('-O', '/run/shm/zentyal/') == 1) {
+        EBox::Sudo::root('chown -R ebox:ebox /run/shm/zentyal/');
+    }
+
     unless (-f $file) {
         open(LOCKFILE, ">$file") or
             throw EBox::Exceptions::Internal("Cannot create lockfile: $file");
