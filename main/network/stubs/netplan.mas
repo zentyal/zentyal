@@ -8,6 +8,7 @@ my $hasEthernets = 0;
 my $hasBonds = 0;
 my $hasBridges = 0;
 my $hasVlans = 0;
+my $hasVifaces = 0;
 foreach my $iface (@iflist) {
     if ($networkMod->ifaceIsBond($iface)) {
         $hasBonds = 1;
@@ -18,6 +19,12 @@ foreach my $iface (@iflist) {
     my $method = $networkMod->ifaceMethod($iface);
     if ($method eq 'static' or $method eq 'dhcp') {
         $hasEthernets = 1;
+    }
+    if($iface =~ /^vlan/) {
+      $hasVlans = 1;
+    }
+    if($iface =~ /^.+?:.+?$/) {
+      $hasVifaces = 1;
     }
 }
 
@@ -42,7 +49,12 @@ network:
 % }
 % foreach my $iface (@iflist) {
 %   my $method = $networkMod->ifaceMethod($iface);
-%   next if $method eq 'trunk' or $networkMod->ifaceIsBridge($iface) or $networkMod->ifaceIsBond($iface);
+%   next if 
+%     $networkMod->ifaceIsBridge($iface) or #bridge
+%     $networkMod->ifaceIsBond($iface) or #bundled
+%     ($iface =~ /^vlan/) or #vlan
+%     ($iface =~ /^bond/) or #bond
+%     ($iface =~ /^.+?:.+?$/); #viface
 %   if ($method eq 'static' or $method eq 'dhcp') {
 %     my $dns = $networkMod->model('DNSResolver')->nameservers();
     <% $iface %>:
@@ -50,7 +62,8 @@ network:
       dhcp4: true
 %     } else {
       dhcp4: false
-      addresses: [ "<% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>" ]
+      addresses: 
+        - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
 %       if (@$dns) {
       nameservers:
 %         if ($networkMod->searchdomain()) {
@@ -84,6 +97,27 @@ network:
       dhcp4: false
       dhcp6: false     
 %   }
+%   if ($method eq 'trunk') {
+    <% $iface %>:
+      dhcp4: false
+      dhcp6: false     
+%   }
+% }
+% if ($hasVifaces) {
+%   foreach my $iface (@iflist) {
+%     my $method = $networkMod->ifaceMethod($iface);
+%     foreach my $viface (@{$networkMod->vifacesConf($iface)}) {
+    <% "$iface.$viface->{'name'}" %>:
+      dhcp4: false
+      dhcp6: false
+      match:
+        name: <% "$iface.$viface->{'name'}" %>
+      set-name: <% "$iface.$viface->{'name'}" %>
+      addresses: 
+        - <% $viface->{'address'} %>/<% EBox::NetWrappers::bits_from_mask($viface->{'netmask'}) %>
+#            label: "<% $iface %>:<% $viface->{'name'} %>"
+%     }
+%   }
 % }
 % if ($hasBridges) {
   bridges:
@@ -98,7 +132,8 @@ network:
 %     } else {
       dhcp4: no
       dhcp6: no
-      addresses: [ "<% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>" ]
+      addresses: 
+        - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
 %     }
       macaddress: "<% EBox::NetWrappers::iface_mac_address($iface) %>"
       parameters:
@@ -119,7 +154,8 @@ network:
 %     } else {
       dhcp4: false
       dhcp6: false
-      addresses: [ "<% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>" ]
+      addresses: 
+        - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
 %     }
       interfaces: [ <% join ', ', @{$networkMod->bondIfaces($iface)} %> ]
       parameters:
@@ -127,5 +163,26 @@ network:
         up-delay: 200
         down-delay: 200
         # fail-over-mac-policy: active TODO
+%   }
+% }
+% if ($hasVlans) {
+  vlans:
+% }
+% foreach my $iface (@iflist) {
+%   if($iface =~ /^vlan/) {
+%     my $method = $networkMod->ifaceMethod($iface);
+%     my $vlan = $networkMod->vlan($iface);
+    <% $iface %>:
+      link: <% $vlan->{interface} %>
+      id: <% $vlan->{id} %>
+%     if ($method eq 'dhcp') {
+      dhcp4: true
+      dhcp6: false
+%     } else {
+      dhcp4: false
+      dhcp6: false
+      addresses: 
+        - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
+%     }
 %   }
 % }
