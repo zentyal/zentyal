@@ -15,18 +15,20 @@ LogVerbose false
 LogSyslog false
 LogFacility LOG_LOCAL6
 LogFileMaxSize 0
+LogRotate true
 LogTime true
 Foreground false
 Debug false
 MaxAttempts 5
-DatabaseDirectory /var/lib/clamav/
+DatabaseDirectory /var/lib/clamav
 DNSDatabaseInfo current.cvd.clamav.net
-PidFile /var/run/clamav/freshclam.pid
 ConnectTimeout 30
 ReceiveTimeout 30
+TestDatabases yes
 ScriptedUpdates yes
 CompressLocalDatabase no
 Bytecode true
+NotifyClamd /etc/clamav/clamd.conf
 # Check for new database 24 times a day
 Checks 24
 DatabaseMirror <% "db.$databaseMirrorLocalCode.clamav.net" %>
