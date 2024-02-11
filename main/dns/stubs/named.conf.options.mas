@@ -12,21 +12,19 @@ options {
 %           }
         };
 %   }
-    directory "/var/cache/bind";
+	directory "/var/cache/bind";
 
-    // If there is a firewall between you and nameservers you want
-    // to talk to, you might need to uncomment the query-source
-    // directive below.  Previous versions of BIND always asked
-    // questions using port 53, but BIND 8.1 and later use an unprivileged
-    // port by default.
+	// If there is a firewall between you and nameservers you want
+	// to talk to, you may need to fix the firewall to allow multiple
+	// ports to talk.  See http://www.kb.cert.org/vuls/id/800113
 
-    //query-source address * port 53;
-    //transfer-source * port 53;
-    //notify-source * port 53;
+	//========================================================================
+	// If BIND logs error messages about the root key being expired,
+	// you will need to update your keys.  See https://www.isc.org/bind-keys
+	//========================================================================
+	dnssec-validation auto;
 
-    // DNSSEC configuration
-    dnssec-enable yes;
-    dnssec-validation yes;
+	listen-on-v6 { none; };
 
 %   if ( @forwarders > 0 ) {
         // If your ISP provided one or more IP addresses for stable
