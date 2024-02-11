@@ -2110,8 +2110,12 @@ sub setIfaceBonded
     # new bond
     if ($bond < 0) {
         my @bonds = @{$self->bonds()};
-        my $last = int(pop(@bonds));
-        $bond = $last;
+        if (@bonds) {
+            my $last = int(pop(@bonds));
+            $bond = $last;
+        } else {
+            $bond = 0;
+        }
         $self->_createBond($bond);
     }
 
@@ -4403,7 +4407,7 @@ my ($self, $widget) = @_;
         }
 
         my $linkStatusStr;
-        if (defined($linkstatus->{$iface})) {
+        if (defined($iface) && exists($linkstatus->{$iface})) {
             if($linkstatus->{$iface}) {
                 $linkStatusStr = __("link ok");
             } else {

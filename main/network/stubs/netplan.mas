@@ -6,19 +6,24 @@ $networkMod
 use EBox::Config;
 my $hasEthernets = 0;
 my $hasBonds = 0;
+my $bondSlave = 0;
 my $hasBridges = 0;
 my $hasVlans = 0;
 my $hasVifaces = 0;
 foreach my $iface (@iflist) {
-    if ($networkMod->ifaceIsBond($iface)) {
+    my $method = $networkMod->ifaceMethod($iface);
+    if ($method eq 'static' or $method eq 'dhcp') {
+        $hasEthernets = 1;
+    }
+    if ($method eq 'bundled') {
+      $bondSlave = 1;
+      $hasEthernets = 1;
+    }
+    if ($networkMod->ifaceIsBond($iface) && ($networkMod->ifaceMethod($iface) ne 'notset')) {
         $hasBonds = 1;
     }
     if ($networkMod->ifaceIsBridge($iface)) {
         $hasBridges = 1;
-    }
-    my $method = $networkMod->ifaceMethod($iface);
-    if ($method eq 'static' or $method eq 'dhcp') {
-        $hasEthernets = 1;
     }
     if($iface =~ /^vlan/) {
       my $vlan = $networkMod->vlan($iface);
@@ -145,27 +150,27 @@ network:
 %   }
 % }
 
-% if ($hasBonds) {
+% if ($hasBonds && $bondSlave) {
   bonds:
-% }
-% foreach my $iface (@iflist) {
-%   if ($networkMod->ifaceIsBond($iface)) {
+%   foreach my $iface (@iflist) {
+%     if ($networkMod->ifaceIsBond($iface)) {
     <% $iface %>:
-%     if($networkMod->ifaceMethod($iface) eq 'dhcp') {
+%       if($networkMod->ifaceMethod($iface) eq 'dhcp') {
       dhcp4: true
       dhcp6: false
-%     } else {
+%       } else {
       dhcp4: false
       dhcp6: false
       addresses: 
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
-%     }
+%       }
       interfaces: [ <% join ', ', @{$networkMod->bondIfaces($iface)} %> ]
       parameters:
         mode: <% $networkMod->bondMode($iface) %>
         up-delay: 200
         down-delay: 200
         # fail-over-mac-policy: active TODO
+%     }
 %   }
 % }
 % if ($hasVlans) {
