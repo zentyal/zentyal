@@ -678,7 +678,6 @@ sub _vlanIfaceFilterWithRemoved # (\array)
     return $ifaces;
 }
 
-# TODO: To review
 sub _cleanupVlanIfaces
 {
     my $self = shift;
@@ -689,7 +688,7 @@ sub _cleanupVlanIfaces
             $iface =~ s/^vlan//;
             my $vlans = $self->get_hash('vlans');
             unless (exists $vlans->{$iface}) {
-                push (@cmds, "/sbin/vconfig rem vlan$iface");
+               push (@cmds, "/sbin/ip link delete vlan$iface");
             }
         }
     }
@@ -3766,7 +3765,6 @@ sub _enforceServiceState
     $self->_generateRoutes();
     $self->_disableReversePath();
     $self->_multigwRoutes($dynIfaces);
-    $self->_cleanupVlanIfaces();
 
     EBox::Sudo::root('/sbin/ip route flush cache || true');
 

@@ -21,7 +21,10 @@ foreach my $iface (@iflist) {
         $hasEthernets = 1;
     }
     if($iface =~ /^vlan/) {
-      $hasVlans = 1;
+      my $vlan = $networkMod->vlan($iface);
+      if($networkMod->vlanExists($vlan->{'id'})) {
+        $hasVlans = 1;
+      }
     }
     if($iface =~ /^.+?:.+?$/) {
       $hasVifaces = 1;
@@ -167,22 +170,22 @@ network:
 % }
 % if ($hasVlans) {
   vlans:
-% }
-% foreach my $iface (@iflist) {
-%   if($iface =~ /^vlan/) {
-%     my $method = $networkMod->ifaceMethod($iface);
-%     my $vlan = $networkMod->vlan($iface);
+%   foreach my $iface (@iflist) {
+%     if($iface =~ /^vlan/) {
+%       my $method = $networkMod->ifaceMethod($iface);
+%       my $vlan = $networkMod->vlan($iface);
     <% $iface %>:
       link: <% $vlan->{interface} %>
       id: <% $vlan->{id} %>
-%     if ($method eq 'dhcp') {
+%       if ($method eq 'dhcp') {
       dhcp4: true
       dhcp6: false
-%     } else {
+%       } else {
       dhcp4: false
       dhcp6: false
       addresses: 
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
+%       }
 %     }
 %   }
 % }
