@@ -55,6 +55,7 @@ use constant BIND9CONFDIR         => "/etc/bind";
 use constant BIND9CONFFILE        => "/etc/bind/named.conf";
 use constant BIND9CONFOPTIONSFILE => "/etc/bind/named.conf.options";
 use constant BIND9CONFLOCALFILE   => "/etc/bind/named.conf.local";
+use constant BIND9CONFDEFAULTZONES   => "/etc/bind/named.conf.default-zones";
 use constant BIND9_UPDATE_ZONES   => "/var/lib/bind";
 
 use constant PIDFILE       => "/var/run/named/named.pid";
@@ -556,6 +557,11 @@ sub usedFiles
             'reason' => __('local bind9 configuration file'),
         },
         {
+            'file'   => BIND9CONFDEFAULTZONES,
+            'module' => 'dns',
+            'reason' => __('main bind9 zones configuration file'),
+        },
+        {
             'file'   => KEYSFILE,
             'module' => 'dns',
             'reason' => __('Keys configuration file'),
@@ -622,7 +628,7 @@ sub initialSetup
         $firewall->saveConfigRecursive();
     }
 
-    # Execute initial-setup script to create SQL tables
+    # Execute initial-setup script
     $self->SUPER::initialSetup($version);
 }
 
@@ -653,7 +659,10 @@ sub _daemons
     return [
         {
             'name' => 'named'
-        }
+        },
+        {
+            'name' => 'named-resolvconf'
+        },
     ];
 }
 
@@ -705,6 +714,12 @@ sub _setConf
     $self->writeConfFile(BIND9CONFFILE,
             "dns/named.conf.mas",
             \@array);
+
+    @array = ();
+    $self->writeConfFile(BIND9CONFDEFAULTZONES,
+            "dns/named.conf.default-zones.mas",
+            \@array);
+
 
     push (@array, 'forwarders' => $self->_forwarders());
     push (@array, 'keytabPath' => $keytabPath);
