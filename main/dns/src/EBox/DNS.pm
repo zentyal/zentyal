@@ -661,6 +661,9 @@ sub _daemons
             'name' => 'named'
         },
         {
+            'name' => 'resolvconf'
+        },
+        {
             'name' => 'named-resolvconf'
         },
     ];
@@ -673,9 +676,7 @@ sub _preSetConf
 {
     my ($self) = @_;
 
-    my $runResolvConf = 1;
     my $array = [];
-    push (@{$array}, runResolvConf => $runResolvConf);
     $self->writeConfFile(BIND9DEFAULTFILE, 'dns/bind9.mas', $array,
         {mode => '0644', uid => 0, gid => 0});
 }
@@ -806,6 +807,8 @@ sub _setConf
         $self->writeConfFile($file, 'dns/keys.mas', \@array,
             {uid => 'root', 'gid' => 'dhcpd', mode => '640'});
     }
+
+    $self->global->modInstance('network')->restartService();
 }
 
 sub _writeReverseFiles

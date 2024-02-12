@@ -5,6 +5,9 @@ HEAD
 	+ Remove old Systemd fix
 	+ Update initial-setup and enable-module scripts
 	+ Update DLZ file
+	+ Add resolvconf dependency
+	+ Added resolvconf service
+	+ Update bind9.mas stub
 7.1.0
 	+ Bump version number
 7.0.2
