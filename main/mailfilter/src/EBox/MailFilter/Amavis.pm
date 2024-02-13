@@ -170,7 +170,7 @@ sub writeConf
     my $gid = getgrnam('root');
 
     my $fileAttrs = {
-                     mode => '0640',
+                     mode => '0644',
                      uid   => $uid,
                      gid   => $gid,
                      force => 1,
