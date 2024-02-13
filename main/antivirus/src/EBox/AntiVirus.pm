@@ -39,7 +39,6 @@ use constant {
 
   FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
   FRESHCLAM_CRON_FILE           => '/etc/cron.d/clamav-freshclam',
-  FRESHCLAM_DIR                 => '/var/lib/clamav/',
   FRESHCLAM_LOG_FILE            => '/var/log/clamav/freshclam.log',
   FRESHCLAM_USER                => 'clamav',
 };
@@ -159,11 +158,11 @@ sub _daemons
 {
     my ($self) = @_;
 
-    return [ 
-        { 
-            name => 'clamav-daemon' 
+    return [
+        {
+            name => 'clamav-daemon'
         },
-        {   
+        {
             name => 'zentyal.antivirus-clamonacc.service',
             type => 'systemd',
             precondition => \&issetPath,
@@ -198,10 +197,10 @@ sub issetPath
 #
 sub _daemonsToDisable
 {
-    return [ 
+    return [
         {
             'name' => 'clamav-freshclam',
-            'type' => 'init.d' 
+            'type' => 'init.d'
         },
         {
             'name' => 'zentyal.antivirus-clamonacc.service',
@@ -258,7 +257,7 @@ sub _setConf
 
     # Grant the right permissions to log file
     EBox::Sudo::root('chgrp ebox "' . FRESHCLAM_LOG_FILE . '"');
-    
+
     # Regenerate freshclam cron daily script
     $self->writeConfFile(FRESHCLAM_CRON_FILE,
                          'antivirus/clamav-freshclam.cron.mas',
@@ -290,12 +289,6 @@ sub menu
                                     url       => 'Antivirus/Composite/General',
                                     icon      => 'antivirus',
                                     order     => 900));
-}
-
-sub freshclamEBoxDir {
- 
-  return FRESHCLAM_DIR;
- 
 }
 
 1;

@@ -1,14 +1,38 @@
 #!/bin/bash
 
-# Disable clamd apparmor as it needs some tweaking to make it work with
-# our configuration
-APP_PROFILE="/etc/apparmor.d/usr.sbin.clamd"
-if [ -f $APP_PROFILE ]; then
-    sed -i 's:^/usr/sbin/clamd:/usr/sbin/clamd.off:' $APP_PROFILE || true
-    service apparmor restart || true
-fi
+set -ex
 
-# create directory for freshclam data
-FRESHCLAM_DIR=$(perl -MEBox::AntiVirus -e'print EBox::AntiVirus::freshclamEBoxDir(); 1;');
-mkdir -p $FRESHCLAM_DIR
-chown clamav.clamav $FRESHCLAM_DIR
+echo "#### ANTIVIRUS -> INITIAL-SCRIPT" >> /var/log/init.log
+
+####
+## Functions
+####
+
+function initial_conf() {
+    # This function runs the initial configuration the module needs once it is installed
+
+    # Workaround to fix the following message:
+    # Standard output type syslog is obsolete, automatically updating to journal. Please update your unit file, and consider removing the setting altogether
+    for daemon in clamav-daemon.service clamav-freshclam.service; do
+        if grep -q 'StandardOutput=syslog' /lib/systemd/system/$daemon; then
+            sed -i 's#StandardOutput=syslog#StandardOutput=file:/var/log/syslog#' /lib/systemd/system/$daemon
+            systemctl daemon-reload
+        fi
+    done
+}
+
+
+function mod_disabled() {
+    # This function stops and disables the services that uses the module
+    systemctl disable --now clamav-daemon clamav-freshclam zentyal.antivirus-clamonacc
+}
+
+
+####
+## Calls
+####
+
+initial_conf
+mod_disabled
+
+exit 0
