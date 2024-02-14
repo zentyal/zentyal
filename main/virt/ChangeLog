@@ -1,6 +1,9 @@
 HEAD
 	+ Set version to 8.0.0
 	+ Update Python dependency
+	+ Set execution permissions to stop-vm script
+	+ Added initial-setup script
+	+ Update enable-module script
 7.1.0
 	+ Bump version number
 7.0.1

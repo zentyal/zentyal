@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+####
+## Functions
+####
+
+function initial_conf() {
+    # This function runs the initial configuration the module needs once it is installed
+    return
+}
+
+
+function mod_disabled() {
+    # This function stops and disables the services that uses the module
+    systemctl disable --now libvirtd libvirtd-ro.socket libvirtd-admin.socket libvirtd.socket virtlogd zentyal.vncproxy
+}
+
+
+####
+## Calls
+####
+
+initial_conf
+mod_disabled
+
+exit 0
