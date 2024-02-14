@@ -1,6 +1,8 @@
 HEAD
 	+ Set version to 8.0.0
 	+ Fix SHM lock owner
+	+ Disable unattended-upgrades
+	+ Set execution permissions to the cleantmp file
 7.1.0
 	+ Bump version number
 7.0.6

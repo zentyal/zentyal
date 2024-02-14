@@ -127,9 +127,9 @@ case "$1" in
         chmod 644 /etc/zentyal/pre-save/README
         chmod 644 /etc/zentyal/post-save/README
 
-
-        # ZS-156
-        chmod 755 /etc/cron.daily/cleantmp
+        # Remove unattended-upgrade
+        sed -i 's/1/0/g' /etc/apt/apt.conf.d/20auto-upgrades
+        systemctl disable --now unattended-upgrades
 
         dpkg-trigger --no-await zentyal-core
     ;;
