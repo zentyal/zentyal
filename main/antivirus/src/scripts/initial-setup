@@ -1,8 +1,6 @@
 #!/bin/bash
 
-set -ex
-
-echo "#### ANTIVIRUS -> INITIAL-SCRIPT" >> /var/log/init.log
+set -e
 
 ####
 ## Functions
