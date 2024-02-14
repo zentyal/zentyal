@@ -2,15 +2,33 @@
 
 set -e
 
-# Stop squid daemon
-systemctl stop squid || true
-systemctl stop e2guardian || true
+####
+## Functions
+####
 
-# add ebox to proxy to read squid logs
-adduser --quiet ebox proxy || true
+function initial_conf() {
+    # This function runs the initial configuration the module needs once it is installed
 
-# directory for extra e2g domain lists
-E2G_EXTRALISTS=/etc/e2guardian/extralists
-test -d $E2G_EXTRALISTS || mkdir -p -m 0750 $E2G_EXTRALISTS
+    # Add ebox to proxy to read squid logs
+    adduser --quiet ebox proxy || true
 
-exit 0;
+    # Directory for extra e2g domain lists
+    E2G_EXTRALISTS=/etc/e2guardian/extralists
+    test -d $E2G_EXTRALISTS || mkdir -p -m 0750 $E2G_EXTRALISTS
+}
+
+
+function mod_disabled() {
+    # This function stops and disables the services that uses the module
+    systemctl disable --now squid e2guardian
+}
+
+
+####
+## Calls
+####
+
+initial_conf
+mod_disabled
+
+exit 0
