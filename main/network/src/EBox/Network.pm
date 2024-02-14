@@ -2311,7 +2311,9 @@ sub _createBridge
 sub _removeBridge # (id)
 {
     my ($self, $id, $force) = @_;
+
     $self->_removeIface("br$id");
+    EBox::Sudo::root("/usr/sbin/ip link delete br$id type bridge");
 }
 
 # Method: _removeEmptyBridges
@@ -2327,13 +2329,13 @@ sub _removeEmptyBridges
             $seen{$self->ifaceBridge($if)}++;
         }
     }
-
+    
     # remove unseen bridges
     for my $bridge ( @{$self->bridges()} ) {
         next if ( $seen{$bridge} );
-        $self->_removeBridge($bridge);
+                $self->_removeBridge($bridge);
     }
-}
+    }
 
 # Method: bridges
 #
@@ -2421,7 +2423,9 @@ sub _createBond
 sub _removeBond # (id)
 {
     my ($self, $id, $force) = @_;
+
     $self->_removeIface("bond$id");
+    EBox::Sudo::root("/usr/sbin/ip link delete bond$id");
 }
 
 # Method: _removeEmptyBonds
@@ -3017,6 +3021,36 @@ sub routes
     return \@routes;
 }
 
+# Method: routes
+#
+#       Return the configured static routes for a given interface
+#
+# Parameters:
+#
+#    iface - String the iface name
+#
+# Returns:
+#
+#   array ref - each element contains a hash ref with keys:
+#
+#          network - an IP block in CIDR format
+#          gateway - an IP address
+#
+sub routesByIface
+{
+    my ($self, $iface) = @_;
+
+    my $staticRouteModel = $self->model('StaticRoute');
+    my @routes = ();
+    for my $id (@{$staticRouteModel->ids()}) {
+        my $row = $staticRouteModel->row($id);
+        next if ($row->printableValueByName('interface') ne $iface);
+        push (@routes, { network => $row->printableValueByName('network'),
+                         gateway => $row->printableValueByName('gateway')});
+    }
+    return @routes;
+}
+
 # Method: gatewayDeleted
 #
 #    Mark an interface as changed for a route delete. The selected
@@ -3349,9 +3383,10 @@ sub _generateRoutes
         if (route_is_up($net, $gw)) {
             next;
         }
-
-        my $cmd = "/sbin/ip route add $net via $gw table main";
-        EBox::Sudo::root($cmd)
+    
+        # TODO: We must to keep this or not?
+        #my $cmd = "/sbin/ip route add $net via $gw table main";
+        #EBox::Sudo::root($cmd)
     }
 }
 
@@ -3437,7 +3472,7 @@ sub _multigwRoutes
     # We enclose iptables rules containing CONNMARK target
     # within a try/catch block because
     # kernels < 2.6.12 do not include such module.
-
+    
     my $marks = $self->marksForRouters();
     my $routers = $self->gatewaysWithMac();
     my @cmds; # commands to run
@@ -3494,7 +3529,7 @@ sub _multigwRoutes
         if (scalar keys %interfaces > 1) {
             push(@addrRules, "/sbin/ip rule add from $address table $table");
         }
-
+        
         push(@cmds, "/sbin/ip route add default $route table $table");
     }
 
@@ -3554,7 +3589,7 @@ sub _multigwRoutes
         push(@cmds, "/sbin/iptables -t mangle -A OUTPUT -m mark --mark 0/0xff " .
                     "-j  MARK --set-mark $defaultRouterMark");
     }
-
+    
     # always before CONNMARK save commands
     EBox::Sudo::root(@cmds);
 
@@ -3654,9 +3689,6 @@ sub _preSetConf
                     if ($? == 0) {
                         push (@cmds, "/usr/sbin/ip address flush dev $ifname");
                     }
-                    if ($self->ifaceMethod($if) eq 'bridged') {
-                        push (@cmds, "/usr/sbin/ip link delete $if type bridge");
-                    }
                 }
 
                 EBox::Sudo::root(@cmds);
@@ -3754,7 +3786,7 @@ sub _enforceServiceState
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
                            '/sbin/ip route del default');
-
+    
     my $cmd = $self->_multipathCommand();
     if ($cmd) {
         try {
@@ -4111,7 +4143,7 @@ sub BridgedCleanUp # (interface)
                              value => $iface);
 
     my $bridge = $self->ifaceBridge($iface);
-
+    
     # this changes the bridge
     if ($self->ifaceIsBridge("br$bridge")) {
         $self->_setChanged("br$bridge");
@@ -4754,7 +4786,7 @@ sub _pppoeRules
 sub _multipathCommand
 {
     my ($self) = @_;
-
+    
     my @gateways = @{$self->gateways()};
 
     if (scalar(@gateways) == 0) {
@@ -4790,8 +4822,8 @@ sub _multipathCommand
         my $method = $self->ifaceMethod($iface);
 
         $iface = $self->realIface($iface);
-        my $if = new Net::Interface($iface);
-        next unless $if->address;
+        my $if = Net::Interface->new($iface);
+        next unless $if and $if->address;
 
         my $route = "via $ip dev $iface";
         if ($method eq 'ppp') {
@@ -4802,7 +4834,7 @@ sub _multipathCommand
 
         $numGWs++;
     }
-
+    
     if ($numGWs) {
         return $cmd;
     } else {

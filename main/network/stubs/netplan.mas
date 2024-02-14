@@ -68,8 +68,10 @@ network:
     <% $iface %>:
 %     if ($method eq 'dhcp') {
       dhcp4: true
+      dhcp6: false
 %     } else {
       dhcp4: false
+      dhcp6: false
       addresses: 
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
 %       if (@$dns) {
@@ -80,7 +82,7 @@ network:
 %         }
         addresses: [ <% join ', ', @$dns %> ]
 %       }
-%     my @gatewayInfo = $networkMod->ifaceGateways($iface);
+%       my @gatewayInfo = $networkMod->ifaceGateways($iface);
 %       if (@gatewayInfo) {
       routes:
 %         foreach my $gw (@gatewayInfo) {
@@ -94,18 +96,31 @@ network:
           on-link: true
 %         }
 %       }
-%     }
-%     my $mtu = EBox::Config::configkey("mtu_$iface");
-%     if ($mtu) {
+%       my @staticRoutes = $networkMod->routesByIface($iface);
+%       if((!@gatewayInfo and @staticRoutes) or @staticRoutes) {
+      routes:
+%       }
+%       foreach my $staticRoute (@staticRoutes) {
+        - to: <% $staticRoute->{network} %>
+          via: <% $staticRoute->{gateway} %>
+%       }
+%       my $mtu = EBox::Config::configkey("mtu_$iface");
+%       if ($mtu) {
       mtu: <% $mtu %>
+%       }
 %     }
-%   }
+%   }  
 %   if ($method eq 'bundled') {
     <% $iface %>:
       dhcp4: false
       dhcp6: false     
 %   }
 %   if ($method eq 'trunk') {
+    <% $iface %>:
+      dhcp4: false
+      dhcp6: false     
+%   }
+%   if ($method eq 'bridged') {
     <% $iface %>:
       dhcp4: false
       dhcp6: false     
@@ -143,7 +158,6 @@ network:
       addresses: 
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
 %     }
-      macaddress: "<% EBox::NetWrappers::iface_mac_address($iface) %>"
       parameters:
         stp: false
         forward-delay: 5
