@@ -115,6 +115,9 @@ sub initialSetup
         # Force load of nginx-virt.conf
         EBox::Sudo::silentRoot("systemctl restart zentyal.webadmin-nginx");
     }
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
 }
 
 # Method: menu

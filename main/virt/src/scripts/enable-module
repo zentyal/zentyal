@@ -1,4 +1,22 @@
 #!/bin/bash
 
-# Allow to read CDROM devices
-adduser ebox cdrom
+set -e
+
+####
+## Functions
+####
+
+function enable_mod() {
+    # This function runs the initial configuration the module needs once it is enabled for the first time
+    # Allow to read CDROM devices
+    adduser ebox cdrom
+}
+
+
+####
+## Calls
+####
+
+enable_mod
+
+exit 0
