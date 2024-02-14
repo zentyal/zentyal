@@ -1,9 +1,11 @@
 HEAD
-	+ Replace network/interfaces by netplan (WIP)
-	+ Use network-manager-dispatcher instead of dhclient hooks
-	+ Replace resolvconf by systemd-resolved
-	+ Remove old network/interfaces related logic
 	+ Update interfaces widget logic
+	+ Use network-manager-dispatcher instead of dhclient hooks
+	+ Replace resolvconf by systemd-resolved when is needed
+	+ Add static routes to netplan
+	+ Fix bonds and bridges deletion
+	+ Remove old network/interfaces related logic
+	+ Replace network/interfaces by netplan
 7.1.0
 	+ Bump version number
 7.0.0

@@ -31,6 +31,7 @@ use EBox::Gettext;
 use EBox::Types::IPAddr;
 use EBox::Types::HostIP;
 use EBox::Types::Text;
+use EBox::Types::Select;
 use EBox::NetWrappers;
 use EBox::Exceptions::External;
 
@@ -180,48 +181,77 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableDesc =
-      (
-       new EBox::Types::IPAddr(
-           fieldName     => 'network',
-           printableName => __('Network'),
-           editable      => 1,
-           unique        => 1,
-           help          => __('IP or network address')
-           ),
-       new EBox::Types::HostIP(
-           fieldName     => 'gateway',
-           printableName => 'Gateway',
-           editable      => 1,
-           help          => __('Gateway used to reach the above network' .
+    my @tableDesc = (
+        new EBox::Types::Select(
+            fieldName       => 'interface',
+            printableName   => __('Interface'),
+            populate        => $self->_populateInterfaces(),
+            disableCache    => 1,
+            editable        => 1,
+            help            => __('Interface to listen on'),
+        ),
+        new EBox::Types::IPAddr(
+            fieldName     => 'network',
+            printableName => __('Network'),
+            editable      => 1,
+            unique        => 1,
+            help          => __('IP or network address')
+        ),
+        new EBox::Types::HostIP(
+            fieldName     => 'gateway',
+            printableName => 'Gateway',
+            editable      => 1,
+            help          => __('Gateway used to reach the above network' .
                                '  address')
-           ),
-       new EBox::Types::Text(
-           fieldName     => 'description',
-           printableName => __('Description'),
-           editable      => 1,
-           optional      => 1,
-           help          => __('Optional description for this route')
-           ),
-      );
+        ),
+        new EBox::Types::Text(
+            fieldName     => 'description',
+            printableName => __('Description'),
+            editable      => 1,
+            optional      => 1,
+            help          => __('Optional description for this route')
+        ),
+    );
 
-      my $dataTable = {
-                       tableName          => 'StaticRoute',
-                       printableTableName => __('Static Routes List'),
-                       pageTitle          => __('Static Routes'),
-                       modelDomain        => 'Network',
-                       defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
-                       tableDescription   => \@tableDesc,
-                       class              => 'dataTable',
-                       help               => __('All gateways you enter here must be reachable '
+    my $dataTable = {
+        tableName          => 'StaticRoute',
+        printableTableName => __('Static Routes List'),
+        pageTitle          => __('Static Routes'),
+        modelDomain        => 'Network',
+        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
+        tableDescription   => \@tableDesc,
+        class              => 'dataTable',
+        help               => __('All gateways you enter here must be reachable '
                                                . 'through one of the network interfaces '
                                                . 'currently configured.'),
-                       printableRowName   => __('static route'),
-                       sortedBy           => 'gateway',
-                       index              => 'network',
-                     };
+        printableRowName   => __('static route'),
+        sortedBy           => 'gateway',
+        index              => 'network',
+    };
 
-      return $dataTable;
+    return $dataTable;
+}
+
+sub _populateInterfaces
+{
+    my ($self) = @_;
+
+    my $network = $self->parentModule();
+    my @enabledIfaces = grep {
+        $network->ifaceMethod($_) ne 'notset'
+    } @{ $network->ifaces() };
+    my @options;
+
+    foreach my $iface (@enabledIfaces) {
+        push (@options, {
+           'value' => $iface,
+           'printableValue' => $iface
+        });
+    }
+
+    return sub {
+        return \@options
+    };
 }
 
 1;
