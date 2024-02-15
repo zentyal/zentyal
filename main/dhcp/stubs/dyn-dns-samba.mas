@@ -9,7 +9,7 @@
         suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,5,1))),2), ":",
         suffix (concat ("0", binary-to-ascii (16, 8, "", substring(hardware,6,1))),2)
         );
-        set ClientName = pick-first-value(option host-name, config-option-host-name, client-name, noname);
+        set ClientName = pick-first-value(option host-name, config-option host-name, client-name, noname);
         log(concat("Commit: IP: ", ClientIP, " DHCID: ", ClientDHCID, " Name: ", ClientName));
         execute("/usr/share/zentyal-dhcp/dhcp-dyndns.sh", "add", ClientIP, ClientDHCID, ClientName);
     }
@@ -33,6 +33,6 @@
         # cannot get a ClientMac here, apparently this only works when actually receiving a packet
         log(concat("Expired: IP: ", ClientIP));
         # cannot get a ClientName here, for some reason that always fails
+        # however the dhcp update script will obtain the short hostname.
         execute("/usr/share/zentyal-dhcp/dhcp-dyndns.sh", "delete", ClientIP, "", "0");
     }
-    
