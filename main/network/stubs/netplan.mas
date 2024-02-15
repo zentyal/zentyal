@@ -97,7 +97,7 @@ network:
 %         }
 %       }
 %       my @staticRoutes = $networkMod->routesByIface($iface);
-%       if((!@gatewayInfo and @staticRoutes) or @staticRoutes) {
+%       if(!@gatewayInfo and @staticRoutes) {
       routes:
 %       }
 %       foreach my $staticRoute (@staticRoutes) {
@@ -179,6 +179,7 @@ network:
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
 %       }
       interfaces: [ <% join ', ', @{$networkMod->bondIfaces($iface)} %> ]
+      macaddress: <% EBox::NetWrappers::iface_mac_address($iface) %>      
       parameters:
         mode: <% $networkMod->bondMode($iface) %>
         up-delay: 200
