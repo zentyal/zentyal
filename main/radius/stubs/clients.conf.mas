@@ -2,7 +2,8 @@
     @clients
 </%args>
 % foreach my $client (@clients) {
-client <% $client->{'ipaddr'} %> {
+client <% $client->{'name'} %> {
+    ipaddr = <% $client->{'ipaddr'} %>
     secret = <% $client->{'secret'} %>
     require_message_authenticator = no
     nastype = other
