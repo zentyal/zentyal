@@ -3,6 +3,7 @@ HEAD
 	+ Set the minimal version of the libauthen-krb5-easy-perl package
 	+ Update enable-module script
 	+ Add initial-setup script
+	+ Disable password expiration for the special DNS domain user
 7.1.0
 	+ Bump version number
 7.0.3

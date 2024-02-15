@@ -378,6 +378,9 @@ sub provision
     my $netbiosName = $users->model('DomainSettings')->value('netbiosName');
     EBox::Sudo::root("samba-tool group addmembers DnsAdmins dns-$netbiosName");
 
+    # Disable password expiration
+    EBox::Sudo::root("samba-tool user setexpiry dns-$netbiosName --noexpiry");
+
     # Clean cache
     EBox::Sudo::root('net cache flush');
 
