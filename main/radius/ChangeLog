@@ -2,6 +2,7 @@ HEAD
 	+ Set version to 8.0.0
 	+ Update enable-module script
 	+ Add initial-setup script
+	+ Update client configuration from to clients.conf.mas stub. Fix #2105
 7.1.0
 	+ Bump version number
 7.0.0
