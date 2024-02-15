@@ -1,76 +1,95 @@
-#!/bin/bash -x
+#!/bin/bash
+
+set -e
+
+
+####
+## Functions
+####
 
 function postfix {
-# create certificate for smptd
-test -d /etc/postfix/sasl || mkdir -p /etc/postfix/sasl
-if test ! -e /etc/postfix/sasl/postfix.pem
-then
-    if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
-       test ! -e /etc/ssl/private/ssl-cert-snakeoil.key
+    # create certificate for smptd
+    test -d /etc/postfix/sasl || mkdir -p /etc/postfix/sasl
+    if test ! -e /etc/postfix/sasl/postfix.pem
     then
-        make-ssl-cert generate-default-snakeoil
+        if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
+        test ! -e /etc/ssl/private/ssl-cert-snakeoil.key
+        then
+            make-ssl-cert generate-default-snakeoil
+        fi
+
+        cat /etc/ssl/certs/ssl-cert-snakeoil.pem \
+            /etc/ssl/private/ssl-cert-snakeoil.key \
+            > /etc/postfix/sasl/postfix.pem
+
+        chown root:root /etc/postfix/sasl/postfix.pem
+        chmod 400 /etc/postfix/sasl/postfix.pem
     fi
-
-    cat /etc/ssl/certs/ssl-cert-snakeoil.pem \
-        /etc/ssl/private/ssl-cert-snakeoil.key \
-        > /etc/postfix/sasl/postfix.pem
-
-    chown root:root/etc/postfix/sasl/postfix.pem
-    chmod 400 /etc/postfix/sasl/postfix.pem
-fi
 }
+
 
 function dovecot {
+    test -d /etc/dovecot/private || mkdir -p /etc/dovecot/private
 
-test -d /etc/dovecot/private || mkdir -p /etc/dovecot/private
-
-if test -e /etc/dovecot/private/dovecot.pem && \
-   test -e /etc/dovecot/private/dovecot.key
-then
-    # we need to have certicate and key in the same pem
-    cat /etc/dovecot/private/dovecot.{pem,key} > /etc/dovecot/private/dovecot.pem.tmp
-    rm -f /etc/dovecot/private/dovecot.{pem,key}
-    mv /etc/dovecot/private/dovecot.pem.tmp /etc/dovecot/dovecot.pem
-fi
-
-if test ! -e /etc/dovecot/private/dovecot.pem
-then
-    if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
-       test ! -e /etc/ssl/private/ssl-cert-snakeoil.key
+    if test -e /etc/dovecot/private/dovecot.pem && \
+    test -e /etc/dovecot/private/dovecot.key
     then
-        make-ssl-cert generate-default-snakeoil
+        # we need to have certicate and key in the same pem
+        cat /etc/dovecot/private/dovecot.{pem,key} > /etc/dovecot/private/dovecot.pem.tmp
+        rm -f /etc/dovecot/private/dovecot.{pem,key}
+        mv /etc/dovecot/private/dovecot.pem.tmp /etc/dovecot/dovecot.pem
     fi
 
-    cat /etc/ssl/certs/ssl-cert-snakeoil.pem \
-        /etc/ssl/private/ssl-cert-snakeoil.key \
-        > /etc/dovecot/private/dovecot.pem
+    if test ! -e /etc/dovecot/private/dovecot.pem
+    then
+        if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
+        test ! -e /etc/ssl/private/ssl-cert-snakeoil.key
+        then
+            make-ssl-cert generate-default-snakeoil
+        fi
 
-    chown root:root /etc/dovecot/private/dovecot.pem
-    chmod 400 /etc/dovecot/private/dovecot.pem
-fi
+        cat /etc/ssl/certs/ssl-cert-snakeoil.pem \
+            /etc/ssl/private/ssl-cert-snakeoil.key \
+            > /etc/dovecot/private/dovecot.pem
+
+        chown root:root /etc/dovecot/private/dovecot.pem
+        chmod 400 /etc/dovecot/private/dovecot.pem
+    fi
 }
 
-if [ "$1" = "gen-dovecot-cert" ]; then
-    dovecot
-    exit 0
-fi
 
-if [ "$1" = "gen-postfix-cert" ]; then
+function enable_mod() {
+    # This function runs the initial configuration the module needs once it is enabled for the first time
+
+    if [ "$1" = "gen-dovecot-cert" ]; then
+        exit 0
+    fi
+
+    if [ "$1" = "gen-postfix-cert" ]; then
+        postfix
+        exit 0
+    fi
+
+    # generate all certificates
     postfix
-    exit 0
-fi
+    dovecot
 
-# generate all certificates
-postfix
-dovecot
+    # generate mail aliases
+    touch /etc/postfix/main.cf # newaliases fails if no main.cf file is present
+    newaliases
 
-# generate mail aliases
-touch /etc/postfix/main.cf # newaliases fails if no main.cf file is present
-newaliases
+    # populate ldap
+    #/usr/share/zentyal-mail/mail-ldap update
 
-# populate ldap
-#/usr/share/zentyal-mail/mail-ldap update
+    # set a valid shell for fetchmail user
+    chsh -s /bin/sh fetchmail
+}
 
-# set a valid shell for fetchmail user
-chsh -s /bin/sh fetchmail
 
+####
+## Calls
+####
+
+enable_mod
+
+exit 0

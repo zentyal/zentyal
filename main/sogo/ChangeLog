@@ -1,6 +1,9 @@
 HEAD
 	+ Set version to 8.0.0
 	+ Update module dependencies
+	+ Update enable-module script
+	+ Add initial-setup script
+	+ Fix SOGo.conf permissions
 7.1.0
 	+ Bump version number
 7.0.1

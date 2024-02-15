@@ -160,6 +160,9 @@ sub initialSetup
         push (@cmds, 'chown root:dhcpd ' . KEYS_DIR);
         push (@cmds, 'chmod 0750 ' . KEYS_DIR);
         EBox::Sudo::root(@cmds);
+
+        # Execute initial-setup script
+        $self->SUPER::initialSetup($version);
     }
 }
 

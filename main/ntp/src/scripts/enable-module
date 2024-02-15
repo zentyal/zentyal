@@ -1,9 +1,30 @@
 #!/bin/bash
 
-# disable ntp daemon executed by Ubuntu networking services during boot
-IFUP=/etc/network/if-up.d/ntpdate
-[ -x $IFUP ] && chmod -x $IFUP
-EXITHOOK=/etc/dhcp/dhclient-exit-hooks.d/ntp
-[ -x $EXITHOOK ] && chmod -x $EXITHOOK
+set -e
+
+####
+## Functions
+####
+
+function enable_mod() {
+    # This function runs the initial configuration the module needs once it is installed
+    # disable ntp daemon executed by Ubuntu networking services during boot
+    IFUP=/etc/network/if-up.d/ntpdate
+    if [ -f $IFUP ] and [ ! -x $IFUP ]; then
+        chmod 0755 $IFUP
+    fi
+
+    EXITHOOK=/etc/dhcp/dhclient-exit-hooks.d/ntp
+    if [ -f $EXITHOOK ] and [ ! -x $EXITHOOK ]; then
+        chmod 0755 $EXITHOOK
+    fi
+}
+
+
+####
+## Calls
+####
+
+enable_mod
 
 exit 0

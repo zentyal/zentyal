@@ -14,7 +14,7 @@ function initial_conf() {
 
 function mod_disabled() {
     # This function stops and disables the services that uses the module
-    systemctl disable --now zentyal.ucp
+    systemctl disable --now isc-dhcp-server tftpd-hpa
 }
 
 

@@ -405,6 +405,9 @@ sub initialSetup
     unless (-d P12DIR) {
         mkdir (P12DIR, PRIVATEDIRMODE)
     }
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
 }
 
 # Method: passwordRequired

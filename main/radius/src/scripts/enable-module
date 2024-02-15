@@ -1,39 +1,58 @@
-#!/bin/bash -x
+#!/bin/bash
 
-DIR=/etc/freeradius/3.0
+set -e
 
-# enable ldap module
-pushd $DIR/mods-enabled
-ln -sf ../mods-available/ldap .
-popd
+####
+## Functions
+####
 
-CERTSDIR=$DIR/certs
+function enable_mod() {
+    # This function runs the initial configuration the module needs once it is enabled for the first time
+    DIR=/etc/freeradius/3.0
 
-# generate certificates
-if test ! -e $CERTSDIR/freeradius.pem
-then
-    if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
-       test ! -e /etc/ssl/private/ssl-cert-snakeoil.key
+    # enable ldap module
+    pushd $DIR/mods-enabled
+    ln -sf ../mods-available/ldap .
+    popd
+
+    CERTSDIR=$DIR/certs
+
+    # generate certificates
+    if test ! -e $CERTSDIR/freeradius.pem
     then
-        make-ssl-cert generate-default-snakeoil
+        if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
+        test ! -e /etc/ssl/private/ssl-cert-snakeoil.key
+        then
+            make-ssl-cert generate-default-snakeoil
+        fi
+
+        cat /etc/ssl/certs/ssl-cert-snakeoil.pem \
+            /etc/ssl/private/ssl-cert-snakeoil.key \
+            > $CERTSDIR/freeradius.pem
+
+        chown root:freerad $CERTSDIR/freeradius.pem
+        chmod 440 $CERTSDIR/freeradius.pem
+    else
+        chown root:freerad $CERTSDIR/freeradius.pem
+        chmod 440 $CERTSDIR/freeradius.pem
     fi
 
-    cat /etc/ssl/certs/ssl-cert-snakeoil.pem \
-        /etc/ssl/private/ssl-cert-snakeoil.key \
-        > $CERTSDIR/freeradius.pem
+    # freeradius log permission
+    chmod 755 /var/log/freeradius
 
-    chown root:freerad $CERTSDIR/freeradius.pem
-    chmod 440 $CERTSDIR/freeradius.pem
-else
-    chown root:freerad $CERTSDIR/freeradius.pem
-    chmod 440 $CERTSDIR/freeradius.pem
-fi
+    # add freerad to winbindd_priv group
+    usermod -a -G winbindd_priv freerad
 
-# freeradius log permission
-chmod 755 /var/log/freeradius
+    # fix winbindd_privileged ownership
+    chown root:winbindd_priv /var/lib/samba/winbindd_privileged
+}
 
-# add freerad to winbindd_priv group
-usermod -a -G winbindd_priv freerad
 
-# fix winbindd_privileged ownership
-chown root:winbindd_priv /var/lib/samba/winbindd_privileged
+####
+## Calls
+####
+
+enable_mod
+
+exit 0
+

@@ -7,7 +7,7 @@ set -e
 ####
 
 function enable_mod() {
-    # This function runs the initial configuration the module needs once it is enabled for the first time
+    # This function runs the initial configuration the module needs once it is installed
     return
 }
 

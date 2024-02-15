@@ -75,6 +75,9 @@ sub initialSetup
         my $firewall = $self->global()->modInstance('firewall');
         $firewall->setInternalService('HTTPS', 'accept');
         $firewall->saveConfigRecursive();
+
+        # Execute initial-setup script
+        $self->SUPER::initialSetup($version);
     }
 
     if ($self->changed()) {
@@ -237,7 +240,7 @@ sub _writeSOGoApacheFile
     push (@{$array}, activesync => $self->_activeSyncEnabled());
     $self->writeConfFile(SOGO_APACHE_FILE,
         'sogo/SOGo.conf-apache.mas',
-        $array, { uid => 0, gid => 0, mode => '755' });
+        $array, { uid => 0, gid => 0, mode => '644' });
 }
 
 sub _writeSOGoConfFile
