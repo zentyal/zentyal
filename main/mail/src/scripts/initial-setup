@@ -1,21 +1,55 @@
 #!/bin/bash
 
-VERSION=$1
+set -e
 
+####
+## Variables
+####
+
+VERSION=$1
 VMAIL_DIR=/var/vmail
 SIEVE_SCRIPTS_DIR=/var/vmail/sieve
 
-# FIXME: If upgrading from 2.0.X, migrate quota to mailquota, if users script
-# is run before this one, their LDAP actions won't be complete, so we'd have to
-# perform them again.
 
-# create directory for vmail
-mkdir -p $VMAIL_DIR
-/bin/chmod 0755 $VMAIL_DIR
-chown ebox:ebox $VMAIL_DIR
-# create directory for sieve filters
-mkdir -p $SIEVE_SCRIPTS_DIR
-/bin/chmod 2775 $SIEVE_SCRIPTS_DIR
-chown ebox:ebox $SIEVE_SCRIPTS_DIR
+####
+## Functions
+####
+
+function initial_conf() {
+    # This function runs the initial configuration the module needs once it is installed
+
+    if [[ ! -s /etc/dovecot/dh.pem ]]; then
+        cp /usr/share/dovecot/dh.pem /etc/dovecot/dh.pem
+        chmod 0640 /etc/dovecot/dh.pem
+        chown root:dovecot /etc/dovecot/dh.pem
+    fi
+
+    # FIXME: If upgrading from 2.0.X, migrate quota to mailquota, if users script
+    # is run before this one, their LDAP actions won't be complete, so we'd have to
+    # perform them again.
+
+    # create directory for vmail
+    mkdir -p $VMAIL_DIR
+    /bin/chmod 0755 $VMAIL_DIR
+    chown ebox:ebox $VMAIL_DIR
+    # create directory for sieve filters
+    mkdir -p $SIEVE_SCRIPTS_DIR
+    /bin/chmod 2775 $SIEVE_SCRIPTS_DIR
+    chown ebox:ebox $SIEVE_SCRIPTS_DIR
+}
+
+
+function mod_disabled() {
+    # This function stops and disables the services that uses the module
+    systemctl disable --now postfix dovecot zentyal.fetchmail postgrey
+}
+
+
+####
+## Calls
+####
+
+initial_conf
+mod_disabled
 
 exit 0

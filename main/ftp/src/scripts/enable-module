@@ -1,6 +1,22 @@
 #!/bin/bash
 
-mkdir -p /etc/vsftpd/ssl
-/usr/share/zentyal/create-certificate /etc/vsftpd/ssl
+set -e
+
+####
+## Functions
+####
+
+function enable_mod() {
+    # This function runs the initial configuration the module needs once it is enabled for the first time
+    mkdir -p /etc/vsftpd/ssl
+    /usr/share/zentyal/create-certificate /etc/vsftpd/ssl
+}
+
+
+####
+## Calls
+####
+
+enable_mod
 
 exit 0

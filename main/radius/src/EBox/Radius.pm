@@ -160,6 +160,9 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
 
         $firewall->saveConfigRecursive();
+
+        # Execute initial-setup script
+        $self->SUPER::initialSetup($version);
     }
 }
 

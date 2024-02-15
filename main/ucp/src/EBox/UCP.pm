@@ -186,8 +186,12 @@ sub initialSetup
 
             $fw->setInternalService($serviceName, 'accept');
         }
+
         $fw->saveConfigRecursive();
         $self->saveConfigRecursive();
+
+        # Execute initial-setup script
+        $self->SUPER::initialSetup($version);
     }
 }
 

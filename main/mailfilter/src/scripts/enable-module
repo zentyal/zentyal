@@ -1,23 +1,33 @@
 #!/bin/bash
 
-# stop services
-SERVICES="amavis spamassassin"
-for SERVICE in $SERVICES; do
-    service $SERVICE stop || true
-done
+set -e
 
-# move out old amavis conf files
-mv /etc/amavis/conf.d /etc/amavis/conf.d.old
-mkdir -p /etc/amavis/conf.d
-chmod --reference=/etc/amavis/conf.d.old /etc/amavis/conf.d
-chown --reference=/etc/amavis/conf.d.old /etc/amavis/conf.d
+####
+## Functions
+####
 
-groups clamav | grep -q amavis
-if [ $? != 0 ]; then
-  # add clamav user to group amavis. Because it need access to amavis stuff
-  addgroup clamav amavis
-fi
+function enable_mod() {
+    # This function runs the initial configuration the module needs once it is enabled for the first time
 
-/usr/share/zentyal-mailfilter/create-spamassassin-db
+    # move out old amavis conf files
+    mv /etc/amavis/conf.d /etc/amavis/conf.d.old
+    mkdir -p /etc/amavis/conf.d
+    chmod --reference=/etc/amavis/conf.d.old /etc/amavis/conf.d
+    chown --reference=/etc/amavis/conf.d.old /etc/amavis/conf.d
 
-exit 0;
+    if ! groups clamav | grep -q amavis; then
+      # add clamav user to group amavis. Because it need access to amavis stuff
+      addgroup clamav amavis
+    fi
+
+    /usr/share/zentyal-mailfilter/create-spamassassin-db
+}
+
+
+####
+## Calls
+####
+
+enable_mod
+
+exit 0

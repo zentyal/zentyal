@@ -1,14 +1,30 @@
 #!/bin/bash
 
-# Enable apache modules
-a2enmod proxy
-a2enmod proxy_http
-a2enmod headers
-a2enmod ssl
+set -e
 
-a2enconf SOGo
-a2ensite default-ssl
+####
+## Functions
+####
 
-systemctl restart apache2
+function enable_mod() {
+    # This function runs the initial configuration the module needs once it is enabled for the first time
+    # Enable apache modules
+    a2enmod proxy
+    a2enmod proxy_http
+    a2enmod headers
+    a2enmod ssl
+
+    # a2enconf SOGo
+    a2ensite default-ssl
+
+    systemctl restart apache2
+}
+
+
+####
+## Calls
+####
+
+enable_mod
 
 exit 0
