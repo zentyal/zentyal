@@ -342,7 +342,8 @@ sub initialSetup
         $network->saveConfigRecursive();
     }
 
-    system('mkdir -p /var/lib/zentyal/conf/samba/sync_shares');
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
 }
 
 sub _checkEnableIPs

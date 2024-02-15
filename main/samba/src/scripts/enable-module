@@ -1,9 +1,25 @@
 #!/bin/bash
 
-# enable quotas
-/usr/share/zentyal-samba/enable-quotas
+set -e
 
-# This might fail if the fs does not support quotas
-systemctl restart quota
+####
+## Functions
+####
+
+function enable_mod() {
+    # This function runs the initial configuration the module needs once it is installed
+    # enable quotas
+    /usr/share/zentyal-samba/enable-quotas
+
+    # This might fail if the fs does not support quotas
+    systemctl restart quota || true
+}
+
+
+####
+## Calls
+####
+
+enable_mod
 
 exit 0
