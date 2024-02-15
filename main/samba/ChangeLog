@@ -4,6 +4,7 @@ HEAD
 	+ Update enable-module script
 	+ Add initial-setup script
 	+ Disable password expiration for the special DNS domain user
+	+ Increase size of the username field in samba_access table. Fix #2131
 7.1.0
 	+ Bump version number
 7.0.3
