@@ -47,6 +47,9 @@ use EBox::Gettext;
 
     map to guest = Bad User
 
+    # Prevent LDAP enumeration
+    restrict anonymous = 2
+
     log level = 3
     log file = /var/log/samba/samba.log
     max log size = 100000
