@@ -5,8 +5,9 @@ db_user=amavis
 db_pass=`tr -dc A-Za-z0-9 < /dev/urandom | head -c8`
 PASSWD_FILE=/var/lib/zentyal/conf/sa-mysql.passwd
 
-echo "CREATE DATABASE $db_name;
-      GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$db_pass\";
+echo "CREATE DATABASE IF NOT EXISTS $db_name;
+      CREATE USER IF NOT EXISTS '$db_user'@'localhost' IDENTIFIED BY \"$db_pass\";
+      GRANT ALL PRIVILEGES ON $db_name.* TO '$db_user'@'localhost';
       FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 
 cat /usr/share/zentyal-mailfilter/spamassassin.sql | mysql --defaults-file=/etc/mysql/debian.cnf $db_name
