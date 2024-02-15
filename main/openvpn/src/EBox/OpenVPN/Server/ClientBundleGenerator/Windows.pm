@@ -87,7 +87,7 @@ sub _windowsClientInstaller
 {
     my $dir = EBox::Config::share() . 'zentyal-openvpn';
 
-    my @candidates = bsd_glob("$dir/openvpn*install*exe");   # the sort is to
+    my @candidates = bsd_glob("$dir/OpenVPN*-amd64.msi");   # the sort is to
     if (not @candidates) {
         throw EBox::Exceptions::Internal("No windows installer found");
     }
