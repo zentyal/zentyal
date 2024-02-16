@@ -12,7 +12,15 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 Package: zentyal-jabber
 Architecture: all
 Depends: zentyal-core (>= 8.0.0), zentyal-core (<< 8.1.0), zentyal-samba,
-         ejabberd, erlang-p1-stun, ${misc:Depends}
+         erlang-asn1, erlang-base, erlang-base64url, erlang-crypto, erlang-dialyzer,
+         erlang-edoc, erlang-eunit, erlang-ftp, erlang-goldrush, erlang-idna, erlang-inets,
+         erlang-jiffy, erlang-jose, erlang-lager, erlang-mnesia, erlang-odbc, erlang-os-mon,
+         erlang-p1-acme, erlang-p1-cache-tab, erlang-p1-eimp, erlang-p1-mqtree, erlang-p1-pkix,
+         erlang-p1-stringprep, erlang-p1-stun, erlang-p1-tls, erlang-p1-utils, erlang-p1-xml,
+         erlang-p1-xmpp, erlang-p1-yaml, erlang-p1-yconf, erlang-p1-zlib, erlang-proper,
+         erlang-public-key, erlang-runtime-tools, erlang-snmp, erlang-ssl, erlang-syntax-tools,
+         erlang-tftp, erlang-tools, erlang-unicode-util-compat, erlang-xmerl, libodbc2, libsctp1,
+         erlang-p1-stun, ${misc:Depends}
 Conflicts: jabberd2
 Description: Zentyal - Jabber
  Zentyal is a Linux small business server that can act as
