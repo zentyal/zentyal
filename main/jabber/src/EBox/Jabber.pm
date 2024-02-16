@@ -36,7 +36,8 @@ use constant JABBERPORTSSL => '5223';
 use constant JABBERPORTS2S => '5269';
 use constant JABBERPORTSTUN => '3478';
 use constant JABBERPORTPROXY => '7777';
-use constant EJABBERD_CTL => '/usr/sbin/ejabberdctl';
+use constant SYSTEMCTL => '/usr/bin/systemctl';
+use constant JABBERSERVICE => 'ejabberd';
 use constant EJABBERD_DB_DIR =>  '/var/lib/ejabberd';
 
 sub _create
@@ -154,25 +155,25 @@ sub _daemons
 sub isRunning
 {
     my ($self) = @_;
-    my $stateCmd = 'LANG=C '. EJABBERD_CTL . ' status';
-    my $output;
-    try {
-        $output =  EBox::Sudo::root($stateCmd);
-    } catch (EBox::Exceptions::Sudo::Command $e) {
-        # output will be undef
-    }
+    my $stateCmd = 'LANG=C '. SYSTEMCTL . ' is-active ' . JABBERSERVICE;
+    my ($exitCode, $output);
 
+    $output = qx{sudo $stateCmd};
+    $exitCode = $? >> 8;
     if (not $output) {
         return 0;
     }
 
-    foreach my $line (@{ $output }) {
-        if ($line =~ m/is running in that node/) {
-            return 1;
-        }
+    if ($exitCode == 0) {
+        # The service is running
+        return 1;
+    } elsif ($exitCode == 3) {
+        # The service is stopeed
+        return undef;
+    } else {
+        # Other exceptions
+        return 0;
     }
-
-    return 0;
 }
 
 # Method: _setConf

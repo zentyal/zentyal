@@ -2,6 +2,8 @@ HEAD
 	+ Set version to 8.0.0
 	+ Update stub
 	+ Add initial-setup and enable-module scripts
+	+ Add a workaround to manage a bug in ejabberd package with Systemd
+	+ Update isRunning method due to a deprecated command
 7.1.0
 	+ Bump version number
 7.0.0

@@ -1,18 +1,29 @@
-########
-#### enable-module
-########
-
 #!/bin/bash
 
-set -e
+# set -e
 
 ####
 ## Functions
 ####
 
+function workaround_systemd() {
+    # This function is created as a workaround for the bug: https://bugs.launchpad.net/ubuntu/+source/ejabberd/+bug/1970791
+    local JABBER_DIR='/usr/share/zentyal-jabber'
+    local JABBER_PKG_NAME=$(find $JABBER_DIR -type f -name "*.deb")
+    local JABBER_SYSTEMD_FILE="$JABBER_DIR/ejabberd.service"
+
+    if ! timeout 15 dpkg -i $JABBER_PKG_NAME; then
+        systemctl stop ejabberd
+        cp $JABBER_SYSTEMD_FILE /lib/systemd/system/
+        systemctl daemon-reload
+        dpkg --configure ejabberd
+    fi
+}
+
+
 function enable_mod() {
     # This function runs the initial configuration the module needs once it is enabled for the first time
-    return
+    workaround_systemd
 }
 
 

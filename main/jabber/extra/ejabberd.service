@@ -1,0 +1,24 @@
+[Unit]
+# Bug: https://bugs.launchpad.net/ubuntu/+source/ejabberd/+bug/1970791
+Description=Custom workaround: Robust, scalable and extensible realtime platform (XMPP server + MQTT broker + SIP service)
+Documentation=https://www.process-one.net/en/ejabberd/docs/
+After=epmd.service network.target
+Requires=epmd.service
+
+[Service]
+Type=forking
+User=ejabberd
+Group=ejabberd
+LimitNOFILE=65536
+Restart=on-failure
+RestartSec=5
+ExecStart=/bin/sh -c '/usr/sbin/ejabberdctl start && /usr/sbin/ejabberdctl started'
+ExecStop=/bin/sh -c '/usr/sbin/ejabberdctl stop && /usr/sbin/ejabberdctl stopped'
+ExecReload=/bin/sh -c '/usr/sbin/ejabberdctl reload_config'
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target
