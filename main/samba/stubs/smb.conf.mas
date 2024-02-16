@@ -38,6 +38,10 @@ use EBox::Gettext;
     template shell = <% $shell %>
     template homedir = /home/%U
 
+    # Disabled the capability for non-root users to add, modify, and delete their own share definitions has been added
+    # Default value by Samba: /var/lib/samba/usershares/
+    usershare path =
+
     rpc server dynamic port range = 49152-65535
 
 % if ($ifaces) {
