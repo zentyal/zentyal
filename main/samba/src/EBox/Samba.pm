@@ -2663,11 +2663,12 @@ sub writeSambaConfig
         } else {
             push (@array, 'disableFullAudit' => 1);
         }
-        
+
     }
 
     push (@array, 'unmanagedAcls' => EBox::Config::boolean('unmanaged_acls'));
     push (@array, 'shares' => $self->shares());
+    push (@array, 'disable_home_share' => EBox::Config::boolean('disable_home_share'));
 
     push (@array, 'recycle' => $self->defaultRecycleSettings());
     push (@array, 'recycle_exceptions' => $self->recycleExceptions());
