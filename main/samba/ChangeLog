@@ -6,6 +6,7 @@ HEAD
 	+ Disable password expiration for the special DNS domain user
 	+ Increase size of the username field in samba_access table. Fix #2131
 	+ Prevent LDAP enumeration
+	+ Add option to disable home share
 7.1.0
 	+ Bump version number
 7.0.3

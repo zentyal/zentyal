@@ -2,6 +2,7 @@
     @shares => ()
     $unmanagedAcls => 0
     $disableFullAudit => 0
+    $disable_home_share => 0
 
     $recycle => 0
     $recycle_exceptions => {}
@@ -13,6 +14,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
+% unless ($disable_home_share) {
 [homes]
     comment = <% __('Home Directories') %>
     path = /home/%S
@@ -39,6 +41,7 @@ use EBox::Gettext;
 %       next unless $key;
     recycle: <% $key %> = <% $recycle_config->{$key} %>
 %   }
+% }
 % }
 
 # <% @shares ? "Shares\n" : "No shares configured" %>
