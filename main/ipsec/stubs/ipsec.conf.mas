@@ -38,6 +38,7 @@ conn <% $tunnel->{'name'} . '-subnet' %>
 	auto=start
 
 %   } elsif ($tunnel->{'type'} eq 'l2tp') {
+        ikev2=never
         rekey=no
         keyingtries=3
         pfs=no
@@ -52,6 +53,6 @@ conn <% $tunnel->{'name'} . '-subnet' %>
 conn <% $tunnel->{'name'} . '-nat' %>
 	also=<% $tunnel->{'name'} %>
 	rightsubnet=vhost:%priv
-
+        also=ikev1
 %   }
 % }
