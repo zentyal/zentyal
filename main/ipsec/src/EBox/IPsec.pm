@@ -200,8 +200,10 @@ sub initialSetup
 
         my $firewall = $global->modInstance('firewall');
         $firewall->setExternalService($serviceName, 'accept');
-
         $firewall->saveConfigRecursive();
+
+        # Execute initial-setup script
+        $self->SUPER::initialSetup($version);
     }
 }
 

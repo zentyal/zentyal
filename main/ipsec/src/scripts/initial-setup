@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+####
+## Functions
+####
+
+function initial_conf() {
+    # This function runs the initial configuration the module needs once it is installed
+    return
+}
+
+
+function mod_disabled() {
+    # This function stops and disables the services that uses the module
+    return
+}
+
+
+####
+## Calls
+####
+
+initial_conf
+mod_disabled
+
+exit 0
