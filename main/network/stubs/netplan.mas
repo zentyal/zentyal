@@ -7,6 +7,7 @@ use EBox::Config;
 my $hasEthernets = 0;
 my $hasBonds = 0;
 my $bondSlave = 0;
+my $hasBridged = 0;
 my $hasBridges = 0;
 my $hasVlans = 0;
 my $hasVifaces = 0;
@@ -22,7 +23,10 @@ foreach my $iface (@iflist) {
     if ($networkMod->ifaceIsBond($iface) && ($networkMod->ifaceMethod($iface) ne 'notset')) {
         $hasBonds = 1;
     }
-    if ($networkMod->ifaceIsBridge($iface)) {
+    if ($networkMod->ifaceMethod($iface) eq 'bridged') {
+        $hasBridged = 1;
+    }
+    if ($networkMod->ifaceIsBridge($iface) && ($networkMod->ifaceMethod($iface) ne 'notset')) {
         $hasBridges = 1;
     }
     if($iface =~ /^vlan/) {
@@ -142,35 +146,39 @@ network:
 %     }
 %   }
 % }
-% if ($hasBridges) {
+% if ($hasBridged && $hasBridges) {
   bridges:
-% }
-% foreach my $iface (@iflist) {
-%   if ($networkMod->ifaceIsBridge($iface)) {
+%   foreach my $iface (@iflist) {
+%     if ($networkMod->ifaceIsBridge($iface)) {
+%       my $method = $networkMod->ifaceMethod($iface);
+%       next if $method eq 'notset';
     <% $iface %>:
       interfaces: [ <% join ', ', @{$networkMod->bridgeIfaces($iface)} %> ]
-%     if($networkMod->ifaceMethod($iface) eq 'dhcp') {
+%       if($method eq 'dhcp') {
       dhcp4: yes
       dhcp6: no
-%     } else {
+%       } else {
       dhcp4: no
       dhcp6: no
       addresses:
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
-%     }
+%       }
       macaddress: <% EBox::NetWrappers::iface_mac_address($iface) %>
       parameters:
         stp: false
         forward-delay: 5
+%     }
 %   }
 % }
 
 % if ($hasBonds && $bondSlave) {
   bonds:
 %   foreach my $iface (@iflist) {
+%     my $method = $networkMod->ifaceMethod($iface);
+%     next if $method eq 'notset';
 %     if ($networkMod->ifaceIsBond($iface)) {
     <% $iface %>:
-%       if($networkMod->ifaceMethod($iface) eq 'dhcp') {
+%       if($method eq 'dhcp') {
       dhcp4: true
       dhcp6: false
 %       } else {
@@ -193,6 +201,7 @@ network:
 %   foreach my $iface (@iflist) {
 %     if($iface =~ /^vlan/) {
 %       my $method = $networkMod->ifaceMethod($iface);
+%       next if $method eq 'notset';
 %       my $vlan = $networkMod->vlan($iface);
     <% $iface %>:
       link: <% $vlan->{interface} %>
