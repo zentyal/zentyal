@@ -245,6 +245,7 @@ sub createCA
         open ( $OUT, ">" . CRLNOFILE);
         print $OUT "01\n";
         close ($OUT);
+        EBox::Sudo::silentRoot("chown -R ebox:ebox " . CATOPDIR);
     }
 
     # Save the current CA password for private key (It can be undef)
@@ -2107,6 +2108,10 @@ sub _createRequest # (reqFile, genKey, privKey, keyPassword, dn, needPass?)
     my ($retVal, $output) = $self->_executeCommand(command => $cmd);
     delete( $ENV{'PASS'} );
 
+    if (EBox::Sudo::fileTest('-f', "$args{privKey}")) {
+        EBox::Sudo::root("chown ebox:ebox $args{privKey}");
+    }
+
     return $output if ($retVal eq 'ERROR');
     return;
 }
@@ -2387,7 +2392,7 @@ sub _maxDays
     return $diff->day();
 }
 
-# Print the row for CA cert in index.txt file (to fuck them up)
+# Print the row for CA cert in index.txt file
 sub _putInIndex # (EBox::CA::DN dn, String certFile, String
 # serialNumber)
 {
@@ -2404,7 +2409,9 @@ sub _putInIndex # (EBox::CA::DN dn, String certFile, String
     $subject =~ s/\/$//g;
     $row .= $subject . "\n";
 
-    open (my $index, ">>" . INDEXFILE);
+    EBox::Sudo::silentRoot("chown ebox:ebox " . INDEXFILE);
+
+    open (my $index, ">>", INDEXFILE);
     print $index $row;
     close($index);
 }
@@ -2604,47 +2611,11 @@ sub _audit
     $self->{audit}->logAction('ca', 'Certification Authority', $action, $arg);
 }
 
-#####
-# OpenSSL shell management
-#####
-sub _startShell
-{
-    my ($self, $outputFile, $errorFile) = @_;
-
-    return if ( $self->{shell} );
-
-    my $open = '| ' . OPENSSLPATH
-               . " 1>$outputFile"
-               . " 2>$errorFile";
-
-    if ( not open($self->{shell}, $open) ) {
-        throw EBox::Exceptions::Internal(__x("Cannot start OpenSSL shell. ({errval})", errval => $!));
-    }
-}
-
-sub _stopShell
-{
-    my ($self) = @_;
-
-    return if (not $self->{shell} );
-
-    print {$self->{shell}} "exit\n";
-    close($self->{shell});
-    undef($self->{shell});
-}
-
 # Return two values into an array
 # (OK or ERROR, output)
 sub _executeCommand # (command, input, hide_output)
 {
     my ($self, %params) = @_;
-
-    my $tmpDir = EBox::Config::tmp();
-    my (undef, $outputFile) = File::Temp::tempfile(OPEN => 0, DIR => $tmpDir);
-    my (undef, $errorFile)  = File::Temp::tempfile(OPEN => 0, DIR => $tmpDir);
-
-    # Initialise the shell, launch exception if it is not possible
-    $self->_startShell($outputFile, $errorFile);
 
     my $command = $params{command};
     # EBox::debug("OpenSSL command: $command");
@@ -2652,47 +2623,25 @@ sub _executeCommand # (command, input, hide_output)
     $command =~ s/\n*$//;
     $command .= "\n";
 
-    # Send the command
-    if (not print {$self->{shell}} $command) {
-        my $errVal = $!;
-        throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell: $errVal");
-    }
+    my $return = EBox::Sudo::root("openssl $command");
 
-    my $input;
-    $input = $params{input} if (exists $params{input});
-    # Send the input
-    if ($input and not print {$self->{shell}} $input . "\x00") {
-        my $errVal = $!;
-        throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell: $errVal");
-    }
+   my $input;
+   $input = $params{input} if (exists $params{input});
 
-    # Close the shell
-    $self->_stopShell();
 
-    # check for errors
-    if (-e $errorFile) {
-        # There was an error
-        my $ret = File::Slurp::read_file($errorFile);
-        unlink($errorFile);
-        if ( $ret =~ /error/i ) {
-            unlink($outputFile);
-            EBox::error("Error: $ret");
-            return ('ERROR', $ret);
-        }
-    }
-
-    # Load the output
+   # Load the output
     my $ret = 1;
-    if ( -e $outputFile ) {
-        $ret = File::Slurp::read_file($outputFile);
-        # $ret =~ s/^(OpenSSL>\s)*//s;
-        $ret =~ s/^OpenSSL>\s*//gm;
-        $ret = 1 if ($ret eq "");
+   if (defined $return->[0]) {
+        $ret = $return->[0];
+        chomp($ret);
     }
-    unlink($outputFile);
 
-    my $msg = $ret;
-    $msg = "<NOT LOGGED>" if ($params{hide_output});
+    # $ret =~ s/^(OpenSSL>\s)*//s;
+    $ret =~ s/^OpenSSL>\s*//gm;
+    $ret = 1 if ($ret eq "");
+
+   my $msg = $ret;
+   $msg = "<NOT LOGGED>" if ($params{hide_output});
 
     return ('OK', $ret);
 }

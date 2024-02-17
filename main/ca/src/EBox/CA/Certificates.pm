@@ -201,7 +201,8 @@ sub _genCert
     open(my $CERT, $cert) or throw EBox::Exceptions::Internal('Could not open certificate file.');
     my @certdata = <$CERT>;
     close($CERT);
-    open(my $KEY, $privkey) or throw EBox::Exceptions::Internal('Could not open certificate file.');
+
+    open(my $KEY, $privkey) or throw EBox::Exceptions::Internal('Could not open certificate private key file.');
     my @privkeydata = <$KEY>;
     close($KEY);
 
