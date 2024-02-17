@@ -155,9 +155,10 @@ network:
 %     } else {
       dhcp4: no
       dhcp6: no
-      addresses: 
+      addresses:
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
 %     }
+      macaddress: <% EBox::NetWrappers::iface_mac_address($iface) %>
       parameters:
         stp: false
         forward-delay: 5
@@ -179,7 +180,6 @@ network:
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
 %       }
       interfaces: [ <% join ', ', @{$networkMod->bondIfaces($iface)} %> ]
-      macaddress: <% EBox::NetWrappers::iface_mac_address($iface) %>      
       parameters:
         mode: <% $networkMod->bondMode($iface) %>
         up-delay: 200
