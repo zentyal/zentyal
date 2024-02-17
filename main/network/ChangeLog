@@ -6,6 +6,7 @@ HEAD
 	+ Fix bonds and bridges deletion
 	+ Remove old network/interfaces related logic
 	+ Replace network/interfaces by netplan
+	+ Change the location of the macaddress parameter in Netplan
 7.1.0
 	+ Bump version number
 7.0.0
