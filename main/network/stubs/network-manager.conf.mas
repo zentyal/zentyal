@@ -1,8 +1,12 @@
 <%args>
 $unmanagedIfaces
+$dns
 </%args>
 [main]
 plugins=keyfile
+% if ($dns) {
+dns=none
+% }
 
 [logging]
 level=ERR

@@ -7,6 +7,9 @@ HEAD
 	+ Remove old network/interfaces related logic
 	+ Replace network/interfaces by netplan
 	+ Change the location of the macaddress parameter in Netplan
+	+ Remove dependency
+	+ Remove deprecated stub
+	+ Code cleanup
 7.1.0
 	+ Bump version number
 7.0.0
