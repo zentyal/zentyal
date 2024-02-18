@@ -39,11 +39,7 @@ sub init
     $self->{file} = $file;
 
     unless (-d $path) {
-        system ("mkdir -p $path");
-    }
-
-    if (EBox::Sudo::fileTest('-O', '/run/shm/zentyal/') == 1) {
-        EBox::Sudo::root('chown -R ebox:ebox /run/shm/zentyal/');
+        mkdir ($path);
     }
 
     unless (-f $file) {
@@ -61,6 +57,11 @@ sub unlock
 
     my $file = $self->{file};
 
+
+    if (EBox::Sudo::fileTest('-f', "$self->{file}")) {
+        EBox::Sudo::silentRoot("chown ebox:ebox $file");
+    }
+
     open(LOCKFILE, ">$file") or
         throw EBox::Exceptions::Internal("Cannot open lockfile to unlock: $file");
     flock(LOCKFILE, LOCK_UN);
@@ -72,6 +73,10 @@ sub lock
     my ($self) = @_;
 
     my $file = $self->{file};
+
+    if (EBox::Sudo::fileTest('-f', "$self->{file}")) {
+        EBox::Sudo::silentRoot("chown ebox:ebox $file");
+    }
 
     open(LOCKFILE, ">$file") or
         throw EBox::Exceptions::Internal("Cannot open lockfile to lock: $file");
