@@ -940,6 +940,7 @@ td[class^="icon"] {
 .icon-webserver { background-image: url("/data/images/package-icons/zentyal-webserver.png");}
 .icon-virt { background-image: url("/data/images/package-icons/zentyal-virt.png");}
 .icon-ha { background-image: url("/data/images/package-icons/zentyal-ha.png");}
+.icon-docker { background-image: url("/data/images/package-icons/zentyal-docker.png");}
 
 /**********************************************************************************************
 
