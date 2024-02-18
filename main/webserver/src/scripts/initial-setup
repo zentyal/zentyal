@@ -1,0 +1,60 @@
+#!/bin/bash
+
+set -e
+
+####
+## Functions
+####
+
+function hardening() {
+    # This function does some hardening actions
+
+    # Hide Apache2's version
+    sed -i 's/ServerSignature On/ServerSignature Off/' /etc/apache2/conf-enabled/security.conf
+    sed -i 's/ServerTokens OS/ServerTokens Prod/' /etc/apache2/conf-enabled/security.conf
+}
+
+
+function ssl() {
+    # This function copies the default SSL settings the virtualhost will use
+    cp /usr/share/zentyal-webserver/ssl-config.conf /etc/apache2/
+}
+
+
+function default_index() {
+    # This function copy a custom index that provides less information
+    rm -f /var/www/html/*
+    cp /usr/share/zentyal-webserver/index.html /var/www/html
+    chown www-data:www-data /var/www/html/index.html
+}
+
+
+function mod_apache2_enable() {
+    # This function enables the required Apache2 modules
+    a2enmod proxy proxy_http headers ssl socache_shmcb http2 rewrite
+}
+
+
+function initial_conf() {
+  # This function runs the initial configuration the module needs once it is installed
+  hardening
+  ssl
+  default_index
+  mod_apache2_enable
+}
+
+
+function mod_disabled() {
+    # This function stops and disables the services that uses the module
+    systemctl disable --now apache2
+}
+
+
+####
+## Calls
+####
+
+initial_conf
+mod_disabled
+
+exit 0

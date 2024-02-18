@@ -28,27 +28,41 @@
 </%init>
 % if ($sslSupport ne 'forcessl') {
 <VirtualHost *:<% $port %>>
-        ServerAdmin webmaster@<% $hostname %>
+    ServerAdmin webmaster@<% $hostname %>
 
-        ServerName <% $vHostName %>:<% $publicPort %>
-        DocumentRoot <% $docRoot %>/<% $vHostName %>
+    ServerName <% $vHostName %>
+    DocumentRoot <% $docRoot %>/<% $vHostName %>
+    DirectoryIndex index.html
 
-        ErrorLog /var/log/apache2/<% $vHostName %>-error.log
-        CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
+    ErrorLog /var/log/apache2/<% $vHostName %>-error.log
+    CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
 
-        # Custom configuration goes in this file
-        IncludeOptional <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
+    <Directory "<% $docRoot %>/<% $vHostName %>">
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+    </Directory>
+
+    # Custom configuration goes in this file
+    # IncludeOptional <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
 </VirtualHost>
 % } else {
 <VirtualHost *:<% $port %>>
-        ServerAdmin webmaster@<% $hostname %>
+    ServerAdmin webmaster@<% $hostname %>
 
-        ServerName <% $vHostName %>:<% $publicPort %>
-        DocumentRoot <% $docRoot %>/<% $vHostName %>
+    ServerName <% $vHostName %>
+    DocumentRoot <% $docRoot %>/<% $vHostName %>
+    DirectoryIndex index.html
 
-        ErrorLog /var/log/apache2/<% $vHostName %>-error.log
-        CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
+    ErrorLog /var/log/apache2/<% $vHostName %>-error.log
+    CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
 
-        Redirect permanent / https://<% $vHostName %>:<% $publicSSLPort %>/
+    <Directory "<% $docRoot %>/<% $vHostName %>">
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+    </Directory>
+
+    Redirect permanent / https://<% $vHostName %>:<% $publicSSLPort %>/
 </VirtualHost>
 % }
