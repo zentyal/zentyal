@@ -11,6 +11,7 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
+use EBox::Exceptions::External;
 
 use constant CONFDIR => '/var/lib/zentyal/docker/';
 use constant MANAGE_SCRIPT => CONFDIR . 'docker-manage.sh';
@@ -98,6 +99,12 @@ sub _daemonsToDisable
 sub initialSetup
 {
     my ($self, $version) = @_;
+
+    # Execute initial-setup script if is first install
+    my $software = $self->global()->modInstance('software');
+    if (!$software->isInstalled('zentyal-docker')) {
+        $self->SUPER::initialSetup($version);
+    }
 
     if (not EBox::Sudo::fileTest('-d', CONFDIR)) {
         EBox::Sudo::root('mkdir '.CONFDIR);
