@@ -807,8 +807,6 @@ sub _setConf
         $self->writeConfFile($file, 'dns/keys.mas', \@array,
             {uid => 'root', 'gid' => 'dhcpd', mode => '640'});
     }
-
-    $self->global->modInstance('network')->restartService();
 }
 
 sub _writeReverseFiles

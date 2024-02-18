@@ -8,6 +8,7 @@ HEAD
 	+ Add resolvconf dependency
 	+ Added resolvconf service
 	+ Update bind9.mas stub
+	+ Remove unnecessary network restart
 7.1.0
 	+ Bump version number
 7.0.2
