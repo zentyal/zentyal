@@ -163,7 +163,7 @@ network:
       addresses:
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
 %       }
-      macaddress: <% EBox::NetWrappers::iface_mac_address($iface) %>
+      macaddress: <% EBox::NetWrappers::iface_mac_address($networkMod->bridgeIfaces($iface)->[0]) %>
       parameters:
         stp: false
         forward-delay: 5

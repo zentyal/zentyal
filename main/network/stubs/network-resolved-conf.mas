@@ -1,7 +1,0 @@
-<%args>
-@resolvedConfig
-</%args>
-
-% foreach my $line (@resolvedConfig) {
-<% $line %>
-% }

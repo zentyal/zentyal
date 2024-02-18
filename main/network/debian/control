@@ -14,8 +14,8 @@ Architecture: all
 Depends: zentyal-core (>= 8.0.0), zentyal-core (<< 8.1.0),
          dnsutils, libnet-ip-perl, isc-dhcp-client,
          iptables, libnet-arp-perl, wget, traceroute, ppp,
-         libnet-interface-perl, debconf, wakeonlan, bridge-utils, netplan.io,
-         resolvconf, ethtool, network-manager, ${misc:Depends}
+         libnet-interface-perl, debconf, wakeonlan, bridge-utils,
+         netplan.io, ethtool, network-manager, ${misc:Depends}
 Description: Zentyal - Network Configuration
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

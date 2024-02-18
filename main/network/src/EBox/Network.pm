@@ -31,6 +31,12 @@ use constant NETPLAN_FILE => '/etc/netplan/netplan.yaml';
 use constant NETPLAN => '/usr/sbin/netplan';
 use constant NETWORK_MANAGER_FILE => '/etc/NetworkManager/NetworkManager.conf';
 use constant RESOLV_FILE => '/etc/resolv.conf';
+use constant SYSTEMD_RESOLVED_FILE => '/run/systemd/resolve/stub-resolv.conf';
+use constant NAMED_RESOLVCONF_FILE => '/run/resolvconf/resolv.conf';
+use constant RESOLVCONF_INTERFACE_ORDER => '/etc/resolvconf/interface-order';
+use constant RESOLVCONF_BASE => '/etc/resolvconf/resolv.conf.d/base';
+use constant RESOLVCONF_HEAD => '/etc/resolvconf/resolv.conf.d/head';
+use constant RESOLVCONF_TAIL => '/etc/resolvconf/resolv.conf.d/tail';
 use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
@@ -201,6 +207,34 @@ sub usedFiles
     return \@files;
 }
 
+sub _namedResolvconfPreCondition
+{
+    my ($self) = @_;
+
+    ## Resolv for DNS module
+    my $global = EBox::Global->getInstance();
+    if ($global->modInstance('software')->isInstalled('zentyal-dns') and $global->modInstance('dns')->isEnabled()) {
+        return 1;
+    }
+
+    return undef;
+}
+
+sub _systemdResolvedPreCondition
+{
+    my ($self) = @_;
+
+    ## Resolv for Network (systemd-resolved)
+    my $global = EBox::Global->getInstance();
+    if ($global->modInstance('software')->isInstalled('zentyal-dns')) {
+        if ($global->modInstance('dns')->isEnabled()) {
+            return undef;
+        }
+    }
+
+    return 1;
+}
+
 #  Method: _daemons
 #
 #   Overrides <EBox::Module::Service::_daemons>
@@ -208,8 +242,8 @@ sub usedFiles
 sub _daemons
 {
     return [
-        { name => 'systemd-resolved' },
-        { name => 'NetworkManager'}
+        { name => 'NetworkManager'},
+        { name => 'systemd-resolved', precondition => \&_systemdResolvedPreCondition}
     ];
 }
 
@@ -220,8 +254,9 @@ sub _daemons
 sub _daemonsToDisable
 {
     return [
+        { name => 'systemd-networkd.socket' },
         { name => 'systemd-networkd' },
-        { name => 'systemd-networkd.socket' }
+        { name => 'systemd-resolved', precondition => \&_namedResolvconfPreCondition}
     ];
 }
 
@@ -3155,55 +3190,6 @@ sub _setChanged # (interface)
     $self->set('interfaces', $ifaces);
 }
 
-# Method: _generateSystemdResolvedConfig
-#
-#   This method write the etc/systemd/resolved.conf.d/zentyal.conf file.
-#
-sub _generateSystemdResolvedConfig
-{
-    my ($self) = @_;
-
-    # Initialize systemd-resolved configuration as an array
-    my @resolvedConfig = ("[Resolve]");
-
-    # Get information from the DNSResolver model
-    my $model = $self->model('DNSResolver');
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $resolver = $row->valueByName('nameserver');
-        if (defined $resolver and length $resolver) {
-            push @resolvedConfig, "DNS=$resolver";
-        }
-    }
-
-    # Add search domain
-    my $searchDomainModel = $self->model('SearchDomain');
-    my $searchDomain = $searchDomainModel->value('domain');
-    if ($searchDomain) {
-        push @resolvedConfig, "Domains=$searchDomain";
-    }
-
-    # Ensure the /etc/systemd/resolved.conf.d directory exists
-    if (not EBox::Sudo::fileTest('-d', '/etc/systemd/resolved.conf.d/')) {
-        EBox::info("Creating dir /etc/systemd/resolved.conf.d");
-        EBox::Sudo::root('mkdir /etc/systemd/resolved.conf.d');
-    }
-
-    # Restart systemd-resolved to apply the changes
-    $self->writeConfFile(
-        RESOLVED_FILE,
-        'network/network-resolved-conf.mas', 
-        [ resolvedConfig => \@resolvedConfig ], 
-        { mode => '0644', uid => 0, gid => 0 }
-    );
-
-    # Reinicia systemd-resolved para aplicar los cambios
-    EBox::Sudo::root('systemctl restart systemd-resolved');
-
-   # Apply the changes to the system network configuration
-    $self->_applyChangesToSystemNetwork();
-}
-
 # Generate the configuration if a HTTP proxy has been set
 sub _generateProxyConfig
 {
@@ -3364,31 +3350,6 @@ sub generateInterfaces
     );
 }
 
-# Generate the static routes from routes() with "ip" command
-sub _generateRoutes
-{
-    my ($self) = @_;
-    my @routes = @{$self->routes()};
-
-    # clean up unnecesary rotues
-    $self->_removeRoutes(\@routes);
-    @routes or return;
-
-    my @cmds;
-    foreach my $route (@routes) {
-        my $net    = $route->{network};
-        $net =~ s[/32$][]; # route_is_up needs no /24 mask
-        my $gw     = $route->{gateway};
-        # check if route already is up
-        if (route_is_up($net, $gw)) {
-            next;
-        }
-    
-        # TODO: We must to keep this or not?
-        #my $cmd = "/sbin/ip route add $net via $gw table main";
-        #EBox::Sudo::root($cmd)
-    }
-}
 
 # Remove not configured routes
 sub _removeRoutes
@@ -3472,7 +3433,7 @@ sub _multigwRoutes
     # We enclose iptables rules containing CONNMARK target
     # within a try/catch block because
     # kernels < 2.6.12 do not include such module.
-    
+
     my $marks = $self->marksForRouters();
     my $routers = $self->gatewaysWithMac();
     my @cmds; # commands to run
@@ -3520,21 +3481,9 @@ sub _multigwRoutes
             (undef, $ip) = split ('/', $ip);
         }
 
-        # Write mark rules first to avoid local output problems
-        push(@cmds, "/sbin/ip route flush table $table || true");
-        push(@markRules, "/sbin/ip rule add fwmark $mark/0xFF table $table");
-        push(@addrRules, "/sbin/ip rule add from $ip table $table");
-
-        # Add rule by source in multi interface configuration
-        if (scalar keys %interfaces > 1) {
-            push(@addrRules, "/sbin/ip rule add from $address table $table");
-        }
-        
-        push(@cmds, "/sbin/ip route add default $route table $table");
     }
 
     push(@cmds, @addrRules, @markRules);
-    push(@cmds,'/sbin/ip rule add table main');
 
     # Not in @cmds array because of possible CONNMARK exception
     my @fcmds;
@@ -3589,7 +3538,7 @@ sub _multigwRoutes
         push(@cmds, "/sbin/iptables -t mangle -A OUTPUT -m mark --mark 0/0xff " .
                     "-j  MARK --set-mark $defaultRouterMark");
     }
-    
+
     # always before CONNMARK save commands
     EBox::Sudo::root(@cmds);
 
@@ -3645,25 +3594,12 @@ sub _preSetConf
 
     $self->{restartResolvconf} = 0;
 
-    # Ensure /run/systemd/resolve/stub-resolv.conf exists
-    if (not EBox::Sudo::fileTest('-f', '/run/systemd/resolve/stub-resolv.conf')) {
-        EBox::info("Creating file /run/systemd/resolve/stub-resolv.conf");
-        if (not EBox::Sudo::fileTest('-d', '/run/systemd/resolve')) {
-            EBox::Sudo::root('mkdir /run/systemd/resolve');
-        }
-        EBox::Sudo::root('touch /run/systemd/resolve/stub-resolv.conf');
-        $self->{restartResolvconf} = 1;
-    }
-
-    # Ensure /etc/resolv.conf is a symlink to /run/systemd/resolve/stub-resolv.conf
-    my @actual_target_output = EBox::Sudo::root("readlink -f " . RESOLV_FILE);
-    my $actual_target = $actual_target_output[0][0];
-    chomp($actual_target);
-    if (not EBox::Sudo::fileTest('-L', RESOLV_FILE) or $actual_target ne '/run/systemd/resolve/stub-resolv.conf') {
-        EBox::info("Restoring symlink /etc/resolv.conf");
-        EBox::Sudo::root('rm -f ' . RESOLV_FILE);
-        EBox::Sudo::root('ln -s /run/systemd/resolve/stub-resolv.conf ' . RESOLV_FILE);
-        $self->{restartResolvconf} = 1;
+    # Manage the configuration file /etc/resolv.conf
+    my $global = EBox::Global->getInstance();
+    if ($global->modInstance('software')->isInstalled('zentyal-dns') and $global->modInstance('dns')->isEnabled()) {
+        $self->_prepareNamedResolvconf();
+    } else {
+        $self->_prepareSystemdResolved();
     }
 
     # Write DHCP client configuration
@@ -3713,6 +3649,154 @@ sub _preSetConf
 
     EBox::NetWrappers::clean_ifaces_list_cache();
 }
+
+# Method: _prepareNamedResolvconf
+#
+#   This method configures the configuration file '/etc/resolv.conf' to be used by named-resolvconf
+sub _prepareNamedResolvconf
+{
+    my ($self) = @_;
+
+    EBox::debug("Configuring /etc/resolv.conf with named-resolvconf");
+
+    # Ensure /run/resolvconf/resolv.conf exists
+    if (not EBox::Sudo::fileTest('-f', NAMED_RESOLVCONF_FILE)) {
+        EBox::info("Creating file /run/resolvconf/resolv.conf");
+        EBox::Sudo::root('touch /run/resolvconf/resolv.conf');
+        $self->{restartResolvconf} = 1;
+    }
+
+    # Ensure /etc/resolv.conf is a symlink to /run/resolvconf/resolv.conf
+    my @actual_target_output = EBox::Sudo::root("readlink -f " . RESOLV_FILE);
+    my $actual_target = $actual_target_output[0][0];
+    chomp($actual_target);
+    if (not EBox::Sudo::fileTest('-L', RESOLV_FILE) or $actual_target ne NAMED_RESOLVCONF_FILE) {
+        EBox::info("Restoring symlink /etc/resolv.conf for named-resolvconf");
+        EBox::Sudo::root('rm -f ' . RESOLV_FILE);
+        EBox::Sudo::root('ln -s /run/resolvconf/resolv.conf ' . RESOLV_FILE);
+        $self->{restartResolvconf} = 1;
+    }
+}
+
+# Method: _prepareSystemdResolved
+#
+#   This method configures the configuration file '/etc/resolv.conf' to be used by systemd-resolved
+sub _prepareSystemdResolved
+{
+    my ($self) = @_;
+
+    EBox::debug("Configuring /etc/resolv.conf with systemd-resolved");
+
+    # Ensure /run/systemd/resolve/stub-resolv.conf exists
+    if (not EBox::Sudo::fileTest('-f', SYSTEMD_RESOLVED_FILE)) {
+        EBox::info("Creating file /run/systemd/resolve/stub-resolv.conf");
+        if (not EBox::Sudo::fileTest('-d', '/run/systemd/resolve')) {
+            EBox::Sudo::root('mkdir /run/systemd/resolve');
+        }
+        EBox::Sudo::root('touch /run/systemd/resolve/stub-resolv.conf');
+        $self->{restartResolvconf} = 1;
+    }
+
+    # Ensure /etc/resolv.conf is a symlink to /run/systemd/resolve/stub-resolv.conf
+    my @actual_target_output = EBox::Sudo::root("readlink -f " . RESOLV_FILE);
+    my $actual_target = $actual_target_output[0][0];
+    chomp($actual_target);
+    if (not EBox::Sudo::fileTest('-L', RESOLV_FILE) or $actual_target ne SYSTEMD_RESOLVED_FILE) {
+        EBox::info("Restoring symlink /etc/resolv.conf for systemd-resolved");
+        EBox::Sudo::root('rm -f ' . RESOLV_FILE);
+        EBox::Sudo::root('ln -s /run/systemd/resolve/stub-resolv.conf ' . RESOLV_FILE);
+        $self->{restartResolvconf} = 1;
+    }
+}
+
+# Method: _generateResolvconfConfig
+#
+#   This method write the /etc/resolvconf/interface-order file. This file
+#   contain the order in which the files under /var/run/resolvconf/interfaces
+#   are processes and finally result en the resolver order in /etc/resolv.conf
+#
+#   After write the order, resolvers manually configured in the webadmin
+#   (those which interface field is zentyal.<row id>) are removed or added
+#   to the resolvconf configuration.
+#
+sub _generateResolvconfConfig
+{
+    my ($self) = @_;
+
+    EBox::debug("Configuring /etc/resolv.conf with named-resolvconf");
+
+    # Generate base, head and tail
+    $self->writeConfFile(RESOLVCONF_BASE,
+        'network/resolvconf-base.mas', [],
+        { mode => '0644', uid => 0, gid => 0 });
+    $self->writeConfFile(RESOLVCONF_HEAD,
+        'network/resolvconf-head.mas', [],
+        { mode => '0644', uid => 0, gid => 0 });
+    $self->writeConfFile(RESOLVCONF_TAIL,
+        'network/resolvconf-tail.mas', [],
+        { mode => '0644', uid => 0, gid => 0 });
+
+    # First step, write the order list
+    my $interfaces = [];
+    my $model = $self->model('DNSResolver');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $interface = $row->valueByName('interface');
+        next unless defined $interface and length $interface;
+        push (@{$interfaces}, $interface);
+    }
+
+    # TODO SearchDomain should be a table model. Multiple search domains
+    #      can be defined
+    my $searchDomainModel = $self->model('SearchDomain');
+    my $searchDomain = $searchDomainModel->value('domain');
+    my $searchDomainIface = $searchDomainModel->value('interface');
+    if ($searchDomainIface) {
+        push (@{$interfaces}, $searchDomainIface);
+    }
+
+    my $ifaces = $self->ifaces();
+    foreach my $iface (@{$ifaces}) {
+        next unless $self->ifaceMethod($iface) eq 'dhcp';
+
+        $iface = "$iface.dhclient";
+        next if grep (/$iface/, @{$interfaces});
+
+        push (@{$interfaces}, $iface);
+    }
+
+    my $array = [];
+    push (@{$array}, interfaces => $interfaces);
+    $self->writeConfFile(RESOLVCONF_INTERFACE_ORDER,
+        'network/resolvconf-interface-order.mas', $array,
+        { mode => '0644', uid => 0, gid => 0 });
+
+    # Second step, trigger the updates
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $interface = $row->valueByName('interface');
+        next unless defined $interface and length $interface;
+
+        my $resolver = $row->valueByName('nameserver');
+        next unless defined $resolver and length $resolver;
+
+        next unless ($interface =~ m/^zentyal\..+$/);
+        EBox::Sudo::root("/sbin/resolvconf -d '$interface'");
+        EBox::Sudo::root("echo 'nameserver $resolver' | /sbin/resolvconf -a '$interface'");
+    }
+
+    if ($searchDomainIface and ($searchDomainIface =~ m/^zentyal\..+$/)) {
+        EBox::Sudo::root("/sbin/resolvconf -d '$searchDomainIface'");
+        if ($searchDomain) {
+            EBox::Sudo::root("echo 'search $searchDomain' | /sbin/resolvconf -a '$searchDomainIface'");
+        }
+    }
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $domain = $sysinfo->hostDomain();
+    EBox::Sudo::root("echo 'domain $domain' | /sbin/resolvconf -a 'zentyal.domain'");
+}
+
 
 sub _setConf
 {
@@ -3782,11 +3866,6 @@ sub _enforceServiceState
     }
     EBox::NetWrappers::clean_ifaces_list_cache();
 
-    $self->_generateSystemdResolvedConfig();
-
-    EBox::Sudo::silentRoot('/sbin/ip route del default table default',
-                           '/sbin/ip route del default');
-    
     my $cmd = $self->_multipathCommand();
     if ($cmd) {
         try {
@@ -3798,13 +3877,18 @@ sub _enforceServiceState
         }
     }
 
-    $self->_generateRoutes();
     $self->_disableReversePath();
     $self->_multigwRoutes($dynIfaces);
 
-    EBox::Sudo::root('/sbin/ip route flush cache || true');
+    # Manage /etc/resolv.conf (already configured the link)
+    my $global = EBox::Global->getInstance();
+    if ($global->modInstance('software')->isInstalled('zentyal-dns') and $global->modInstance('dns')->isEnabled()) {
+        ## If DNS module is enabled
+        $self->_generateResolvconfConfig();
+    }
 
     $self->_applyChangesToSystemNetwork();
+
     $self->SUPER::_enforceServiceState();
 }
 
@@ -3823,12 +3907,12 @@ sub _disableNetworkManagerUnsetIfaces
 
     $self->writeConfFile(
         NETWORK_MANAGER_FILE,
-        'network/network-manager.conf.mas', 
-        [ unmanagedIfaces => $unmanagedIfaces ], 
+        'network/network-manager.conf.mas',
+        [ unmanagedIfaces => $unmanagedIfaces,
+          dns => _namedResolvconfPreCondition()
+        ],
         { mode => '0644', uid => 0, gid => 0 }
     );
-
-    EBox::Sudo::root('systemctl restart NetworkManager');
 }
 
 # Method:  restoreConfig
@@ -3888,9 +3972,11 @@ sub _stopService
 sub _applyChangesToSystemNetwork()
 {
     my ($self) = @_;
-    
+
     $self->_disableNetworkManagerUnsetIfaces();
     EBox::Sudo::root(NETPLAN." apply");
+    # Avoid issues with NetworkManager service (it requires a few seconds)
+    sleep 5;
 }
 
 sub _routersReachableIfChange # (interface, newaddress?, newmask?)
@@ -4786,7 +4872,7 @@ sub _pppoeRules
 sub _multipathCommand
 {
     my ($self) = @_;
-    
+
     my @gateways = @{$self->gateways()};
 
     if (scalar(@gateways) == 0) {
@@ -4807,7 +4893,7 @@ sub _multipathCommand
 
     my $numGWs = 0;
 
-    my $cmd = 'ip route add table default default';
+    my $cmd;
     for my $gw (@gateways) {
 
         # Skip gateways with unassigned address
@@ -4830,11 +4916,14 @@ sub _multipathCommand
             $route = "dev $iface";
         }
 
-        $cmd .= " nexthop $route weight $gw->{'weight'}";
+        my $checkgw = EBox::Sudo::root("ip r s | grep 'default via $route dev $gw' || true");
+        if ($checkgw eq '') {
+            $cmd .= " nexthop $route weight $gw->{'weight'}";
+        }
 
         $numGWs++;
     }
-    
+
     if ($numGWs) {
         return $cmd;
     } else {
