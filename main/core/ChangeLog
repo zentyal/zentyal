@@ -3,6 +3,7 @@ HEAD
 	+ Fix SHM lock owner
 	+ Disable unattended-upgrades
 	+ Set execution permissions to the cleantmp file
+	+ Fix SHM locks
 7.1.0
 	+ Bump version number
 7.0.6
