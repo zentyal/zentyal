@@ -36,8 +36,31 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
 
-use TryCatch::Lite;
+use TryCatch;
 
+# Constructor: new
+#
+#       Create the new ListeningPorts model.
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::new>
+#
+# Returns:
+#
+#       <EBox::WebServer::Model::ListeningPorts> - the recently
+#       created model.
+#
+sub new
+{
+    my $class = shift;
+    my %parms = @_;
+
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+
+    return $self;
+}
 
 # Method: validateTypedRow
 #
@@ -67,39 +90,6 @@ sub validateTypedRow
     }
 }
 
-# Method: row
-#
-#       Return the row reading data from HAProxy configuration.
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::row>
-#
-sub row
-{
-    my ($self, $id) = @_;
-
-    my $webserverMod = $self->parentModule();
-    my $haProxy = $webserverMod->global()->modInstance('haproxy');
-    my $model = $haProxy->model('HAProxyServices');
-    my $haProxySrv = $model->find(module => 'webserver');
-    my @values = ();
-    if ($haProxySrv) {
-        if ($haProxySrv->elementByName('port')->selectedType() eq 'port_number') {
-            push (@values, port => { port_number   => $haProxySrv->valueByName('port') });
-        }
-        if ($haProxySrv->elementByName('sslPort')->selectedType() eq 'sslPort_number') {
-            push (@values, sslPort => { sslPort_number    => $haProxySrv->valueByName('sslPort') });
-        }
-    } else {
-        push (@values, port => { port_number   => $webserverMod->defaultHTTPPort()});
-    }
-
-    my $row = $self->_setValueRow(@values);
-    $row->setId('form');
-    return $row;
-}
-
 # Method: setTypedRow
 #
 #       Set an existing row using types to fill the fields. The unique
@@ -118,7 +108,6 @@ sub setTypedRow
 
     my $global = $self->parentModule()->global();
     my $webserverMod = $self->parentModule();
-    my $haproxyMod = $global->modInstance('haproxy');
 
     my $oldRow = $self->row($id);
     my $allHashElements = $oldRow->hashElements();
@@ -146,7 +135,7 @@ sub setTypedRow
     } else {
         push (@args, enableSSLPort  => 0);
     }
-    $haproxyMod->setHAProxyServicePorts(@args);
+    $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
     $self->setMessage($self->message('update'));
 }
 
@@ -219,6 +208,48 @@ sub _table
     };
 
     return $dataTable;
+}
+
+# Method: targetHTTPPort - Inherited from HA module, don't remove this docblock
+#
+# Returns:
+#
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for requests.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHTTPPort>
+#
+sub targetHTTPPort
+{
+    my ($self) = @_;
+    
+    if ($self->row('form')->elementByName("port")->selectedType() eq 'port_number') {
+        return $self->row("form")->elementByName("port")->value();
+    }
+    
+    return return $self->parentModule()->defaultHTTPPort();;
+}
+
+# Method: targetHTTPSPort - Inherited from HA module, don't remove this docblock
+#
+# Returns:
+#
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for SSL requests.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHTTPSPort>
+#
+sub targetHTTPSPort
+{
+    my ($self) = @_;
+    
+    if ($self->row('form')->elementByName("sslPort")->selectedType() eq 'sslPort_number') {
+        return $self->row("form")->elementByName("sslPort")->value();
+    }
+    
+    return $self->parentModule()->defaultHTTPSPort();
 }
 
 1;

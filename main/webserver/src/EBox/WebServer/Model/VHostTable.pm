@@ -37,7 +37,7 @@ use EBox::Validate;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::External;
 
-use TryCatch::Lite;
+use TryCatch;
 use Perl6::Junction qw(none);
 use Net::Domain::TLD;
 
