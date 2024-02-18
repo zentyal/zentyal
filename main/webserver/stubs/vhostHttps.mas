@@ -26,17 +26,28 @@
 </%init>
 % if ($sslSupport ne 'disabled') {
 <VirtualHost *:<% $sslPort %>>
-        ServerAdmin webmaster@<% $hostname %>
+    ServerAdmin webmaster@<% $hostname %>
 
-        ServerName <% $vHostName %>:<% $publicSSLPort %>
-        DocumentRoot <% $docRoot %>/<% $vHostName %>
+    ServerName <% $vHostName %>
+    DocumentRoot <% $docRoot %>/<% $vHostName %>
+    DirectoryIndex index.html
 
-        SetEnv HTTPS On
+    SSLEngine on
+    SSLCertificateFile	/etc/apache2/ssl/ssl.pem
+    SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
 
-        ErrorLog /var/log/apache2/<% $vHostName %>-error.log
-        CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
+    ErrorLog /var/log/apache2/<% $vHostName %>-error.log
+    CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
 
-        # Custom configuration goes in this file
-        IncludeOptional <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
+    <Directory "<% $docRoot %>/<% $vHostName %>">
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+    </Directory>
+
+    # Custom configuration goes in this file
+    # IncludeOptional <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
 </VirtualHost>
+
+Include /etc/apache2/ssl-config.conf
 % }

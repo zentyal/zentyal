@@ -1,6 +1,24 @@
 #!/bin/bash
 
-mkdir -p /etc/apache2/ssl
-/usr/share/zentyal/create-certificate /etc/apache2/ssl
+set -e
+
+####
+## Functions
+####
+
+function enable_mod() {
+    # This function runs the initial configuration the module needs once it is installed
+    mkdir /etc/apache2/ssl
+    /usr/share/zentyal/create-certificate /etc/apache2/ssl
+    chmod 0640 /etc/apache2/ssl/ssl.key
+    chmod 0644 /etc/apache2/ssl/ssl.pem
+}
+
+
+####
+## Calls
+####
+
+enable_mod
 
 exit 0

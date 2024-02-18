@@ -2,6 +2,11 @@ HEAD
 	+ Remove samba and HA dependencies
 	+ Set version to 8.0
 	+ Use of TryCatch instead of TryCatch::Lite
+	+ Add initial-setup script
+	+ Update enable-module
+	+ Update virtualhost stubs
+	+ Add SSL default configuration
+	+ Add a simple index.html
 6.0
 	+ Set version to 6.0
 4.0

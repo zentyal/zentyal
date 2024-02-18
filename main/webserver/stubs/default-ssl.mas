@@ -17,13 +17,16 @@
 # given that in Zentyal, SSL handling is done by HAProxy.
 
 <VirtualHost *:<% $sslPort %>>
-    ServerName <% $hostname %>:<% $publicSSLPort %>
-
-    SetEnv HTTPS On
+    ServerName <% $hostname %>
 
     ServerAdmin webmaster@<% $hostname %>
 
-    DocumentRoot /var/www
+    DocumentRoot /var/www/html/
+    DirectoryIndex index.html
+
+    SSLEngine on
+    SSLCertificateFile	/etc/apache2/ssl/ssl.pem
+    SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
 
     # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
     # error, crit, alert, emerg.
@@ -34,6 +37,12 @@
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 
+    <Directory "/var/www/html/">
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+    </Directory>
+
     # For most configuration files from conf-available/, which are
     # enabled or disabled at a global level, it is possible to
     # include a line for only one particular virtual host. For example the
@@ -42,3 +51,5 @@
     #Include conf-available/serve-cgi-bin.conf
 
 </VirtualHost>
+
+Include /etc/apache2/ssl-config.conf

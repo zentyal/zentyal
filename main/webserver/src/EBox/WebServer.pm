@@ -235,6 +235,9 @@ sub initialSetup
             $mod->saveConfigRecursive();
         }
     }
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
 }
 
 # Method: depends
