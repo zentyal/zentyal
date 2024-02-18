@@ -18,11 +18,7 @@ use warnings;
 
 package EBox::WebServer;
 
-use base qw(
-    EBox::Module::Kerberos
-    EBox::SyncFolders::Provider
-    EBox::HAProxy::ServiceBase
-);
+use base qw(EBox::Module::Service);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -32,12 +28,10 @@ use EBox::Service;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Sudo::Command;
 use EBox::WebServer::PlatformPath;
-use EBox::WebServer::Model::PublicFolder;
 use EBox::WebServer::Model::VHostTable;
 use EBox::WebServer::Composite::General;
-use EBox::WebServer::LdapUser;
 
-use TryCatch::Lite;
+use TryCatch;
 use Perl6::Junction qw(any);
 
 use constant VHOST_PREFIX => 'ebox-';
@@ -46,7 +40,6 @@ use constant PORTS_FILE => CONF_DIR . '/ports.conf';
 use constant ENABLED_MODS_DIR => CONF_DIR . '/mods-enabled/';
 use constant AVAILABLE_MODS_DIR => CONF_DIR . '/mods-available/';
 
-use constant LDAP_USERDIR_CONF_FILE => 'ldap_userdir.conf';
 use constant SITES_AVAILABLE_DIR => CONF_DIR . '/sites-available/';
 use constant SITES_ENABLED_DIR => CONF_DIR . '/sites-enabled/';
 use constant CONF_AVAILABLE_DIR => CONF_DIR . '/conf-available/';
@@ -102,11 +95,6 @@ sub usedFiles
         'module' => 'webserver',
         'reason' => __('To configure default SSL virtual host.')
     },
-    {
-        'file' => AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
-        'module' => 'webserver',
-        'reason' => __('To configure the per-user public_html directory.')
-    }
     ];
 
     my $vHostModel = $self->model('VHostTable');
@@ -129,11 +117,6 @@ sub usedFiles
 sub actions
 {
     return [
-    {
-        'action' => __('Enable Apache LDAP user module'),
-        'module' => 'webserver',
-        'reason' => __('To fetch home directories from LDAP.')
-    },
     {
         'action' => __('Enable Apache SSL module'),
         'module' => 'webserver',
@@ -159,39 +142,22 @@ sub initialSetup
     my ($self, $version) = @_;
 
     my $global = $self->global();
-    my $haproxyMod = $global->modInstance('haproxy');
     # Create default rules and services
     # only if installing the first time
     unless ($version) {
         # Stop Apache process to allow haproxy to use the public port
-        EBox::Sudo::silentRoot('service apache2 stop');
+        EBox::Sudo::silentRoot('systemctl stop apache2');
 
         my $firewall = $global->modInstance('firewall');
 
         my $fallbackPort = 8080;
         my $port = $firewall->requestAvailablePort('tcp', $self->defaultHTTPPort(), $fallbackPort);
-
-        # Set port in reverse proxy
-        my @args = ();
-        push (@args, modName        => $self->name);
-        push (@args, port           => $port);
-        push (@args, enablePort     => 1);
-        push (@args, defaultPort    => 1);
-        push (@args, sslPort        => $self->defaultHTTPSPort());
-        push (@args, enableSSLPort  => 0);
-        push (@args, defaultSSLPort => 0);
-        push (@args, force          => 1);
-
-        $haproxyMod->setHAProxyServicePorts(@args);
-
-        my $settings = $self->model('PublicFolder');
-        $settings->setValue(enableDir => EBox::WebServer::Model::PublicFolder::DefaultEnableDir());
     }
 
     # Upgrade from 3.3
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
         # Stop Apache process to allow haproxy to use the public port
-        EBox::Sudo::silentRoot('service apache2 stop');
+        EBox::Sudo::silentRoot('systemctl stop apache2');
 
         # Disable the ssl module in Apache, haproxy handles it now.
         try {
@@ -234,23 +200,12 @@ sub initialSetup
                 delete $value->{ssl_port};
             }
         }
-        # Set port in reverse proxy
-        my @args = ();
-        push (@args, modName        => $self->name);
-        push (@args, port           => $port);
-        push (@args, enablePort     => 1);
-        push (@args, defaultPort    => 1);
-        push (@args, sslPort        => $sslPort);
-        push (@args, enableSSLPort  => $sslEnabled);
-        push (@args, defaultSSLPort => $defaultSSLPort);
-        push (@args, force          => 1);
-
-        $haproxyMod->setHAProxyServicePorts(@args);
 
         my @keys = $redis->_keys('webserver/*/GeneralSettings/keys/forms');
         foreach my $key (@keys) {
             my $value = $redis->get($key);
             my $newkey = $key;
+            # TODO: To review
             $newkey =~ s{GeneralSettings}{PublicFolder};
             $redis->set($newkey, { enableDir => $value->{enableDir} });
         }
@@ -274,7 +229,7 @@ sub initialSetup
         }
     }
 
-    foreach my $modName ('firewall', 'haproxy', 'webserver') {
+    foreach my $modName ('firewall', 'webserver') {
         my $mod = $self->global()->modInstance($modName);
         if ($mod and $mod->changed()) {
             $mod->saveConfigRecursive();
@@ -307,16 +262,6 @@ sub depends
     }
 
     return $dependsList;
-}
-
-# overloaded to force haproxy to restart
-sub setEnable
-{
-    my ($self, @params) = @_;
-    $self->SUPER::setEnable(@params);
-    if ($self->changed ) {
-        $self->global()->modInstance("haproxy")->setAsChanged(1);
-    }
 }
 
 # to avoid circular restore dependencies cause by depends override
@@ -357,7 +302,6 @@ sub _daemons
     return [
         {
             'name' => 'apache2',
-            'type' => 'init.d',
             'pidfiles' => ['/var/run/apache2/apache2.pid'],
         }
     ];
@@ -436,7 +380,6 @@ sub _setConf
     my $hostnameVhost = delete $vhosts->{$hostname};
 
     $self->_setPort();
-    $self->_setUserDir();
     $self->_setDfltVhost($hostname, $hostnameVhost);
     $self->_setDfltSSLVhost($hostname, $hostnameVhost);
     $self->_checkCertificate();
@@ -532,74 +475,6 @@ sub _setDfltSSLVhost
     }
 }
 
-# Set up the user directory by enable/disable the feature
-sub _setUserDir
-{
-    my ($self) = @_;
-
-    my $publicFolder = $self->model('PublicFolder');
-    my $gl = EBox::Global->getInstance();
-
-    # Manage configuration for mod_ldap_userdir apache2 module
-    if ($publicFolder->enableDirValue() and $gl->modExists('samba')) {
-        my $ldap = $self->ldap();
-        my $ldapServer = '127.0.0.1';
-        my $ldapPort   = $ldap->ldapConf()->{port};
-        my $rootDN = $self->_kerberosServiceAccountDN();
-        my $ldapPass = $self->_kerberosServiceAccountPassword();
-        my $dse = $ldap->rootDse();
-        my $defaultNC = $dse->get_value('defaultNamingContext');
-        $self->writeConfFile(AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
-                             'webserver/ldap_userdir.conf.mas',
-                             [
-                               ldapServer => $ldapServer,
-                               ldapPort  => $ldapPort,
-                               rootDN  => $rootDN,
-                               usersDN => $defaultNC,
-                               dnPass  => $ldapPass,
-                             ],
-                             { 'uid' => 0, 'gid' => 0, mode => '600' }
-                            );
-        # Enable the modules
-        try {
-            EBox::Sudo::root('a2enmod ldap_userdir');
-        } catch (EBox::Exceptions::Sudo::Command $e) {
-            # Already enabled?
-            if ($e->exitValue() != 1) {
-                $e->throw();
-            }
-        }
-        try {
-            EBox::Sudo::root('a2enmod userdir');
-        } catch (EBox::Exceptions::Sudo::Command $e) {
-            # Already enabled?
-            if ($e->exitValue() != 1) {
-                $e->throw();
-            }
-        }
-    } else {
-        # Disable the modules
-        try {
-            EBox::Sudo::root('a2dismod userdir');
-        } catch (EBox::Exceptions::Sudo::Command $e) {
-            # Already enabled?
-            if ($e->exitValue() != 1) {
-                $e->throw();
-            }
-        }
-        if ($gl->modExists('samba')) {
-            try {
-                EBox::Sudo::root('a2dismod ldap_userdir');
-            } catch (EBox::Exceptions::Sudo::Command $e) {
-                # Already disabled?
-                if ($e->exitValue() != 1) {
-                    $e->throw();
-                }
-            }
-        }
-    }
-}
-
 # Set up the virtual hosts
 sub _setVHosts
 {
@@ -641,6 +516,7 @@ sub _setVHosts
         }
     }
 
+    # TODO: To review
     # add additional vhost files
     foreach my $vHostFilePath (@{ $self->_internalVHosts() }) {
         delete $sitesToRemove{$vHostFilePath};
@@ -655,6 +531,7 @@ sub _setVHosts
     }
 }
 
+# TODO: To review
 sub _internalVHosts
 {
     my ($self) = @_;
@@ -687,20 +564,6 @@ sub _createSiteDirs
     my ($self, $vHost) = @_;
     my $vHostName  = $vHost->{'name'};
 
-    # Create the user-conf subdir if required
-    my $userConfDir = SITES_AVAILABLE_DIR . 'user-' . VHOST_PREFIX
-        . $vHostName;
-    if (EBox::Sudo::fileTest('-e', $userConfDir)) {
-        if (not EBox::Sudo::fileTest('-d', $userConfDir)) {
-            throw EBox::Exceptions::External(
-                  __x('{dir} should be a directory for virtual host configuration. Please, move or remove it',
-                      dir => $userConfDir
-                     )
-            );
-        }
-    } else {
-        EBox::Sudo::root("mkdir -m 755 $userConfDir");
-    }
 
     # Create the directory content if it is not already
     my $dir = EBox::WebServer::PlatformPath::VDocumentRoot()
@@ -935,6 +798,7 @@ sub restoreConfig
     EBox::Sudo::root("cp -a $sitesBackDir/* " . SITES_AVAILABLE_DIR);
 }
 
+# TODO: To review
 # Implement EBox::SyncFolders::Provider interface
 sub syncFolders
 {
@@ -1026,7 +890,7 @@ sub pathHTTPSSSLCertificate
     return ['/etc/apache2/ssl/ssl.pem'];
 }
 
-# Method: targetIP
+# Method: targetIP - Inherited from HA module, don't remove this docblock
 #
 # Returns:
 #
@@ -1038,40 +902,36 @@ sub pathHTTPSSSLCertificate
 #
 sub targetIP
 {
-    return '127.0.0.1';
+    return '0.0.0.0';
 }
 
 # Method: targetHTTPPort
 #
 # Returns:
 #
-#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for requests.
-#
-# Overrides:
-#
-#   <EBox::HAProxy::ServiceBase::targetHTTPPort>
+#   integer - Port where the service is listening for requests.
 #
 sub targetHTTPPort
 {
-    return 62080;
+    my ($self) = @_;
+    
+    return $self->model('ListeningPorts')->targetHTTPPort();
 }
 
 # Method: targetHTTPSPort
 #
 # Returns:
 #
-#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for SSL requests.
-#
-# Overrides:
-#
-#   <EBox::HAProxy::ServiceBase::targetHTTPSPort>
+#   integer - Port where the service is listening for SSL requests.
 #
 sub targetHTTPSPort
 {
-    return 62443;
+    my ($self) = @_;
+    
+    return $self->model('ListeningPorts')->targetHTTPSPort();
 }
 
-# Method: _kerberosServicePrincipals
+# Method: _kerberosServicePrincipals TODO: Review
 #
 #   EBox::Module::Kerberos implementation. We don't create any SPN, just
 #   the service account to bind to LDAP
@@ -1081,14 +941,35 @@ sub _kerberosServicePrincipals
     return undef;
 }
 
+# Method: _kerberosKeytab TODO: Review
 sub _kerberosKeytab
 {
     return undef;
 }
 
-sub _ldapModImplementation
+sub listeningHTTPPort()
 {
-    return new EBox::WebServer::LdapUser();
+    my ($self) = @_;
+
+    return $self->targetHTTPSPort();
 }
 
+sub listeningHTTPSPort()
+{
+    my ($self) = @_;
+
+    return  $self->targetHTTPSPort();
+}
+
+# Inherited from HA module
+sub isHTTPSPortEnabled
+{
+    my ($self) = @_;
+
+    if ($self->model('ListeningPorts')->row('form')->elementByName("sslPort")->selectedType() eq 'sslPort_number') {
+        return 1;
+    }
+
+    return undef;
+}
 1;
