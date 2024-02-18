@@ -2,13 +2,29 @@
 
 set -e
 
-cd /etc/frr/
+####
+## Functions
+####
 
-# check required files
-for conf in zebra.conf ripd.conf; do
-    if [ ! -f $conf ]; then
-        touch $conf
-    fi
-    chmod 0640 $conf
-    chown frr:frr $conf
-done
+function enable_mod() {
+    # This function runs the initial configuration the module needs once it is installed
+    cd /etc/frr/
+
+    # Check required files
+    for conf in zebra.conf ripd.conf; do
+        if [ ! -f $conf ]; then
+            touch $conf
+        fi
+        chmod 0640 $conf
+        chown frr:frr $conf
+    done
+}
+
+
+####
+## Calls
+####
+
+enable_mod
+
+exit 0
