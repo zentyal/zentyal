@@ -874,8 +874,12 @@ sub _writeRIPDaemonConf
                      mode => '0640',
     };
 
-    $self->writeConfFile("$confDir/daemons", '/openvpn/frr/daemons.mas', [],
-                         $fileAttrs);
+    my @array =(
+        debug => $debug,
+    );
+    $self->writeConfFile("$confDir/daemons", '/openvpn/frr/daemons.mas',
+                            \@array,
+                            $fileAttrs);
 
     my @ripdConfParams = (
                           ifaces       => $ifaces,
@@ -883,7 +887,7 @@ sub _writeRIPDaemonConf
                           insecurePasswd => _insecureRipPasswd(),
                           debug          => $debug,
                          );
-    $self->writeConfFile("$confDir/ffr.conf", '/openvpn/frr/ffr.conf.mas',
+    $self->writeConfFile("$confDir/ffr.conf", '/openvpn/frr/frr.conf.mas',
                          \@ripdConfParams, $fileAttrs);
 
 }

@@ -2,17 +2,38 @@
 
 set -e
 
-# create diffie-hellman parameters if needed
-DH_FILE='/etc/openvpn/ebox-dh2048.pem'
-if [ -e $DH_FILE  ]; then
-    echo "We assume $DH_FILE is a Diffie-Hellman parameter file with 2048 byte length. If the assumption is false, please remove it and create a new one manually. If you do NOT do so, your OpenVPN tunnels may be compromised"
-else
-    openssl dhparam -out $DH_FILE 2048
-fi
+####
+## Functions
+####
 
-# create openvpn status log directory
-STATUS_DIR=`perl -MEBox::OpenVPN -e 'print EBox::OpenVPN->logDir(); 1 '`
-test -d $STATUS_DIR || mkdir -p  $STATUS_DIR
-chown nobody:nogroup $STATUS_DIR
+function initial_conf() {
+    # This function runs the initial configuration the module needs once it is installed
+    # Create diffie-hellman parameters if needed
+    DH_FILE='/etc/openvpn/ebox-dh2048.pem'
+    if [ -e $DH_FILE  ]; then
+        echo "We assume $DH_FILE is a Diffie-Hellman parameter file with 2048 byte length. If the assumption is false, please remove it and create a new one manually. If you do NOT do so, your OpenVPN tunnels may be compromised"
+    else
+        openssl dhparam -out $DH_FILE 2048
+    fi
+
+    # Create openvpn status log directory
+    STATUS_DIR=`perl -MEBox::OpenVPN -e 'print EBox::OpenVPN->logDir(); 1 '`
+    test -d $STATUS_DIR || mkdir -p  $STATUS_DIR
+    chown nobody:nogroup $STATUS_DIR
+}
+
+
+function mod_disabled() {
+    # This function stops and disables the services that uses the module
+    systemctl disable --now frr
+}
+
+
+####
+## Calls
+####
+
+initial_conf
+mod_disabled
 
 exit 0
