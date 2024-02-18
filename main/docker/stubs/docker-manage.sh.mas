@@ -1,0 +1,63 @@
+<%args>
+    $persistentVolumeName
+    $containerName
+    $adminPort
+</%args>
+#!/bin/bash
+
+create_container() {
+    docker volume create <% $persistentVolumeName %>
+
+    docker run \
+      -d \
+      -p 8000:8000 \
+      -p <% $adminPort %>:9443 \
+      --name <% $containerName %> \
+      --restart=always \
+      -v /var/run/docker.sock:/var/run/docker.sock \
+      -v <% $persistentVolumeName %>:/data \
+      portainer/portainer-ce:latest
+}
+
+start_container() {
+    docker start <% $containerName %>
+}
+
+stop_container() {
+    docker stop <% $containerName %>
+    systemctl disable --now docker
+}
+
+destroy_container() {
+    docker rm -f <% $containerName %>
+    docker volume rm <% $persistentVolumeName %>
+}
+
+uninstall_container() {
+    docker rm -f <% $containerName %>
+    docker volume rm <% $persistentVolumeName %>
+    docker rmi portainer/portainer-ce:latest
+}
+
+
+case $1 in
+  "install"|"create")
+    create_container
+    ;;
+  "start")
+    start_container
+    ;;
+  "stop")
+    stop_container
+    ;;
+  "destroy")
+    destroy_container
+    ;;
+  "uninstall")
+    uninstall_container
+    ;;
+  *)
+    echo "Invalid action, valid actions are: install, create, stop, uninstall."
+    exit 1
+    ;;
+esac

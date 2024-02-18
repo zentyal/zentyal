@@ -1,0 +1,7 @@
+class: EBox::Docker
+
+models:
+    - Settings
+
+composites:
+    General: [Settings]
