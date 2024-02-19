@@ -9,6 +9,7 @@ use EBox::Gettext;
 
 use EBox::Types::Text;
 use EBox::Types::Port;
+use EBox::Exceptions::External;
 
 # Method: _table
 #
@@ -58,6 +59,26 @@ sub _table
     };
 
     return $dataTable;
+}
+
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    return unless defined ($changedFields->{adminPort});
+
+    my $port = $changedFields->{adminPort}->value();    
+    my $docker = $self->parentModule();
+    my $isPortInUse = $docker->isPortInUse($port);
+
+    if($isPortInUse eq 1) {
+        throw EBox::Exceptions::External(
+            __x(
+                'Port {port} is already in use', 
+                port => $port
+            )
+        );
+    }
 }
 
 1;

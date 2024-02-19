@@ -5,57 +5,148 @@
 </%args>
 #!/bin/bash
 
-create_container() {
-    docker volume create <% $persistentVolumeName %>
+# Debug
+# set -x
 
+LABEL='"com.zentyal.manage=true"'
+VOLUMEN_NAME='<% $persistentVolumeName %>'
+CONTAINER_NAME='<% $containerName %>'
+PORT='<% $adminPort %>'
+
+####
+## Functions
+####
+
+get_status() {
+    GET_VOLUMEN=$(docker volume ls -q -f name=$VOLUMEN_NAME)
+    GET_CONTAINER=$(docker ps --filter name=portainer_app --format "{{.Names}}")
+
+    if [[ -z "$GET_VOLUMEN" ]] || [[ -z "$GET_CONTAINER" ]]; then
+        return 1
+    else
+        ## All up and running
+        return 0
+    fi
+}
+
+check_volumen_exists() {
+    if [[ $(docker volume ls -q -f name=$VOLUMEN_NAME) != "$VOLUMEN_NAME" ]]; then
+        return 1
+    else
+        ## Volumen exists
+        return 0
+    fi
+}
+
+
+check_container_exists() {
+    if [[ $(docker ps -a --filter name=portainer_app --format "{{.Names}}") != "$CONTAINER_NAME" ]]; then
+        return 1
+    else
+        ## Container exists
+        return 0
+    fi
+}
+
+check_container_running() {
+    if [[ $(docker ps --filter name=portainer_app --format "{{.Names}}") != "$CONTAINER_NAME" ]]; then
+        return 1
+    else
+        ## Container exists
+        return 0
+    fi
+}
+
+create_volumen() {
+    docker volume create \
+        --label "$LABEL" \
+        $VOLUMEN_NAME
+}
+
+create_container() {
+    docker rm -f $CONTAINER_NAME
     docker run \
-      -d \
-      -p 8000:8000 \
-      -p <% $adminPort %>:9443 \
-      --name <% $containerName %> \
-      --restart=always \
-      -v /var/run/docker.sock:/var/run/docker.sock \
-      -v <% $persistentVolumeName %>:/data \
-      portainer/portainer-ce:latest
+        -d \
+        -p 8000:8000 \
+        -p $PORT:9443 \
+        --name $CONTAINER_NAME \
+        --hostname $CONTAINER_NAME \
+        --restart=always \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        -v $VOLUMEN_NAME:/data \
+         --label "$LABEL" \
+        portainer/portainer-ce:latest
 }
 
 start_container() {
-    docker start <% $containerName %>
+    docker start $CONTAINER_NAME
 }
+
 
 stop_container() {
-    docker stop <% $containerName %>
-    systemctl disable --now docker
+    docker stop $CONTAINER_NAME
 }
+
+
+restart_container() {
+    docker restart $CONTAINER_NAME
+}
+
+
+destroy_volumen() {
+    check_volumen_exists
+    if [ $? -eq 0 ]; then docker volume rm -f $VOLUMEN_NAME; fi
+}
+
 
 destroy_container() {
-    docker rm -f <% $containerName %>
-    docker volume rm <% $persistentVolumeName %>
+    check_container_exists
+    if [ $? -eq 0 ]; then docker rm -f $CONTAINER_NAME; fi
 }
 
+
 uninstall_container() {
-    docker rm -f <% $containerName %>
-    docker volume rm <% $persistentVolumeName %>
+    docker rm -f $CONTAINER_NAME
+    docker volume rm $VOLUMEN_NAME
     docker rmi portainer/portainer-ce:latest
 }
 
 
 case $1 in
-  "install"|"create")
-    create_container
-    ;;
+    "install"|"create")
+        $check_volumen_exists
+        if [ $? -eq 0 ]; then destroy_volumen; fi
+        create_volumen
+
+        check_container_exists
+        if [ $? -eq 0 ]; then destroy_container; fi
+        create_container
+        ;;
   "start")
-    start_container
-    ;;
+        check_container_running
+        if [ $? -eq 0 ]; then echo "ERROR: THE CONTAINER CANNOT BE STARTED" && exit 1; fi
+        start_container
+        ;;
   "stop")
-    stop_container
+        check_container_running
+        if [ $? -eq 1 ]; then echo "ERROR: THE CONTAINER CANNOT BE STOPPED" && exit 1; fi
+        stop_container
     ;;
+  "restart")
+        check_container_exists
+        if [ $? -eq 1 ]; then echo "ERROR: THE CONTAINER CANNOT BE RESTARTED" && exit 1; fi
+        restart_container
+        ;;
+  "status")
+        get_status
+        ;;
   "destroy")
-    destroy_container
-    ;;
+        destroy_container
+        destroy_volumen
+        ;;
   "uninstall")
-    uninstall_container
-    ;;
+        uninstall_container
+        ;;
   *)
     echo "Invalid action, valid actions are: install, create, stop, uninstall."
     exit 1
