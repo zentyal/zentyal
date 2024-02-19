@@ -58,6 +58,42 @@ sub menu
     $root->add($item);
 }
 
+# Method: actions
+#
+#       Override EBox::Module::Service::actions
+#
+sub actions
+{
+    return [
+        {
+            'action' => __('Install docker and its dependencies'),
+            'reason' => __('The Zentyal docker module needs some third party software to be launched.'),
+            'module' => 'docker'
+        },
+        {
+            'action' => __('Generate docker manager script'),
+            'reason' => __('The Zentyal docker manager script used to handle internal management containers.'),
+            'module' => 'docker'
+
+        }
+    ];
+}
+
+# Method: usedFiles
+#
+#   Override EBox::Module::Service::usedFiles
+#
+sub usedFiles
+{
+    return [
+        {
+            'file' => MANAGE_SCRIPT,
+            'module' => 'docker',
+            'reason' => __x('{server} configuration script', server => 'docker'),
+        }
+    ];
+}
+
 # Method: _daemons
 #
 # Overrides:
