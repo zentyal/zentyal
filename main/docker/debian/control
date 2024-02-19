@@ -11,13 +11,17 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-docker
 Architecture: all
-Depends: zentyal-core (>= 8.0~1), zentyal-core (<< 8.1.0), 
+Depends: zentyal-core (>= 8.0.0), zentyal-core (<< 8.1.0),
+         ca-certificates, curl, gnupg, docker-ce, docker-ce-cli,
+         containerd.io, docker-buildx-plugin, docker-compose-plugin,
          ${misc:Depends}
-Description: Zentyal - Docker module
+Conflicts: docker.io, docker-doc, docker-compose,
+           docker-compose-v2, podman-docker
+Description: Zentyal - Docker
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
- This module adds docker desktop features as container creation and 
+ This module adds docker desktop features as container creation and
  management.

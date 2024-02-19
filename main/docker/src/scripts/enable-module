@@ -2,6 +2,20 @@
 
 set -e
 
-### Actions to be executed when enabling the module ###
+####
+## Functions
+####
+
+function enable_mod() {
+    # This function runs the initial configuration the module needs once it is installed
+    return
+}
+
+
+####
+## Calls
+####
+
+enable_mod
 
 exit 0

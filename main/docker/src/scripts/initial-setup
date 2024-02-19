@@ -1,22 +1,28 @@
 #!/bin/bash
 
-set -e
+set -ex
 
-# Pre-requisites
-systemctl disable --now docker
-apt remove docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc
+####
+## Functions
+####
 
-# Docker GPG
-apt update
-apt install ca-certificates curl gnupg
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
-chmod a+r /etc/apt/trusted.gpg.d/docker.gpg
+function initial_conf() {
+  # This function runs the initial configuration the module needs once it is installed
+  usermod -aG docker $(id -u -n 1000)
+}
 
-# Add repo
-echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" > /etc/apt/sources.list.d/docker.list
-apt update
 
-# Docker install
-apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+function mod_disabled() {
+    # This function stops and disables the services that uses the module
+    systemctl disable --now docker docker.socket
+}
+
+
+####
+## Calls
+####
+
+initial_conf
+mod_disabled
 
 exit 0
