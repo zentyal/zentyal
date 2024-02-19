@@ -105,10 +105,9 @@ sub _daemons
     my $daemons = [
         {
             name => 'docker',
+            type => 'systemd'
         },
     ];
-
-    return $daemons;
 }
 
 # Method: _daemonsToDisable
@@ -119,13 +118,11 @@ sub _daemons
 #
 sub _daemonsToDisable
 {
-    my $daemons = [
+    return [
         {
             name => 'docker',
         },
     ];
-
-    return $daemons;
 }
 
 # Method: initialSetup
@@ -223,6 +220,26 @@ sub runDockerDestroy
 {
     my ($self) = @_;
     EBox::Sudo::root(MANAGE_SCRIPT . ' destroy');
+}
+
+# Constructor: _create
+#
+#       Check if port is used
+#
+# Returns:
+#
+#       boolean - 1, if the port is in use, undef if is free.
+# 
+sub isPortInUse 
+{
+    my ($self, $port) = @_;
+    
+    my $result = system("ss -tuln | grep ':$port ' >/dev/null 2>/dev/null");
+    if ($result == 256) {
+        return undef;
+    }
+
+    return 1;
 }
 
 1;
