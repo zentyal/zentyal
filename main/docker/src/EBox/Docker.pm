@@ -51,6 +51,7 @@ sub menu
         url => 'Docker/View/Settings',
         text => $self->printableName(),
         separator => 'Core',
+        icon      => 'docker',
         order => 1
     );
 
