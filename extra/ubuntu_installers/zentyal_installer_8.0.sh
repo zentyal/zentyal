@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 
 ##
 # Global variables
@@ -188,6 +188,11 @@ function add_repositories
 
   ## Add Suricata repository for zentyal-ips module
   add-apt-repository -y ppa:oisf/suricata-stable
+
+  ## Add Docker repository for zentyal-docker module
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
+  chmod 0644 /etc/apt/trusted.gpg.d/docker.gpg
+  echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" > /etc/apt/sources.list.d/docker.list
 
   apt -qq update
 
