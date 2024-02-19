@@ -1,14 +1,19 @@
 Source: zenbuntu-desktop
 Section: metapackages
 Priority: optional
-Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Maintainer: Bruno Lorente Cantarero <blorente@zentyal.com>
+Uploaders: Daniel Joven Gracia <djoven@zentyal.com>
 Build-Depends: debhelper (>= 7.0.0), cdbs
 Standards-Version: 3.9.1
 Homepage: http://www.zentyal.org/
+Vcs-Browser: https://github.com/zentyal/zentyal/tree/master/extra/zenbuntu-desktop
+Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zenbuntu-desktop
 Architecture: all
-Depends: zenbuntu-core (>= 3.3~1), xorg, xserver-xorg-video-all, xserver-xorg-video-intel, xserver-xorg-video-qxl, firefox, lxdm, lxde, lxsession-logout, xdg-user-dirs, libnss3-tools, xscreensaver, evince, plymouth-theme-ubuntu-logo, gtk2-engines, v86d
+Depends: zenbuntu-core (>= 3.3~1), xorg, xserver-xorg-video-all, xserver-xorg-video-intel,
+         xserver-xorg-video-qxl, xdg-utils, firefox, lxdm, lxde, lxsession-logout, xdg-user-dirs,
+         libnss3-tools, xscreensaver, evince, plymouth-theme-ubuntu-logo, gtk2-engines, v86d
 Description: Zentyal Desktop Environment for Ubuntu Server
  This package ships scripts and branding stuff included in
  the Zentyal installer to setup the Zentyal system.
