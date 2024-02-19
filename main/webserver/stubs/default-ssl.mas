@@ -25,7 +25,7 @@
     DirectoryIndex index.html
 
     SSLEngine on
-    SSLCertificateFile	/etc/apache2/ssl/ssl.pem
+    SSLCertificateFile	/etc/apache2/ssl/ssl.cert
     SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
 
     # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
