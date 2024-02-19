@@ -33,7 +33,7 @@
     DirectoryIndex index.html
 
     SSLEngine on
-    SSLCertificateFile	/etc/apache2/ssl/ssl.pem
+    SSLCertificateFile	/etc/apache2/ssl/ssl.cert
     SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
 
     ErrorLog /var/log/apache2/<% $vHostName %>-error.log
