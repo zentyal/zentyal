@@ -41,6 +41,7 @@ sub setHash
     $path .= dirname($key);
     unless (-d $path) {
         system ("mkdir -p $path");
+        EBox::Sudo::silentRoot("chown -R ebox:ebox $path");
     }
     $path = "$SHM_PATH/$key";
 
