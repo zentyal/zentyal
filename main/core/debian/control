@@ -3,7 +3,7 @@ Section: web
 Priority: optional
 Maintainer: Bruno Lorente Cantarero <blorente@zentyal.com>
 Uploaders: Daniel Joven Gracia <djoven@zentyal.com>
-Build-Depends: zbuildtools, po-debconf, dh-systemd
+Build-Depends: zbuildtools, po-debconf
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
 Vcs-Browser: https://github.com/zentyal/zentyal/tree/master/main/core
