@@ -19,7 +19,7 @@ PORT='<% $adminPort %>'
 
 get_status() {
     GET_VOLUMEN=$(docker volume ls -q -f name=$VOLUMEN_NAME)
-    GET_CONTAINER=$(docker ps --filter name=portainer_app --format "{{.Names}}")
+    GET_CONTAINER=$(docker ps --filter name=$CONTAINER_NAME --format "{{.Names}}")
 
     if [[ -z "$GET_VOLUMEN" ]] || [[ -z "$GET_CONTAINER" ]]; then
         return 1
@@ -40,7 +40,7 @@ check_volumen_exists() {
 
 
 check_container_exists() {
-    if [[ $(docker ps -a --filter name=portainer_app --format "{{.Names}}") != "$CONTAINER_NAME" ]]; then
+    if [[ $(docker ps -a --filter name=$CONTAINER_NAME --format "{{.Names}}") != "$CONTAINER_NAME" ]]; then
         return 1
     else
         ## Container exists
@@ -49,7 +49,7 @@ check_container_exists() {
 }
 
 check_container_running() {
-    if [[ $(docker ps --filter name=portainer_app --format "{{.Names}}") != "$CONTAINER_NAME" ]]; then
+    if [[ $(docker ps --filter name=$CONTAINER_NAME --format "{{.Names}}") != "$CONTAINER_NAME" ]]; then
         return 1
     else
         ## Container exists
@@ -139,6 +139,9 @@ case $1 in
         ;;
   "status")
         get_status
+        ;;
+  "check_project")
+        check_container_exists
         ;;
   "destroy")
         destroy_container

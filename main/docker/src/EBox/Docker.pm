@@ -85,7 +85,7 @@ sub actions
 #
 sub usedFiles
 {
-    return [
+        return [
         {
             'file' => MANAGE_SCRIPT,
             'module' => 'docker',
@@ -110,20 +110,6 @@ sub _daemons
     ];
 }
 
-# Method: _daemonsToDisable
-#
-# Overrides:
-#
-#       <EBox::Module::Service::_daemonsToDisable>
-#
-sub _daemonsToDisable
-{
-    return [
-        {
-            name => 'docker',
-        },
-    ];
-}
 
 # Method: initialSetup
 #
@@ -155,8 +141,6 @@ sub initialSetup
         adminPort => $adminPort,
     );
     $self->_writeManagerScript(@params);
-    # run manager
-    $self->runDockerCreate();
 }
 
 # Method: _setConf
@@ -169,8 +153,12 @@ sub _setConf
 {
     my ($self) = @_;
 
-    # remove old container stuff
-    $self->runDockerDestroy();
+    if ($self->isEnabled()) {
+        $self->checkContainerStatus();
+    } else {
+        $self->runDockerStop();
+    }
+
     # create manager script
     my $settings = $self->model('Settings');
     my $persistentVolumeName = $settings->value('persistentVolumeName');
@@ -182,8 +170,6 @@ sub _setConf
         adminPort => $adminPort,
     );
     $self->_writeManagerScript(@params);
-    # run manager
-    $self->runDockerStart();
 }
 
 sub _writeManagerScript()
@@ -198,42 +184,79 @@ sub _writeManagerScript()
     );
 }
 
-sub runDockerStart
+sub checkContainerStatus
 {
     my ($self) = @_;
-    EBox::Sudo::root(MANAGE_SCRIPT . ' start');
+
+    my $check_project = $self->runCheckContainer();
+
+    if ($check_project == 0) {
+        EBox::debug('The container exists, starting it...');
+        $self->runDockerStart();
+    } else {
+        EBox::debug('The container does not exist, creating it...');
+        $self->runDockerCreate();
+    }
+}
+
+sub runCheckContainer
+{
+    my ($self) = @_;
+
+    EBox::debug('Checking if the container exists...');
+    system(MANAGE_SCRIPT . ' check_project');
 }
 
 sub runDockerCreate
 {
     my ($self) = @_;
-    EBox::Sudo::root(MANAGE_SCRIPT . ' create');
+
+    EBox::debug('Creating the container...');
+    system(MANAGE_SCRIPT . ' create');
+}
+
+sub runDockerStart
+{
+    my ($self) = @_;
+    system(MANAGE_SCRIPT . ' start');
 }
 
 sub runDockerStop
 {
     my ($self) = @_;
-    EBox::Sudo::root(MANAGE_SCRIPT . ' stop');
+
+    EBox::debug('Stopping the container...');
+    system(MANAGE_SCRIPT . ' stop');
+}
+
+sub runDockerRestart
+{
+    my ($self) = @_;
+
+    EBox::debug('Restarting the container...');
+    system(MANAGE_SCRIPT . ' restart');
 }
 
 sub runDockerDestroy
 {
     my ($self) = @_;
-    EBox::Sudo::root(MANAGE_SCRIPT . ' destroy');
+
+    EBox::debug('Stopping the container...');
+    system(MANAGE_SCRIPT . ' destroy');
 }
 
-# Constructor: _create
+# Constructor: isPortInUse
 #
 #       Check if port is used
 #
 # Returns:
 #
 #       boolean - 1, if the port is in use, undef if is free.
-# 
-sub isPortInUse 
+#
+sub isPortInUse
 {
     my ($self, $port) = @_;
-    
+
     my $result = system("ss -tuln | grep ':$port ' >/dev/null 2>/dev/null");
     if ($result == 256) {
         return undef;
