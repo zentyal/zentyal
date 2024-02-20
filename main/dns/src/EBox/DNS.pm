@@ -807,6 +807,31 @@ sub _setConf
         $self->writeConfFile($file, 'dns/keys.mas', \@array,
             {uid => 'root', 'gid' => 'dhcpd', mode => '640'});
     }
+
+    # Configure /etc/resolv.conf
+    if (EBox::Global->modInstance('dns')->isEnabled()) {
+        $self->_configureResolvConf(1);
+    } else {
+        $self->_configureResolvConf(0);
+    }
+}
+
+sub _configureResolvConf
+{
+    my ($self, $enable) = @_;
+
+    my $network = EBox::Global->modInstance('network');
+
+    if ($enable) {
+        $network->_prepareNamedResolvconf();
+        EBox::Sudo::root('systemctl disable --now systemd-resolved');
+    } else {
+        $network->_prepareSystemdResolved();
+        EBox::Sudo::root('systemctl enable --now systemd-resolved');
+    }
+
+    $network->_disableNetworkManagerUnsetIfaces();
+    EBox::Sudo::root('systemctl restart NetworkManager');
 }
 
 sub _writeReverseFiles

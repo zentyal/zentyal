@@ -9,6 +9,7 @@ HEAD
 	+ Added resolvconf service
 	+ Update bind9.mas stub
 	+ Remove unnecessary network restart
+	+ Manage resolv.conf file
 7.1.0
 	+ Bump version number
 7.0.2

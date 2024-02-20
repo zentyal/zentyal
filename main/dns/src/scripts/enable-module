@@ -8,7 +8,7 @@ set -e
 
 function enable_mod() {
     # This function runs the initial configuration the module needs once it is installed
-    chmod g+w /etc/bind
+    return
 }
 
 
