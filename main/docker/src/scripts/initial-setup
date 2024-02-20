@@ -8,6 +8,7 @@ set -ex
 
 function initial_conf() {
   # This function runs the initial configuration the module needs once it is installed
+  usermod -aG docker ebox
   usermod -aG docker $(id -u -n 1000)
 }
 
