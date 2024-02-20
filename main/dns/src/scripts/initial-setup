@@ -9,6 +9,8 @@ set -e
 function initial_conf() {
     # This function runs the initial configuration the module needs once it is installed
     chmod g+w /etc/bind
+    rm -f /etc/resolv.conf
+    ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 }
 
 
