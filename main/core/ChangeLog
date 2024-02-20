@@ -1,5 +1,7 @@
 HEAD
 	+ Set version to 8.0.0
+	+ Remove deprecated build dep
+	+ Increase debian/compat level
 	+ Fix SHM lock owner
 	+ Disable unattended-upgrades
 	+ Set execution permissions to the cleantmp file
