@@ -42,11 +42,15 @@ sub init
         mkdir ($path);
     }
 
+    EBox::Sudo::silentRoot("chown ebox:ebox $path");
+
     unless (-f $file) {
         open(LOCKFILE, ">$file") or
             throw EBox::Exceptions::Internal("Cannot create lockfile: $file");
         close(LOCKFILE);
     }
+
+    EBox::Sudo::silentRoot("chown ebox:ebox $file");
 
     return $self;
 }
@@ -56,11 +60,6 @@ sub unlock
     my ($self) = @_;
 
     my $file = $self->{file};
-
-
-    if (EBox::Sudo::fileTest('-f', "$self->{file}")) {
-        EBox::Sudo::silentRoot("chown ebox:ebox $file");
-    }
 
     open(LOCKFILE, ">$file") or
         throw EBox::Exceptions::Internal("Cannot open lockfile to unlock: $file");
@@ -73,10 +72,6 @@ sub lock
     my ($self) = @_;
 
     my $file = $self->{file};
-
-    if (EBox::Sudo::fileTest('-f', "$self->{file}")) {
-        EBox::Sudo::silentRoot("chown ebox:ebox $file");
-    }
 
     open(LOCKFILE, ">$file") or
         throw EBox::Exceptions::Internal("Cannot open lockfile to lock: $file");

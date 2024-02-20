@@ -2624,6 +2624,8 @@ sub _executeCommand # (command, input, hide_output)
     $command .= "\n";
 
     my $return = EBox::Sudo::root("openssl $command");
+    ## TODO: Find a better way to set the permissions
+    EBox::Sudo::silentRoot("chown -R ebox:ebox " . CATOPDIR);
 
    my $input;
    $input = $params{input} if (exists $params{input});
