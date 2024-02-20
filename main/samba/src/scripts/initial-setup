@@ -9,6 +9,7 @@ set -e
 function initial_conf() {
     # This function runs the initial configuration the module needs once it is installed
     mkdir -p /var/lib/zentyal/conf/samba/sync_shares
+    chown -R ebox:ebox /var/lib/zentyal/conf/samba
 }
 
 
