@@ -55,10 +55,34 @@ sub _table
         defaultActions => [ 'editField' ],
         modelDomain => 'Docker',
         tableDescription => \@fields,
-        help => __('This is the help of the model'),
+        help => __('Use this form to setup the docker console'),
     };
 
     return $dataTable;
+}
+
+sub permanentMessage
+{
+    my ($self) = @_;
+
+    my $fqdn = $self->parentModule()->global()->modInstance('sysinfo')->fqdn();
+    my $port = $self->value('adminPort');
+    if(!$fqdn) {
+        return undef;
+    }
+
+    return __x(
+        'To manage your docker setup you just need to acces to the console '
+        . 'clicking on this link '
+        . '{openhref}Portainer®{closehref} to do so',
+        openhref  => qq{<a href="http://$fqdn:$port" target="_blank">},
+        closehref => qq{</a>}
+    );
+}
+
+sub permanentMessageType
+{
+    return 'note';
 }
 
 sub validateTypedRow
