@@ -22,38 +22,38 @@ get_status() {
     GET_CONTAINER=$(docker ps --filter name=$CONTAINER_NAME --format "{{.Names}}")
 
     if [[ -z "$GET_VOLUMEN" ]] || [[ -z "$GET_CONTAINER" ]]; then
-        return 1
+        return 0
     else
         ## All up and running
-        return 0
+        return 1
     fi
 }
 
 check_volumen_exists() {
     if [[ $(docker volume ls -q -f name=$VOLUMEN_NAME) != "$VOLUMEN_NAME" ]]; then
-        return 1
+        return 0
     else
         ## Volumen exists
-        return 0
+        return 1
     fi
 }
 
 
 check_container_exists() {
     if [[ $(docker ps -a --filter name=$CONTAINER_NAME --format "{{.Names}}") != "$CONTAINER_NAME" ]]; then
-        return 1
+        return 0
     else
         ## Container exists
-        return 0
+        return 1
     fi
 }
 
 check_container_running() {
     if [[ $(docker ps --filter name=$CONTAINER_NAME --format "{{.Names}}") != "$CONTAINER_NAME" ]]; then
-        return 1
-    else
-        ## Container exists
         return 0
+    else
+        ## Container is running
+        return 1
     fi
 }
 
@@ -101,7 +101,7 @@ destroy_volumen() {
 
 destroy_container() {
     check_container_exists
-    if [ $? -eq 0 ]; then docker rm -f $CONTAINER_NAME; fi
+    if [ $? -eq 1 ]; then docker rm -f $CONTAINER_NAME; fi
 }
 
 
@@ -115,27 +115,31 @@ uninstall_container() {
 case $1 in
     "install"|"create")
         $check_volumen_exists
-        if [ $? -eq 0 ]; then destroy_volumen; fi
+        if [ $? -eq 1 ]; then destroy_volumen; fi
         create_volumen
 
         check_container_exists
-        if [ $? -eq 0 ]; then destroy_container; fi
+        if [ $? -eq 1 ]; then destroy_container; fi
         create_container
+        get_status
         ;;
   "start")
         check_container_running
-        if [ $? -eq 0 ]; then echo "ERROR: THE CONTAINER CANNOT BE STARTED" && exit 1; fi
+        if [ $? -eq 1 ]; then echo "ERROR: THE CONTAINER IS ALREADY RUNNING" && exit 1; fi
         start_container
+        get_status
         ;;
   "stop")
         check_container_running
-        if [ $? -eq 1 ]; then echo "ERROR: THE CONTAINER CANNOT BE STOPPED" && exit 1; fi
+        if [ $? -eq 0 ]; then echo "ERROR: THE CONTAINER IS NOT RUNNING" && exit 1; fi
         stop_container
+        get_status
     ;;
   "restart")
         check_container_exists
-        if [ $? -eq 1 ]; then echo "ERROR: THE CONTAINER CANNOT BE RESTARTED" && exit 1; fi
+        if [ $? -eq 0 ]; then echo "ERROR: THE CONTAINER CANNOT BE RESTARTED BECAUSE DOESN'T EXIST" && exit 1; fi
         restart_container
+        get_status
         ;;
   "status")
         get_status

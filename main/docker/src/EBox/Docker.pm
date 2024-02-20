@@ -12,6 +12,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Exceptions::External;
+use TryCatch;
 
 use constant CONFDIR => '/var/lib/zentyal/docker/';
 use constant MANAGE_SCRIPT => CONFDIR . 'docker-manage.sh';
@@ -154,7 +155,7 @@ sub _setConf
     my ($self) = @_;
 
     if ($self->isEnabled()) {
-        $self->checkContainerStatus();
+        $self->enforceServiceStatus();
     } else {
         $self->runDockerStop();
     }
@@ -172,6 +173,20 @@ sub _setConf
     $self->_writeManagerScript(@params);
 }
 
+sub stopService
+{
+    my ($self) = @_;
+    if ($self->isRunning() && $self->runCheckContainer()) {
+        $self->runDockerStop();
+    }
+}
+
+sub isRunning
+{
+    my ($self) = @_;
+    return $self->runDockerStatus();
+}
+
 sub _writeManagerScript()
 {
     my ($self, @params) = @_;
@@ -184,17 +199,15 @@ sub _writeManagerScript()
     );
 }
 
-sub checkContainerStatus
+sub enforceServiceStatus
 {
     my ($self) = @_;
 
     my $check_project = $self->runCheckContainer();
 
-    if ($check_project == 0) {
-        EBox::debug('The container exists, starting it...');
+    if ($check_project) {
         $self->runDockerStart();
     } else {
-        EBox::debug('The container does not exist, creating it...');
         $self->runDockerCreate();
     }
 }
@@ -203,46 +216,78 @@ sub runCheckContainer
 {
     my ($self) = @_;
 
-    EBox::debug('Checking if the container exists...');
-    system(MANAGE_SCRIPT . ' check_project');
+    my $res = system(MANAGE_SCRIPT . ' check_project');
+    if($res == 256) {
+        return 1;
+    }
+    return undef;
+}
+
+sub runDockerStatus
+{
+    my ($self) = @_;
+
+    my $res = system(MANAGE_SCRIPT . ' status');
+    if($res == 256) {
+        return 1;
+    }
+    return undef;
 }
 
 sub runDockerCreate
 {
     my ($self) = @_;
 
-    EBox::debug('Creating the container...');
-    system(MANAGE_SCRIPT . ' create');
+    my $res = system(MANAGE_SCRIPT . ' create');
+    if($res == 256) {
+        return 1;
+    }
+    return undef;
 }
 
 sub runDockerStart
 {
     my ($self) = @_;
-    system(MANAGE_SCRIPT . ' start');
+    my $res = system(MANAGE_SCRIPT . ' start');
+
+    if($res == 256) {
+        return 1;
+    }
+    return undef;
+
 }
 
 sub runDockerStop
 {
     my ($self) = @_;
 
-    EBox::debug('Stopping the container...');
-    system(MANAGE_SCRIPT . ' stop');
+    my $res = system(MANAGE_SCRIPT . ' stop');
+    if($res == 256) {
+        return 1;
+    }
+    return undef;
 }
 
 sub runDockerRestart
 {
     my ($self) = @_;
 
-    EBox::debug('Restarting the container...');
-    system(MANAGE_SCRIPT . ' restart');
+    my $res = system(MANAGE_SCRIPT . ' restart');
+    if($res == 256) {
+        return 1;
+    }
+    return undef;
 }
 
 sub runDockerDestroy
 {
     my ($self) = @_;
 
-    EBox::debug('Stopping the container...');
-    system(MANAGE_SCRIPT . ' destroy');
+    my $res = system(MANAGE_SCRIPT . ' destroy');
+    if($res == 0) {
+        return 1;
+    }
+    return undef;
 }
 
 # Constructor: isPortInUse
