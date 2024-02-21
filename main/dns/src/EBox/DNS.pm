@@ -659,13 +659,7 @@ sub _daemons
     return [
         {
             'name' => 'named'
-        },
-        {
-            'name' => 'resolvconf'
-        },
-        {
-            'name' => 'named-resolvconf'
-        },
+        }
     ];
 }
 
@@ -825,11 +819,23 @@ sub _configureResolvConf
     if ($enable) {
         $network->_prepareNamedResolvconf();
         EBox::Sudo::root('systemctl disable --now systemd-resolved');
+
+        my $checkDnsConf = system("grep -q 'dns=none' /etc/NetworkManager/NetworkManager.conf");
+        if ($checkDnsConf !=0) {
+            $self->_manageNetworkManager();
+        }
     } else {
         $network->_prepareSystemdResolved();
         EBox::Sudo::root('systemctl enable --now systemd-resolved');
+        $self->_manageNetworkManager();
     }
+}
 
+sub _manageNetworkManager
+{
+    my ($self) = @_;
+
+    my $network = EBox::Global->modInstance('network');
     $network->_disableNetworkManagerUnsetIfaces();
     EBox::Sudo::root('systemctl restart NetworkManager');
 }
@@ -990,10 +996,6 @@ sub _postServiceHook
         } while (($nTry < 30) and (not $self->_isPortListening(53)));
         # Do nothing if Kerberos is not listening
         if (($nTry < 5) and $self->_isPortListening(88)) {
-            my $dnsFile = new File::Temp(TEMPLATE => 'resolvXXXXXX', DIR => EBox::Config::tmp());
-            EBox::Sudo::root("cp /etc/resolvconf/interface-order $dnsFile",
-                             'echo zentyaldns.temp > /etc/resolvconf/interface-order',
-                             "echo 'nameserver 127.0.0.1' | resolvconf -a zentyaldns.temp");
             my $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
             my $hostname = $self->global()->modInstance('sysinfo')->hostName();
             my $netbiosName = $samba->model('DomainSettings')->value('netbiosName');
@@ -1010,8 +1012,6 @@ sub _postServiceHook
                 # Remove the temporary file
                 unlink ($filename) if -f $filename;
             }
-            EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
-                             'resolvconf -d zentyaldns.temp');
             delete $self->{nsupdateCmds};
         }
     }
@@ -1502,7 +1502,7 @@ sub _updateDynReverseZone
         unshift(@file, "zone $zone");
         push(@file, "send");
         untie(@file);
-        $self->_launchNSupdate($fh, 1);
+                $self->_launchNSupdate($fh, 1);
     }
 }
 
@@ -1584,7 +1584,7 @@ sub _updateDynDirectZone
 
     print $fh "send\n";
 
-    $self->_launchNSupdate($fh);
+        $self->_launchNSupdate($fh);
 }
 
 # Remove no longer available RR in dynamic zones
@@ -1600,7 +1600,7 @@ sub _removeDeletedRR
 
     if ( $fh->tell() > 0 ) {
         print $fh "send\n";
-        $self->_launchNSupdate($fh);
+                $self->_launchNSupdate($fh);
         $self->st_unset(DELETED_RR_KEY);
     }
 }
