@@ -194,7 +194,7 @@ sub _periodicMessages
     return [
         {
          name => 'trial',
-         text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 45-day Trial!', 
+         text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 15-day Trial!', 
          oh => '<a href="http://www.zentyal.com/zentyal-server/trial/">', 
          ch => '</a>'),
          days => 7,
