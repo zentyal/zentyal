@@ -5,8 +5,6 @@ HEAD
 	+ Remove old Systemd fix
 	+ Update initial-setup and enable-module scripts
 	+ Update DLZ file
-	+ Add resolvconf dependency
-	+ Added resolvconf service
 	+ Update bind9.mas stub
 	+ Remove unnecessary network restart
 	+ Manage resolv.conf file

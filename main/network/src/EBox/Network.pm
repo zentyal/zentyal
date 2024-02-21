@@ -33,10 +33,6 @@ use constant NETWORK_MANAGER_FILE => '/etc/NetworkManager/NetworkManager.conf';
 use constant RESOLV_FILE => '/etc/resolv.conf';
 use constant SYSTEMD_RESOLVED_FILE => '/run/systemd/resolve/stub-resolv.conf';
 use constant NAMED_RESOLVCONF_FILE => '/run/resolvconf/resolv.conf';
-use constant RESOLVCONF_INTERFACE_ORDER => '/etc/resolvconf/interface-order';
-use constant RESOLVCONF_BASE => '/etc/resolvconf/resolv.conf.d/base';
-use constant RESOLVCONF_HEAD => '/etc/resolvconf/resolv.conf.d/head';
-use constant RESOLVCONF_TAIL => '/etc/resolvconf/resolv.conf.d/tail';
 use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
@@ -3652,30 +3648,24 @@ sub _preSetConf
 
 # Method: _prepareNamedResolvconf
 #
-#   This method configures the configuration file '/etc/resolv.conf' to be used by named-resolvconf
+#   This method configures the configuration file '/etc/resolv.conf' to be used by Zentyal itself.
 sub _prepareNamedResolvconf
 {
     my ($self) = @_;
 
-    EBox::debug("Configuring /etc/resolv.conf with named-resolvconf");
+    EBox::debug("Configuring /etc/resolv.conf by Zentyal itself");
 
-    # Ensure /run/resolvconf/resolv.conf exists
-    if (not EBox::Sudo::fileTest('-f', NAMED_RESOLVCONF_FILE)) {
-        EBox::info("Creating file /run/resolvconf/resolv.conf");
-        EBox::Sudo::root('touch /run/resolvconf/resolv.conf');
-        $self->{restartResolvconf} = 1;
-    }
+    # Add search domain
+    my $searchDomainModel = $self->model('SearchDomain');
+    my $searchDomain = $searchDomainModel->value('domain');
 
-    # Ensure /etc/resolv.conf is a symlink to /run/resolvconf/resolv.conf
-    my @actual_target_output = EBox::Sudo::root("readlink -f " . RESOLV_FILE);
-    my $actual_target = $actual_target_output[0][0];
-    chomp($actual_target);
-    if (not EBox::Sudo::fileTest('-L', RESOLV_FILE) or $actual_target ne NAMED_RESOLVCONF_FILE) {
-        EBox::info("Restoring symlink /etc/resolv.conf for named-resolvconf");
-        EBox::Sudo::root('rm -f ' . RESOLV_FILE);
-        EBox::Sudo::root('ln -s /run/resolvconf/resolv.conf ' . RESOLV_FILE);
-        $self->{restartResolvconf} = 1;
-    }
+      # Restart systemd-resolved to apply the changes
+      $self->writeConfFile(
+        RESOLV_FILE,
+        'network/resolv.conf.mas',
+        [ searchDomain => $searchDomain ],
+        { mode => '0644', uid => 0, gid => 0 }
+      );
 }
 
 # Method: _prepareSystemdResolved
@@ -3707,94 +3697,6 @@ sub _prepareSystemdResolved
         EBox::Sudo::root('ln -s /run/systemd/resolve/stub-resolv.conf ' . RESOLV_FILE);
         $self->{restartResolvconf} = 1;
     }
-}
-
-# Method: _generateResolvconfConfig
-#
-#   This method write the /etc/resolvconf/interface-order file. This file
-#   contain the order in which the files under /var/run/resolvconf/interfaces
-#   are processes and finally result en the resolver order in /etc/resolv.conf
-#
-#   After write the order, resolvers manually configured in the webadmin
-#   (those which interface field is zentyal.<row id>) are removed or added
-#   to the resolvconf configuration.
-#
-sub _generateResolvconfConfig
-{
-    my ($self) = @_;
-
-    EBox::debug("Configuring /etc/resolv.conf with named-resolvconf");
-
-    # Generate base, head and tail
-    $self->writeConfFile(RESOLVCONF_BASE,
-        'network/resolvconf-base.mas', [],
-        { mode => '0644', uid => 0, gid => 0 });
-    $self->writeConfFile(RESOLVCONF_HEAD,
-        'network/resolvconf-head.mas', [],
-        { mode => '0644', uid => 0, gid => 0 });
-    $self->writeConfFile(RESOLVCONF_TAIL,
-        'network/resolvconf-tail.mas', [],
-        { mode => '0644', uid => 0, gid => 0 });
-
-    # First step, write the order list
-    my $interfaces = [];
-    my $model = $self->model('DNSResolver');
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $interface = $row->valueByName('interface');
-        next unless defined $interface and length $interface;
-        push (@{$interfaces}, $interface);
-    }
-
-    # TODO SearchDomain should be a table model. Multiple search domains
-    #      can be defined
-    my $searchDomainModel = $self->model('SearchDomain');
-    my $searchDomain = $searchDomainModel->value('domain');
-    my $searchDomainIface = $searchDomainModel->value('interface');
-    if ($searchDomainIface) {
-        push (@{$interfaces}, $searchDomainIface);
-    }
-
-    my $ifaces = $self->ifaces();
-    foreach my $iface (@{$ifaces}) {
-        next unless $self->ifaceMethod($iface) eq 'dhcp';
-
-        $iface = "$iface.dhclient";
-        next if grep (/$iface/, @{$interfaces});
-
-        push (@{$interfaces}, $iface);
-    }
-
-    my $array = [];
-    push (@{$array}, interfaces => $interfaces);
-    $self->writeConfFile(RESOLVCONF_INTERFACE_ORDER,
-        'network/resolvconf-interface-order.mas', $array,
-        { mode => '0644', uid => 0, gid => 0 });
-
-    # Second step, trigger the updates
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $interface = $row->valueByName('interface');
-        next unless defined $interface and length $interface;
-
-        my $resolver = $row->valueByName('nameserver');
-        next unless defined $resolver and length $resolver;
-
-        next unless ($interface =~ m/^zentyal\..+$/);
-        EBox::Sudo::root("/sbin/resolvconf -d '$interface'");
-        EBox::Sudo::root("echo 'nameserver $resolver' | /sbin/resolvconf -a '$interface'");
-    }
-
-    if ($searchDomainIface and ($searchDomainIface =~ m/^zentyal\..+$/)) {
-        EBox::Sudo::root("/sbin/resolvconf -d '$searchDomainIface'");
-        if ($searchDomain) {
-            EBox::Sudo::root("echo 'search $searchDomain' | /sbin/resolvconf -a '$searchDomainIface'");
-        }
-    }
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $domain = $sysinfo->hostDomain();
-    EBox::Sudo::root("echo 'domain $domain' | /sbin/resolvconf -a 'zentyal.domain'");
 }
 
 
@@ -3880,12 +3782,6 @@ sub _enforceServiceState
     $self->_disableReversePath();
     $self->_multigwRoutes($dynIfaces);
 
-    # Manage /etc/resolv.conf (already configured the link)
-    my $global = EBox::Global->getInstance();
-    if ($global->modInstance('software')->isInstalled('zentyal-dns') and $global->modInstance('dns')->isEnabled()) {
-        ## If DNS module is enabled
-        $self->_generateResolvconfConfig();
-    }
 
     $self->_applyChangesToSystemNetwork();
 
