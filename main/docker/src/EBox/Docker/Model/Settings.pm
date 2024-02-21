@@ -55,6 +55,7 @@ sub _table
         defaultActions => [ 'editField' ],
         modelDomain => 'Docker',
         tableDescription => \@fields,
+        confirmationDialog => { submit => \&confirmRecreate },
         help => __('Use this form to setup the docker console'),
     };
 
@@ -103,6 +104,16 @@ sub validateTypedRow
             )
         );
     }
+}
+
+sub confirmRecreate
+{
+    my ($self) = @_;
+    
+    return {
+        title => __('Caution!'),
+        message => __('Changing the form values will re-create all your docker admin system.')
+    };
 }
 
 1;
