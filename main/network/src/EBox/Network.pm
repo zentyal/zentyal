@@ -328,6 +328,9 @@ sub enableActions
         EBox::Sudo::root(@cmds);
     }
     $self->_importDHCPAddresses();
+
+    # Execute enable-module script
+    $self->SUPER::enableActions();
 }
 
 # Method: wizardPages
