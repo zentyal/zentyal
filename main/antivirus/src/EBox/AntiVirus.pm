@@ -240,7 +240,8 @@ sub _setConf
 
     $self->writeConfFile(CLAMD_CONF_FILE, "antivirus/clamd.conf.mas", \@clamdParams);
 
-    $self->disableApparmorProfile('usr.sbin.clamd');
+    # TODO: Fix Apparmor profile
+    # $self->disableApparmorProfile('usr.sbin.clamd');
 
     my $network = EBox::Global->modInstance('network');
     my $proxy = $network->model('Proxy');

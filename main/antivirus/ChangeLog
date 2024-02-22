@@ -6,6 +6,7 @@ HEAD
 	+ Workaround for Systemd warning
 	+ Create enable-module script
 	+ Add freshclam command when the module is enable to reduce issues
+	+ Disable apparmor temporarily
 7.1.0
 	+ Bump version number
 7.0.3
