@@ -114,7 +114,7 @@ uninstall_container() {
 
 case $1 in
     "install"|"create")
-        $check_volumen_exists
+        check_volumen_exists
         if [ $? -eq 1 ]; then destroy_volumen; fi
         create_volumen
 
