@@ -69,7 +69,7 @@ function check_available_packages
   apt -qq update
   if [[ $(apt list --upgradable 2> /dev/null | wc -l) -gt 1 ]]
     then
-      echo -e "${RED}  Your server isn't up-to-date. You must run: apt dist-upgrade${NC}"
+      echo -e "${RED}  Your server isn't up-to-date. You must run: sudo apt dist-upgrade${NC}"
       exit 1
   fi
 
@@ -186,13 +186,20 @@ function add_repositories
   wget -q ${ZEN_REPO_KEY} -P /etc/apt/trusted.gpg.d/
   echo ${ZEN_REPO_URL} > /etc/apt/sources.list.d/zentyal.list
 
-  ## Add Suricata repository for zentyal-ips module
-  add-apt-repository -y ppa:oisf/suricata-stable
-
   ## Add Docker repository for zentyal-docker module
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
   chmod 0644 /etc/apt/trusted.gpg.d/docker.gpg
   echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" > /etc/apt/sources.list.d/docker.list
+
+  ## Add Firefox repository for zenbuntu-desktop module
+  wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- > /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
+  chmod 0644 /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
+  echo "deb [signed-by=/etc/apt/trusted.gpg.d/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" > /etc/apt/sources.list.d/mozilla.list
+cat <<EOF > /etc/apt/preferences.d/mozilla
+Package: *
+Pin: origin packages.mozilla.org
+Pin-Priority: 1000
+EOF
 
   apt -qq update
 
@@ -205,11 +212,11 @@ function zentyal_gui
   echo -e "${GREEN} - Installing the graphical environment...${NC}\n"
 
   echo 'lxdm shared/default-x-display-manager select lxdm' | debconf-set-selections
-  DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends ${ZEN_GUI}
+  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ${ZEN_GUI}
 
   if [[ ! -f /etc/X11/default-display-manager ]]
     then
-      ## For: Ubuntu Server 20.04 versions Live and Legacy
+      ## For Ubuntu Server
       echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
       continue
   fi
@@ -217,28 +224,32 @@ function zentyal_gui
   CUR_GUI=$(cat /etc/X11/default-display-manager | xargs basename)
 
   case ${CUR_GUI} in
-    gdm3) ## For: Ubuntu Desktop (Gnome)
+    gdm3) ## Ubuntu Desktop (Gnome)
       echo 'gdm3 shared/default-x-display-manager select lxdm' | debconf-set-selections
       DEBIAN_FRONTEND=noninteractive dpkg-reconfigure --force gdm3
       systemctl disable gdm3 lxdm
       which lxdm > /etc/X11/default-display-manager
-      systemctl enable zentyal.lxdm
     ;;
-    sddm) ## For: Lubuntu and Kubuntu
+    sddm) ## Lubuntu and Kubuntu
       echo 'sddm shared/default-x-display-manager select lxdm' | debconf-set-selections
       DEBIAN_FRONTEND=noninteractive dpkg-reconfigure --force sddm
       systemctl disable sddm lxdm
       which lxdm > /etc/X11/default-display-manager
-      systemctl enable zentyal.lxdm
     ;;
-    lightdm) ## For: Xubuntu
+    lightdm) ## Xubuntu
       echo 'lightdm shared/default-x-display-manager select lxdm' | debconf-set-selections
       DEBIAN_FRONTEND=noninteractive dpkg-reconfigure --force lightdm
       systemctl disable lightdm lxdm
       which lxdm > /etc/X11/default-display-manager
-      systemctl enable zentyal.lxdm
     ;;
   esac
+
+  echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+
+  echo -e "${GREEN} - Configuring the graphical environment...${NC}\n"
+
+  /usr/share/zenbuntu-desktop/x11-setup >> /var/tmp/zentyal-installer.log 2>&1
+  systemctl enable --now zentyal.lxdm
 
   echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }
@@ -257,6 +268,9 @@ function zentyal_installation
 
   touch /var/lib/zentyal/.commercial-edition
   touch /var/lib/zentyal/.license
+
+  # Disable cloud-init
+  touch /etc/cloud/cloud-init.disabled
 
   echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 
