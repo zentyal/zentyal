@@ -13,7 +13,7 @@ Package: zentyal-ips
 Architecture: all
 Pre-Depends: zentyal-core
 Depends: zentyal-core (>= 8.0.0), zentyal-core (<< 8.1.0), zentyal-firewall,
-         suricata, snort-rules-default, libtcmalloc-minimal4, ${misc:Depends}
+         suricata, jq, snort-rules-default, libtcmalloc-minimal4, ${misc:Depends}
 Description: Zentyal - Intrusion Prevention System
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
