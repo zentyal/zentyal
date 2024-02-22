@@ -8,22 +8,4 @@ case "$1" in
         dpkg-trigger --no-await zentyal-core
 esac
 
-if zs ips status | grep -qo ' RUNNING '
-then
-        zs ips stop
-fi
-
-if systemctl is-active suricata | egrep -qo '^active$'
-then
-        systemctl stop suricata
-fi
-
-sed -i 's#LISTEN_OPTIONS=" $NFQUEUE"#LISTEN_OPTIONS=" -q $NFQUEUE"#' /etc/init.d/suricata
-systemctl daemon-reload
-
-if zs ips enabled | grep -oq ' ENABLED '
-then
-        zs ips start
-fi
-
 exit 0

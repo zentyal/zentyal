@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -e
+
+####
+## Functions
+####
+
+function initial_conf() {
+    # This function runs the initial configuration the module needs once it is installed
+    if ! grep -q 'LISTEN_OPTIONS=" -q $NFQUEUE' /etc/init.d/suricata; then
+        sed -i 's#LISTEN_OPTIONS=" $NFQUEUE"#LISTEN_OPTIONS=" -q $NFQUEUE"#' /etc/init.d/suricata
+        systemctl daemon-reload
+    fi
+}
+
+
+function mod_disabled() {
+    # This function stops and disables the services that uses the module
+    systemctl disable --now suricata
+}
+
+
+####
+## Calls
+####
+
+initial_conf
+mod_disabled
+
+exit 0

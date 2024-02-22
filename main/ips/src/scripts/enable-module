@@ -1,15 +1,25 @@
 #!/bin/bash
 
-systemctl stop suricata || true
+set -e
 
-modprobe nfnetlink_queue
+####
+## Functions
+####
 
-# ensure read permissions for loggerd
-touch /var/log/suricata/fast.log
-chgrp adm /var/log/suricata/fast.log
+function enable_mod() {
+    # This function runs the initial configuration the module needs once it is installed
+    modprobe nfnetlink_queue
 
-# workaround for broken systemd service, enforce use of init.d script
-rm -f /lib/systemd/system/suricata.service
-systemctl daemon-reload
+    # Ensure read permissions for loggerd
+    touch /var/log/suricata/fast.log
+    chgrp adm /var/log/suricata/fast.log
+}
+
+
+####
+## Calls
+####
+
+enable_mod
 
 exit 0
