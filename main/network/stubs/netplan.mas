@@ -32,7 +32,10 @@ foreach my $iface (@iflist) {
     if($iface =~ /^vlan/) {
       my $vlan = $networkMod->vlan($iface);
       if($networkMod->vlanExists($vlan->{'id'})) {
-        $hasVlans = 1;
+        my $mod = $networkMod->ifaceMethod($iface);
+        if($mod && $mod ne 'notset') {
+          $hasVlans = 1;
+        }
       }
     }
     if($iface =~ /^.+?:.+?$/) {
