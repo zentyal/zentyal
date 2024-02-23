@@ -1,4 +1,5 @@
 HEAD
+	+ Remove vifaces form and mark the feature as deprecated
 	+ Update interfaces widget logic
 	+ Use network-manager-dispatcher instead of dhclient hooks
 	+ Replace resolvconf by systemd-resolved when is needed
