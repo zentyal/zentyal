@@ -676,28 +676,6 @@ sub _subjAltNames
     return \@subjAltNames;
 }
 
-# Compare two arrays
-sub _checkVhostsLists
-{
-    my ($self, $vhostsTable, $vhostsCert) = @_;
-
-    my @array1 = @{$vhostsTable};
-    my @array2 = @{$vhostsCert};
-
-    my @union = ();
-    my @intersection = ();
-    my @difference = ();
-    my %count = ();
-
-    foreach my $element (@array1, @array2) { $count{$element}++ }
-    foreach my $element (keys %count) {
-        push(@union, $element);
-        push(@{ $count{$element} > 1 ? \@intersection : \@difference }, $element);
-    }
-
-    return @difference;
-}
-
 # Generate the certificate, issue a new one or renew the existing one
 sub _issueCertificate
 {
@@ -719,6 +697,7 @@ sub _issueCertificate
             $ca->renewCertificate(commonName => $cn,
                                   endDate => $caMD->{expiryDate},
                                   subjAltNames => $self->_subjAltNames());
+            $self->_generateVHostsCertificates();
             return;
         }
     }
@@ -726,6 +705,39 @@ sub _issueCertificate
     $ca->issueCertificate(commonName => $cn,
                           endDate => $caMD->{expiryDate},
                           subjAltNames => $self->_subjAltNames());
+    $self->_generateVHostsCertificates();
+}
+
+sub _generateVHostsCertificates
+{
+    my ($self) = @_;
+
+    my $ca = $self->global()->modInstance('ca');
+    my $caMD = $ca->getCACertificateMetadata();
+    my $domain = $self->global()->modInstance('sysinfo')->model('HostName')->value('hostdomain');
+    if ($domain) {
+        foreach my $vhost (@{$self->model('VHostTable')->getWebServerSAN()}) {
+            # check if certificate exists
+            my $cn = "$vhost.$domain";
+            my $certMD = $ca->getCertificateMetadata(cn => $cn);
+            if (defined($certMD)) {
+                my $isStillValid = ($certMD->{state} eq 'V');
+                my $isAvailable = (-f $certMD->{path});
+                next if ($isStillValid and $isAvailable);
+                    $ca->issueCertificate(
+                        commonName => "$vhost.$domain",
+                        endDate => $caMD->{expiryDate},
+                        subjAltNames => $self->_subjAltNames()
+                    );
+                
+            }
+                    $ca->issueCertificate(
+                        commonName => "$vhost.$domain",
+                        endDate => $caMD->{expiryDate},
+                        subjAltNames => $self->_subjAltNames()
+                    );
+        }       
+    }
 }
 
 # Check if we need to regenerate the certificate
@@ -741,17 +753,9 @@ sub _checkCertificate
 
     my $model = $self->model('VHostTable');
     my @vhostsTable = @{$model->getWebServerSAN()};
-    my @vhostsCert = @{$self->_getCertificateCNAndSAN()};
     return unless @vhostsTable;
 
-    if (@vhostsCert) {
-        if ($self->_checkVhostsLists(\@vhostsTable, \@vhostsCert)) {
-            $self->_issueCertificate();
-        }
-    } else {
-        $self->_issueCertificate();
-    }
-
+    $self->_issueCertificate();
     my $global = EBox::Global->getInstance();
     $global->modRestarted('ca');
 }
