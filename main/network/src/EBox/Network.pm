@@ -2347,7 +2347,9 @@ sub _removeBridge # (id)
     my ($self, $id, $force) = @_;
 
     $self->_removeIface("br$id");
-    EBox::Sudo::root("/usr/sbin/ip link delete br$id type bridge");
+    try { # TODO: Sometimes when we call this method the iface is already deleted, I think that netplan already handles it
+        EBox::Sudo::root("/usr/sbin/ip link delete br$id type bridge");
+    } catch {}
 }
 
 # Method: _removeEmptyBridges
@@ -2459,7 +2461,9 @@ sub _removeBond # (id)
     my ($self, $id, $force) = @_;
 
     $self->_removeIface("bond$id");
-    EBox::Sudo::root("/usr/sbin/ip link delete bond$id");
+    try { # TODO: Sometimes when we call this method the iface is already deleted, I think that netplan already handles it
+        EBox::Sudo::root("/usr/sbin/ip link delete bond$id type bond");
+    } catch {}
 }
 
 # Method: _removeEmptyBonds
