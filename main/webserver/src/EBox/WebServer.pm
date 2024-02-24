@@ -48,6 +48,8 @@ use constant CONF_ENABLED_DIR => CONF_DIR . '/conf-enabled/';
 use constant VHOST_DFLT_FILE => SITES_AVAILABLE_DIR . '000-default.conf';
 use constant VHOST_DFLTSSL_FILE => SITES_AVAILABLE_DIR . 'default-ssl.conf';
 use constant SSL_DIR => CONF_DIR . '/ssl/';
+use constant SSLKEYS_DIR => "/var/lib/zentyal/CA/keys/";
+use constant SSLPRIVKEYS_DIR => "/var/lib/zentyal/CA/private/";
 
 # Constructor: _create
 #
@@ -496,6 +498,7 @@ sub _setVHosts
 
     foreach my $vHost (values %{$vhosts}) {
         my $vHostName  = $vHost->{'name'};
+        $vHostName =~ s/^\s+|\s+$//g;
         my $sslSupport = $vHost->{'ssl'};
 
         my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . "$vHostName.conf";
@@ -509,6 +512,34 @@ sub _setVHosts
         push (@params, publicSSLPort => $self->listeningHTTPSPort());
         push (@params, sslPort    => $self->targetHTTPSPort());
         push (@params, sslSupport => $sslSupport);
+
+        if ($sslSupport ne 'disabled') {
+            my $domain = $self->global()->modInstance('sysinfo')->model('HostName')->value('hostdomain');
+            my $cn = "$vHostName.$domain";
+            my $certMD = $self->global()->modInstance('ca')->getCertificateMetadata(cn => $cn);
+            my $pubKeyFile = SSLKEYS_DIR . "$cn.pem";
+            my $privKeyFile = SSLPRIVKEYS_DIR . "$cn.pem";
+
+            my $isAvailableCertFile = (-f $certMD->{path});
+            my $isAvailableKeyFile = (-f $pubKeyFile);
+            my $isAvailablePrivKeyFile = (-f $privKeyFile);
+
+            if($isAvailableCertFile and $isAvailableKeyFile and $isAvailablePrivKeyFile) {
+                my $privKeyMD5CmdOutput = EBox::Sudo::root("openssl x509 -noout -modulus -in $privKeyFile | openssl md5");
+                my $pubKeyMD5CmdOutput = EBox::Sudo::root("openssl rsa -noout -modulus -in $pubKeyFile | openssl md5");
+
+                if (@{$privKeyMD5CmdOutput} eq @{$pubKeyMD5CmdOutput}){
+                    push (@params, pathToSSLCert => $certMD->{path});
+                    push (@params, pathToSSLCertPrivKey => $privKeyFile);
+                } else {
+                    EBox::error("Private $privKeyFile and public $pubKeyFile key files don't match for certificate " . $certMD->{path})
+                }
+            }
+        } else {
+            # TODO: This is used to non ssl vhosts, delete it when templates will be refactored
+            push (@params, pathToSSLCert => undef);
+            push (@params, pathToSSLCertPrivKey =>  undef);
+        }
 
         $self->writeConfFile($destFile, "webserver/vhost.mas", \@params);
         $self->_createSiteDirs($vHost);
@@ -717,9 +748,10 @@ sub _generateVHostsCertificates
     my $domain = $self->global()->modInstance('sysinfo')->model('HostName')->value('hostdomain');
     if ($domain) {
         foreach my $vhost (@{$self->model('VHostTable')->getWebServerSAN()}) {
-            # check if certificate exists
+            $vhost =~ s/^\s+|\s+$//g;
             my $cn = "$vhost.$domain";
             my $certMD = $ca->getCertificateMetadata(cn => $cn);
+            # check if certificate exists
             if (defined($certMD)) {
                 my $isStillValid = ($certMD->{state} eq 'V');
                 my $isAvailable = (-f $certMD->{path});
@@ -731,11 +763,11 @@ sub _generateVHostsCertificates
                     );
                 
             }
-                    $ca->issueCertificate(
-                        commonName => "$vhost.$domain",
-                        endDate => $caMD->{expiryDate},
-                        subjAltNames => $self->_subjAltNames()
-                    );
+            $ca->issueCertificate(
+                commonName => "$vhost.$domain",
+                endDate => $caMD->{expiryDate},
+                subjAltNames => $self->_subjAltNames()
+            );
         }       
     }
 }

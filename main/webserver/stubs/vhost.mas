@@ -18,6 +18,8 @@
   $publicSSLPort
   $sslPort
   $sslSupport
+  $pathToSSLCert
+  $pathToSSLCertPrivKey
 </%args>
 <& /webserver/vhostHttp.mas,
       vHostName  => $vHostName,
@@ -34,5 +36,7 @@
       publicSSLPort => $publicSSLPort,
       sslPort    => $sslPort,
       sslSupport => $sslSupport,
+      pathToSSLCert => $pathToSSLCert,
+      pathToSSLCertPrivKey => $pathToSSLCertPrivKey,
 &>
 
