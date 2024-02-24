@@ -16,6 +16,8 @@
   $publicSSLPort
   $sslPort
   $sslSupport
+  $pathToSSLCert
+  $pathToSSLCertPrivKey
 </%args>
 <%init>
   use EBox::WebServer;
@@ -33,8 +35,8 @@
     DirectoryIndex index.html
 
     SSLEngine on
-    SSLCertificateFile	/etc/apache2/ssl/ssl.cert
-    SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
+    SSLCertificateFile	<% $pathToSSLCert %>
+    SSLCertificateKeyFile <% $pathToSSLCertPrivKey %>
 
     ErrorLog /var/log/apache2/<% $vHostName %>-error.log
     CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
