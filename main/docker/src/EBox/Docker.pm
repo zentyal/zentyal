@@ -12,10 +12,12 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Exceptions::Internal;
+use EBox::Util::Init;
 use TryCatch;
 
 use constant CONFDIR => '/var/lib/zentyal/docker/';
 use constant MANAGE_SCRIPT => CONFDIR . 'docker-manage.sh';
+use constant POSTSERVICE_HOOK => '/etc/zentyal/hooks/firewall.postservice';
 
 # Method: _create
 #
@@ -107,7 +109,7 @@ sub _daemons
         {
             name => 'docker',
             type => 'systemd'
-        },
+        }
     ];
 }
 
@@ -165,9 +167,12 @@ sub initialSetup
     $firewall->setInternalService($serviceName, 'accept');
     $firewall->saveConfigRecursive();
 
-    $self->runDockerDestroy();
+    # Postservice hook
+    my @array = [];
+    $self->writeConfFile(POSTSERVICE_HOOK, 'docker/postservice.firewall.mas', \@array,
+                         {'uid' => 'root', 'gid' => 'root', mode => '755'});
+
     $self->_writeManagerScript(@params);
-    $self->enforceServiceStatus();
 }
 
 # Method: _setConf
@@ -180,12 +185,6 @@ sub _setConf
 {
     my ($self) = @_;
 
-    if ($self->isEnabled()) {
-        $self->enforceServiceStatus();
-    } else {
-        $self->runDockerStop();
-    }
-
     # create manager script
     my $settings = $self->model('Settings');
     my $persistentVolumeName = $settings->value('persistentVolumeName');
@@ -196,24 +195,19 @@ sub _setConf
         containerName => $containerName,
         adminPort => $adminPort,
     );
-    
-    $self->runDockerDestroy();
+
     $self->_writeManagerScript(@params);
-    $self->enforceServiceStatus();
-}
 
-sub stopService
-{
-    my ($self) = @_;
-    if ($self->isRunning() && $self->runCheckContainer()) {
-        $self->runDockerStop();
+    # Postservice hook
+    my @array = [];
+    $self->writeConfFile(POSTSERVICE_HOOK, 'docker/postservice.firewall.mas', \@array,
+                         {'uid' => 'root', 'gid' => 'root', mode => '755'});
+
+    if ($self->isEnabled()) {
+        $self->enforceServiceStatus();
+    } else {
+        $self->stopService();
     }
-}
-
-sub isRunning
-{
-    my ($self) = @_;
-    return $self->runDockerStatus();
 }
 
 sub _writeManagerScript()
@@ -228,101 +222,155 @@ sub _writeManagerScript()
     );
 }
 
-sub enforceServiceStatus
+sub stopService
 {
     my ($self) = @_;
 
-    my $exists = $self->runCheckContainer();
-    EBox::Sudo::root('systemctl restart docker');
-    unless ($exists) {
-        $self->runDockerCreate();
-        return 1;
+    try {
+        my $res = system(MANAGE_SCRIPT . ' stop');
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        EBox::error("Something went wrong while stopping the container");
+        throw EBox::Exceptions::Internal($e);
     }
-    $self->runDockerStart();
 
     return 1;
 }
 
-sub runCheckContainer
+sub isRunning
+{
+    my ($self) = @_;
+    return $self->runDockerStatus();
+}
+
+sub enforceServiceStatus
 {
     my ($self) = @_;
 
-    my $res = system(MANAGE_SCRIPT . ' check_project');
+    sleep(10);
+
+    try {
+        # Check if the volumen exists, if does not, the Portainer project must be created
+        my $volumenExists = $self->runCheckVolumenExists();
+        if ($volumenExists != 1) {
+            EBox::debug('Creating the project...');
+            $self->runDockerCreate();
+            return 1;
+        }
+
+        # Check if the volumen exists and the Portainer container must be created
+        my $containerExists = $self->runCheckContainerExists();
+        if ($volumenExists == 1 and $containerExists != 1) {
+            EBox::debug('Creating the container...');
+            $self->runDockerContainerCreate();
+            return 1;
+        }
+
+        # Check if the Portainer container must be started
+        my $checkContainer = $self->runCheckContainerIsRunning();
+        if ($checkContainer != 1) {
+            EBox::debug('Starting the container...');
+            $self->runDockerStart();
+            return 1;
+        } else {
+            EBox::debug('The container is already started...');
+            return 1
+        }
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        EBox::error("Something went wrong while creating the container");
+        throw EBox::Exceptions::Internal($e);
+    }
+
+    return 1;
+}
+
+sub runCheckVolumenExists
+{
+    my ($self) = @_;
+
+    my $res = system(MANAGE_SCRIPT . ' check_volumen');
     if($res == 256) {
         return 1;
     }
+
     return undef;
 }
 
-sub runDockerStatus
+sub runCheckContainerExists
 {
     my ($self) = @_;
 
-    my $res = system(MANAGE_SCRIPT . ' status');
+    my $res = system(MANAGE_SCRIPT . ' check_container_exists');
     if($res == 256) {
         return 1;
     }
+
+    return undef;
+}
+
+sub runCheckContainerIsRunning
+{
+    my ($self) = @_;
+
+    my $res = system(MANAGE_SCRIPT . ' check_container_is_running');
+    if($res == 256) {
+        return 1;
+    }
+
     return undef;
 }
 
 sub runDockerCreate
 {
-    my ($self) = @_;    
-    
-    unless ($self->runCheckContainer()) {
-        
-        my $res = system(MANAGE_SCRIPT . ' create');
-        if($res == 256 or $res == 0) { # TODO: Why 0? We need to review it
-            return 1;
-        }
-        EBox::error("Something went wrong creating the container");
-        throw EBox::Exceptions::Internal($res);
+    my ($self) = @_;
+
+    try {
+        EBox::Sudo::root(MANAGE_SCRIPT . ' create');
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        EBox::error("Something went wrong creating the volumen or the container");
+        throw EBox::Exceptions::Internal($e);
     }
 
-    EBox::error("The container is already created");
-    throw EBox::Exceptions::Internal("The container is already created");
+    return 1;
+}
+
+sub runDockerContainerCreate
+{
+    my ($self) = @_;
+
+    try {
+        system(MANAGE_SCRIPT . ' create_container');
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        EBox::error("Something went wrong creating the container");
+        throw EBox::Exceptions::Internal($e);
+    }
+
+    return 1;
 }
 
 sub runDockerStart
 {
     my ($self) = @_;
 
-    my $exists = $self->runCheckContainer();
-    unless ($exists) {
-        EBox::error("Triyng to start a nonexistent container");
-        throw EBox::Exceptions::Internal($exists);
-    }
-
-    if($self->runDockerStatus()) {
-        EBox::info("The container is already running");
-        return 1;
-    }
-
-    my $res = system(MANAGE_SCRIPT . ' start');
-    unless ($res == 256) {
+    try {
+        system(MANAGE_SCRIPT . ' start');
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         EBox::error("Something went wrong starting the container");
-        throw EBox::Exceptions::Internal($res);
+        throw EBox::Exceptions::Internal($e);
     }
 
     return 1;
 }
 
-sub runDockerStop
+sub runDockerStatus
 {
     my ($self) = @_;
 
-    if(!$self->runDockerStatus()) {
-        EBox::info("The container is already stopped");
+    my $res = system(MANAGE_SCRIPT . ' check_container_is_running');
+
+    if($res == 256) {
         return 1;
     }
-
-    my $res = system(MANAGE_SCRIPT . ' stop');
-    unless ($res == 256 or $res == 0) { #256: already stopped, 0: stopped in that moment
-        EBox::error("Something went wrong stopping the container");
-        throw EBox::Exceptions::Internal($res);
-    }
-
-    return 1;
+    return undef;
 }
 
 sub runDockerRestart
@@ -368,6 +416,17 @@ sub isPortInUse
     }
 
     return 1;
+}
+
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    if ($enabled) {
+        # To avoid lock issues
+        sleep(5);
+        EBox::Util::Init::moduleRestart('firewall');
+    }
 }
 
 1;
