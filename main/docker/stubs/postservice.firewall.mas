@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# This postservice hook is needed when the Docker module is installed.
+
+set -e
+
+####
+## Functions
+####
+
+function docker_module() {
+    MODULE_EXISTS=$(dpkg -l | grep -qo  'ii  zentyal-docker ' || true)
+    MODULE_STATUS=$(systemctl is-enabled docker | grep -qo 'enabled' || true)
+    if [[ -z ${MODULE_EXISTS} && -z ${MODULE_STATUS} ]]; then
+        # Needed to avoid issues with Systemd
+        sleep 5
+        systemctl restart docker
+    fi
+}
+
+
+####
+## Calls
+####
+
+docker_module
+
+exit 0
