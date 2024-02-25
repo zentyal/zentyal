@@ -261,24 +261,23 @@ function zentyal_installation
 
   DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends zentyal zenbuntu-core
 
-  if [[ -n ${ZEN_GUI} ]]
-    then
-      zentyal_gui
-  fi
-
   touch /var/lib/zentyal/.commercial-edition
   touch /var/lib/zentyal/.license
-
-  # Disable cloud-init
-  touch /etc/cloud/cloud-init.disabled
 
   echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 
   echo -e "\n${GREEN}${BOLD}Installation complete, you can access the Zentyal Web Interface at:
 
-  * https://<zentyal-ip-address>:8443/
+    * https://<zentyal-ip-address>:8443/
 
   ${NC}${NORM}"
+
+  if [[ -n ${ZEN_GUI} ]]
+    then
+      zentyal_gui
+      sleep 10
+      systemctl restart zentyal.lxdm
+  fi
 }
 
 
@@ -314,3 +313,11 @@ fi
 check_requirements
 add_repositories
 zentyal_installation
+
+
+###
+# Final commands
+###
+
+# Disable cloud-init
+touch /etc/cloud/cloud-init.disabled
