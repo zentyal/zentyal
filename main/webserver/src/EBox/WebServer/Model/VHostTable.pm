@@ -108,6 +108,16 @@ sub validateTypedRow
                     __('You need to enable Listening SSL port.')
                 );
             }
+            unless ($ca->isCreated()) {
+                throw EBox::Exceptions::External(
+                    __x('{openpar}You need to create a CA certificate to run '
+                    .'Virtual Hosts with SSL. {closepar}{openpar}Please, go to the {openhref}'
+                    .'certification authority module{closehref} and create it.'
+                    .'{closepar}',
+                    openhref => qq{<a href='/CA/Index'>}, closehref => qq{</a>},
+                    openpar => '<p>', closepar => '</p>')
+                );
+            }
             unless ($certificates->isEnabledService('zentyal_' . $webserverMod->name())) {
                 throw EBox::Exceptions::External(
                     __x('You need to enable {module} on {ohref}Services Certificates{chref} to enable SSL on a virtual host.',

@@ -78,15 +78,38 @@ sub validateTypedRow
 
     my $port = $allValues->{port}->value();
     if (exists $changedValues->{port}) {
+        if($port != $changedValues->{port}->value()) {
+            $self->_checkIfPortIsInUse($changedValues->{port}->value());
+        }
         $port = $changedValues->{port}->value();
     }
     my $SSLPort = $allValues->{sslPort}->value();
     if (exists $changedValues->{sslPort}) {
+        if($SSLPort != $changedValues->{sslPort}->value()) {
+            $self->_checkIfPortIsInUse($changedValues->{sslPort}->value());
+        }
         $SSLPort = $changedValues->{sslPort}->value();
     }
 
     if ($port ~~ 'port_disabled' and $SSLPort ~~ 'sslPort_disabled') {
         throw EBox::Exceptions::External(__('You must enable, at least, a listening port to make this module useful.'));
+    }
+}
+
+sub _checkIfPortIsInUse
+{
+    my ($self, $port) = @_;
+  
+    my $webserverMod = $self->parentModule();
+    my $isPortInUse = $webserverMod->isPortInUse($port);
+
+    if($isPortInUse eq 1) {
+        throw EBox::Exceptions::External(
+            __x(
+                'Port {port} is already in use', 
+                port => $port
+            )
+        );
     }
 }
 
