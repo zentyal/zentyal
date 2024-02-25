@@ -10,8 +10,8 @@ set -e
 
 function docker_module() {
     MODULE_EXISTS=$(dpkg -l | grep -qo  'ii  zentyal-docker ' || true)
-    MODULE_STATUS=$(systemctl is-enabled docker | grep -qo 'enabled' || true)
-    if [[ -z ${MODULE_EXISTS} && -z ${MODULE_STATUS} ]]; then
+    MODULE_STATUS=$(perl -MEBox::Global -e "print EBox::Global->getInstance()->modInstance('docker')->isEnabled();")
+    if [[ -z ${MODULE_EXISTS} && ${MODULE_STATUS} -eq 1 ]]; then
         # Needed to avoid issues with Systemd
         sleep 5
         systemctl restart docker
