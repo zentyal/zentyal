@@ -696,12 +696,6 @@ sub _generateVHostsCertificates
                 subjAltNames => $self->_subjAltNames()
             );
         }
-        # TODO: Is this needed?
-        $ca->issueCertificate(
-            commonName => $cn,
-            endDate => $caMD->{expiryDate},
-            subjAltNames => $self->_subjAltNames()
-        );
     }
 }
 
