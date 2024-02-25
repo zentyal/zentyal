@@ -154,6 +154,13 @@ sub initialSetup
 
         my $fallbackPort = 8080;
         my $port = $firewall->requestAvailablePort('tcp', $self->defaultHTTPPort(), $fallbackPort);
+
+        # Set port in reverse proxy
+        my @args = ();
+        push (@args, port           => $port);
+        push (@args, enablePort     => 1);
+        push (@args, defaultPort    => 1);
+        # TODO: Add to ListeningPorts model
     }
 
     # Upgrade from 3.3
@@ -214,20 +221,21 @@ sub initialSetup
         $redis->unset(@keys);
 
         # Migrate the existing zentyal ca definition to follow the new layout used by HAProxy.
+        # TODO: Remove this block
         my @caKeys = $redis->_keys('ca/*/Certificates/keys/*');
         foreach my $key (@caKeys) {
             my $value = $redis->get($key);
             unless (ref $value eq 'HASH') {
                 next;
             }
-            if ($value->{serviceId} eq 'Web Server') {
-                # WebServer.
-                $value->{serviceId} = 'zentyal_' . $self->name();
-                $value->{service} = $self->printableName();
-                # Zentyal handles this service automatically
-                $value->{readOnly} = 1;
-                $redis->set($key, $value);
-            }
+            #if ($value->{serviceId} eq 'Web Server') {
+            #    # WebServer.
+            #    $value->{serviceId} = 'zentyal_' . $self->name();
+            #    $value->{service} = $self->printableName();
+            #    # Zentyal handles this service automatically
+            #    $value->{readOnly} = 1;
+            #    $redis->set($key, $value);
+            #}
         }
     }
 
@@ -517,8 +525,7 @@ sub _setVHosts
         push (@params, sslSupport => $sslSupport);
 
         if ($sslSupport ne 'disabled') {
-            my $domain = $self->global()->modInstance('sysinfo')->model('HostName')->value('hostdomain');
-            my $cn = "$vHostName.$domain";
+            my $cn = $vHostName;
             my $certMD = $self->global()->modInstance('ca')->getCertificateMetadata(cn => $cn);
             my $pubKeyFile = SSLKEYS_DIR . "$cn.pem";
             my $privKeyFile = SSLPRIVKEYS_DIR . "$cn.pem";
@@ -638,64 +645,6 @@ sub _fqdn
     return $fqdn;
 }
 
-# Method: certificates
-#
-#   This method is used to tell the CA module which certificates
-#   and its properties we want to issue for this service module.
-#
-# Returns:
-#
-#   An array ref of hashes containing the following:
-#
-#       service - name of the service using the certificate
-#       path    - full path to store this certificate
-#       user    - user owner for this certificate file
-#       group   - group owner for this certificate file
-#       mode    - permission mode for this certificate file
-#
-sub certificates
-{
-    my ($self) = @_;
-
-    my @certificates = map {
-        my $path = $_;
-        {
-            serviceId =>  'zentyal_' . $self->name(),
-            service   =>  $self->printableName(),
-            path      =>  $path,
-            user      => 'root',
-            group     => 'root',
-            mode      => '0400',
-        }
-    } @{ $self->pathHTTPSSSLCertificate() };
-
-
-    return \@certificates;
-}
-
-# Get CN and subjAltNames on the existing certificate
-sub _getCertificateCNAndSAN
-{
-    my ($self) = @_;
-
-    my $ca = $self->global()->modInstance('ca');
-    my $certificates = $ca->model('Certificates');
-    my $cn = $certificates->cnByService('zentyal_' . $self->name());
-
-    my $meta = $ca->getCertificateMetadata(cn => $cn);
-    return [] unless $meta;
-
-    my @san = @{$meta->{subjAltNames}};
-
-    my @vhosts;
-    foreach my $vhost (@san) {
-        push(@vhosts, $vhost->{value}) if ($vhost->{type} eq 'DNS');
-    }
-    push @vhosts, $cn;
-
-    return \@vhosts;
-}
-
 # Generate subjAltNames array for zentyal-ca
 sub _subjAltNames
 {
@@ -716,30 +665,14 @@ sub _issueCertificate
     my ($self) = @_;
 
     my $ca = $self->global()->modInstance('ca');
-    my $certificates = $ca->model('Certificates');
-    my $cn = $certificates->cnByService('zentyal_' . $self->name());
-
     my $caMD = $ca->getCACertificateMetadata();
-    my $certMD = $ca->getCertificateMetadata(cn => $cn);
-
     # If a certificate exists, check if it can still be used
-    if (defined($certMD)) {
-        my $isStillValid = ($certMD->{state} eq 'V');
-        my $isAvailable = (-f $certMD->{path});
-
-        if ($isStillValid and $isAvailable) {
-            $ca->renewCertificate(commonName => $cn,
-                                  endDate => $caMD->{expiryDate},
-                                  subjAltNames => $self->_subjAltNames());
-            $self->_generateVHostsCertificates();
-            return;
-        }
+    my $isStillValid = ($caMD->{state} eq 'V');
+    my $isAvailable = (-f $caMD->{path});
+    if ($isStillValid and $isAvailable) {
+        $self->_generateVHostsCertificates();
+        return;
     }
-
-    $ca->issueCertificate(commonName => $cn,
-                          endDate => $caMD->{expiryDate},
-                          subjAltNames => $self->_subjAltNames());
-    $self->_generateVHostsCertificates();
 }
 
 sub _generateVHostsCertificates
@@ -748,30 +681,27 @@ sub _generateVHostsCertificates
 
     my $ca = $self->global()->modInstance('ca');
     my $caMD = $ca->getCACertificateMetadata();
-    my $domain = $self->global()->modInstance('sysinfo')->model('HostName')->value('hostdomain');
-    if ($domain) {
-        foreach my $vhost (@{$self->model('VHostTable')->getWebServerSAN()}) {
-            $vhost =~ s/^\s+|\s+$//g;
-            my $cn = "$vhost.$domain";
-            my $certMD = $ca->getCertificateMetadata(cn => $cn);
-            # check if certificate exists
-            if (defined($certMD)) {
-                my $isStillValid = ($certMD->{state} eq 'V');
-                my $isAvailable = (-f $certMD->{path});
-                next if ($isStillValid and $isAvailable);
-                    $ca->issueCertificate(
-                        commonName => "$vhost.$domain",
-                        endDate => $caMD->{expiryDate},
-                        subjAltNames => $self->_subjAltNames()
-                    );
-                
-            }
+    foreach my $vhost (@{$self->model('VHostTable')->getWebServerSAN()}) {
+        $vhost =~ s/^\s+|\s+$//g;
+        my $cn = $vhost;
+        my $certMD = $ca->getCertificateMetadata(cn => $cn);
+        # check if certificate exists
+        if (defined($certMD)) {
+            my $isStillValid = ($certMD->{state} eq 'V');
+            my $isAvailable = (-f $certMD->{path});
+            next if ($isStillValid and $isAvailable);
             $ca->issueCertificate(
-                commonName => "$vhost.$domain",
+                commonName => $cn,
                 endDate => $caMD->{expiryDate},
                 subjAltNames => $self->_subjAltNames()
             );
-        }       
+        }
+        # TODO: Is this needed?
+        $ca->issueCertificate(
+            commonName => $cn,
+            endDate => $caMD->{expiryDate},
+            subjAltNames => $self->_subjAltNames()
+        );
     }
 }
 
@@ -781,10 +711,6 @@ sub _checkCertificate
     my ($self) = @_;
 
     return unless $self->listeningHTTPSPort();
-
-    my $ca = $self->global()->modInstance('ca');
-    my $certificates = $ca->model('Certificates');
-    return unless $certificates->isEnabledService('zentyal_' . $self->name());
 
     my $model = $self->model('VHostTable');
     my @vhostsTable = @{$model->getWebServerSAN()};
