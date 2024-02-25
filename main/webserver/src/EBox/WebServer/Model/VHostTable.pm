@@ -118,13 +118,6 @@ sub validateTypedRow
                     openpar => '<p>', closepar => '</p>')
                 );
             }
-            unless ($certificates->isEnabledService('zentyal_' . $webserverMod->name())) {
-                throw EBox::Exceptions::External(
-                    __x('You need to enable {module} on {ohref}Services Certificates{chref} to enable SSL on a virtual host.',
-                        module => $webserverMod->printableName(), ohref => '<a href="/CA/View/Certificates">',
-                        chref => '</a>')
-                    );
-            }
         }
     }
 }

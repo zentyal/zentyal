@@ -185,16 +185,16 @@ sub _table
             fieldName     => 'port',
             printableName => __('HTTP listening port'),
             subtypes => [
-                new EBox::Types::Union::Text(
-                    fieldName => 'port_disabled',
-                    printableName => __('Disabled'),
-                    optional => 1,
-                ),
                 new EBox::Types::Port(
                     fieldName     => 'port_number',
                     printableName => __('Enabled'),
                     editable      => 1,
                     defaultValue  => $webserverMod->defaultHTTPPort(),
+                ),
+                new EBox::Types::Union::Text(
+                    fieldName => 'port_disabled',
+                    printableName => __('Disabled'),
+                    optional => 1,
                 ),
             ],
         ),
@@ -202,16 +202,16 @@ sub _table
             fieldName     => 'sslPort',
             printableName => __('HTTPS listening port'),
             subtypes => [
-                new EBox::Types::Union::Text(
-                    fieldName => 'sslPort_disabled',
-                    printableName => __('Disabled'),
-                    optional => 1,
-                ),
                 new EBox::Types::Port(
                     fieldName     => 'sslPort_number',
                     printableName => __('Enabled'),
                     editable      => 1,
                     defaultValue  => $webserverMod->defaultHTTPSPort(),
+                ),
+                new EBox::Types::Union::Text(
+                    fieldName => 'sslPort_disabled',
+                    printableName => __('Disabled'),
+                    optional => 1,
                 ),
             ],
         ),
