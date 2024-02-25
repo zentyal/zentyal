@@ -231,6 +231,8 @@ sub initialSetup
         }
     }
 
+    $self->_handleNetworkAndFirewall();
+
     foreach my $modName ('firewall', 'webserver') {
         my $mod = $self->global()->modInstance($modName);
         if ($mod and $mod->changed()) {
@@ -389,6 +391,7 @@ sub _setConf
     $self->_setDfltSSLVhost($hostname, $hostnameVhost);
     $self->_checkCertificate();
     $self->_setVHosts($vhosts, $hostnameVhost);
+    $self->_handleNetworkAndFirewall();
 }
 
 # Set up the listening port
@@ -990,7 +993,7 @@ sub listeningHTTPPort()
 {
     my ($self) = @_;
 
-    return $self->targetHTTPSPort();
+    return $self->targetHTTPPort();
 }
 
 sub listeningHTTPSPort()
@@ -1011,4 +1014,75 @@ sub isHTTPSPortEnabled
 
     return undef;
 }
+
+# Method: isPortInUse
+#
+#       Check if port is used
+#
+# Returns:
+#
+#       boolean - 1, if the port is in use, undef if is free.
+#
+sub isPortInUse
+{
+    my ($self, $port) = @_;
+
+    my $result = system("ss -tuln | grep ':$port ' >/dev/null 2>/dev/null");
+    if ($result == 256) {
+        return undef;
+    }
+
+    return 1;
+}
+
+sub _handleNetworkAndFirewall
+{
+    my ($self) = @_;
+
+    my $sslPort = $self->targetHTTPSPort();
+    my $port = $self->targetHTTPPort();
+    $self->_createNetworkServices($port, $sslPort);
+    $self->_createFirewallRule();
+}
+
+sub _createNetworkServices
+{
+    my ($self, $port, $sslPort) = @_;
+
+    my $services = EBox::Global->modInstance('network');
+    my $serviceName = 'webserver';
+    if($services->serviceExists(name => $serviceName)) {
+        $services->removeService(name => $serviceName)
+    }
+
+    $services->addMultipleService(
+        'name' => $serviceName,
+        'printableName' => 'Webserver',
+        'description' => __('Webserver Service'),
+        'internal' => 1,
+        'readOnly' => 1,
+        'services' => [
+            {
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => $port,
+            },
+            {
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => $sslPort,
+            },
+        ],
+    );
+}
+
+sub _createFirewallRule
+{
+    my $serviceName = 'webserver';
+    # Add rule to "Filtering rules from internal networks to Zentyal"
+    my $firewall = EBox::Global->modInstance('firewall');
+    $firewall->setInternalService($serviceName, 'accept');
+    $firewall->saveConfigRecursive();
+}
+
 1;

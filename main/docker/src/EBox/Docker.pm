@@ -144,28 +144,7 @@ sub initialSetup
         adminPort => $adminPort,
     );
 
-    my $services = EBox::Global->modInstance('network');
-    my $serviceName = 'docker';
-    unless($services->serviceExists(name => $serviceName)) {
-        $services->addMultipleService(
-            'name' => $serviceName,
-            'printableName' => 'Docker',
-            'description' => __('Docker admin server'),
-            'internal' => 1,
-            'readOnly' => 1,
-            'services' => [
-                {
-                    'protocol' => 'tcp',
-                    'sourcePort' => 'any',
-                    'destinationPort' => $adminPort,
-                },
-            ],
-        );
-    }
-    # Add rule to "Filtering rules from internal networks to Zentyal"
-    my $firewall = EBox::Global->modInstance('firewall');
-    $firewall->setInternalService($serviceName, 'accept');
-    $firewall->saveConfigRecursive();
+    $self->_handleNetworkAndFirewall($adminPort);
 
     # Postservice hook
     my @array = [];
@@ -205,6 +184,7 @@ sub _setConf
 
     if ($self->isEnabled()) {
         $self->enforceServiceStatus();
+        $self->_handleNetworkAndFirewall($adminPort);
     } else {
         $self->stopService();
     }
@@ -427,6 +407,49 @@ sub _postServiceHook
         sleep(5);
         EBox::Util::Init::moduleRestart('firewall');
     }
+}
+
+sub _handleNetworkAndFirewall
+{
+    my ($self, $port) = @_;
+
+    $self->_createNetworkServices($port);
+    $self->_createFirewallRule();
+}
+
+sub _createNetworkServices
+{
+    my ($self, $port) = @_;
+
+    my $services = EBox::Global->modInstance('network');
+    my $serviceName = 'docker';
+    if($services->serviceExists(name => $serviceName)) {
+        $services->removeService(name => $serviceName)
+    }
+
+    $services->addMultipleService(
+        'name' => $serviceName,
+        'printableName' => 'Docker',
+        'description' => __('Docker admin server'),
+        'internal' => 1,
+        'readOnly' => 1,
+        'services' => [
+            {
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => $port,
+            },
+        ],
+    );
+}
+
+sub _createFirewallRule
+{
+    my $serviceName = 'docker';
+    # Add rule to "Filtering rules from internal networks to Zentyal"
+    my $firewall = EBox::Global->modInstance('firewall');
+    $firewall->setInternalService($serviceName, 'accept');
+    $firewall->saveConfigRecursive();
 }
 
 1;
