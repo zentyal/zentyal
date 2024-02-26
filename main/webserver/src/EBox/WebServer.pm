@@ -695,6 +695,12 @@ sub _generateVHostsCertificates
                 endDate => $caMD->{expiryDate},
                 subjAltNames => $self->_subjAltNames()
             );
+        } else {
+            $ca->issueCertificate(
+                commonName => $cn,
+                endDate => $caMD->{expiryDate},
+                subjAltNames => $self->_subjAltNames()
+            );
         }
     }
 }
