@@ -1,4 +1,5 @@
 HEAD
+	+ Set version to 8.0.0
 	+ Remove vifaces form and mark the feature as deprecated
 	+ Update interfaces widget logic
 	+ Use network-manager-dispatcher instead of dhclient hooks
