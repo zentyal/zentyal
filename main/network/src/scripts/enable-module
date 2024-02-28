@@ -23,9 +23,12 @@ function disable_whoopsie()
     # Check if the patron matches
     if ! grep -q "$patron_start" "$conf_file"; then return; fi
 
-    # Remove the policy and notify to the service
+    # Remove the policy and notify to the service if zenbuntu-desktop is not installed
+    # otherwise, the change will be affected as soon as the system restart the dbus by itself
     sudo sed -i "\#$patron_start#,\#$patron_end#d" "$conf_file"
-    systemctl restart dbus
+    if [[ ! -d '/usr/share/zenbuntu-desktop' ]]; then
+        systemctl restart dbus
+    fi
 }
 
 function enable_mod() {

@@ -1,3 +1,5 @@
+8.0.1
+	+ Change the way the dbus is restart to avoid issues while installing Zentyal with graphical environment
 8.0.0
 	+ Set version to 8.0.0
 	+ Remove vifaces form and mark the feature as deprecated
