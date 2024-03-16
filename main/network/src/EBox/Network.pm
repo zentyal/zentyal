@@ -1146,8 +1146,8 @@ sub _vifaceExists
 #   - an array with the split name
 sub _viface2array # (interface)
 {
-    my ($self, $name) = @_;
-    my @array = $name =~ /(.*):(.*)/;
+    my ($self, $interface) = @_;
+    my @array = $interface =~ /(.*):(.*)/;
     return @array;
 }
 
@@ -2226,6 +2226,25 @@ sub removeVlan # (id)
     my $vlans = $self->get_hash('vlans');
     delete $vlans->{$id};
     $self->set_hash('vlans', $vlans);
+
+    my $vlanName = "vlan$id";
+    $self->_removeIface($vlanName);
+
+    # TODO: Do we need this (it looks like _removeIface does the same)
+    my $interfaces = $self->redis()->get('network/conf/interfaces');
+    if (exists $interfaces->{$vlanName}) {
+        delete $interfaces->{$vlanName};
+        $self->redis()->set('network/conf/interfaces', $interfaces);
+    }
+
+    my $state = $self->get_state();
+    if (exists $state->{interfaces}->{$vlanName}) {
+        delete $state->{interfaces}->{$vlanName};
+        if (exists $state->{dhcp}->{$vlanName}) {
+            delete $state->{dhcp}->{$vlanName};
+        }
+        $self->set_state($state);
+    }
 }
 
 # Method: vlans
@@ -3337,7 +3356,7 @@ sub _generatePPPConfig
 sub generateInterfaces
 {
     my ($self) = @_;
-    my $iflist = $self->allIfacesWithRemoved();
+    my $iflist = $self->allIfaces();
     $self->writeConfFile(
         NETPLAN_FILE,
         'network/netplan.mas',
