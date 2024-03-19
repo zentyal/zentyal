@@ -144,7 +144,7 @@ function check_nic_names
   if [ -z "${interface_names}" ] && [ "${OLD_NIC_NAMING}" == true ]; then
     echo -e "${RED}  The network interface naming is not using 'eth'. You can ommit this by changing to false the variable 'OLD_NIC_NAMING' or running the following commands:${NC}"
 cat <<EOF
-    sed -i 's/#GRUB_HIDDEN_TIMEOUT=0/GRUB_HIDDEN_TIMEOUT=0/' /target/etc/default/grub
+    sed -i 's/#GRUB_HIDDEN_TIMEOUT=0/GRUB_HIDDEN_TIMEOUT=0/' /etc/default/grub
     sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 net.ifnames=0 biosdevname=0"/' /etc/default/grub
     update-grub
     reboot
