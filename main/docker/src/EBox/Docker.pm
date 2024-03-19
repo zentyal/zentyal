@@ -18,6 +18,7 @@ use TryCatch;
 use constant CONFDIR => '/var/lib/zentyal/docker/';
 use constant MANAGE_SCRIPT => CONFDIR . 'docker-manage.sh';
 use constant POSTSERVICE_HOOK => '/etc/zentyal/hooks/firewall.postservice';
+use Data::Dumper;
 
 # Method: _create
 #
@@ -163,6 +164,10 @@ sub initialSetup
 sub _setConf
 {
     my ($self) = @_;
+
+    if(not $self->isReadOnly() and $self->global()->modIsChanged($self->name)) {
+        $self->runDockerDestroy();
+    }
 
     # create manager script
     my $settings = $self->model('Settings');
@@ -370,10 +375,7 @@ sub runDockerDestroy
 {
     my ($self) = @_;
 
-    my $res = system(MANAGE_SCRIPT . ' destroy');
-    if($res == 0) {
-        return 1;
-    }
+    EBox::Sudo::root(MANAGE_SCRIPT . ' destroy');
 
     return undef;
 }
