@@ -1,3 +1,5 @@
+HEAD
+	+ Prevent to remove sync shares flag if module has unsaved changes
 8.0.0
 	+ Set version to 8.0.0
 	+ Set the minimal version of the libauthen-krb5-easy-perl package

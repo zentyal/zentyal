@@ -325,7 +325,9 @@ sub setACLs
         }
         EBox::info("Recursive set of ACLs to share '$shareName' finished.");
 
-        unlink ($syncShareFile) if $syncShareFileExists;
+        unless(EBox::Global->modIsChanged($samba->name)) {
+            unlink ($syncShareFile) if $syncShareFileExists;
+        }
     }
 }
 
