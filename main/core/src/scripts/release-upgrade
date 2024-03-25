@@ -48,9 +48,9 @@ function checkDiskSpace
 {
     echo "${LOG_DATE} ... Checking for available disk space" | tee -a ${LOG_FILE}
 
-    if [ $(df /boot | tail -1 | awk '{print $4}') -lt 1024000 ];
+    if [ $(df /boot | tail -1 | awk '{print $4}') -lt 250000 ];
     then
-        echo "${LOG_DATE} ...... Upgrade cannot be performed due to insufficient disk space (less than 1GB available on /boot)" | tee -a ${LOG_FILE}
+        echo "${LOG_DATE} ...... Upgrade cannot be performed due to insufficient disk space (less than 250 MB available on /boot)" | tee -a ${LOG_FILE}
         exit 130
     fi
 
@@ -258,7 +258,7 @@ Pin: origin packages.mozilla.org
 Pin-Priority: 1000
 EOF
 
-  apt -qq update
+  apt update
 
   echo "${LOG_DATE} ... OK" | tee -a ${LOG_FILE}
 }
@@ -480,6 +480,7 @@ function upgradeUbuntu
 
     if [[ "$(lsb_release -cs)" != "${DSTCODE}" ]]; then
         echo "${LOG_DATE} Ubuntu upgrade FAILED. Full log at ${LOG_FILE} "
+        exit 130
     fi
 
     echo "${LOG_DATE} ... OK" | tee -a ${LOG_FILE}
@@ -526,6 +527,7 @@ function upgradeZentyal
         mysqldump -u root -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) sogo > ${BACKUP_DB_WEBMAIL}
         if [[ $(du -s ${BACKUP_DB_WEBMAIL} | awk '{print $1}') -lt 4 ]]; then
             echo "${LOG_DATE} Zentyal upgrade FAILED. Could not export Sogo database, full log at ${LOG_FILE} " | tee -a ${LOG_FILE}
+            exit 130
         else
             echo "${LOG_DATE} ...... Sogo database located at '${BACKUP_DB_WEBMAIL}'" | tee -a ${LOG_FILE}
         fi
@@ -551,6 +553,7 @@ function upgradeZentyal
     # Check if main zentyal-core package was upgraded
     if [[ "$(dpkg -l | grep zentyal-core | awk '{print $3}' | cut -d '.' -f1,2)" != "${DESTV}" ]]; then
         echo "${LOG_DATE} Zentyal upgrade FAILED. Full log at ${LOG_FILE}"
+        exit 130
     fi
 
     echo "${LOG_DATE} ... OK" | tee -a ${LOG_FILE}
@@ -587,7 +590,7 @@ function postZentyalUpgrade
     apt -f install -y -o DPkg::Options::="--force-confdef"
     checkBrokenPackages
 
-    ## Remove packages in 'rc' or 'ic' status
+    # Remove packages in 'rc' or 'ic' status
     local PKG_TO_REMOVE=$(dpkg -l | egrep '^(rc|ic)' | awk '{print $2}')
     if [[ -n ${PKG_TO_REMOVE} ]]; then
         echo "${LOG_DATE} ...... Removing packages that are not longer needed" | tee -a ${LOG_FILE}
@@ -611,8 +614,9 @@ function finishUpgrade
     sleep 2
     pkill -f upgrade-log-server
     touch $UPGRADE_FILE
-    echo "## Update finished" >> /var/log/zentyal/zentyal.log
-    echo "## Update finished" >> /var/log/syslog
+    for log in /var/log/zentyal/zentyal.log /var/log/syslog /var/log/dpkg.log; do
+        echo "## Update finished" >> ${log}
+    done
 }
 
 
