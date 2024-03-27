@@ -1,325 +1,658 @@
 #!/bin/bash
 
+# Debug
+# set -x
+
+####
+## Variables
+####
+
 SOURCES=/etc/apt/sources.list
 UPGRADE_FILE=/var/lib/zentyal/.upgrade-finished
 TMPFILE=/tmp/packages-list
-QALIST=/etc/apt/sources.list.d/zentyal-qa.list
-ZENTYAL_HOME=/var/lib/zentyal/
-CERT_DIR=/var/lib/zentyal/conf/ssl
-
-CURCODE='bionic'
-DSTCODE='focal'
-
-CURMAJORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f1`
-CURMINORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f2`
-#TODO: Change use "curl -s -k" instead of wget
-DESTMAJOR=`wget --quiet -O - http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINORV}.txt|cut -d'.' -f1`
-DESTMINOR=`wget --quiet -O - http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINORV}.txt|cut -d'.' -f2`
+LOG_FILE="/var/log/zentyal/upgrade.log"
+LOG_DATE="$(date "+%d-%m-%Y %H:%M:%S") "
+CURCODE='focal'
+DSTCODE='jammy'
+CURMAJORV=$(dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f1)
+CURMINORV=$(dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f2)
+DESTMAJOR=$(curl -s http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINORV}.txt | cut -d '.' -f1)
+DESTMINOR=$(curl -s http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINORV}.txt | cut -d '.' -f2)
 CURRV="${CURMAJORV}.${CURMINORV}"
 DESTV="${DESTMAJOR}.${DESTMINOR}"
-KEYURL="keys.zentyal.org/zentyal-${DESTV}-packages.asc"
+ZEN_REPO_KEY_URL='https://keys.zentyal.org/'
+ZEN_REPO_KEY_NAME="zentyal-${DESTV}-packages-org.asc"
+ZEN_REPO_URL='https://packages.zentyal.org/zentyal'
+BACKUP_DB_WEBMAIL='/var/lib/zentyal/upgrade_backup-sogo.sql'
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
-BOLD=$(tput bold)
-NORM=$(tput sgr0)
+####
+## Functions
+####
 
 function checkZentyalVersion
 {
-    echo -e "${GREEN} - Checking the zentyal-core version...${NC}"
-    if [ $CURMAJORV -gt $DESTMAJOR ];
-    then
-        echo -e "${RED}${BOLD} Your system is up to date${NC}${NORM}"
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking the zentyal-core version" | tee -a ${LOG_FILE}
+
+    if [ $CURMAJORV -gt $DESTMAJOR ]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: Your system is up to date" | tee -a ${LOG_FILE}
         exit 130
-    elif  [ $DESTMAJOR -gt $CURMAJORV ]
-    then
-            echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
-    else
-        if [ $CURMINORV -gt $DESTMINOR ] || [ $CURMINORV -eq $DESTMINOR ];
-        then
-            echo -e "${RED}${BOLD} Your system is up to date${NC}${NORM}"
-            exit 130
-        fi
+    elif [ $DESTMAJOR -gt $CURMAJORV ]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+    elif [ $CURMINORV -gt $DESTMINOR ] || [ $CURMINORV -eq $DESTMINOR ]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: Your system is up to date" | tee -a ${LOG_FILE}
+        exit 130
     fi
-    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
 }
 
 function checkDiskSpace
 {
-    echo -e "${GREEN} - Checking for available disk space...${NC}"
-    if [ $(df /boot | tail -1 | awk '{print $4}') -lt 51200 ];
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking for available disk space" | tee -a ${LOG_FILE}
+
+    if [ $(df /boot | tail -1 | awk '{print $4}') -lt 250000 ];
     then
-        echo "${RED}  Upgrade cannot be performed due to low disk space (less than 50MB available on /boot)${NC}"
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: Upgrade cannot be performed due to insufficient disk space (less than 250 MB available on /boot)" | tee -a ${LOG_FILE}
         exit 130
     fi
 
     for i in / /var
     do
-        if [ `df $i | tail -1 | awk '{print $4}'` -lt 358400 ];
+        if [ `df $i | tail -1 | awk '{print $4}'` -lt 3072000 ];
         then
-            echo -e "${RED}  Upgrade cannot be performed due to low disk space (less than 350MB available on $i)${NC}"
+            echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: Upgrade cannot be performed due to insufficient disk space (less than 3GB available on $i)" | tee -a ${LOG_FILE}
             exit 130
         fi
     done
-    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+}
+
+function checkInternetAccess
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking if there is Internet" | tee -a ${LOG_FILE}
+
+    if ! ping -4 -W 15 -q -c 5 google.es 2> /dev/null; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: There is not Internet connection and it is required for the upgrade" | tee -a ${LOG_FILE}
+        exit 130
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
 function checkPendingPackages
 {
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking if the server is up-to-date" | tee -a ${LOG_FILE}
+
     IFS=';' read updates security_updates < <(/usr/lib/update-notifier/apt-check 2>&1)
-    if (( $updates == 0 )) && (( $security_updates == 0 )); then
-        echo "No updates are available"
-    else
-        echo -e "${RED}  There are $updates updates available and $security_updates security updates available, please, install them before to upgrade your system${NC}"
+    if (( $updates != 0 )) && (( $security_updates != 0 )); then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: There are $updates updates available and $security_updates security updates available, please, install them before to upgrade your system" | tee -a ${LOG_FILE}
         exit 130
     fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
 function checkUbuntuReposotories
 {
-    echo -e "${GREEN} - Checking and setting ubuntu repositories...${NC}"
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Setting Ubuntu repositories if not present" | tee -a ${LOG_FILE}
+
     if ! grep -v "^#" $SOURCES | grep -q "ubuntu.com"
     then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Adding repositories" | tee -a ${LOG_FILE}
+
         echo "deb http://archive.ubuntu.com/ubuntu/ $DSTCODE main restricted universe multiverse" >> $SOURCES
         echo "deb http://archive.ubuntu.com/ubuntu/ $DSTCODE-updates main restricted universe multiverse" >> $SOURCES
         echo "deb http://security.ubuntu.com/ubuntu/ $DSTCODE-security main restricted universe multiverse" >> $SOURCES
     fi
-    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
 function repairPkgs
 {
-    counter=0;
-    pkgs=$(dpkg -l | grep -vE '^(ii|rc|hi)'| awk '{ if ( NR > 5  ) { print $2} }')
-    while [[ $pkgs ]] && [[ $counter < 10 ]];
-    do
-        for i in $pkgs
-        do
-            echo 'Working on '.$i
-            dpkg --configure $i
-            sleep 1
-        done
-        ((counter++))
-    done;
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Trying to fix the following broken packages" | tee -a ${LOG_FILE}
+
+    local PKGS=$(dpkg -l | grep -vE '^(ii|rc|hi)'| awk '{ if ( NR > 5  ) { print $2} }')
+    for pkg in ${PKGS}; do
+        echo "...... Broken package: ${pkg}" | tee -a ${LOG_FILE}
+    done
+
+    for i in {1..10}; do
+        dpkg --configure --force-confdef -a
+    done
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
 }
 
 function checkBrokenPackages
 {
-    echo -e "${GREEN} - Installed Zentyal packages:${NC}"
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking if there are broken packages" | tee -a ${LOG_FILE}
+
     dpkg -l | grep 'zentyal-'
-    echo;
-    echo -e "${GREEN} - Checking for broken packages...${NC}"
     touch $TMPFILE && dpkg -l | awk '{ if ( NR > 5  ) { print } }' > $TMPFILE
-    if grep -vE '^(ii|rc)' $TMPFILE
+
+    if grep -vE '^(ii|rc|ic|hi)' $TMPFILE
     then
         if [[ $(systemctl is-active redis) != 'active' ]]
         then
+            echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Restarting Redis" | tee -a ${LOG_FILE}
             systemctl restart redis
         fi
-        echo -e "${RED}  You have broken packages, trying to execute dpkg --configure -a before to continue${NC}"
-        dpkg --configure -a
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... There are broken packages" | tee -a ${LOG_FILE}
         repairPkgs
     fi
     rm -f $TMPFILE
-    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
 function checkGPG
 {
-    echo -e "${GREEN} - Looking for gnupg package...${NC}"
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Looking for gnupg package" | tee -a ${LOG_FILE}
+
     dpkg -s gnupg &> /dev/null
-    if [ $? -eq 0 ];
-    then
-        echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
-    else
-        echo -e "${RED}  Package is NOT installed! Trying to install it...${NC}";echo
-        apt-get install gnupg -y
+    if [ $? -ne 0 ]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Package is NOT installed! Trying to install it" | tee -a ${LOG_FILE};echo
+        apt install gnupg -y
     fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
 function checkZentyalMySQL
 {
-    echo -e "${GREEN} - Checking Zentyal's MySQL db...${NC}"
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking Zentyal's MySQL db" | tee -a ${LOG_FILE}
+
     mysqlcheck --databases zentyal
-    echo;
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
 function cleanPreviousUpgrade
 {
-    echo -e "${GREEN} - Cleaning $UPGRADE_FILE if exists...${NC}"
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Cleaning $UPGRADE_FILE if exists" | tee -a ${LOG_FILE}
+
     if [ -f $UPGRADE_FILE ]
     then
         rm -f $UPGRADE_FILE
     fi
-    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
-}
 
-function prepareZentyalRepositories
-{
-    wget -qO - $KEYURL | sudo apt-key add -
-
-    if [ -f '/etc/apt/sources.list.d/zentyal-archive.list' ];
-    then
-        rm -f /etc/apt/sources.list.d/zentyal-archive.list
-    fi
-
-    if [  -f '/var/lib/zentyal/.commercial-edition' ] && [ -s '/var/lib/zentyal/.license' ];
-    then
-        sed -i "s/zentyal-qa ${CURRV}/zentyal-qa ${DESTV}/g" $QALIST
-    else
-        sed -ri "/zentyal(.)${CURRV}/d" /etc/apt/sources.list
-        echo "deb http://packages.zentyal.org/zentyal ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal-packages.list
-    fi
-
-    ## Adding Suricata repositorio for zentyal-ips module
-    if ! grep -qR 'http://ppa.launchpad.net/oisf/suricata-stable/ubuntu' /etc/apt/sources.list*;
-    then
-        echo "deb http://ppa.launchpad.net/oisf/suricata-stable/ubuntu ${DSTCODE} main" >> /etc/apt/sources.list
-        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D7F87B2966EB736F
-    fi
-
-    apt-get update
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
 function prepareUpgrade
 {
     checkZentyalVersion
     checkDiskSpace
+    checkInternetAccess
     checkPendingPackages
     checkUbuntuReposotories
     checkBrokenPackages
     checkGPG
     checkZentyalMySQL
     cleanPreviousUpgrade
+}
+
+function ensureInternet
+{
+    if ! ping -4 -W 15 -q -c 5 google.es 2> /dev/null; then
+        zs network restart
+    fi
+}
+
+function upgradePackages
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Upgrading the system"
+
+    export DEBIAN_FRONTEND=noninteractive
+    apt update
+    apt dist-upgrade -y -o DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef"
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+    checkBrokenPackages
+    apt clean
+}
+
+function prepareUbuntuRepositories
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Setting new Ubuntu repositories" | tee -a ${LOG_FILE}
 
     sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
     sed -i "s/$CURCODE/$DSTCODE/g" /etc/apt/sources.list
 
-    echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
-function upgrade_ubuntu
+function prepareZentyalRepositories
 {
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Adding required repositories for Zentyal..." | tee -a ${LOG_FILE}
 
-    echo "## Updating Ubuntu packages" >> /var/log/zentyal/zentyal.log
-    echo "## Updating Ubuntu packages" >> /var/log/syslog
+    # Remove existing Zentyal and Suricata repositories
+    for url in packages.zentyal.com packages.zentyal.org archive.zentyal.org archive.zentyal.com suricata-stable
+    do
+        sed -i "/${url}/d" /etc/apt/sources.list
 
-    ## Avoiding unexpected Zentyal packages deletion
+        for repo in $(find /etc/apt/sources.list.d/ -type f)
+        do
+            sed -i "/${url}/d" ${repo}
+        done
+    done
+
+    # Set up Zentyal repository
+    wget -q ${ZEN_REPO_KEY_URL}/${ZEN_REPO_KEY_NAME} -P /etc/apt/trusted.gpg.d/
+    echo "deb [signed-by=/etc/apt/trusted.gpg.d/${ZEN_REPO_KEY_NAME}] ${ZEN_REPO_URL} ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal.list
+
+    ## Set up Docker repository for zentyal-docker module
+    if [[ ! -f /etc/apt/trusted.gpg.d/docker.gpg ]]; then
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
+    fi
+    chmod 0644 /etc/apt/trusted.gpg.d/docker.gpg
+    echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" > /etc/apt/sources.list.d/docker.list
+
+    ## Set up Firefox repository for zenbuntu-desktop package
+    wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- > /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
+    chmod 0644 /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
+    echo "deb [signed-by=/etc/apt/trusted.gpg.d/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" > /etc/apt/sources.list.d/mozilla.list
+cat <<EOF > /etc/apt/preferences.d/mozilla
+Package: *
+Pin: origin packages.mozilla.org
+Pin-Priority: 1000
+EOF
+
+  apt update
+
+  echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+}
+
+function configurationNetwork
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring Network module" | tee -a ${LOG_FILE}
+
+    find /etc/netplan/ -type f -exec rm -f {} \;
+
+    mkdir /etc/connman/
+    local NIC=$(ip -o link show | grep -v 'lo' | awk -F': ' '{print $2}' | tr '\n' ',' | sed 's/,$//')
+    echo -e "[General]\nNetworkInterfaceBlacklist=$NIC" > /etc/connman/main.conf
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function configurationDNS
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring DNS module" | tee -a ${LOG_FILE}
+
+    rm -f /etc/systemd/system/named.service.wants/fix-744304.conf
+
+    for file in /usr/share/zentyal/stubs/dns/named.conf.options.mas /etc/zentyal/stubs/dns/named.conf.options.mas /etc/bind/named.conf.options; do
+        if [ -f ${file} ]; then
+            sed -i "/dnssec-enable/d" ${file}
+        fi
+    done
+
+    systemctl restart named
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function configurationJabber
+{
+    # This function is created as a workaround for the bug: https://bugs.launchpad.net/ubuntu/+source/ejabberd/+bug/1970791
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring Ejabberd module" | tee -a ${LOG_FILE}
+
+    if [[ $(systemctl is-enabled ejabberd) == 'enabled' ]]; then
+        systemctl stop ejabberd
+    fi
+cat <<EOF > /lib/systemd/system/ejabberd.service
+[Unit]
+# Bug: https://bugs.launchpad.net/ubuntu/+source/ejabberd/+bug/1970791
+Description=Custom workaround: Robust, scalable and extensible realtime platform (XMPP server + MQTT broker + SIP service)
+Documentation=https://www.process-one.net/en/ejabberd/docs/
+After=epmd.service network.target
+Requires=epmd.service
+
+[Service]
+Type=forking
+User=ejabberd
+Group=ejabberd
+LimitNOFILE=65536
+Restart=on-failure
+RestartSec=5
+ExecStart=/bin/sh -c '/usr/sbin/ejabberdctl start && /usr/sbin/ejabberdctl started'
+ExecStop=/bin/sh -c '/usr/sbin/ejabberdctl stop && /usr/sbin/ejabberdctl stopped'
+ExecReload=/bin/sh -c '/usr/sbin/ejabberdctl reload_config'
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target
+EOF
+    systemctl daemon-reload
+
+    sed -i 's/log_rotate_size.*/log_rotate_size: 10485760/' /etc/ejabberd/ejabberd.yml
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function configurationVPN
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring OpenVPN module" | tee -a ${LOG_FILE}
+
+    export DEBIAN_FRONTEND=noninteractive
+    apt update
+    apt install -y frr
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function configurationDHCP
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring DHCP module" | tee -a ${LOG_FILE}
+
+    if [[ -f /etc/apparmor.d/disable/usr.sbin.dhcpd ]]; then
+        rm -v /etc/apparmor.d/disable/usr.sbin.dhcpd
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function configurationDomainController
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring Domain Controller module" | tee -a ${LOG_FILE}
+
+    local GET_CUR_VALUE=$(mysql -sN -u root -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) zentyal -e 'SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = "samba_access" AND COLUMN_NAME="username";' 2>/dev/null)
+    if [ ${GET_CUR_VALUE} == 'varchar(24)' ]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ......... Updating column username" | tee -a ${LOG_FILE}
+
+        mysql \
+          -u root \
+          -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) \
+          zentyal \
+          -e 'ALTER TABLE samba_access CHANGE username username VARCHAR(50) NULL DEFAULT NULL;' 2>/dev/null
+
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ......... OK" | tee -a ${LOG_FILE}
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function configurationMail
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring Mail module" | tee -a ${LOG_FILE}
+
+    if [[ ! -s /etc/dovecot/dh.pem ]]; then
+        cp /usr/share/dovecot/dh.pem /etc/dovecot/dh.pem
+        chmod 0640 /etc/dovecot/dh.pem
+        chown root:dovecot /etc/dovecot/dh.pem
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function configurationSogo
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring Webmail module" | tee -a ${LOG_FILE}
+
+    export DEBIAN_FRONTEND=noninteractive
+    apt install -y -o DPkg::Options::="--force-confdef" zentyal-sogo
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ......... Importing Webmail database" | tee -a ${LOG_FILE}
+    mysqldump -u root -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) sogo < ${BACKUP_DB_WEBMAIL}
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function configurationMailFilter
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring Mailfilter module" | tee -a ${LOG_FILE}
+
+    local db_name=spamassassin
+    local db_user=amavis
+    local db_pass="$(cat /var/lib/zentyal/conf/sa-mysql.passwd)"
+    local DBA_FILTER="$(mysql -sN -u root -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) -e "select user from mysql.user where user='$db_user';" 2>/dev/null)"
+    local MOD_STATUS="$(zs mailfilter enabled | cut -d '[' -f2 | tr -d ' ]')"
+
+    if [[ -z ${DBA_FILTER} && ${MOD_STATUS} == 'ENABLED' ]]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ......... Adding DBA user" | tee -a ${LOG_FILE}
+
+        echo "CREATE DATABASE IF NOT EXISTS $db_name;
+              CREATE USER IF NOT EXISTS '$db_user'@'localhost' IDENTIFIED BY \"$db_pass\";
+              GRANT ALL PRIVILEGES ON $db_name.* TO '$db_user'@'localhost';
+              FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
+
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ......... OK" | tee -a ${LOG_FILE}
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function configurationDesktop
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring zenbuntu-desktop module" | tee -a ${LOG_FILE}
+
+    apt-mark unhold firefox
+    export DEBIAN_FRONTEND=noninteractive
+    apt update
+    apt install -y --reinstall --allow-downgrades firefox
+    checkBrokenPackages
+
+
+    systemctl disable lxdm
+    systemctl enable zentyal.lxdm
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function preUbuntuUpgrade
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Pre configuration before upgrading Ubuntu" | tee -a ${LOG_FILE}
+
+    configurationNetwork
+
+    # DNS configuration
+    if dpkg -l | grep -qo 'ii  zentyal-dns '; then
+        configurationDNS
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+}
+
+function upgradeUbuntu
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Upgrading Ubuntu" | tee -a ${LOG_FILE}
+
+    for log in /var/log/zentyal/zentyal.log /var/log/syslog /var/log/dpkg.log; do
+        echo "## Updating Ubuntu packages" | tee -a ${log}
+    done
+
+    # Needed to avoid issues during the upgrade
+    apt-mark hold ${PKG} firefox
+
+    ## Holding Zentyal packages to avoid unexpected removal
     PKG=$(dpkg -l | egrep '^ii.*(zenbuntu-|zentyal)' | awk '{print $2}')
     apt-mark hold ${PKG}
 
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get update
-
-    apt-get dist-upgrade -y -o DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef"
-
-    ## Radius workaround
-    if dpkg -l | grep zentyal-radius;
-    then
-        mkdir /etc/freeradius/3.0/sites-enabled/
-        chown freerad:freerad /etc/freeradius/3.0/sites-enabled/
-        ln -s /etc/freeradius/3.0/sites-available/default /etc/freeradius/3.0/sites-enabled/
-        ln -s /etc/freeradius/3.0/sites-available/inner-tunnel /etc/freeradius/3.0/sites-enabled/
-    fi
-
-    repairPkgs
-}
-
-function upgrade_zentyal
-{
-    echo "## Updating Zentyal packages" >> /var/log/zentyal/zentyal.log
-    echo "## Updating Zentyal packages" >> /var/log/syslog
+    upgradePackages
 
     apt-mark unhold ${PKG}
+    ensureInternet
 
-    apt-get dist-upgrade -y -o DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef"
-    checkBrokenPackages
+    if [[ "$(lsb_release -cs)" != "${DSTCODE}" ]]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ERROR: Ubuntu upgrade FAILED. Full log at ${LOG_FILE} "
+        exit 130
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
-function postUpgradeProcedure
+function postUbuntuUpgrade
 {
-    # Checking and regeneratin webadmin cert
-    if [ `redis-cli get ca/conf/Certificates/keys/crt1 | jq .enable` -eq 0 ];
-    then
-        echo -e "${GREEN} - Regenerating Nginx cert...${NC}"
-        rm -rf $CERT_DIR
-        /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl `hostname --fqdn`
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Post configuration after upgrading Ubuntu" | tee -a ${LOG_FILE}
+
+    systemctl disable --now connman
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+}
+
+function preZentyalUpgrade
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Pre configuration before upgrading Zentyal" | tee -a ${LOG_FILE}
+
+    # Jabber configuration
+    if dpkg -l | grep -qo 'ii  zentyal-jabber '; then
+        configurationJabber
     fi
 
-    # Checking and regeneratin FTP cert
-    if [[ -f /etc/vsftpd/ssl/ssl.pem ]] && openssl x509 -text -noout -in /etc/vsftpd/ssl/ssl.pem  | grep -q 'Issuer: CN = eBox Server';
-    then
-        echo -e "${GREEN} - Regenerating FTP cert...${NC}"
-        rm -f /etc/vsftpd/ssl/ssl.*
-        /usr/share/zentyal/create-certificate /etc/vsftpd/ssl/ `hostname --fqdn`
+    # DHCP configuration
+    if dpkg -l | grep -qo 'ii  zentyal-dhcp '; then
+        configurationDHCP
     fi
 
-    # Creating symlink for the new iptables daemon
-    ln -s /usr/sbin/iptables /sbin/iptables
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+}
 
-    # Creating symlink for bash shell
-    ln -s /bin/bash /usr/bin/bash
+function upgradeZentyal
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Upgrading Zentyal" | tee -a ${LOG_FILE}
 
-    # Adding bash shell to the shells configuration file
-    if ! grep -q '/usr/bin/bash' /etc/shells
-    then
-        echo '/usr/bin/bash' >> /etc/shells
-        chsh -s /usr/bin/bash
+    for log in /var/log/zentyal/zentyal.log /var/log/syslog /var/log/dpkg.log; do
+        echo "## Updating Zentyal packages" | tee -a ${log}
+    done
+
+    ensureInternet
+
+    if dpkg -l | grep -qo 'ii  zentyal-sogo '; then
+        local WEBMAIL=1
+        mysqldump -u root -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) sogo > ${BACKUP_DB_WEBMAIL}
+        if [[ $(du -s ${BACKUP_DB_WEBMAIL} | awk '{print $1}') -lt 4 ]]; then
+            echo "$(date '+%d-%m-%Y %H:%M:%S') ERROR: Zentyal upgrade FAILED. Could not export Sogo database, full log at ${LOG_FILE} " | tee -a ${LOG_FILE}
+            exit 130
+        else
+            echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Sogo database backup located at '${BACKUP_DB_WEBMAIL}'" | tee -a ${LOG_FILE}
+        fi
     fi
+
+    # OpenVPN configuration
+    if dpkg -l | grep -qo 'ii  zentyal-openvpn '; then
+        configurationVPN
+    fi
+
+    # zenbuntu-desktop configuration
+    if dpkg -l | grep -qo ' zenbuntu-desktop '; then
+        configurationDesktop
+    fi
+
+    upgradePackages
+
+    # Webmail configuration
+    if [[ -n ${WEBMAIL} ]]; then
+        configurationSogo
+    fi
+
+    # Check if main zentyal-core package was upgraded
+    if [[ "$(dpkg -l | grep zentyal-core | awk '{print $3}' | cut -d '.' -f1,2)" != "${DESTV}" ]]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ERROR: Zentyal upgrade FAILED. Full log at ${LOG_FILE}"
+        exit 130
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+}
+
+function postZentyalUpgrade
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Post configuration after upgrading Zentyal" | tee -a ${LOG_FILE}
+
+    # Ensure unattended-upgrade is disabled
+    sed -i 's/1/0/' /etc/apt/apt.conf.d/20auto-upgrades
+
+    # Domain Controller configuration
+    if dpkg -l | grep -qo ' zentyal-samba '; then
+        configurationDomainController
+    fi
+
+    # Mail configuration
+    if dpkg -l | grep -qo ' zentyal-mail '; then
+        configurationMail
+    fi
+
+    # Mailfilter configuration
+    if dpkg -l | grep -qo ' zentyal-mailfilter '; then
+        configurationMailFilter
+    fi
+
+    ensureInternet
 
     # Purge all no longer needed running services
     dpkg -l | grep 'zentyal-' | cut -d' ' -f3 | xargs apt-mark manual
-    apt-get autoremove --purge -y -o DPkg::Options::="--force-confdef"
+    apt autoremove --purge -y -o DPkg::Options::="--force-confdef"
     dpkg --configure -a --force-confdef
-    apt-get -f install -y -o DPkg::Options::="--force-confdef"
+    apt -f install -y -o DPkg::Options::="--force-confdef"
     checkBrokenPackages
 
+    # Remove packages in 'rc' or 'ic' status
+    local PKG_TO_REMOVE=$(dpkg -l | egrep '^(rc|ic)' | awk '{print $2}')
+    if [[ -n ${PKG_TO_REMOVE} ]]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Removing packages that are not longer needed" | tee -a ${LOG_FILE}
+        dpkg --purge ${PKG_TO_REMOVE}
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+    fi
+
     sleep 2
-    apt-get clean
+    apt clean
 
-    echo; echo -e "${GREEN}${BOLD}*** Zentyal upgrade finished! Please restart your server now.${NC}${NORM}"
+    ## Send message if stub directory exists:
+    if [[ -d '/etc/zentyal/stubs/' ]]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... IMPORTANT: You might have persistant stubs, ensure you have the latest changes" | tee -a ${LOG_FILE}
+    fi
 
-    sleep 2
-    pkill -f upgrade-log-server
-}
-
-function forceZentyalLXDM
-{
-    systemctl disable lxdm
-    systemctl enable zentyal.lxdm
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
 function finishUpgrade
 {
-    if dpkg --configure -a --force-confdef
-    then
-        forceZentyalLXDM
-        postUpgradeProcedure
-    else
-        echo; echo -e "${RED}${BOLD}*** Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log.${NC}${NORM}"
-    fi
-
     sleep 2
-    apt-get clean
-
+    pkill -f upgrade-log-server
     touch $UPGRADE_FILE
-    echo "## Update finished" >> /var/log/zentyal/zentyal.log
-    echo "## Update finished" >> /var/log/syslog
+    for log in /var/log/zentyal/zentyal.log /var/log/syslog /var/log/dpkg.log; do
+        echo "## Update finished" >> ${log}
+    done
 }
 
-echo; echo -e "${YELLOW}*** Preparing your system for the upgrade...${NC}"; echo
+
+####
+## Calls
+####
+
+if [[ -f ${LOG_FILE} ]]; then
+    rm -f ${LOG_FILE}
+fi
+touch ${LOG_FILE}
+
+echo "$(date '+%d-%m-%Y %H:%M:%S') Preparing your system for the upgrade" | tee -a ${LOG_FILE}
 prepareUpgrade
+echo "$(date '+%d-%m-%Y %H:%M:%S') OK" | tee -a ${LOG_FILE}
 
-echo; echo -e "${YELLOW}*** Preparing for upgrade to Zentyal ${DESTV}...${NC}"; echo
+echo "$(date '+%d-%m-%Y %H:%M:%S') Preparing repositories for upgrade to Zentyal ${DESTV}" | tee -a ${LOG_FILE}
+prepareUbuntuRepositories
 prepareZentyalRepositories
+echo "$(date '+%d-%m-%Y %H:%M:%S') OK" | tee -a ${LOG_FILE}
 
-echo; echo -e "${YELLOW}*** Upgrading Ubuntu from ${CURCODE} to ${DSTCODE}...${NC}"; echo
-upgrade_ubuntu
+echo "$(date '+%d-%m-%Y %H:%M:%S') Upgrading Ubuntu from ${CURCODE} to ${DSTCODE}" | tee -a ${LOG_FILE}
+if [[ $(lsb_release -cs) != "${DSTCODE}" ]]; then
+    preUbuntuUpgrade
+    upgradeUbuntu
+    postUbuntuUpgrade
+    echo "$(date '+%d-%m-%Y %H:%M:%S') OK" | tee -a ${LOG_FILE}
+else
+    echo "$(date '+%d-%m-%Y %H:%M:%S') Ubuntu version is up to date...skkiping" | tee -a ${LOG_FILE}
+fi
 
-echo; echo -e "${YELLOW}*** Upgrading Zentyal from ${CURMAJORV}.${CURMINORV} to ${DESTMAJOR}.${DESTMINOR}...${NC}"; echo
-upgrade_zentyal
+echo "$(date '+%d-%m-%Y %H:%M:%S') Upgrading Zentyal from ${CURMAJORV}.${CURMINORV} to ${DESTMAJOR}.${DESTMINOR}" | tee -a ${LOG_FILE}
+preZentyalUpgrade
+upgradeZentyal
+postZentyalUpgrade
+echo "$(date '+%d-%m-%Y %H:%M:%S') OK" | tee -a ${LOG_FILE}
 
-echo; echo -e "${YELLOW}*** Finishing the upgrade...${NC}"; echo
+echo "$(date '+%d-%m-%Y %H:%M:%S') Finishing the upgrade" | tee -a ${LOG_FILE}
 finishUpgrade
