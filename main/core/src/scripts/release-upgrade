@@ -21,13 +21,19 @@ DESTMINOR=$(curl -s http://update.zentyal.org/update-from-${CURMAJORV}.${CURMINO
 CURRV="${CURMAJORV}.${CURMINORV}"
 DESTV="${DESTMAJOR}.${DESTMINOR}"
 ZEN_REPO_KEY_URL='https://keys.zentyal.org/'
-ZEN_REPO_KEY_NAME="zentyal-${DESTV}-packages-org.asc"
-ZEN_REPO_URL='https://packages.zentyal.org/zentyal'
 BACKUP_DB_WEBMAIL='/var/lib/zentyal/upgrade_backup-sogo.sql'
+
 
 ####
 ## Functions
 ####
+
+function help
+{
+    echo -e "\nFor a Commercial edition, the script must be run as follows:"
+    echo -e "\tbash release-upgrade XXXXX-XXXXX-XXXXX-XXXXX"; echo
+    echo "To run the upgrade using the debug mode: bash -x release-upgrade XXXXX-XXXXX-XXXXX-XXXXX"
+}
 
 function checkZentyalVersion
 {
@@ -42,6 +48,55 @@ function checkZentyalVersion
         echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: Your system is up to date" | tee -a ${LOG_FILE}
         exit 130
     fi
+}
+
+function checkUbuntuVersion
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking the version of Ubuntu" | tee -a ${LOG_FILE}
+
+    if [[ "$(lsb_release -sc)" != "${CURCODE}" ]]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: Your system is running an unsupported version of Ubuntu for the upgrade" | tee -a ${LOG_FILE}
+        exit 130
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+}
+
+function checkZentyalLicense
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking the license code" | tee -a ${LOG_FILE}
+
+    if ! [[ "${LK}" =~ ^[0-9A-Z]{5}-[0-9A-Z]{5}-[0-9A-Z]{5}-[0-9A-Z]{5}$ ]]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: The license key is invalid, the format must be: XXXXX-XXXXX-XXXXX-XXXXX" | tee -a ${LOG_FILE}
+        help
+        exit 130
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+}
+
+function checkIfCommercial
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking if the server is a Commercial edition" | tee -a ${LOG_FILE}
+
+    if [ -f '/var/lib/zentyal/.commercial-edition' ] && [ -s '/var/lib/zentyal/.license' ];
+    then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... The server is using a Commercial Edition" | tee -a ${LOG_FILE}
+        COMMERCIAL=1
+
+        if [ -z $LK ]
+        then
+            echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: Because your Zentyal is a commercial edition you must pass as an argument a valid Zentyal $DESTV license key" | tee -a ${LOG_FILE}
+            help
+            exit 130
+        else
+            checkZentyalLicense
+        fi
+    else
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... The server is using a Development Edition" | tee -a ${LOG_FILE}
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
 function checkDiskSpace
@@ -127,7 +182,8 @@ function checkBrokenPackages
 {
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking if there are broken packages" | tee -a ${LOG_FILE}
 
-    dpkg -l | grep 'zentyal-'
+    dpkg -l | grep 'zentyal-'; echo ""
+    dpkg -l | egrep -v '^ii' | awk '{ if ( NR > 5  ) { print } }'; echo ""
     touch $TMPFILE && dpkg -l | awk '{ if ( NR > 5  ) { print } }' > $TMPFILE
 
     if grep -vE '^(ii|rc|ic|hi)' $TMPFILE
@@ -182,6 +238,8 @@ function cleanPreviousUpgrade
 function prepareUpgrade
 {
     checkZentyalVersion
+    checkUbuntuVersion
+    checkIfCommercial
     checkDiskSpace
     checkInternetAccess
     checkPendingPackages
@@ -222,6 +280,26 @@ function prepareUbuntuRepositories
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
+function lkActivation
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Activating the license key '${LK}'" | tee -a ${LOG_FILE}
+
+    cp -p /usr/share/zentyal/enable_license /var/lib/zentyal/tmp/
+    sed -i "s/^SERVER_VERSION=.*/SERVER_VERSION='$DESTV'/g" /usr/share/zentyal/enable_license
+
+    if /usr/share/zentyal/enable_license ${LK};
+    then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ......... License key activated" | tee -a ${LOG_FILE}
+    else
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ......... ERROR: The license key validation fail" | tee -a ${LOG_FILE}
+        exit 130
+    fi
+
+    mv /var/lib/zentyal/tmp/enable_license /usr/share/zentyal/
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
 function prepareZentyalRepositories
 {
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... Adding required repositories for Zentyal..." | tee -a ${LOG_FILE}
@@ -238,8 +316,16 @@ function prepareZentyalRepositories
     done
 
     # Set up Zentyal repository
-    wget -q ${ZEN_REPO_KEY_URL}/${ZEN_REPO_KEY_NAME} -P /etc/apt/trusted.gpg.d/
-    echo "deb [signed-by=/etc/apt/trusted.gpg.d/${ZEN_REPO_KEY_NAME}] ${ZEN_REPO_URL} ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal.list
+    if [[ -n ${COMMERCIAL} ]]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Adding Zentyal Commercial repository..." | tee -a ${LOG_FILE}
+        wget -q ${ZEN_REPO_KEY_URL}/zentyal-${DESTV}-packages-com.asc -P /etc/apt/trusted.gpg.d/
+        echo "deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-${DESTV}-packages-com.asc] https://packages.zentyal.com/zentyal-qa ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal-qa.list
+        lkActivation
+    else
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Adding Zentyal Commercial repository..." | tee -a ${LOG_FILE}
+        wget -q ${ZEN_REPO_KEY_URL}/zentyal-${DESTV}-packages-org.asc -P /etc/apt/trusted.gpg.d/
+        echo "deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-${DESTV}-packages-org.asc] https://packages.zentyal.org/zentyal ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal.list
+    fi
 
     ## Set up Docker repository for zentyal-docker module
     if [[ ! -f /etc/apt/trusted.gpg.d/docker.gpg ]]; then
@@ -261,6 +347,21 @@ EOF
   apt update
 
   echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+}
+
+function configurationCore
+{
+    echo "${LOG_DATE} ...... Configuring Core module" | tee -a ${LOG_FILE}
+
+    # Ensure Mysql log directory exists before the upgrade
+    if [[ ! -d '/var/log/mysql/' ]]; then
+        mkdir /var/log/mysql/
+    fi
+    chown -R mysql:adm /var/log/mysql
+    chmod -R 0770 /var/log/mysql
+    systemctl restart mysql
+
+    echo "${LOG_DATE} ...... OK" | tee -a ${LOG_FILE}
 }
 
 function configurationNetwork
@@ -499,6 +600,9 @@ function preZentyalUpgrade
 {
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... Pre configuration before upgrading Zentyal" | tee -a ${LOG_FILE}
 
+    # Core configuration
+    configurationCore
+
     # Jabber configuration
     if dpkg -l | grep -qo 'ii  zentyal-jabber '; then
         configurationJabber
@@ -541,6 +645,11 @@ function upgradeZentyal
     # zenbuntu-desktop configuration
     if dpkg -l | grep -qo ' zenbuntu-desktop '; then
         configurationDesktop
+    fi
+
+    # Ensure the right repository is using for Zentyal Commercial Edition
+    if [[ -n ${COMMERCIAL} ]]; then
+        sed -i "s/$CURRV/$DESTV/g" /etc/apt/sources.list.d/zentyal-qa.list
     fi
 
     upgradePackages
@@ -628,6 +737,11 @@ if [[ -f ${LOG_FILE} ]]; then
     rm -f ${LOG_FILE}
 fi
 touch ${LOG_FILE}
+
+# Check if an argument (license key) was passed
+if [[ $# -eq 1 ]]; then
+    LK=${1}
+fi
 
 echo "$(date '+%d-%m-%Y %H:%M:%S') Preparing your system for the upgrade" | tee -a ${LOG_FILE}
 prepareUpgrade
