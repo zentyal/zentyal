@@ -1,3 +1,6 @@
+8.0.2
+	+ Fix configuration backup dependency. Fix #2160
+	+ Fix CPU load on Widget. Fix #2154
 8.0.1
 	+ Improve disabling of unattended-upgrade
 	+ Remove release-upgrade script

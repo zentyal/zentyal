@@ -324,12 +324,14 @@ sub generalWidget
 
     my $uptime_output=`uptime`;
     my ($uptime, $users, $la1, $la2, $la3) = $uptime_output =~ /.*up  *(.*),  (.*)users?,  load average: (.*), (.*), (.*)/;
+    my @loads = Sys::CpuLoad::load();
+    my @formatted_loads = map { sprintf("%.2f", $_) } @loads;
 
     $section->add(new EBox::Dashboard::Value(__('Time'), $time));
     $section->add(new EBox::Dashboard::Value(__('Hostname'), hostname));
     $section->add(new EBox::Dashboard::Value(__('Core version'), $version));
     $section->add(new EBox::Dashboard::Value(__('Software'), __('Checking updates...'), 'ajax', '/SysInfo/SoftwareUpdates'));
-    $section->add(new EBox::Dashboard::Value(__("System load"), join(', ', Sys::CpuLoad::load)));
+    $section->add(new EBox::Dashboard::Value(__("System load"), join(', ', @formatted_loads)));
     $section->add(new EBox::Dashboard::Value(__("Uptime"), $uptime));
     $section->add(new EBox::Dashboard::Value(__("Users"), $users));
 }
