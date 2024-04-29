@@ -1,6 +1,7 @@
 HEAD
 	+ Bump debian compat
 	+ Prevent to remove sync shares flag if module has unsaved changes
+	+ Replace old resolvconf code from ADC provision
 8.0.0
 	+ Set version to 8.0.0
 	+ Set the minimal version of the libauthen-krb5-easy-perl package

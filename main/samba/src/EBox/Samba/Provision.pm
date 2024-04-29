@@ -1314,15 +1314,14 @@ sub provisionADC
     my $adminAccountPwdFile = undef;
     my $passwdFile;
     try {
-        EBox::info("Joining to domain '$domainToJoin' as DC");
+        EBox::info("Joining to domain '$domainToJoin' as ADC");
         # Set the domain DNS as the primary resolver. This will also let to get
         # the kerberos ticket for the admin account.
-        EBox::debug("Setting domain DNS server '$adDnsServer' as the primary resolver");
+        EBox::debug("Setting domain DNS server '$adDnsServer' as a temporarily primary resolver");
         $dnsFile = new File::Temp(TEMPLATE => 'resolvXXXXXX',
                                   DIR      => EBox::Config::tmp());
-        EBox::Sudo::root("cp /etc/resolvconf/interface-order $dnsFile",
-                         'echo zentyal.temp > /etc/resolvconf/interface-order',
-                         "echo 'search $domainToJoin\nnameserver $adDnsServer' | resolvconf -a zentyal.temp");
+        EBox::Sudo::root("cp /etc/resolv.conf $dnsFile",
+                         "echo 'search $domainToJoin\nnameserver $adDnsServer' > /etc/resolv.conf");
 
         # Get a ticket for admin User
         my $principal = "$adUser\@$realm";
@@ -1349,11 +1348,10 @@ sub provisionADC
 
         EBox::Sudo::root($cmd2);
 
-        # Workaround for https://www.talkend.net/post/193344.html#r193460 
+        # Workaround for https://www.talkend.net/post/193344.html#r193460
         # reported in https://bugzilla.samba.org/show_bug.cgi?id=14535
         my $cmd3 = "samba_upgradedns --dns-backend=BIND9_DLZ";
         EBox::Sudo::root($cmd3);
-        
         unlink $passwdFile;
 
         $self->setProvisioned(1);
@@ -1406,8 +1404,7 @@ sub provisionADC
         $self->setupDNS();
 
         if (defined $dnsFile and -f $dnsFile) {
-            EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
-                             'resolvconf -d zentyal.temp');
+            EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
             unlink $dnsFile;
         }
         if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
@@ -1419,8 +1416,7 @@ sub provisionADC
     }
 
     if ($isZentyal) {
-        EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
-                         'resolvconf -d zentyal.temp');
+        EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
         unlink $dnsFile;
     } else {
         # Restart network to regenerate original resolv.conf
