@@ -4,6 +4,7 @@ CURMAJORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f1`
 CURMINORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f2`
 CURV="${CURMAJORV}.${CURMINORV}"
 KEYURL="keys.zentyal.org/zentyal-${CURV}-packages-com.asc"
+APT_AUTH_CONF='/etc/apt/auth.conf.d/zentyal-commercial.conf'
 
 # Preparing files to persist the response data
 LK_CODE_FILE="/var/lib/zentyal/.license"
@@ -104,7 +105,8 @@ if [ $REQUEST -eq "200" ]; then
 	# Save the license key code
 	LK_CODE=$(echo $LK_DATA | jq -r ".code")
 	echo $LK_CODE > $LK_CODE_FILE
-	echo "machine packages.zentyal.com login $LK_CODE password $SERVER_HASH" > /etc/apt/auth.conf
+	echo "machine https://packages.zentyal.com login $LK_CODE password $SERVER_HASH" > $APT_AUTH_CONF
+	chmod 600 $APT_AUTH_CONF
 
 	touch /var/lib/zentyal/.commercial-edition
 	logger UCP[$$] INFO: License key $LK_CODE was enabled.

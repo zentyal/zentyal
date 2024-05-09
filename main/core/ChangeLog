@@ -1,3 +1,6 @@
+8.0.3
+	+ Fix auth.conf in enable_license script
+	+ Avoid Webadmin timeout when zentyal.com is down or collapsed
 8.0.2
 	+ Fix configuration backup dependency. Fix #2160
 	+ Fix CPU load on Widget. Fix #2154
