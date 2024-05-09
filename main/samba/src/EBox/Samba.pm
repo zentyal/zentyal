@@ -700,6 +700,8 @@ sub _setConf
 
     $self->_setupNSSPAM();
 
+    # Apply ACLs to shares
+    $self->setACLs();
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
 
@@ -3101,6 +3103,114 @@ sub _cleanModulesForReprovision
         delete $state->{'_ldapSetup'};
         $mod->set_state($state);
         $mod->setAsChanged(1);
+    }
+}
+
+# Method: setACLs
+#
+#   Set ACLs for shares with pending changes
+#
+sub setACLs
+{
+    my ($self) = @_;
+
+    my $samba = $self;
+    my $sambaShares = $samba->model('SambaShares');
+
+    for my $id (@{$sambaShares->ids()}) {
+        my $row = $sambaShares->row($id);
+        my $enabled     = $row->valueByName('enabled');
+        my $shareName   = $row->valueByName('share');
+        my $pathType    = $row->elementByName('path');
+        my $guestAccess = $row->valueByName('guest');
+
+        unless ($enabled) {
+            next;
+        }
+
+        my $path = undef;
+        if ($pathType->selectedType() eq 'zentyal') {
+            $path = $samba->SHARES_DIR() . '/' . $pathType->value();
+        } elsif ($pathType->selectedType() eq 'system') {
+            $path = $pathType->value();
+        } else {
+            EBox::error("Unknown share type on share '$shareName'");
+        }
+        unless (defined $path) {
+            next;
+        }
+
+        my $syncShareFile = EBox::Config::conf() . "samba/sync_shares/$shareName";
+        my $syncShareFileExists = (-f $syncShareFile);
+
+        if (EBox::Sudo::fileTest('-d', $path)) {
+            next if EBox::Config::boolean('unmanaged_acls');
+            next unless $syncShareFileExists; # share permissions didn't change, nothing needs to be done for this share.
+        }
+
+        EBox::info("Starting to apply recursive ACLs to share '$shareName'...");
+
+        my @cmds = ();
+        push (@cmds, "mkdir -p '$path'");
+        push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs
+        if ($guestAccess) {
+            push (@cmds, "chmod 0777 '$path'");
+            push (@cmds, "chown nobody:'domain users' '$path'");
+        } else {
+            push (@cmds, "chmod 0770 '$path'");
+            push (@cmds, "chown administrator:adm '$path'");
+        }
+        EBox::Sudo::root(@cmds);
+
+        # Posix ACL
+        my @posixACL;
+        push (@posixACL, 'u:administrator:rwx');
+        push (@posixACL, 'g:adm:rwx');
+        push (@posixACL, 'g:"domain admins":rwx');
+
+        for my $subId (@{$row->subModel('access')->ids()}) {
+            my $subRow = $row->subModel('access')->row($subId);
+            my $permissions = $subRow->elementByName('permissions');
+
+            my $userType = $subRow->elementByName('user_group');
+            my $perm;
+            if ($userType->selectedType() eq 'group') {
+                $perm = 'g:';
+            } elsif ($userType->selectedType() eq 'user') {
+                $perm = 'u:';
+            }
+            my $account = $userType->value();
+            my $qobject = shell_quote($account);
+            $perm .= $qobject . ':';
+
+            if ($permissions->value() eq 'readOnly') {
+                $perm .= 'rx';
+            } elsif ($permissions->value() eq 'readWrite') {
+                $perm .= 'rwx';
+            } elsif ($permissions->value() eq 'administrator') {
+                $perm .= 'rwx';
+            } else {
+                my $type = $permissions->value();
+                EBox::error("Unknown share permission type '$type'");
+                next;
+            }
+            push (@posixACL, $perm);
+        }
+
+        if (@posixACL) {
+            try {
+                EBox::Sudo::root('setfacl -R -m d:' . join(',d:', @posixACL) ." '$path'");
+                EBox::Sudo::root('setfacl -R -m ' . join(',', @posixACL) . " '$path'");
+            } catch {
+                my $error = shift;
+                EBox::error("Couldn't enable POSIX ACLs for $path: $error")
+            }
+        }
+        EBox::info("Recursive set of ACLs to share '$shareName' finished.");
+
+        unless(EBox::Global->modIsChanged($samba->name)) {
+            unlink ($syncShareFile) if $syncShareFileExists;
+        }
     }
 }
 
