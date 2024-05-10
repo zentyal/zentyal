@@ -1,4 +1,4 @@
-HEAD
+8.0.1
 	+ Improve ACL handling
 	+ Bump debian compat
 	+ Prevent to remove sync shares flag if module has unsaved changes

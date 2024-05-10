@@ -3152,7 +3152,7 @@ sub setACLs
 
         my @cmds = ();
         push (@cmds, "mkdir -p '$path'");
-        push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs
+        push (@cmds, "setfacl -Rb '$path'"); # Clear POSIX ACLs
         if ($guestAccess) {
             push (@cmds, "chmod 0777 '$path'");
             push (@cmds, "chown nobody:'domain users' '$path'");
@@ -3206,11 +3206,9 @@ sub setACLs
                 EBox::error("Couldn't enable POSIX ACLs for $path: $error")
             }
         }
-        EBox::info("Recursive set of ACLs to share '$shareName' finished.");
 
-        unless(EBox::Global->modIsChanged($samba->name)) {
-            unlink ($syncShareFile) if $syncShareFileExists;
-        }
+        unlink ($syncShareFile) if $syncShareFileExists;
+        EBox::info("Recursive set of ACLs to share '$shareName' finished.");
     }
 }
 
