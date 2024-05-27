@@ -1,36 +1,46 @@
 #!/bin/bash
 
-if [ $# -lt 2 ]
-then
-    echo -e "Usage: $0 <modulename> <directory>\n"
+# Check for the minimum number of arguments
+if [ $# -lt 4 ]; then
+    echo -e "Usage: $0 <modulename> <directory> <your name> <email>\n"
     echo "Example:"
-    echo -e "\t$0 MyModule mymodule\n"
+    echo -e "\t$0 MyModule mymodule \"Zentyal Packaging Maintainer\" pkg-team@zentyal.com\n"
     echo "WARNING: directory name must be equal to module name in lowercase"
+    echo "WARNING: don't use \"-\" or space as part of module name"
     exit 1
 fi
 
+# Assign input parameters to variables
 MODULENAME=$1
 DESTDIR=$2
-DIST=saucy
-VERSION=3.4
+DEBFULLNAME=$3
+DEBEMAIL=$4
 
-PKGNAME=$(basename $DESTDIR)
+# Get distribution codename and Zentyal version
+DIST=$(lsb_release -c -s)
+VERSION=$(perl -e 'use EBox::Config;print EBox::Config::version()')
 
-mkdir -p $DESTDIR/schemas
-mkdir -p $DESTDIR/src/EBox/$MODULENAME/Model
-mkdir -p $DESTDIR/stubs
-mkdir -p $DESTDIR/src/scripts
-mkdir -p $DESTDIR/debian
+# Ensure DESTDIR is the lowercase version of MODULENAME
+PKGNAME=$(basename "$DESTDIR")
 
-cat >$DESTDIR/schemas/$PKGNAME.yaml <<EOF
+# Create necessary directories
+mkdir -p "$DESTDIR/schemas"
+mkdir -p "$DESTDIR/src/EBox/$MODULENAME/Model"
+mkdir -p "$DESTDIR/stubs"
+mkdir -p "$DESTDIR/src/scripts"
+mkdir -p "$DESTDIR/debian"
+mkdir -p "$DESTDIR/debian/source"
+
+# Create schemas YAML file
+cat >"$DESTDIR/schemas/$PKGNAME.yaml" <<EOF
 class: EBox::$MODULENAME
 
 models:
     - Settings
 EOF
 
-
-cat >$DESTDIR/src/EBox/$MODULENAME.pm <<EOF
+# Create main Perl module
+cat >"$DESTDIR/src/EBox/$MODULENAME.pm" <<EOF
 package EBox::$MODULENAME;
 
 use base qw(EBox::Module::Service);
@@ -194,6 +204,7 @@ sub _table
 1;
 EOF
 
+# Create script to enable the module
 cat >$DESTDIR/src/scripts/enable-module <<EOF
 #!/bin/bash
 
@@ -204,6 +215,7 @@ set -e
 exit 0
 EOF
 
+# Create script for initial setup
 cat >$DESTDIR/src/scripts/initial-setup <<EOF
 #!/bin/bash
 
@@ -214,7 +226,7 @@ set -e
 exit 0
 EOF
 
-
+# Create service configuration template
 cat >$DESTDIR/stubs/service.conf.mas <<EOF
 <%args>
     \$boolean
@@ -225,7 +237,7 @@ boolean = <% \$boolean %>
 text = "<% \$text %>"
 EOF
 
-
+# Create post-removal script for Debian package
 cat >$DESTDIR/debian/zentyal-$PKGNAME.postrm <<EOF
 #!/bin/bash
 
@@ -245,6 +257,7 @@ esac
 exit 0
 EOF
 
+# Create post-installation script for Debian package
 cat >$DESTDIR/debian/zentyal-$PKGNAME.postinst <<EOF
 #!/bin/bash
 
@@ -255,7 +268,6 @@ set -e
 case "\$1" in
     configure)
         /usr/share/zentyal/initial-setup $PKGNAME \$2
-
         dpkg-trigger --no-await zentyal-core
     ;;
 esac
@@ -263,29 +275,30 @@ esac
 exit 0
 EOF
 
-
+# Create Debian rules file
 cat >$DESTDIR/debian/rules <<EOF
 #!/usr/bin/make -f
 
 include /usr/share/zbuildtools/1/rules/zentyal.mk
 EOF
 
+# Create changelog for Debian package
 cat >$DESTDIR/debian/changelog <<EOF
 zentyal-$PKGNAME ($VERSION~1) $DIST; urgency=low
 
   * New upstream release
 
- -- YOURNAME <youremail@yourdomain>  Fri, 25 Jan 2013 02:53:07 +0100
-
+  -- $DEBFULLNAME <$DEBEMAIL>     $(date)
 EOF
 
-cat >$DESTDIR/debian/control <<EOF
+# Create control file for Debian package
+cat >"$DESTDIR/debian/control" <<EOF
 Source: zentyal-$PKGNAME
+Maintainer: $DEBFULLNAME <$DEBEMAIL>
 Section: web
 Priority: optional
-Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
 Build-Depends: debhelper (>= 7.0.0), cdbs
-Standards-Version: 3.9.1
+Standards-Version: $VERSION
 Homepage: http://www.zentyal.org/
 
 Package: zentyal-$PKGNAME
@@ -300,9 +313,16 @@ Description: Zentyal - $MODULENAME module
  FIXME: description goes here.
 EOF
 
-cat >$DESTDIR/ChangeLog <<EOF
-$VERSION
-	+ Initial release
-EOF
+# Set compatibility level and source format
+echo 10 > "$DESTDIR/debian/compat"
+echo '3.0 (quilt)' > "$DESTDIR/debian/source/format"
 
-echo 7 > $DESTDIR/debian/compat
+# Make scripts executable
+chmod +x "$DESTDIR/debian/rules"
+chmod +x "$DESTDIR/debian/zentyal-$PKGNAME.postinst"
+chmod +x "$DESTDIR/debian/zentyal-$PKGNAME.postrm"
+
+# Print final instructions
+echo "To build the package, change the directory using: cd $DESTDIR"
+echo "Use \"dch -i\" to update your package version and changelog"
+echo "Execute package builder using: zentyal-package"
