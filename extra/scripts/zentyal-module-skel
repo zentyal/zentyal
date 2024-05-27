@@ -32,7 +32,7 @@ mkdir -p "$DESTDIR/debian"
 mkdir -p "$DESTDIR/debian/source"
 
 # Create schemas YAML file
-cat >"$DESTDIR/schemas/$PKGNAME.yaml" <<EOF
+cat >$DESTDIR/schemas/$PKGNAME.yaml <<EOF
 class: EBox::$MODULENAME
 
 models:
@@ -315,7 +315,7 @@ EOF
 
 # Set compatibility level and source format
 echo 10 > "$DESTDIR/debian/compat"
-echo '3.0 (quilt)' > "$DESTDIR/debian/source/format"
+echo '1.0' > "$DESTDIR/debian/source/format"
 
 # Make scripts executable
 chmod +x "$DESTDIR/debian/rules"
