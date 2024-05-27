@@ -1,20 +1,40 @@
 #!/bin/bash
 
-# Check for the minimum number of arguments
-if [ $# -lt 4 ]; then
-    echo -e "Usage: $0 <modulename> <directory> <your name> <email>\n"
-    echo "Example:"
-    echo -e "\t$0 MyModule mymodule \"Zentyal Packaging Maintainer\" pkg-team@zentyal.com\n"
-    echo "WARNING: directory name must be equal to module name in lowercase"
-    echo "WARNING: don't use \"-\" or space as part of module name"
+# Function to show usage instructions
+show_usage() {
+    echo -e "Usage:\033[32m\t$0 <modulename> <your name> <email>\033[0m\n"
+    echo -e "Example:\033[32m MyModule \"Packaging Developer\" pkg-team@yourcompany.com\033[0m\n"
+    echo -e "\033[33mNote: Module should not contain '-' or spaces\033[0m"
     exit 1
+}
+
+# Check for the minimum number of arguments
+if [ $# -lt 3 ]; then
+    show_usage
 fi
 
 # Assign input parameters to variables
 MODULENAME=$1
-DESTDIR=$2
-DEBFULLNAME=$3
-DEBEMAIL=$4
+DEBFULLNAME=$2
+DEBEMAIL=$3
+
+# Convert module name to lowercase
+LOWER_MODULENAME=$(echo "$MODULENAME" | tr '[:upper:]' '[:lower:]')
+
+# Check if the module name contains invalid characters
+if [[ "$MODULENAME" =~ [^a-zA-Z0-9_] ]]; then
+    echo -e "\n\033[31mError: Module name contains invalid characters. Only alphanumeric characters and underscores are allowed.\n\033[0m"
+    show_usage
+fi
+
+# Check if the email address is valid
+if ! [[ "$DEBEMAIL" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
+    echo -e "\n\033[31mError: Invalid email address.\n\033[0m"
+    show_usage
+fi
+
+# Set the destination directory name
+DESTDIR=$LOWER_MODULENAME
 
 # Get distribution codename and Zentyal version
 DIST=$(lsb_release -c -s)
@@ -40,7 +60,7 @@ models:
 EOF
 
 # Create main Perl module
-cat >"$DESTDIR/src/EBox/$MODULENAME.pm" <<EOF
+cat >$DESTDIR/src/EBox/$MODULENAME.pm <<EOF
 package EBox::$MODULENAME;
 
 use base qw(EBox::Module::Service);
@@ -282,23 +302,37 @@ cat >$DESTDIR/debian/rules <<EOF
 include /usr/share/zbuildtools/1/rules/zentyal.mk
 EOF
 
+
+
+# Create changelog for module
+cat >$DESTDIR/ChangeLog <<EOF
+$VERSION
+
+	+ Initial release
+
+EOF
+
+
 # Create changelog for Debian package
 cat >$DESTDIR/debian/changelog <<EOF
 zentyal-$PKGNAME ($VERSION~1) $DIST; urgency=low
 
   * New upstream release
 
-  -- $DEBFULLNAME <$DEBEMAIL>     $(date)
+ -- $DEBFULLNAME <$DEBEMAIL>  $(date +"%a, %d %b %Y %T %z")
+ 
 EOF
 
+
 # Create control file for Debian package
-cat >"$DESTDIR/debian/control" <<EOF
+cat >$DESTDIR/debian/control <<EOF
 Source: zentyal-$PKGNAME
 Maintainer: $DEBFULLNAME <$DEBEMAIL>
 Section: web
 Priority: optional
 Build-Depends: debhelper (>= 7.0.0), cdbs
 Standards-Version: $VERSION
+XSBC-Original-Maintainer: $VERSION
 Homepage: http://www.zentyal.org/
 
 Package: zentyal-$PKGNAME
