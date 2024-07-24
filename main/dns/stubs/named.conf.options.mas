@@ -25,8 +25,7 @@ options {
     //notify-source * port 53;
 
     // DNSSEC configuration
-    dnssec-enable yes;
-    dnssec-validation yes;
+    dnssec-validation auto;
 
 %   if ( @forwarders > 0 ) {
         // If your ISP provided one or more IP addresses for stable

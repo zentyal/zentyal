@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+# Workaround DNS issue
+LOCK_PID="$(lslocks | grep 'dns.lock' | awk '{print $2}')"
+if [[ -n ${LOCK_PID} ]]; then
+    kill -9 ${LOCK_PID}
+fi
+
+exit 0
