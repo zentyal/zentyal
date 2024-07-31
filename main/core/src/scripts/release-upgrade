@@ -99,6 +99,18 @@ function checkIfCommercial
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
+function checkIfVirtualInterfaces
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking if there are virtual interfaces configured" | tee -a ${LOG_FILE}
+
+    if redis-cli get 'network/conf/interfaces' | jq '.[] | .virtual' | grep -q '"address": '; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: You must remove the network configuration for virtual interfaces before upgrading the Zentyal server because this functionality is not longer available." | tee -a ${LOG_FILE}
+        exit 130
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+}
+
 function checkDiskSpace
 {
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking for available disk space" | tee -a ${LOG_FILE}
@@ -240,6 +252,7 @@ function prepareUpgrade
     checkZentyalVersion
     checkUbuntuVersion
     checkIfCommercial
+    checkIfVirtualInterfaces
     checkDiskSpace
     checkInternetAccess
     checkPendingPackages
@@ -349,7 +362,7 @@ EOF
   echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
-function configurationCore
+function configurationMysql
 {
     echo "${LOG_DATE} ...... Configuring Core module" | tee -a ${LOG_FILE}
 
@@ -488,6 +501,10 @@ function configurationMail
         chown root:dovecot /etc/dovecot/dh.pem
     fi
 
+    if egrep -q 'fetchmail:/bin/false' /etc/passwd; then
+        chsh -s /bin/sh fetchmail
+    fi
+
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
 }
 
@@ -524,6 +541,20 @@ function configurationMailFilter
 
         echo "$(date '+%d-%m-%Y %H:%M:%S') ......... OK" | tee -a ${LOG_FILE}
     fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function configurationAntivirus
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring Antivirus module" | tee -a ${LOG_FILE}
+
+    if [[ ! -d /var/run/clamav/ ]]; then
+        mkdir /var/run/clamav/
+    fi
+    chown clamav:clamav /var/run/clamav/
+    echo "clamav-daemon     clamav-daemon/debconf boolean false" | debconf-set-selections
+    DEBIAN_FRONTEND=noninteractive dpkg-reconfigure clamav-daemon
 
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
 }
@@ -600,8 +631,8 @@ function preZentyalUpgrade
 {
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... Pre configuration before upgrading Zentyal" | tee -a ${LOG_FILE}
 
-    # Core configuration
-    configurationCore
+    # Mysql configuration
+    configurationMysql
 
     # Jabber configuration
     if dpkg -l | grep -qo 'ii  zentyal-jabber '; then
@@ -659,6 +690,11 @@ function upgradeZentyal
         configurationSogo
     fi
 
+    # Antivirus configuration
+    if dpkg -l | grep -qo 'ii  zentyal-antivirus '; then
+        configurationAntivirus
+    fi
+
     # Check if main zentyal-core package was upgraded
     if [[ "$(dpkg -l | grep zentyal-core | awk '{print $3}' | cut -d '.' -f1,2)" != "${DESTV}" ]]; then
         echo "$(date '+%d-%m-%Y %H:%M:%S') ERROR: Zentyal upgrade FAILED. Full log at ${LOG_FILE}"
@@ -674,6 +710,9 @@ function postZentyalUpgrade
 
     # Ensure unattended-upgrade is disabled
     sed -i 's/1/0/' /etc/apt/apt.conf.d/20auto-upgrades
+
+    # Mysql configuration
+    configurationMysql
 
     # Domain Controller configuration
     if dpkg -l | grep -qo ' zentyal-samba '; then
