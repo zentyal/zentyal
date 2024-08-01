@@ -1,3 +1,5 @@
+7.0.10
+	+ Avoid webadmin timeout when there are DNS resolution issues
 7.0.9
 	+ Modify upgrade template
 7.0.8

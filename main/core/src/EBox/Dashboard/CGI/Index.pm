@@ -270,7 +270,7 @@ sub _getNewVersionFromCloud
 
     my $version = EBox::Config::version();
     my $newVersionString;
-    system("wget --quiet -O /tmp/new-release - http://update.zentyal.org/update-from-'$version'.txt");
+    system("timeout 15 wget --timeout 15 --quiet -O /tmp/new-release - http://update.zentyal.org/update-from-'$version'.txt");
     try {
         $newVersionString = $self->_readVersion();
     } catch($ex) {
@@ -279,7 +279,7 @@ sub _getNewVersionFromCloud
 
     if ($newVersionString eq "") {
         $newVersionString = $version;
-    } 
+    }
 
     return $newVersionString;
 }
