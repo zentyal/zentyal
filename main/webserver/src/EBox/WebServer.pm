@@ -734,10 +734,7 @@ sub dumpConfig
         return;
     }
 
-    my $toReplace= SITES_AVAILABLE_DIR . 'ebox-';
-    my $replacement = SITES_AVAILABLE_DIR . 'user-ebox-';
     foreach my $dir (@dirs) {
-       $dir =~ s/$toReplace/$replacement/;
         try {
             EBox::Sudo::root("cp -a $dir $sitesBackDir");
         } catch (EBox::Exceptions::Sudo::Command $e) {
