@@ -587,7 +587,7 @@ sub _setEdition
                  "rm -f /etc/apt/sources.list.d/zentyal-qa.list");
     }
     if ($expired) {
-        push (@cmds, "rm -f /etc/apt/sources.list.d/zentyal-qa.list");
+        push (@cmds, "rm -f /etc/apt/sources.list.d/zentyal-qa.list /etc/apt/auth.conf.d/zentyal-commercial.conf");
     } elsif ($edition ne 'community') {
         my $version = EBox::Config::version();
         my $lk = read_file('/var/lib/zentyal/.license');
@@ -604,6 +604,7 @@ sub _setEdition
             "echo 'deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-$version-packages-com.asc] https://packages.zentyal.com/zentyal-qa $version main extra' > /etc/apt/sources.list.d/zentyal-qa.list",
             "echo 'machine https://packages.zentyal.com login $lk password $hash' > /etc/apt/auth.conf.d/zentyal-commercial.conf",
             'chmod 600 /etc/apt/auth.conf.d/zentyal-commercial.conf',
+            'if [ -f /etc/apt/auth.conf ]; then rm -f /etc/apt/auth.conf; fi',
             'sed -i "/packages.zentyal/d" /etc/apt/sources.list',
             'if [ -f /etc/apt/sources.list.d/zentyal.list ]; then rm -f /etc/apt/sources.list.d/zentyal.list; fi'
         );

@@ -12,7 +12,7 @@ if [ $(/usr/share/zentyal/shell '$global->edition()') == "trial-expired" ]; then
 fi
 
 if [ -f '/var/lib/zentyal/.commercial-edition' ]; then
-  /usr/share/zentyal/check_license
+  /usr/share/zentyal/check_license >/dev/null 2>&1
 fi
 
 if [ $? == 1 ]; then

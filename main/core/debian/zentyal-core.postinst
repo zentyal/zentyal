@@ -150,4 +150,7 @@ esac
 
 db_stop
 
+# zentyal-core-8.0.4: Ensure Zentyal daily cronjob is updated
+sed -i 's#/usr/share/zentyal/check_license.*#/usr/share/zentyal/check_license \>/dev/null 2\>\&1#' /etc/cron.daily/zentyal
+
 exit 0

@@ -1,3 +1,7 @@
+8.0.4
+	+ Remove old auth.conf
+	+ Remove an additional file when a license is expired
+	+ Removing output from daily zentyal cronjob
 8.0.3
 	+ Fix auth.conf in enable_license script
 	+ Avoid Webadmin timeout when zentyal.com is down or collapsed
