@@ -24,6 +24,7 @@ use base qw(EBox::Module::Service
 use Perl6::Junction qw(any);
 use File::Slurp qw(read_file write_file);
 use File::ReadBackwards;
+use File::Basename;
 
 use EBox::AntiVirus::FirewallHelper;
 use EBox::Config;
@@ -258,6 +259,13 @@ sub _setConf
 
     # Grant the right permissions to log file
     EBox::Sudo::root('chgrp ebox "' . FRESHCLAM_LOG_FILE . '"');
+
+    # Ensure pid directory exists and it has the right owner
+    my $clamavRunDir = dirname(CLAMD_SOCKET);
+    unless (-d $clamavRunDir) {
+        EBox::Sudo::root("mkdir $clamavRunDir");
+    }
+    EBox::Sudo::root('chown clamav:clamav "' . $clamavRunDir . '"');
 
     # Regenerate freshclam cron daily script
     $self->writeConfFile(FRESHCLAM_CRON_FILE,
