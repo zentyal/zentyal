@@ -335,7 +335,7 @@ function prepareZentyalRepositories
         echo "deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-${DESTV}-packages-com.asc] https://packages.zentyal.com/zentyal-qa ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal-qa.list
         lkActivation
     else
-        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Adding Zentyal Commercial repository..." | tee -a ${LOG_FILE}
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Adding Zentyal Development repository..." | tee -a ${LOG_FILE}
         wget -q ${ZEN_REPO_KEY_URL}/zentyal-${DESTV}-packages-org.asc -P /etc/apt/trusted.gpg.d/
         echo "deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-${DESTV}-packages-org.asc] https://packages.zentyal.org/zentyal ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal.list
     fi
@@ -386,6 +386,24 @@ function configurationNetwork
     mkdir /etc/connman/
     local NIC=$(ip -o link show | grep -v 'lo' | awk -F': ' '{print $2}' | tr '\n' ',' | sed 's/,$//')
     echo -e "[General]\nNetworkInterfaceBlacklist=$NIC" > /etc/connman/main.conf
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function removeOldNetworkInterface
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Removing old network interface configuration" | tee -a ${LOG_FILE}
+
+    local NETWORK_SVC='networking'
+    local NETWORK_CONF='/etc/network/interfaces'
+
+    if systemctl -q is-enabled ${NETWORK_SVC}; then
+        systemctl -q disable ${NETWORK_SVC}
+    fi
+
+    if [[ -f "${NETWORK_CONF}" ]]; then
+        rm -f ${NETWORK_CONF}
+    fi
 
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
 }
@@ -748,6 +766,9 @@ function postZentyalUpgrade
 
     sleep 2
     apt clean
+
+    # Network configuration
+    removeOldNetworkInterface
 
     ## Send message if stub directory exists:
     if [[ -d '/etc/zentyal/stubs/' ]]; then
