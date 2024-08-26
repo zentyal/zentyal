@@ -1,4 +1,5 @@
 7.1.4
+	+ Fix checkBrokenPackages function. Fix #2134
 	+ Prevent network issues after upgrading
 7.1.3
 	+ Avoid webadmin timeout when there are DNS resolution issues

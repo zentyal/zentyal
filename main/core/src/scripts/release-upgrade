@@ -196,7 +196,7 @@ function checkBrokenPackages
 
     dpkg -l | grep 'zentyal-'; echo ""
     dpkg -l | egrep -v '^ii' | awk '{ if ( NR > 5  ) { print } }'; echo ""
-    touch $TMPFILE && dpkg -l | awk '{ if ( NR > 5  ) { print } }' > $TMPFILE
+    touch $TMPFILE && dpkg -l | grep -E '^[A-Za-z]{2} ' > $TMPFILE
 
     if grep -vE '^(ii|rc|ic|hi)' $TMPFILE
     then
