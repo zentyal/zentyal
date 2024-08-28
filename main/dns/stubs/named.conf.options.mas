@@ -26,6 +26,9 @@ options {
 
 	listen-on-v6 { none; };
 
+        // Hide Bind9 version
+        version "Unknown";
+
 %   if ( @forwarders > 0 ) {
         // If your ISP provided one or more IP addresses for stable
         // nameservers, you probably want to use them as forwarders.
