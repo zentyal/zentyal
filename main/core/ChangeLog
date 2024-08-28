@@ -1,3 +1,5 @@
+8.0.5
+	+ Check zentyal-core package status during the configuration backup creation
 8.0.4
 	+ Remove old auth.conf
 	+ Remove an additional file when a license is expired
@@ -33,7 +35,7 @@
 7.0.4
 	+ Minor fix in smart admin report
 	+ Fix desktop env for new admin users
-	+ Fix widget placeholder to avoid 0px when any widget 
+	+ Fix widget placeholder to avoid 0px when any widget
 	  has not been placed in the dashboard. Fix #1998
 7.0.3
 	+ Improve server_uuid generation
@@ -45,7 +47,7 @@
 7.0.0
 	+ Fix issue related with tar option and config backup
 	+ Fix Smart Admin report minor error
-	+ Fix regression on certificate key path (avoiding CA generation 
+	+ Fix regression on certificate key path (avoiding CA generation
 	  issue and vnc issues)
 	+ Remove deprecated ssl on in favor of listen ssl
 	+ Increase default rsa key length to 4096

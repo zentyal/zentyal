@@ -110,7 +110,7 @@ sub _makeBackup
         $self->_createDateFile($archiveContentsDir, $date);
         $self->_createTypeFile($archiveContentsDir, $bug);
         $self->_createModulesListFile($archiveContentsDir);
-        system "dpkg -l > $archiveContentsDir/debpackages";
+        $self->_createPackageListFile($archiveContentsDir);
         $self->_createPartitionsFile($archiveContentsDir);
         copy ('/etc/fstab', "$archiveContentsDir/fstab");
 
@@ -298,6 +298,18 @@ sub  _createModulesListFile
 
     my $file = "$archiveContentsDir/modules";
     write_file($file, "@modNames");
+}
+
+sub  _createPackageListFile
+{
+    my ($self, $archiveContentsDir) = @_;
+
+    my $outputFile = "$archiveContentsDir/debpackages";
+
+    system("dpkg -l zentyal-core 2>/dev/null | egrep -q '^ii '") == 0
+        or throw EBox::Exceptions::External(__('The package zentyal-core is broken. You must fix it before making a configuration backup.'));
+
+    system("dpkg -l > $outputFile");
 }
 
 sub  _createBackupArchive
