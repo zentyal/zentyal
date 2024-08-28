@@ -2008,12 +2008,14 @@ sub _generateP12Store
     my $certFile = $certMetadata->{path};
     my $cn       = $certMetadata->{dn}->attribute('commonName');
     my $target   = P12DIR . "${cn}.p12";
+    my $ca       = CACERT;
 
     my $cmd = 'pkcs12 -export ';
     $cmd .= "-in '$certFile' ";
     $cmd .= "-inkey '$privKeyFile' ";
     $cmd .= "-name '$cn' ";
     $cmd .= "-out '$target' ";
+    $cmd .= "-certfile '$ca' ";
     $password = '' unless (defined($password));
     $cmd .= "-passout pass:$password ";
 

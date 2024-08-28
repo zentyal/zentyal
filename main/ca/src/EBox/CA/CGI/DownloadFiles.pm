@@ -85,6 +85,7 @@ sub _process
     } else {
         $files = $self->{ca}->getKeys($self->{cn});
         $files->{certificate} = $self->{ca}->getCertificateMetadata(cn => $self->{cn})->{path};
+        $files->{cacertificate} = $self->{ca}->getCACertificateMetadata()->{path};
         $files->{p12}         = $self->{ca}->getP12KeyStore($self->{cn});
     }
 
@@ -97,7 +98,7 @@ sub _process
 
     unlink($zipfile);
     # We make symbolic links in order to make dir-plained tar file
-    my ($linkPrivate, $linkPublic, $linkCert, $linkP12);
+    my ($linkPrivate, $linkPublic, $linkCert, $linkCACert, $linkP12);
     if ( $metaDataCert->{"isCACert"} ) {
         $linkPublic = "ca-public-key.pem";
         $linkCert = "ca-cert.crt";
@@ -105,6 +106,7 @@ sub _process
         $linkPrivate = $self->{cn} . "-private-key.pem";
         $linkPublic  = $self->{cn} . "-public-key.pem";
         $linkCert    = $self->{cn} . "-cert.crt";
+        $linkCACert  = $self->{cn} . "-ca-cert.crt";
         $linkP12     = $self->{cn} . ".p12";
     }
 
@@ -112,12 +114,13 @@ sub _process
         if ($linkPrivate);
     link($files->{publicKey}, EBox::Config->tmp() . $linkPublic);
     link($files->{certificate}, EBox::Config->tmp() . $linkCert);
+    link($files->{cacertificate}, EBox::Config->tmp() . $linkCACert);
     link($files->{p12}, EBox::Config->tmp() . $linkP12)
         if ($linkP12);
 
     my $zipArgs = qq{'$zipfile'};
     my @toRemove;
-    foreach my $file ($linkPrivate, $linkPublic, $linkCert, $linkP12) {
+    foreach my $file ($linkPrivate, $linkPublic, $linkCert, $linkCACert, $linkP12) {
         if (not $file) {
             next;
         }
