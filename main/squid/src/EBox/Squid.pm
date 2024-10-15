@@ -583,6 +583,7 @@ sub _writeSquidConf
     push @writeParam, ('port' => $filter ? PROXYPORT_FILTER : $self->port());
     if ($self->transproxy() and not $filter) {
         push @writeParam, ('mode' => 'intercept');
+        push @writeParam, ('filter_port' => PROXYPORT_FILTER);
     }
 
     push @writeParam, ('rules' => $rules);

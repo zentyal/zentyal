@@ -8,6 +8,7 @@
 <%args>
     $port
     $mode => ''
+    $filter_port => ''
 
     $hostfqdn
     $auth
@@ -327,6 +328,9 @@ snmp_access deny all
 </%def>
 
 http_port 0.0.0.0:<% $port %> <% $mode %>
+% if ($filter_port != '') {
+http_port 0.0.0.0:<% $filter_port %>
+% }
 
 visible_hostname <% $hostfqdn %>
 coredump_dir /var/spool/squid
