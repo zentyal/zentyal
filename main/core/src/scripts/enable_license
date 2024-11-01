@@ -5,6 +5,7 @@ CURMINORV=`dpkg -l|grep zentyal-core | awk '{print $3}' | cut -d'.' -f2`
 CURV="${CURMAJORV}.${CURMINORV}"
 KEYURL="keys.zentyal.org/zentyal-${CURV}-packages-com.asc"
 APT_AUTH_CONF='/etc/apt/auth.conf.d/zentyal-commercial.conf'
+LK_REGEX="^[A-Z0-9]{5}-[A-Z0-9]{5}.[A-Z0-9]{5}-[A-Z0-9]{5}$"
 
 # Preparing files to persist the response data
 LK_CODE_FILE="/var/lib/zentyal/.license"
@@ -16,106 +17,166 @@ LK_STATUS_FILE="/var/lib/zentyal/.license_status"
 SERVER_HASH_FILE="/var/lib/zentyal/.server_uuid"
 UCP_COMM_CLIENT_ID_FILE="/var/lib/zentyal/.ucp_comm_id"
 UCP_COMM_CLIENT_SECRET_FILE="/var/lib/zentyal/.ucp_comm_secret"
-RESPONSE_DATA_FILE_TMP=$(mktemp /tmp/XXXXXXX)
 
 # Preparing request data
 SERVER_UUID=$(cat /sys/class/dmi/id/product_uuid | sed -E "s/$/$(date +-%s)/" | tee /var/lib/zentyal/.product_uuid)
-
 SERVER_VERSION=$(/usr/share/zentyal/shell EBox::Config::version)
 LK=$1
 
 function checkGPG
 {
 	logger UCP[$$] INFO: Looking for gnupg package...
-    dpkg -s gnupg &> /dev/null
-    if [ $? -eq 0 ];
-    then
-        logger UCP[$$] INFO: gnupg already installed
-    else
-        logger UCP[$$] INFO: gnupg is NOT installed! Trying to install it...
-        apt-get install gnupg -y
-    fi
+	dpkg -s gnupg &> /dev/null
+	if [ $? -eq 0 ];
+	then
+		logger UCP[$$] INFO: gnupg already installed
+	else
+		logger UCP[$$] INFO: gnupg is NOT installed! Trying to install it...
+		apt-get install gnupg -y
+	fi
 	# Importing key
-	sudo wget -q ${KEYURL} -P /etc/apt/trusted.gpg.d/
+	local KEY_NAME="$(basename ${KEYURL})"
+	find /etc/apt/trusted.gpg.d/ -type f -iname "${KEY_NAME}*" -exec rm {} \;
+	wget -q ${KEYURL} -P /etc/apt/trusted.gpg.d/
 }
 
+function removeCache
+{
+	rm -f $1
+}
+
+function getCurrentLK
+{
+	if [ -f "${LK_CODE_FILE}" ] && [[ $(cat "${LK_CODE_FILE}") =~ ${LK_REGEX} ]]; then
+		OLDLK="$(cat ${LK_CODE_FILE})"
+	else
+		OLDLK=""
+	fi
+}
+
+function enableLicense
+{
+	local API_URL='https://ucp.zentyal.com/api/lk/activate'
+	local URL_REPOSITORY='https://packages.zentyal.com'
+	local RESPONSE_DATA_FILE_TMP=$(mktemp /tmp/XXXXXXX)
+
+	# Preparing the data with JSON encoding
+	JSON_STRING=$( jq -n \
+					--arg lk "$LK" \
+					--arg pc "$SERVER_UUID" \
+					--arg v "ZS$SERVER_VERSION" \
+					'{
+						lk: $lk,
+						server_uuid: $pc,
+						server_version: $v
+						}'
+				)
+
+	# Run the request to "activate the license"
+	REQUEST=$(/usr/bin/timeout 30 /usr/bin/curl -s -X POST -H "Content-Type: application/json" -d "$JSON_STRING" $API_URL -w "%{http_code}" -o $RESPONSE_DATA_FILE_TMP)
+
+	if [ $REQUEST -eq "200" ]; then
+		# Persisting LK data in a system file
+		LK_DATA=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".data")
+
+		# Gets the expiration date and persisting the expiration date in a system file
+		LK_EXPIRATION=$(echo $LK_DATA | jq -r ".expiration_date")
+		echo $LK_EXPIRATION > $LK_EXPIRATION_FILE
+
+		# Gets the license type
+		LK_TYPE=$(echo $LK_DATA | jq -r ".license_key_type.code")
+		echo $LK_TYPE > $LK_TYPE_FILE
+
+		# Gets the number of users for this license and persisting in a system file
+		LK_USERS=$(echo $LK_DATA | jq -r ".users")
+		echo $LK_USERS > $LK_USERS_FILE
+
+		# Get the license key status id
+		LK_STATUS=$(echo $LK_DATA | jq -r ".status")
+		echo $LK_STATUS > $LK_STATUS_FILE
+
+		# Gets the lk hash
+		SERVER_HASH=$(echo $LK_DATA | jq -r ".server_uuid")
+		echo $SERVER_HASH > $SERVER_HASH_FILE
+
+		# Get the license key ID
+		LK_ID=$(echo $LK_DATA | jq -r ".id")
+
+		# Get the oauth machine to machine client id
+		UCP_CLIENT_ID=$(echo $LK_DATA | jq -r ".oaut_client.id")
+		echo $UCP_CLIENT_ID > $UCP_COMM_CLIENT_ID_FILE
+
+		# Get the ucp machine to machine secret
+		UCP_CLIENT_SECRET=$(echo $LK_DATA | jq -r ".oaut_client.secret")
+		echo $UCP_CLIENT_SECRET > $UCP_COMM_CLIENT_SECRET_FILE
+
+		# Save the license key code
+		LK_CODE=$(echo $LK_DATA | jq -r ".code")
+		echo $LK_CODE > $LK_CODE_FILE
+		echo "machine $URL_REPOSITORY login $LK_CODE password $SERVER_HASH" > $APT_AUTH_CONF
+		chmod 600 $APT_AUTH_CONF
+
+		touch /var/lib/zentyal/.commercial-edition
+		logger UCP[$$] INFO: License key $LK_CODE was enabled.
+		checkGPG
+		removeCache $RESPONSE_DATA_FILE_TMP
+	else
+		LK_ERR=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".data.error")
+		RES_MSG=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".message")
+		logger UCP[$$] ERROR: $RES_MSG.
+		logger UCP[$$] ERROR: Something was wrong. $LK_ERR.
+		removeCache $RESPONSE_DATA_FILE_TMP
+		exit 1
+	fi
+}
+
+function notifyLicenseChange
+{
+	local RESPONSE_DATA_FILE_TMP=$(mktemp /tmp/XXXXXXX)
+	local API_URL='https://ucp.zentyal.com/api/lk/upgrade'
+
+	# Preparing the data with JSON encoding
+	JSON_STRING=$( jq -n \
+					--arg oldlk "$OLDLK" \
+					--arg newlk "$LK" \
+					'{
+						origin_license_code: $oldlk,
+						destination_license_code: $newlk,
+					}'
+				)
+
+	# Run the request to "upgrade the license"
+	REQUEST=$(/usr/bin/curl -s -X POST -H "Content-Type: application/json" -d "${JSON_STRING}" ${API_URL} -w "%{http_code}" -o ${RESPONSE_DATA_FILE_TMP})
+
+	if [ $REQUEST -eq "201" ]; then
+		logger UCP[$$] INFO: License key upgrade request sent successfully.
+		removeCache ${RESPONSE_DATA_FILE_TMP}
+	else
+		LK_ERR=$(cat ${RESPONSE_DATA_FILE_TMP} | jq -r ".data.error")
+		RES_MSG=$(cat ${RESPONSE_DATA_FILE_TMP} | jq -r ".message")
+		logger UCP[$$] ERROR: ${RES_MSG}.
+		logger UCP[$$] ERROR: Something was wrong. ${LK_ERR}.
+		removeCache ${RESPONSE_DATA_FILE_TMP}
+		exit 1
+	fi
+}
+
+# License key checks
 if [ -z $LK ]
 then
 	echo "Usage: $0 XXXXX-XXXXX-XXXXX-XXXXX"
-	exit 126;
+	exit 126
 fi
 
-if ! echo "$LK" | grep -E -q "^[A-Z0-9]{5}-[A-Z0-9]{5}.[A-Z0-9]{5}-[A-Z0-9]{5}$"
+if ! echo "$LK" | grep -qE "$LK_REGEX"
 then
 	echo "Invalid key format."
 	echo "Make sure your license matchs the following format: XXXXX-XXXXX-XXXXX-XXXXX"
 	exit 1
 fi
 
-# Preparing the data with JSON encoding
-JSON_STRING=$( jq -n \
-                  --arg lk "$LK" \
-                  --arg pc "$SERVER_UUID" \
-				  --arg v "ZS$SERVER_VERSION" \
-                  '{
-                      lk: $lk,
-                      server_uuid: $pc,
-					  server_version: $v
-                    }'
-            )
-
-# Run the request to "activate the license"
-REQUEST=$(/usr/bin/curl --silent -X POST -H "Content-Type: application/json" -d "$JSON_STRING" https://ucp.zentyal.com/api/lk/activate -w "%{http_code}" -o $RESPONSE_DATA_FILE_TMP)
-
-if [ $REQUEST -eq "200" ]; then
-	# Persisting LK data in a system file
-	LK_DATA=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".data")
-
-	# Gets the expiration date and persisting the expiration date in a system file
-	LK_EXPIRATION=$(echo $LK_DATA | jq -r ".expiration_date")
-	echo $LK_EXPIRATION > $LK_EXPIRATION_FILE
-
-	# Gets the license type
-	LK_TYPE=$(echo $LK_DATA | jq -r ".license_key_type.code")
-	echo $LK_TYPE > $LK_TYPE_FILE
-
-	# Gets the number of users for this license and persisting in a system file
-	LK_USERS=$(echo $LK_DATA | jq -r ".users")
-	echo $LK_USERS > $LK_USERS_FILE
-
-	# Get the license key status id
-	LK_STATUS=$(echo $LK_DATA | jq -r ".status")
-	echo $LK_STATUS > $LK_STATUS_FILE
-
-	# Gets the lk hash
-	SERVER_HASH=$(echo $LK_DATA | jq -r ".server_uuid")
-	echo $SERVER_HASH > $SERVER_HASH_FILE
-
-	# Get the license key ID
-	LK_ID=$(echo $LK_DATA | jq -r ".id")
-
-	# Get the oauth machine to machine client id
-	UCP_CLIENT_ID=$(echo $LK_DATA | jq -r ".oaut_client.id")
-	echo $UCP_CLIENT_ID > $UCP_COMM_CLIENT_ID_FILE
-
-	# Get the ucp machine to machine secret
-	UCP_CLIENT_SECRET=$(echo $LK_DATA | jq -r ".oaut_client.secret")
-	echo $UCP_CLIENT_SECRET > $UCP_COMM_CLIENT_SECRET_FILE
-
-	# Save the license key code
-	LK_CODE=$(echo $LK_DATA | jq -r ".code")
-	echo $LK_CODE > $LK_CODE_FILE
-	echo "machine https://packages.zentyal.com login $LK_CODE password $SERVER_HASH" > $APT_AUTH_CONF
-	chmod 600 $APT_AUTH_CONF
-
-	touch /var/lib/zentyal/.commercial-edition
-	logger UCP[$$] INFO: License key $LK_CODE was enabled.
-	checkGPG
-	exit 0;
-else
-	LK_ERR=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".data.error")
-	RES_MSG=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".message")
-	logger UCP[$$] ERROR: $RES_MSG.
-	logger UCP[$$] ERROR: Something was wrong. $LK_ERR.
-	exit 1;
-fi
+# Calling the functions
+getCurrentLK
+enableLicense
+if [ -n "${OLDLK}" ]; then notifyLicenseChange; fi
+exit 0

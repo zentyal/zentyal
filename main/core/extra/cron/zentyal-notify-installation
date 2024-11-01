@@ -1,0 +1,83 @@
+#!/bin/bash
+
+# Global variables
+ZENTYAL_VERSION_ID="6"
+ZENTYAL_EDITION="$(/usr/share/zentyal/shell '$global->edition()')"
+CRONJOB_FILE='/etc/cron.daily/zentyal-notify-installation'
+ZENTYAL_CONF_STATUS_FILE='/var/lib/zentyal/.first'
+
+# Functions
+function removeCache
+{
+  rm -f $1
+}
+
+function removeCronjob
+{
+  logger UCP[$$] INFO: Removing zentyal-notify-installation daily cron job.
+  rm -f ${CRONJOB_FILE}
+  exit 0
+}
+
+function checkIfZentyalIsConfigured
+{
+  if [ -f ${ZENTYAL_CONF_STATUS_FILE} ]; then
+    logger UCP[$$] INFO: Zentyal is not configured yet.
+    exit 0
+  fi
+}
+
+function checkIfCommercial
+{
+  if [ "${ZENTYAL_EDITION}" == 'commercial' ]; then
+    removeCronjob
+  fi
+}
+
+function checkApiConnection
+{
+  local API_URL='https://ucp.zentyal.com/'
+
+  STATUS_CODE=$(/usr/bin/timeout 30 /usr/bin/curl -s -X GET "${API_URL}" -w "%{http_code}" -o /dev/null)
+
+  if [ "$STATUS_CODE" -ne 200 ]; then
+    logger UCP[$$] ERROR: The API server is not reachable.
+    exit 1
+  fi
+}
+
+function notifyInstallation
+{
+  local RESPONSE_DATA_FILE_TMP=$(mktemp /tmp/XXXXXXX)
+  local API_URL='https://ucp.zentyal.com/api/statistics/community/installation'
+
+  # Preparing the data with JSON encoding
+  JSON_STRING=$( jq -n \
+  --arg server_version "${ZENTYAL_VERSION_ID}" \
+    '{
+      server_version_id: $server_version,
+    }'
+  )
+
+  # Run the request to "notify about the new installation"
+  REQUEST=$(/usr/bin/timeout 30 /usr/bin/curl -s -X POST -H "Content-Type: application/json" -d "${JSON_STRING}" ${API_URL} -w "%{http_code}" -o ${RESPONSE_DATA_FILE_TMP})
+
+  if [ $REQUEST -eq "201" ]; then
+    logger UCP[$$] INFO: Notification about the Zentyal installation was sent successfully.
+    removeCache $RESPONSE_DATA_FILE_TMP
+    removeCronjob
+  else
+    LK_ERR=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".data.error")
+    RES_MSG=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".message")
+    logger UCP[$$] ERROR: $RES_MSG.
+    logger UCP[$$] ERROR: Something was wrong. $LK_ERR.
+    removeCache $RESPONSE_DATA_FILE_TMP
+    exit 1;
+  fi
+}
+
+# Calling the functions
+checkIfZentyalIsConfigured
+checkIfCommercial
+checkApiConnection
+notifyInstallation

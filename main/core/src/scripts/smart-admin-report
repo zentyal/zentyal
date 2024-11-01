@@ -87,6 +87,24 @@ function system_check() {
 	fi
 
 
+	## Stubs
+	echo -e "\n########"
+	echo -e "## Zentyal Stubs"
+	echo -e "########\n"
+
+	if [ -d /etc/zentyal/stubs/ ]; then
+		find /etc/zentyal/stubs/ -type f -iname "*.mas"
+	fi
+
+	## Stubs
+	echo -e "\n########"
+	echo -e "## Zentyal Hooks"
+	echo -e "########\n"
+
+	if [ -d /etc/zentyal/hooks/ ]; then
+		find /etc/zentyal/hooks/ -not -name "template.*" -type f
+	fi
+
 	## Uptime
 	echo -e "\n########"
 	echo -e "## Uptime "
@@ -139,11 +157,11 @@ function system_check() {
 	echo -e "## Network Interfaces"
 	echo -e "########\n"
 
-	echo -e "## Interfaces available: \n"
-		ip addr show | egrep -i "eth.:" -o | sed 's/://g'
+	echo -e "## Interfaces available with their status: \n"
+		ip addr show | egrep ': .*: <' | awk '{print $2,$9}' | egrep -v 'lo:'
 
 	echo -e "\n## IPs configured: \n"
-		ip -4 a | egrep "(eth[0-9]:|inet)" | egrep -v '127.' | sed "s/[0-9]://"
+		ip -4 a | grep 'inet ' | egrep -v '127.' | sed "s/[0-9]://" | sed 's/    //'
 
 	echo -en "\n## Network Interfaces where were 'Down': "
 		grep -a 'Link is Down' /var/log/syslog | wc -l

@@ -1,3 +1,7 @@
+8.0.6
+	+ Add a simple statistic script
+	+ Add an endpoint call in the script enable_license if Zentyal is Commercial
+	+ Changes in the smart-admin-report script
 8.0.5
 	+ Check zentyal-core package status during the configuration backup creation
 8.0.4
