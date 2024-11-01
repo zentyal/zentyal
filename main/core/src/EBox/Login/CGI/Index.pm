@@ -100,6 +100,7 @@ sub _requestDestination
 
     # redirect to software selection on first install
     if (EBox::Global::first() and EBox::Global->modExists('software')) {
+        EBox::Sudo::root('cp /usr/share/zentyal/zentyal-notify-installation /etc/cron.daily/');
         return $FIRSTTIME_DESTINATION;
     }
 

@@ -50,7 +50,7 @@ function getCurrentLK
 	if [ -f "${LK_CODE_FILE}" ] && [[ $(cat "${LK_CODE_FILE}") =~ ${LK_REGEX} ]]; then
 		OLDLK="$(cat ${LK_CODE_FILE})"
 	else
-		OLDLK=""
+		OLDLK=''
 	fi
 }
 
@@ -69,7 +69,7 @@ function enableLicense
 						lk: $lk,
 						server_uuid: $pc,
 						server_version: $v
-						}'
+					}'
 				)
 
 	# Run the request to "activate the license"
@@ -136,11 +136,11 @@ function notifyLicenseChange
 	local API_URL='https://ucp.zentyal.com/api/lk/upgrade'
 
 	# Preparing the data with JSON encoding
-	JSON_STRING=$( jq -n \
+	JSON_STRING=$(jq -n \
 					--arg oldlk "$OLDLK" \
 					--arg newlk "$LK" \
 					'{
-						origin_license_code: $oldlk,
+						origin_license_code: ($oldlk // null),
 						destination_license_code: $newlk,
 					}'
 				)
@@ -178,5 +178,5 @@ fi
 # Calling the functions
 getCurrentLK
 enableLicense
-if [ -n "${OLDLK}" ]; then notifyLicenseChange; fi
+notifyLicenseChange
 exit 0
