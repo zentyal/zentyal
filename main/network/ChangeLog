@@ -1,3 +1,7 @@
+8.0.3
+	+ Fix the creation of additional bonding interfaces
+	+ Several fixes in the Netplan stub
+	+ Description typo
 8.0.2
 	+ Fix vlan deletion
 8.0.1

@@ -269,7 +269,7 @@ sub preconditionFailMsg
     if ($self->{preconditionFail} eq 'dnsModuleEnabled') {
         $msg = __x('The Zentyal DNS module is installed and enabled, so only the local DNS server will be used to resolve the queries. ' .
                   'The queries for which this server is not authoritative and does not have the answer in its cache will be sent to ' .
-                  'the {ohref}configured forwarders{chref} in first place, and if they does not answer the query root DNS servers will be used.',
+                  'the {ohref}configured forwarders{chref} in first place, and if they do not answer the query root DNS servers will be used.',
                   ohref => '<a href="/DNS/Composite/Global">',
                   chref => '</a>');
     }

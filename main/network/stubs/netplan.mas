@@ -64,7 +64,7 @@ network:
 % }
 % foreach my $iface (@iflist) {
 %   my $method = $networkMod->ifaceMethod($iface);
-%   next if 
+%   next if
 %     $networkMod->ifaceIsBridge($iface) or #bridge
 %     $networkMod->ifaceIsBond($iface) or #bundled
 %     ($iface =~ /^vlan/) or #vlan
@@ -76,10 +76,11 @@ network:
 %     if ($method eq 'dhcp') {
       dhcp4: true
       dhcp6: false
-%     } else {
+%     }
+%     if ($method eq 'static') {
       dhcp4: false
       dhcp6: false
-      addresses: 
+      addresses:
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
 %       if (@$dns) {
       nameservers:
@@ -89,6 +90,7 @@ network:
 %         }
         addresses: [ <% join ', ', @$dns %> ]
 %       }
+% # Start gateway configuration
 %       my @gatewayInfo = $networkMod->ifaceGateways($iface);
 %       if (@gatewayInfo) {
       routes:
@@ -103,6 +105,8 @@ network:
           on-link: true
 %         }
 %       }
+% # End gateway configuration
+% # Start static routes configuration
 %       my @staticRoutes = $networkMod->routesByIface($iface);
 %       if(!@gatewayInfo and @staticRoutes) {
       routes:
@@ -111,28 +115,30 @@ network:
         - to: <% $staticRoute->{network} %>
           via: <% $staticRoute->{gateway} %>
 %       }
+% # End static routes configuration
 %       my $mtu = EBox::Config::configkey("mtu_$iface");
 %       if ($mtu) {
       mtu: <% $mtu %>
 %       }
 %     }
-%   }  
+%   }
 %   if ($method eq 'bundled') {
     <% $iface %>:
       dhcp4: false
-      dhcp6: false     
+      dhcp6: false
 %   }
 %   if ($method eq 'trunk') {
     <% $iface %>:
       dhcp4: false
-      dhcp6: false     
+      dhcp6: false
 %   }
 %   if ($method eq 'bridged') {
     <% $iface %>:
       dhcp4: false
-      dhcp6: false     
+      dhcp6: false
 %   }
 % }
+
 % if ($hasVifaces) {
 %   foreach my $iface (@iflist) {
 %     my $method = $networkMod->ifaceMethod($iface);
@@ -143,12 +149,13 @@ network:
       match:
         name: <% "$iface.$viface->{'name'}" %>
       set-name: <% "$iface.$viface->{'name'}" %>
-      addresses: 
+      addresses:
         - <% $viface->{'address'} %>/<% EBox::NetWrappers::bits_from_mask($viface->{'netmask'}) %>
 #            label: "<% $iface %>:<% $viface->{'name'} %>"
 %     }
 %   }
 % }
+
 % if ($hasBridged && $hasBridges) {
   bridges:
 %   foreach my $iface (@iflist) {
@@ -165,13 +172,39 @@ network:
       dhcp6: no
       addresses:
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
+% # Start gateway configuration
+%     my @gatewayInfo = $networkMod->ifaceGateways($iface);
+%     if (@gatewayInfo) {
+      routes:
+%         foreach my $gw (@gatewayInfo) {
+%           if ($gw->{default}) {
+        - to: 'default'
+%           } else {
+        - to: 0.0.0.0/0
+%           }
+          via: <% $gw->{ip} %>
+          metric: <% $gw->{weight} %>
+          on-link: true
+%         }
 %       }
+% # End gateway configuration
+% # Start static routes configuration
+%     my @staticRoutes = $networkMod->routesByIface($iface);
+%     if(!@gatewayInfo and @staticRoutes) {
+      routes:
+%       }
+%       foreach my $staticRoute (@staticRoutes) {
+        - to: <% $staticRoute->{network} %>
+          via: <% $staticRoute->{gateway} %>
+%       }
+% # End static routes configuration
       macaddress: <% EBox::NetWrappers::iface_mac_address($networkMod->bridgeIfaces($iface)->[0]) %>
       parameters:
         stp: false
         forward-delay: 5
-%     }
+%    }
 %   }
+%  }
 % }
 
 % if ($hasBonds && $bondSlave) {
@@ -181,24 +214,60 @@ network:
 %     next if $method eq 'notset';
 %     if ($networkMod->ifaceIsBond($iface)) {
     <% $iface %>:
-%       if($method eq 'dhcp') {
+%   if($method eq 'dhcp') {
       dhcp4: true
       dhcp6: false
-%       } else {
+%   }
+%   if ($method eq 'static') {
       dhcp4: false
       dhcp6: false
-      addresses: 
+      addresses:
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
+% # Start gateway configuration
+%     my @gatewayInfo = $networkMod->ifaceGateways($iface);
+%     if (@gatewayInfo) {
+      routes:
+%         foreach my $gw (@gatewayInfo) {
+%           if ($gw->{default}) {
+        - to: 'default'
+%           } else {
+        - to: 0.0.0.0/0
+%           }
+          via: <% $gw->{ip} %>
+          metric: <% $gw->{weight} %>
+          on-link: true
+%         }
 %       }
+% # End gateway configuration
+% # Start static routes configuration
+%     my @staticRoutes = $networkMod->routesByIface($iface);
+%     if(!@gatewayInfo and @staticRoutes) {
+      routes:
+%       }
+%       foreach my $staticRoute (@staticRoutes) {
+        - to: <% $staticRoute->{network} %>
+          via: <% $staticRoute->{gateway} %>
+%       }
+% # End static routes configuration
+%   }
+%   if ($method eq 'trunk') {
+      dhcp4: false
+      dhcp6: false
+%   }
+%   if ($method eq 'bridged') {
+      dhcp4: false
+      dhcp6: false
+%   }
       interfaces: [ <% join ', ', @{$networkMod->bondIfaces($iface)} %> ]
       parameters:
         mode: <% $networkMod->bondMode($iface) %>
         up-delay: 200
         down-delay: 200
         # fail-over-mac-policy: active TODO
-%     }
 %   }
+%  }
 % }
+
 % if ($hasVlans) {
   vlans:
 %   foreach my $iface (@iflist) {
@@ -212,12 +281,43 @@ network:
 %       if ($method eq 'dhcp') {
       dhcp4: true
       dhcp6: false
-%       } else {
+%       }
+%       if ($method eq 'static') {
       dhcp4: false
       dhcp6: false
-      addresses: 
+      addresses:
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
+% # Start gateway configuration
+%     my @gatewayInfo = $networkMod->ifaceGateways($iface);
+%     if (@gatewayInfo) {
+      routes:
+%         foreach my $gw (@gatewayInfo) {
+%           if ($gw->{default}) {
+        - to: 'default'
+%           } else {
+        - to: 0.0.0.0/0
+%           }
+          via: <% $gw->{ip} %>
+          metric: <% $gw->{weight} %>
+          on-link: true
+%         }
 %       }
-%     }
+% # End gateway configuration
+% # Start static routes configuration
+%     my @staticRoutes = $networkMod->routesByIface($iface);
+%     if(!@gatewayInfo and @staticRoutes) {
+      routes:
+%       }
+%       foreach my $staticRoute (@staticRoutes) {
+        - to: <% $staticRoute->{network} %>
+          via: <% $staticRoute->{gateway} %>
+%       }
+% # End static routes configuration
+%    }
+%    if ($method eq 'bridged') {
+      dhcp4: false
+      dhcp6: false
+%    }
 %   }
+%  }
 % }

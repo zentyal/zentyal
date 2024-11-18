@@ -2146,7 +2146,7 @@ sub setIfaceBonded
         my @bonds = @{$self->bonds()};
         if (@bonds) {
             my $last = int(pop(@bonds));
-            $bond = $last;
+            $bond = $last + 1;
         } else {
             $bond = 0;
         }
