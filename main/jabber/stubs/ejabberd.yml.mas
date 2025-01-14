@@ -308,9 +308,10 @@ modules:
   mod_privacy: {}
   mod_private: {}
 % if ($proxy) {
-  ## mod_proxy65:
-  ##   access: local
-  ##   max_connections: 5
+  mod_proxy65:
+    access: local
+    max_connections: 5
+    ip: 0.0.0.0
 % }
   mod_pubsub:
     access_createnode: pubsub_createnode
