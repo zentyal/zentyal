@@ -163,7 +163,7 @@ function zentyal_repository
     done
 
   # Set up Zentyal Development repository
-  wget -q ${ZEN_REPO_KEY} -P /etc/apt/trusted.gpg.d/
+  wget -T 10 -U "Mozilla/5.0 (X11; Linux i686; rv:134.0) Gecko/20100101 Firefox/134.0" -q ${ZEN_REPO_KEY} -P /etc/apt/trusted.gpg.d/
   echo ${ZEN_REPO_URL} > /etc/apt/sources.list.d/zentyal.list
 
   ## Adding Suricata repositorio for zentyal-ips module

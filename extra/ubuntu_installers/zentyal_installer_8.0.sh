@@ -183,16 +183,16 @@ function add_repositories
     done
 
   # Set up Zentyal Development repository
-  wget -q ${ZEN_REPO_KEY} -P /etc/apt/trusted.gpg.d/
+  wget -T 10 -U "Mozilla/5.0 (X11; Linux i686; rv:134.0) Gecko/20100101 Firefox/134.0" -q ${ZEN_REPO_KEY} -P /etc/apt/trusted.gpg.d/
   echo ${ZEN_REPO_URL} > /etc/apt/sources.list.d/zentyal.list
 
   ## Add Docker repository for zentyal-docker module
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
+  curl --connect-timeout 10 -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
   chmod 0644 /etc/apt/trusted.gpg.d/docker.gpg
   echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" > /etc/apt/sources.list.d/docker.list
 
   ## Add Firefox repository for zenbuntu-desktop module
-  wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- > /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
+  wget -T 10 -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- > /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
   chmod 0644 /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
   echo "deb [signed-by=/etc/apt/trusted.gpg.d/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" > /etc/apt/sources.list.d/mozilla.list
 cat <<EOF > /etc/apt/preferences.d/mozilla
