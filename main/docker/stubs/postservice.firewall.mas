@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This postservice hook is needed when the Docker module is installed.
+# This postservice hook is needed when the Docker module is installed and enabled.
 
 set -e
 
@@ -9,9 +9,13 @@ set -e
 ####
 
 function docker_module() {
-    MODULE_EXISTS=$(dpkg -l | grep -qo  'ii  zentyal-docker ' || true)
-    MODULE_STATUS=$(perl -MEBox::Global -e "print EBox::Global->getInstance()->modInstance('docker')->isEnabled();")
-    if [[ -z ${MODULE_EXISTS} && ${MODULE_STATUS} -eq 1 ]]; then
+    MODULE_EXISTS=$(dpkg -l | grep -o  'ii  zentyal-docker ' || true)
+    if [[ -z ${MODULE_EXISTS} ]]; then
+        return
+    fi
+
+    MODULE_STATUS=$(perl -MEBox::Global -e "print EBox::Global->getInstance()->modInstance('docker')->isEnabled();" 2>/dev/null || true)
+    if [[ ${MODULE_STATUS} -eq 1 ]]; then
         # Needed to avoid issues with Systemd
         sleep 5
         systemctl restart docker
