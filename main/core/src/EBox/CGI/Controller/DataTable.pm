@@ -107,6 +107,10 @@ sub _auditLog
     my ($rowId, $elementId) = split (/\//, $id);
     $elementId = $rowId unless defined ($elementId);
 
+    if ($elementId eq 'password_confirm') {
+        $value = '****';
+    }
+
     my $row = $model->row($rowId);
     if (defined ($row)) {
         my $element;
