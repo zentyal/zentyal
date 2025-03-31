@@ -73,10 +73,10 @@ sub permanentMessage
     }
 
     return __x(
-        'To manage your docker setup you just need to acces to the console '
+        'To manage your docker setup you just need to access to the console '
         . 'clicking on this link '
         . '{openhref}Portainer®{closehref} to do so',
-        openhref  => qq{<a href="http://$fqdn:$port" target="_blank">},
+        openhref  => qq{<a href="https://$fqdn:$port" target="_blank">},
         closehref => qq{</a>}
     );
 }
