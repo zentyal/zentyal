@@ -412,7 +412,9 @@ function configurationDNS
 {
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring DNS module" | tee -a ${LOG_FILE}
 
-    rm -f /etc/systemd/system/named.service.wants/fix-744304.conf
+    if [[ -f /etc/systemd/system/named.service.wants/fix-744304.conf ]]; then
+        rm -f /etc/systemd/system/named.service.wants/fix-744304.conf
+    fi
 
     for file in /usr/share/zentyal/stubs/dns/named.conf.options.mas /etc/zentyal/stubs/dns/named.conf.options.mas /etc/bind/named.conf.options; do
         if [ -f ${file} ]; then
@@ -471,6 +473,7 @@ function configurationVPN
 {
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring OpenVPN module" | tee -a ${LOG_FILE}
 
+    apt-mark unhold zentyal-openvpn
     export DEBIAN_FRONTEND=noninteractive
     apt update
     apt install -y frr
@@ -483,7 +486,7 @@ function configurationDHCP
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring DHCP module" | tee -a ${LOG_FILE}
 
     if [[ -f /etc/apparmor.d/disable/usr.sbin.dhcpd ]]; then
-        rm -v /etc/apparmor.d/disable/usr.sbin.dhcpd
+        rm /etc/apparmor.d/disable/usr.sbin.dhcpd
     fi
 
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
@@ -534,7 +537,7 @@ function configurationSogo
     apt install -y -o DPkg::Options::="--force-confdef" zentyal-sogo
 
     echo "$(date '+%d-%m-%Y %H:%M:%S') ......... Importing Webmail database" | tee -a ${LOG_FILE}
-    mysqldump -u root -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) sogo < ${BACKUP_DB_WEBMAIL}
+    mysql -u root -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) sogo < ${BACKUP_DB_WEBMAIL}
 
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
 }
@@ -619,13 +622,8 @@ function upgradeUbuntu
     # Needed to avoid issues during the upgrade
     apt-mark hold ${PKG} firefox
 
-    ## Holding Zentyal packages to avoid unexpected removal
-    PKG=$(dpkg -l | egrep '^ii.*(zenbuntu-|zentyal)' | awk '{print $2}')
-    apt-mark hold ${PKG}
-
     upgradePackages
 
-    apt-mark unhold ${PKG}
     ensureInternet
 
     if [[ "$(lsb_release -cs)" != "${DSTCODE}" ]]; then
@@ -653,12 +651,12 @@ function preZentyalUpgrade
     configurationMysql
 
     # Jabber configuration
-    if dpkg -l | grep -qo 'ii  zentyal-jabber '; then
+    if dpkg -l | grep -qo 'hi  zentyal-jabber '; then
         configurationJabber
     fi
 
     # DHCP configuration
-    if dpkg -l | grep -qo 'ii  zentyal-dhcp '; then
+    if dpkg -l | grep -qo 'hi  zentyal-dhcp '; then
         configurationDHCP
     fi
 
@@ -675,7 +673,7 @@ function upgradeZentyal
 
     ensureInternet
 
-    if dpkg -l | grep -qo 'ii  zentyal-sogo '; then
+    if dpkg -l | grep -qo 'hi  zentyal-sogo '; then
         local WEBMAIL=1
         mysqldump -u root -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) sogo > ${BACKUP_DB_WEBMAIL}
         if [[ $(du -s ${BACKUP_DB_WEBMAIL} | awk '{print $1}') -lt 4 ]]; then
@@ -687,12 +685,13 @@ function upgradeZentyal
     fi
 
     # OpenVPN configuration
-    if dpkg -l | grep -qo 'ii  zentyal-openvpn '; then
+    if dpkg -l | grep -qo 'hi  zentyal-openvpn '; then
+        local VPN=1
         configurationVPN
     fi
 
     # zenbuntu-desktop configuration
-    if dpkg -l | grep -qo ' zenbuntu-desktop '; then
+    if dpkg -l | grep -qo 'hi  zenbuntu-desktop '; then
         configurationDesktop
     fi
 
@@ -701,11 +700,17 @@ function upgradeZentyal
         sed -i "s/$CURRV/$DESTV/g" /etc/apt/sources.list.d/zentyal-qa.list
     fi
 
+    apt-mark unhold ${PKG}
     upgradePackages
 
     # Webmail configuration
     if [[ -n ${WEBMAIL} ]]; then
         configurationSogo
+    fi
+
+    # OpenVPN configuration
+    if [[ -n ${VPN} ]]; then
+        apt install -y -o DPkg::Options::="--force-confdef" zentyal-openvpn
     fi
 
     # Antivirus configuration
@@ -727,7 +732,9 @@ function postZentyalUpgrade
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... Post configuration after upgrading Zentyal" | tee -a ${LOG_FILE}
 
     # Ensure unattended-upgrade is disabled
-    sed -i 's/1/0/' /etc/apt/apt.conf.d/20auto-upgrades
+    if [[ -f '/etc/apt/apt.conf.d/20auto-upgrades' ]]; then
+        sed -i 's/1/0/' /etc/apt/apt.conf.d/20auto-upgrades
+    fi
 
     # Mysql configuration
     configurationMysql
@@ -758,7 +765,7 @@ function postZentyalUpgrade
 
     # Remove packages in 'rc' or 'ic' status
     local PKG_TO_REMOVE=$(dpkg -l | egrep '^(rc|ic)' | awk '{print $2}')
-    if [[ -n ${PKG_TO_REMOVE} ]]; then
+    if [[ -n ${PKG_TO_REMOVE} ]] && [[ ! $(echo $PKG_TO_REMOVE | egrep zentyal) ]]; then
         echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Removing packages that are not longer needed" | tee -a ${LOG_FILE}
         dpkg --purge ${PKG_TO_REMOVE}
         echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
@@ -805,6 +812,8 @@ fi
 
 echo "$(date '+%d-%m-%Y %H:%M:%S') Preparing your system for the upgrade" | tee -a ${LOG_FILE}
 prepareUpgrade
+## Holding Zentyal packages to avoid unexpected removal
+PKG=$(dpkg -l | egrep '^ii.*(zenbuntu-|zentyal)' | awk '{print $2}')
 echo "$(date '+%d-%m-%Y %H:%M:%S') OK" | tee -a ${LOG_FILE}
 
 echo "$(date '+%d-%m-%Y %H:%M:%S') Preparing repositories for upgrade to Zentyal ${DESTV}" | tee -a ${LOG_FILE}
