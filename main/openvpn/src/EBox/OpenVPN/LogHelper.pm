@@ -103,7 +103,7 @@ sub processLine # (file, line, logger)
 {
     my ($self, $file, $line, $dbengine) = @_;
 
-    my ($wday, $month, $mday, $time, $year, $msg) = split '\s+', $line, 6;
+    my ($year, $time, $msg) = split /\s+/, $line, 3;
 
     my $eventInfo = $self->_eventFromMsg($msg);
     if (not defined $eventInfo) {
@@ -119,7 +119,7 @@ sub processLine # (file, line, logger)
     my $name   = $daemon->{name};
     my $type   = $daemon->{type};
 
-    my $timestamp = $self->_convertTimestamp("$month $mday $time $year", '%b %e %H:%M:%S %Y');
+    my $timestamp = $year . ' ' . $time;
 
     my $dbRow = {
                  timestamp  => $timestamp,
