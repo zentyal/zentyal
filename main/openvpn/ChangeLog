@@ -1,3 +1,8 @@
+8.0.2
+	+ Increase Debian compat
+	+ Remove unnecessary comments in frr.conf stub
+	+ Remove unnecessary tab in openvpn-client stub
+	+ Fix site-to-site routing. Fix #2169
 8.0.1
 	+ Fix integration with the log module
 8.0.0

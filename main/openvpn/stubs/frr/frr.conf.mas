@@ -30,12 +30,11 @@ $debug => 0
 log syslog informational
 
 % if ($insecurePasswd) {
-hostname zentyal            ## ¿¿Obtener el FQDN en uso?
-password ripd               ## ¿¿Generar una contraseña robusta en el initialSetup??
+hostname zentyal
+password ripd
 enable password ripd
 % }
 
-## ¿¿Qué hace??
 % foreach my $iface (@ifaces) {
 %      if ($insecurePasswd or (not $iface->{passwd})) {
          <& .noAuthIface, iface => $iface  &>

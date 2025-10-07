@@ -887,7 +887,7 @@ sub _writeRIPDaemonConf
                           insecurePasswd => _insecureRipPasswd(),
                           debug          => $debug,
                          );
-    $self->writeConfFile("$confDir/ffr.conf", '/openvpn/frr/frr.conf.mas',
+    $self->writeConfFile("$confDir/frr.conf", '/openvpn/frr/frr.conf.mas',
                          \@ripdConfParams, $fileAttrs);
 
 }
