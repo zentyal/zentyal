@@ -210,6 +210,6 @@ $value
 </%args>
 % foreach my $server_r (@servers) {
 %  my ($addr, $port) = @{ $server_r };
-   remote <% "$addr $port" %>
+remote <% "$addr $port" %>
 % }
 </%def>
