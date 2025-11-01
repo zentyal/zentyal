@@ -12,7 +12,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 Package: zentyal-ebackup
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 8.0.0), zentyal-core (<< 8.1.0),
+Depends: zentyal-core (>= 8.1.0), zentyal-core (<< 8.2.0),
          duplicity, libstring-shellquote-perl, libtimedate-perl,
          libdate-calc-xs-perl, cron, ncftp, sshpass, libterm-readkey-perl,
          ntpdate, python3-pexpect, ${misc:Depends}
