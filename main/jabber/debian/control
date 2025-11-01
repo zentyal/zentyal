@@ -11,7 +11,7 @@ Vcs-Git: https://github.com/zentyal/zentyal.git
 
 Package: zentyal-jabber
 Architecture: all
-Depends: zentyal-core (>= 8.0.0), zentyal-core (<< 8.1.0), zentyal-samba,
+Depends: zentyal-core (>= 8.1.0), zentyal-core (<< 8.2.0), zentyal-samba,
          erlang-asn1, erlang-base, erlang-base64url, erlang-crypto, erlang-dialyzer,
          erlang-edoc, erlang-eunit, erlang-ftp, erlang-goldrush, erlang-idna, erlang-inets,
          erlang-jiffy, erlang-jose, erlang-lager, erlang-mnesia, erlang-odbc, erlang-os-mon,
