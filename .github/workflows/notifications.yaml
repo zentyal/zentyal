@@ -1,0 +1,85 @@
+name: Notifications for PRs and Issues
+
+on:
+  pull_request_target:
+    types: [opened, reopened, closed, edited]
+  issues:
+    types: [opened, reopened, closed, edited]
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  notify-slack:
+    runs-on: ubuntu-latest
+    env:
+      EVENT_NAME: ${{ github.event_name }}
+      ACTION: ${{ github.event.action }}
+      REPO: ${{ github.repository }}
+      ACTOR: ${{ github.actor }}
+      PR_TITLE: ${{ github.event.pull_request.title }}
+      PR_URL: ${{ github.event.pull_request.html_url }}
+      ISSUE_TITLE: ${{ github.event.issue.title }}
+      ISSUE_URL: ${{ github.event.issue.html_url }}
+      COMMENT_URL: ${{ github.event.comment.html_url }}
+      RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+    steps:
+      - name: Prepare Slack payload
+        id: payload
+        run: |
+          TARGET=""
+          TITLE=""
+          URL=""
+          EMOJI=":bell:"
+
+          if [ "$EVENT_NAME" = "pull_request_target" ]; then
+            TARGET="Pull Request"
+            TITLE="$PR_TITLE"
+            URL="$PR_URL"
+            EMOJI=":sparkles:"
+          elif [ "$EVENT_NAME" = "issues" ]; then
+            TARGET="Issue"
+            TITLE="$ISSUE_TITLE"
+            URL="$ISSUE_URL"
+            EMOJI=":bug:"
+          elif [ "$EVENT_NAME" = "issue_comment" ]; then
+            TARGET="Comment"
+            TITLE="$ISSUE_TITLE"
+            URL="$COMMENT_URL"
+            EMOJI=":speech_balloon:"
+          fi
+
+          echo "payload<<EOF" >> $GITHUB_OUTPUT
+          cat <<EOT >> $GITHUB_OUTPUT
+          {
+            "text": "$EMOJI *$ACTION on $TARGET* by $ACTOR",
+            "blocks": [
+              {
+                "type": "header",
+                "text": { "type": "plain_text", "text": "$EMOJI $ACTION on $TARGET", "emoji": true }
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Repository:* <$GITHUB_SERVER_URL/$REPO|$REPO>\n*User:* $ACTOR\n*Action:* $ACTION\n*Title:* <$URL|$TITLE>"
+                }
+              },
+              {
+                "type": "context",
+                "elements": [
+                  { "type": "mrkdwn", "text": "<$RUN_URL|View workflow run>" }
+                ]
+              }
+            ]
+          }
+          EOT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # https://github.com/slackapi/slack-github-action
+      - name: Send Slack notification
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: ${{ steps.payload.outputs.payload }}
