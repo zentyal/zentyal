@@ -1,46 +1,86 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-# Updates the debian changelogs when you are on the top of a packaging branch,
-# i.e. packaging/debian/jaunty/trunk/
-#
-# Only argument is the new version desired, plus packages you want to change
-# or nothing if you want to change all
+# Version: 0.0.2
 
-version=$1
-shift
-packs=$@
+# Updates the Debian changelog for a Zentyal module.
 
-dist="focal"
+set -euo pipefail
 
-if [ -z "$version" ]
-then
-    echo "Usage: update-changelogs <version>"
+# Variables
+
+module=$(basename $(pwd))
+dist=$1
+priority=$2
+dev_name=$3
+dev_email=$4
+
+# Functions
+
+function help() {
+    echo "Usage: update-changelogs <dist> <version> <priority> '<dev_name>' <dev_email>"
+    echo "  Example: bash ../../extra/scripts/update-changelogs jammy high 'John Doe' john.doe@example.com"
+    echo "IMPORTANT: You must be in the top of the module, i.e. main/core"
     exit 1
-fi
+}
 
-if [ -z "$packs" ]
-then
-    packs=$(echo *)
-fi
 
-for dir in $packs
-do
-    if [ ! -f $dir/debian/changelog ]
-    then
-        continue
+function check_requirements() {
+    echo "Checking requirements..."
+
+    if [ "$#" -lt 4 ]; then
+        echo "Error: Missing required arguments."
+        help
     fi
 
-    module="zentyal-$dir"
+    if [ -z "$dist" ] || [ -z "$priority" ] || [ -z "$dev_name" ] || [ -z "$dev_email" ]; then
+        echo -e "Error: Missing required arguments.\n"
+        help
+    fi
 
-    cat > $dir/debian/changelog.new <<EOF
-$module ($version) $dist; urgency=low
+    if [ ! -f "debian/changelog" ]; then
+        echo "You must be in the top of the module, i.e. main/core"
+        help
+    fi
+
+    if ! grep -qE "^[[:alnum:]-]+ \([0-9]+\.[0-9]+\.[0-9]+\)" debian/changelog; then
+        echo "Error: Invalid changelog format."
+        exit 1
+    fi
+    echo "All requirements met."
+}
+
+
+function get_new_version() {
+    echo "Getting new version..."
+
+    current_version=$(head -n 1 debian/changelog | awk '{print $2}' | tr -d '()')
+    major=`echo $current_version | cut -d'.' -f1-2`
+    minor=`echo $current_version | cut -d'.' -f3`
+    version="$major.`expr $minor + 1`"
+
+    echo "Current version: $current_version, and incrementing to $version"
+}
+
+
+function generate_changelog() {
+    echo "Generating changelog..."
+
+    cat > debian/changelog.new <<EOF
+zentyal-$module ($version) $dist; urgency=$priority
 
   * New upstream release
 
- -- $DEBFULLNAME <$DEBEMAIL>  $(date -R)
+ -- $dev_name <$dev_email>  $(date -R)
 
 EOF
 
-cat $dir/debian/changelog >> $dir/debian/changelog.new
-mv $dir/debian/changelog.new $dir/debian/changelog
-done
+    cat debian/changelog >> debian/changelog.new
+    mv debian/changelog.new debian/changelog
+
+    echo "Changelog updated."
+}
+
+# Run the functions
+check_requirements $dist $module $priority "$dev_name" $dev_email
+get_new_version
+generate_changelog
