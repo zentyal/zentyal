@@ -1,0 +1,52 @@
+name: Check Changelog per module
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  SCRIPT_DETECT: .github/scripts/detect-changes.sh
+
+jobs:
+  check-changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      # https://github.com/tj-actions/changed-files
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v47
+        with:
+          files: |
+            extra/**
+            main/**
+
+      - name: Detect missing ChangeLogs
+        if: ${{ steps.changed-files.outputs.all_changed_files != '' }}
+        id: detect-module
+        run: ${{ env.SCRIPT_DETECT }} missing-changelogs
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+
+      # https://cli.github.com/manual/gh_api
+      - name: Request changes for missing ChangeLogs
+        if: steps.detect-module.outputs.missing_changelog_modules != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/reviews \
+            -f event="REQUEST_CHANGES" \
+            -f body="🚨 ChangeLog missing for module(s): ${{ steps.detect-module.outputs.missing_changelog_modules }}.
+            Please update the ChangeLog file(s) as described in the following link:
+              * https://github.com/zentyal/zentyal/blob/master/.github/Module-ChangeLog.md"
