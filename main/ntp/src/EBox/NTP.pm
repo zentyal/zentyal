@@ -32,7 +32,7 @@ use Time::HiRes qw(usleep);
 use TryCatch;
 
 # Constants
-use constant NTPCONFFILE      => '/etc/ntp.conf';
+use constant NTPCONFFILE      => '/etc/ntpsec/ntp.conf';
 use constant SAMBA_SOCKET_DIR => '/var/lib/samba/ntp_signd';
 
 sub _create
@@ -173,7 +173,7 @@ sub _preSetConf
             usleep(1000);
             $tries -= 1;
             if ($tries == 0) {
-                EBox::error("Cannot stop zentyal ntp daemon");
+                EBox::error("Cannot stop ntpsec daemon");
                 last;
             }
         }
@@ -188,7 +188,7 @@ sub _preSetConf
 #
 sub _daemons
 {
-    return [ { name => 'ntp' } ];
+    return [ { name => 'ntpsec' } ];
 }
 
 # Method: synchronized
