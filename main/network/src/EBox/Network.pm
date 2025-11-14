@@ -123,6 +123,30 @@ sub _create
     return $self;
 }
 
+# Method: appArmorProfiles
+#
+#   Overrides to set the own AppArmor profile
+#
+# Overrides:
+#
+#   <EBox::Module::Base::appArmorProfiles>
+#
+sub appArmorProfiles
+{
+    my ($self) = @_;
+
+    EBox::info('Setting dhclient apparmor profile');
+    my @params = ();
+    return [
+            {
+                'binary' => 'sbin.dhclient',
+                'local'  => 1,
+                'file'   => 'network/apparmor-dhclient.local.mas',
+                'params' => \@params,
+            }
+           ];
+}
+
 # Method: actions
 #
 #   Override EBox::Module::Service::actions
