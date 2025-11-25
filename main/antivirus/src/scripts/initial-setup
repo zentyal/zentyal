@@ -8,6 +8,7 @@ set -e
 
 function initial_conf() {
     # This function runs the initial configuration the module needs once it is installed
+    return
 }
 
 
