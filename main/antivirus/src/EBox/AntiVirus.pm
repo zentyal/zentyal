@@ -119,11 +119,24 @@ sub appArmorProfiles
 {
     my ($self) = @_;
 
-    return [{
-        'binary' => 'usr.bin.freshclam',
-        'local'  => 1,
-        'file'   => 'antivirus/freshclam.profile.mas',
-    }];
+    EBox::info('Setting ClamAV apparmor profiles');
+
+    my @paths = split(/\s+/, EBox::Config::configkey('os_scan_paths'));
+    my @params = ( paths => \@paths );
+
+    return [
+        {
+            'binary' => 'usr.bin.freshclam',
+            'local'  => 1,
+            'file'   => 'antivirus/apparmor-freshclam.local.mas',
+        },
+        {
+            'binary' => 'usr.sbin.clamd',
+            'local'  => 1,
+            'file'   => 'antivirus/apparmor-clamd.local.mas',
+            'params' => \@params,
+        }
+    ];
 }
 
 sub usedFiles
