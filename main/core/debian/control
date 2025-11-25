@@ -36,7 +36,7 @@ Depends: adduser, anacron, cracklib-runtime, cron, dbus, debconf, gpgv,
          mysql-server, nginx, nmap, update-notifier-common, libpam-cap,
          openssl, redis-server (>= 2:2.8.4), uwsgi-plugin-psgi,
          apt-transport-https, libdate-calc-xs-perl, screen, at, jq, bzip2,
-         ${misc:Depends}
+         apparmor-utils, zentyal-software, ${misc:Depends}
 Description: Zentyal - Core
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
