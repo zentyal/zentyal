@@ -1,0 +1,9 @@
+<%args>
+@paths        => ()
+</%args>
+
+% if (scalar(@paths)) {
+% foreach my $path (@paths) {
+<% $path %>/** r,
+% }
+% }

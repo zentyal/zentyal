@@ -1,0 +1,9 @@
+<%args>
+</%args>
+
+/run/clamav/clamd.ctl rw,
+/proc/*/status r,
+/run/samba/winbindd/pipe rw,
+/etc/ssl/openssl.cnf r,
+signal receive set=cont peer=uwsgi-core,
+signal receive set=term peer=uwsgi-core,

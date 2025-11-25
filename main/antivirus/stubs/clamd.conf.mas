@@ -96,10 +96,12 @@ BytecodeTimeout 60000
 ArchiveBlockMax true
 ArchiveBlockEncrypted true
 % }
+
 % if (scalar(@paths)) {
+# ClamOnAccess Settings
 OnAccessExcludeRootUID yes
 % foreach my $path (@paths) {
-OnAccess<% $path %>
+OnAccessIncludePath<% $path %>
 % }
 OnAccessPrevention yes
 OnAccessExtraScanning yes
