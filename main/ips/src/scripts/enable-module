@@ -13,6 +13,8 @@ function enable_mod() {
     # Ensure read permissions for loggerd
     touch /var/log/suricata/fast.log
     chgrp adm /var/log/suricata/fast.log
+
+    suricata-update
 }
 
 
