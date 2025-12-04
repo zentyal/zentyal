@@ -8,11 +8,11 @@
 RUN=<% $enabled ? 'yes' : 'no' %>
 
 # Configuration file to load
-SURCONF=/etc/suricata/suricata-debian.yaml
+SURCONF=/etc/suricata/suricata.yaml
 
-# Listen mode: pcap or nfqueue
+# Listen mode: pcap, nfqueue or af-packet
 # depending on this value, only one of the two following options
-# will be used
+# will be used (af-packet uses neither).
 # Please note that IPS mode is only available when using nfqueue
 LISTENMODE=nfqueue
 
@@ -22,7 +22,7 @@ LISTENMODE=nfqueue
 # Queue number to listen on (for nfqueue mode)
 NFQUEUE=<% $nfQueueNum %>
 
-# Load Google TCMALLOC if libtcmalloc-minimal0 is installed
+# Load Google TCMALLOC if libtcmalloc-minimal4 is installed
 # This _might_ give you very very small performance gain....
 TCMALLOC="YES"
 

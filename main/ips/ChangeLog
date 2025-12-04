@@ -1,5 +1,9 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Add dependency
+	+ Add suricata-update command to the initial-setup and enable-module scripts
+	+ Add a cronjob to update rules daily
+	+ Update suricata stub
 8.0.0
 	+ Set version to 8.0.0
 	+ Add dependency

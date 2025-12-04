@@ -12,6 +12,8 @@ function initial_conf() {
         sed -i 's#LISTEN_OPTIONS=" $NFQUEUE"#LISTEN_OPTIONS=" -q $NFQUEUE"#' /etc/init.d/suricata
         systemctl daemon-reload
     fi
+
+    suricata-update
 }
 
 

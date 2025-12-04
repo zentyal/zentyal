@@ -36,11 +36,12 @@ use EBox::IPS::LogHelper;
 use EBox::IPS::FirewallHelper;
 use POSIX;
 
-use constant SURICATA_CONF_FILE    => '/etc/suricata/suricata-debian.yaml';
+use constant SURICATA_CONF_FILE    => '/etc/suricata/suricata.yaml';
 use constant SURICATA_DEFAULT_FILE => '/etc/default/suricata';
 use constant SURICATA_INIT_FILE    => '/etc/init/suricata.conf';
 use constant SNORT_RULES_DIR       => '/etc/snort/rules';
 use constant SURICATA_RULES_DIR    => '/etc/suricata/rules';
+use constant SURICATA_UPDATE_CRON  => '/etc/cron.d/zentyal-ips-update';
 
 # Group: Protected methods
 
@@ -214,12 +215,14 @@ sub _setConf
         $mode = 'repeat';
     }
 
-    $self->writeConfFile(SURICATA_CONF_FILE, 'ips/suricata-debian.yaml.mas',
+    $self->writeConfFile(SURICATA_CONF_FILE, 'ips/suricata.yaml.mas',
                          [ mode => $mode, rules => $rules ]);
 
     $self->writeConfFile(SURICATA_DEFAULT_FILE, 'ips/suricata.mas',
                          [ enabled => $self->isEnabled(),
                            nfQueueNum => $self->nfQueueNum() ]);
+
+    $self->writeConfFile(SURICATA_UPDATE_CRON, 'ips/suricata-update.cron.mas');
 
     # workaround for broken systemd service, enforce use of init.d script
     my $systemdsvc = '/lib/systemd/system/suricata.service';
@@ -269,7 +272,12 @@ sub usedFiles
             'file' => SURICATA_DEFAULT_FILE,
             'module' => 'ips',
             'reason' => __('Enable start of suricata daemon')
-        }
+        },
+        {
+            'file' => SURICATA_UPDATE_CRON,
+            'module' => 'ips',
+            'reason' => __('Add a cronjob to update Suricata rules')
+        },
     ];
 }
 
