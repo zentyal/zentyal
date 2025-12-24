@@ -1,4 +1,6 @@
 8.1.0
+	+ Update NSS and PAM management
+	+ Remove deprecated auth-client-config package
 	+ Set version to 8.1.0
 8.0.2
 	+ Change DNS keytab directory. Fix #2080

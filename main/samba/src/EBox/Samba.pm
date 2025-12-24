@@ -103,7 +103,6 @@ use constant BACKUP_MODE_FILE     => 'LDAP_MODE.bak';
 use constant BACKUP_USERS_FILE    => 'userlist.bak';
 
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
-use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-zentyal';
 
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
@@ -698,6 +697,7 @@ sub _setConf
 
     $self->writeSambaConfig();
 
+    # Setup NSS and PAM for LDB users
     $self->_setupNSSPAM();
 
     # Apply ACLs to shares
@@ -814,29 +814,49 @@ sub kerberosRealm
     return $realm;
 }
 
+
 # Set up NSS PAM for LDB users
 sub _setupNSSPAM
 {
     my ($self) = @_;
 
-    my @array = ();
-    my $umask = EBox::Config::configkey('dir_umask');
-    push (@array, 'umask' => $umask);
-
-    $self->writeConfFile(AUTHCONFIGTMPL, 'samba/acc-zentyal.mas',
-                         \@array);
+    # Set up NSS
+    EBox::Sudo::root('sed -i -e "s|^passwd:.*|passwd:\t\tcompat winbind|" -e "s|^group:.*|group:\t\tcompat winbind|" -e "s|^shadow:.*|shadow:\t\tcompat|" -e "s|^netgroup:.*|netgroup:\tnis|" /etc/nsswitch.conf');
 
     my $PAMModule = $self->model('PAM');
     my $enablePAM = $PAMModule->enable_pamValue();
 
+    # Set up PAM winbind module
     my $cmd;
     if ($enablePAM) {
-        $cmd = 'auth-client-config -a -p zentyal-krb';
+        $cmd = 'pam-auth-update --enable winbind --force';
     } else {
-        $cmd = 'auth-client-config -a -p zentyal-nokrb';
+        $cmd = 'pam-auth-update --disable winbind --force';
     }
     EBox::Sudo::root($cmd);
 }
+
+# Set up PAM MKHOME module
+sub _setupPAMMKHOME
+{
+    my ($self) = @_;
+
+    EBox::Sudo::root('pam-auth-update --enable mkhomedir --force');
+
+    my $umask = EBox::Config::configkey('dir_umask');
+    my $pamFile = '/etc/pam.d/common-session';
+
+    my $cmd = qq{
+        if grep -q 'pam_mkhomedir.so' $pamFile; then
+            sed -i 's|^session\toptional.*pam_mkhomedir.so.*|session\toptional\t\t\tpam_mkhomedir.so skel=/etc/skel umask=$umask|' $pamFile;
+        else
+            echo -e 'session\toptional\t\t\tpam_mkhomedir.so skel=/etc/skel umask=$umask' >> $pamFile;
+        fi
+    };
+
+    EBox::Sudo::root($cmd);
+}
+
 
 # Method: editableMode
 #
