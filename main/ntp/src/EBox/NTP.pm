@@ -262,7 +262,7 @@ sub _setConf
     if (EBox::Sudo::fileTest('-d', SAMBA_SOCKET_DIR)
         and $samba
         and $samba->isEnabled()) {
-        EBox::Sudo::root('chgrp ntp "' . SAMBA_SOCKET_DIR . '"');
+        EBox::Sudo::root('chgrp ntpsec "' . SAMBA_SOCKET_DIR . '"');
         push(@array, 'sambaSocket' => SAMBA_SOCKET_DIR);
     }
 
