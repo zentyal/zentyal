@@ -43,7 +43,7 @@ use EBox::Util::Software;
 use EBox::Exceptions::Internal;
 
 use constant LATEST_VERSION => '/var/lib/zentyal/latestversion';
-use constant UPDATES_URL => 'http://update.zentyal.org/updates';
+use constant UPDATES_URL => 'https://update.zentyal.org/updates';
 use constant SMARTADMINREPORT_CRON_FILE => '/etc/cron.d/smart_admin-status_report';
 use constant SMARTADMINKM_CRON_FILE => '/etc/cron.d/smart_admin-kernel_management';
 use constant SMARTADMIN_ALERT_CPU_CRON_FILE => '/etc/cron.d/smart_admin_alert_cpu';
