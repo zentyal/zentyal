@@ -3,6 +3,7 @@
 	+ Rename and update Apparmor local profiles
 	+ Update ClamOnAccess parameters
 	+ Remove initial-setup workaround
+	+ Update clamd stub and clamonacc service
 8.0.1
 	+ Ensure PID directory exists
 8.0.0

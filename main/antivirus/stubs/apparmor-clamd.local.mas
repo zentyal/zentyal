@@ -7,3 +7,6 @@
 <% $path %>/** r,
 % }
 % }
+
+# Allow clamd to talk to Winbind
+/run/samba/winbindd/pipe rw,

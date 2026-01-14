@@ -99,6 +99,7 @@ ArchiveBlockEncrypted true
 
 % if (scalar(@paths)) {
 # ClamOnAccess Settings
+OnAccessExcludeUname clamav
 OnAccessExcludeRootUID yes
 % foreach my $path (@paths) {
 OnAccessIncludePath<% $path %>
