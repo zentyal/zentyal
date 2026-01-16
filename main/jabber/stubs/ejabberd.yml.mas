@@ -48,6 +48,7 @@ log_rotate_count: 0
 #   - "example.net"
 #   - "example.com"
 #   - "example.org"
+
 hosts:
   - "<% $domain %>"
 
@@ -72,7 +73,7 @@ c2s_protocol_options: 'TLS_OPTIONS'
 s2s_protocol_options: 'TLS_OPTIONS'
 # c2s_dhfile: 'DH_FILE'
 # s2s_dhfile: 'DH_FILE'
-s2s_use_starttls: required
+
 auth_method: ldap
 ldap_servers:
   - "<% $ldapHost %>"
@@ -86,7 +87,7 @@ ldap_uids:
 listen:
   -
     port: 5222
-    ip: "::"
+    ip: "0.0.0.0"
     module: ejabberd_c2s
     max_stanza_size: 262144
     shaper: c2s_shaper
@@ -113,6 +114,7 @@ listen:
     ip: "0.0.0.0"
     module: ejabberd_s2s_in
     max_stanza_size: 524288
+    shaper: s2s_shaper
 % }
   -
     port: 5443
@@ -138,7 +140,7 @@ listen:
 % if ($stun) {
   -
     port: 3478
-    ip: "::"
+    ip: "0.0.0.0"
     transport: udp
     module: ejabberd_stun
     use_turn: true
@@ -159,6 +161,8 @@ listen:
 disable_sasl_mechanisms:
   - "digest-md5"
   - "X-OAUTH2"
+
+s2s_use_starttls: required
 
 ## Store the plain passwords or hashed for SCRAM:
 auth_password_format: scram
@@ -192,8 +196,6 @@ access_rules:
     allow: admin
   muc_create:
     allow: local
-  muc_admin:
-    allow: admin
   pubsub_createnode:
     allow: local
   trusted_network:
@@ -243,8 +245,6 @@ shaper_rules:
     none: admin
     normal: all
   s2s_shaper: fast
-
-language: "en"
 
 modules:
   mod_adhoc: {}
@@ -311,7 +311,6 @@ modules:
   mod_proxy65:
     access: local
     max_connections: 5
-    ip: 0.0.0.0
 % }
   mod_pubsub:
     access_createnode: pubsub_createnode
