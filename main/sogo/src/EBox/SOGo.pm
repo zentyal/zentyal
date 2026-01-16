@@ -180,12 +180,17 @@ sub usedFiles
     my @files = ();
     push (@files, {
         file => SOGO_DEFAULT_FILE,
-        reason => __('To configure sogo daemon'),
+        reason => __('To configure Sogo daemon'),
         module => 'sogo'
     });
     push (@files, {
         file => SOGO_CONF_FILE,
-        reason => __('To configure sogo parameters'),
+        reason => __('To configure Sogo parameters'),
+        module => 'sogo'
+    });
+    push (@files, {
+        file => SOGO_APACHE_FILE,
+        reason => __('To configure Apache to serve SOGo webmail'),
         module => 'sogo'
     });
 
