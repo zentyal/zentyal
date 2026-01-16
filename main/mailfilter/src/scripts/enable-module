@@ -16,8 +16,8 @@ function enable_mod() {
     chown --reference=/etc/amavis/conf.d.old /etc/amavis/conf.d
 
     if ! groups clamav | grep -q amavis; then
-      # add clamav user to group amavis. Because it need access to amavis stuff
-      addgroup clamav amavis
+      # Add clamav user to group amavis. Because it need access to amavis stuff
+      usermod -aG amavis clamav
     fi
 
     /usr/share/zentyal-mailfilter/create-spamassassin-db
