@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2026-01-13 19:52+0200\n"
+"PO-Revision-Date: 2026-01-14 19:47+0200\n"
 "Last-Translator: djoven <djoven@novadevs.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -43,9 +43,8 @@ msgid "local bind9 configuration file"
 msgstr "fichero de configuración local de bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:562
-#, fuzzy
 msgid "main bind9 zones configuration file"
-msgstr "fichero de configuración principal de bind9"
+msgstr "fichero de configuración principal de zonas de bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:567
 msgid "Keys configuration file"
@@ -1221,14 +1220,12 @@ msgid "Exception phrases list"
 msgstr "Lista de frases excepciones"
 
 #: ../../main/squid/src/EBox/Squid.pm:245
-#, fuzzy
 msgid "E2guardian's log rotation configuration"
-msgstr "Configuración de la rotación de los registros de Dansguardian"
+msgstr "Configuración de la rotación de los registros de E2guardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:250
-#, fuzzy
 msgid "E\"guardian's antivirus scanner configuration"
-msgstr "Configuración del escáner antivirus de Dansguardian"
+msgstr "Configuración del antivirus para E2guardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:255
 msgid "Filter groups per IP"
@@ -1247,12 +1244,11 @@ msgid "Overwrite blocked page templates"
 msgstr "Sobreescribir plantillas de páginas bloqueadas"
 
 #: ../../main/squid/src/EBox/Squid.pm:279
-#, fuzzy
 msgid ""
 "E2guardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
 msgstr ""
-"Las plantillas de páginas bloqueadas por Dansguardian será sobreescritas con "
+"Las plantillas de páginas bloqueadas de E2guardian se sobrescribirán con "
 "plantillas personalizadas de Zentyal."
 
 #: ../../main/squid/src/EBox/Squid.pm:284
@@ -1260,9 +1256,8 @@ msgid "Override squid upstart job"
 msgstr "Anular el script de Upstart para Squid"
 
 #: ../../main/squid/src/EBox/Squid.pm:290
-#, fuzzy
 msgid "Remove e2guardian init script link"
-msgstr "Borrar enlaces al script de inicio de dansguardian"
+msgstr "Eliminar el enlace del script de inicio de e2guardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:305
 msgid ""
@@ -2535,9 +2530,8 @@ msgstr ""
 "\"{y}\""
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:32
-#, fuzzy
 msgid "Upgrade Zentyal"
-msgstr "Actualizar a Zentyal 4.2"
+msgstr "Actualizar Zentyal"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:30
 #: ../../main/core/src/templates/ajax/treeView.mas:40
@@ -2850,6 +2844,8 @@ msgid ""
 "The package zentyal-core is broken. You must fix it before making a "
 "configuration backup."
 msgstr ""
+"El paquete zentyal-core está roto. Debes repararlo antes de realizar una "
+"copia de seguridad de la configuración."
 
 #: ../../main/core/src/EBox/Backup.pm:472
 #: ../../main/core/src/EBox/Exceptions/UnwillingToPerform.pm:36
@@ -3616,9 +3612,8 @@ msgstr "Apagar o reiniciar"
 #: ../../main/core/src/EBox/SysInfo.pm:138
 #: ../../main/core/src/EBox/SysInfo/Composite/SmartAdmin.pm:58
 #: ../../main/core/src/EBox/SysInfo/Composite/SmartAdmin.pm:59
-#, fuzzy
 msgid "Smart Admin"
-msgstr "Administración"
+msgstr "Smart Admin"
 
 #: ../../main/core/src/EBox/SysInfo.pm:252
 msgid "General Information"
@@ -3882,9 +3877,8 @@ msgid "Invalid email address"
 msgstr "Dirección de correo inválida"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SmartAdmin.pm:32
-#, fuzzy
 msgid "SmartAdmin"
-msgstr "Administración"
+msgstr "SmartAdmin"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAlerts.pm:71
 msgid "Enable RAM monitoring"
@@ -3900,42 +3894,45 @@ msgstr "Habilitar la monitorización de CPU"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAlerts.pm:89
 msgid "Telegram chat ID"
-msgstr ""
+msgstr "Telegram chat ID"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAlerts.pm:96
 msgid "Telegram Bot API token"
-msgstr ""
+msgstr "Telegram Bot API token"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAlerts.pm:105
-#, fuzzy
 msgid "Smart alerts settings"
-msgstr "Características del alias de la cuenta de correo"
+msgstr "Configuración de alertas"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAlerts.pm:137
 msgid "RAM"
-msgstr ""
+msgstr "RAM"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAlerts.pm:138
 msgid "Your system memory usage is too high! The memory usage is"
-msgstr ""
+msgstr "¡El uso de memoria del sistema es demasiado alto! El uso de memoria es"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAlerts.pm:159
 msgid "CPU"
-msgstr ""
+msgstr "CPU"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAlerts.pm:160
 msgid ""
 "Your system CPU usage for the last minute is too high. The CPU usage for the "
 "last minute is"
 msgstr ""
+"El uso de CPU de su sistema en el último minuto es demasiado alto. El uso de "
+"CPU en el último minuto es"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAlerts.pm:181
 msgid "DISK"
-msgstr ""
+msgstr "Disco"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAlerts.pm:182
 msgid "Available disk free space too lower! The remaining disk space is"
 msgstr ""
+"¡El espacio libre en disco disponible es demasiado bajo! El espacio restante "
+"en disco es"
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:67
 msgid "The date and time was changed successfully."
@@ -4033,25 +4030,21 @@ msgid "The password must be at least 6 characters long"
 msgstr "La contraseña debe tener al menos 6 caracteres"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAdminReport.pm:47
-#, fuzzy
 msgid "Run checker"
-msgstr "comprobar"
+msgstr "Ejecutar el comprobador"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAdminReport.pm:51
-#, fuzzy
 msgid "Execution status"
-msgstr "Estado de la conexión"
+msgstr "Estado de ejecución"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAdminReport.pm:55
-#, fuzzy
 msgid "Download full report"
-msgstr "Descarga el último informe"
+msgstr "Descarga del reporte"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAdminReport.pm:63
 #: ../../main/core/src/templates/sysinfo/smartAdmin.mas:9
-#, fuzzy
 msgid "System status report"
-msgstr "Ver el último informe"
+msgstr "Informe de estado del sistema"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:56
 msgid ""
@@ -4137,26 +4130,23 @@ msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAdminReportSettings.pm:77
 msgid "Smart Admin system status report process starts at"
-msgstr ""
+msgstr "La generación del reporte de estado del sistema comienza a las"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAdminReportSettings.pm:83
-#, fuzzy
 msgid "Destination mail account"
-msgstr "cuenta de correo externa"
+msgstr "Cuenta de correo de destino"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAdminReportSettings.pm:93
-#, fuzzy
 msgid "System status report settings"
-msgstr "Configuración del sistema"
+msgstr "Configuración del informe de estado del sistema"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAdminReportSettings.pm:97
-#, fuzzy
 msgid "System Status Report configuration updated"
-msgstr "Configuración del emisor RSS actualizada"
+msgstr "Configuración del Informe de estado del sistema actualizada"
 
 #: ../../main/core/src/EBox/SysInfo/Model/SmartAdminReportSettings.pm:100
 msgid "Here you have can schedule the report generation."
-msgstr ""
+msgstr "Aquí puedes programar la generación de informes."
 
 #: ../../main/core/src/EBox/SysInfo/Model/KernelManagement.pm:70
 msgid "Enable kernel management"
@@ -4203,7 +4193,7 @@ msgstr "La clave de licencia es inválida o ha expirado."
 
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:137
 msgid "You cannot use a trial more than one time."
-msgstr ""
+msgstr "No puedes utilizar una licencia trial más de una vez."
 
 #: ../../main/core/src/EBox/SysInfo/Model/Edition.pm:141
 msgid "License key is expired."
@@ -4253,11 +4243,10 @@ msgid "Date and Time"
 msgstr "Fecha y Hora"
 
 #: ../../main/core/src/EBox/SysInfo/Composite/SmartAdmin.pm:61
-#, fuzzy
 msgid "On this page you can configure and get different system informations"
 msgstr ""
-"En esta página puede establecer diferentes configuraciones generales del "
-"sistema"
+"En esta página puede configurar y obtener diferentes informaciones del "
+"sistema."
 
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:58
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:59
@@ -4374,13 +4363,13 @@ msgid "Configure Widgets"
 msgstr "Configurar widgets"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:197
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a "
 "FREE 15-day Trial!"
 msgstr ""
-"¿Está interesado en una de las Ediciones Comerciales del Servidor Zentyal? "
-"¡{oh}Obtenga{ch} un Trial GRATUITO de 45 días!"
+"¿Estás interesado en una edición comercial de Zentyal Server? ¡{oh}Obtén{ch} "
+"un Trial GRATUITO de 15 días!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:204
 #, perl-brace-format
@@ -4392,9 +4381,9 @@ msgstr ""
 "¡Involúcrese en la {oh}Comunidad{ch}!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:235
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oh}Zentyal "
-msgstr "Zentyal"
+msgstr "{oh}Zentyal"
 
 #: ../../main/core/src/EBox/Html.pm:39
 msgid "Save changes"
@@ -5991,7 +5980,7 @@ msgid "The nameserver '{name}' is being used by {mod}"
 msgstr "El servidor de nombres '{name}' está siendo usado por el módulo {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:270
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The Zentyal DNS module is installed and enabled, so only the local DNS "
 "server will be used to resolve the queries. The queries for which this "
@@ -5999,11 +5988,11 @@ msgid ""
 "be sent to the {ohref}configured forwarders{chref} in first place, and if "
 "they do not answer the query root DNS servers will be used."
 msgstr ""
-"El módulo DNS de Zentyal está instalado y habilitado, por tanto únicamente "
-"este se usará para la resolución. Las consultas para las que este servidor "
-"no sea autoritativo y no tenga cacheada la respuesta, se enviarán a los "
-"{ohref}redireccionadores configurados{chref} en primer lugar, o a los "
-"servidores DNS raíz si los redireccionadores no tienen la respuesta."
+"El módulo DNS de Zentyal está instalado y habilitado, por lo que solo se "
+"usará el servidor DNS local para resolver las consultas. Las consultas para "
+"las que este servidor no tenga autoridad y no tenga la respuesta en su caché "
+"se enviarán primero a los reenviadores configurados {ohref} y, si no "
+"responden, se usarán los servidores DNS raíz."
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:90
 msgid "Proxy server"
@@ -6448,9 +6437,8 @@ msgid "Zentyal will set your network configuration"
 msgstr "Zentyal establecerá su configuración de red"
 
 #: ../../main/network/src/EBox/Network.pm:196
-#, fuzzy
 msgid "Zentyal will set the systemd-resolved configuration"
-msgstr "Zentyal establecerá su configuración de red"
+msgstr "Zentyal establecerá la configuración systemd-resolved"
 
 #: ../../main/network/src/EBox/Network.pm:201
 msgid "Zentyal will set your DHCP client configuration"
@@ -7043,14 +7031,12 @@ msgid "Period for polling external mail accounts"
 msgstr "Intervalo de tiempo entre consultas a cuentas de correo externas"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:246
-#, fuzzy
 msgid "Expiration period for trash mails"
-msgstr "Período para correos de spam"
+msgstr "Período de caducidad de los correos basura"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:265
-#, fuzzy
 msgid "Expiration period for draft mails"
-msgstr "Período para correos de spam"
+msgstr "Período de caducidad de los borradores de correo"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:284
 #: ../../main/core/src/templates/report/diskUsage.mas:64
@@ -7737,9 +7723,9 @@ msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:109
 #: ../../main/docker/src/EBox/Docker/Model/Settings.pm:102
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {port} is already in use"
-msgstr "El puerto {p}/{pro} ya está en uso"
+msgstr "El puerto {port} ya está en uso"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:186
 msgid "HTTP listening port"
@@ -7837,15 +7823,15 @@ msgid "You need to enable Listening SSL port."
 msgstr "Necesita habilitar el puerto de escucha SSL."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run Virtual Hosts with SSL. "
 "{closepar}{openpar}Please, go to the {openhref}certification authority "
 "module{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Debe crear un certificado de CA para usar servidores VPN. {closepar}"
-"{openpar}Por favor, vaya al {openhref}módulo de autoridad de "
-"certificación{closehref} y cree el certificado.{closepar}"
+"{openpar}Necesita crear un certificado CA para ejecutar los Virtual Hosts "
+"con SSL. {closepar}{openpar}Por favor, vaya al {openhref}módulo de autoridad "
+"de certificación{closehref} y créela.{closepar}"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:171
 #, perl-brace-format
@@ -7966,7 +7952,6 @@ msgid "Web server data"
 msgstr "Datos del servidor Web"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:984
-#, fuzzy
 msgid "Webserver Service"
 msgstr "Servidor Web"
 
@@ -7984,7 +7969,7 @@ msgstr "Activar la ejecución del demonio de suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:279
 msgid "Add a cronjob to update Suricata rules"
-msgstr ""
+msgstr "Agregar un cronjob para actualizar las reglas de Suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:325
 msgid "IPS"
@@ -8717,18 +8702,16 @@ msgstr ""
 "Cualquier otra cosa que no se incluya se considera excluida por defecto."
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/BackupExcludes.pm:121
-#, fuzzy
 msgid "Exclude path"
-msgstr "ruta a excluir"
+msgstr "Excluir ruta"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/BackupExcludes.pm:125
 msgid "Exclude by regular expression"
 msgstr "Excluir por expresión regular"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/BackupExcludes.pm:129
-#, fuzzy
 msgid "Include Path"
-msgstr "ruta de inclusión"
+msgstr "Incluir ruta"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/BackupExcludes.pm:152
 msgid "add row"
@@ -8770,9 +8753,8 @@ msgid "Remote Backup Status : There are not backed up files yet"
 msgstr "Estado del Backup Remoto: No hay ficheros guardados todavía"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/BackupStatus.pm:170
-#, fuzzy
 msgid "Remote Backup Status"
-msgstr "Backup remoto:"
+msgstr "Estado del Backup remoto"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/BackupStatus.pm:171
 #: ../../main/ebackup/src/EBox/EBackup/Model/BackupStorage.pm:184
@@ -10622,15 +10604,15 @@ msgid "VPN"
 msgstr "VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:116
-#, fuzzy
 msgid ""
 "To configure frr to run ripd and zebra and to listen on the given interfaces"
-msgstr "Para configurar Quagga para que escuche en las interfaces apropiadas"
+msgstr ""
+"Para configurar frr para ejecutar ripd y zebra y escuchar en las interfaces "
+"dadas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:121
-#, fuzzy
 msgid "Main frr configuration file including ripd and zebra"
-msgstr "Para configurar Quagga y que ejecute ripd y zebra"
+msgstr "Archivo de configuración principal de frr que incluye ripd y zebra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:126
 msgid "To remove system-wide VPN servers autostart"
@@ -11028,61 +11010,54 @@ msgid "User updated"
 msgstr "Usuario actualizado"
 
 #: ../../main/samba/src/EBox/Samba/Model/ExportGroups.pm:68
-#, fuzzy
 msgid "Export groups"
-msgstr "Editar grupo"
+msgstr "Exportar grupos"
 
 #: ../../main/samba/src/EBox/Samba/Model/ExportGroups.pm:72
 #: ../../main/samba/src/EBox/Samba/Model/ExportUsers.pm:72
-#, fuzzy
 msgid "CSV available"
-msgstr "disponible"
+msgstr "CSV disponible"
 
 #: ../../main/samba/src/EBox/Samba/Model/ExportGroups.pm:76
 #: ../../main/samba/src/EBox/Samba/Model/ExportUsers.pm:76
-#, fuzzy
 msgid "Download csv"
-msgstr "Descargar"
+msgstr "Descargar csv"
 
 #: ../../main/samba/src/EBox/Samba/Model/ExportGroups.pm:83
-#, fuzzy
 msgid "Export domain groups"
-msgstr "Editar grupo"
+msgstr "Exportar grupos de dominios"
 
 #: ../../main/samba/src/EBox/Samba/Model/ImportGroups.pm:69
-#, fuzzy
 msgid "Upload groups CSV"
-msgstr "Política de grupo actualizada"
+msgstr "Subir CSV para grupos"
 
 #: ../../main/samba/src/EBox/Samba/Model/ImportGroups.pm:77
 msgid "Import domain groups from CSV file"
-msgstr ""
+msgstr "Importar grupos de dominios desde un archivo CSV"
 
 #: ../../main/samba/src/EBox/Samba/Model/ImportGroups.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error importing groups: {err}"
-msgstr "Error en la provisión: {err}"
+msgstr "Error importando grupos: {err}"
 
 #: ../../main/samba/src/EBox/Samba/Model/ImportGroups.pm:131
-#, fuzzy
 msgid "Groups was imported successfully"
-msgstr "Grupo eliminado correctamente"
+msgstr "Los grupos fueron importados satisfactoriamente"
 
 #: ../../main/samba/src/EBox/Samba/Model/ImportGroups.pm:166
-#, fuzzy
 msgid "The file is not a correct CSV file:"
-msgstr "Este fichero no es un fichero de copia de seguridad válido"
+msgstr "El archivo no es un archivo CSV correcto:"
 
 #: ../../main/samba/src/EBox/Samba/Model/ImportGroups.pm:199
 #: ../../main/samba/src/EBox/Samba/Model/ImportUsers.pm:199
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the import "
 "proccess. {size} Kb required. Free sufficient space and retry"
 msgstr ""
-"No hay suficiente espacio libre en el disco duro para poder completar la "
-"restauración. {size} Kb requeridos. Por favor, libere suficiente espacio y "
-"reintente"
+"No queda suficiente espacio en el disco duro para completar el proceso de "
+"importación. Se requieren {size} Kb. Libere suficiente espacio y vuelva a "
+"intentarlo"
 
 #: ../../main/samba/src/EBox/Samba/Model/PAM.pm:104
 msgid "Enable PAM"
@@ -11350,20 +11325,20 @@ msgstr ""
 "usarlo."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSettings.pm:60
-#, fuzzy
 msgid "Enable full_audit"
-msgstr "Marcador habilitado"
+msgstr "Habilitar full_audit"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSettings.pm:63
 msgid ""
 "Enable the full_audit vfs object (record Samba VFS operations in the system "
 "log)"
 msgstr ""
+"Habilitar el objeto vfs full_audit (registrar las operaciones de Samba VFS "
+"en el log)"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSettings.pm:69
-#, fuzzy
 msgid "Samba settings"
-msgstr "Configuración"
+msgstr "Configuración de Samba"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSettings.pm:121
 #: ../../main/samba/src/EBox/Samba/Model/ExportUsers.pm:150
@@ -11373,6 +11348,8 @@ msgid ""
 "Edition{ch} if you don't update your Zentyal version, you need to use it "
 "from CLI."
 msgstr ""
+"Esta función de GUI solo está disponible para {oh}Commercial Zentyal Server "
+"Edition{ch}. Si no actualiza su versión de Zentyal, debes usar la CLI."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSettings.pm:125
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:131
@@ -11421,26 +11398,24 @@ msgstr "Opciones por defecto de la Papelera de Reciclaje"
 
 #: ../../main/samba/src/EBox/Samba/Model/ImportUsers.pm:69
 msgid "Upload users CSV"
-msgstr ""
+msgstr "Subir CSV de usuarios"
 
 #: ../../main/samba/src/EBox/Samba/Model/ImportUsers.pm:77
 msgid "Import domain users from CSV file"
-msgstr ""
+msgstr "Importar usuarios del dominio desde un archivo CSV"
 
 #: ../../main/samba/src/EBox/Samba/Model/ImportUsers.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error importing users: {err}"
-msgstr "Error extrayendo datos sobre el uso: {err}"
+msgstr "Error importando usuarios: {err}"
 
 #: ../../main/samba/src/EBox/Samba/Model/ImportUsers.pm:131
-#, fuzzy
 msgid "Users was imported successfully"
-msgstr "Usuario eliminado correctamente"
+msgstr "Los usuarios fueron importados satisfactoriamente"
 
 #: ../../main/samba/src/EBox/Samba/Model/ImportUsers.pm:166
-#, fuzzy
 msgid "The file is not a correct CSV file"
-msgstr "Este fichero no es un fichero de copia de seguridad válido"
+msgstr "El archivo no es un archivo CSV correcto"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
 msgid "User/Group/Share"
@@ -11469,14 +11444,12 @@ msgid "exception"
 msgstr "excepción"
 
 #: ../../main/samba/src/EBox/Samba/Model/ExportUsers.pm:68
-#, fuzzy
 msgid "Export users"
-msgstr "Usuarios actuales"
+msgstr "Exportar usuarios"
 
 #: ../../main/samba/src/EBox/Samba/Model/ExportUsers.pm:83
-#, fuzzy
 msgid "Export domain users"
-msgstr "Todos los usuarios del dominio"
+msgstr "Exportar usuarios del dominio"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:52
 msgid "Default user quota"
@@ -11834,16 +11807,13 @@ msgstr "Papelera de Reciclaje"
 #: ../../main/samba/src/EBox/Samba/Composite/ImportExport.pm:56
 #: ../../main/samba/src/EBox/Samba/Composite/ImportExport.pm:57
 #: ../../main/samba/src/EBox/Samba.pm:1754
-#, fuzzy
 msgid "Import/Export"
-msgstr "Importar/Exportar configuración"
+msgstr "Importar/Exportar"
 
 #: ../../main/samba/src/EBox/Samba/Composite/ImportExport.pm:59
-#, fuzzy
 msgid "On this page you can import and export the domain users and groups"
 msgstr ""
-"En esta página puede establecer la configuración por defecto para cuentas de "
-"usuario"
+"En esta página puedes importar y exportar los usuarios y grupos del dominio"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
 #: ../../main/samba/src/EBox/Samba.pm:1761
@@ -12355,9 +12325,8 @@ msgid "Disconnect"
 msgstr "Desconexión"
 
 #: ../../main/samba/src/EBox/Samba.pm:2939
-#, fuzzy
 msgid "Create file"
-msgstr "Fichero actual"
+msgstr "Crear archivo"
 
 #: ../../main/samba/src/EBox/Samba.pm:2940
 msgid "Read file"
@@ -12737,51 +12706,50 @@ msgid "Email"
 msgstr "Correo Electrónico"
 
 #: ../../main/ucp/src/EBox/UCP/Model/Settings.pm:43
-#, fuzzy
 msgid "Your UCP's password."
-msgstr "Contraseña del usuario"
+msgstr "La contraseña de tu UCP."
 
 #: ../../main/ucp/src/EBox/UCP/Model/Settings.pm:47
 msgid "Your API id."
-msgstr ""
+msgstr "API id"
 
 #: ../../main/ucp/src/EBox/UCP/Model/Settings.pm:50
 msgid "Your UCP client's id."
-msgstr ""
+msgstr "ID de cliente en el UCP."
 
 #: ../../main/ucp/src/EBox/UCP/Model/Settings.pm:54
 msgid "API key"
-msgstr ""
+msgstr "API key"
 
 #: ../../main/ucp/src/EBox/UCP/Model/Settings.pm:57
 msgid "Your UCP client's key."
-msgstr ""
+msgstr "La clave de su cliente UCP."
 
 #: ../../main/ucp/src/EBox/UCP/Model/Settings.pm:69
 msgid "Use this page to setup your UCP connection."
-msgstr ""
+msgstr "Utilice esta página para configurar su conexión UCP."
 
 #: ../../main/ucp/src/EBox/UCP.pm:26 ../../main/ucp/src/EBox/UCP.pm:48
-#, fuzzy
 msgid "UCP"
-msgstr "SAI"
+msgstr "UCP"
 
 #: ../../main/ucp/src/EBox/UCP.pm:156
 msgid "Overwrite UCP client setup"
-msgstr ""
+msgstr "Sobrescribir la configuración del cliente UCP"
 
 #: ../../main/ucp/src/EBox/UCP.pm:157
 msgid "UCP uses a two factor auth system that needs to do a few operations."
 msgstr ""
+"UCP utiliza un sistema de autenticación de dos factores que requiere algunos "
+"pasos adicionales."
 
 #: ../../main/ucp/src/EBox/UCP.pm:181
 msgid "Unified Control Platform"
-msgstr ""
+msgstr "Unified Control Platform"
 
 #: ../../main/ucp/src/EBox/UCP.pm:207
-#, fuzzy
 msgid "UCP configuration file"
-msgstr "Fichero de configuración NTP"
+msgstr "Fichero de configuración del UCP"
 
 #: ../../main/dns/src/templates/index.mas:16
 msgid "Domain list"
@@ -13158,9 +13126,8 @@ msgstr "Lo sentimos, su búsqueda no coincide con ningún resultado"
 #: ../../main/core/src/templates/sysinfo/downloadViewer.mas:16
 #: ../../main/samba/src/templates/downloadExportUsersViewer.mas:16
 #: ../../main/samba/src/templates/downloadExportGroupsViewer.mas:16
-#, fuzzy
 msgid "Download System Status report"
-msgstr "Descarga el último informe"
+msgstr "Descargar informe de estado del sistema"
 
 #: ../../main/core/src/templates/sysinfo/smartAdmin.mas:10
 #, perl-brace-format
@@ -13169,6 +13136,9 @@ msgid ""
 "Server Edition{ch} if you don't update your Zentyal version, you need to use "
 "it from CLI."
 msgstr ""
+"Advertencia: esta GUI función solo está disponible para {oh}Commercial "
+"Zentyal Server Edition{ch}. Si no actualiza su versión de Zentyal, deberás "
+"usar la CLI."
 
 #: ../../main/core/src/templates/logout/index.mas:9
 msgid "There are unsaved changes. Do you really want to close the session?"
@@ -14095,12 +14065,11 @@ msgid "Continue"
 msgstr "Continuar"
 
 #: ../../main/software/src/templates/welcome.mas:9
-#, fuzzy
 msgid ""
 "Thank you for choosing Zentyal, only a few steps left to start enjoying it:"
 msgstr ""
-"Gracias por escoger Zentyal, sólo quedan unos pocos pasos para empezar a "
-"disfrutar del producto:"
+"Gracias por elegir Zentyal, sólo quedan unos pasos para empezar a "
+"disfrutarlo:"
 
 #: ../../main/software/src/templates/welcome.mas:10
 #: ../../main/software/src/templates/ebox.mas:327
@@ -14855,9 +14824,8 @@ msgid "Add User"
 msgstr "Añadir usuario"
 
 #: ../../main/samba/src/templates/downloadExportUsersViewer.mas:7
-#, fuzzy
 msgid "Download domain users csv"
-msgstr "Todos los usuarios del dominio"
+msgstr "Descargar el csv de usuarios del dominio"
 
 #: ../../main/samba/src/templates/samba.mas:14
 msgid ""
@@ -14889,7 +14857,7 @@ msgstr ""
 
 #: ../../main/samba/src/templates/downloadExportGroupsViewer.mas:7
 msgid "Download domain groups csv"
-msgstr ""
+msgstr "Descargar el csv de grupos del dominio"
 
 #: ../../main/samba/src/templates/editcontact.mas:19
 msgid "Administration of contact "
