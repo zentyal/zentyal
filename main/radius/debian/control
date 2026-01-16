@@ -9,7 +9,7 @@ Package: zentyal-radius
 Architecture: all
 Pre-Depends: mysql-server
 Depends: zentyal-core (>= 8.1.0), zentyal-core (<< 8.2.0), zentyal-samba,
-         freeradius, freeradius-ldap, make, ${misc:Depends}
+         freeradius, freeradius-ldap, make, freeradius-utils, ${misc:Depends}
 Description: Zentyal - RADIUS
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
