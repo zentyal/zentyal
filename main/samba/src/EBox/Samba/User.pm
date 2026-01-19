@@ -46,6 +46,7 @@ use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_ALREADY_EXISTS LDAP_LOCAL_ERROR);
 use Date::Calc;
 use File::Slurp;
+use String::ShellQuote;
 use TryCatch;
 
 use constant MAXUSERLENGTH  => 128;
@@ -145,17 +146,23 @@ sub changePassword
     my ($self, $passwd, $lazy) = @_;
 
     $self->_checkPwdLength($passwd);
-
-    $passwd = encode('UTF16-LE', "\"$passwd\"");
-
     # The password will be changed on save, save it also to
     # notify LDAP user base mods
     $self->{core_changed_password} = $passwd;
-    $self->set('unicodePwd', $passwd, 1);
-    try {
-        $self->save() unless $lazy;
-    } catch ($e) {
-        throw EBox::Exceptions::External("$e");
+    
+    unless ($lazy) {
+        try {
+            # Samba 4.19+ requires using samba-tool for password changes
+            # Direct LDAP modification with unicodePwd lacks SYSTEM privileges
+            my $username = $self->get('samAccountName');
+            my $cmd = 'samba-tool user setpassword '
+                    . shell_quote($username)
+                    . ' --newpassword='
+                    . shell_quote($passwd);
+            EBox::Sudo::root($cmd);
+        } catch ($e) {
+            throw EBox::Exceptions::External("$e");
+        }
     }
 }
 
@@ -793,6 +800,20 @@ sub save
         $self->_checkQuota($quota);
         $self->_setFilesystemQuota($quota);
         delete $self->{set_quota};
+    }
+
+    # Apply pending password change using samba-tool (handles lazy path)
+    if (defined $passwd) {
+        try {
+            my $username = $self->get('samAccountName');
+            my $cmd = 'samba-tool user setpassword '
+                    . shell_quote($username)
+                    . ' --newpassword='
+                    . shell_quote($passwd);
+            EBox::Sudo::root($cmd);
+        } catch ($e) {
+            throw EBox::Exceptions::External("Error setting password: $e");
+        }
     }
 
     shift @_;
