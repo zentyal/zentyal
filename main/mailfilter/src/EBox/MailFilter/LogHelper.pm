@@ -54,15 +54,15 @@ sub _getDate
 {
     my ($self, $line) = @_;
 
-    my @date = localtime(time);
+    my ($ts) = $line =~ m/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})/;
+    return unless $ts;
 
-    my $year = $date[5] + 1900;
-    my ($month, $day, $hour, $min, $sec) = $line =~ m/^(...) +(\d+) (..):(..):(..)/;
-    my $ts = "$year-$month-$day $hour:$min:$sec";
-    return $self->_convertTimestamp($ts, '%Y-%b-%d %T');
+    $ts =~ s/T/ /;
+
+    return $self->_convertTimestamp($ts, '%Y-%m-%d %T');
 }
 
-# Oct 17 14:27:03 zentyal6-dev amavis[3388]: (03388-04) Passed CLEAN, [127.0.0.1] <root@zentyal6-dev.zentyal-domain.lan> -> <bruno@zentyal-domain.lan>, Message-ID: <20191017122700.GA4648@zentyal6-dev.zentyal-domain.lan>, Hits: 1.984
+# 2026-01-19T14:05:36.234845+00:00 zentyal amavis[11016]: (11016-02) Passed CLEAN, [127.0.0.1] <maria@zentyal-domain.lan> -> <gabriel@zentyal-domain.lan>, Message-ID: <162fb9e4-7d5a-4101-68f8-491926ba632b@zentyal-domain.lan>, Hits: -0.999
 my $amavisLineRe = qr{^\s\(.*?\)\s
                 (\w+)\s([\w\-]+).*?, # action (Passed or Blocked) and event type
                 \s(\[.*?\])\s<(.*?)>\s->\s<(.*?)>, # mail sender and receiver

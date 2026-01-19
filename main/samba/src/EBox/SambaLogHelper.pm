@@ -49,7 +49,7 @@ sub logFiles
 
 # Method: processLine
 #
-#   This fucntion will be run every time a new line is recieved in
+#   This function will be run every time a new line is received in
 #   the associated file. You must parse the line, and generate
 #   the messages which will be logged to ebox through an object
 #   implementing EBox::AbstractLogger interface.
@@ -58,52 +58,45 @@ sub logFiles
 #
 #   file - file name
 #   line - string containing the log line
-#   dbengine- An instance of class implemeting AbstractDBEngineinterface
+#   dbengine- An instance of class implementing AbstractDBEngine interface
 #
-sub processLine # (file, line, logger)
+sub processLine
 {
     my ($self, $file, $line, $dbengine) = @_;
 
-    my %dataToInsert;
+    # Only smbd_audit
+    return unless $line =~ /smbd_audit:/;
 
-    unless ($line =~ m/smbd/) {
-        return;
-    }
     utf8::decode($line);
-    unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*smbd.*?: (.+)/) {
-        return;
-    }
 
-    # Data extracted from the processed line
-    # fields[0] = User
-    # fields[1] = IP
-    # fields[2] = Action
-    # fields[3] = ok|fail
-    # fields[4-7] = Message, additional info or empty
+    # Get timestamp ISO-8601 and message
+    my ($ts, $message) = $line =~
+        m/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})\.\d+\+\d{2}:\d{2}\s+\S+\s+smbd_audit:\s*(.+)$/;
 
-    my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
-    my $message = $2;
+    return unless $ts and $message;
 
-    my $timestamp = $self->_convertTimestamp($date, '%b %e %H:%M:%S %Y');
-    $dataToInsert{timestamp} = $timestamp;
+    # Ignore "message repeated X times"
+    return if $message =~ /^message repeated \d+ times:/;
+
+    $ts =~ s/T/ /;
+    my $timestamp = $self->_convertTimestamp($ts, '%Y-%m-%d %T');
+
+    my %dataToInsert = (
+        timestamp => $timestamp,
+    );
 
     my @fields = split(/\|/, $message);
-    unless (@fields > 2) {
-        return;
-    }
-    $dataToInsert{username} = $fields[0];
-    $dataToInsert{client} = $fields[1];
-    unless (@fields > 3) {
-        return;
-    }
+    return unless @fields > 3;
 
-    unless ($fields[3] eq 'ok') {
-        # TODO: Log failures (fail (msg))
-        return;
-    }
+    $dataToInsert{username} = $fields[0];
+    $dataToInsert{client}   = $fields[1];
+
+    # TODO: Log failures (fail (msg))
+    return unless $fields[3] eq 'ok';
 
     my $type = $fields[2];
     $dataToInsert{event} = $type;
+
     if (
         ($type eq 'connect') or
         ($type eq 'disconnect') or
@@ -113,33 +106,35 @@ sub processLine # (file, line, logger)
         ($type eq 'mkdirat')
     ) {
         $dataToInsert{resource} = $fields[4];
+
     } elsif ($type eq 'renameat') {
         my $orig = $fields[4];
         my $dest = $fields[5];
         $orig =~ s/\s+$//;
         $dest =~ s/\s+$//;
-        $dataToInsert{resource} = $orig . " -> " . $dest;
+        $dataToInsert{resource} = "$orig -> $dest";
+
     } elsif (
-            ($type eq 'create_file') and
-            ($fields[5] eq 'file') and
-            ($fields[6] eq 'create')
+        ($type eq 'create_file') and
+        ($fields[5] eq 'file') and
+        ($fields[6] =~ /^(open|create|open_if)$/)
     ) {
         $dataToInsert{resource} = $fields[7];
+
     } else {
         # Not implemented
         return;
     }
 
-    if (exists $dataToInsert{resource} and defined $dataToInsert{resource}) {
+    if (defined $dataToInsert{resource}) {
         $dataToInsert{resource} =~ s/\s+$//;
-        if ($dataToInsert{resource} eq 'IPC$') {
-            return;
-        }
+        return if $dataToInsert{resource} eq 'IPC$';
 
-        if (length ($dataToInsert{resource}) > RESOURCE_FIELD_MAX_LENGTH) {
-            my $abbreviateRes =  '(..) ';
-            $abbreviateRes .= substr ($dataToInsert{resource}, - (RESOURCE_FIELD_MAX_LENGTH - 5));
-            $dataToInsert{resource} = $abbreviateRes;
+        if (length($dataToInsert{resource}) > RESOURCE_FIELD_MAX_LENGTH) {
+            my $abbr = '(..) ' .
+                substr($dataToInsert{resource},
+                       -(RESOURCE_FIELD_MAX_LENGTH - 5));
+            $dataToInsert{resource} = $abbr;
         }
     }
 

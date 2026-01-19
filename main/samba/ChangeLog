@@ -1,4 +1,5 @@
 8.1.0
+	+ Update processLine method for Log integration
 	+ Fix password changes on Samba 4.19+ by using samba-tool instead of direct LDAP unicodePwd writes
 	+ Update NSS and PAM management
 	+ Remove deprecated auth-client-config package

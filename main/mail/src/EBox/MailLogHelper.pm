@@ -65,13 +65,12 @@ sub _getDate
 {
     my ($self, $line) = @_;
 
-    my @date = localtime(time);
+    my ($ts) = $line =~ m/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})/;
+    return unless $ts;
 
-    my $year = $date[5] + 1900;
-    my ($month, $day, $hour, $min, $sec) = $line =~ m/^(...) +(\d+) (..):(..):(..).*$/;
+    $ts =~ s/T/ /;
 
-    my $ts = "$year-$month-$day $hour:$min:$sec";
-    return $self->_convertTimestamp($ts, '%Y-%b-%d %T');
+    return $self->_convertTimestamp($ts, '%Y-%m-%d %T');
 }
 
 # I need go deeper in postfix logs to get this stuff work better

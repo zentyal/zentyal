@@ -58,36 +58,44 @@ sub logFiles
 #       line - string containing the log line
 #       dbengine- An instance of class implemeting AbstractDBEngineinterface
 #
-sub processLine # (file, line, logger)
+sub processLine
 {
     my ($self, $file, $line, $dbengine) = @_;
 
-    return unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) \S+ dhcpd\[\d+\]:.*/);
+    # ISO-8601 timestamp + dhcpd
+    my ($ts) = $line =~
+        m/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})\.\d+\+\d{2}:\d{2}\s+\S+\s+dhcpd\[\d+\]:/;
 
-    my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
+    return unless $ts;
+
     my ($ip, $mac, $iface, $event);
-    if ($line =~ /^.*DHCPACK on ([\d.]+) to ([\d:a-f]{17}).*?via (\w+)/) {
+
+    if ($line =~ /DHCPACK on ([\d.]+) to ([\da-f:]{17}).* via (\w+)/) {
         $ip = $1;
         $mac = $2;
-        $iface =$3;
+        $iface = $3;
         $event = 'leased';
-    } elsif ($line =~ /^.*DHCPRELEASE of ([\d.]+) from ([\d:a-f]{17}).*?via (\w+)/) {
+    } elsif ($line =~ /DHCPRELEASE of ([\d.]+) from ([\da-f:]{17}).* via (\w+)/) {
         $ip = $1;
         $mac = $2;
-        $iface =$3;
+        $iface = $3;
         $event = 'released';
     } else {
         return;
     }
 
-    my $timestamp = $self->_convertTimestamp($date, '%b %e %H:%M:%S %Y');
+    $ts =~ s/T/ /;
+
+    my $timestamp = $self->_convertTimestamp($ts, '%Y-%m-%d %T');
+
     my $data = {
-        'timestamp' => $timestamp,
-        'ip' => $ip,
-        'mac' => $mac,
-        'interface' => $iface,
-        'event' => $event
+        timestamp => $timestamp,
+        ip        => $ip,
+        mac       => $mac,
+        interface => $iface,
+        event     => $event,
     };
+
     $dbengine->insert('leases', $data);
 }
 
