@@ -1,7 +1,6 @@
 8.1.0
 	+ Set version to 8.1.0
-8.0.1
-	+ Fix the Fetchmail service because of the CVE-2025-61962
+	+ Update _getDate method for Log integration
 8.0.0
 	+ Set version to 8.0.0
 	+ Update initial-setup and enable-module scripts
