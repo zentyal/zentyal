@@ -427,8 +427,12 @@ sub save
 {
     my ($self, $control) = @_;
     my $entry = $self->_entry;
-
-    $control = [] unless $control;
+    # Normalize controls: Net::LDAP::Entry expects an array ref
+    if ($control && ref($control) eq 'Net::LDAP::Control') {
+        $control = [$control];
+    } elsif (not $control) {
+        $control = [];
+    }
     my $result = $entry->update($self->_ldap->connection(), control => $control);
     if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
