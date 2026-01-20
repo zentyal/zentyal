@@ -2,6 +2,7 @@
 	+ Set version to 8.1.0
 	+ Update addgroup command for usermod in enable-module script for Mailfilter
 	+ Update _getDate method for Log integration
+	+ Update stub for ClamAV integration
 8.0.0
 	+ Set version to 8.0.0
 	+ Fix Amavis conf permission

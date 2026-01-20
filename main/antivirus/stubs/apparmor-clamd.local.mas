@@ -10,3 +10,7 @@
 
 # Allow clamd to talk to Winbind
 /run/samba/winbindd/pipe rw,
+
+# Allow clamd to talk to Amavis
+/var/lib/amavis/** r,
+
