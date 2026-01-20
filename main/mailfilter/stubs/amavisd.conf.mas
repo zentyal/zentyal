@@ -1137,29 +1137,32 @@ $first_infected_stops_scan = 1;  # default is false, all scanners are called
 
 @av_scanners = (
 ### http://www.clamav.net/
-['Clam Antivirus-clamd',
-  \&ask_daemon, ["CONTSCAN {}\n", <% qq{"$clamdSocket"} %>],
-  qr/\bOK$/, qr/\bFOUND$/,
-  qr/^.*?: (?!Infected Archive)(.*) FOUND$/ ],
-# NOTE: run clamd under the same user as amavisd;  match the socket
-# name (LocalSocket) in clamav.conf to the socket name in this entry
-# When running chrooted one may prefer: ["CONTSCAN {}\n","$MYHOME/clamd"],
-
+ ['ClamAV-clamd',
+   \&ask_daemon, ["CONTSCAN {}\n", <% qq{"$clamdSocket"} %>],
+   qr/\bOK$/m, qr/\bFOUND$/m,
+   qr/^.*?: (?!Infected Archive)(.*) FOUND$/m ],
+# NOTE: run clamd under the same user as amavisd, or run it under its own
+#   uid such as clamav, add user clamav to the amavis group, and then add
+#   AllowSupplementaryGroups to clamd.conf;
+# NOTE: match socket name (LocalSocket) in clamav.conf to the socket name in
+#   this entry; when running chrooted one may prefer socket "$MYHOME/clamd".
 );
 
 # If no virus scanners from the @av_scanners list produce 'clean' nor
-# 'infected' status (e.g. they all fail to run or the list is empty),
-# then _all_ scanners from the @av_scanners_backup list are tried.
-# When there are both daemonized and command-line scanners available,
+# 'infected' status (i.e. they all fail to run or the list is empty),
+# then _all_ scanners from the @av_scanners_backup list are tried
+# (again, subject to $first_infected_stops_scan). When there are both
+# daemonized and equivalent or similar command-line scanners available,
 # it is customary to place slower command-line scanners in the
 # @av_scanners_backup list. The default choice is somewhat arbitrary,
-# move entries from one list to another as desired.
+# move entries from one list to another as desired, keeping main scanners
+# in the primary list to avoid warnings.
 
 @av_scanners_backup = (
-  ### http://www.clamav.net/
-  ['Clam Antivirus - clamscan', 'clamscan',
-    "--stdout --no-summary -r --tempdir=$TEMPBASE {}", [0], [1],
-    qr/^.*?: (?!Infected Archive)(.*) FOUND$/ ],
+  ### http://www.clamav.net/   - backs up clamd or Mail::ClamAV
+  ['ClamAV-clamscan', 'clamscan',
+    "--stdout --no-summary -r --tempdir=$TEMPBASE {}",
+    [0], qr/:.*\sFOUND$/m, qr/^.*?: (?!Infected Archive)(.*) FOUND$/m ],
 );
 
 @bypass_virus_checks_maps = (
