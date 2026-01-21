@@ -262,14 +262,23 @@ sub actions
 sub usedFiles
 {
     my ($self) = @_;
-    my @files = ();
-    push @files, {
+
+    return [
+        {
             'file'   => SYSTEM_WIDE_KRB5_CONF_FILE,
             'reason' => __('To set up kerberos authentication'),
             'module' => 'samba'
-        };
-
-    push @files, (
+        },
+        {
+            'file' => SAMBACONFFILE,
+            'reason' => __('To set up the Samba configuration to act as a Domain Controller.'),
+            'module' => 'samba'
+        },
+        {
+            'file' => SHARESCONFFILE,
+            'reason' => __('To set up the Samba shares configuration.'),
+            'module' => 'samba'
+        },
         {
             'file' => '/etc/nsswitch.conf',
             'reason' => __('To make NSS use LDAP resolution for user and '.
@@ -277,18 +286,12 @@ sub usedFiles
             'module' => 'samba'
         },
         {
-            'file' => '/etc/fstab',
-            'reason' => __('To add quota support to /home partition.'),
+            'file' => FSTAB_FILE,
+            'reason' => __('To add quota support to /home partition and '.
+                           'enable extended attributes and acls.'),
             'module' => 'samba'
         },
-        {
-            'file'   => FSTAB_FILE,
-            'reason' => __('To enable extended attributes and acls.'),
-            'module' => 'samba',
-        },
-    );
-
-    return \@files;
+    ];
 }
 
 # Method: initialSetup

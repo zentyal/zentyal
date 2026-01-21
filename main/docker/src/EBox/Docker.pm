@@ -94,7 +94,12 @@ sub usedFiles
             'file' => MANAGE_SCRIPT,
             'module' => 'docker',
             'reason' => __x('{server} configuration script', server => 'docker'),
-        }
+        },
+        {
+            'file' => POSTSERVICE_HOOK,
+            'module' => 'docker',
+            'reason' => __('Set up a post-service hook into the firewall module.'),
+        },
     ];
 }
 

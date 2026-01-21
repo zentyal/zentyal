@@ -47,6 +47,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';
+use constant EBACKUP_CRON_CONF_FILE => '/etc/cron.d/zentyal-ebackup';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/zentyal-ebackup/duplicity-wrapper';
 use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
 
@@ -73,6 +74,44 @@ sub _create
 
     bless($self, $class);
     return $self;
+}
+
+# Method: actions
+#
+#       Override EBox::Module::Service::actions
+#
+sub actions
+{
+    return [
+        {
+            'action' => __('Generate a cronjob.'),
+            'reason' => __('Zentyal will generate a cronjob to run the backups.'),
+            'module' => 'ebackup'
+        },
+    ];
+}
+
+# Method: usedFiles
+#
+#       Override EBox::Module::Service::files
+#
+sub usedFiles
+{
+    my ($self) = @_;
+
+    return [
+        {
+            'file'   => EBACKUP_CRON_CONF_FILE,
+            'reason' => __('To schedule ebackup backups'),
+            'module' => 'ebackup',
+        },
+        {
+            'file'   => EBACKUP_CONF_FILE,
+            'reason' => __('To set up ebackup configuration'),
+            'module' => 'ebackup',
+        },
+
+    ];
 }
 
 # Method: addModuleStatus
@@ -786,7 +825,7 @@ sub removeBackupBackupCron
 
 sub backupCronFile
 {
-    return '/etc/cron.d/zentyal-ebackup';
+    return EBACKUP_CRON_CONF_FILE;
 }
 
 # Method: _setConf
