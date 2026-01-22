@@ -4925,9 +4925,9 @@ sub importInterfacesFile
     my ($self) = @_;
 
     my $netcfg = NETPLAN_FILE;
-    
+
     my @commands;
-    push(@commands, "mv /etc/netplan/00-installer-config.yaml $netcfg");
+    push(@commands, "mv /etc/netplan/50-cloud-init.yaml $netcfg");
     push(@commands, "chmod 0644 $netcfg");
     EBox::Sudo::root(@commands);
 
@@ -4950,7 +4950,7 @@ sub importInterfacesFile
             my ($ip, $bits) = split ('/', $iface->{addresses}->[0]);
             $self->setIfaceStatic($name, $ip, EBox::NetWrappers::mask_from_bits($bits), undef, 1);
 
-            # Verificar si 'routes' existe y no está vacío
+            # Verify if 'routes' exists and is not empty
             if ($iface->{routes} && @{$iface->{routes}}) {
                 my $gwModel = $self->model('GatewayTable');
                 my $defaultGwRow = $gwModel->find(name => $DEFAULT_GW_NAME);
