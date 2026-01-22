@@ -1,6 +1,7 @@
 8.1.0
 	+ Set version to 8.1.0
 	+ Add apparmor local profile
+	+ Update default Netplan configuration file used in Ubuntu 24.04
 8.0.3
 	+ Fix the creation of additional bonding interfaces
 	+ Several fixes in the Netplan stub
