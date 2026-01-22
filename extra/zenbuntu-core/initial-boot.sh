@@ -7,9 +7,9 @@ then
     sed -i "s/.*autologin=.*/# autologin=nobody/" /etc/lxdm/default.conf
 
     # Remove temporal local repository
-    if [ -f '/etc/apt/sources.list.d/zentyal-temporal.list' ]
+    if [ -f '/etc/apt/sources.list.d/zentyal-temporal.sources' ]
     then
-        rm -f /etc/apt/sources.list.d/zentyal-temporal.list
+        rm -f /etc/apt/sources.list.d/zentyal-temporal.sources
         rm -rf /var/tmp/zentyal-packages/
         apt clean
     fi
@@ -20,10 +20,9 @@ then
         rm -rf /var/zentyal-init/
     fi
 
-    # Remove sources.list backup generated for Curtin
-    if [ -f '/etc/apt/sources.list.curtin.old' ]
+    if [ -f '/etc/apt/sources.list.d/ubuntu.sources.curtin.orig' ]
     then
-        rm -f /etc/apt/sources.list.curtin.old
+        rm -f /etc/apt/sources.list.d/ubuntu.sources.curtin.orig
     fi
 
     # Restore default rc.local and execute it

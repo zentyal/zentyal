@@ -48,6 +48,7 @@ use constant CA_CERT_FILE  => CA_CERT_PATH . 'nginx-ca.pem';
 use constant CERT_FILE     => EBox::Config::conf() . 'ssl/ssl.pem';
 use constant RELOAD_FILE   => '/var/lib/zentyal/webadmin.reload';
 use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'webadmin_no_restart_on_trigger';
+use constant REPOSITORY_FILE => '/etc/apt/sources.list.d/zentyal.sources';
 
 # Constructor: _create
 #
@@ -565,6 +566,7 @@ sub _setEdition
 
     my @cmds;
     my $edition = $self->global()->edition();
+    my $version = EBox::Config::version();
     my $expired = (rindex($edition, 'expired') != -1);
     $edition =~ s/-expired//;
     if ($edition eq 'commercial') {
@@ -584,12 +586,17 @@ sub _setEdition
                  "cp '$themePath/trial.theme.sig' '$themePath/custom.theme.sig'");
     } else {
         @cmds = ("rm -f '$themePath/custom.theme' '$themePath/custom.theme.sig'",
-                 "rm -f /etc/apt/sources.list.d/zentyal-qa.list");
+                 "rm -f " . REPOSITORY_FILE);
     }
     if ($expired) {
-        push (@cmds, "rm -f /etc/apt/sources.list.d/zentyal-qa.list /etc/apt/auth.conf.d/zentyal-commercial.conf");
+        push (@cmds, "rm -f /etc/apt/auth.conf.d/zentyal-commercial.conf " . REPOSITORY_FILE);
+    } elsif ($edition eq 'community') {
+        if (-f '/etc/apt/auth.conf.d/zentyal-commercial.conf') {
+            push (@cmds,
+                'rm -f /etc/apt/auth.conf.d/zentyal-commercial.conf',
+            );
+        }
     } elsif ($edition ne 'community') {
-        my $version = EBox::Config::version();
         my $lk = read_file('/var/lib/zentyal/.license');
         chomp ($lk);
         if (substr($lk, 0, 2) eq 'NS') {
@@ -601,15 +608,21 @@ sub _setEdition
             chomp ($hash);
         }
         push (@cmds,
-            "echo 'deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-$version-packages-com.asc] https://packages.zentyal.com/zentyal-qa $version main extra' > /etc/apt/sources.list.d/zentyal-qa.list",
             "echo 'machine https://packages.zentyal.com login $lk password $hash' > /etc/apt/auth.conf.d/zentyal-commercial.conf",
             'chmod 600 /etc/apt/auth.conf.d/zentyal-commercial.conf',
-            'if [ -f /etc/apt/auth.conf ]; then rm -f /etc/apt/auth.conf; fi',
-            'sed -i "/packages.zentyal/d" /etc/apt/sources.list',
-            'if [ -f /etc/apt/sources.list.d/zentyal.list ]; then rm -f /etc/apt/sources.list.d/zentyal.list; fi'
         );
     }
     EBox::Sudo::root(@cmds);
+
+    $self->writeConfFile(
+        REPOSITORY_FILE,
+        'core/zentyal.sources.mas',
+        [
+            edition => $edition,
+            version => $version
+        ],
+        { mode => '0644', uid => 0, gid => 0 }
+      );
 }
 
 1;

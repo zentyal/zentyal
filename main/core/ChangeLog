@@ -3,6 +3,7 @@
 	+ Update package dependencies
 	+ Minor nginx.conf stub update
 	+ Enable Apparmor
+	+ Create repository file using deb822 style
 8.0.8
 	+ Improve the daily zentyal cron job
 	+ Fix the password confirmation value in the Log module. Fix #2189
