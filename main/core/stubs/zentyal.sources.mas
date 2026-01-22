@@ -1,0 +1,34 @@
+<%args>
+$edition
+$version
+</%args>
+<%init>
+my ($repository_uri, $repository_gpg_key_url);
+if ($edition eq 'community') {
+    $repository_uri = "https://packages.zentyal.org/zentyal/";
+    $repository_gpg_key_url = "/etc/apt/trusted.gpg.d/zentyal-$version-packages-org.asc";
+} else {
+    $repository_uri = "https://packages.zentyal.com/zentyal-qa/";
+    $repository_gpg_key_url = "/etc/apt/trusted.gpg.d/zentyal-$version-packages-com.asc";
+}
+</%init>
+# Zentyal repository
+Types: deb
+URIs: <%$repository_uri%>
+Suites: <%$version%>
+Components: main extra
+Signed-By: <%$repository_gpg_key_url%>
+
+# Firefox repository
+Types: deb
+URIs: https://packages.mozilla.org/apt
+Suites: mozilla
+Components: main
+Signed-By: /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
+
+# Docker repository
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: noble
+Components: stable
+Signed-By: /etc/apt/trusted.gpg.d/docker.gpg
