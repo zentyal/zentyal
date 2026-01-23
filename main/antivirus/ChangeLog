@@ -4,6 +4,7 @@
 	+ Update ClamOnAccess parameters
 	+ Remove initial-setup workaround
 	+ Update clamd stub and clamonacc service
+	+ Improve Apparmor rules for Clamd
 8.0.1
 	+ Ensure PID directory exists
 8.0.0
