@@ -247,7 +247,7 @@ sub usedFiles
             {
              'file' => CLAMD_SCANNER_CONF_FILE,
              'module' => 'squid',
-             'reason' => __(q{E"guardian's antivirus scanner configuration}),
+             'reason' => __(q{E2guardian's antivirus scanner configuration}),
             },
             {
              'file' =>    E2GLISTSDIR . '/authplugins/ipgroups',
