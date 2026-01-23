@@ -1,10 +1,11 @@
 8.1.0
-	+ Update usedFiles method
-	+ Update processLine method for Log integration
-	+ Fix password changes on Samba 4.19+ by using samba-tool instead of direct LDAP unicodePwd writes
-	+ Update NSS and PAM management
-	+ Remove deprecated auth-client-config package
 	+ Set version to 8.1.0
+	+ Remove deprecated auth-client-config package
+	+ Update NSS and PAM management
+	+ Fix password changes on Samba 4.19+ by using samba-tool instead of direct LDAP unicodePwd writes
+	+ Update processLine method for Log integration
+	+ Update usedFiles method
+	+ Minor fix that prevents generates strings for translation
 8.0.2
 	+ Change DNS keytab directory. Fix #2080
 	+ Typo in dumpConfig method. Fix #2048

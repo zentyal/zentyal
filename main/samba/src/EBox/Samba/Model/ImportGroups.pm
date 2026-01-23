@@ -146,14 +146,14 @@ sub Viewer
 # Method: _checkSize
 #
 #     Checks whether the CSV file has the right mime type
-# 
+#
 sub _checkCSVFile
 {
     my ($self, $path) = @_;
 
     my $mm = new File::MMagic();
     my $mimeType = $mm->checktype_filename($path);
-    
+
     system("rm -f $path");
 
     #FIXME
@@ -162,14 +162,14 @@ sub _checkCSVFile
     }
 
     if ($mimeType ne 'text/csv' || $mimeType ne 'text/plain') {
-        throw EBox::Exceptions::External(__("The file is not a correct CSV file: $mimeType"));
+        throw EBox::Exceptions::External(__x("The file is not a correct CSV file: {mimeType}", mimeType => $mimeType));
     }
 }
 
 # Method: _checkSize
 #
 #     Checks whether the system has enough free space
-#    
+#
 sub _checkSize
 {
     my ($self, $archive) = @_;
