@@ -119,10 +119,18 @@ sub appArmorProfiles
 {
     my ($self) = @_;
 
+    my $global = $self->global();
+
     EBox::info('Setting ClamAV apparmor profiles');
 
+    my $sambaStatus = $global->modEnabled("samba");
+    my $mailfilterStatus = $global->modEnabled("mailfilter");
     my @paths = split(/\s+/, EBox::Config::configkey('os_scan_paths'));
-    my @params = ( paths => \@paths );
+
+    my @params = ( paths => \@paths,
+                   sambaStatus => $sambaStatus,
+                   mailfilterStatus => $mailfilterStatus,
+                 );
 
     return [
         {

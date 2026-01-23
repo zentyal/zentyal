@@ -1,5 +1,7 @@
 <%args>
 @paths        => ()
+$sambaStatus => 0
+$mailfilterStatus => 0
 </%args>
 
 % if (scalar(@paths)) {
@@ -8,9 +10,12 @@
 % }
 % }
 
+% if ($sambaStatus) {
 # Allow clamd to talk to Winbind
 /run/samba/winbindd/pipe rw,
+% }
 
+% if ($mailfilterStatus) {
 # Allow clamd to talk to Amavis
 /var/lib/amavis/** r,
-
+% }
