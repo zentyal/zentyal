@@ -195,7 +195,7 @@ sub _checkSize
     $freeSpace = df($tmpDir, 1024)->{bfree};
 
     if ($freeSpace < ($size*$safetyFactor)) {
-        throw EBox::Exceptions::External(__x("There in not enough space left in the hard disk to complete the import proccess. {size} Kb required. Free sufficient space and retry", size => $size));
+        throw EBox::Exceptions::External(__x("There is not enough space left in the hard disk to complete the import process. {size} Kb required. Free sufficient space and retry", size => $size));
     }
 }
 

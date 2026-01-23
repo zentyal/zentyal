@@ -179,7 +179,7 @@ sub crontabStringsDisk
         my $strings = {
             once => $once,
             resource => __('DISK'),
-            alert_body => __('Available disk free space too lower! The remaining disk space is'),
+            alert_body => __('Available disk free space is too low! The remaining disk space is'),
             api_token => $telegramToken,
             telegram => $telegram,
         };
