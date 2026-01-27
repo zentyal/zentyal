@@ -198,7 +198,7 @@ network:
           via: <% $staticRoute->{gateway} %>
 %       }
 % # End static routes configuration
-      macaddress: <% EBox::NetWrappers::iface_mac_address($networkMod->bridgeIfaces($iface)->[0]) %>
+      macaddress: <% $networkMod->getBridgeMacAddress($iface) %>
       parameters:
         stp: false
         forward-delay: 5

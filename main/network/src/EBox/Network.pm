@@ -2355,6 +2355,53 @@ sub vlan
     return $vlans->{$vlan};
 }
 
+# Method: getIfaceFromVlan
+#
+#   Returns the trunk interface associated to a given VLAN interface.
+#
+# Parameters:
+#
+#   vlanIface - string - VLAN interface name (e.g. 'vlan1', 'vlan203')
+#
+# Returns:
+#
+#   string - name of the trunk interface
+#
+# Exceptions:
+#
+#   External     - if no interface name is provided or format is invalid
+#   Internal     - if vlan configuration is corrupted (empty or invalid data from Redis)
+#   DataNotFound - if the VLAN does not exist
+#
+sub getIfaceFromVlan
+{
+    my ($self, $vlanIface) = @_;
+
+    throw EBox::Exceptions::External(
+        __('No interface name provided.')
+    ) unless defined $vlanIface;
+
+    my ($vlanId) = $vlanIface =~ /^vlan(\d+)$/;
+
+    throw EBox::Exceptions::External(
+        __('Invalid VLAN interface name.')
+    ) unless defined $vlanId;
+
+    throw EBox::Exceptions::DataNotFound(
+        data  => __('VLAN'),
+        value => $vlanIface
+    ) unless $self->vlanExists($vlanId);
+
+    my $vlan = $self->vlan($vlanIface);
+
+    throw EBox::Exceptions::Internal(
+        __('VLAN configuration is corrupted.')
+    ) unless ref($vlan) eq 'HASH' && defined $vlan->{interface};
+
+
+    return $vlan->{interface};
+}
+
 # Method: _createBridge
 #
 #   creates a new bridge interface.
@@ -2469,6 +2516,65 @@ sub bridgeIfaces
     return \@ifaces;
 }
 
+# Method: getBridgeMacAddress
+#
+#   Returns the MAC address associated with a given bridge interface.
+#   If the bridge is built on top of a VLAN or Bond, the MAC is retrieved
+#   from the underlying physical interface.
+#
+# Parameters:
+#
+#   bridge - string - bridge interface name
+#
+# Returns:
+#
+#   string - MAC address
+#
+# Exceptions:
+#
+#   External - if no bridge name is provided, or bridge does not exist,
+#              or MAC address cannot be retrieved
+#   Internal - if bridge configuration is corrupted (empty or invalid data from Redis)
+#
+sub getBridgeMacAddress
+{
+    my ($self, $bridge) = @_;
+
+    throw EBox::Exceptions::External(
+        __('No interface name provided.')
+    ) unless defined $bridge;
+
+    my $bridgeIfaces = $self->bridgeIfaces($bridge);
+
+    throw EBox::Exceptions::Internal(
+        __('Bridge configuration is corrupted.')
+    ) unless ref($bridgeIfaces) eq 'ARRAY' && @$bridgeIfaces;
+
+    my $bridgeIface = $bridgeIfaces->[0];
+
+    throw EBox::Exceptions::External(
+        __('Could not find bridge interface.')
+    ) unless defined $bridgeIface;
+
+    my $macSourceIface;
+
+    if ($bridgeIface =~ /^vlan\d+$/) {
+        $macSourceIface = $self->getIfaceFromVlan($bridgeIface);
+    } elsif ($bridgeIface =~ /^bond\d+$/) {
+        $macSourceIface = $self->getIfaceFromBond($bridgeIface);
+    } else {
+        $macSourceIface = $bridgeIface;
+    }
+
+    my $mac = EBox::NetWrappers::iface_mac_address($macSourceIface);
+
+    throw EBox::Exceptions::External(
+        __('Could not retrieve MAC address for bridge interface.')
+    ) unless defined $mac;
+
+    return $mac;
+}
+
 # Method: _createBond
 #
 #   creates a new bond interface.
@@ -2581,6 +2687,52 @@ sub bondIfaces
     }
 
     return \@ifaces;
+}
+
+# Method: getIfaceFromBond
+#
+#   Returns the physical interface associated with a given bond interface.
+#
+# Parameters:
+#
+#   bond - string - bond interface name (e.g. 'bond0', 'bond1')
+#
+# Returns:
+#
+#   string - name of the physical interface
+#
+# Exceptions:
+#
+#   External     - if no bond name is provided or the format is invalid
+#   Internal     - if bond configuration is corrupted (empty or invalid data from Redis)
+#   DataNotFound - if the bond does not exist
+#
+sub getIfaceFromBond
+{
+    my ($self, $bond) = @_;
+
+    throw EBox::Exceptions::External(
+        __('No bond interface provided.')
+    ) unless defined $bond;
+
+    my ($bondId) = $bond =~ /^bond(\d+)$/;
+
+    throw EBox::Exceptions::External(
+        __('Invalid bond interface name.')
+    ) unless defined $bondId;
+
+    throw EBox::Exceptions::DataNotFound(
+        data  => __('Bond'),
+        value => $bond
+    ) unless grep { $_ eq $bondId } @{ $self->bonds() };
+
+    my $ifaces = $self->bondIfaces($bond);
+
+    throw EBox::Exceptions::Internal(
+        __('Bond configuration is corrupted.')
+    ) unless ref($ifaces) eq 'ARRAY' && @$ifaces;
+
+    return $ifaces->[0];
 }
 
 # Method: unsetIface
