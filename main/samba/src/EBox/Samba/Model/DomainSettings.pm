@@ -191,6 +191,12 @@ sub _table
             populate      => \&_drive_letters,
             editable      => 1,
         ),
+        new EBox::Types::Select(
+            fieldName     => 'domainlevel',
+            printableName => __('Domain functional level'),
+            populate      => \&_domain_function_levels,
+            editable      => 1,
+        ),
     );
 
     my $dataTable =
@@ -214,6 +220,26 @@ sub _adcProvisioned
     return ($users->dcMode() eq MODE_ADC and $users->getProvision->isProvisioned());
 }
 
+sub validateTypedRow
+{
+    my ($self, $action, $params_r) = @_;
+
+    my $newDomainLevel = $params_r->{'domainlevel'}->value();
+    my $oldDomainLevel = $self->value('domainlevel');
+    my $sambaMod = $self->parentModule();
+
+    EBox::debug("New domain level: $newDomainLevel, old domain level: $oldDomainLevel");
+
+    if ($sambaMod->isProvisioned() and $newDomainLevel lt $oldDomainLevel) {
+        EBox::debug('Domain functional level change detected');
+        throw EBox::Exceptions::External(__x('You are lowering the domain functional level from {oldLevel} to {newLevel}. '
+            . 'This action is not supported by Samba.',
+            oldLevel => $oldDomainLevel,
+            newLevel => $newDomainLevel,
+        ));
+    }
+}
+
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
@@ -223,13 +249,17 @@ sub updatedRowNotify
 
     my $newRealm = $row->valueByName('realm');
     my $oldRealm = defined $oldRow ? $oldRow->valueByName('realm') : $newRealm;
-    my $newDomain = $row->valueByName('workgroup');
 
+    my $newDomain = $row->valueByName('workgroup');
     my $oldDomain = defined $oldRow ? $oldRow->valueByName('workgroup') : $newDomain;
+
+    my $newDomainLevel = $row->valueByName('domainlevel');
+    my $oldDomainLevel = defined $oldRow ? $oldRow->valueByName('domainlevel') : $newDomainLevel;
+
+    my $sambaMod = $self->parentModule();
 
     if ($newMode ne $oldMode or $newRealm ne $oldRealm or $newDomain ne $oldDomain) {
         EBox::debug('Domain rename detected, clearing the provisioned flag');
-        my $sambaMod = $self->parentModule();
         $sambaMod->getProvision->setProvisioned(0);
     }
 }
@@ -238,20 +268,53 @@ sub confirmReprovision
 {
     my ($self, $params) = @_;
 
-    my $newRealm = $params->{realm};
-    my $oldRealm = $self->value('realm');
-    my $newDomain = $params->{workgroup};
-    my $oldDomain = $self->value('workgroup');
-    my $newMode = $params->{mode};
-    my $oldMode = $self->value('mode');
-    return undef if ($newRealm eq $oldRealm and $newDomain eq $oldDomain and $newMode eq $oldMode);
-    if ($newMode eq 'dc') {
-        return  __("Changing the domain name will cause to reprovision the samba database.\n\n" .
-                   'The users and groups will be imported from Zentyal LDAP, but you will have to ' .
-                   'rejoin all computers to the new domain.');
-    } elsif ($newMode eq 'adc') {
-        return __("Joining a domain will delete all your users and groups from Zentyal and import " .
-                  "the domain ones.");
+    my $newRealm       = $params->{realm};
+    my $oldRealm       = $self->value('realm');
+    my $newDomain      = $params->{workgroup};
+    my $oldDomain      = $self->value('workgroup');
+    my $newMode        = $params->{mode};
+    my $oldMode        = $self->value('mode');
+    my $newDomainLevel = $params->{domainlevel};
+    my $oldDomainLevel = $self->value('domainlevel');
+
+    # Nothing changed
+    return undef if (
+        $newRealm       eq $oldRealm       and
+        $newDomain      eq $oldDomain      and
+        $newMode        eq $oldMode        and
+        $newDomainLevel eq $oldDomainLevel
+    );
+
+    # DC/ADC reprovision change due to mode change
+    if ($newMode ne $oldMode) {
+        if ($newMode eq 'dc') {
+            return __(
+                "Changing the domain mode will cause to reprovision the samba database.\n\n" .
+                "The users and groups will be imported from Zentyal LDAP, but you will have to " .
+                "rejoin all computers to the new domain."
+            );
+        } elsif ($newMode eq 'adc') {
+            return __(
+                "Joining a domain will delete all your users and groups from Zentyal and import " .
+                "the domain ones."
+            );
+        }
+    }
+
+    # DC reprovision due to domain/realm change
+    if ($newRealm ne $oldRealm or $newDomain ne $oldDomain) {
+        return __(
+            "Changing the domain name will cause to reprovision the samba database.\n\n" .
+            "The users and groups will be imported from Zentyal LDAP, but you will have to " .
+            "rejoin all computers to the new domain."
+        );
+    }
+
+    # Domain functional level change only
+    if ($newDomainLevel ne $oldDomainLevel) {
+        return __(
+            "Changing the domain functional level is a complex task, it is advisable to create a backup prior to initiating any changes.Changing the domain functional level is a complex task; it is advisable to create a backup before initiating any changes."
+        );
     }
 
     return undef;
@@ -284,6 +347,19 @@ sub _drive_letters
     return $letters;
 }
 
+sub _domain_function_levels
+{
+    my $levels = [];
+
+    my @allowedLevels = ('2008_R2', '2008', '2003');
+
+    foreach my $level (@allowedLevels) {
+        push (@{$levels}, { value => $level, printableValue => $level });
+    }
+
+    return $levels;
+}
+
 # Method: viewCustomizer
 #
 #   Overrides <EBox::Model::DataTable::viewCustomizer>
@@ -296,11 +372,11 @@ sub viewCustomizer
         mode => {
             dc => {
                 hide => ['dcfqdn', 'dnsip', 'adminAccount', 'password'],
-                show => ['roaming', 'drive'],
+                show => ['roaming', 'drive', 'domainlevel'],
             },
             adc => {
                 show => ['dcfqdn', 'dnsip', 'adminAccount', 'password'],
-                hide => ['roaming', 'drive'],
+                hide => ['roaming', 'drive', 'domainlevel'],
             },
         },
     };

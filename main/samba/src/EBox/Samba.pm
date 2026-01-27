@@ -703,8 +703,12 @@ sub _setConf
     # Setup NSS and PAM for LDB users
     $self->_setupNSSPAM();
 
+    # Raise the domain level
+    $self->raiseDomainAndForestLevel();
+
     # Apply ACLs to shares
     $self->setACLs();
+
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
 
@@ -2643,6 +2647,7 @@ sub writeSambaConfig
     push (@array, 'netbiosName' => $netbiosName);
     push (@array, 'description' => $self->description());
     push (@array, 'mode'        => 'dc');
+    push (@array, 'domainLevel' => $self->domainLevel());
     push (@array, 'realm'       => $realmName);
     push (@array, 'domain'      => $hostDomain);
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
@@ -2771,6 +2776,18 @@ sub drive
     return $model->driveValue();
 }
 
+# Method: domainLevel
+#
+#   Returns the configured domain functional level
+#
+sub domainLevel
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->domainlevelValue();
+}
+
 # Method: dMD
 #
 #   Return the Perl Object that holds the Directory Management Domain for this LDB server.
@@ -2781,6 +2798,147 @@ sub dMD
 
     my $dn = "CN=Schema,CN=Configuration," . $self->ldap()->dn();
     return new EBox::Samba::DMD(dn => $dn);
+}
+
+# Method: checkCurrentDomainLevel
+#
+#   This method retrieves the current Active Directory domain and forest
+#   functional levels using samba-tool.
+#
+#   The method ensures that both domain and forest functional levels are
+#   consistent. If they differ, an exception is thrown.
+#
+#   The returned value is normalized to Zentyal internal format
+#   (e.g. "2008 R2" -> "2008_R2").
+#
+# Returns:
+#
+#   String - current domain functional level
+#
+# Exceptions:
+#
+#   External exception if:
+#     - The system is not provisioned
+#     - The functional levels cannot be determined
+#     - Domain and forest functional levels are inconsistent
+#
+sub checkCurrentDomainLevel
+{
+    my ($self) = @_;
+
+    return unless $self->isProvisioned();
+
+    my ($domainLevel, $forestLevel);
+
+    try {
+        my $output = EBox::Sudo::root("samba-tool domain level show");
+
+        unless ($output && ref($output) eq 'ARRAY') {
+            throw EBox::Exceptions::External(
+                __('Cannot determine current domain functional level'));
+        }
+
+        my $text = join('', @$output);
+
+        if ($text =~ /Domain function level:\s+\(Windows\)\s+([^\n]+)/) {
+            $domainLevel = $1;
+        }
+
+        if ($text =~ /Forest function level:\s+\(Windows\)\s+([^\n]+)/) {
+            $forestLevel = $1;
+        }
+
+        for ($domainLevel, $forestLevel) {
+            next unless defined $_;
+            s/\s+/_/g;   # Example: "2008 R2" → "2008_R2"
+        }
+
+    } catch ($e) {
+        throw EBox::Exceptions::External("$e");
+    }
+
+    if ($domainLevel ne $forestLevel) {
+        throw EBox::Exceptions::External(
+            __x(
+                'Domain and forest functional levels are inconsistent: domain={domain}, forest={forest}',
+                domain => $domainLevel,
+                forest => $forestLevel,
+            )
+        );
+    }
+
+    return $domainLevel;
+}
+
+# Method: raiseDomainAndForestLevel
+#
+#   This method raises the Active Directory domain and forest functional
+#   levels to the configured value.
+#
+#   The change is only applied if the desired functional level differs from
+#   the currently running one. After applying the change, the method
+#   verifies that the new functional level has been successfully set.
+#
+#   The method relies on samba-tool to perform the functional level raise.
+#
+# Returns:
+#
+#   undef - if the system is not provisioned or no change is required
+#
+# Exceptions:
+#
+#   External exception if:
+#     - The functional level change fails
+#     - The resulting functional level does not match the desired one
+#     - The functional level cannot be verified after the change
+#
+sub raiseDomainAndForestLevel
+{
+
+    my ($self) = @_;
+
+    # Return when not provisioned
+    return unless $self->isProvisioned();
+
+    my $desiredDomainLevel = $self->domainLevel();
+    my $currentDomainLevel = $self->checkCurrentDomainLevel();
+
+    EBox::debug("Domain functional level running is $currentDomainLevel and desired is $desiredDomainLevel");
+
+    return unless $currentDomainLevel ne $desiredDomainLevel;
+
+    try {
+        # https://wiki.samba.org/index.php/Raising_the_Functional_Levels
+        my @cmds;
+
+        push (@cmds, "samba-tool domain level raise --domain-level=$desiredDomainLevel");
+        push (@cmds, "samba-tool domain level raise --forest-level=$desiredDomainLevel");
+        EBox::Sudo::root(@cmds);
+
+        # Verify the changes
+        my $checkDomainLevel = $self->checkCurrentDomainLevel();
+
+        unless ($checkDomainLevel) {
+            throw EBox::Exceptions::External(
+                __('Unable to verify domain functional level after the change.'));
+        }
+
+        if ($checkDomainLevel ne $desiredDomainLevel)
+        {
+            throw EBox::Exceptions::External(
+                __x(
+                    'Domain functional level change failed. Expected {level}, got {domain}',
+                    level  => $desiredDomainLevel,
+                    domain => $checkDomainLevel,
+                )
+            );
+        }
+
+        EBox::info("Domain and forest functional levels successfully set to $desiredDomainLevel");
+
+    } catch ($e) {
+        throw EBox::Exceptions::External("$e");
+    }
 }
 
 # Method: shares

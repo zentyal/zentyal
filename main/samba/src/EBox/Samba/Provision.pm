@@ -523,7 +523,7 @@ sub provisionDC
             " --realm='" . $usersModule->kerberosRealm() . "'" .
             " --dns-backend=BIND9_DLZ" .
             " --use-rfc2307 " .
-            " --function-level=2003 " .
+            " --function-level='" . $usersModule->domainLevel() . "'" .
             " --server-role='" . $usersModule->dcMode() . "'" .
             " --host-name='" . $sysinfo->hostName() . "'" .
             " --host-ip='" . $provisionIP . "'";
