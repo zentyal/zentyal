@@ -6,6 +6,7 @@
 	+ Update processLine method for Log integration
 	+ Update usedFiles method
 	+ Minor fix that prevents generates strings for translation
+	+ Allow setting domain level from the Zentyal UI
 8.0.2
 	+ Change DNS keytab directory. Fix #2080
 	+ Typo in dumpConfig method. Fix #2048
