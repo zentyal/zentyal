@@ -79,8 +79,7 @@ use constant TRANSPORT_FILE           => '/etc/postfix/transport';
 use constant SASL_PASSWD_FILE         => '/etc/postfix/sasl_passwd';
 use constant MAILNAME_FILE            => '/etc/mailname';
 use constant VDOMAINS_MAILBOXES_DIR   => '/var/vmail';
-use constant AUTOEXPUNGE_CRON_FILE    => '/etc/cron.daily/zentyal-autoexpunge';
-use constant ARCHIVEMAIL_CRON_FILE    => '/etc/cron.daily/archivemail';
+use constant AUTOEXPUNGE_CRON_FILE    => '/etc/cron.d/zentyal-mail-autoexpunge';
 use constant FETCHMAIL_SERVICE        => 'zentyal.fetchmail';
 use constant ALWAYS_BCC_TABLE_FILE    => '/etc/postfix/alwaysbcc';
 use constant SIEVE_SCRIPTS_DIR        => '/var/vmail/sieve';
@@ -165,6 +164,13 @@ sub actions
                   'Zentyal will schedule a cron job to update fetchmail configuration when the user add external accounts'),
               'module' => 'mail'
             },
+            {
+              'action' => __('Create a cron job for autoexpunge'),
+              'reason' => __(
+                  'Zentyal will schedule a cron job to automatically expunge emails according to settings in the Mail server options'
+              ),
+              'module' => 'mail'
+            },
 
     ];
 }
@@ -229,6 +235,11 @@ sub usedFiles
             {
                 file   => DOVECOT_PAM,
                 reason => __('To let dovecot authenticate users using PAM'),
+                module => 'mail',
+            },
+            {
+                file   => AUTOEXPUNGE_CRON_FILE,
+                reason => __('To schedule autoexpunge cron job'),
                 module => 'mail',
             },
     ];
@@ -623,10 +634,8 @@ sub _setMailConf
                          $restrictiveFilePermissions
                         );
 
-    # TODO: Uncomment this when the package will be maintained again by blorente
-    # $self->_setArchivemailConf();
-
-    $self->_writeCronFile();
+    # autoexpunge configuration including a cron job
+    $self->_setExpungeConf();
 
     #my $manager = new EBox::ServiceManager;
     # Do not run postmap if we can't overwrite SASL_PASSWD_FILE
@@ -754,39 +763,6 @@ sub _setDovecotConf
     push @params, (bindDNPwd    => $self->_kerberosServiceAccountPassword());
 
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params, $restrictiveFilePermissions);
-}
-
-sub _setArchivemailConf
-{
-    my ($self) = @_;
-
-    my $smtpOptions      = $self->model('SMTPOptions');
-    my $expireDaysTrash = $smtpOptions->expirationForDeleted();
-    my $expireDaysSpam  = $smtpOptions->expirationForSpam();
-
-    if ( ($expireDaysTrash == 0) and ($expireDaysSpam == 0) ) {
-        # no need to cronjob bz all expiration times are disabled
-        EBox::Sudo::root('rm -f ' . ARCHIVEMAIL_CRON_FILE);
-        return;
-    }
-
-    my @params = (
-                  mailDir =>  $self->{musers}->DIRVMAIL,
-                  expireDaysTrash  => $expireDaysTrash,
-                  expireDaysSpam   => $expireDaysSpam,
-
-                 );
-
-    EBox::Module::Base::writeConfFileNoCheck(ARCHIVEMAIL_CRON_FILE,
-                         "mail/archivemail.mas",
-                         \@params,
-                         {
-                          uid => 0,
-                          gid => 0,
-                          mode => '0755'
-                         },
-                        );
-
 }
 
 # Method: defaultMailboxQuota
@@ -1840,27 +1816,60 @@ sub checkMailNotInUse
     }
 }
 
-sub _writeCronFile
+# Method: _setExpungeConf
+#
+#   Generates the cron configuration file used to automatically expunge
+#   messages from user mailboxes using doveadm.
+#
+#   The expiration values (in days) for each mailbox type are obtained from
+#   the SMTPOptions model. If all expiration values are set to 0, no cron
+#   entries will be generated.
+#
+# Returns:
+#
+#   undef
+sub _setExpungeConf
 {
     my ($self) = @_;
 
-    my $smtpOptions      = $self->model('SMTPOptions');
-    my $expireDaysDraft = $smtpOptions->expirationForDraft();
-    my $expireDaysTrash  = $smtpOptions->expirationForTrash();
+    my $smtpOptions         = $self->model('SMTPOptions');
+
+    my $timeToRun           = '00 01 * * *'; # 1:00 AM
+    my $expireDaysDeleted   = $smtpOptions->expirationForDeleted();
+    my $expireDaysSpam      = $smtpOptions->expirationForSpam();
+    my $expireDaysTrash     = $smtpOptions->expirationForTrash();
+    my $expireDaysDraft     = $smtpOptions->expirationForDraft();
+
     my $fileAttrs = {
         uid  => 0,
         gid  => 0,
-        mode => '0755',
+        mode => '0644',
     };
+
+    my %templateParams = (
+        timeToRun => $timeToRun,
+    );
+
+    # Only generate cron entries if at least one expiration value is enabled
+    if ( grep { $_ > 0 }
+        $expireDaysDeleted,
+        $expireDaysSpam,
+        $expireDaysTrash,
+        $expireDaysDraft )
+    {
+        $templateParams{expireDaysDeleted} = $expireDaysDeleted;
+        $templateParams{expireDaysSpam}    = $expireDaysSpam;
+        $templateParams{expireDaysTrash}   = $expireDaysTrash;
+        $templateParams{expireDaysDraft}   = $expireDaysDraft;
+    }
+
     EBox::Module::Base::writeConfFileNoCheck(
-        AUTOEXPUNGE_CRON_FILE, 
-        'mail/zentyal-autoexpunge.cron', 
-        [
-            expireDaysDraft => $expireDaysDraft,
-            expireDaysTrash => $expireDaysTrash
-        ],
+        AUTOEXPUNGE_CRON_FILE,
+        'mail/zentyal-mail-autoexpunge.cron.mas',
+        [ %templateParams ],
         $fileAttrs,
     );
+
 }
 
 1;
