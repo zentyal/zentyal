@@ -215,12 +215,32 @@ sub _setConf
         $mode = 'repeat';
     }
 
-    $self->writeConfFile(SURICATA_CONF_FILE, 'ips/suricata.yaml.mas',
-                         [ mode => $mode, rules => $rules ]);
+    my $ifaces = $self->enabledIfaces();
 
-    $self->writeConfFile(SURICATA_DEFAULT_FILE, 'ips/suricata.mas',
-                         [ enabled => $self->isEnabled(),
-                           nfQueueNum => $self->nfQueueNum() ]);
+    throw EBox::Exceptions::Internal(
+        __('Invalid interfaces data.')
+    ) unless ref($ifaces) eq 'ARRAY';
+
+    my $interfaces = $self->ifaceAddressInfo($ifaces);
+
+    $self->writeConfFile(
+        SURICATA_CONF_FILE,
+        'ips/suricata.yaml.mas',
+        [
+            mode   => $mode,
+            rules  => $rules,
+            ifaces => $interfaces,
+        ]
+    );
+
+    $self->writeConfFile(
+        SURICATA_DEFAULT_FILE,
+        'ips/suricata.mas',
+        [
+            enabled => $self->isEnabled(),
+            nfQueueNum => $self->nfQueueNum()
+        ]
+    );
 
     $self->writeConfFile(SURICATA_UPDATE_CRON, 'ips/suricata-update.cron.mas');
 
@@ -230,6 +250,74 @@ sub _setConf
         EBox::Sudo::silentRoot("rm -f $systemdsvc",
                                'systemctl daemon-reload');
     }
+}
+
+# Method: ifaceAddressInfo
+#
+#   Returns address information for a list of interfaces.
+#
+# Parameters:
+#
+#   ifaces - array ref - list of interface names
+#
+# Returns:
+#
+#   array ref - Each element is a hash with keys:
+#               'interface', 'ip', 'netmask', 'net'
+#
+# Exceptions:
+#
+#   Internal - if input data or interface configuration is invalid
+#
+sub ifaceAddressInfo {
+    my ($self, $ifaces) = @_;
+
+    throw EBox::Exceptions::Internal(
+        __('Invalid interfaces data.')
+    ) unless ref($ifaces) eq 'ARRAY';
+
+    my $networkMod = EBox::Global->modInstance('network');
+    my @data;
+
+    foreach my $iface (@$ifaces) {
+
+        throw EBox::Exceptions::Internal(
+            __('Invalid interface name.')
+        ) unless defined $iface;
+
+        my $addrList = $networkMod->ifaceAddresses($iface);
+
+        throw EBox::Exceptions::Internal(
+            __('Interface {iface} has no addresses configured.', iface => $iface)
+        ) unless ref($addrList) eq 'ARRAY' && @$addrList;
+
+        my $ipData = $addrList->[0];
+
+        my $ip      = $ipData->{address};
+        my $netmask = $ipData->{netmask};
+
+        throw EBox::Exceptions::Internal(
+            __('Interface {iface} has invalid IP or netmask.', iface => $iface)
+        ) unless defined $ip && defined $netmask;
+
+        my $net = EBox::NetWrappers::ip_network($ip, $netmask);
+
+        throw EBox::Exceptions::Internal(
+            __('Failed to calculate network for {iface} with IP {ip} and netmask {mask}.',
+              iface => $iface, ip => $ip, mask => $netmask)
+        ) unless defined $net;
+
+        EBox::debug("Interface data: $iface with ip=$ip, netmask=$netmask and net=$net");
+
+        push @data, {
+            interface => $iface,
+            ip        => $ip,
+            netmask   => $netmask,
+            net       => $net,
+        };
+    }
+
+    return \@data;
 }
 
 # Group: Public methods

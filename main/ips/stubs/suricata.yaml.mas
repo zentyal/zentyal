@@ -1,8 +1,18 @@
 <%args>
-    # @ifaces
     $mode
     @rules
+    @ifaces
 </%args>
+<%init>
+my @home_group = map {
+    "$_->{net}/$_->{netmask}"
+} grep {
+    defined $_->{net} && defined $_->{netmask}
+} @ifaces;
+
+# Example result: [192.168.10.0/24,192.168.20.0/16]
+my $home_group = '[' . join(',', @home_group) . ']';
+</%init>
 <%text>
 %YAML 1.1
 ---
@@ -21,12 +31,14 @@ suricata-version: "7.0"
 vars:
   # more specific is better for alert accuracy and performance
   address-groups:
-    HOME_NET: "[192.168.0.0/16,10.0.0.0/8,172.16.0.0/12]"
+    #HOME_NET: "[192.168.0.0/16,10.0.0.0/8,172.16.0.0/12]"
     #HOME_NET: "[192.168.0.0/16]"
     #HOME_NET: "[10.0.0.0/8]"
     #HOME_NET: "[172.16.0.0/12]"
     #HOME_NET: "any"
-
+</%text>
+    HOME_NET: "<% $home_group %>"
+<%text>
     EXTERNAL_NET: "!$HOME_NET"
     #EXTERNAL_NET: "any"
 
@@ -616,9 +628,11 @@ logging:
 ## and PF_RING.
 ##
 
+</%text>
 # Linux high speed capture support
 af-packet:
-  - interface: eth0
+% foreach my $iface (@ifaces) {
+  - interface: <% $iface->{interface} %>
     # Number of receive threads. "auto" uses the number of cores
     #threads: auto
     # Default clusterid. AF_PACKET will load balance packets based on flow.
@@ -690,13 +704,15 @@ af-packet:
     #  For eBPF and XDP setup including bypass, filter and load balancing, please
     #  see doc/userguide/capture-hardware/ebpf-xdp.rst for more info.
 
+% }
+
   # Put default values here. These will be used for an interface that is not
   # in the list above.
   - interface: default
     #threads: auto
     #use-mmap: no
     #tpacket-v3: yes
-
+<%text>
 # Linux high speed af-xdp capture support
 af-xdp:
   - interface: default
