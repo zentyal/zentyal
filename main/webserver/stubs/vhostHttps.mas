@@ -26,7 +26,7 @@
   my $docRoot = EBox::WebServer::PlatformPath::VDocumentRoot();
   my $etcPath = EBox::WebServer::PlatformPath::ConfDirPath();
 </%init>
-% if ($sslSupport ne 'disabled') {
+% if ($sslPort && $sslSupport ne 'disabled') {
 <VirtualHost *:<% $sslPort %>>
     ServerAdmin webmaster@<% $hostname %>
 
@@ -46,7 +46,7 @@
         AllowOverride None
         Require all granted
     </Directory>
-
+    # Test
     # Custom configuration goes in this file
     # IncludeOptional <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
 </VirtualHost>
