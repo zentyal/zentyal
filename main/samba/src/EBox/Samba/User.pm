@@ -461,6 +461,23 @@ sub create
         $isSystemUser = 1;
     }
 
+    # Check license user limit for non-system users
+    unless ($isSystemUser) {
+        my $global = EBox::Global->getInstance();
+        my $maxUsers = $global->licenseMaxUsers();
+        if (defined $maxUsers) {
+            my $currentUsers = $class->countUsers();
+            if ($currentUsers >= $maxUsers) {
+                throw EBox::Exceptions::External(
+                    __x('Cannot create user. Your license allows a maximum of {max} users and you currently have {current}. Please upgrade your license or remove existing users.',
+                        max => $maxUsers,
+                        current => $currentUsers
+                    )
+                );
+            }
+        }
+    }
+
     my @userPwAttrs = getpwnam ($samAccountName);
     if (@userPwAttrs) {
         throw EBox::Exceptions::External(__('Username already exists on the system'));
@@ -1063,6 +1080,29 @@ sub lastUid
         $ret = ($lastUid < MINUID ? MINUID : $lastUid);
     }
     return $ret;
+}
+
+# Method: countUsers
+#
+#       Returns the number of non-system users
+#
+# Returns:
+#
+#       integer - number of users with uidNumber >= MINUID
+#
+sub countUsers
+{
+    my ($class) = @_;
+
+    my $count = 0;
+    my $sambaModule = EBox::Global->modInstance('samba');
+    foreach my $user (@{$sambaModule->users()}) {
+        my $uid = $user->get('uidNumber');
+        next if ($uid < MINUID);
+        $count++;
+    }
+
+    return $count;
 }
 
 sub _newUserUidNumber
