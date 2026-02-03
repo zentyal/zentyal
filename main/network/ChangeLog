@@ -1,5 +1,6 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Add validation to prevent duplicate service names in ServiceTable
 	+ Add apparmor local profile
 	+ Update default Netplan configuration file used in Ubuntu 24.04
 	+ Fix bridge configuration
