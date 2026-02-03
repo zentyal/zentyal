@@ -57,6 +57,7 @@ use constant BIND9CONFOPTIONSFILE => "/etc/bind/named.conf.options";
 use constant BIND9CONFLOCALFILE   => "/etc/bind/named.conf.local";
 use constant BIND9CONFDEFAULTZONES   => "/etc/bind/named.conf.default-zones";
 use constant BIND9_UPDATE_ZONES   => "/var/lib/bind";
+use constant APPARMOR_NAMED      => '/etc/apparmor.d/local/usr.sbin.named';
 
 use constant PIDFILE       => "/var/run/named/named.pid";
 use constant KEYSFILE => BIND9CONFDIR . '/keys';
@@ -96,12 +97,6 @@ sub appArmorProfiles
                 'binary' => 'usr.sbin.named',
                 'local'  => 1,
                 'file'   => 'dns/apparmor-named.local.mas',
-                'params' => \@params,
-            },
-            {
-                'binary' => 'usr.sbin.mysqld',
-                'local'  => 1,
-                'file'   => 'dns/apparmor-mysqld.local.mas',
                 'params' => \@params,
             }
     ];
@@ -565,6 +560,11 @@ sub usedFiles
             'file'   => KEYSFILE,
             'module' => 'dns',
             'reason' => __('Keys configuration file'),
+        },
+                    {
+             'file'   => APPARMOR_NAMED,
+             'module' => 'dns',
+             'reason' => __x('AppArmor profile for {server} daemon', server => 'named'),
         },
     ];
 }
