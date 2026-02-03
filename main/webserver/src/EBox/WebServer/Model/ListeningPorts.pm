@@ -91,7 +91,7 @@ sub validateTypedRow
         $SSLPort = $changedValues->{sslPort}->value();
     }
 
-    if ($port ~~ 'port_disabled' and $SSLPort ~~ 'sslPort_disabled') {
+    if ($port eq 'port_disabled' and $SSLPort eq 'sslPort_disabled') {
         throw EBox::Exceptions::External(__('You must enable, at least, a listening port to make this module useful.'));
     }
 

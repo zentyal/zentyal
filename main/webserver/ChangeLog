@@ -2,6 +2,7 @@
 	+ Set version to 8.1.0
 	+ Allow disabling HTTP/HTTPS ports independently and prevent invalid vhost configurations
 	+ Fix vhost templates to not generate VirtualHost sections for globally disabled ports
+	+ Replace deprecated smartmatch operator with string comparison in ListeningPorts model
 8.0.1
 	+ Fix dump configuration
 8.0.0
