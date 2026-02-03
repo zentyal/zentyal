@@ -20,9 +20,6 @@ use warnings;
 package EBox::Squid::LogHelper;
 use base 'EBox::LogHelper';
 
-no warnings 'experimental::smartmatch';
-use feature qw(switch);
-
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
@@ -87,21 +84,18 @@ sub processLine # (file, line, logger)
     }
 
     my $event;
-    given($fields[3]) {
-        when (m{TCP_DENIED(_ABORTED)?/403}) {
-            if ($file eq  E2GUARDIANLOGFILE) {
-                $event = 'filtered';
-            } else {
-                $event = 'denied';
-            }
+    my $code = $fields[3];
+    if ($code =~ m{TCP_DENIED(_ABORTED)?/403}) {
+        if ($file eq  E2GUARDIANLOGFILE) {
+            $event = 'filtered';
+        } else {
+            $event = 'denied';
         }
-        when ('TCP_DENIED/407') {
-            # This entry requires authentication, so ignore it
-            return;
-        }
-        default {
-            $event = 'accepted';
-        }
+    } elsif ($code eq 'TCP_DENIED/407') {
+        # This entry requires authentication, so ignore it
+        return;
+    } else {
+        $event = 'accepted';
     }
 
     # Trim URL string as DB stores it as a varchar(1024)
