@@ -1,5 +1,8 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Remove MySQL apparmor profile as it is now managed in the Core
+	+ Update named apparmor profile
+	+ Update usedFiles method
 8.0.1
 	+ Hide Bind9 version
 8.0.0
