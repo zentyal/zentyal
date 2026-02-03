@@ -7,6 +7,8 @@
 	+ Update usedFiles method
 	+ Minor fix that prevents generates strings for translation
 	+ Allow setting domain level from the Zentyal UI
+	+ Add countUsers() method to count non-system users
+	+ Enforce license user limit when creating new users
 8.0.2
 	+ Change DNS keytab directory. Fix #2080
 	+ Typo in dumpConfig method. Fix #2048
