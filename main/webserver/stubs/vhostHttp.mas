@@ -26,7 +26,7 @@
   my $docRoot = EBox::WebServer::PlatformPath::VDocumentRoot();
   my $etcPath = EBox::WebServer::PlatformPath::ConfDirPath();
 </%init>
-% if ($sslSupport ne 'forcessl') {
+% if ($port && $sslSupport ne 'forcessl') {
 <VirtualHost *:<% $port %>>
     ServerAdmin webmaster@<% $hostname %>
 
@@ -46,7 +46,7 @@
     # Custom configuration goes in this file
     # IncludeOptional <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
 </VirtualHost>
-% } else {
+% } elsif ($port && $sslSupport eq 'forcessl') {
 <VirtualHost *:<% $port %>>
     ServerAdmin webmaster@<% $hostname %>
 
