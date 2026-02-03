@@ -281,6 +281,18 @@ sub addService
 {
     my ($self, %params) = @_;
 
+    # Validate unique service name before adding
+    my $printableName = $params{'printableName'} || $params{'name'};
+    if ($printableName) {
+        my $existingRow = $self->findValue('printableName' => $printableName);
+        if (defined($existingRow)) {
+            throw EBox::Exceptions::External(
+                __x('A service with name {name} already exists',
+                    name => $printableName)
+            );
+        }
+    }
+
     my $id = $self->addRow(_serviceParams(%params));
 
     unless (defined($id)) {
@@ -342,6 +354,19 @@ sub setService
     }
 
     my $id = $row->id();
+    
+    # Validate unique printableName if it's being changed
+    my $printableName = $params{'printableName'} || $params{'name'};
+    if ($printableName) {
+        my $existingRow = $self->findValue('printableName' => $printableName);
+        if (defined($existingRow) && ($existingRow->id() ne $id)) {
+            throw EBox::Exceptions::External(
+                __x('A service with name {name} already exists',
+                    name => $printableName)
+            );
+        }
+    }
+    
     $self->setRow(1, _serviceParams(%params), 'id' => $id);
 
     my $serviceConf = $self->parentModule()->model('ServiceConfigurationTable');
@@ -411,6 +436,18 @@ sub setService
 sub addMultipleService
 {
     my ($self, %params) = @_;
+
+    # Validate unique service name before adding
+    my $printableName = $params{'printableName'} || $params{'name'};
+    if ($printableName) {
+        my $existingRow = $self->findValue('printableName' => $printableName);
+        if (defined($existingRow)) {
+            throw EBox::Exceptions::External(
+                __x('A service with name {name} already exists',
+                    name => $printableName)
+            );
+        }
+    }
 
     my $id = $self->addRow(_serviceParams(%params));
 
@@ -495,6 +532,19 @@ sub setMultipleService
     }
 
     my $id = $row->id();
+    
+    # Validate unique printableName if it's being changed
+    my $printableName = $params{'printableName'} || $params{'name'};
+    if ($printableName) {
+        my $existingRow = $self->findValue('printableName' => $printableName);
+        if (defined($existingRow) && ($existingRow->id() ne $id)) {
+            throw EBox::Exceptions::External(
+                __x('A service with name {name} already exists',
+                    name => $printableName)
+            );
+        }
+    }
+    
     $self->setRow(1, _serviceParams(%params), 'id' => $id);
 
     my $serviceConf = $self->parentModule()->model('ServiceConfigurationTable');
@@ -599,6 +649,45 @@ sub _serviceConfParams
            'destination_to_port' => $destinationPortTo,
            'internal' => $internal,
            'readOnly' => $readonly);
+}
+
+# Method: validateTypedRow
+#
+#   Override to validate that the service name is unique
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    if (exists $changedFields->{printableName}) {
+        my $newName = $changedFields->{printableName}->value();
+        
+        # Check if another service with the same printable name already exists
+        my $existingRow = $self->findValue('printableName' => $newName);
+        
+        if (defined($existingRow)) {
+            # If we're editing (not adding), check if it's the same row
+            if ($action eq 'update') {
+                my $currentId = $allFields->{id};
+                if (defined($currentId) and ($existingRow->id() ne $currentId)) {
+                    throw EBox::Exceptions::External(
+                        __x('A service with name {name} already exists',
+                            name => $newName)
+                    );
+                }
+            } else {
+                # For add action, any existing service with same name is a duplicate
+                throw EBox::Exceptions::External(
+                    __x('A service with name {name} already exists',
+                        name => $newName)
+                );
+            }
+        }
+    }
 }
 
 sub _servicesHelp
