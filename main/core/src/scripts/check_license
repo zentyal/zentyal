@@ -24,7 +24,14 @@ JSON_STRING=$( jq -n \
             )
 
 # Run the request to "check the license status"
-REQUEST=$(/usr/bin/curl --silent -X POST -H "Content-Type: application/json" -d "$JSON_STRING" https://ucp.zentyal.com/api/lk/status -w "%{http_code}" -o $RESPONSE_DATA_FILE_TMP)
+REQUEST=$(/usr/bin/timeout 30 /usr/bin/curl --silent -X POST -H "Content-Type: application/json" -d "$JSON_STRING" https://ucp.zentyal.com/api/lk/status -w "%{http_code}" -o $RESPONSE_DATA_FILE_TMP)
+CURL_EXIT=$?
+
+# Check if timeout occurred
+if [ $CURL_EXIT -eq 124 ]; then
+	logger UCP[$$] ERROR: Connection timeout while checking license status.
+	exit 1;
+fi
 
 if [ $REQUEST -eq "200" ] || [ $REQUEST -eq "201" ]; then
 	# Persisting LK data in a system file
@@ -69,7 +76,6 @@ if [ $REQUEST -eq "200" ] || [ $REQUEST -eq "201" ]; then
 
 	# exit codes according to /usr/include/sysexits.h
 	touch /var/lib/zentyal/.commercial-edition
-	zs webadmin restart
 	
 	if [ $LK_STATUS_CODE == "L_ACTIVE" ]; then
 		logger UCP[$$] INFO: License key $LK_CODE is valid.

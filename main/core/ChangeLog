@@ -4,6 +4,10 @@
 	+ Minor nginx.conf stub update
 	+ Enable Apparmor
 	+ Create repository file using deb822 style
+	+ Add isExpired() method to check if any commercial edition is expired
+	+ Unify expired license behavior for all commercial editions, not just trial
+	+ Add licenseMaxUsers() method to retrieve user limit from license
+	+ Update cron script to stop services for any expired edition
 8.0.8
 	+ Improve the daily zentyal cron job
 	+ Fix the password confirmation value in the Log module. Fix #2189
