@@ -451,6 +451,10 @@ sub _setDfltVhost
                 $e->throw();
             }
         }
+        # Remove the configuration file when HTTP is disabled
+        if (EBox::Sudo::fileTest('-f', VHOST_DFLT_FILE)) {
+            EBox::Sudo::root('rm -f ' . VHOST_DFLT_FILE);
+        }
     }
 }
 
@@ -487,6 +491,10 @@ sub _setDfltSSLVhost
             if ($e->exitValue() != 1) {
                 $e->throw();
             }
+        }
+        # Remove the configuration file when HTTPS is disabled
+        if (EBox::Sudo::fileTest('-f', VHOST_DFLTSSL_FILE)) {
+            EBox::Sudo::root('rm -f ' . VHOST_DFLTSSL_FILE);
         }
     }
 }
@@ -938,6 +946,23 @@ sub isHTTPSPortEnabled
     return undef;
 }
 
+# Method: isHTTPPortEnabled
+#
+# Returns:
+#
+#   boolean - 1 if HTTP port is enabled, undef otherwise
+#
+sub isHTTPPortEnabled
+{
+    my ($self) = @_;
+
+    if ($self->model('ListeningPorts')->row('form')->elementByName("port")->selectedType() eq 'port_number') {
+        return 1;
+    }
+
+    return undef;
+}
+
 # Method: isPortInUse
 #
 #       Check if port is used
@@ -974,29 +999,56 @@ sub _createNetworkServices
 
     my $services = EBox::Global->modInstance('network');
     my $serviceName = 'webserver';
-    if($services->serviceExists(name => $serviceName)) {
-        $services->removeService(name => $serviceName)
+    
+    my @servicesList = ();
+    
+    # Only add HTTP service if port is enabled
+    if (defined $port) {
+        push @servicesList, {
+            'protocol' => 'tcp',
+            'sourcePort' => 'any',
+            'destinationPort' => $port,
+        };
+    }
+    
+    # Only add HTTPS service if port is enabled
+    if (defined $sslPort) {
+        push @servicesList, {
+            'protocol' => 'tcp',
+            'sourcePort' => 'any',
+            'destinationPort' => $sslPort,
+        };
     }
 
-    $services->addMultipleService(
-        'name' => $serviceName,
-        'printableName' => 'Webserver',
-        'description' => __('Webserver Service'),
-        'internal' => 1,
-        'readOnly' => 1,
-        'services' => [
-            {
-                'protocol' => 'tcp',
-                'sourcePort' => 'any',
-                'destinationPort' => $port,
-            },
-            {
-                'protocol' => 'tcp',
-                'sourcePort' => 'any',
-                'destinationPort' => $sslPort,
-            },
-        ],
-    );
+    # Update or create service with only the enabled ports
+    if (@servicesList) {
+        if ($services->serviceExists(name => $serviceName)) {
+            # Update existing service
+            $services->setMultipleService(
+                'name' => $serviceName,
+                'printableName' => 'Webserver',
+                'description' => __('Webserver Service'),
+                'internal' => 1,
+                'readOnly' => 1,
+                'services' => \@servicesList,
+            );
+        } else {
+            # Create new service
+            $services->addMultipleService(
+                'name' => $serviceName,
+                'printableName' => 'Webserver',
+                'description' => __('Webserver Service'),
+                'internal' => 1,
+                'readOnly' => 1,
+                'services' => \@servicesList,
+            );
+        }
+    } else {
+        # If no ports are enabled, remove the service completely
+        if ($services->serviceExists(name => $serviceName)) {
+            $services->removeService(name => $serviceName);
+        }
+    }
 }
 
 sub _createFirewallRule

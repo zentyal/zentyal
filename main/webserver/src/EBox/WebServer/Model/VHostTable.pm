@@ -83,7 +83,7 @@ sub new
 #
 sub validateTypedRow
 {
-    my ($self, $action, $changedFields) = @_;
+    my ($self, $action, $changedFields, $allFields) = @_;
 
     if (exists $changedFields->{name}) {
         my $vhost =  $changedFields->{name}->value();
@@ -116,6 +116,40 @@ sub validateTypedRow
                     .'{closepar}',
                     openhref => qq{<a href='/CA/Index'>}, closehref => qq{</a>},
                     openpar => '<p>', closepar => '</p>')
+                );
+            }
+        } elsif ($changedFields->{ssl}->value() eq 'disabled') {
+            # When SSL is disabled, HTTP must be enabled
+            unless ($webserverMod->isHTTPPortEnabled()) {
+                throw EBox::Exceptions::External(
+                    __('You need to enable HTTP listening port to use virtual hosts without SSL.')
+                );
+            }
+        }
+    }
+    
+    # Check if enabling a vhost that the required port is enabled
+    if (exists $changedFields->{enabled} and $changedFields->{enabled}->value()) {
+        my $webserverMod = $self->parentModule();
+        # Get SSL value from allFields (which includes all row fields)
+        my $ssl;
+        if (exists $allFields->{ssl}) {
+            $ssl = $allFields->{ssl}->value();
+        } else {
+            # Fallback to disabled if ssl field doesn't exist
+            $ssl = 'disabled';
+        }
+        
+        if ($ssl eq 'disabled') {
+            unless ($webserverMod->isHTTPPortEnabled()) {
+                throw EBox::Exceptions::External(
+                    __('You need to enable HTTP listening port to enable this virtual host (SSL Support: Disabled).')
+                );
+            }
+        } elsif ($ssl eq 'allowssl' or $ssl eq 'forcessl') {
+            unless ($webserverMod->isHTTPSPortEnabled()) {
+                throw EBox::Exceptions::External(
+                    __('You need to enable HTTPS listening port to enable this virtual host (SSL Support: Allow SSL or Force SSL).')
                 );
             }
         }

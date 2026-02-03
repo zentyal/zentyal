@@ -1,5 +1,6 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Allow disabling HTTP/HTTPS ports independently and prevent invalid vhost configurations
 8.0.1
 	+ Fix dump configuration
 8.0.0
