@@ -9,6 +9,7 @@
 	+ Unify expired license behavior for all commercial editions, not just trial
 	+ Add licenseMaxUsers() method to retrieve user limit from license
 	+ Update cron script to stop services for any expired edition
+	+ Add MySQL apparmor profile
 8.0.8
 	+ Improve the daily zentyal cron job
 	+ Fix the password confirmation value in the Log module. Fix #2189
