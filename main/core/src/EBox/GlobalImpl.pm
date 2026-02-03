@@ -1222,6 +1222,52 @@ sub communityEdition
     return ($edition eq 'community');
 }
 
+# Method: isExpired
+#
+# Returns:
+#
+#    boolean - true if any edition (trial, professional, business, premium) is expired
+#
+sub isExpired
+{
+    my ($self) = @_;
+
+    my $edition = $self->edition();
+
+    return ($edition =~ /-expired$/);
+}
+
+# Method: licenseMaxUsers
+#
+# Returns:
+#
+#    Integer - maximum number of users allowed by license, or undef for unlimited/community
+#
+sub licenseMaxUsers
+{
+    my ($self) = @_;
+
+    # Community edition has no limits
+    if ($self->communityEdition()) {
+        return undef;
+    }
+
+    my $usersFile = '/var/lib/zentyal/.license_users';
+    unless (-f $usersFile) {
+        return undef;
+    }
+
+    my $users = read_file($usersFile);
+    chomp($users);
+
+    # Empty or "unlimited" means no limit
+    if (not $users or $users eq '' or $users eq 'unlimited' or $users == 0) {
+        return undef;
+    }
+
+    return int($users);
+}
+
 # Method: addModuleToPostSave
 #
 #      Add a module to be saved after single normal saving changes
