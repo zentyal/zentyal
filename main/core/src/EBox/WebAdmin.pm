@@ -155,6 +155,34 @@ sub _enforceServiceState
     }
 }
 
+# Method: appArmorProfiles
+#
+#   Overrides to set the own AppArmor profile
+#
+# Overrides:
+#
+#   <EBox::Module::Base::appArmorProfiles>
+#
+sub appArmorProfiles
+{
+    my ($self) = @_;
+
+    my $global = $self->global();
+
+    EBox::info('Setting Core apparmor profiles');
+
+    my @params = ();
+
+    return [
+        {
+            'binary' => 'usr.sbin.mysqld',
+            'local'  => 1,
+            'file'   => 'core/apparmor-mysqld.local.mas',
+            'params' => \@params,
+        }
+    ];
+}
+
 sub _writeNginxConfFile
 {
     my ($self) = @_;
