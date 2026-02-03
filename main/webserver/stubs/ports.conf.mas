@@ -5,8 +5,8 @@
 Parameters:
 
     bindAddress - String - The bind address.
-    port        - Int the port number to listen to Web requests
-    sslPort     - Int the port number to listen to Web requests over SSL
+    port        - Int the port number to listen to Web requests (undef if disabled)
+    sslPort     - Int the port number to listen to Web requests over SSL (undef if disabled)
 
 </%doc>
 <%args>
@@ -14,7 +14,9 @@ Parameters:
   $port
   $sslPort
 </%args>
+% if ($port) {
 Listen <% $bindAddress %>:<% $port %>
+% }
 % if ($sslPort) {
 Listen <% $bindAddress %>:<% $sslPort %>
 % }

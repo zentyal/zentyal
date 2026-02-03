@@ -94,6 +94,70 @@ sub validateTypedRow
     if ($port ~~ 'port_disabled' and $SSLPort ~~ 'sslPort_disabled') {
         throw EBox::Exceptions::External(__('You must enable, at least, a listening port to make this module useful.'));
     }
+
+    # Check if disabling HTTP port
+    if (exists $changedValues->{port} and $changedValues->{port}->selectedType() eq 'port_disabled') {
+        $self->_checkVirtualHostsBeforeDisablingHTTP();
+    }
+
+    # Check if disabling HTTPS port
+    if (exists $changedValues->{sslPort} and $changedValues->{sslPort}->selectedType() eq 'sslPort_disabled') {
+        $self->_checkVirtualHostsBeforeDisablingHTTPS();
+    }
+}
+
+sub _checkVirtualHostsBeforeDisablingHTTP
+{
+    my ($self) = @_;
+
+    my $webserverMod = $self->parentModule();
+    my $vhostModel = $webserverMod->model('VHostTable');
+    
+    my @conflictingVHosts;
+    foreach my $id (@{$vhostModel->ids()}) {
+        my $row = $vhostModel->row($id);
+        if ($row->valueByName('enabled')) {
+            my $ssl = $row->valueByName('ssl');
+            # Virtual hosts with SSL disabled need HTTP
+            if ($ssl eq 'disabled') {
+                push @conflictingVHosts, $row->valueByName('name');
+            }
+        }
+    }
+
+    if (@conflictingVHosts) {
+        throw EBox::Exceptions::External(
+            __x('Cannot disable HTTP port. The following virtual hosts are enabled and require HTTP (SSL Support: Disabled): {vhosts}. Please disable them first.',
+                vhosts => join(', ', @conflictingVHosts))
+        );
+    }
+}
+
+sub _checkVirtualHostsBeforeDisablingHTTPS
+{
+    my ($self) = @_;
+
+    my $webserverMod = $self->parentModule();
+    my $vhostModel = $webserverMod->model('VHostTable');
+    
+    my @conflictingVHosts;
+    foreach my $id (@{$vhostModel->ids()}) {
+        my $row = $vhostModel->row($id);
+        if ($row->valueByName('enabled')) {
+            my $ssl = $row->valueByName('ssl');
+            # Virtual hosts with SSL enabled (allowssl or forcessl) need HTTPS
+            if ($ssl eq 'allowssl' or $ssl eq 'forcessl') {
+                push @conflictingVHosts, $row->valueByName('name');
+            }
+        }
+    }
+
+    if (@conflictingVHosts) {
+        throw EBox::Exceptions::External(
+            __x('Cannot disable HTTPS port. The following virtual hosts are enabled and require HTTPS (SSL Support: Allow SSL or Force SSL): {vhosts}. Please disable them first.',
+                vhosts => join(', ', @conflictingVHosts))
+        );
+    }
 }
 
 sub _checkIfPortIsInUse
@@ -238,6 +302,7 @@ sub _table
 # Returns:
 #
 #   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for requests.
+#             Returns undef if HTTP port is disabled.
 #
 # Overrides:
 #
@@ -251,7 +316,7 @@ sub targetHTTPPort
         return $self->row("form")->elementByName("port")->value();
     }
     
-    return return $self->parentModule()->defaultHTTPPort();;
+    return undef;
 }
 
 # Method: targetHTTPSPort - Inherited from HA module, don't remove this docblock
@@ -259,6 +324,7 @@ sub targetHTTPPort
 # Returns:
 #
 #   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for SSL requests.
+#             Returns undef if HTTPS port is disabled.
 #
 # Overrides:
 #
@@ -272,7 +338,7 @@ sub targetHTTPSPort
         return $self->row("form")->elementByName("sslPort")->value();
     }
     
-    return $self->parentModule()->defaultHTTPSPort();
+    return undef;
 }
 
 1;
