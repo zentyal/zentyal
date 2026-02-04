@@ -1,0 +1,9 @@
+<%args>
+$nosslcertck => 0
+</%args>
+[Unit]
+Description=Zentyal fetchmail daemon
+
+[Service]
+ExecStart=/bin/su fetchmail -c '/usr/bin/fetchmail --nodetach<% $nosslcertck ? ' --nosslcertck' : '' %> -f /etc/zentyal-fetchmail.rc'
+Restart=on-failure

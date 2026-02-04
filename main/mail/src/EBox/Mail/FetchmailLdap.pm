@@ -44,6 +44,7 @@ use constant {
  FETCHMAIL_DN        => 'ou=fetchmail,ou=postfix',
  FETCHMAIL_CONF_FILE => '/etc/zentyal-fetchmail.rc',
  FETCHMAIL_SERVICE   => 'zentyal.fetchmail',
+ FETCHMAIL_SERVICE_FILE => '/lib/systemd/system/zentyal.fetchmail.service',
  FETCHMAIL_CRON_FILE => '/etc/cron.d/ebox-mail',
 };
 
@@ -440,6 +441,27 @@ sub writeConf
                          }
                         );
 
+    # Generate systemd service file with nosslcertck flag if enabled
+    my $retrievalServices = $mail->model('RetrievalServices');
+    my $nosslcertck = $retrievalServices->value('nosslcertck') ? 1 : 0;
+    
+    my $serviceChanged = EBox::Module::Base::writeConfFileNoCheck(
+                         FETCHMAIL_SERVICE_FILE,
+                         'mail/zentyal.fetchmail.service.mas',
+                         [
+                          nosslcertck => $nosslcertck,
+                         ],
+                         {
+                             uid  => 'root',
+                             gid  => 'root',
+                             mode =>  '0644',
+                         }
+                        );
+
+    # Reload systemd daemon if service file changed
+    if ($serviceChanged) {
+        EBox::Sudo::root('systemctl daemon-reload');
+    }
 }
 
 sub daemonMustRun
