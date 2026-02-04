@@ -78,14 +78,14 @@ sub validateTypedRow
 
     my $port = $allValues->{port}->value();
     if (exists $changedValues->{port}) {
-        if($port != $changedValues->{port}->value()) {
+        if($port ne $changedValues->{port}->value()) {
             $self->_checkIfPortIsInUse($changedValues->{port}->value());
         }
         $port = $changedValues->{port}->value();
     }
     my $SSLPort = $allValues->{sslPort}->value();
     if (exists $changedValues->{sslPort}) {
-        if($SSLPort != $changedValues->{sslPort}->value()) {
+        if($SSLPort ne $changedValues->{sslPort}->value()) {
             $self->_checkIfPortIsInUse($changedValues->{sslPort}->value());
         }
         $SSLPort = $changedValues->{sslPort}->value();
@@ -167,7 +167,7 @@ sub _checkIfPortIsInUse
     my $webserverMod = $self->parentModule();
     my $isPortInUse = $webserverMod->isPortInUse($port);
 
-    if($isPortInUse eq 1) {
+    if(defined $isPortInUse and $isPortInUse eq 1) {
         throw EBox::Exceptions::External(
             __x(
                 'Port {port} is already in use', 
