@@ -1,6 +1,7 @@
 8.1.0
 	+ Set version to 8.1.0
 	+ Replace deprecated given/when constructs with if/elsif in zs script
+	+ Fix dashboard widgets with special characters in names using data attributes
 	+ Update package dependencies
 	+ Minor nginx.conf stub update
 	+ Enable Apparmor

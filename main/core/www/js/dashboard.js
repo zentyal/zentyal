@@ -74,14 +74,15 @@ Zentyal.Dashboard.toggleClicked = function(element) {
 };
 
 Zentyal.Dashboard.closeWidget = function(wid) {
-    var selector = '#widget_' + Zentyal.escapeSelector(wid);
-    var widget = $(selector);
+    // Use attribute selector instead of ID to handle special characters
+    var widget = $(".widgetBox[data-widget-fullname='" + wid + "']");
     widget.fadeOut(500, function() {
         var dashboard = widget.closest('.dashboard');
         widget.remove();
 
-        var placeholdeSel = selector + '_placeholder';
-        if($(placeholdeSel).length > 0) {
+        // Check if placeholder exists in widget list
+        var placeholder = $(".widgetBarBox[data-widget-fullname='" + wid + "_placeholder']");
+        if(placeholder.length > 0) {
             var parts = wid.split(':');
             Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(parts[0], Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
          }
@@ -92,11 +93,11 @@ Zentyal.Dashboard.closeWidget = function(wid) {
 Zentyal.Dashboard.dashboardSortableUpdate = function (dashboard) {
     var dashboardId = dashboard.attr('id');
     var widgets = dashboard.find('.widgetBox').map( function () {
-        if (this.id === '') {
-            return null;
-        }
-        return this.id.split('_')[1];
-    }).get().join(',');
+        // Always use data-widget-fullname which contains module:widgetname
+        return $(this).attr('data-widget-fullname');
+    }).get().filter(function(name) {
+        return name != null && name !== '';
+    }).join(',');
 
     $.ajax({
         url: '/Dashboard/Update',
@@ -119,7 +120,15 @@ Zentyal.Dashboard.widget = function(m,w,full) {
         top_id = '_bar';
         cursor = 'default';
     }
-    str = "<div class='widgetBox' style='opacity: " + opacity + ";' id='widget_" + m + ":" + w.name + top_id + "'>" +
+    // Use data attributes to store widget info, avoiding issues with special chars in IDs
+    var widgetFullName = m + ':' + w.name;
+    // Generate a simple sequential ID or use timestamp to avoid special characters
+    var widgetId = 'widget_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    if (top_id) {
+        widgetId += top_id;
+    }
+    
+    str = "<div class='widgetBox' style='opacity: " + opacity + ";' id='" + widgetId + "' data-widget-module='" + m + "' data-widget-name='" + w.name + "' data-widget-fullname='" + widgetFullName + "'>" +
         "<div class='widgetTopBar'>" +
         "<div style='cursor: " + cursor + ";' class='widgetHandle'></div>" +
         "<div class='widgetName'>" + w.title + "</div>" +
@@ -128,12 +137,17 @@ Zentyal.Dashboard.widget = function(m,w,full) {
     return str;
 };
 
-Zentyal.Dashboard.parseWidgetId = function (wid) {
-    var parts = wid.split('_')[1].split(':');
-    return {
-        module: parts[0],
-        widget: parts[1]
-    };
+Zentyal.Dashboard.parseWidgetId = function (wid, element) {
+    // Always use data attributes when element is provided
+    if (element) {
+        var $el = $(element);
+        return {
+            module: $el.attr('data-widget-module'),
+            widget: $el.attr('data-widget-name')
+        };
+    }
+    // Fallback: this shouldn't happen with new approach
+    throw new Error('parseWidgetId requires element parameter');
 };
 
 Zentyal.Dashboard.toggleClose = function () {
@@ -420,8 +434,8 @@ Zentyal.Dashboard.updateWidgets = function() {
         if (id === '') {
            return true;
         }
-        var idParts = Zentyal.Dashboard.parseWidgetId(id);
-        var url = '/Dashboard/WidgetJSON?module=' + idParts.module + '&widget=' + idParts.widget;
+        var idParts = Zentyal.Dashboard.parseWidgetId(id, widgetBox);
+        var url = '/Dashboard/WidgetJSON?module=' + idParts.module + '&widget=' + encodeURIComponent(idParts.widget);
         $.ajax({
                          url:   url,
                          type: 'get',
@@ -484,9 +498,9 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
         opacity: 0.8,
         start: function(event, ui) {
             var id = ui.item.attr('id');
-            var idParts = Zentyal.Dashboard.parseWidgetId(id);
+            var idParts = Zentyal.Dashboard.parseWidgetId(id, ui.item[0]);
             $.ajax({
-                url: '/Dashboard/Widget?module=' + idParts.module + '&widget=' + idParts.widget,
+                url: '/Dashboard/Widget?module=' + idParts.module + '&widget=' + encodeURIComponent(idParts.widget),
                 type: 'get',
                 dataType: 'html',
                 success: function(response) {
@@ -539,10 +553,10 @@ Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start, c
     }
 
     for (var i = start; i < end; ++i) {
-        var id = 'widget_' + module + ':' + widgets[i]['name'];
-        widgets[i].id = id;
-        // recalculate present because it can have changed
-        widgets[i].present =  $('.dashboard #' + Zentyal.escapeSelector(id)).length > 0;
+        var fullName = module + ':' + widgets[i]['name'];
+        widgets[i].id = fullName; // Keep for compatibility but not used as HTML id
+        // recalculate present because it can have changed - use attribute selector
+        widgets[i].present = $(".dashboard .widgetBox[data-widget-fullname='" + fullName + "']").length > 0;
     }
 
     var html = Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList(module, widgets, start, end);
