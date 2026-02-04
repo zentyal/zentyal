@@ -2,6 +2,7 @@
   @backups => ()
   $modulesChanged => 1
   $subscribed => undef
+  $isADC => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -9,8 +10,8 @@ use EBox::Config;
 </%init>
 <!-- <div class="insideTab"> -->
 <& .backupSection, modulesChanged => $modulesChanged &>
-<& .restoreSection &>
-<& .listSection, backups => \@backups &>
+<& .restoreSection, isADC => $isADC &>
+<& .listSection, backups => \@backups, isADC => $isADC &>
 <& .reportSection &>
 <%def .backupSection>
 <%args>
@@ -63,6 +64,9 @@ ENDJS
 </%def>
 
 <%def .restoreSection>
+<%args>
+$isADC => 0
+</%args>
 <%init>
 my $id = 'backupfile';
 my $loadingId = $id . '_loading';
@@ -90,14 +94,22 @@ my $onClickJs =<< "ENDJS" ;
      Zentyal.Dialog.showURL(url, {title: '$title ', data: data});
      return false;
 ENDJS
+
+my $disabledAttr = $isADC ? 'disabled' : '';
 </%init>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/fileUpload.js">//</script>
 <div class="item-block">
 <h3><% __('Restore Backup from File') %></h3>
+% if ($isADC) {
+<div class='warning'>
+    <% __('Configuration restore is disabled because this server is configured as an Additional Domain Controller (ADC). Restoring backups on ADC servers can cause domain instability and inconsistencies. If you need to restore configuration, please demote this server from ADC role first.') %>
+</div>
+% } else {
 <div class='help'>
         <% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
 </div>
+% }
 
 <div id="<% $id %>" class="grey-block">
   <form action="/Uploader"
@@ -111,13 +123,14 @@ ENDJS
              name => $id . '_path',
              id   => $id . '_path',
              onchange => $onChange,
+             disabled => $isADC,
           &>
           <span id="<% $id . '_loading'%>"></span>
       </div>
   </form>
   <form class="force-right" action='ConfirmBackup' method='POST' enctype="multipart/form-data" id='<% $formId %>' >
       <input class="btn-green" type='submit' name='restoreFromFile' value="<% $title %>"
-                         onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'/>
+                         onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile' <% $disabledAttr %>/>
   </form>
   </div>
 </div>
@@ -127,6 +140,7 @@ ENDJS
 <%def .listSection>
 <%args>
 @backups
+$isADC => 0
 </%args>
 <%init>
 return if not @backups;
@@ -136,6 +150,8 @@ my $restoreTitle = __('Restore configuration using this file');
 my $restoreAlt = $modalTitle;
 my $downloadTitle = __('Download backup file');
 my $deleteTitle = __('Delete backup');
+my $disabledClass = $isADC ? 'btn-disabled' : '';
+my $disabledAttr = $isADC ? 'disabled' : '';
 
 my %printableTypeById = (
   $EBox::Backup::FULL_BACKUP_ID          => __('Full'),
@@ -148,6 +164,11 @@ my %printableTypeById = (
 % if(@backups){
 <div class="item-block">
 <h3><% __("Backups' list") %></h3>
+% if ($isADC) {
+<div class='warning'>
+    <% __('Configuration restore is disabled because this server is configured as an Additional Domain Controller (ADC). Restoring backups on ADC servers can cause domain instability and inconsistencies.') %>
+</div>
+% }
 <table class='dataTable' cellspacing='0'>
         <thead>
                 <tr>
@@ -187,11 +208,12 @@ my %printableTypeById = (
                                                 name='id'
                                                 value="<% $backup->{'id'} %>"/>
                                         <button name='restoreFromId'
-                                                class="btn-only-icon btn-restore"
+                                                class="btn-only-icon btn-restore <% $disabledClass %>"
                                                 value="Restore"
                                                 title="<% $restoreTitle %>"
                                                 alt="<% $restoreAlt %>"
                                                 onclick="<% $restoreJS %>"
+                                                <% $disabledAttr %>
                                         />
                                         <button name='download'
                                                 class="btn-only-icon btn-download"

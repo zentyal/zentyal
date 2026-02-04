@@ -1053,6 +1053,38 @@ sub _migrateFromOldVersion
     system("mv $path/global.tmp $global");
 }
 
+# Method: _checkADCRestore
+#
+#   Check if the server is configured as Additional Domain Controller (ADC)
+#   and prevents restore operations as they can leave the environment unstable
+#
+# Exceptions:
+#
+#   External - If server is configured as ADC
+#
+sub _checkADCRestore
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+    
+    # Check if samba module is installed and enabled
+    if ($global->modExists('samba')) {
+        my $samba = $global->modInstance('samba');
+        if ($samba->isEnabled() and $samba->isProvisioned()) {
+            # Check if server is configured as Additional Domain Controller
+            my $dcMode = $samba->dcMode();
+            if ($dcMode eq 'adc') {
+                throw EBox::Exceptions::External(
+                    __('Configuration backup cannot be restored on servers configured as Additional Domain Controllers (ADC). ' .
+                       'Restoring backups on ADC servers can cause domain instability and inconsistencies. ' .
+                       'If you need to restore configuration, please demote this server from ADC role first.')
+                );
+            }
+        }
+    }
+}
+
 # Method: prepareRestoreBackup
 #
 #       Prepares a backup restauration
@@ -1078,6 +1110,9 @@ sub _migrateFromOldVersion
 sub prepareRestoreBackup
 {
     my ($self, $file, %options) = @_;
+
+    # Check if server is configured as Additional Domain Controller (ADC)
+    $self->_checkADCRestore();
 
     my $restoreBackupScript = EBox::Config::scripts() . 'restore-backup';
 
@@ -1167,6 +1202,10 @@ sub restoreBackup
     my ($self, $file, %options) = @_;
     defined $file or
         throw EBox::Exceptions::MissingArgument('Backup file');
+
+    # Check if server is configured as Additional Domain Controller (ADC)
+    $self->_checkADCRestore();
+
     exists $options{revokeAllOnModuleFail}
         or $options{revokeAllOnModuleFail} = 1;
     exists $options{modsToExclude} or

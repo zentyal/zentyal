@@ -150,6 +150,16 @@ sub masonParameters
     my $subscribed = 0;
     push @params, (subscribed => $subscribed);
 
+    # Check if server is configured as Additional Domain Controller (ADC)
+    my $isADC = 0;
+    if ($global->modExists('samba')) {
+        my $samba = $global->modInstance('samba');
+        if ($samba->isEnabled() and $samba->isProvisioned()) {
+            $isADC = ($samba->dcMode() eq 'adc') ? 1 : 0;
+        }
+    }
+    push @params, (isADC => $isADC);
+
     return \@params;
 }
 
