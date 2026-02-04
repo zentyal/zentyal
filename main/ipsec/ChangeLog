@@ -1,5 +1,6 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Prevent removal of interfaces with associated L2TP/IPsec connections
 8.0.0
 	+ Set version to 8.0.0
 	+ Add initial-setup and enable-module scripts
