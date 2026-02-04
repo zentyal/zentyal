@@ -32,9 +32,6 @@ package EBox::DHCP::Model::ThinClientOptions;
 
 use base 'EBox::Model::DataForm';
 
-no warnings 'experimental::smartmatch';
-use feature 'switch';
-
 use EBox::DHCP;
 use EBox::DHCP::Types::Group;
 use EBox::Exceptions::DataNotFound;
@@ -81,14 +78,11 @@ sub nextServer
 
     my $nextServerType = $row->elementByName('nextServer');
     my $nextServerSelectedName = $nextServerType->selectedType();
-    given ($nextServerSelectedName) {
-        when ('nextServerEBox') {
-            my $netMod = $self->global()->modInstance('network');
-            return $netMod->ifaceAddress($iface);
-        }
-        default {
-            return $nextServerType->printableValue();
-        }
+    if ($nextServerSelectedName eq 'nextServerEBox') {
+        my $netMod = $self->global()->modInstance('network');
+        return $netMod->ifaceAddress($iface);
+    } else {
+        return $nextServerType->printableValue();
     }
 }
 
@@ -121,13 +115,10 @@ sub remoteFilename
     }
 
     my $nextServerType = $row->valueByName('nextServer');
-    given ($nextServerType) {
-        when ('nextServerHost') {
-            return $row->valueByName('remoteFilename');
-        }
-        default {
-            return '';
-        }
+    if ($nextServerType eq 'nextServerHost') {
+        return $row->valueByName('remoteFilename');
+    } else {
+        return '';
     }
 }
 
