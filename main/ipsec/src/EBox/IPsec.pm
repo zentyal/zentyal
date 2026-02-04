@@ -465,4 +465,137 @@ sub menu
     $root->add($folder);
 }
 
+# Method: vifaceDelete
+#
+#   Implementation of NetworkObserver interface
+#   Check if an interface or virtual interface is in use before deletion
+#
+# Parameters:
+#
+#   iface - interface name
+#   viface - virtual interface identifier
+#
+# Returns:
+#
+#   boolean - true if the interface/viface is in use and cannot be deleted
+#
+sub vifaceDelete
+{
+    my ($self, $iface, $viface) = @_;
+
+    my $network = $self->global()->modInstance('network');
+    my $ifaceAddr;
+    
+    if (defined($viface)) {
+        $ifaceAddr = $network->ifaceAddress("$iface:$viface");
+    } else {
+        $ifaceAddr = $network->ifaceAddress($iface);
+    }
+
+    return 0 unless defined($ifaceAddr);
+
+    # Check all IPsec/L2TP connections
+    my $connectionsModel = $self->model('Connections');
+    foreach my $id (@{$connectionsModel->ids()}) {
+        my $row = $connectionsModel->row($id);
+        next unless $row;
+        
+        my $conf = $row->elementByName('configuration')->foreignModelInstance();
+        next unless $conf;
+        
+        # Get all models in the configuration
+        my @confComponents = @{$conf->models(1)};
+        foreach my $component (@confComponents) {
+            if ($component->isa('EBox::Model::DataForm')) {
+                my $confRow = $component->row();
+                next unless $confRow;
+                
+                # Check left_ipaddr field (local interface IP)
+                my $leftIpElement = $confRow->elementByName('left_ipaddr');
+                if ($leftIpElement) {
+                    my $leftIp = $leftIpElement->value();
+                    if (defined($leftIp) && ($leftIp eq $ifaceAddr)) {
+                        return 1;
+                    }
+                }
+                
+                # Check local_ip field (L2TP tunnel IP)
+                my $localIpElement = $confRow->elementByName('local_ip');
+                if ($localIpElement) {
+                    my $localIp = $localIpElement->value();
+                    if (defined($localIp) && ($localIp eq $ifaceAddr)) {
+                        return 1;
+                    }
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+# Method: freeViface
+#
+#   Implementation of NetworkObserver interface
+#   Remove the configuration that uses an interface/viface
+#
+# Parameters:
+#
+#   iface - interface name
+#   viface - virtual interface identifier
+#
+sub freeViface
+{
+    my ($self, $iface, $viface) = @_;
+
+    my $network = $self->global()->modInstance('network');
+    my $ifaceAddr;
+    
+    if (defined($viface)) {
+        $ifaceAddr = $network->ifaceAddress("$iface:$viface");
+    } else {
+        $ifaceAddr = $network->ifaceAddress($iface);
+    }
+
+    return unless defined($ifaceAddr);
+
+    my @toDelete;
+    my $connectionsModel = $self->model('Connections');
+    
+    foreach my $id (@{$connectionsModel->ids()}) {
+        my $row = $connectionsModel->row($id);
+        next unless $row;
+        
+        my $conf = $row->elementByName('configuration')->foreignModelInstance();
+        next unless $conf;
+        
+        my @confComponents = @{$conf->models(1)};
+        foreach my $component (@confComponents) {
+            if ($component->isa('EBox::Model::DataForm')) {
+                my $confRow = $component->row();
+                next unless $confRow;
+                
+                my $leftIpElement = $confRow->elementByName('left_ipaddr');
+                if ($leftIpElement && defined($leftIpElement->value()) && 
+                    ($leftIpElement->value() eq $ifaceAddr)) {
+                    push @toDelete, $id;
+                    last;
+                }
+                
+                my $localIpElement = $confRow->elementByName('local_ip');
+                if ($localIpElement && defined($localIpElement->value()) && 
+                    ($localIpElement->value() eq $ifaceAddr)) {
+                    push @toDelete, $id;
+                    last;
+                }
+            }
+        }
+    }
+
+    # Delete connections that use this interface
+    foreach my $id (@toDelete) {
+        $connectionsModel->removeRow($id, 1);
+    }
+}
+
 1;
