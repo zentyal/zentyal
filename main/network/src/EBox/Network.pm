@@ -1743,6 +1743,52 @@ sub _checkStatic # (iface, force)
     }
 }
 
+# Method: _checkIfaceHasGatewaysOrRoutes
+#
+#   Check if an interface has associated gateways or static routes
+#
+# Parameters:
+#
+#   iface - interface name
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::DataInUse> - thrown if the interface has
+#   associated gateways or static routes
+#
+sub _checkIfaceHasGatewaysOrRoutes # (iface)
+{
+    my ($self, $iface) = @_;
+
+    # Check for associated gateways
+    my $gatewayTable = $self->model('GatewayTable');
+    foreach my $id (@{$gatewayTable->ids()}) {
+        my $row = $gatewayTable->row($id);
+        next unless $row;
+        my $gwIface = $row->valueByName('interface');
+        if (defined($gwIface) and ($gwIface eq $iface)) {
+            throw EBox::Exceptions::DataInUse(
+                __x('Cannot remove interface {iface} because it has an associated gateway. Please remove the gateway first.',
+                    iface => $iface)
+            );
+        }
+    }
+
+    # Check for associated static routes
+    my $staticRouteModel = $self->model('StaticRoute');
+    foreach my $id (@{$staticRouteModel->ids()}) {
+        my $row = $staticRouteModel->row($id);
+        next unless $row;
+        my $routeIface = $row->valueByName('interface');
+        if (defined($routeIface) and ($routeIface eq $iface)) {
+            throw EBox::Exceptions::DataInUse(
+                __x('Cannot remove interface {iface} because it has an associated static route. Please remove the route first.',
+                    iface => $iface)
+            );
+        }
+    }
+}
+
 # check that no IP are in the same network
 # limitation: we could only check against the current
 # value of dynamic addresses
@@ -2431,14 +2477,23 @@ sub _createBridge
 # Parameters:
 #
 #   id - bridge identifier
+#   force - boolean to indicate if an exception should be raised when
+#           the bridge has associated gateways or routes
 #
 sub _removeBridge # (id)
 {
     my ($self, $id, $force) = @_;
 
-    $self->_removeIface("br$id");
+    my $bridgeName = "br$id";
+
+    # Check if the bridge has associated gateways or static routes
+    unless ($force) {
+        $self->_checkIfaceHasGatewaysOrRoutes($bridgeName);
+    }
+
+    $self->_removeIface($bridgeName);
     try { # TODO: Sometimes when we call this method the iface is already deleted, I think that netplan already handles it
-        EBox::Sudo::root("/usr/sbin/ip link delete br$id type bridge");
+        EBox::Sudo::root("/usr/sbin/ip link delete $bridgeName type bridge");
     } catch {}
 }
 
@@ -2604,14 +2659,23 @@ sub _createBond
 # Parameters:
 #
 #   id - bond identifier
+#   force - boolean to indicate if an exception should be raised when
+#           the bond has associated gateways or routes
 #
 sub _removeBond # (id)
 {
     my ($self, $id, $force) = @_;
 
-    $self->_removeIface("bond$id");
+    my $bondName = "bond$id";
+
+    # Check if the bond has associated gateways or static routes
+    unless ($force) {
+        $self->_checkIfaceHasGatewaysOrRoutes($bondName);
+    }
+
+    $self->_removeIface($bondName);
     try { # TODO: Sometimes when we call this method the iface is already deleted, I think that netplan already handles it
-        EBox::Sudo::root("/usr/sbin/ip link delete bond$id type bond");
+        EBox::Sudo::root("/usr/sbin/ip link delete $bondName type bond");
     } catch {}
 }
 
