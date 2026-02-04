@@ -1,5 +1,6 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Add option to disable SSL certificate verification in fetchmail service
 	+ Update _getDate method for Log integration
 	+ Refactor expiration period feature for mails
 	+ Remove deprecated method _setArchivemailConf
