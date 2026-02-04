@@ -24,6 +24,7 @@ use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
 use File::Slurp qw(read_file);
+use Time::Piece;
 use TryCatch;
 
 use EBox::Config;
@@ -254,6 +255,12 @@ sub widgets
             'order' => 1,
             'default' => 1
         },
+        'license' => {
+            'title' => __("License Information"),
+            'widget' => \&licenseWidget,
+            'order' => 3,
+            'default' => 1
+        },
         'processes' => {
             'title' => __("Process List"),
             'widget' => \&processesWidget
@@ -372,6 +379,88 @@ sub linksWidget
 
     my $html = EBox::Html::makeHtml('dashboard/links-widget.mas', @params);
     $section->add(new EBox::Dashboard::HTML($html));
+}
+
+sub licenseWidget
+{
+    my ($self, $widget) = @_;
+
+    my $section = new EBox::Dashboard::Section('license');
+    $widget->add($section);
+
+    my $global = EBox::Global->getInstance();
+    my $edition = $global->edition();
+    
+    # Check if community edition
+    if ($global->communityEdition()) {
+        $section->add(new EBox::Dashboard::Value(__('Edition'), __('Community')));
+        $section->add(new EBox::Dashboard::Value(__('License'), __('Free and Open Source')));
+        return;
+    }
+
+    # Map edition codes to displayable names
+    my %editionNames = (
+        'trial' => __('Trial'),
+        'professional' => __('Professional'),
+        'business' => __('Business'),
+        'premium' => __('Premium'),
+        'commercial' => __('Commercial'),
+        'trial-expired' => __('Trial (Expired)'),
+        'professional-expired' => __('Professional (Expired)'),
+        'business-expired' => __('Business (Expired)'),
+        'premium-expired' => __('Premium (Expired)'),
+        'commercial-expired' => __('Commercial (Expired)'),
+        'require-activation' => __('Activation Required'),
+    );
+
+    my $editionName = $editionNames{$edition} // $edition;
+    $section->add(new EBox::Dashboard::Value(__('Edition'), $editionName));
+
+    # Check expiration status
+    my $expired = $global->isExpired();
+    if ($expired) {
+        $section->add(new EBox::Dashboard::Value(__('Status'), __('Expired'), 'error'));
+    } elsif ($edition eq 'require-activation') {
+        $section->add(new EBox::Dashboard::Value(__('Status'), __('Pending Activation'), 'warning'));
+    } else {
+        $section->add(new EBox::Dashboard::Value(__('Status'), __('Active'), 'success'));
+    }
+
+    # Get license details
+    my $license = '/var/lib/zentyal/.license';
+    if (-f $license) {
+        my $key = read_file($license);
+        chomp($key);
+
+        unless ($key eq 'ACTIVATION-REQUIRED') {
+            my ($level, $users, $exp_date) = $global->_decodeLicense($key);
+            
+            # Show expiration date
+            if (defined $exp_date) {
+                my $date_str = $exp_date->strftime("%Y-%m-%d");
+                $section->add(new EBox::Dashboard::Value(__('Expiration date'), $date_str));
+                
+                # Calculate days remaining
+                unless ($expired) {
+                    my $now = Time::Piece->new();
+                    my $days_left = int(($exp_date - $now) / 86400);
+                    if ($days_left <= 30) {
+                        $section->add(new EBox::Dashboard::Value(__('Days remaining'), $days_left, 'warning'));
+                    } else {
+                        $section->add(new EBox::Dashboard::Value(__('Days remaining'), $days_left));
+                    }
+                }
+            }
+
+            # Show user limit
+            my $maxUsers = $global->licenseMaxUsers();
+            if (defined $maxUsers) {
+                $section->add(new EBox::Dashboard::Value(__('Maximum users'), $maxUsers));
+            } else {
+                $section->add(new EBox::Dashboard::Value(__('Maximum users'), __('Unlimited')));
+            }
+        }
+    }
 }
 
 sub addKnownWidget
