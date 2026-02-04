@@ -83,8 +83,19 @@ sub _cmpIP
 {
     my ($self, $compareType) = @_;
 
-    my $ipA = new Net::IP($self->value());
-    my $ipB = new Net::IP($compareType->value());
+    my $selfValue = $self->value();
+    my $compareValue = $compareType->value();
+
+    # Handle empty or undefined values
+    return 0 if (!defined($selfValue) && !defined($compareValue));
+    return -1 if (!defined($selfValue));
+    return 1 if (!defined($compareValue));
+
+    my $ipA = new Net::IP($selfValue);
+    my $ipB = new Net::IP($compareValue);
+
+    # Check if Net::IP objects were created successfully
+    return undef unless (defined($ipA) && defined($ipB));
 
     if ( $ipA->bincomp('lt', $ipB) ) {
         return -1;
