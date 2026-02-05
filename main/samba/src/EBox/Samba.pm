@@ -2897,8 +2897,10 @@ sub raiseDomainAndForestLevel
 
     my ($self) = @_;
 
-    # Return when not provisioned
-    return unless $self->isProvisioned();
+    my $modeDC = $self->model('DomainSettings')->modeValue();
+
+    # Return when not provisioned or in ADC mode
+    return unless ($self->isProvisioned() and $modeDC ne 'adc');
 
     my $desiredDomainLevel = $self->domainLevel();
     my $currentDomainLevel = $self->checkCurrentDomainLevel();
