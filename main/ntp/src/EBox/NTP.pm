@@ -34,6 +34,7 @@ use TryCatch;
 # Constants
 use constant NTPCONFFILE      => '/etc/ntpsec/ntp.conf';
 use constant SAMBA_SOCKET_DIR => '/var/lib/samba/ntp_signd';
+use constant APPARMOR_PROFILE  => '/etc/apparmor.d/local/usr.sbin.ntpd';
 
 sub _create
 {
@@ -98,10 +99,15 @@ sub usedFiles
 {
     return [
             {
-             'file' => NTPCONFFILE,
-             'module' => 'ntp',
-             'reason' => __('NTP configuration file')
-            }
+                'file' => NTPCONFFILE,
+                'module' => 'ntp',
+                'reason' => __('NTP configuration file')
+            },
+            {
+                'file' => APPARMOR_PROFILE,
+                'module' => 'ntp',
+                'reason' => __('AppArmor profile for ntpsec daemon')
+            },
            ];
 }
 
