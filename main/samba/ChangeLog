@@ -9,6 +9,7 @@
 	+ Allow setting domain level from the Zentyal UI
 	+ Add countUsers() method to count non-system users
 	+ Enforce license user limit when creating new users
+	+ Update import and export scripts
 8.0.2
 	+ Change DNS keytab directory. Fix #2080
 	+ Typo in dumpConfig method. Fix #2048
