@@ -1,5 +1,7 @@
 #!/usr/bin/perl
+
 use strict;
+use warnings;
 
 use EBox;
 use EBox::Samba::Group;
@@ -18,53 +20,70 @@ my @lines;
 
 EBox::init();
 
-sub createLDAPGroups 
+sub createLDAPGroups
 {
     my(@lines) = @_;
 
     for my $line(@lines) {
-        my($groupname, $parentDN, $description, $mail, $isSecurityGroup, $isSystemGroup, $gidNumber) = split(';', $line);
+
+        next if $line =~ /^\s*$/;   # empty
+        next if $line =~ /^\s*#/;   # comment
+
+        my @fields = split(';', $line, -1);  # keep trailing empty fields
+
+        if (scalar(@fields) != 6) {
+            warn "Invalid CSV format (expected 6 fields): $line\n";
+            next;
+        }
+
+        my (
+            $groupname,
+            $parentDN,
+            $description,
+            $mail,
+            $isSecurityGroup,
+        ) = @fields;
+
         try {
             EBox::Samba::Group -> create(
-                name => $groupname, 
+                name => $groupname,
                 parent => getLDAPContainer($parentDN),
                 description => $description,
                 mail => $mail,
                 isSecurityGroup => $isSecurityGroup,
-                isSystemGroup => $isSystemGroup,
-                gidNumber => $gidNumber
             );
-            print "$groupname OK\n";
+            print "Domain group '$groupname' imported successfully.\n";
         } catch ($e){
-            warn "Caught error: $e";
+            warn "Failed to import the domain group '$groupname': $e\n";
         }
     }
 }
 
-sub getLDAPContainer 
+sub getLDAPContainer
 {
     my ($parentDN) = @_;
+
     my $container;
     try {
         $container = EBox::Samba::Container->new( dn => $parentDN );
     }
     catch ($e) {
-	    print "$e\n"; 
+	    warn "Failed to get LDAP container for DN '$parentDN': $e\n";
         $container = EBox::Samba::Group->defaultContainer();
-	    print "LDAP Object with DN $parentDN not found, giving default container: " . $container->dn() . "\n";
+	    warn "LDAP Object with DN $parentDN not found, giving default container: " . $container->dn() . "\n";
     }
 
     return $container;
 }
 
-sub readCSV 
+sub readCSV
 {
     my($p) = getPath(@_);
     my @lines = read_file($p);
     createLDAPGroups(@lines);
 }
 
-sub getPath 
+sub getPath
 {
     my($path) = @_;
     $path = abs_path($path);
@@ -72,14 +91,14 @@ sub getPath
     return $path;
 }
 
-sub getParms 
+sub getParms
 {
     my(@args) = @_;
-    if (scalar @args < 1 or scalar @args > 1) {
-        print "Usage: ./group-importer <source-file> \n";
-    } else {
-        readCSV($args[0]);
-    }
+
+    die "Usage: ./group-importer <source-file> \n" unless @args == 1;
+
+    print "Importing groups from file: $args[0]\n";
+    readCSV($args[0]);
 }
 
 getParms(@ARGV);

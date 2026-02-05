@@ -143,7 +143,7 @@ sub Viewer
     return '/ajax/form.mas';
 }
 
-# Method: _checkSize
+# Method: _checkCSVFile
 #
 #     Checks whether the CSV file has the right mime type
 #

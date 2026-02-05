@@ -1,5 +1,7 @@
 #!/usr/bin/perl
+
 use strict;
+use warnings;
 
 use EBox;
 use EBox::Global;
@@ -12,29 +14,27 @@ my $writeCSV;
 my @lines;
 my $gid;
 
-sub getGroups 
+EBox::init();
+
+sub getGroups
 {
-    EBox::init();
     my $samba = EBox::Global->modInstance('samba');
 
     foreach my $g ( @{ $samba->groups() } ) {
         if ( !$g->isInternal() and $g->name ne 'Domain Admins' ) {
-            $gid = !$g->isSecurityGroup() ? undef : $g->gidNumber();
             push @lines,
                 $g->name() . ';'
               . $g->parent()->dn() . ';'
-	      	  . $g->description() . ';'
+	          . $g->description() . ';'
               . $g->mail() . ';'
-              . $g->isSecurityGroup() . ';'
-              . $g->isSystem() . ';'
-              . $gid . ";\n";
+              . $g->isSecurityGroup() . ";\n";
         }
     }
 
     return @lines;
 }
 
-sub getPath 
+sub getPath
 {
     my ($path) = @_;
     $path = abs_path($path);
@@ -42,7 +42,7 @@ sub getPath
     return $path;
 }
 
-sub writeCSV 
+sub writeCSV
 {
     my ($p) = getPath(@_);
     open( my $fh, '>', $p )
@@ -50,20 +50,20 @@ sub writeCSV
     print $fh getGroups();
     close $fh;
     print "Groups have been exported on file " . $p . "\n";
+
     return 1;
 }
 
-sub getParms 
+sub getParms
 {
     my (@args) = @_;
-    if ( scalar @args < 1 or scalar @args > 1 ) {
-        print "Usage: ./group-exporter <dest-file> \n";
-    }
-    else {
-        writeCSV( $args[0] );
-    }
+
+    die "Usage: ./group-exporter <dest-file> \n" unless ( scalar @args == 1 );
+
+    print "Exporting domain groups to file: $args[0]\n";
+    writeCSV( $args[0] );
 }
+
 EBox::Sudo::root('/usr/bin/touch /var/lib/zentyal/tmp/.groups_exporter-running');
 getParms(@ARGV);
 EBox::Sudo::root('/bin/rm /var/lib/zentyal/tmp/.groups_exporter-running');
-

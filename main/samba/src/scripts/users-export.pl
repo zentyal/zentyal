@@ -1,5 +1,7 @@
 #!/usr/bin/perl
+
 use strict;
+use warnings;
 
 use EBox;
 use EBox::Samba::User;
@@ -10,7 +12,7 @@ use Cwd 'abs_path';
 
 my @lines;
 
-sub getUsers 
+sub getUsers
 {
     EBox::init();
     my $samba = EBox::Global->modInstance('samba');
@@ -21,26 +23,25 @@ sub getUsers
                 $u->get('samAccountName') . ';'
 		      . $u->parent()->dn() . ';'
               . $u->get('givenName') . ';'
-              . $u->initials() . ';'
               . $u->get('sn') . ';'
+              . $u->initials() . ';'
               . $u->displayName() . ';'
               . $u->description() . ';'
-              . '"' . $u->mail() . '"' . ';'
-	      			. 'password' . ';'
-	      			. $u->isSystem() . ';' 
-	      			. $u->uidNumber() . ';'
+              . $u->mail() . ';'
+              . 'password' . ';'
               . getUserGroups($u) . ";\n";
-	        print $u->get('samAccountName') . " done...\n";
+	        print "Exporting " . $u->get('samAccountName') . " done...\n";
         }
     }
-    
     return @lines;
 }
 
-sub getUserGroups 
+sub getUserGroups
 {
     my($u) = @_;
+
     my $groups;
+
     foreach my $g(@ { $u-> groups(internal => 0, system => 1) } ) {
         $groups = $groups . $g->dn() . ':';
     }
@@ -48,7 +49,7 @@ sub getUserGroups
     return substr($groups, 0, -1);
 }
 
-sub getPath 
+sub getPath
 {
     my ($path) = @_;
     $path = abs_path($path);
@@ -56,26 +57,27 @@ sub getPath
     return $path;
 }
 
-sub writeCSV 
+sub writeCSV
 {
     my ($p) = getPath(@_);
+
     open( my $fh, '>', $p )
       or die "Could not create file " . $p . "\n";
     print $fh getUsers();
     close $fh;
     print "Users have been exported on file " . $p . "\n";
+
     return 1;
 }
 
-sub getParms 
+sub getParms
 {
     my (@args) = @_;
-    if ( scalar @args < 1 or scalar @args > 1 ) {
-        print "Usage: ./user-exporter <dest-file> \n";
-    }
-    else {
-        writeCSV( $args[0] );
-    }
+
+    die "Usage: $0 <dest-file>\n" unless @args == 1;
+
+    print "Exporting users to file: $args[0]\n";
+    writeCSV( $args[0] );
 }
 
 EBox::Sudo::root('/usr/bin/touch /var/lib/zentyal/tmp/.users_exporter-running');
