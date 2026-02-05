@@ -47,7 +47,7 @@ sub createLDAPUsers
                 name => $samAccountName,
                 password => $password,
             );
-            print "Domain user '$samAccountName' imported successfully.";
+            print "\nDomain user '$samAccountName' imported successfully.";
 
     	    addToGroup($samAccountName, $groups);
 
@@ -89,9 +89,9 @@ sub addToGroup
             my $g = EBox::Samba::Group->new( dn => $group );
             my $u = EBox::Samba::User->new( samAccountName => $user);
             $g->addMember($u);
-            print "Domain user '$user' added to group '$group'\n";
+            print "\nDomain user '$user' added to group '$group'\n";
         } catch ($e) {
-            warn "Cannot add user to group '$group': $e\n";
+            warn "\nCannot add user to group '$group': $e\n";
         }
     }
 }
@@ -118,7 +118,7 @@ sub setMailWithMail {
     $mod->checkMailNotInUse($mail);
 
     $mailUser->setUserAccount($user, $mail);
-    print "\nMail '$mail' assigned using Mail module to the domain user '$user'\n";
+    print "Mail '$mail' assigned using Mail module.\n";
 }
 
 sub setMailWithSamba {
@@ -131,7 +131,7 @@ sub setMailWithSamba {
 
     $user->set('mail', $mail, 1);
     $user->save();
-    print "\nMail '$mail' assigned using Samba module to the domain user '$user'\n";
+    print "Mail '$mail' assigned using Samba module.\n";
 }
 
 sub readCSV
