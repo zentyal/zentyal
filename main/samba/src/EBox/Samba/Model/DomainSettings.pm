@@ -224,8 +224,15 @@ sub validateTypedRow
 {
     my ($self, $action, $params_r) = @_;
 
-    my $newDomainLevel = $params_r->{'domainlevel'}->value();
     my $oldDomainLevel = $self->value('domainlevel');
+
+    my $newDomainLevel;
+    if (exists $params_r->{'domainlevel'}) {
+        $newDomainLevel = $params_r->{'domainlevel'}->value();
+    } else {
+        return;
+    }
+
     my $sambaMod = $self->parentModule();
 
     EBox::debug("New domain level: $newDomainLevel, old domain level: $oldDomainLevel");
