@@ -89,7 +89,7 @@ sub addToGroup
             my $g = EBox::Samba::Group->new( dn => $group );
             my $u = EBox::Samba::User->new( samAccountName => $user);
             $g->addMember($u);
-            print "\nDomain user '$user' added to group '$group'\n";
+            print "Domain user '$user' added to group '$group'\n";
         } catch ($e) {
             warn "\nCannot add user to group '$group': $e\n";
         }

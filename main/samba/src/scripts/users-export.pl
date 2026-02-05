@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 
 use strict;
-use warnings;
 
 use EBox;
 use EBox::Samba::User;
@@ -21,7 +20,7 @@ sub getUsers
         if ( $u->isInternal() ne 0 ) {
             push @lines,
                 $u->get('samAccountName') . ';'
-		      . $u->parent()->dn() . ';'
+              . $u->parent()->dn() . ';'
               . $u->get('givenName') . ';'
               . $u->get('sn') . ';'
               . $u->initials() . ';'
