@@ -5,6 +5,6 @@
 <%init>
 my $fqmn = $widget->{module} . ':' . $widget->{name};
 </%init>
-<div class='widgetBox' id='widget_<% $fqmn %>'>
+<div class='widgetBox' id='widget_<% $fqmn %>' data-widget-module='<% $widget->{module} %>' data-widget-name='<% $widget->{name} %>' data-widget-fullname='<% $fqmn %>'>
 <& /dashboard/widgetcontent.mas, widget => $widget, toggled => \%toggled &>
 </div>

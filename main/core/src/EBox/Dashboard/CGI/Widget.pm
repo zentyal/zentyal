@@ -44,7 +44,18 @@ sub new # (error=?, msg=?, cgi=?)
 #
 sub requiredParameters
 {
-    return ['module', 'widget'];
+    return ['module'];
+}
+
+# Method: optionalParameters
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::optionalParameters>
+#
+sub optionalParameters
+{
+    return ['widget'];
 }
 
 # Method: masonParameters
@@ -57,12 +68,23 @@ sub masonParameters
 {
     my ($self) = @_;
     my $global = EBox::Global->getInstance(1);
-    my $modname = $self->param('module');
-    my $widgetname = $self->param('widget');
+    my $modname = $self->unsafeParam('module');
+    my $widgetname = $self->unsafeParam('widget');
+    
     my $module = $global->modInstance($modname);
-    $module or throw EBox::Exceptions::Internal("Invalid module: $module");
+    unless ($module) {
+        throw EBox::Exceptions::External(
+            __x('Module {mod} not found', mod => $modname)
+        );
+    }
+    
     my $widget = $module->widget($widgetname);
-    $widget or throw EBox::Exceptions::Internal("Invalid widget: $widget");
+    unless ($widget) {
+        throw EBox::Exceptions::External(
+            __x('Widget {wid} not found in module {mod}',
+                wid => $widgetname, mod => $modname)
+        );
+    }
 
     my @params = ();
     push(@params, 'widget' => $widget);

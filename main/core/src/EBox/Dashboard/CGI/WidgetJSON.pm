@@ -43,7 +43,18 @@ sub new # (error=?, msg=?, cgi=?)
 #
 sub requiredParameters
 {
-    return ['module', 'widget'];
+    return ['module'];
+}
+
+# Method: optionalParameters
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::optionalParameters>
+#
+sub optionalParameters
+{
+    return ['widget'];
 }
 
 # Method: actuate
@@ -56,10 +67,15 @@ sub actuate
 {
     my ($self) = @_;
     my $global = EBox::Global->getInstance(1);
-    my $modname = $self->param('module');
-    my $widgetname = $self->param('widget');
+    my $modname = $self->unsafeParam('module');
+    my $widgetname = $self->unsafeParam('widget');
+    
     my $module = $global->modInstance($modname);
-    $self->{widget} = $module->widget($widgetname);
+    if ($module) {
+        $self->{widget} = $module->widget($widgetname);
+    } else {
+        $self->{widget} = undef;
+    }
 }
 
 # Method: _print
@@ -74,8 +90,6 @@ sub _print
 
     my $response = $self->response();
     $response->content_type('application/json; charset=utf-8');
-
-    local $JSON::ConvBlessed = 1;
 
     my $json = new JSON;
     try {
