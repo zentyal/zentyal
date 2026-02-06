@@ -1,6 +1,7 @@
 8.1.0
 	+ Set version to 8.1.0
 	+ Replace deprecated given/when constructs with if/elsif in LogHelper
+	+ Add clamav user to group e2guardian
 8.0.1
 	+ Set filter port for transparent proxy when no profile is configured
 8.0.0
