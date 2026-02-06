@@ -102,7 +102,11 @@ ArchiveBlockEncrypted true
 OnAccessExcludeUname clamav
 OnAccessExcludeRootUID yes
 % foreach my $path (@paths) {
-OnAccessIncludePath <% $path %>
+%   if ($path =~ /^IncludePath\s+(.+)/) {
+OnAccessIncludePath <% $1 %>
+%   } elsif ($path =~ /^ExcludePath\s+(.+)/) {
+OnAccessExcludePath <% $1 %>
+%   }
 % }
 OnAccessPrevention yes
 OnAccessExtraScanning yes
