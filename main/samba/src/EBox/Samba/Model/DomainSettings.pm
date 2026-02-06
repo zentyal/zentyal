@@ -84,6 +84,24 @@ sub validateTypedRow
     }
     $self->_checkNetbiosName($workgroup);
     $self->_checkDescriptionString($description);
+
+    # Validate domain level changes
+    if (exists $newParams->{'domainlevel'}) {
+        my $oldDomainLevel = $oldParams->{'domainlevel'}->value();
+        my $newDomainLevel = $newParams->{'domainlevel'}->value();
+        my $sambaMod = $self->parentModule();
+
+        EBox::debug("New domain level: $newDomainLevel, old domain level: $oldDomainLevel");
+
+        if ($sambaMod->isProvisioned() and $newDomainLevel lt $oldDomainLevel) {
+            EBox::debug('Domain functional level change detected');
+            throw EBox::Exceptions::External(__x('You are lowering the domain functional level from {oldLevel} to {newLevel}. '
+                . 'This action is not supported by Samba.',
+                oldLevel => $oldDomainLevel,
+                newLevel => $newDomainLevel,
+            ));
+        }
+    }
 }
 
 sub _checkNetbiosName
@@ -218,33 +236,6 @@ sub _adcProvisioned
 {
     my $users = EBox::Global->modInstance('samba');
     return ($users->dcMode() eq MODE_ADC and $users->getProvision->isProvisioned());
-}
-
-sub validateTypedRow
-{
-    my ($self, $action, $params_r) = @_;
-
-    my $oldDomainLevel = $self->value('domainlevel');
-
-    my $newDomainLevel;
-    if (exists $params_r->{'domainlevel'}) {
-        $newDomainLevel = $params_r->{'domainlevel'}->value();
-    } else {
-        return;
-    }
-
-    my $sambaMod = $self->parentModule();
-
-    EBox::debug("New domain level: $newDomainLevel, old domain level: $oldDomainLevel");
-
-    if ($sambaMod->isProvisioned() and $newDomainLevel lt $oldDomainLevel) {
-        EBox::debug('Domain functional level change detected');
-        throw EBox::Exceptions::External(__x('You are lowering the domain functional level from {oldLevel} to {newLevel}. '
-            . 'This action is not supported by Samba.',
-            oldLevel => $oldDomainLevel,
-            newLevel => $newDomainLevel,
-        ));
-    }
 }
 
 sub updatedRowNotify
