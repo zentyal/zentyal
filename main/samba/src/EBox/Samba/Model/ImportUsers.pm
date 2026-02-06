@@ -207,9 +207,62 @@ sub run
 {
     my ($self, $uploadedFile) = @_;
     my $script = '/usr/share/zentyal-samba/users-import.pl';
-    my $command = $script .' '. $uploadedFile;
+    my $command = $script . ' ' . $uploadedFile . ' 2>&1';
     EBox::info($command);
-    system($command);
+    
+    my $output = `$command`;
+    my $exitCode = $? >> 8;
+    
+    # Parse output for summary information
+    my $successCount = 0;
+    my $errorCount = 0;
+    
+    if ($output =~ /Successfully imported: (\d+)/) {
+        $successCount = $1;
+    }
+    if ($output =~ /Failed to import: (\d+)/) {
+        $errorCount = $1;
+    }
+    
+    if ($exitCode != 0) {
+        my @lines = split(/\n/, $output);
+        my @errors;
+        
+        foreach my $line (@lines) {
+            # Match "Failed to import" lines anywhere in the line (not just at start)
+            if ($line =~ /Failed to import the domain user '([^']+)': (.+?)(?:\s+at\s+|$)/) {
+                my $userName = $1;
+                my $errorMsg = $2;
+                # Clean up error message - remove redundant "at" clauses
+                $errorMsg =~ s/\s+at\s+.*$//;
+                push @errors, "<li><strong>$userName</strong>: $errorMsg</li>";
+            }
+        }
+        
+        my $formattedOutput = '';
+        if (@errors) {
+            $formattedOutput = "<ul>" . join("", @errors) . "</ul>";
+        } else {
+            # If we couldn't parse specific errors, show a generic message
+            $formattedOutput = "<p>" . __('Some users could not be imported. Check the logs for details.') . "</p>";
+        }
+        $formattedOutput .= "<p><strong>Successfully imported:</strong> $successCount users</p>";
+        $formattedOutput .= "<p><strong>Failed to import:</strong> $errorCount users</p>";
+        
+        my $msg = __('User import failed.') . "<br><br>" . $formattedOutput;
+        throw EBox::Exceptions::External($msg);
+    }
+    
+    # Success message with details
+    my $successMsg = __('Users imported successfully!') . "<br><br>";
+    $successMsg .= "<p><strong>" . __('Total users imported:') . "</strong> $successCount</p>";
+    if ($errorCount > 0) {
+        $successMsg .= "<p><strong>" . __('Users skipped:') . "</strong> $errorCount</p>";
+    }
+    
+    EBox::info("User import completed successfully");
+    $self->setMessage($successMsg, 'note');
+    return $output;
 }
 
 # Method: precondition

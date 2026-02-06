@@ -10,6 +10,17 @@
 	+ Add countUsers() method to count non-system users
 	+ Enforce license user limit when creating new users
 	+ Update import and export scripts
+	+ Improve user and group import/export functionality:
+		- Add email validation for user imports
+		- Add directory permission checks for exports
+		- Implement automatic OU creation during import
+		- Fix Container existence checking to use exists() method
+		- Suppress Perl locale warnings in import scripts
+		- Add proper error handling with exit codes
+		- Improve error message formatting with HTML for better UI display
+		- Add detailed success messages with import counters
+		- Enhance CLI import support for large CSV files (timeout prevention)
+		- Fix error parsing to handle Perl stack traces correctly
 8.0.2
 	+ Change DNS keytab directory. Fix #2080
 	+ Typo in dumpConfig method. Fix #2048
