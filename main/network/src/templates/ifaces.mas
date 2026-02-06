@@ -182,7 +182,7 @@ use EBox::NetWrappers qw(:all);
         <label><% __('Bridge') %></label>
         <select name="bridge">
 %   foreach my $bridge ( @bridges ) {
-%       if ( $bridge->{id} == $iface->{bridge} ) {
+%       if ( defined($iface->{bridge}) && $bridge->{id} == $iface->{bridge} ) {
                 <option value='<% $bridge->{id} %>' selected="true"><% $bridge->{alias} %></option>
 %       } else {
                 <option value='<% $bridge->{id} %>'><% $bridge->{alias} %></option>
@@ -197,7 +197,7 @@ use EBox::NetWrappers qw(:all);
         <label><% __('Bonding') %>:</label>
         <select name="bond">
 %   foreach my $bond ( @bonds ) {
-%       if ($iface->{'id'} and $bond->{id} == $iface->{$bond} ) {
+%       if (defined($iface->{bond}) && $bond->{id} == $iface->{bond} ) {
                 <option value='<% $bond->{id} %>' selected="true"><% $bond->{alias} %></option>
 %       } else {
                 <option value='<% $bond->{id} %>'><% $bond->{alias} %></option>

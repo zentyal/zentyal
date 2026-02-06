@@ -2062,7 +2062,7 @@ sub setIfaceBridged
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
-    } elsif ($oldm eq 'bridged' and $self->ifaceBridge($name) ne $bridge) {
+    } elsif ($oldm eq 'bridged' and defined($bridge) and $self->ifaceBridge($name) ne $bridge) {
         $self->BridgedCleanUp($name);
     }
 
@@ -2106,7 +2106,10 @@ sub setIfaceBridged
     # new bridge
     if ($bridge < 0) {
         my @bridges = @{$self->bridges()};
-        my $last = int(pop(@bridges));
+        my $last = 0;
+        if (@bridges) {
+            $last = int(pop(@bridges));
+        }
         $bridge = $last+1;
         $self->_createBridge($bridge);
     }
@@ -2170,7 +2173,7 @@ sub setIfaceBonded
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
-    } elsif ($oldm eq 'bundled' and $self->ifaceBond($name) ne $bond) {
+    } elsif ($oldm eq 'bundled' and defined($bond) and $self->ifaceBond($name) ne $bond) {
         $self->BundledCleanUp($name);
     }
 
@@ -2462,7 +2465,8 @@ sub _createBridge
 
     my $bridge = "br$id";
     my $interfaces = $self->get_hash('interfaces');
-    if (exists $interfaces->{$bridge}) {
+    # Check if bridge exists and is not empty
+    if (exists $interfaces->{$bridge} && keys %{$interfaces->{$bridge}} > 0) {
         throw EBox::Exceptions::DataExists('data' => 'bridge',
                                            'value' => $id);
     }
@@ -2499,24 +2503,25 @@ sub _removeBridge # (id)
 
 # Method: _removeEmptyBridges
 #
-# Removes bridges which has no bridged interfaces
+# Removes empty bridge entries {} from Redis
+# Note: Actual bridge cleanup when interfaces are removed is handled by BridgedCleanUp()
 sub _removeEmptyBridges
 {
     my ($self) = @_;
-    my %seen;
-
-    for my $if ( @{$self->ifaces()} ) {
-        if ( $self->ifaceMethod($if) eq 'bridged' ) {
-            $seen{$self->ifaceBridge($if)}++;
+    
+    # Check for empty bridge entries in Redis and remove them
+    my $ifaces = $self->get_hash('interfaces');
+    my $modified = 0;
+    
+    for my $iface (keys %{$ifaces}) {
+        if ($iface =~ /^br\d+$/ && keys %{$ifaces->{$iface}} == 0) {
+            delete $ifaces->{$iface};
+            $modified = 1;
         }
     }
     
-    # remove unseen bridges
-    for my $bridge ( @{$self->bridges()} ) {
-        next if ( $seen{$bridge} );
-                $self->_removeBridge($bridge);
-    }
-    }
+    $self->set('interfaces', $ifaces) if $modified;
+}
 
 # Method: bridges
 #
@@ -2530,8 +2535,11 @@ sub bridges
     my $self = shift;
     my @bridges;
 
-    for my $iface (keys %{$self->get_hash('interfaces')}) {
+    my $ifaces = $self->get_hash('interfaces');
+    for my $iface (keys %{$ifaces}) {
         if ($iface =~ /^br/) {
+            # Skip empty bridge entries
+            next unless (keys %{$ifaces->{$iface}} > 0);
             $iface =~ s/^br//;
             push(@bridges, $iface);
         }
@@ -2644,7 +2652,8 @@ sub _createBond
 
     my $bond = "bond$id";
     my $interfaces = $self->get_hash('interfaces');
-    if (exists $interfaces->{$bond}) {
+    # Check if bond exists and is not empty
+    if (exists $interfaces->{$bond} && keys %{$interfaces->{$bond}} > 0) {
         throw EBox::Exceptions::DataExists('data' => 'bond',
                                            'value' => $id);
     }
@@ -2681,23 +2690,24 @@ sub _removeBond # (id)
 
 # Method: _removeEmptyBonds
 #
-# Removes bonds which has no bundled interfaces
+# Removes empty bond entries {} from Redis
+# Note: Actual bond cleanup when interfaces are removed is handled by BundledCleanUp()
 sub _removeEmptyBonds
 {
     my ($self) = @_;
-    my %seen;
-
-    for my $if ( @{$self->ifaces()} ) {
-        if ( $self->ifaceMethod($if) eq 'bundled' ) {
-            $seen{$self->ifaceBond($if)}++;
+    
+    # Check for empty bond entries in Redis and remove them
+    my $ifaces = $self->get_hash('interfaces');
+    my $modified = 0;
+    
+    for my $iface (keys %{$ifaces}) {
+        if ($iface =~ /^bond\d+$/ && keys %{$ifaces->{$iface}} == 0) {
+            delete $ifaces->{$iface};
+            $modified = 1;
         }
     }
-
-    # remove unseen bonds
-    for my $bond ( @{$self->bonds()} ) {
-        next if ( $seen{$bond} );
-        $self->_removeBond($bond);
-    }
+    
+    $self->set('interfaces', $ifaces) if $modified;
 }
 
 # Method: bonds
@@ -2712,8 +2722,11 @@ sub bonds
     my $self = shift;
     my @bonds;
 
-    for my $iface (keys %{$self->get_hash('interfaces')}) {
+    my $ifaces = $self->get_hash('interfaces');
+    for my $iface (keys %{$ifaces}) {
         if ($iface =~ /^bond/) {
+            # Skip empty bond entries
+            next unless (keys %{$ifaces->{$iface}} > 0);
             $iface =~ s/^bond//;
             push(@bonds, $iface);
         }
@@ -2819,6 +2832,44 @@ sub unsetIface # (interface, force)
         return;
     }
 
+    # Check if this interface is part of a bridge or bond that has associated gateways/routes
+    unless ($force) {
+        my $ifaceBridgeId = $self->ifaceBridge($name);
+        my $ifaceBondId = $self->ifaceBond($name);
+        
+        if (defined($ifaceBridgeId)) {
+            my $bridgeName = "br$ifaceBridgeId";
+            # Check if the bridge interface exists and has gateways or routes
+            if ($self->ifaceExists($bridgeName)) {
+                try {
+                    $self->_checkIfaceHasGatewaysOrRoutes($bridgeName);
+                } catch (EBox::Exceptions::DataInUse $e) {
+                    throw EBox::Exceptions::External(
+                        __x('Cannot change interface {iface} configuration because it is part of bridge {bridge} which has associated gateways or static routes. Please remove them first.',
+                            iface => $name,
+                            bridge => $bridgeName)
+                    );
+                }
+            }
+        }
+        
+        if (defined($ifaceBondId)) {
+            my $bondName = "bond$ifaceBondId";
+            # Check if the bond interface exists and has gateways or routes
+            if ($self->ifaceExists($bondName)) {
+                try {
+                    $self->_checkIfaceHasGatewaysOrRoutes($bondName);
+                } catch (EBox::Exceptions::DataInUse $e) {
+                    throw EBox::Exceptions::External(
+                        __x('Cannot change interface {iface} configuration because it is part of bond {bond} which has associated gateways or static routes. Please remove them first.',
+                            iface => $name,
+                            bond => $bondName)
+                    );
+                }
+            }
+        }
+    }
+
     my $oldm = $self->ifaceMethod($name);
     if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
@@ -2833,7 +2884,10 @@ sub unsetIface # (interface, force)
         $self->BundledCleanUp($name);
     }
 
-    if ($oldm ne 'notset') {
+    # Check if this is a bridge or bond interface that should be removed completely
+    my $isVirtualIface = $self->ifaceIsBridge($name) || $self->ifaceIsBond($name);
+
+    if ($oldm ne 'notset' and not $isVirtualIface) {
         $self->_notifyChangedIface(
             name => $name,
             oldMethod => $oldm,
@@ -2847,15 +2901,21 @@ sub unsetIface # (interface, force)
         $self->_removeTrunkIfaceVlanes($name);
     }
 
-    my $ifaces = $self->get_hash('interfaces');
-    delete $ifaces->{$name}->{address};
-    delete $ifaces->{$name}->{netmask};
-    $ifaces->{$name}->{method} = 'notset';
-    $ifaces->{$name}->{name} = $name;
-    $ifaces->{$name}->{changed} = 1;
-    $self->set('interfaces', $ifaces);
+    # For bridge and bond interfaces, if they are being unset, they should be removed completely
+    # instead of just setting their method to 'notset'
+    if ($isVirtualIface) {
+        $self->_removeIface($name);
+    } else {
+        my $ifaces = $self->get_hash('interfaces');
+        delete $ifaces->{$name}->{address};
+        delete $ifaces->{$name}->{netmask};
+        $ifaces->{$name}->{method} = 'notset';
+        $ifaces->{$name}->{name} = $name;
+        $ifaces->{$name}->{changed} = 1;
+        $self->set('interfaces', $ifaces);
+    }
 
-    if ($oldm ne 'notset') {
+    if ($oldm ne 'notset' and not $isVirtualIface) {
         $self->_notifyChangedIface(
             name => $name,
             oldMethod => $oldm,
@@ -3830,6 +3890,22 @@ sub _supportActions
     return undef;
 }
 
+# Method: _saveConfig
+#
+#   Overrides <EBox::Module::Base::_saveConfig> to clean up empty bridges/bonds
+#
+sub _saveConfig
+{
+    my ($self) = @_;
+
+    # Clean up empty bridge and bond entries from Redis before saving
+    $self->_removeEmptyBridges();
+    $self->_removeEmptyBonds();
+
+    # Call parent implementation to copy conf to ro
+    $self->SUPER::_saveConfig();
+}
+
 # Method: _preSetConf
 #
 #   Overrides <EBox::Module::Base::_preSetConf>
@@ -4052,6 +4128,10 @@ sub _enforceServiceState
     $self->_applyChangesToSystemNetwork();
 
     $self->SUPER::_enforceServiceState();
+    
+    # Clean up any empty bridge/bond entries that might have been recreated
+    $self->_removeEmptyBridges();
+    $self->_removeEmptyBonds();
 }
 
 sub _disableNetworkManagerUnsetIfaces
@@ -4088,12 +4168,16 @@ sub restoreConfig
 {
     my ($self, $dir) = @_;
 
-    # Set all configured ifaces as changed
+    # Call parent first to restore from backup
+    $self->SUPER::restoreConfig();
+    
+    # Set all configured ifaces as changed (only non-empty interfaces)
+    my $ifaces = $self->get_hash('interfaces');
     foreach my $iface (@{$self->allIfaces()}) {
+        # Skip empty bridge/bond entries to avoid auto-vivification
+        next if (exists $ifaces->{$iface} && keys %{$ifaces->{$iface}} == 0);
         $self->_setChanged($iface);
     }
-
-    $self->SUPER::restoreConfig();
 }
 
 sub _stopService
@@ -4168,10 +4252,19 @@ sub _routersReachableIfChange # (interface, newaddress?, newmask?)
                 $host = $newaddr;
                 $mask = $newmask;
             } else {
-                $meth = $self->ifaceMethod($if);
-                ($meth eq 'static') or next;
-                $host = $self->ifaceAddress($if);
-                $mask = $self->ifaceNetmask($if);
+                # Skip interfaces that no longer exist (e.g., virtual interfaces whose physical interface was removed)
+                my $ifaceExists = 1;
+                try {
+                    $meth = $self->ifaceMethod($if);
+                    if ($meth eq 'static') {
+                        $host = $self->ifaceAddress($if);
+                        $mask = $self->ifaceNetmask($if);
+                    }
+                } catch (EBox::Exceptions::DataNotFound $e) {
+                    EBox::debug("Skipping interface $if during gateway/route reachability check: interface no longer exists");
+                    $ifaceExists = 0;
+                }
+                next unless ($ifaceExists and $meth and $meth eq 'static');
             }
             (defined($host) and defined($mask)) or next;
             if (isIPInNetwork($host, $mask, $gw)) {
@@ -4392,14 +4485,41 @@ sub BridgedCleanUp # (interface)
 
     my $bridge = $self->ifaceBridge($iface);
     
-    # this changes the bridge
-    if ($self->ifaceIsBridge("br$bridge")) {
-        $self->_setChanged("br$bridge");
+    # Check if there are other interfaces using this bridge BEFORE removing the bridge_id
+    my $hasOtherIfaces = 0;
+    if (defined($bridge)) {
+        for my $if ( @{$self->ifaces()} ) {
+            next if $if eq $iface; # Skip the interface we're cleaning
+            if ( $self->ifaceMethod($if) eq 'bridged' ) {
+                my $bridgeId = $self->ifaceBridge($if);
+                if (defined($bridgeId) and $bridgeId eq $bridge) {
+                    $hasOtherIfaces = 1;
+                    last;
+                }
+            }
+        }
     }
-
+    
     my $ifaces = $self->get_hash('interfaces');
     delete $ifaces->{$iface}->{bridge_id};
-    $self->set('interfaces', $ifaces);
+    
+    # If this was the last interface using the bridge, remove the bridge completely
+    if (defined($bridge)) {
+        my $bridgeName = "br$bridge";
+        if ($hasOtherIfaces) {
+            # Bridge still has other interfaces, just mark it as changed
+            $self->set('interfaces', $ifaces);
+            if (exists $ifaces->{$bridgeName}) {
+                $self->_setChanged($bridgeName);
+            }
+        } else {
+            # This was the last interface, remove the bridge entry completely
+            delete $ifaces->{$bridgeName};
+            $self->set('interfaces', $ifaces);
+        }
+    } else {
+        $self->set('interfaces', $ifaces);
+    }
 
     $self->_removeEmptyBridges();
 }
@@ -4421,14 +4541,41 @@ sub BundledCleanUp # (interface)
 
     my $bond = $self->ifaceBond($iface);
 
-    # this changes the bond
-    if ($self->ifaceIsBond("bond$bond")) {
-        $self->_setChanged("bond$bond");
+    # Check if there are other interfaces using this bond BEFORE removing the bond_id
+    my $hasOtherIfaces = 0;
+    if (defined($bond)) {
+        for my $if ( @{$self->ifaces()} ) {
+            next if $if eq $iface; # Skip the interface we're cleaning
+            if ( $self->ifaceMethod($if) eq 'bundled' ) {
+                my $bondId = $self->ifaceBond($if);
+                if (defined($bondId) and $bondId eq $bond) {
+                    $hasOtherIfaces = 1;
+                    last;
+                }
+            }
+        }
     }
 
     my $ifaces = $self->get_hash('interfaces');
     delete $ifaces->{$iface}->{bond_id};
-    $self->set('interfaces', $ifaces);
+    
+    # If this was the last interface using the bond, remove the bond completely
+    if (defined($bond)) {
+        my $bondName = "bond$bond";
+        if ($hasOtherIfaces) {
+            # Bond still has other interfaces, just mark it as changed
+            $self->set('interfaces', $ifaces);
+            if (exists $ifaces->{$bondName}) {
+                $self->_setChanged($bondName);
+            }
+        } else {
+            # This was the last interface, remove the bond entry completely
+            delete $ifaces->{$bondName};
+            $self->set('interfaces', $ifaces);
+        }
+    } else {
+        $self->set('interfaces', $ifaces);
+    }
 
     $self->_removeEmptyBonds();
 }

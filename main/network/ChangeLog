@@ -1,5 +1,14 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Fix bridge/bond cleanup: prevent empty hash entries in Redis after deletion
+	+ Fix exception visibility: change DataInUse to External for non-recoverable errors
+	+ Add early validation for bridge/bond dependencies (gateways and static routes)
+	+ Fix uninitialized value warnings in ifaces.mas template for bridge and bond fields
+	+ Fix "Exiting eval" warnings in _routersReachableIfChange exception handling
+	+ Refactor BridgedCleanUp/BundledCleanUp to delete entries directly when no interfaces remain
+	+ Add defensive cleanup in _saveConfig and _enforceServiceState to prevent hash auto-vivification
+	+ Simplify _removeEmptyBridges and _removeEmptyBonds to only remove empty entries
+	+ Fix restoreConfig to skip empty interfaces when marking as changed
 	+ Prevent removal of bridge/bond interfaces with associated gateways or static routes
 	+ Add validation to prevent duplicate service names in ServiceTable
 	+ Add apparmor local profile
