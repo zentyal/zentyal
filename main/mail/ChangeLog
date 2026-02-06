@@ -1,5 +1,9 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Fix fetchmail service integration with systemd:
+	  - Added proper systemd unit configuration (Type, After, WantedBy, RestartSec)
+	  - Service lifecycle (enable/disable/start/stop) handled by EBox::Service framework
+	  - Allow nosslcertck option to be configured before enabling the module
 	+ Add option to disable SSL certificate verification in fetchmail service
 	+ Update _getDate method for Log integration
 	+ Refactor expiration period feature for mails

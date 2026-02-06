@@ -41,7 +41,7 @@ function initial_conf() {
 
 function mod_disabled() {
     # This function stops and disables the services that uses the module
-    systemctl disable --now postfix dovecot zentyal.fetchmail fetchmail postgrey
+    systemctl disable --now postfix dovecot fetchmail postgrey
 }
 
 
