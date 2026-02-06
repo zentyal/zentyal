@@ -445,7 +445,7 @@ sub writeConf
     my $retrievalServices = $mail->model('RetrievalServices');
     my $nosslcertck = $retrievalServices->value('nosslcertck') ? 1 : 0;
     
-    my $serviceChanged = EBox::Module::Base::writeConfFileNoCheck(
+    EBox::Module::Base::writeConfFileNoCheck(
                          FETCHMAIL_SERVICE_FILE,
                          'mail/zentyal.fetchmail.service.mas',
                          [
@@ -457,11 +457,6 @@ sub writeConf
                              mode =>  '0644',
                          }
                         );
-
-    # Reload systemd daemon if service file changed
-    if ($serviceChanged) {
-        EBox::Sudo::root('systemctl daemon-reload');
-    }
 }
 
 sub daemonMustRun

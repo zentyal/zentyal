@@ -90,10 +90,7 @@ sub _table
                                   printableName => __('Do not verify SSL certificates on remote servers'),
                                   help =>
                                       __(q{Disable SSL certificate verification when retrieving mail from external servers. Use this option if remote servers have self-signed or invalid certificates. Warning: This reduces security.} ),
-                                  editable => sub {
-                                      my ($self) = @_;
-                                      return $self->row()->valueByName('fetchmail');
-                                  },
+                                  editable => 1,
                                   defaultValue => 0,
                                  ),
          new EBox::Types::Boolean(

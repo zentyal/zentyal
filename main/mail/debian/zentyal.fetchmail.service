@@ -1,10 +1,12 @@
 [Unit]
 Description=Zentyal fetchmail daemon
+After=network.target
 
 [Service]
 Type=simple
-User=fetchmail
-ExecStart=/usr/bin/fetchmail --nodetach -f /etc/zentyal-fetchmail.rc
-Restart=always
-SuccessExitStatus=1
-RestartSec=30
+ExecStart=/bin/su fetchmail -c '/usr/bin/fetchmail --nodetach -f /etc/zentyal-fetchmail.rc'
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

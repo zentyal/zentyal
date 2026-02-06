@@ -35,16 +35,17 @@ $mailRo->{fetchmail}->setFetchmailRegenTs($modifyTimestamp);
 
 my $mustRun = $mailRo->{fetchmail}->daemonMustRun();
 if ($mailRo->{fetchmail}->running()) {
-# stop it if needed
-    if (not $mustRun) {
+    # Restart if it should run, stop if it shouldn't
+    if ($mustRun) {
+        EBox::Service::manage('zentyal.fetchmail', 'restart');
+    } else {
         $mailRo->{fetchmail}->stop();
     }
 } else {
-# make it run if needed
+    # Start if needed
     if ($mustRun) {
         $mailRo->{fetchmail}->start();
     }
-    
 }
 
 
