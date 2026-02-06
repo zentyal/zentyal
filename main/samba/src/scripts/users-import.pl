@@ -1,5 +1,11 @@
 #!/usr/bin/perl
 
+BEGIN {
+    # Silence locale warnings
+    $ENV{LC_ALL} = 'C';
+    $ENV{LANGUAGE} = 'C';
+}
+
 use strict;
 use warnings;
 
@@ -7,12 +13,17 @@ use EBox;
 use EBox::Samba::User;
 use EBox::Samba::Container;
 use EBox::Samba::Group;
+use EBox::Samba::OU;
+use EBox::Validate;
 
 use File::Slurp;
 use Cwd 'abs_path';
 use TryCatch;
 
 EBox::init();
+
+my $ERRORS = 0;
+my $SUCCESS = 0;
 
 sub createLDAPUsers
 {
@@ -35,6 +46,15 @@ sub createLDAPUsers
         next if $line =~ /^\s*$/;   # Is empty
         next if $line =~ /^\s*#/;   # Is comment
 
+        # Validate email if provided
+        if ($mail) {
+            unless (EBox::Validate::checkEmailAddress($mail)) {
+                warn "Invalid email address '$mail' for user '$samAccountName'\n";
+                $ERRORS++;
+                next;
+            }
+        }
+
 	    try {
             my $user = EBox::Samba::User->create(
                 samAccountName => $samAccountName,
@@ -48,6 +68,7 @@ sub createLDAPUsers
                 password => $password,
             );
             print "\nDomain user '$samAccountName' imported successfully.\n";
+            $SUCCESS++;
 
     	    addToGroup($samAccountName, $groups);
 
@@ -56,21 +77,47 @@ sub createLDAPUsers
             }
         } catch ($e){
             warn "Failed to import the domain user '$samAccountName': $e\n";
+            $ERRORS++;
         }
     }
+    
+    print "\n=== IMPORT SUMMARY ===\n";
+    print "Successfully imported: $SUCCESS users\n";
+    print "Failed to import: $ERRORS users\n";
+    return $ERRORS == 0;
 }
 
 sub getLDAPContainer
 {
     my ($parentDN) = @_;
-    my $container;
-    try {
-        $container = EBox::Samba::Container->new( dn => $parentDN );
-    }
-    catch ($e) {
-	    warn "Failed to get LDAP container for DN '$parentDN': $e\n";
-        $container = EBox::Samba::User->defaultContainer();
-	    print "LDAP Object with DN $parentDN not found, giving default container: " . $container->dn() . "\n";
+    
+    my $container = EBox::Samba::Container->new( dn => $parentDN );
+    
+    # Check if the container actually exists in LDAP
+    unless ($container->exists()) {
+        # Try to create the OU if it doesn't exist
+        if ($parentDN =~ /^OU=([^,]+),(.+)$/) {
+            my $ouName = $1;
+            my $parentPath = $2;
+            
+            try {
+                print "OU '$ouName' not found. Attempting to create it at $parentPath...\n";
+                my $parent = EBox::Samba::Container->new( dn => $parentPath );
+                $container = EBox::Samba::OU->create(
+                    name => $ouName,
+                    parent => $parent,
+                );
+                print "OU '$ouName' created successfully.\n";
+            } catch ($createError) {
+                warn "Failed to create OU '$ouName': $createError\n";
+                $container = EBox::Samba::User->defaultContainer();
+                print "Using default container: " . $container->dn() . "\n";
+            }
+        } else {
+            warn "LDAP Object with DN $parentDN not found.\n";
+            $container = EBox::Samba::User->defaultContainer();
+            print "Using default container: " . $container->dn() . "\n";
+        }
     }
 
     return $container;
@@ -122,15 +169,15 @@ sub setMailWithMail {
 }
 
 sub setMailWithSamba {
-    my ($user, $mail) = @_;
+    my ($userObj, $mail) = @_;
 
     my $global = EBox::Global->getInstance();
     my $mod = $global->modInstance('samba');
 
     $mod->checkMailNotInUse($mail);
 
-    $user->set('mail', $mail, 1);
-    $user->save();
+    $userObj->set('mail', $mail, 1);
+    $userObj->save();
     print "Mail '$mail' assigned successfully.\n";
 }
 
@@ -138,7 +185,7 @@ sub readCSV
 {
     my($p) = getPath(@_);
     my @lines = read_file($p);
-    createLDAPUsers(@lines);
+    return createLDAPUsers(@lines);
 }
 
 sub getPath
@@ -156,7 +203,8 @@ sub getParms
     die "Usage: $0 <source-file>\n" unless @args == 1;
 
     print "Importing users from file: $args[0]\n";
-    readCSV($args[0]);
+    my $success = readCSV($args[0]);
+    exit($success ? 0 : 1);
 }
 
 getParms(@ARGV);

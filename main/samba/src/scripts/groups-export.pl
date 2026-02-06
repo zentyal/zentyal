@@ -44,11 +44,19 @@ sub getPath
 sub writeCSV
 {
     my ($p) = getPath(@_);
+    
+    # Check if directory exists and is writable
+    my ($dir) = $p =~ m{^(.*/)};
+    $dir = '.' unless $dir;
+    unless (-d $dir && -w $dir) {
+        die "Directory '$dir' does not exist or is not writable\n";
+    }
+    
     open( my $fh, '>', $p )
-      or die "Could not create file " . $p . "\n";
+      or die "Could not create file '$p': $!\n";
     print $fh getGroups();
     close $fh;
-    print "Groups have been exported on file " . $p . "\n";
+    print "Groups have been exported to file '$p'\n";
 
     return 1;
 }
