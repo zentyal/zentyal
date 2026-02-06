@@ -167,11 +167,16 @@ sub appArmorProfiles
 {
     my ($self) = @_;
 
-    my $global = $self->global();
-
     EBox::info('Setting Core apparmor profiles');
 
     my @params = ();
+
+    if (EBox::Global->modExists('samba')){
+       my $samba = EBox::Global->modInstance('samba');
+       if ($samba->isEnabled()){
+            push (@params, (sambaStatus => 1));
+        }
+    }
 
     return [
         {
