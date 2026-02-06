@@ -74,13 +74,11 @@ Zentyal.Dashboard.toggleClicked = function(element) {
 };
 
 Zentyal.Dashboard.closeWidget = function(wid) {
-    // Use attribute selector instead of ID to handle special characters
     var widget = $(".widgetBox[data-widget-fullname='" + wid + "']");
     widget.fadeOut(500, function() {
         var dashboard = widget.closest('.dashboard');
         widget.remove();
 
-        // Check if placeholder exists in widget list
         var placeholder = $(".widgetBarBox[data-widget-fullname='" + wid + "_placeholder']");
         if(placeholder.length > 0) {
             var parts = wid.split(':');
@@ -92,11 +90,14 @@ Zentyal.Dashboard.closeWidget = function(wid) {
 
 Zentyal.Dashboard.dashboardSortableUpdate = function (dashboard) {
     var dashboardId = dashboard.attr('id');
-    var widgets = dashboard.find('.widgetBox').map( function () {
-        // Always use data-widget-fullname which contains module:widgetname
-        return $(this).attr('data-widget-fullname');
+    var widgets = dashboard.find('.widgetBox').map(function () {
+        var fullname = $(this).attr('data-widget-fullname');
+        if (fullname && fullname !== 'undefined' && fullname.indexOf(':') > 0) {
+            return fullname;
+        }
+        return null;
     }).get().filter(function(name) {
-        return name != null && name !== '';
+        return name !== null;
     }).join(',');
 
     $.ajax({
@@ -106,27 +107,41 @@ Zentyal.Dashboard.dashboardSortableUpdate = function (dashboard) {
     });
 };
 
+Zentyal.Dashboard.cleanInvalidWidgets = function() {
+    var changed = false;
+    $('.widgetBox').each(function() {
+        var $widget = $(this);
+        var hasValidAttrs = $widget.attr('data-widget-module') && 
+                           $widget.attr('data-widget-name') &&
+                           $widget.attr('data-widget-fullname');
+        
+        if (!hasValidAttrs) {
+            $widget.remove();
+            changed = true;
+        }
+    });
+    
+    // Update both dashboards if we removed anything
+    if (changed) {
+        $('.dashboard').each(function() {
+            Zentyal.Dashboard.dashboardSortableUpdate($(this));
+        });
+    }
+};
+
 Zentyal.Dashboard.widget = function(m,w,full) {
     var opacity,
-     top_id,
      cursor,
      str;
     if(full) {
         opacity = 1;
-        top_id = '';
         cursor = 'move';
     } else {
         opacity = 0.3;
-        top_id = '_bar';
         cursor = 'default';
     }
-    // Use data attributes to store widget info, avoiding issues with special chars in IDs
     var widgetFullName = m + ':' + w.name;
-    // Generate a simple sequential ID or use timestamp to avoid special characters
-    var widgetId = 'widget_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-    if (top_id) {
-        widgetId += top_id;
-    }
+    var widgetId = 'widget_' + widgetFullName;
     
     str = "<div class='widgetBox' style='opacity: " + opacity + ";' id='" + widgetId + "' data-widget-module='" + m + "' data-widget-name='" + w.name + "' data-widget-fullname='" + widgetFullName + "'>" +
         "<div class='widgetTopBar'>" +
@@ -138,16 +153,25 @@ Zentyal.Dashboard.widget = function(m,w,full) {
 };
 
 Zentyal.Dashboard.parseWidgetId = function (wid, element) {
-    // Always use data attributes when element is provided
-    if (element) {
-        var $el = $(element);
+    if (!element) {
+        return null;
+    }
+    
+    var $el = $(element);
+    var module = $el.attr('data-widget-module');
+    var widget = $el.attr('data-widget-name');
+    
+    if (module && widget && 
+        typeof module === 'string' && typeof widget === 'string' &&
+        module !== 'undefined' && widget !== 'undefined' &&
+        module.length > 0 && widget.length > 0) {
         return {
-            module: $el.attr('data-widget-module'),
-            widget: $el.attr('data-widget-name')
+            module: module,
+            widget: widget
         };
     }
-    // Fallback: this shouldn't happen with new approach
-    throw new Error('parseWidgetId requires element parameter');
+    
+    return null;
 };
 
 Zentyal.Dashboard.toggleClose = function () {
@@ -430,12 +454,15 @@ Zentyal.Dashboard.updateWidget = function(widget) {
 Zentyal.Dashboard.updateWidgets = function() {
     $('.widgetBox').each(function(index, widgetBox) {
         var id = widgetBox.id;
-        //id can be empty when draggin things
-        if (id === '') {
+        if (!id || id === '') {
            return true;
         }
         var idParts = Zentyal.Dashboard.parseWidgetId(id, widgetBox);
-        var url = '/Dashboard/WidgetJSON?module=' + idParts.module + '&widget=' + encodeURIComponent(idParts.widget);
+        if (!idParts || !idParts.module || !idParts.widget ||
+            idParts.module === 'undefined' || idParts.widget === 'undefined') {
+            return true;
+        }
+        var url = '/Dashboard/WidgetJSON?module=' + encodeURIComponent(idParts.module) + '&widget=' + encodeURIComponent(idParts.widget);
         $.ajax({
                          url:   url,
                          type: 'get',
@@ -472,13 +499,17 @@ Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList = function (module, widget
    var html = '';
    for (i = start; i < end; ++i) {
      var id = widgets[i]['id'];
+     var widgetName = widgets[i]['name'];
      var present = widgets[i].present;
      if (present) {
          html += '<div class="widgetBarBox widgetPresent" ';
      } else {
          html += '<div class="widgetBarBox" ';
      }
-     html +=  'id="' + id + '_placeholder">';
+     html +=  'id="' + id + '_placeholder" ' +
+              'data-widget-module="' + module + '" ' +
+              'data-widget-name="' + widgetName + '" ' +
+              'data-widget-fullname="' + id + '_placeholder">';
      html += Zentyal.Dashboard.widget(module,widgets[i],!present);
      html += '</div>';
    }
@@ -497,20 +528,37 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
         scroll: true,
         opacity: 0.8,
         start: function(event, ui) {
-            var id = ui.item.attr('id');
-            var idParts = Zentyal.Dashboard.parseWidgetId(id, ui.item[0]);
+            var $item = ui.item;
+            var id = $item.attr('id');
+            
+            if (!id) {
+                return false;
+            }
+            
+            var idParts = Zentyal.Dashboard.parseWidgetId(id, $item[0]);
+            
+            if (!idParts || 
+                !idParts.module || !idParts.widget ||
+                typeof idParts.module !== 'string' || typeof idParts.widget !== 'string' ||
+                idParts.module === 'undefined' || idParts.widget === 'undefined' ||
+                idParts.module.length === 0 || idParts.widget.length === 0) {
+                return false;
+            }
             $.ajax({
-                url: '/Dashboard/Widget?module=' + idParts.module + '&widget=' + encodeURIComponent(idParts.widget),
+                url: '/Dashboard/Widget?module=' + encodeURIComponent(idParts.module) + '&widget=' + encodeURIComponent(idParts.widget),
                 type: 'get',
                 dataType: 'html',
                 success: function(response) {
                     var widget = ui.item;
+                    var fullname = idParts.module + ':' + idParts.widget;
+                    
                     widget.removeClass().addClass('widgetBox');
                     widget.attr('id', id.replace(/_placeholder$/, ''));
+                    widget.attr('data-widget-fullname', fullname);
                     widget.width($('#dashboard1').width());
                     widget.html(response);
-                    widget.find('.closeBox').toggle(500); // XXX first?
-                    ui.placeholder.height(widget.height()); // FIXME: wrong height
+                    widget.find('.closeBox').toggle(500);
+                    ui.placeholder.height(widget.height());
                 }
             });
         },
@@ -519,8 +567,11 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
             var inside = widget.closest('#widget_list').length > 0;
             if (inside) {
                 widget.removeClass().addClass('widgetBarBox').html('');
-                // put _placeholder id back in place
-                widget.attr('id', widget.attr('id') + '_placeholder');
+                var currentId = widget.attr('id');
+                if (currentId && !currentId.endsWith('_placeholder')) {
+                    widget.attr('id', currentId + '_placeholder');
+                    widget.attr('data-widget-fullname', currentId + '_placeholder');
+                }
             }
             Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(module, Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
         }
@@ -554,7 +605,7 @@ Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start, c
 
     for (var i = start; i < end; ++i) {
         var fullName = module + ':' + widgets[i]['name'];
-        widgets[i].id = fullName; // Keep for compatibility but not used as HTML id
+        widgets[i].id = fullName;
         // recalculate present because it can have changed - use attribute selector
         widgets[i].present = $(".dashboard .widgetBox[data-widget-fullname='" + fullName + "']").length > 0;
     }
