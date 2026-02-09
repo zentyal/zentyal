@@ -1,7 +1,18 @@
 #!/bin/bash
 
-/usr/share/zenbuntu-desktop/firefox-launcher &
-
+# Disable screensaver
 xset s off
 xset -dpms
 xset s noblank
+
+# Launch Firefox only once per session (check lock file)
+LOCK_FILE="/tmp/.zentyal-firefox-launched-$DISPLAY"
+
+if [ ! -f "$LOCK_FILE" ]; then
+    # Create lock file
+    touch "$LOCK_FILE"
+    
+    # Launch Firefox asynchronously without blocking session
+    # Run in subshell to prevent blocking and discard stderr
+    (/usr/share/zenbuntu-desktop/firefox-launcher 2>/dev/null) &
+fi
