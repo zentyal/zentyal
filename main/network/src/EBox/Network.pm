@@ -3401,7 +3401,8 @@ sub routesByIface
     my @routes = ();
     for my $id (@{$staticRouteModel->ids()}) {
         my $row = $staticRouteModel->row($id);
-        next if ($row->printableValueByName('interface') ne $iface);
+        # Compare with value (system name) not printableValue (alias)
+        next if ($row->valueByName('interface') ne $iface);
         push (@routes, { network => $row->printableValueByName('network'),
                          gateway => $row->printableValueByName('gateway')});
     }
