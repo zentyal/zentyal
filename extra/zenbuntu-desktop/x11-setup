@@ -19,11 +19,14 @@ chown $USER_NAME:$USER_NAME $DIR/.xscreensaver
 mkdir -p $DIR/.mozilla/firefox
 cp -r /usr/share/zenbuntu-desktop/firefox-profile/* $DIR/.mozilla/firefox
 
+# Only configure certificate if it exists (Zentyal might not be configured yet)
 PROFILE=$DIR/.mozilla/firefox/ebox.default
 CERT=/var/lib/zentyal/conf/ssl/ssl.cert
 ID='zentyal'
-certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
-/usr/share/zenbuntu-desktop/firefox-cert-override > $PROFILE/cert_override.txt
+if [ -f "$CERT" ]; then
+    certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT 2>/dev/null || true
+    /usr/share/zenbuntu-desktop/firefox-cert-override > $PROFILE/cert_override.txt 2>/dev/null || true
+fi
 
 chown -R $USER_NAME:$USER_NAME $DIR/.mozilla
 chmod -R +w $DIR/.mozilla
@@ -41,7 +44,7 @@ mv /usr/share/zenbuntu-desktop/lxde/Desktop/zentyal.desktop /usr/share/applicati
 mv /usr/share/zenbuntu-desktop/lxde/zentyal-logout.desktop /usr/share/applications/
 ln -sf /usr/share/zenbuntu-desktop/lxde/lxde-logout /usr/local/bin/lxde-logout
 ln -sf /usr/share/applications/zentyal.desktop $DESKTOP/zentyal.desktop
-mv /usr/share/zenbuntu-desktop/lxde/Desktop/* $DESKTOP/
+mv /usr/share/zenbuntu-desktop/lxde/Desktop/* $DESKTOP/ 2>/dev/null || true
 PANELS_DIR=$DIR/.config/lxpanel/LXDE/panels
 mkdir -p $PANELS_DIR
 mv /usr/share/zenbuntu-desktop/lxde/bottom $PANELS_DIR/
@@ -53,5 +56,5 @@ mv /usr/share/zenbuntu-desktop/lxde/pcmanfm.conf $PCMANFM_DIR/
 LIBFM_DIR=$DIR/.config/libfm
 mkdir -p $LIBFM_DIR
 mv /usr/share/zenbuntu-desktop/lxde/libfm.conf $LIBFM_DIR/
-chown -R $USER_NAME:$USER_NAME $DESKTOP
-chown -R $USER_NAME:$USER_NAME $DIR/.config
+# Single ownership change for all config files
+chown -R $USER_NAME:$USER_NAME $DESKTOP $DIR/.config

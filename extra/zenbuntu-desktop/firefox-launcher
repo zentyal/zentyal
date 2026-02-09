@@ -1,11 +1,36 @@
 #!/bin/bash
 
-PORT=`grep listen /var/lib/zentyal/conf/nginx.conf | sed 's/[^0-9]//g'`
+# Retry connection with timeout
+RETRY_COUNT=0
+MAX_RETRIES=30
+PORT=443
 
-
-if [[ $PORT == 443 ]]
-then
-    firefox https://localhost
-else
-    firefox https://localhost:$PORT
+# Try to get port from nginx config if available
+if [ -f /var/lib/zentyal/conf/nginx.conf ]; then
+    NGINX_PORT=$(grep listen /var/lib/zentyal/conf/nginx.conf 2>/dev/null | head -1 | sed 's/[^0-9]//g')
+    if [ -n "$NGINX_PORT" ] && [ "$NGINX_PORT" != "443" ]; then
+        PORT=$NGINX_PORT
+    fi
 fi
+
+# Wait for Zentyal service with timeout (max 30 seconds)
+while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+    if timeout 1 bash -c "echo > /dev/tcp/localhost/$PORT" 2>/dev/null; then
+        # Connection successful, launch Firefox with ebox.default profile path
+        PROFILE_PATH="$HOME/.mozilla/firefox/ebox.default"
+        exec firefox --profile "$PROFILE_PATH" https://localhost:$PORT >/dev/null 2>&1
+        exit 0
+    fi
+    sleep 1
+    RETRY_COUNT=$((RETRY_COUNT + 1))
+done
+
+# Timeout reached - notify user and log error
+echo "$(date): Could not connect to Zentyal on localhost:$PORT after 30 seconds" >> /tmp/zenbuntu-desktop.log
+
+# Show notification to user if notify-send is available
+if command -v notify-send >/dev/null 2>&1; then
+    notify-send -u critical "Zentyal" "Could not connect to Zentyal Web Interface. Please check if the service is running." 2>/dev/null &
+fi
+
+exit 0
