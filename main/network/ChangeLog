@@ -3,6 +3,9 @@
 	+ Fix bridge/bond cleanup: prevent empty hash entries in Redis after deletion
 	+ Fix exception visibility: change DataInUse to External for non-recoverable errors
 	+ Add early validation for bridge/bond dependencies (gateways and static routes)
+	+ Fix StaticRoute interface selector to exclude bridged/bundled interfaces and show aliases
+	+ Fix routesByIface() to compare interface system names instead of aliases
+	+ Fix static routes not being written to netplan configuration for bridges and bonds
 	+ Fix uninitialized value warnings in ifaces.mas template for bridge and bond fields
 	+ Fix "Exiting eval" warnings in _routersReachableIfChange exception handling
 	+ Refactor BridgedCleanUp/BundledCleanUp to delete entries directly when no interfaces remain

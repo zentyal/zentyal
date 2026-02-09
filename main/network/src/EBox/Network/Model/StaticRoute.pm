@@ -236,21 +236,35 @@ sub _populateInterfaces
 {
     my ($self) = @_;
 
-    my $network = $self->parentModule();
-    my @enabledIfaces = grep {
-        $network->ifaceMethod($_) ne 'notset'
-    } @{ $network->ifaces() };
-    my @options;
-
-    foreach my $iface (@enabledIfaces) {
-        push (@options, {
-           'value' => $iface,
-           'printableValue' => $iface
-        });
-    }
-
     return sub {
-        return \@options
+        my $network = $self->parentModule();
+        
+        # Get all interfaces from ifaces() which already includes bridges, bonds, and vlans
+        # but also includes physical interfaces that are bridged/bundled members
+        my @allIfaces = @{ $network->ifaces() };
+        
+        # Filter out interfaces that are:
+        # - notset (not configured)
+        # - bridged (members of a bridge, not the bridge itself)
+        # - bundled (members of a bond, not the bond itself)
+        my @enabledIfaces = grep {
+            my $method = $network->ifaceMethod($_);
+            $method ne 'notset' && $method ne 'bridged' && $method ne 'bundled'
+        } @allIfaces;
+        
+        my @options;
+        foreach my $iface (sort @enabledIfaces) {
+            # Use alias as printable value if it exists, otherwise use interface name
+            my $alias = $network->ifaceAlias($iface);
+            my $printable = (defined($alias) && $alias ne '') ? $alias : $iface;
+            
+            push (@options, {
+               'value' => $iface,
+               'printableValue' => $printable
+            });
+        }
+        
+        return \@options;
     };
 }
 
