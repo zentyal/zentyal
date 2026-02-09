@@ -68,15 +68,15 @@ sub validateTypedRow
 
     my $netbios = exists $newParams->{'netbiosName'} ?
                          $newParams->{'netbiosName'}->value() :
-                         $oldParams->{'netbiosName'}->value();
+                         (exists $oldParams->{'netbiosName'} ? $oldParams->{'netbiosName'}->value() : '');
 
     my $workgroup = exists $newParams->{'workgroup'} ?
                            $newParams->{'workgroup'}->value() :
-                           $oldParams->{'workgroup'}->value();
+                           (exists $oldParams->{'workgroup'} ? $oldParams->{'workgroup'}->value() : '');
 
     my $description = exists $newParams->{'description'} ?
                              $newParams->{'description'}->value() :
-                             $oldParams->{'description'}->value();
+                             (exists $oldParams->{'description'} ? $oldParams->{'description'}->value() : '');
 
     if (uc ($netbios) eq uc ($workgroup)) {
         throw EBox::Exceptions::External(
@@ -87,7 +87,7 @@ sub validateTypedRow
 
     # Validate domain level changes
     if (exists $newParams->{'domainlevel'}) {
-        my $oldDomainLevel = $oldParams->{'domainlevel'}->value();
+        my $oldDomainLevel = (exists $oldParams->{'domainlevel'} ? $oldParams->{'domainlevel'}->value() : '');
         my $newDomainLevel = $newParams->{'domainlevel'}->value();
         my $sambaMod = $self->parentModule();
 

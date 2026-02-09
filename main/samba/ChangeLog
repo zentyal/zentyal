@@ -1,5 +1,6 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Fix DomainSettings validateTypedRow to handle undefined oldParams when module is disabled
 	+ Remove deprecated auth-client-config package
 	+ Update NSS and PAM management
 	+ Fix password changes on Samba 4.19+ by using samba-tool instead of direct LDAP unicodePwd writes
