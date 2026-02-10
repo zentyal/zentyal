@@ -56,6 +56,7 @@ sub _process
     push @params, (progressId => $self->_progressId);
 
     my $title = $self->unsafeParam('title');
+    $self->{title} = $title if $title;
     my @paramsNames = qw( text currentItemCaption itemsLeftMessage
             showNotesOnFinish
             endNote errorNote reloadInterval currentItemUrl

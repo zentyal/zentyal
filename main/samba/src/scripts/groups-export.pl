@@ -4,7 +4,11 @@ use strict;
 
 use EBox;
 use EBox::Global;
+use EBox::ProgressIndicator;
 use Cwd 'abs_path';
+use Getopt::Long;
+use Scalar::Util qw(blessed);
+use TryCatch;
 
 my @getGroups;
 my $checkOptions;
@@ -12,6 +16,8 @@ my $getPath;
 my $writeCSV;
 my @lines;
 my $gid;
+my $progressId;
+my $progress;
 
 EBox::init();
 
@@ -19,15 +25,26 @@ sub getGroups
 {
     my $samba = EBox::Global->modInstance('samba');
 
-    foreach my $g ( @{ $samba->groups() } ) {
-        if ( !$g->isInternal() and $g->name ne 'Domain Admins' ) {
-            push @lines,
-                $g->name() . ';'
-              . $g->parent()->dn() . ';'
-	          . $g->description() . ';'
-              . $g->mail() . ';'
-              . $g->isSecurityGroup() . ";\n";
+    my @allGroups = @{ $samba->groups() };
+    my @groupsToExport = grep { !$_->isInternal() and $_->name ne 'Domain Admins' } @allGroups;
+    my $total = scalar(@groupsToExport);
+
+    if ($progress) {
+        $progress->setTotalTicks($total);
+    }
+
+    foreach my $g (@groupsToExport) {
+        if ($progress) {
+            $progress->setMessage("Exporting " . $g->name());
+            $progress->notifyTick();
         }
+
+        push @lines,
+            $g->name() . ';'
+          . $g->parent()->dn() . ';'
+          . $g->description() . ';'
+          . $g->mail() . ';'
+          . $g->isSecurityGroup() . ";\n";
     }
 
     return @lines;
@@ -65,12 +82,28 @@ sub getParms
 {
     my (@args) = @_;
 
-    die "Usage: ./group-exporter <dest-file> \n" unless ( scalar @args == 1 );
+    # Parse --progress-id if present (used by Zentyal web UI)
+    GetOptions('progress-id=i' => \$progressId) or die "Bad options\n";
 
-    print "Exporting domain groups to file: $args[0]\n";
-    writeCSV( $args[0] );
+    if ($progressId) {
+        $progress = EBox::ProgressIndicator->retrieve($progressId);
+    }
+
+    die "Usage: ./group-exporter <dest-file> \n" unless @ARGV == 1;
+
+    print "Exporting domain groups to file: $ARGV[0]\n";
+    try {
+        writeCSV( $ARGV[0] );
+        if ($progress) {
+            $progress->setAsFinished(0);
+        }
+    } catch ($e) {
+        my $errorTxt = blessed($e) ? $e->text() : "$e";
+        if ($progress) {
+            $progress->setAsFinished(1, $errorTxt);
+        }
+        die $errorTxt;
+    }
 }
 
-EBox::Sudo::root('/usr/bin/touch /var/lib/zentyal/tmp/.groups_exporter-running');
 getParms(@ARGV);
-EBox::Sudo::root('/bin/rm /var/lib/zentyal/tmp/.groups_exporter-running');

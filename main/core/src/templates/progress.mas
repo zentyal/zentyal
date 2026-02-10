@@ -224,6 +224,8 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
    &>
 </div>
 
+<div id="progress-report-details" class="item-block" style="display:none;"></div>
+
 <script type="text/javascript">
 $( function() {
    Zentyal.ProgressIndicator.updateProgressIndicator(<% $progressId %>,

@@ -60,11 +60,10 @@ Zentyal.ProgressIndicator.updatePage  = function(xmlHttp, progressbar, timerId, 
 
           if (showNotesOnFinish) {
             if (('errorMsg' in response) && (response.errorMsg)) {
-                $('#warning-progress-messages').html(response.errorMsg);
+                $('#progress-report-details').html(response.errorMsg).show();
 
                 $('#done_note').removeClass('note').addClass('warning');
                 $('#warning-progress').show();
-                $('#warning-progress-messages').show();
             }
 
               $('#progressing').hide();
@@ -82,7 +81,7 @@ Zentyal.ProgressIndicator.updatePage  = function(xmlHttp, progressbar, timerId, 
 
             $('#error-progress').show();
             if ('errorMsg' in response) {
-                $('#error-progress-message').html(response.errorMsg);
+                $('#progress-report-details').html(response.errorMsg).show();
             }
         }
     }
