@@ -1,13 +1,6 @@
 zenbuntu-desktop (8.1.0) noble; urgency=medium
 
-  * Fix white screen after reboot by making Firefox launcher asynchronous
-  * Add retry logic with 30-second timeout to firefox-launcher
-  * Launch Firefox in isolated subshell to avoid X session hangs
-  * Add lock file to prevent multiple Firefox instances per session
-  * Add user notification on connection failure
-  * Make x11-setup more robust when SSL cert doesn't exist yet
-  * Launch Firefox with ebox.default profile to avoid profile selection
-  * Code cleanup: remove redundant chown calls and improve error handling
+  * New upstream release
 
  -- Bruno Lorente <blorente@novadevs.com>  Sun, 09 Feb 2026 14:00:00 +0100
 
