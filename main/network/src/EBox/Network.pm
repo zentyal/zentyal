@@ -2296,28 +2296,19 @@ sub removeVlan # (id)
     my ($self, $id, $force) = @_;
     checkVlanID($id, __('VLAN Id'));
 
+    my $vlanName = "vlan$id";
+
+    # Check if the VLAN has associated gateways or static routes
+    unless ($force) {
+        $self->_checkIfaceHasGatewaysOrRoutes($vlanName);
+    }
+
     my $vlans = $self->get_hash('vlans');
     delete $vlans->{$id};
     $self->set_hash('vlans', $vlans);
 
-    my $vlanName = "vlan$id";
+    # Remove the interface and its state (this handles everything)
     $self->_removeIface($vlanName);
-
-    # TODO: Do we need this (it looks like _removeIface does the same)
-    my $interfaces = $self->redis()->get('network/conf/interfaces');
-    if (exists $interfaces->{$vlanName}) {
-        delete $interfaces->{$vlanName};
-        $self->redis()->set('network/conf/interfaces', $interfaces);
-    }
-
-    my $state = $self->get_state();
-    if (exists $state->{interfaces}->{$vlanName}) {
-        delete $state->{interfaces}->{$vlanName};
-        if (exists $state->{dhcp}->{$vlanName}) {
-            delete $state->{dhcp}->{$vlanName};
-        }
-        $self->set_state($state);
-    }
 }
 
 # Method: vlans
@@ -2511,7 +2502,9 @@ sub _removeEmptyBridges
     
     # Check for empty bridge entries in Redis and remove them
     my $ifaces = $self->get_hash('interfaces');
+    my $state = $self->get_state();
     my $modified = 0;
+    my $stateModified = 0;
     
     for my $iface (keys %{$ifaces}) {
         if ($iface =~ /^br\d+$/ && keys %{$ifaces->{$iface}} == 0) {
@@ -2520,7 +2513,15 @@ sub _removeEmptyBridges
         }
     }
     
+    for my $iface (keys %{$state->{interfaces}}) {
+        if ($iface =~ /^br\d+$/ && keys %{$state->{interfaces}->{$iface}} == 0) {
+            delete $state->{interfaces}->{$iface};
+            $stateModified = 1;
+        }
+    }
+    
     $self->set('interfaces', $ifaces) if $modified;
+    $self->set_state($state) if $stateModified;
 }
 
 # Method: bridges
@@ -2698,7 +2699,9 @@ sub _removeEmptyBonds
     
     # Check for empty bond entries in Redis and remove them
     my $ifaces = $self->get_hash('interfaces');
+    my $state = $self->get_state();
     my $modified = 0;
+    my $stateModified = 0;
     
     for my $iface (keys %{$ifaces}) {
         if ($iface =~ /^bond\d+$/ && keys %{$ifaces->{$iface}} == 0) {
@@ -2707,7 +2710,82 @@ sub _removeEmptyBonds
         }
     }
     
+    for my $iface (keys %{$state->{interfaces}}) {
+        if ($iface =~ /^bond\d+$/ && keys %{$state->{interfaces}->{$iface}} == 0) {
+            delete $state->{interfaces}->{$iface};
+            $stateModified = 1;
+        }
+    }
+    
     $self->set('interfaces', $ifaces) if $modified;
+    $self->set_state($state) if $stateModified;
+}
+
+# Method: _removeEmptyVlans
+#
+# Removes empty VLAN entries {} from Redis
+# Note: Actual VLAN cleanup when removed is handled by removeVlan()
+sub _removeEmptyVlans
+{
+    my ($self) = @_;
+    
+    # Check for empty VLAN entries in Redis and remove them
+    my $ifaces = $self->get_hash('interfaces');
+    my $state = $self->get_state();
+    my $modified = 0;
+    my $stateModified = 0;
+    
+    for my $iface (keys %{$ifaces}) {
+        if ($iface =~ /^vlan\d+$/ && keys %{$ifaces->{$iface}} == 0) {
+            delete $ifaces->{$iface};
+            $modified = 1;
+        }
+    }
+    
+    for my $iface (keys %{$state->{interfaces}}) {
+        if ($iface =~ /^vlan\d+$/ && keys %{$state->{interfaces}->{$iface}} == 0) {
+            delete $state->{interfaces}->{$iface};
+            $stateModified = 1;
+        }
+    }
+    
+    $self->set('interfaces', $ifaces) if $modified;
+    $self->set_state($state) if $stateModified;
+}
+
+# Method: _removeOrphanedStaticRoutes
+#
+# Removes orphaned static route entries from Redis
+# When a route is deleted via GUI, removeRow only updates the order array
+# but leaves the actual Redis key. This method cleans up those orphaned keys.
+sub _removeOrphanedStaticRoutes
+{
+    my ($self) = @_;
+    
+    my $staticRouteModel = $self->model('StaticRoute');
+    my $redis = $self->redis();
+    
+    # Get the list of valid route IDs from the model's order
+    my @validIds = @{$staticRouteModel->ids()};
+    my %validIdsHash = map { $_ => 1 } @validIds;
+    
+    # Get all route keys from Redis (both conf and ro namespaces)
+    foreach my $namespace (qw(conf ro)) {
+        my $keysPattern = "network/$namespace/StaticRoute/keys/*";
+        my @allKeys = $redis->_keys($keysPattern);
+        
+        # Remove orphaned keys
+        foreach my $keyPath (@allKeys) {
+            # Extract the ID from the key path
+            my ($id) = $keyPath =~ m{/keys/([^/]+)$};
+            next unless defined $id;
+            
+            # If this ID is not in the valid list, delete it
+            unless (exists $validIdsHash{$id}) {
+                $redis->unset($keyPath);
+            }
+        }
+    }
 }
 
 # Method: bonds
@@ -3485,6 +3563,13 @@ sub _removeIface
         delete $ifaces->{$iface};
     }
     $self->set('interfaces', $ifaces);
+
+    # Clean up state entry for this interface
+    my $state = $self->get_state();
+    if (exists $state->{interfaces}->{$iface}) {
+        delete $state->{interfaces}->{$iface};
+        $self->set_state($state);
+    }
 }
 
 sub _unsetChanged # (interface)
@@ -3899,9 +3984,13 @@ sub _saveConfig
 {
     my ($self) = @_;
 
-    # Clean up empty bridge and bond entries from Redis before saving
+    # Clean up empty bridge, bond and VLAN entries from Redis before saving
     $self->_removeEmptyBridges();
     $self->_removeEmptyBonds();
+    $self->_removeEmptyVlans();
+    
+    # Clean up orphaned static route keys
+    $self->_removeOrphanedStaticRoutes();
 
     # Call parent implementation to copy conf to ro
     $self->SUPER::_saveConfig();
@@ -4130,9 +4219,13 @@ sub _enforceServiceState
 
     $self->SUPER::_enforceServiceState();
     
-    # Clean up any empty bridge/bond entries that might have been recreated
+    # Clean up any empty bridge/bond/vlan entries that might have been recreated
     $self->_removeEmptyBridges();
     $self->_removeEmptyBonds();
+    $self->_removeEmptyVlans();
+    
+    # Clean up orphaned static route keys
+    $self->_removeOrphanedStaticRoutes();
 }
 
 sub _disableNetworkManagerUnsetIfaces
