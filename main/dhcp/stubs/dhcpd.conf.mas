@@ -40,17 +40,17 @@ option shoretel-director-server code 155 = ip-address;
 
 pid-file-name "<% $pidFile %>";
 
-%       if ($dynamicDNSEnabled) {
-% if ($dynDnsSamba){
+% if ($dynamicDNSEnabled) {
+%   if ($dynDnsSamba) {
 ddns-update-style    none;
-%}else{
+%   } else {
 ddns-update-style    interim;
-%}
+%   }
 ddns-updates         on;
 update-static-leases on;
-%       } else {
+% } else {
 ddns-update-style none;
-%       }
+% }
 
 %	if(length($dnsone) != 0) {
 option domain-name-servers <% $dnsone %>\

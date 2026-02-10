@@ -95,17 +95,17 @@ sub _create
 sub usedFiles
 {
     return [
-            {
-             'file' => DHCPCONFFILE,
-             'module' => 'dhcp',
-             'reason' => __x('{server} configuration file', server => 'dhcpd'),
-            },
-            {
-             'file'   => APPARMOR_DHCPD,
-             'module' => 'dhcp',
-             'reason' => __x('AppArmor profile for {server} daemon', server => 'dhcpd'),
-            },
-           ];
+        {
+            'file' => DHCPCONFFILE,
+            'module' => 'dhcp',
+            'reason' => __x('{server} configuration file', server => 'dhcpd'),
+        },
+        {
+            'file'   => APPARMOR_DHCPD,
+            'module' => 'dhcp',
+            'reason' => __x('AppArmor profile for {server} daemon', server => 'dhcpd'),
+        },
+    ];
 }
 
 # Method: initialSetup
@@ -179,14 +179,26 @@ sub appArmorProfiles
 {
     my ($self) = @_;
 
-    my @params = ('confDir' => $self->IncludeDir());
+    EBox::info('Setting DHCP apparmor profile');
+
+    my @params = (confDir => $self->IncludeDir());
+
+    if ($self->_dynamicDNSEnabled()) {
+        push(@params, dynDns => 1);
+
+        if (EBox::Global->modExists('samba') and EBox::Global->modInstance('samba')->isEnabled()) {
+            push(@params, dynDnsSamba => 1);
+        }
+    }
 
     return [
-        { 'binary' => 'usr.sbin.dhcpd',
-          'local'  => 1,
-          'file'   => 'dhcp/apparmor-dhcpd.local.mas',
-          'params' => \@params }
-       ];
+        {
+            binary => 'usr.sbin.dhcpd',
+            local  => 1,
+            file   => 'dhcp/apparmor-dhcpd.local.mas',
+            params => \@params,
+        }
+    ];
 }
 
 # Method: actions
