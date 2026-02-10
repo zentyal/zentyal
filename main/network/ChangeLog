@@ -1,5 +1,14 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Add cleanup methods to prevent orphaned data in Redis after deletions
+	+ Add _removeOrphanedStaticRoutes to remove orphaned route keys from conf and ro
+	+ Add _removeEmptyVlans to clean up empty VLAN entries in Redis after deletion
+	+ Add _removeEmptyBonds to clean up empty bond entries in conf and state
+	+ Add _removeEmptyBridges to clean up empty bridge entries in conf and state
+	+ Fix _removeIface to clean up state entries when deleting interfaces
+	+ Simplify removeVlan to rely on _removeIface for cleanup
+	+ Add validation in removeVlan to check for associated gateways and static routes
+	+ Add validation to prevent duplicate service names in ServiceTable
 	+ Fix bridge/bond cleanup: prevent empty hash entries in Redis after deletion
 	+ Fix exception visibility: change DataInUse to External for non-recoverable errors
 	+ Add early validation for bridge/bond dependencies (gateways and static routes)
@@ -13,7 +22,6 @@
 	+ Simplify _removeEmptyBridges and _removeEmptyBonds to only remove empty entries
 	+ Fix restoreConfig to skip empty interfaces when marking as changed
 	+ Prevent removal of bridge/bond interfaces with associated gateways or static routes
-	+ Add validation to prevent duplicate service names in ServiceTable
 	+ Add apparmor local profile
 	+ Update default Netplan configuration file used in Ubuntu 24.04
 	+ Fix bridge configuration
