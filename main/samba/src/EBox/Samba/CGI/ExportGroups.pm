@@ -13,106 +13,110 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Samba::CGI::ExportGroups;
+# Class: EBox::Samba::CGI::ExportGroups
+#
+#   CGI handler for exporting domain groups to CSV.
+#   Uses ProgressClient to show a native Zentyal progress bar during export.
+#   Also handles the download of the generated CSV file.
 #
 use strict;
 use warnings;
 
 package EBox::Samba::CGI::ExportGroups;
-use base 'EBox::CGI::ClientBase';
+use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use EBox::Global;
 use EBox::Config;
+use EBox::Gettext;
 use EBox::WebAdmin;
 use EBox::Exceptions::Internal;
+use EBox::ProgressIndicator;
 
 use Plack::Util;
 use Cwd qw(realpath);
-use HTTP::Date;
 use File::Basename;
 
-# Method: new
-#
-#       Constructor for group exporter CGI
-#
-# Returns:
-#
-#       <EBox::Samba::CGI::ExportGroups> - The object recently created
-sub new # (cgi=?)
+sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new(@_);
+    my $self = $class->SUPER::new(
+        title => __('Export Groups'),
+        @_
+    );
     bless($self, $class);
     return $self;
 }
 
-# Group: Protected methods
-
-# Method: _process
-#
-#      Gets the appropriate GET param to call the right subroutine
-#
-# Overrides:
-#
-#      <EBox::CGI::Base::_process>
-#
 sub _process
 {
-    my $self = shift;
+    my ($self) = @_;
     my $action = $self->param('action');
-    if ( $action eq 'download') {
+
+    if ($action eq 'download') {
         EBox::info('Downloading groups CSV');
         $self->_downloadGroupsCSV();
+    } elsif ($action eq 'run') {
+        EBox::info('Running groups exporter with progress');
+        $self->_runExport();
     } else {
-        EBox::info("Running groups exporter");
-        $self->_generateGroupsCSV($action);
-    }
-}
-
-# Method: _generateSystemStatusReport
-#
-sub _generateGroupsCSV
-{
-    my ($self, $action) = @_;
-    if ($action eq 'run') {
-        $SIG{CHLD} = 'IGNORE';
-        if (fork() == 0) {
-            EBox::WebAdmin::cleanupForExec();
-            EBox::Sudo::root('/usr/share/zentyal-samba/groups-export.pl /tmp/groups-export.csv');
-        }
         $self->{redirect} = '/Samba/Composite/ImportExport';
-    } elsif ($action eq 'status') {
-        my $finished = not (-f '/var/lib/zentyal/tmp/.groups_exporter-running');
-        $self->{json} = { finished => $finished };
     }
 }
 
-# Method: _downloadSystemStatusReport
-#
+sub _runExport
+{
+    my ($self) = @_;
+
+    my $csvPath = EBox::Config::tmp() . 'groups-export.csv';
+    unlink $csvPath if (-f $csvPath);
+    my $script = '/usr/share/zentyal-samba/groups-export.pl';
+    my $executable = "$script $csvPath";
+
+    # Count groups for totalTicks estimate
+    my $totalTicks = 10; # default estimate
+    eval {
+        my $usersMod = EBox::Global->modInstance('samba');
+        if ($usersMod and $usersMod->isEnabled()) {
+            my @groups = @{$usersMod->ldb()->groups()};
+            $totalTicks = scalar(@groups);
+            $totalTicks = 1 if ($totalTicks < 1);
+        }
+    };
+
+    my $progressIndicator = EBox::ProgressIndicator->create(
+        executable => $executable,
+        totalTicks => $totalTicks,
+    );
+    $progressIndicator->runExecutable();
+
+    $self->showProgress(
+        progressIndicator  => $progressIndicator,
+        title              => __('Exporting Groups'),
+        currentItemCaption => __('Current operation'),
+        itemsLeftMessage   => __('groups exported'),
+        endNote            => __('Export finished successfully.') . ' <a href="/Samba/Composite/ImportExport">' . __('Go back') . '</a>',
+        errorNote          => __('Some errors occurred during export.') . ' <a href="/Samba/Composite/ImportExport">' . __('Go back') . '</a>',
+        reloadInterval     => 2,
+        nextStepUrl        => '/Samba/ExportGroups?action=download',
+        nextStepText       => __('Download CSV'),
+    );
+}
+
 sub _downloadGroupsCSV
 {
     my ($self) = @_;
-    my $path = '/tmp/groups-export.csv';
-    my $temp = '/var/lib/zentyal/tmp/.groups_exporter-running';
+    my $path = EBox::Config::tmp() . 'groups-export.csv';
 
-    unless (-e $temp) {
-        if (-f $path) {
-            # Setting the file
-            $self->{downfile} = $path;
-            # Setting the file name
-            $self->{downfilename} = fileparse($path);
-        }
+    if (-f $path) {
+        $self->{downfile} = $path;
+        $self->{downfilename} = fileparse($path);
+    } else {
+        throw EBox::Exceptions::Internal(
+            __('No exported CSV file found. Please run the export first.')
+        );
     }
 }
 
-# Method: _print
-#
-# Overrides:
-#
-#   <EBox::CGI::Base::_print>
-#
-# Overwrite the _print method to send the file
-#
 sub _print
 {
     my ($self) = @_;

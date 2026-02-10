@@ -15,103 +15,77 @@
 use strict;
 use warnings;
 
-# Class: EEBox::Samba::Model::ExportGroups
+# Class: EBox::Samba::Model::ExportGroups
 #
-#   This model is used to manage the system status report feature
+#   Simple model that provides an export button.
+#   The actual export with progress bar is handled by the ExportGroups CGI.
 #
 package EBox::Samba::Model::ExportGroups;
 
-use base 'EBox::Model::DataTable';
+use base 'EBox::Model::DataForm::Action';
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Types::Text;
-use EBox::Types::Link;
-use EBox::Samba::Types::RunExportGroups;
-use EBox::Samba::Types::StatusExportGroups;
-use EBox::Samba::Types::DownloadExportGroups;
+use EBox::Types::Boolean;
 
-# Constructor: new
-#
-#       Create the new ExportGroups model
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#       <EBox::Samba::Model::ExportGroups> - the recently created model
-#
 sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(@_);
     bless ( $self, $class );
-
     return $self;
 }
 
-# Method: _table
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::_table>
-#
 sub _table
 {
-    my ($self) = @_;
-
-    my @tableHeader = (
-        new EBox::Samba::Types::RunExportGroups(
-            fieldName       => 'exportGroups',
-            printableName   => __('Export groups'),
-        ),
-        new EBox::Samba::Types::StatusExportGroups(
-           fieldName => 'status',
-           printableName => __('CSV available'),
-        ),
-        new EBox::Samba::Types::DownloadExportGroups(
-            fieldName       => 'downloadExportedGroups',
-            printableName   => __('Download csv'),
+    my @tableHead = (
+        new EBox::Types::Boolean(
+            fieldName     => 'exportConfirm',
+            printableName => __('Confirm export of domain groups to CSV'),
+            hidden        => 1,
+            editable      => 1,
+            defaultValue  => 1,
         ),
     );
-    my $dataTable =
-    {
-        tableName          => 'ManageExportGroups',
-        modelDomain        => 'Samba',
-        printableTableName => __('Export domain groups'),
-        tableDescription   => \@tableHeader,
-        defaultActions     => [ 'changeView' ],
+
+    my $dataTable = {
+        'tableName'          => __PACKAGE__->nameFromClass(),
+        'printableTableName' => __('Export domain groups'),
+        'printableActionName' => __('Export groups to CSV'),
+        'automaticRemove'    => 1,
+        'defaultActions'     => ['add', 'del', 'editField', 'changeView'],
+        'tableDescription'   => \@tableHead,
+        'class'              => 'dataTable',
+        'modelDomain'        => 'Samba',
     };
 
     return $dataTable;
 }
 
-# Method: syncRows
-#
-#   Overrides <EBox::Model::DataTable::syncRows>
-#
-sub syncRows
+sub formSubmitted
 {
-    my ($self, $currentRows) = @_;
+    my ($self, $row) = @_;
 
-    if (@{$currentRows}) {
-        return 0;
-    } else {
-        $self->add(status => 'noreport');
-        return 1;
+    # Redirect to the ExportGroups CGI which uses ProgressClient
+    my $msg = __('Starting groups export...');
+    $msg .= "<script>window.location.href='/Samba/ExportGroups?action=run';</script>";
+    $self->setMessage($msg, 'note');
+}
+
+sub _setDefaultMessages
+{
+    my ($self) = @_;
+
+    unless (exists $self->table()->{'messages'}->{'update'}) {
+        $self->table()->{'messages'}->{'update'} = __('Groups export started');
     }
 }
 
-# Method: precondition
-#
-#   Check if usersandgroups is enabled.
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::precondition>
-#
+sub Viewer
+{
+    return '/ajax/form.mas';
+}
+
 sub precondition
 {
     my ($self) = @_;
@@ -119,7 +93,6 @@ sub precondition
     my $ed = EBox::Global->communityEdition();
     my $dep = $self->parentModule()->isEnabled();
 
-    # Return false if this is a community edition
     if ($ed) {
         return 0;
     }

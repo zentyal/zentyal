@@ -1,5 +1,9 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Fix progress page title not rendering by assigning URL param to self->{title}
+	+ Add #progress-report-details div to progress.mas for displaying result
+	  tables outside toast notifications, styled with item-block class
+	+ Update progress.js to render summary HTML in the new details div
 	+ Disable configuration backup restore on Additional Domain Controllers (ADC)
 	+ Add license information widget to dashboard
 	+ Fix dashboard widget system: use data-widget attributes exclusively,

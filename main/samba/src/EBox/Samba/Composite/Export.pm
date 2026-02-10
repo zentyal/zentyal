@@ -16,23 +16,12 @@
 use strict;
 use warnings;
 
-package EBox::Samba::Composite::ImportExport;
+package EBox::Samba::Composite::Export;
 
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
-use EBox::Global;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#   Constructor for the Samba's Import/Export composite
-#
-# Returns:
-#
-#   <EBox::Samba::Composite::ImportExport> - the newly create object
-#
 sub new
 {
     my ($class, @params) = @_;
@@ -40,23 +29,14 @@ sub new
     return $self;
 }
 
-# Group: Protected methods
-
-# Method: _description
-#
-# Overrides:
-#
-#   <EBox::Model::Composite::_description>
-#
 sub _description
 {
     my $description = {
-        layout          => 'tabbed',
+        layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,
-        printableName   => __('Import/Export'),
-        pageTitle       => __('Import/Export'),
+        pageTitle       => undef,
+        printableName   => __('Export'),
         compositeDomain => 'Samba',
-        help => __('On this page you can import and export domain users and groups from CSV files')
     };
 
     return $description;

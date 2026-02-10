@@ -15,103 +15,77 @@
 use strict;
 use warnings;
 
-# Class: EEBox::Samba::Model::ExportUsers
+# Class: EBox::Samba::Model::ExportUsers
 #
-#   This model is used to manage the system status report feature
+#   Simple model that provides an export button and a download link.
+#   The actual export with progress bar is handled by the ExportUsers CGI.
 #
 package EBox::Samba::Model::ExportUsers;
 
-use base 'EBox::Model::DataTable';
+use base 'EBox::Model::DataForm::Action';
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Types::Text;
-use EBox::Types::Link;
-use EBox::Samba::Types::RunExportUsers;
-use EBox::Samba::Types::StatusExportUsers;
-use EBox::Samba::Types::DownloadExportUsers;
+use EBox::Types::Boolean;
 
-# Constructor: new
-#
-#       Create the new ExportUsers model
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#       <EBox::Samba::Model::ExportUsers> - the recently created model
-#
 sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(@_);
     bless ( $self, $class );
-
     return $self;
 }
 
-# Method: _table
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::_table>
-#
 sub _table
 {
-    my ($self) = @_;
-
-    my @tableHeader = (
-        new EBox::Samba::Types::RunExportUsers(
-            fieldName       => 'exportUsers',
-            printableName   => __('Export users'),
-        ),
-        new EBox::Samba::Types::StatusExportUsers(
-           fieldName => 'status',
-           printableName => __('CSV available'),
-        ),
-        new EBox::Samba::Types::DownloadExportUsers(
-            fieldName       => 'downloadExportedUsers',
-            printableName   => __('Download csv'),
+    my @tableHead = (
+        new EBox::Types::Boolean(
+            fieldName     => 'exportConfirm',
+            printableName => __('Confirm export of domain users to CSV'),
+            hidden        => 1,
+            editable      => 1,
+            defaultValue  => 1,
         ),
     );
-    my $dataTable =
-    {
-        tableName          => 'ManageExportUsers',
-        modelDomain        => 'Samba',
-        printableTableName => __('Export domain users'),
-        tableDescription   => \@tableHeader,
-        defaultActions     => [ 'changeView' ],
+
+    my $dataTable = {
+        'tableName'          => __PACKAGE__->nameFromClass(),
+        'printableTableName' => __('Export domain users'),
+        'printableActionName' => __('Export users to CSV'),
+        'automaticRemove'    => 1,
+        'defaultActions'     => ['add', 'del', 'editField', 'changeView'],
+        'tableDescription'   => \@tableHead,
+        'class'              => 'dataTable',
+        'modelDomain'        => 'Samba',
     };
 
     return $dataTable;
 }
 
-# Method: syncRows
-#
-#   Overrides <EBox::Model::DataTable::syncRows>
-#
-sub syncRows
+sub formSubmitted
 {
-    my ($self, $currentRows) = @_;
+    my ($self, $row) = @_;
 
-    if (@{$currentRows}) {
-        return 0;
-    } else {
-        $self->add(status => 'noreport');
-        return 1;
+    # Redirect to the ExportUsers CGI which uses ProgressClient
+    my $msg = __('Starting users export...');
+    $msg .= "<script>window.location.href='/Samba/ExportUsers?action=run';</script>";
+    $self->setMessage($msg, 'note');
+}
+
+sub _setDefaultMessages
+{
+    my ($self) = @_;
+
+    unless (exists $self->table()->{'messages'}->{'update'}) {
+        $self->table()->{'messages'}->{'update'} = __('Users export started');
     }
 }
 
-# Method: precondition
-#
-#   Check if usersandgroups is enabled.
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::precondition>
-#
+sub Viewer
+{
+    return '/ajax/form.mas';
+}
+
 sub precondition
 {
     my ($self) = @_;
@@ -119,7 +93,6 @@ sub precondition
     my $ed = EBox::Global->communityEdition();
     my $dep = $self->parentModule()->isEnabled();
 
-    # Return false if this is a community edition
     if ($ed) {
         return 0;
     }
@@ -131,18 +104,10 @@ sub precondition
     return 1;
 }
 
-# Method: preconditionFailMsg
-#
-#   Returns message to be shown on precondition fail
-#
-# Overrides:
-#
-#       <EBox::Model::preconditionFailMsg>
-#
 sub preconditionFailMsg
 {
     my ($self) = @_;
-    
+
     my $ed = EBox::Global->communityEdition();
     my $dep = $self->parentModule()->isEnabled();
 

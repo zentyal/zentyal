@@ -11,17 +11,19 @@
 	+ Add countUsers() method to count non-system users
 	+ Enforce license user limit when creating new users
 	+ Update import and export scripts
-	+ Improve user and group import/export functionality:
-		- Add email validation for user imports
-		- Add directory permission checks for exports
-		- Implement automatic OU creation during import
-		- Fix Container existence checking to use exists() method
-		- Suppress Perl locale warnings in import scripts
-		- Add proper error handling with exit codes
-		- Improve error message formatting with HTML for better UI display
-		- Add detailed success messages with import counters
-		- Enhance CLI import support for large CSV files (timeout prevention)
-		- Fix error parsing to handle Perl stack traces correctly
+	+ Redesign user and group import/export with native ProgressIndicator:
+		- Replace custom CGI/template approach with DataForm::Action models
+		  and ProgressClient CGIs for all import/export operations
+		- Add progress bars for imports and exports using ProgressIndicator
+		- Restructure UI from 4 tabs to 2 tabs (Import/Export) using nested composites
+		- Add HTML summary tables showing Created/Skipped/Failed counts per operation
+		- Detect already-existing users/groups as SKIPPED instead of failures
+		- Fix CSV MIME type validation logic (was always rejecting valid files)
+		- Add file-exists validation before processing imports
+		- Fix missing EBox::Gettext import in scripts (Undefined subroutine __x)
+		- Use EBox::Config::tmp() for export CSVs to avoid permission errors
+		- Remove decorative confirm checkbox from export forms
+		- Add Go back links in export progress endNote/errorNote
 8.0.2
 	+ Change DNS keytab directory. Fix #2080
 	+ Typo in dumpConfig method. Fix #2048

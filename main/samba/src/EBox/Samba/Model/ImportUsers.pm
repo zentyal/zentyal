@@ -15,9 +15,11 @@
 use strict;
 use warnings;
 
-# Class: EEBox::Samba::Model::ImportUsers
+# Class: EBox::Samba::Model::ImportUsers
 #
-#   This model is used to manage the domain users importation
+#   This model provides the UI for importing domain users from CSV.
+#   The actual import is handled by the ImportUsers CGI using
+#   Zentyal's ProgressIndicator infrastructure.
 #
 package EBox::Samba::Model::ImportUsers;
 
@@ -28,22 +30,16 @@ use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Types::File;
 use EBox::Exceptions::External;
+use EBox::ProgressIndicator;
+use EBox::WebAdmin;
 
 use TryCatch;
 use File::MMagic;
 use FileHandle;
 use File::Slurp;
 use Filesys::Df;
-use Data::Dumper;
+use POSIX;
 
-# Constructor: new
-#
-#       Create the new ExportUsers model
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::new>
-#
 sub new
 {
     my $class = shift;
@@ -55,12 +51,6 @@ sub new
     return $self;
 }
 
-# Method: _table
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::_table>
-#
 sub _table
 {
     my @tableHead = (
@@ -75,9 +65,9 @@ sub _table
     my $dataTable = {
         'tableName' => __PACKAGE__->nameFromClass(),
         'printableTableName' => __('Import domain users from CSV file'),
-        'printableActionName' => 'Upload file and import users',
+        'printableActionName' => __('Upload file and import users'),
         'automaticRemove' => 1,
-        'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
+        'defaultActions' => ['add', 'del', 'editField', 'changeView'],
         'tableDescription' => \@tableHead,
         'class' => 'dataTable',
         'modelDomain' => 'Samba',
@@ -86,67 +76,82 @@ sub _table
     return $dataTable;
 }
 
-# Method: formSubmitted
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::formSubmitted>
-#
 sub formSubmitted
 {
     my ($self, $row) = @_;
     my $csvField  = $row->elementByName('usersCSV');
     my $csv = $csvField->tmpPath();
     my $fileName = $csvField->userPath();
-    my $path = EBox::Config::tmp().$fileName;
-    
+
+    unless ($csv && $fileName && -f $csv) {
+        throw EBox::Exceptions::External(
+            __('You must select a CSV file before importing.')
+        );
+    }
+
+    my $path = EBox::Config::tmp() . $fileName;
+
     system("cp '$csv' '$path'");
-    
+
     try {
         $self->_checkCSVFile($path);
         $self->_checkSize($csv);
-        $self->run($csv);
+
+        # Count lines for totalTicks
+        my @lines = read_file($csv);
+        my @validLines = grep { $_ !~ /^\s*$/ && $_ !~ /^\s*#/ } @lines;
+        my $totalTicks = scalar(@validLines);
+        $totalTicks = 1 if ($totalTicks < 1);
+
+        my $script = '/usr/share/zentyal-samba/users-import.pl';
+        my $executable = "$script $csv";
+
+        my $progressIndicator = EBox::ProgressIndicator->create(
+            executable => $executable,
+            totalTicks => $totalTicks,
+        );
+        $progressIndicator->runExecutable();
+
+        # Store progress ID so the Viewer can show a link
+        $self->{progressId} = $progressIndicator->id();
+
+        # Build a message with JS redirect to progress page
+        my $pId = $progressIndicator->id();
+        my $msg = __('Import started. Redirecting to progress view...');
+        $msg .= "<script>window.location.href='/Progress?progress=$pId"
+              . "&title=" . __('Importing Users')
+              . "&currentItemCaption=" . __('Current operation')
+              . "&itemsLeftMessage=" . __('users processed')
+              . "&endNote=" . __('Import finished')
+              . "&errorNote=" . __('Some errors occurred during import')
+              . "&nextStepUrl=/Samba/Composite/ImportExport"
+              . "&nextStepText=" . __('Go back to Import/Export')
+              . "';</script>";
+        $self->setMessage($msg, 'note');
     } catch ($e) {
-        my $errorMsg = 'Error while restoring: ' . $e->text();
+        my $errorMsg = 'Error while importing: ' . $e->text();
         EBox::error($errorMsg);
+        unlink $csv if (-f $csv);
         throw EBox::Exceptions::External(
             __x("Error importing users: {err}", err => $e->text())
         );
-        $e->throw();
     }
-    unlink $csv if (-f $csv);
 }
 
-# Method: _setDefaultMessages
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::_setDefaultMessages>
-#
 sub _setDefaultMessages
 {
     my ($self) = @_;
 
     unless (exists $self->table()->{'messages'}->{'update'}) {
-        $self->table()->{'messages'}->{'update'} = __('Users was imported successfully');
+        $self->table()->{'messages'}->{'update'} = __('Users import started');
     }
 }
 
-# Method: Viewer
-#
-# Overrides:
-#
-#        <EBox::Model::DataTable::Viewer>
-#
 sub Viewer
 {
     return '/ajax/form.mas';
 }
 
-# Method: _checkCSVFile
-#
-#     Checks whether the CSV file has the right mime type
-#
 sub _checkCSVFile
 {
     my ($self, $path) = @_;
@@ -156,27 +161,20 @@ sub _checkCSVFile
 
     system("rm -f $path");
 
-    #FIXME
-    if ($mimeType eq 'text/plain') {
+    if ($mimeType eq 'text/plain' || $mimeType eq 'text/csv') {
         return 1;
     }
 
-    if ($mimeType ne 'text/csv' || $mimeType ne 'text/plain') {
-        throw EBox::Exceptions::External(__x("The file is not a correct CSV file: {mimeType}", mimeType => $mimeType));
-    }
+    throw EBox::Exceptions::External(__x("The file is not a correct CSV file: {mimeType}", mimeType => $mimeType));
 }
 
-# Method: _checkSize
-#
-#     Checks whether the system has enough free space
-#
 sub _checkSize
 {
     my ($self, $archive) = @_;
 
     my $size;
     my $freeSpace;
-    my $safetyFactor = 2; # I multiply the CSV size by this number. The value was guessed, so change it if you need
+    my $safetyFactor = 2;
 
     try {
         my @stat = stat $archive;
@@ -199,80 +197,6 @@ sub _checkSize
     }
 }
 
-# Method: run
-#
-#     Run the users importer script
-#
-sub run
-{
-    my ($self, $uploadedFile) = @_;
-    my $script = '/usr/share/zentyal-samba/users-import.pl';
-    my $command = $script . ' ' . $uploadedFile . ' 2>&1';
-    EBox::info($command);
-    
-    my $output = `$command`;
-    my $exitCode = $? >> 8;
-    
-    # Parse output for summary information
-    my $successCount = 0;
-    my $errorCount = 0;
-    
-    if ($output =~ /Successfully imported: (\d+)/) {
-        $successCount = $1;
-    }
-    if ($output =~ /Failed to import: (\d+)/) {
-        $errorCount = $1;
-    }
-    
-    if ($exitCode != 0) {
-        my @lines = split(/\n/, $output);
-        my @errors;
-        
-        foreach my $line (@lines) {
-            # Match "Failed to import" lines anywhere in the line (not just at start)
-            if ($line =~ /Failed to import the domain user '([^']+)': (.+?)(?:\s+at\s+|$)/) {
-                my $userName = $1;
-                my $errorMsg = $2;
-                # Clean up error message - remove redundant "at" clauses
-                $errorMsg =~ s/\s+at\s+.*$//;
-                push @errors, "<li><strong>$userName</strong>: $errorMsg</li>";
-            }
-        }
-        
-        my $formattedOutput = '';
-        if (@errors) {
-            $formattedOutput = "<ul>" . join("", @errors) . "</ul>";
-        } else {
-            # If we couldn't parse specific errors, show a generic message
-            $formattedOutput = "<p>" . __('Some users could not be imported. Check the logs for details.') . "</p>";
-        }
-        $formattedOutput .= "<p><strong>Successfully imported:</strong> $successCount users</p>";
-        $formattedOutput .= "<p><strong>Failed to import:</strong> $errorCount users</p>";
-        
-        my $msg = __('User import failed.') . "<br><br>" . $formattedOutput;
-        throw EBox::Exceptions::External($msg);
-    }
-    
-    # Success message with details
-    my $successMsg = __('Users imported successfully!') . "<br><br>";
-    $successMsg .= "<p><strong>" . __('Total users imported:') . "</strong> $successCount</p>";
-    if ($errorCount > 0) {
-        $successMsg .= "<p><strong>" . __('Users skipped:') . "</strong> $errorCount</p>";
-    }
-    
-    EBox::info("User import completed successfully");
-    $self->setMessage($successMsg, 'note');
-    return $output;
-}
-
-# Method: precondition
-#
-#   Check if usersandgroups is enabled.
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::precondition>
-#
 sub precondition
 {
     my ($self) = @_;
@@ -280,7 +204,6 @@ sub precondition
     my $ed = EBox::Global->communityEdition();
     my $dep = $self->parentModule()->isEnabled();
 
-    # Return false if this is a community edition
     if ($ed) {
         return 0;
     }
