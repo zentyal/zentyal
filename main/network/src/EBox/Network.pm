@@ -2298,9 +2298,65 @@ sub removeVlan # (id)
 
     my $vlanName = "vlan$id";
 
-    # Check if the VLAN has associated gateways or static routes
-    unless ($force) {
+    # Always check dependencies — cannot be bypassed with force
+    # Check if the VLAN itself has associated gateways or static routes
+    try {
         $self->_checkIfaceHasGatewaysOrRoutes($vlanName);
+    } catch (EBox::Exceptions::DataInUse $e) {
+        throw EBox::Exceptions::External(
+            __x('Cannot remove VLAN {vlan} because it has associated gateways or static routes. Please remove them first.',
+                vlan => $vlanName)
+        );
+    }
+
+    # Check if the VLAN is bridged/bundled — if so, check dependencies
+    # on the bridge/bond interface as well
+    if ($self->ifaceExists($vlanName)) {
+        my $method = $self->ifaceMethod($vlanName);
+
+        if ($method eq 'bridged') {
+            my $bridgeId = $self->ifaceBridge($vlanName);
+            if (defined($bridgeId)) {
+                my $bridgeName = "br$bridgeId";
+                if ($self->ifaceExists($bridgeName)) {
+                    try {
+                        $self->_checkIfaceHasGatewaysOrRoutes($bridgeName);
+                    } catch (EBox::Exceptions::DataInUse $e) {
+                        throw EBox::Exceptions::External(
+                            __x('Cannot remove VLAN {vlan} because bridge {bridge} has associated gateways or static routes. Please remove them first.',
+                                vlan => $vlanName,
+                                bridge => $bridgeName)
+                        );
+                    }
+                }
+            }
+        } elsif ($method eq 'bundled') {
+            my $bondId = $self->ifaceBond($vlanName);
+            if (defined($bondId)) {
+                my $bondName = "bond$bondId";
+                if ($self->ifaceExists($bondName)) {
+                    try {
+                        $self->_checkIfaceHasGatewaysOrRoutes($bondName);
+                    } catch (EBox::Exceptions::DataInUse $e) {
+                        throw EBox::Exceptions::External(
+                            __x('Cannot remove VLAN {vlan} because bond {bond} has associated gateways or static routes. Please remove them first.',
+                                vlan => $vlanName,
+                                bond => $bondName)
+                        );
+                    }
+                }
+            }
+        }
+    }
+
+    # Clean up bridge/bond configuration before removing the VLAN
+    if ($self->ifaceExists($vlanName)) {
+        my $method = $self->ifaceMethod($vlanName);
+        if ($method eq 'bridged') {
+            $self->BridgedCleanUp($vlanName);
+        } elsif ($method eq 'bundled') {
+            $self->BundledCleanUp($vlanName);
+        }
     }
 
     my $vlans = $self->get_hash('vlans');

@@ -22,7 +22,6 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
-use TryCatch;
 
 sub new # (cgi=?)
 {
@@ -57,19 +56,8 @@ sub _process
     }
 
     if (defined($self->param('del'))) {
-            try {
-                my $force = $self->param('force');
-                $net->removeVlan($vlanId, $force);
-
-                $audit->logAction('network', 'Interfaces', 'removeVlan', "$iface, $vlanId", 1);
-           } catch (EBox::Exceptions::DataInUse $e) {
-               $self->{template} = 'network/confirmVlanDel.mas';
-               $self->{redirect} = undef;
-               my @masonParams = ();
-               push@masonParams, ('iface' => $iface);
-               push @masonParams, (vlanid => $vlanId);
-               $self->{params} = \@masonParams;
-           }
+            $net->removeVlan($vlanId);
+            $audit->logAction('network', 'Interfaces', 'removeVlan', "$iface, $vlanId", 1);
 
     } elsif (defined($self->param('add'))) {
         $net->createVlan($vlanId, $self->param('vlandesc'), $iface);
