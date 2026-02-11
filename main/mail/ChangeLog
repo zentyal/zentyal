@@ -1,5 +1,6 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Improve mail account settings layout in user edit view: separate account, aliases, and external accounts into distinct visual sections
 	+ Fix fetchmail service integration with systemd:
 	  - Added proper systemd unit configuration (Type, After, WantedBy, RestartSec)
 	  - Service lifecycle (enable/disable/start/stop) handled by EBox::Service framework
