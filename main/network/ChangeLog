@@ -1,5 +1,8 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Add dependency checks in removeVlan for bridge/bond interfaces on top of VLANs
+	+ Block VLAN deletion when associated bridge/bond has gateways or static routes
+	+ Clean up bridge/bond configuration automatically when removing a VLAN
 	+ Add cleanup methods to prevent orphaned data in Redis after deletions
 	+ Add _removeOrphanedStaticRoutes to remove orphaned route keys from conf and ro
 	+ Add _removeEmptyVlans to clean up empty VLAN entries in Redis after deletion
