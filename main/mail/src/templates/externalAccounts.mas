@@ -21,6 +21,7 @@ my %printableName = (
 
 
 </%shared>
+<div class="form-block">
 <h4><% __('Mail retrieval from external accounts') %></h4>
 % if (not $params->{externalRetrievalEnabled} ){
 <div class='warning'>
@@ -43,6 +44,7 @@ my %printableName = (
    params  => $params,
    show    => (@externalAccounts > 0)
 &>
+</div>
 <script>
 $(function() {
 

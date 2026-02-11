@@ -7,6 +7,8 @@ use JSON::XS;
 my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 </%init>
 
+<div class="form-block">
+<h4><% __('Mail account') %></h4>
 <form action='/Mail/DelAccount' id='userMailDelAccount' method='POST' class="formDiv" name="deleteaccount">
         <input type="hidden" name="mail" id="userMailDelAccount_mail" value="<% $params->{'mail'} %>">
         <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
@@ -26,7 +28,9 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 
 <& .updateMaildirQuotaJs, params => $params &>
 <& .modifyMaildirQuota, params => $params &>
+</div>
 
+<div class="form-block">
 <div id='error_userMailAlias' class='error' style='display:none'></div>
 <div id='note_userMailAlias' class='note' style='display:none'></div>
 <form action='/Mail/CreateAlias' id='userMailCreateAlias' method='POST' class="formDiv">
@@ -72,6 +76,7 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
             </tbody>
     </table>
 </form>
+</div>
 
 <script>
 $(function() {
