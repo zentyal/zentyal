@@ -20,17 +20,39 @@ use EBox::ProgressIndicator;
 
 use File::Slurp;
 use File::Spec;
+use File::Temp;
+use File::Copy;
 use TryCatch;
 use Getopt::Long;
 use Scalar::Util qw(blessed);
 
+# Parse CLI args BEFORE EBox::init() drops privileges (setuid to ebox)
+my $progressId;
+GetOptions('progress-id=i' => \$progressId) or die "Bad options\n";
+die "Usage: $0 <source-file>\n" unless @ARGV == 1;
+
+my $sourceFile = File::Spec->rel2abs($ARGV[0]);
+
+# Copy source file to tmp while we still have root privileges
+unless (-e $sourceFile) {
+    die "File '$sourceFile' does not exist\n";
+}
+unless (-r $sourceFile) {
+    die "File '$sourceFile' is not readable. Please check file permissions.\n";
+}
+
+my $tmpFile = File::Temp->new(SUFFIX => '.csv', UNLINK => 0, DIR => '/tmp');
+my $tmpPath = $tmpFile->filename();
+copy($sourceFile, $tmpPath) or die "Failed to copy '$sourceFile' to '$tmpPath': $!\n";
+chmod(0644, $tmpPath);
+
+# Now drop privileges
 EBox::init();
 
 my $ERRORS = 0;
 my $SUCCESS = 0;
 my $SKIPPED = 0;
 my @importResults;
-my $progressId;
 my $progress;
 
 sub createLDAPUsers
@@ -213,7 +235,7 @@ sub setMailWithSamba {
 
 sub readCSV
 {
-    my($p) = getPath(@_);
+    my ($p) = @_;
     my @lines = read_file($p);
     return createLDAPUsers(@lines);
 }
@@ -281,30 +303,26 @@ sub buildSummaryHtml
     return $html;
 }
 
-sub getParms
+sub main
 {
-    my(@args) = @_;
-
-    # Parse --progress-id if present (used by Zentyal web UI)
-    GetOptions('progress-id=i' => \$progressId) or die "Bad options\n";
-
     if ($progressId) {
         $progress = EBox::ProgressIndicator->retrieve($progressId);
     }
 
-    die "Usage: $0 <source-file>\n" unless @ARGV == 1;
-
-    print "Importing users from file: $ARGV[0]\n";
+    print "Importing users from file: $sourceFile\n";
     my $success;
     try {
-        $success = readCSV($ARGV[0]);
+        $success = readCSV($tmpPath);
     } catch ($e) {
         my $errorTxt = blessed($e) ? $e->text() : "$e";
         if ($progress) {
             $progress->setAsFinished(1, $errorTxt);
         }
+        unlink $tmpPath;
         die $errorTxt;
     }
+
+    unlink $tmpPath;
 
     if ($progress) {
         my $summaryHtml = buildSummaryHtml('users');
@@ -315,4 +333,4 @@ sub getParms
     exit($ERRORS == 0 ? 0 : 1);
 }
 
-getParms(@ARGV);
+main();

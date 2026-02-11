@@ -67,9 +67,8 @@ sub formSubmitted
     my ($self, $row) = @_;
 
     # Redirect to the ExportGroups CGI which uses ProgressClient
-    my $msg = __('Starting groups export...');
-    $msg .= "<script>window.location.href='/Samba/ExportGroups?action=run';</script>";
-    $self->setMessage($msg, 'note');
+    $self->pushRedirection('/Samba/ExportGroups?action=run');
+    $self->setMessage('', 'note');
 }
 
 sub _setDefaultMessages
@@ -111,12 +110,13 @@ sub preconditionFailMsg
     my $ed = EBox::Global->communityEdition();
     my $dep = $self->parentModule()->isEnabled();
 
+    # Don't show community edition message here; ExportUsers already shows it
     if ($ed) {
-        return __sx("This GUI feature is just available for {oh}Commercial Zentyal Server Edition{ch} if you don't update your Zentyal version, you need to use it from CLI.", oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>')
+        return '';
     }
 
     if (! $dep) {
-        return __('You must enable the Users and Groups module to access the LDAP information.');
+        return '';
     }
 }
 

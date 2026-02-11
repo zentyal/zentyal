@@ -113,18 +113,18 @@ sub formSubmitted
 
         $self->{progressId} = $progressIndicator->id();
 
+        # Redirect to progress page using the framework's clean redirect mechanism
         my $pId = $progressIndicator->id();
-        my $msg = __('Import started. Redirecting to progress view...');
-        $msg .= "<script>window.location.href='/Progress?progress=$pId"
-              . "&title=" . __('Importing Groups')
-              . "&currentItemCaption=" . __('Current operation')
-              . "&itemsLeftMessage=" . __('groups processed')
-              . "&endNote=" . __('Import finished')
-              . "&errorNote=" . __('Some errors occurred during import')
-              . "&nextStepUrl=/Samba/Composite/ImportExport"
-              . "&nextStepText=" . __('Go back to Import/Export')
-              . "';</script>";
-        $self->setMessage($msg, 'note');
+        my $url = '/Progress?progress=' . $pId
+              . '&title=' . __('Importing Groups')
+              . '&currentItemCaption=' . __('Current operation')
+              . '&itemsLeftMessage=' . __('groups processed')
+              . '&endNote=' . __('Import finished')
+              . '&errorNote=' . __('Some errors occurred during import')
+              . '&nextStepUrl=/Samba/Composite/ImportExport'
+              . '&nextStepText=' . __('Go back to Import/Export');
+        $self->pushRedirection($url);
+        $self->setMessage('', 'note');
     } catch ($e) {
         my $errorMsg = 'Error while importing: ' . $e->text();
         EBox::error($errorMsg);
@@ -219,12 +219,13 @@ sub preconditionFailMsg
     my $ed = EBox::Global->communityEdition();
     my $dep = $self->parentModule()->isEnabled();
 
+    # Don't show community edition message here; ImportUsers already shows it
     if ($ed) {
-        return __sx("This GUI feature is just available for {oh}Commercial Zentyal Server Edition{ch} if you don't update your Zentyal version, you need to use it from CLI.", oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>')
+        return '';
     }
 
     if (! $dep) {
-        return __('You must enable the Users and Groups module to access the LDAP information.');
+        return '';
     }
 }
 
