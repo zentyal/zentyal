@@ -67,9 +67,8 @@ sub formSubmitted
     my ($self, $row) = @_;
 
     # Redirect to the ExportUsers CGI which uses ProgressClient
-    my $msg = __('Starting users export...');
-    $msg .= "<script>window.location.href='/Samba/ExportUsers?action=run';</script>";
-    $self->setMessage($msg, 'note');
+    $self->pushRedirection('/Samba/ExportUsers?action=run');
+    $self->setMessage('', 'note');
 }
 
 sub _setDefaultMessages

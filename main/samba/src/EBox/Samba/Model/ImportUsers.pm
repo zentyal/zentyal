@@ -115,19 +115,18 @@ sub formSubmitted
         # Store progress ID so the Viewer can show a link
         $self->{progressId} = $progressIndicator->id();
 
-        # Build a message with JS redirect to progress page
+        # Redirect to progress page using the framework's clean redirect mechanism
         my $pId = $progressIndicator->id();
-        my $msg = __('Import started. Redirecting to progress view...');
-        $msg .= "<script>window.location.href='/Progress?progress=$pId"
-              . "&title=" . __('Importing Users')
-              . "&currentItemCaption=" . __('Current operation')
-              . "&itemsLeftMessage=" . __('users processed')
-              . "&endNote=" . __('Import finished')
-              . "&errorNote=" . __('Some errors occurred during import')
-              . "&nextStepUrl=/Samba/Composite/ImportExport"
-              . "&nextStepText=" . __('Go back to Import/Export')
-              . "';</script>";
-        $self->setMessage($msg, 'note');
+        my $url = '/Progress?progress=' . $pId
+              . '&title=' . __('Importing Users')
+              . '&currentItemCaption=' . __('Current operation')
+              . '&itemsLeftMessage=' . __('users processed')
+              . '&endNote=' . __('Import finished')
+              . '&errorNote=' . __('Some errors occurred during import')
+              . '&nextStepUrl=/Samba/Composite/ImportExport'
+              . '&nextStepText=' . __('Go back to Import/Export');
+        $self->pushRedirection($url);
+        $self->setMessage('', 'note');
     } catch ($e) {
         my $errorMsg = 'Error while importing: ' . $e->text();
         EBox::error($errorMsg);
