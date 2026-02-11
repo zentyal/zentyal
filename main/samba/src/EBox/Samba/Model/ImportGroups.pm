@@ -212,4 +212,20 @@ sub precondition
     return 1;
 }
 
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    my $ed = EBox::Global->communityEdition();
+    my $dep = $self->parentModule()->isEnabled();
+
+    if ($ed) {
+        return __sx("This GUI feature is just available for {oh}Commercial Zentyal Server Edition{ch} if you don't update your Zentyal version, you need to use it from CLI.", oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>')
+    }
+
+    if (! $dep) {
+        return __('You must enable the Users and Groups module to access the LDAP information.');
+    }
+}
+
 1;
