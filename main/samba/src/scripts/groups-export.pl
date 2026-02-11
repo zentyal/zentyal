@@ -5,7 +5,7 @@ use strict;
 use EBox;
 use EBox::Global;
 use EBox::ProgressIndicator;
-use Cwd 'abs_path';
+use File::Spec;
 use Getopt::Long;
 use Scalar::Util qw(blessed);
 use TryCatch;
@@ -53,7 +53,7 @@ sub getGroups
 sub getPath
 {
     my ($path) = @_;
-    $path = abs_path($path);
+    $path = File::Spec->rel2abs($path);
 
     return $path;
 }

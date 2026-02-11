@@ -8,7 +8,7 @@ use EBox::Samba::Group;
 use EBox::ProgressIndicator;
 
 use TryCatch;
-use Cwd 'abs_path';
+use File::Spec;
 use Getopt::Long;
 use Scalar::Util qw(blessed);
 
@@ -67,7 +67,7 @@ sub getUserGroups
 sub getPath
 {
     my ($path) = @_;
-    $path = abs_path($path);
+    $path = File::Spec->rel2abs($path);
 
     return $path;
 }

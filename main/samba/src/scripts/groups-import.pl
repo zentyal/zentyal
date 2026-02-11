@@ -18,7 +18,7 @@ use EBox::Validate;
 use EBox::ProgressIndicator;
 
 use File::Slurp;
-use Cwd 'abs_path';
+use File::Spec;
 use TryCatch;
 use Getopt::Long;
 use Scalar::Util qw(blessed);
@@ -163,7 +163,7 @@ sub readCSV
 sub getPath
 {
     my($path) = @_;
-    $path = abs_path($path);
+    $path = File::Spec->rel2abs($path);
 
     return $path;
 }
