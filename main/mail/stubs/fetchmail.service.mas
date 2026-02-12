@@ -1,0 +1,17 @@
+<%args>
+$nosslcertck => 0
+</%args>
+[Unit]
+Description=Zentyal fetchmail daemon
+After=network.target
+
+[Service]
+Type=simple
+User=fetchmail
+ExecStartPre=+/bin/sh -c '/usr/bin/pkill -u fetchmail fetchmail 2>/dev/null; sleep 1; /usr/bin/pkill -9 -u fetchmail fetchmail 2>/dev/null; true'
+ExecStart=/usr/bin/fetchmail --nodetach<% $nosslcertck ? ' --nosslcertck' : '' %> -f /etc/zentyal-fetchmail.rc
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

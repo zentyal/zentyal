@@ -1,5 +1,7 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Fix fetchmail service management: use User= directive instead of su to prevent orphan processes, add daemon-reload after regenerating the unit file, and clean up orphan processes on stop
+    + Rename zentyal.fetchmail.service to fetchmail.service for consistency with other module daemons (dovecot, postfix), including migration to unmask and remove the old service
 	+ Improve mail account settings layout in user edit view: separate account, aliases, and external accounts into distinct visual sections
 	+ Fix fetchmail service integration with systemd:
 	  - Added proper systemd unit configuration (Type, After, WantedBy, RestartSec)
