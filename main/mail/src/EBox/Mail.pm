@@ -80,7 +80,7 @@ use constant SASL_PASSWD_FILE         => '/etc/postfix/sasl_passwd';
 use constant MAILNAME_FILE            => '/etc/mailname';
 use constant VDOMAINS_MAILBOXES_DIR   => '/var/vmail';
 use constant AUTOEXPUNGE_CRON_FILE    => '/etc/cron.d/zentyal-mail-autoexpunge';
-use constant FETCHMAIL_SERVICE        => 'zentyal.fetchmail';
+use constant FETCHMAIL_SERVICE        => 'fetchmail';
 use constant ALWAYS_BCC_TABLE_FILE    => '/etc/postfix/alwaysbcc';
 use constant SIEVE_SCRIPTS_DIR        => '/var/vmail/sieve';
 use constant BOUNCE_ADDRESS_KEY       => 'SMTPOptions/bounceReturnAddress';
@@ -994,12 +994,7 @@ sub fetchmailMustRun
 #
 sub _daemonsToDisable
 {
-    return [
-        {
-            'name' => 'fetchmail',
-            'type' => 'systemd'
-        },
-    ];
+    return [];
 }
 
 sub _dovecotIsRunning

@@ -43,8 +43,8 @@ use MIME::Base64;
 use constant {
  FETCHMAIL_DN        => 'ou=fetchmail,ou=postfix',
  FETCHMAIL_CONF_FILE => '/etc/zentyal-fetchmail.rc',
- FETCHMAIL_SERVICE   => 'zentyal.fetchmail',
- FETCHMAIL_SERVICE_FILE => '/lib/systemd/system/zentyal.fetchmail.service',
+ FETCHMAIL_SERVICE   => 'fetchmail',
+ FETCHMAIL_SERVICE_FILE => '/lib/systemd/system/fetchmail.service',
  FETCHMAIL_CRON_FILE => '/etc/cron.d/ebox-mail',
 };
 
@@ -62,6 +62,10 @@ sub new
 sub initialSetup
 {
     my ($self, $version) = @_;
+
+    # Migrate from zentyal.fetchmail.service to fetchmail.service
+    $self->_migrateServiceName();
+
     my $file = $self->_masterPasswdFile();
     my $user  = EBox::Config::user();
     my $group = EBox::Config::group();
@@ -447,7 +451,7 @@ sub writeConf
     
     EBox::Module::Base::writeConfFileNoCheck(
                          FETCHMAIL_SERVICE_FILE,
-                         'mail/zentyal.fetchmail.service.mas',
+                         'mail/fetchmail.service.mas',
                          [
                           nosslcertck => $nosslcertck,
                          ],
@@ -457,6 +461,9 @@ sub writeConf
                              mode =>  '0644',
                          }
                         );
+
+    # Reload systemd so it picks up the updated service file
+    EBox::Sudo::root('systemctl daemon-reload');
 }
 
 sub daemonMustRun
@@ -482,6 +489,8 @@ sub isEnabled
 sub stop
 {
     EBox::Service::manage(FETCHMAIL_SERVICE, 'stop');
+    # Kill any orphan fetchmail processes left behind
+    EBox::Sudo::silentRoot('pkill -u fetchmail fetchmail');
 }
 
 sub start
@@ -699,6 +708,38 @@ sub restoreConfig
     }
 
     system "cp -b '$src' '$dst'";
+}
+
+# Migrate from the old zentyal.fetchmail.service to the standard fetchmail.service.
+# Previous versions created a separate zentyal.fetchmail.service and masked the
+# system fetchmail.service. Now we use the system service name directly, consistent
+# with how other Zentyal modules (dovecot, postfix, etc.) manage their daemons.
+sub _migrateServiceName
+{
+    my ($self) = @_;
+
+    my $oldServiceFile = '/lib/systemd/system/zentyal.fetchmail.service';
+    my $maskFile = '/etc/systemd/system/fetchmail.service';
+
+    # Check if old service file still exists (cleanup) or if fetchmail.service is masked
+    my $needsMigration = 0;
+    $needsMigration = 1 if (-e $oldServiceFile);
+    $needsMigration = 1 if (-l $maskFile);  # symlink to /dev/null = masked
+
+    return unless $needsMigration;
+
+    my @cmds;
+    if (-e $oldServiceFile) {
+        push @cmds, 'systemctl stop zentyal.fetchmail.service 2>/dev/null || true';
+        push @cmds, 'systemctl disable zentyal.fetchmail.service 2>/dev/null || true';
+        push @cmds, "rm -f $oldServiceFile";
+    }
+    # Unmask the system fetchmail.service (remove the /dev/null symlink)
+    if (-l $maskFile) {
+        push @cmds, 'systemctl unmask fetchmail.service 2>/dev/null || true';
+    }
+    push @cmds, 'systemctl daemon-reload';
+    EBox::Sudo::root(@cmds);
 }
 
 1;
