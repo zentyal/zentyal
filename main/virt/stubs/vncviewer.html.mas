@@ -2,30 +2,58 @@
     $token
     $password
 </%args>
-<iframe onload="setupResizeWatcher()" id="vnc_frame" src="/vncws/?path=websockify?token=<% $token %>&password=<% $password %>">This browser does not support frames</iframe>
+<iframe id="vnc_frame" src="/vncws/?path=websockify?token=<% $token %>&password=<% $password %>">This browser does not support frames</iframe>
 <script>
-function setupResizeWatcher() {
-    var vnc = document.querySelector("#vnc_frame");
-    var canvas = vnc.contentDocument.querySelector("canvas");
-    var config = { attributes: true, attributeFilter: ['width', 'height'] };
-    function onResize() {
-        var w = canvas.offsetWidth;
-        var h = canvas.offsetHeight + 38;
-        console.log(w, h);
-        var dialog = document.querySelector("#load_in_dialog");
-        console.log(w, h);
-        console.log("he llegado xD...")
+(function() {
+    var vnc = document.querySelector('#vnc_frame');
+    var dialog = document.querySelector('#load_in_dialog');
+
+    // Set reasonable initial size so the dialog is not tiny
+    if (dialog) {
+        vnc.style.width = '1024px';
+        vnc.style.height = '768px';
+    }
+
+    function applySize(w, h) {
+        if (w <= 0 || h <= 0) return;
         if (dialog) {
-            dialog.style.width = w + "px";
-            dialog.style.height = h + "px";
+            dialog.style.width = w + 'px';
+            dialog.style.height = h + 'px';
+            vnc.style.width = w + 'px';
+            vnc.style.height = h + 'px';
         } else {
             vnc.setAttribute('width', w);
             vnc.setAttribute('height', h);
         }
     }
 
-    new MutationObserver(function (mutations) {
-        if (mutations.length > 0) onResize();
-    }).observe(canvas, config);
-}
+    // Modern noVNC creates the canvas dynamically after JS loads,
+    // so we need to poll until it appears in the iframe document.
+    function waitForCanvas() {
+        var canvas;
+        try {
+            canvas = vnc.contentDocument.querySelector('canvas');
+        } catch(e) {
+            // contentDocument not accessible yet, retry
+            setTimeout(waitForCanvas, 300);
+            return;
+        }
+        if (!canvas) {
+            setTimeout(waitForCanvas, 300);
+            return;
+        }
+
+        // Canvas found, observe width/height attribute changes
+        new MutationObserver(function() {
+            applySize(canvas.offsetWidth, canvas.offsetHeight + 38);
+        }).observe(canvas, { attributes: true, attributeFilter: ['width', 'height'] });
+
+        // Apply initial size if canvas already has dimensions
+        if (canvas.offsetWidth > 0) {
+            applySize(canvas.offsetWidth, canvas.offsetHeight + 38);
+        }
+    }
+
+    vnc.addEventListener('load', waitForCanvas);
+})();
 </script>

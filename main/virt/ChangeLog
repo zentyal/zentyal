@@ -1,4 +1,5 @@
 8.1.0
+	+ Fix VNC console CGI crash and small window size with modern noVNC
 	+ Set version to 8.1.0
 	+ Add libvirtd apparmor profile
 8.0.0
