@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Mail::CGI::AddExternalAccount;
+package EBox::Mail::CGI::ModifyExternalAccount;
 use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
@@ -55,6 +55,9 @@ sub _process
     my $userDN = $self->unsafeParam('user');
     $self->{json}->{userDN} = $userDN;
 
+    $self->_requireParam('oldAccount', __('Original external account'));
+    my $oldAccount = $self->unsafeParam('oldAccount');
+
     my %params;
     while (my ($name, $printable) = each %printableByParam) {
         $self->_requireParam($name, $printable);
@@ -88,15 +91,33 @@ sub _process
     }
 
     my $mail = EBox::Global->modInstance('mail');
-    $mail->{fetchmail}->addExternalAccount(%params);
 
+    # Build newAccountHash as an array ref (key => value pairs)
+    my @newAccountHash = (
+        externalAccount => $params{externalAccount},
+        localAccount    => $params{localAccount},
+        password        => $params{password},
+        mailServer      => $params{mailServer},
+        mailProtocol    => $params{mailProtocol},
+        port            => $params{port},
+        keep            => $params{keep},
+        fetchall        => $params{fetchall},
+    );
+    if (exists $params{ssl}) {
+        push @newAccountHash, (ssl => $params{ssl});
+    }
+
+    $mail->{fetchmail}->modifyExternalAccount($userObject, $oldAccount, \@newAccountHash);
+
+    # Create fresh user object to avoid stale LDAP cache after modify
+    my $freshUser = new EBox::Samba::User(dn => $userDN);
     my @externalAccounts = map {
         $mail->{fetchmail}->externalAccountRowValues($_)
-    } @{ $mail->{fetchmail}->externalAccountsForUser($userObject) };
+    } @{ $mail->{fetchmail}->externalAccountsForUser($freshUser) };
 
     $self->{json}->{externalAccounts} = \@externalAccounts;
     $self->{json}->{userDN}  = $userDN;
-    $self->{json}->{msg} = __x('External account {acc} added', acc => $params{externalAccount});
+    $self->{json}->{msg} = __x('External account {acc} modified', acc => $params{externalAccount});
     $self->{json}->{success} = 1;
 }
 

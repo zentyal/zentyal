@@ -2545,6 +2545,8 @@ input.btn-dashboard {
 .btn-stop{background-image: url("/data/images/stop_p.gif");}
 .btn-pause{background-image: url("/data/images/pause.gif");}
 .btn-restore{background-image: url("/data/images/restore.gif");}
+.btn-save{background-image: url("/data/images/save.png");}
+.btn-cancel{background-image: url("/data/images/deny-active.gif");}
 .btn-requeue{background-image: url("/data/images/requeue.gif");}
 .btn-down{background-image: url("/data/images/down.gif");}
 .btn-viewConsole{background-image: url("/data/images/terminal.gif");}
