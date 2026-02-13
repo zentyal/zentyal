@@ -258,7 +258,7 @@ sub _duplicityRestoreFileCmd
     my $time = Date::Parse::str2time($date);
     my $cmd = DUPLICITY_WRAPPER .  " --force -t $time ";
     if ($rFile) {
-        $cmd .= "--file-to-restore $rFile ";
+        $cmd .= "--path-to-restore $rFile ";
     }
     $cmd .= " $url $destination";
     return $cmd;
