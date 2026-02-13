@@ -6,4 +6,4 @@ firefox-profile /usr/share/zenbuntu-desktop
 lxde /usr/share/zenbuntu-desktop
 lxdm /usr/share/zenbuntu-desktop
 plymouth/* /usr/share/plymouth/themes/zentyal
-debian/*.service /lib/systemd/system
+debian/*.service /usr/lib/systemd/system

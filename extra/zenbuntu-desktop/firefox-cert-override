@@ -1,26 +1,34 @@
 #!/usr/bin/perl
+# Generate a cert_override.txt entry for the Zentyal self-signed certificate.
+# Copyright (C) 2011-2026 Zentyal S.L. Licensed under GPLv2+.
+
 use strict;
 use warnings;
 
+use File::Temp qw(tempfile);
 use MIME::Base64;
 
-
 my $PROFILE = '.mozilla/firefox/ebox.default';
-my $ID = 'zentyal';
-my $CERT = '/var/lib/zentyal/conf/ssl/ssl.cert';
+my $ID      = 'zentyal';
+my $CERT    = '/var/lib/zentyal/conf/ssl/ssl.cert';
 
-`openssl x509 -in $CERT -inform PEM -outform DER -out /tmp/ssl.der`;
-my $fp = `cat /tmp/ssl.der | sha256sum | cut -d' ' -f1`;
-my $der = `cat /tmp/ssl.der`;
-`rm -f /tmp/ssl.der`;
+# Convert PEM to DER in a secure temp file
+my ($fh, $tmpfile) = tempfile('ssl-der-XXXX', DIR => File::Spec->tmpdir(), UNLINK => 1);
+close($fh);
+
+system("openssl x509 -in $CERT -inform PEM -outform DER -out $tmpfile");
+
+my $fp = `sha256sum $tmpfile | cut -d' ' -f1`;
 chomp($fp);
-
 $fp = uc($fp);
 $fp =~ s/(..)/$1:/g;
 chop($fp);
 
-my $serial;
-$serial = `certutil -d $PROFILE -L -n "$ID"|grep Serial -A1|tail -1|cut -d' ' -f17`;
+open(my $der_fh, '<:raw', $tmpfile) or die "Cannot read $tmpfile: $!";
+my $der = do { local $/; <$der_fh> };
+close($der_fh);
+
+my $serial = `certutil -d $PROFILE -L -n "$ID" | grep Serial -A1 | tail -1 | cut -d' ' -f17`;
 chomp($serial);
 
 my @der_parts = split('0', $der);
@@ -28,8 +36,8 @@ my $issuer = '0' . $der_parts[4] . '0' . $der_parts[5];
 
 my @serial_bytes = map { hex($_) } split(/:/, $serial);
 $serial = pack("C" . scalar(@serial_bytes), @serial_bytes);
-my $buf = '';
 
+my $buf = '';
 $buf .= pack("N", 0);
 $buf .= pack("N", 0);
 $buf .= pack("N", scalar(@serial_bytes));
