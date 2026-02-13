@@ -1,60 +1,208 @@
-#!/bin/bash -x
+#!/bin/bash
+# x11-setup — Configure LXDM, Firefox, and LXDE for the Zentyal desktop.
+#
+# Called by zentyal-install.sh (iso-generator) after installing the
+# zenbuntu-desktop package.  Must run as root.
+#
+# Copyright (C) 2011-2026 Zentyal S.L. Licensed under GPLv2+.
 
-USER_NAME=`getent passwd uid 1000 | cut -d: -f1`
-DIR=/home/$USER_NAME
+set -euo pipefail
 
-sed -i "s/.*autologin=.*/autologin=$USER_NAME/" /etc/lxdm/default.conf
-sed -i "s/theme=.*/theme=Zentyal/" /etc/lxdm/default.conf
-sed -i "s/^bg=.*/#bg=disabled/" /etc/lxdm/default.conf
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
 
-if ! grep -q zentyal-session /etc/xdg/lxsession/LXDE/autostart
-then
-    echo "@/usr/bin/zentyal-session" >> /etc/xdg/lxsession/LXDE/autostart
-fi
+SHARE_DIR="/usr/share/zenbuntu-desktop"
 
-echo "mode: off" > $DIR/.xscreensaver
-echo "selected: -1" >> $DIR/.xscreensaver
-chown $USER_NAME:$USER_NAME $DIR/.xscreensaver
+log()  { echo "[x11-setup] $*"; }
+warn() { echo "[x11-setup] WARNING: $*" >&2; }
+die()  { echo "[x11-setup] ERROR: $*" >&2; exit 1; }
 
-mkdir -p $DIR/.mozilla/firefox
-cp -r /usr/share/zenbuntu-desktop/firefox-profile/* $DIR/.mozilla/firefox
+# Detect the first non-root human user (UID 1000).
+detect_user() {
+    local user
+    user=$(getent passwd 1000 | cut -d: -f1)
+    if [ -z "$user" ]; then
+        die "No user with UID 1000 found"
+    fi
+    echo "$user"
+}
 
-# Only configure certificate if it exists (Zentyal might not be configured yet)
-PROFILE=$DIR/.mozilla/firefox/ebox.default
-CERT=/var/lib/zentyal/conf/ssl/ssl.cert
-ID='zentyal'
-if [ -f "$CERT" ]; then
-    certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT 2>/dev/null || true
-    /usr/share/zenbuntu-desktop/firefox-cert-override > $PROFILE/cert_override.txt 2>/dev/null || true
-fi
+# ---------------------------------------------------------------------------
+# Service conflict prevention
+# ---------------------------------------------------------------------------
 
-chown -R $USER_NAME:$USER_NAME $DIR/.mozilla
-chmod -R +w $DIR/.mozilla
+setup_display_manager() {
+    log "Ensuring lxdm.service does not conflict with zentyal.lxdm.service"
 
-# Copy LXDM theme
-mv /usr/share/zenbuntu-desktop/lxdm/background.png /usr/share/backgrounds/default.png
-mv /usr/share/zenbuntu-desktop/lxdm /usr/share/lxdm/themes/Zentyal
-# Copy icon and wallpaper
-mv /usr/share/zenbuntu-desktop/lxde/*.png /usr/share/pixmaps/
+    # The lxdm package postinst creates a display-manager.service symlink
+    # pointing to lxdm.service.  Remove it and mask the stock service so
+    # only zentyal.lxdm.service controls the display.
+    rm -f /etc/systemd/system/display-manager.service
+    systemctl mask lxdm.service 2>/dev/null || true
+    systemctl daemon-reload 2>/dev/null || true
+}
 
-# lxde setup
-DESKTOP=`su $USER_NAME -c "xdg-user-dir DESKTOP"`
-mkdir -p $DESKTOP
-mv /usr/share/zenbuntu-desktop/lxde/Desktop/zentyal.desktop /usr/share/applications/
-mv /usr/share/zenbuntu-desktop/lxde/zentyal-logout.desktop /usr/share/applications/
-ln -sf /usr/share/zenbuntu-desktop/lxde/lxde-logout /usr/local/bin/lxde-logout
-ln -sf /usr/share/applications/zentyal.desktop $DESKTOP/zentyal.desktop
-mv /usr/share/zenbuntu-desktop/lxde/Desktop/* $DESKTOP/ 2>/dev/null || true
-PANELS_DIR=$DIR/.config/lxpanel/LXDE/panels
-mkdir -p $PANELS_DIR
-mv /usr/share/zenbuntu-desktop/lxde/bottom $PANELS_DIR/
-ESCAPED_PATH=$(echo $DESKTOP | sed 's/\//\\\//g')
-sed -i "s/DESKTOP_PATH/$ESCAPED_PATH/" $PANELS_DIR/bottom
-PCMANFM_DIR=$DIR/.config/pcmanfm/LXDE
-mkdir -p $PCMANFM_DIR
-mv /usr/share/zenbuntu-desktop/lxde/pcmanfm.conf $PCMANFM_DIR/
-LIBFM_DIR=$DIR/.config/libfm
-mkdir -p $LIBFM_DIR
-mv /usr/share/zenbuntu-desktop/lxde/libfm.conf $LIBFM_DIR/
-# Single ownership change for all config files
-chown -R $USER_NAME:$USER_NAME $DESKTOP $DIR/.config
+# ---------------------------------------------------------------------------
+# LXDM configuration
+# ---------------------------------------------------------------------------
+
+configure_lxdm() {
+    local user="$1"
+
+    log "Configuring LXDM (autologin=${user}, theme=Zentyal)"
+    sed -i "s/.*autologin=.*/autologin=${user}/" /etc/lxdm/default.conf
+    sed -i "s/theme=.*/theme=Zentyal/"            /etc/lxdm/default.conf
+    sed -i "s/^bg=.*/#bg=disabled/"               /etc/lxdm/default.conf
+}
+
+# ---------------------------------------------------------------------------
+# LXDE session hook
+# ---------------------------------------------------------------------------
+
+configure_lxde_session() {
+    local autostart="/etc/xdg/lxsession/LXDE/autostart"
+
+    if [ -f "$autostart" ] && ! grep -q zentyal-session "$autostart"; then
+        log "Adding zentyal-session to LXDE autostart"
+        echo "@/usr/bin/zentyal-session" >> "$autostart"
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# Screensaver
+# ---------------------------------------------------------------------------
+
+disable_screensaver() {
+    local user="$1" home="$2"
+    local rc="${home}/.xscreensaver"
+
+    log "Disabling screensaver for ${user}"
+    cat > "$rc" <<'EOF'
+mode: off
+selected: -1
+EOF
+    chown "${user}:${user}" "$rc"
+}
+
+# ---------------------------------------------------------------------------
+# Firefox profile
+# ---------------------------------------------------------------------------
+
+setup_firefox_profile() {
+    local user="$1" home="$2"
+    local ff_dir="${home}/.mozilla/firefox"
+    local profile="${ff_dir}/ebox.default"
+    local cert="/var/lib/zentyal/conf/ssl/ssl.cert"
+
+    log "Setting up Firefox profile"
+    mkdir -p "$ff_dir"
+    cp -r "${SHARE_DIR}/firefox-profile/." "$ff_dir/"
+
+    if [ -f "$cert" ]; then
+        certutil -d "$profile" -A -n zentyal -t ',,' -i "$cert" 2>/dev/null || true
+        "${SHARE_DIR}/firefox-cert-override" > "${profile}/cert_override.txt" 2>/dev/null || true
+    else
+        log "SSL cert not found yet — skipping certificate import"
+    fi
+
+    chown -R "${user}:${user}" "$ff_dir"
+    chmod -R +w "$ff_dir"
+}
+
+# ---------------------------------------------------------------------------
+# LXDM theme installation
+# ---------------------------------------------------------------------------
+
+install_lxdm_theme() {
+    local theme_src="${SHARE_DIR}/lxdm"
+    local theme_dst="/usr/share/lxdm/themes/Zentyal"
+
+    if [ -d "$theme_dst" ]; then
+        log "LXDM Zentyal theme already installed — skipping"
+        return
+    fi
+
+    log "Installing LXDM Zentyal theme"
+
+    # Set the default desktop wallpaper before moving the theme directory
+    if [ -f "${theme_src}/background.png" ]; then
+        cp "${theme_src}/background.png" /usr/share/backgrounds/default.png
+    fi
+
+    cp -a "$theme_src" "$theme_dst"
+}
+
+# ---------------------------------------------------------------------------
+# LXDE desktop shortcuts and panel
+# ---------------------------------------------------------------------------
+
+setup_lxde_desktop() {
+    local user="$1" home="$2"
+    local lxde_src="${SHARE_DIR}/lxde"
+
+    # Desktop shortcuts
+    local desktop
+    desktop=$(su - "$user" -c "xdg-user-dir DESKTOP" 2>/dev/null) \
+        || desktop="${home}/Desktop"
+    mkdir -p "$desktop"
+
+    log "Setting up LXDE desktop for ${user}"
+
+    # Install .desktop files to system location, then symlink to desktop
+    cp -f "${lxde_src}/Desktop/zentyal.desktop"  /usr/share/applications/
+    cp -f "${lxde_src}/zentyal-logout.desktop"   /usr/share/applications/
+    cp -f "${lxde_src}/lxde-screenlock.desktop"  /usr/share/applications/
+    ln -sf /usr/share/applications/zentyal.desktop "${desktop}/zentyal.desktop"
+
+    # Copy remaining desktop shortcuts (terminals, etc.)
+    cp -f "${lxde_src}/Desktop/"*.desktop "$desktop/" 2>/dev/null || true
+
+    # Icons and wallpaper
+    cp -f "${lxde_src}/"*.png /usr/share/pixmaps/ 2>/dev/null || true
+
+    # Logout wrapper
+    ln -sf "${lxde_src}/lxde-logout" /usr/local/bin/lxde-logout
+
+    # Panel configuration
+    local panels_dir="${home}/.config/lxpanel/LXDE/panels"
+    mkdir -p "$panels_dir"
+    cp -f "${lxde_src}/bottom" "${panels_dir}/bottom"
+    sed -i "s|DESKTOP_PATH|${desktop}|g" "${panels_dir}/bottom"
+
+    # PCManFM configuration
+    local pcmanfm_dir="${home}/.config/pcmanfm/LXDE"
+    mkdir -p "$pcmanfm_dir"
+    cp -f "${lxde_src}/pcmanfm.conf" "${pcmanfm_dir}/"
+
+    # libfm configuration
+    local libfm_dir="${home}/.config/libfm"
+    mkdir -p "$libfm_dir"
+    cp -f "${lxde_src}/libfm.conf" "${libfm_dir}/"
+
+    # Fix ownership in one pass
+    chown -R "${user}:${user}" "$desktop" "${home}/.config"
+}
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+main() {
+    local user home
+
+    user=$(detect_user)
+    home=$(eval echo "~${user}")
+
+    setup_display_manager
+    configure_lxdm "$user"
+    configure_lxde_session
+    disable_screensaver "$user" "$home"
+    setup_firefox_profile "$user" "$home"
+    install_lxdm_theme
+    setup_lxde_desktop "$user" "$home"
+
+    log "Desktop setup complete for ${user}"
+}
+
+main "$@"

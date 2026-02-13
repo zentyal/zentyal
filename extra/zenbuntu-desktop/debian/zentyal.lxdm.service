@@ -1,7 +1,7 @@
 [Unit]
 Description=Zentyal LXDE Display Manager
 Documentation=man:lxdm(1)
-Conflicts=getty@tty7.service plymouth-quit.service
+Conflicts=getty@tty7.service plymouth-quit.service lxdm.service
 After=systemd-user-sessions.service getty@tty7.service plymouth-quit.service zentyal.service
 
 [Service]

@@ -8,3 +8,14 @@
 	+ Make x11-setup more robust when SSL cert doesn't exist yet
 	+ Launch Firefox with ebox.default profile to avoid profile selection
 	+ Code cleanup: remove redundant chown calls and improve error handling
+	+ Fix blank LXDM greeter on Ubuntu 24.04 (GTK3 compatibility)
+	+ Add greeter-gtk3.ui replacing GtkComboBoxEntry with GtkComboBox
+	+ Add gtk.css for GTK3 greeter styling with full-screen background
+	+ Fix LXDM service conflict: mask lxdm.service, add Conflicts= to unit
+	+ Fix lxde-screenlock.desktop using missing lxlock (use xscreensaver)
+	+ Refactor x11-setup: functions, quoting, cp instead of mv, idempotent
+	+ Refactor postinst: set -e, POSIX tests, guard for missing UID 1000
+	+ Refactor firefox-cert-override: secure temp file with File::Temp
+	+ Modernize packaging: cdbs to dh, debhelper-compat 13
+	+ Remove obsolete deps: v86d, gtk2-engines, video-intel, video-qxl
+	+ Remove dead files: motd, debian/prerm, debian/compat

@@ -1,20 +1,33 @@
 #!/bin/bash
+# zenbuntu-desktop postinst — Plymouth theme + LXDM service conflict resolution.
 
+set -e
+
+# Plymouth theme symlinks
 ln -sf /usr/share/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.plymouth
 ln -sf /usr/share/plymouth/themes/zentyal/zentyal.grub /etc/alternatives/default.plymouth.grub
 
-if [ "$1" == "configure" ] && [ -z "$2" ]
-then
-    systemctl disable lxdm.service || true
+# On first install, neutralise the stock lxdm.service so it cannot
+# compete with zentyal.lxdm.service for the X display.
+if [ "$1" = "configure" ] && [ -z "$2" ]; then
+    rm -f /etc/systemd/system/display-manager.service
+    systemctl stop lxdm.service  2>/dev/null || true
+    systemctl mask lxdm.service  2>/dev/null || true
+    systemctl daemon-reload      2>/dev/null || true
 fi
 
-USER_NAME=`getent passwd uid 1000 | cut -d: -f1`
-DIR=/home/$USER_NAME
-LIBFM_DIR=$DIR/.config/libfm
+# Patch the root-terminal shortcut for pkexec + lxterminal (upgrade path).
+USER_NAME=$(getent passwd 1000 | cut -d: -f1)
+if [ -n "$USER_NAME" ]; then
+    DIR="/home/${USER_NAME}"
+    LIBFM_DIR="${DIR}/.config/libfm"
 
-if [ ! -d $LIBFM_DIR ] && [ -f $DIR/Desktop/root-terminal.desktop ]
-then
-    mkdir -p $LIBFM_DIR
-    mv /usr/share/zenbuntu-desktop/lxde/libfm.conf $LIBFM_DIR/
-    sed -i -e 's/pkexec/bash -c "pkexec/' -e 's/XAUTHORITY lxterminal$/XAUTHORITY lxterminal"/' $DIR/Desktop/root-terminal.desktop
+    if [ ! -d "$LIBFM_DIR" ] && [ -f "${DIR}/Desktop/root-terminal.desktop" ]; then
+        mkdir -p "$LIBFM_DIR"
+        cp /usr/share/zenbuntu-desktop/lxde/libfm.conf "${LIBFM_DIR}/"
+        sed -i \
+            -e 's/pkexec/bash -c "pkexec/' \
+            -e 's/XAUTHORITY lxterminal$/XAUTHORITY lxterminal"/' \
+            "${DIR}/Desktop/root-terminal.desktop"
+    fi
 fi

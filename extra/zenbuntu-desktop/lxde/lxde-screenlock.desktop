@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=ScreenLock
+Name[es]=Bloqueo de pantalla
+Name[de]=Bildschirmsperre
+Name[pt_BR]=Bloquear tela
+Comment=Lock your screen
+Comment[es]=Bloquear pantalla
+Icon=system-lock-screen
+Exec=xscreensaver-command -lock
+TryExec=xscreensaver-command
+NoDisplay=true
