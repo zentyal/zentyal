@@ -80,6 +80,7 @@ use constant SASL_PASSWD_FILE         => '/etc/postfix/sasl_passwd';
 use constant MAILNAME_FILE            => '/etc/mailname';
 use constant VDOMAINS_MAILBOXES_DIR   => '/var/vmail';
 use constant AUTOEXPUNGE_CRON_FILE    => '/etc/cron.d/zentyal-mail-autoexpunge';
+use constant FETCHMAIL_CRON_FILE      => '/etc/cron.d/zentyal-mail-fetchmail';
 use constant FETCHMAIL_SERVICE        => 'fetchmail';
 use constant ALWAYS_BCC_TABLE_FILE    => '/etc/postfix/alwaysbcc';
 use constant SIEVE_SCRIPTS_DIR        => '/var/vmail/sieve';
@@ -191,10 +192,7 @@ sub usedFiles
             },
             {
               'file' => MAILMASTERCONFFILE,
-              'reason' => __(
-                         'To define how client programs connect to services in '
-                           .' postfix'
-              ),
+              'reason' => __('To define how client programs connect to services in postfix'),
               'module' => 'mail'
             },
             {
@@ -233,15 +231,20 @@ sub usedFiles
               'module' => 'mail'
             },
             {
-                file   => DOVECOT_PAM,
-                reason => __('To let dovecot authenticate users using PAM'),
-                module => 'mail',
+              'file'   => DOVECOT_PAM,
+              'reason' => __('To let dovecot authenticate users using PAM'),
+              'module' => 'mail',
             },
             {
-                file   => AUTOEXPUNGE_CRON_FILE,
-                reason => __('To schedule autoexpunge cron job'),
-                module => 'mail',
+              'file'   => AUTOEXPUNGE_CRON_FILE,
+              'reason' => __('To schedule autoexpunge cron job'),
+              'module' => 'mail',
             },
+            {
+              'file' => FETCHMAIL_CRON_FILE,
+              'reason' => __('To schedule fetchmail update cron job'),
+              'module' => 'mail',
+            }
     ];
 }
 
@@ -1848,7 +1851,6 @@ sub _setExpungeConf
     my $timeToRun           = '00 01 * * *'; # 1:00 AM
     my $expireDaysDeleted   = $smtpOptions->expirationForDeleted();
     my $expireDaysSpam      = $smtpOptions->expirationForSpam();
-    my $expireDaysTrash     = $smtpOptions->expirationForTrash();
     my $expireDaysDraft     = $smtpOptions->expirationForDraft();
 
     my $fileAttrs = {
@@ -1865,12 +1867,10 @@ sub _setExpungeConf
     if ( grep { $_ > 0 }
         $expireDaysDeleted,
         $expireDaysSpam,
-        $expireDaysTrash,
         $expireDaysDraft )
     {
         $templateParams{expireDaysDeleted} = $expireDaysDeleted;
         $templateParams{expireDaysSpam}    = $expireDaysSpam;
-        $templateParams{expireDaysTrash}   = $expireDaysTrash;
         $templateParams{expireDaysDraft}   = $expireDaysDraft;
     }
 
