@@ -7,6 +7,7 @@ my @externalAccounts = @{ $params->{externalAccounts} };
 use JSON::XS;
 my $externalAccountsJS =  JSON::XS->new()->encode(\@externalAccounts);
 my $deleteActionText =  __('Delete external account');
+my $editActionText =  __('Edit external account');
 </%init>
 <%shared>
 my %printableName = (
@@ -35,6 +36,7 @@ my %printableName = (
 <div id='error_userMailExternalAccount' class='error' style='display:none'></div>
 <div id='note_userMailExternalAccount' class='note' style='display:none'></div>
 <& .addAccount, params => $params &>
+<& .editAccount, params => $params &>
 <button type="button" class='btn btn-icon btn-add'
    name='add' id='addlink_userMailExternalAccounts'
          onClick='$(this).hide(); $("#userMailAddExternalAccount").show();return false'>
@@ -51,6 +53,7 @@ $(function() {
   var refreshList = function(userDN, externalAccounts) {
      var i;
      var deleteText = '<% $deleteActionText %>';
+     var editText = '<% $editActionText %>';
      var trueImg  = '<div class="tcenter"><img src="/data/images/apply.gif" alt="yes"/></div>';
      var falseImg = '<div class="tcenter"><img src="/data/images/deny-active.gif" alt="no"/></div>';
      var table = $('#userMailExternalAccountsTable');
@@ -61,6 +64,7 @@ $(function() {
 
      for (i=0; i < externalAccounts.length; i++) {
          var account = externalAccounts[i];
+         var accountJSON = JSON.stringify(account).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
          var html = '<tr>';
          html += '<td>' + account['externalAccount'] + '</td>';
          html += '<td>' + account['server'] + '</td>';
@@ -68,10 +72,14 @@ $(function() {
          html += '<td>' + account['port'] + '</td>';
          html += '<td>' + (account['keep'] ? trueImg : falseImg ) + '</td>';
          html += '<td>' + (account['fetchall'] ? trueImg : falseImg ) + '</td>';
-         html += '<td class="tcenter"><a href="#">'
-         html += '<img src="/data/images/delete.gif" text="' + deleteText + '" alt="' + deleteText + '" ';
-         html +=  'data-userDN="' + userDN + '" data-account="' + account['externalAccount'] + '" />';
-         html += '</a></td>'
+         html += '<td class="tcenter">';
+         html += '<button type="button" class="btn-only-icon btn-edit editExternalAccount" ';
+         html += 'data-userDN="' + userDN + '" data-account=\'' + accountJSON + '\' ';
+         html += 'title="' + editText + '">' + editText + '</button> ';
+         html += '<button type="button" class="btn-only-icon btn-delete deleteExternalAccount" ';
+         html += 'data-userDN="' + userDN + '" data-account="' + account['externalAccount'] + '" ';
+         html += 'title="' + deleteText + '">' + deleteText + '</button>';
+         html += '</td>'
          html += '</tr>';
 
          var newRow = $(html);
@@ -96,28 +104,93 @@ $(function() {
             }
    });
 
-  $('#userMailExternalAccountsTable').on('click', 'a', function(event) {
+ Zentyal.Form.setupAjaxSubmit('#userMailEditExternalAccount', {
+            noteDiv: '#note_userMailExternalAccount',
+            errorDiv: '#error_userMailExternalAccount',
+            submitButton: '#userMailEditExternalAccount_submit',
+            success : function (response) {
+               if (response.success) {
+                   $("#userMailEditExternalAccount").hide();
+                   $('#addlink_userMailExternalAccounts').show();
+                   $('#userMailExternalAccountsTable .editExternalAccount').prop('disabled', false);
+               }
+               if (('externalAccounts' in response) && ('userDN' in response)) {
+                   refreshList(response.userDN, response.externalAccounts);
+               }
+            }
+   });
+
+  // Edit button click
+  $('#userMailExternalAccountsTable').on('click', '.editExternalAccount', function(event) {
       event.preventDefault();
-      var url = '/Mail/DelExternalAccount';
-      var data = 'user=' +  event.target.getAttribute('data-userDN')
-      data += '&account=' + event.target.getAttribute('data-account');
+      var btn = $(this);
+      var account = btn.data('account');
+      var userDN = btn.data('userdn');
+      var form = $('#userMailEditExternalAccount');
+
+      // Hide add form and Add New button
+      $("#userMailAddExternalAccount").hide();
+      $('#addlink_userMailExternalAccounts').hide();
+      // Disable edit buttons on rows while editing
+      $('#userMailExternalAccountsTable .editExternalAccount').prop('disabled', true);
+
+      // Populate form fields
+      form.find('[name=user]').val(userDN);
+      form.find('[name=localAccount]').val($('#userMailAddExternalAccount_localmail').val());
+      form.find('[name=oldAccount]').val(account.externalAccount);
+      form.find('[name=externalAccount]').val(account.externalAccount);
+      form.find('[name=password]').val('');
+      form.find('[name=mailServer]').val(account.server);
+      form.find('[name=mailProtocol]').val(account.protocol);
+      form.find('[name=port]').val(account.port);
+      form.find('[name=keep]').prop('checked', account.keep ? true : false);
+      form.find('[name=fetchall]').prop('checked', account.fetchall ? true : false);
+
+      form.show();
       $('#error_userMailExternalAccount').html('').hide();
       $('#note_userMailExternalAccount').html('').hide();
-      $.ajax({
-         url: url,
-         data: data,
-         dataType: 'json',
-         error: function(jqXHR) {
-            $('#error_userMailExternalAccount').html(jqXHR.responseText).show();
-         },
-         success: function(response) {
-            if (response.success) {
-                $('#note_userMailExternalAccount').html(response.msg).show();
-                refreshList(response.userDN, response.externalAccounts);
-            } else {
-               $('#error_userMailExternalAccount').html(response.error).show();
-            }
-         }
+  });
+
+  // Cancel edit
+  $('#userMailEditExternalAccount_cancel').on('click', function() {
+      $('#userMailEditExternalAccount').hide();
+      $('#addlink_userMailExternalAccounts').show();
+      $('#userMailExternalAccountsTable .editExternalAccount').prop('disabled', false);
+  });
+
+  // Delete button click with confirmation
+  $('#userMailExternalAccountsTable').on('click', '.deleteExternalAccount', function(event) {
+      event.preventDefault();
+      var btn = $(this);
+      var accountName = btn.data('account');
+      var userDN = btn.data('userdn');
+
+      var confirmParams = {
+          title:   '<% __('Confirm deletion') %>',
+          message: '<% __('Are you sure you want to delete this external account configuration?') %>'
+      };
+
+      Zentyal.TableHelper.showConfirmationDialog(confirmParams, function() {
+          var url = '/Mail/DelExternalAccount';
+          var data = 'user=' + userDN + '&account=' + accountName;
+          $('#error_userMailExternalAccount').html('').hide();
+          $('#note_userMailExternalAccount').html('').hide();
+          $.ajax({
+             url: url,
+             data: data,
+             dataType: 'json',
+             error: function(jqXHR) {
+                $('#error_userMailExternalAccount').html(jqXHR.responseText).show();
+             },
+             success: function(response) {
+                if (response.success) {
+                    $('#note_userMailExternalAccount').html(response.msg).show();
+                    refreshList(response.userDN, response.externalAccounts);
+                } else {
+                   $('#error_userMailExternalAccount').html(response.error).show();
+                }
+             }
+          });
       });
   });
 
@@ -174,6 +247,7 @@ if ((exists $params->{mail}) and (defined $params->{mail})) {
     [
       name => 'mailProtocol', input => 'select',
       printableName => $printableName{'protocol'},
+      value => 'pop3',
       options => [
         {
             value => 'pop3',
@@ -199,6 +273,67 @@ if ((exists $params->{mail}) and (defined $params->{mail})) {
     [ name => 'addExternalAccount', id=> 'userMailAddExternalAccount_submit',  input => 'submit', value => __('Add')],
   ]
 &>
+
+</form>
+</%def>
+
+<%def .editAccount>
+<%args>
+$params
+</%args>
+<%init>
+my $localAccount;
+if ((exists $params->{mail}) and (defined $params->{mail})) {
+   $localAccount =  $params->{mail};
+} else {
+   $localAccount = '';
+}
+</%init>
+<form action='/Mail/ModifyExternalAccount'  method='POST' id='userMailEditExternalAccount' style='display:none;'>
+<& /formTable.mas,
+   rows => [
+    [ name => 'user', input => 'hidden', value => $params->{'user'}->dn() ],
+    [ name => 'localAccount', input => 'hidden', value => $localAccount],
+    [ name => 'oldAccount', input => 'hidden', value => ''],
+    [ name => 'externalAccount', printableName => $printableName{'externalAccount'} ],
+    [ name => 'password', input =>'password', printableName => $printableName{'password'}  ],
+    [ name => 'mailServer', printableName => $printableName{'server'}],
+    [
+      name => 'mailProtocol', input => 'select',
+      printableName => $printableName{'protocol'},
+      value => 'pop3',
+      options => [
+        {
+            value => 'pop3',
+            printableValue => 'POP3',
+        },
+        {
+            value => 'pop3s',
+            printableValue => __('Secure POP3'),
+        },
+        {
+            value => 'imap',
+            printableValue => 'IMAP',
+        },
+        {
+            value => 'imaps',
+            printableValue => __('Secure IMAP'),
+        },
+          ],
+    ],
+    [ name => 'port', printableName => $printableName{'port'} ],
+    [ name => 'keep', input => 'checkbox', printableName => $printableName{'keep'}],
+    [ name => 'fetchall', input => 'checkbox', printableName => $printableName{'fetchall'}],
+  ]
+&>
+<div class="form-buttons">
+  <button class='btn-only-icon btn-save' type='submit' name='change'
+       id='userMailEditExternalAccount_submit'
+       title="<% __('Save') %>"><% __('Save') %></button>
+  <button class='btn-only-icon btn-cancel' type='button'
+       id='userMailEditExternalAccount_cancel'
+       title="<% __('Cancel') %>"><% __('Cancel') %></button>
+</div>
 
 </form>
 </%def>

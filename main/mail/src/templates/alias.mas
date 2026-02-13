@@ -5,6 +5,12 @@
 use EBox::Gettext;
 use JSON::XS;
 my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
+my $deleteAliasText = __('Delete');
+my $editAliasText = __('Edit');
+my $createAliasTitle = __('Create mail aliases');
+my $editAliasTitle = __('Edit mail alias');
+my $createText = __('Create');
+my $saveText = __('Save');
 </%init>
 
 <div class="form-block">
@@ -36,7 +42,8 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 <form action='/Mail/CreateAlias' id='userMailCreateAlias' method='POST' class="formDiv">
     <input type="hidden" id='userMailCreateAlias_maildrop' name="maildrop" value="<% $params->{'mail'} %>">
     <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
-    <h4><% __('Create mail aliases') %></h4>
+    <input type="hidden" id='userMailAlias_oldAlias' name="oldAlias" value="">
+    <h4 id='userMailAlias_title'><% __('Create mail aliases') %></h4>
       <table cellspacing='0' class='dataTable' id='userMailAliasTable'>
             <thead>
                 <tr>
@@ -63,14 +70,14 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
                           </div>
                     </td>
                     <td class='tcenter'>
-                            <input id='userMailCreateAlias_submit'
+                            <button id='userMailCreateAlias_submit'
                                    class='btn-only-icon btn-add'
                                    type='submit'
                                    name='change'
-                                   value="<% __('Create') %>"
                                    title="<% __('Create') %>"
-                                   alt="<% __('Create') %>"
-                            />
+                            ><% __('Create') %></button>
+                            <button type="button" class="btn-only-icon btn-cancel" id="userMailAlias_cancelEdit"
+                                    style="display:none" title="<% __('Cancel') %>"><% __('Cancel') %></button>
                     </td>
             </tr>
             </tbody>
@@ -86,27 +93,46 @@ $(function() {
       var tbody = $('tbody', aliasTable);
       tbody.detach();
       tbody.children('.aliasRow').remove();
+      var deleteText = '<% $deleteAliasText %>';
+      var editText = '<% $editAliasText %>';
       for (i=0; i < aliases.length; i++) {
           var alias = aliases[i];
-          var newRowHtml =  '<tr class="border aliasRow">'  +
-                            '<td>'  + alias + '</td>' +
-                             '<td class="tcenter">' +
-                                 '<a href="#">' +
-                                    '<img src="/data/images/delete.gif" ' +
-                                        'data-alias="' + alias +'" ' +
-                                        'title="<% __('Delete') %>" ' +
-                                        'alt="<% __('Delete') %>" ' +
-                                    '/>' +
-                                 '</a>' +
-                             '</td>' +
-                        '</tr>';
+          var newRowHtml = '<tr class="border aliasRow">' +
+                           '<td>' + alias + '</td>' +
+                           '<td class="tcenter">' +
+                               '<button type="button" class="btn-only-icon btn-edit editAlias" ' +
+                                   'data-alias="' + alias + '" ' +
+                                   'title="' + editText + '">' + editText + '</button> ' +
+                               '<button type="button" class="btn-only-icon btn-delete deleteAlias" ' +
+                                   'data-alias="' + alias + '" ' +
+                                   'title="' + deleteText + '">' + deleteText + '</button>' +
+                           '</td>' +
+                           '</tr>';
          var newRow = $(newRowHtml);
          tbody.append(newRow);
       }
     aliasTable.append(tbody);
   };
 
-   Zentyal.Form.setupAjaxSubmit('#userMailDelAccount', {
+  var createTitle = '<% $createAliasTitle %>';
+  var editTitle = '<% $editAliasTitle %>';
+  var createBtnText = '<% $createText %>';
+  var saveBtnText = '<% $saveText %>';
+
+  var resetAliasForm = function() {
+      var form = $('#userMailCreateAlias');
+      form.attr('action', '/Mail/CreateAlias');
+      form.find('[name=lhs]').val('');
+      form.find('[name=oldAlias]').val('');
+      $('#userMailAlias_title').text(createTitle);
+      var submitBtn = $('#userMailCreateAlias_submit');
+      submitBtn.attr('title', createBtnText).text(createBtnText);
+      submitBtn.removeClass('btn-save').addClass('btn-add');
+      $('#userMailAlias_cancelEdit').hide();
+      $('#userMailAliasTable .editAlias').prop('disabled', false);
+  };
+
+   var delAccountSubmitParams = {
         noteDiv: '#note_userMailCreateDelAccount',
         errorDiv: '#error_userMailCreateDelAccount',
         submitButton: '#userMailDelAccount_submit',
@@ -116,6 +142,19 @@ $(function() {
             }
             Zentyal.MailUserAddon.accountChange(response.mail, response.ocEnabled);
         }
+    };
+
+    // Override default submit to add confirmation dialog
+    $('#userMailDelAccount').on('submit', function(event) {
+        event.preventDefault();
+        var form = $(this);
+        var confirmParams = {
+            title:   '<% __('Confirm account deletion') %>',
+            message: '<% __('This action removes the mail account and all its associated data (messages, aliases, external accounts). This cannot be undone. Are you sure?') %>'
+        };
+        Zentyal.TableHelper.showConfirmationDialog(confirmParams, function() {
+            Zentyal.Form.submit(form, delAccountSubmitParams);
+        });
     });
 
    Zentyal.Form.setupAjaxSubmit('#userMailSetMaildirQuota', {
@@ -132,14 +171,15 @@ $(function() {
                 if ('aliases' in response) {
                     refreshAliasList(response.aliases);
                 }
+                resetAliasForm();
             }
    });
 
-  $('#userMailAliasTable').on('click', 'a', function(event) {
+  $('#userMailAliasTable').on('click', '.deleteAlias', function(event) {
       event.preventDefault();
       var url = '/Mail/DelAlias';
       var data = 'user=<% $params->{user}->dn() %>';
-      data += '&alias=' + event.target.getAttribute('data-alias');
+      data += '&alias=' + $(this).data('alias');
 
       // we reuse div for createAlias form
       $('#error_userMailAlias').html('').hide();
@@ -162,6 +202,37 @@ $(function() {
             }
          }
       });
+  });
+
+  // Edit alias button click
+  $('#userMailAliasTable').on('click', '.editAlias', function(event) {
+      event.preventDefault();
+      var alias = $(this).data('alias');
+      var parts = alias.split('@');
+      var lhs = parts[0];
+      var rhs = parts.slice(1).join('@');
+
+      var form = $('#userMailCreateAlias');
+      form.attr('action', '/Mail/ModifyAlias');
+      form.find('[name=lhs]').val(lhs);
+      form.find('[name=rhs]').val(rhs);
+      form.find('[name=oldAlias]').val(alias);
+      $('#userMailAlias_title').text(editTitle);
+      var submitBtn = $('#userMailCreateAlias_submit');
+      submitBtn.attr('title', saveBtnText).text(saveBtnText);
+      submitBtn.removeClass('btn-add').addClass('btn-save');
+      $('#userMailAlias_cancelEdit').show();
+      $('#userMailAliasTable .editAlias').prop('disabled', true);
+
+      $('#error_userMailAlias').html('').hide();
+      $('#note_userMailAlias').html('').hide();
+  });
+
+  // Cancel edit alias
+  $('#userMailAlias_cancelEdit').on('click', function() {
+      resetAliasForm();
+      $('#error_userMailAlias').html('').hide();
+      $('#note_userMailAlias').html('').hide();
   });
 
   refreshAliasList(<% $aliasesJS %>);
