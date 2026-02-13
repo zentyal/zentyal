@@ -45,7 +45,7 @@ use constant {
  FETCHMAIL_CONF_FILE => '/etc/zentyal-fetchmail.rc',
  FETCHMAIL_SERVICE   => 'fetchmail',
  FETCHMAIL_SERVICE_FILE => '/lib/systemd/system/fetchmail.service',
- FETCHMAIL_CRON_FILE => '/etc/cron.d/ebox-mail',
+ FETCHMAIL_CRON_FILE => '/etc/cron.d/zentyal-mail-fetchmail',
 };
 
 sub new

@@ -231,25 +231,6 @@ sub _table
                                   ],
              ),
          new EBox::Types::Union(
-                              fieldName => 'trashAutoExpunge',
-                              printableName =>
-                                __('Expiration period for trash mails'),
-                              subtypes => [
-                              new EBox::Types::Union::Text(
-                                  'fieldName' => 'neverExpungeTrash',
-                                  'printableName' => __('Never'),
-                                  ),
-                              new EBox::Types::Int(
-                                  'fieldName' => 'daysExpungeTrash',
-                                  'printableName' => __('expired in'),
-                                  'trailingText'  => __('days'),
-                                  'editable'  => 1,
-                                  'min'       => 1,
-                                  'size'      => 5,
-                                      ),
-                                  ],
-             ),
-         new EBox::Types::Union(
                               fieldName => 'draftAutoExpunge',
                               printableName =>
                                 __('Expiration period for draft mails'),

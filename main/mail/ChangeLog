@@ -11,6 +11,8 @@
 	+ Update _getDate method for Log integration
 	+ Refactor expiration period feature for mails
 	+ Remove deprecated method _setArchivemailConf
+	+ Rename fetchmail cronjob
+	+ Remove an unnecessary expunge option
 8.0.0
 	+ Set version to 8.0.0
 	+ Update initial-setup and enable-module scripts
