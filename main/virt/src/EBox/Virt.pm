@@ -43,6 +43,7 @@ use constant LIBVIRT_BIN => '/usr/bin/virsh';
 use constant DEFAULT_VIRT_USER => 'ebox';
 use constant VNC_PASSWD_FILE => '/var/lib/zentyal/conf/vnc-passwd';
 use constant VNC_TOKENS_FILE => '/var/lib/zentyal/conf/vnc-tokens';
+use constant APPARMOR_LIBVIRT => '/etc/apparmor.local/usr.sbin.libvirtd';
 
 my $SYSTEMD_PATH = '/lib/systemd/system';
 my $WWW_PATH = EBox::Config::www();
@@ -72,6 +73,21 @@ sub _create
     $self->{vmUser} = $user;
 
     return $self;
+}
+
+# Method: usedFiles
+#
+#   Override EBox::Module::Service::usedFiles
+#
+sub usedFiles
+{
+    return [
+        {
+            'file'   => APPARMOR_LIBVIRT,
+            'module' => 'virt',
+            'reason' => __x('AppArmor profile for libvirtd daemon'),
+        },
+    ];
 }
 
 # Method: initialSetup
@@ -118,6 +134,32 @@ sub initialSetup
 
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
+}
+
+# Method: appArmorProfiles
+#
+#   Overrides to set the own AppArmor profile
+#
+# Overrides:
+#
+#   <EBox::Module::Base::appArmorProfiles>
+#
+sub appArmorProfiles
+{
+    my ($self) = @_;
+
+    EBox::info('Setting Libvirtd apparmor profile');
+
+    my @params = ();
+
+    return [
+        {
+            binary => 'usr.sbin.libvirtd',
+            local  => 1,
+            file   => 'virt/apparmor-libvirtd.local.mas',
+            params => \@params,
+        }
+    ];
 }
 
 # Method: menu
