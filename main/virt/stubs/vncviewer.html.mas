@@ -2,7 +2,7 @@
     $token
     $password
 </%args>
-<iframe id="vnc_frame" src="/vncws/?path=websockify?token=<% $token %>&password=<% $password %>">This browser does not support frames</iframe>
+<iframe id="vnc_frame" src="/vncws/vnc_auto.html?path=websockify?token=<% $token %>&password=<% $password %>">This browser does not support frames</iframe>
 <script>
 (function() {
     var vnc = document.querySelector('#vnc_frame');
