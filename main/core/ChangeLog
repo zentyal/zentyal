@@ -1,5 +1,6 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Disable submit button during AJAX form submission to prevent duplicate requests
 	+ Add btn-save and btn-cancel icon classes to global CSS stylesheet
 	+ Fix progress page title not rendering by assigning URL param to self->{title}
 	+ Add #progress-report-details div to progress.mas for displaying result

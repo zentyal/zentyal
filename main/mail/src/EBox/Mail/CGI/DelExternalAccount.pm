@@ -20,8 +20,10 @@ package EBox::Mail::CGI::DelExternalAccount;
 use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
+use EBox::Config;
 use EBox::Gettext;
 use EBox::Samba::User;
+use EBox::Sudo;
 
 sub new
 {
@@ -46,6 +48,10 @@ sub _process
 
     my $user = new EBox::Samba::User(dn => $userDN);
     $mail->{fetchmail}->removeExternalAccount($user, $account);
+
+    # Apply fetchmail configuration immediately instead of waiting for cron
+    my $fetchmailUpdate = EBox::Config::share() . 'zentyal-mail/fetchmail-update';
+    EBox::Sudo::root("[ -x $fetchmailUpdate ] && $fetchmailUpdate");
 
     my @externalAccounts = map {
         my $account = $mail->{fetchmail}->externalAccountRowValues($_);

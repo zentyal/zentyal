@@ -20,11 +20,13 @@ package EBox::Mail::CGI::ModifyExternalAccount;
 use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
+use EBox::Config;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Samba::User;
+use EBox::Sudo;
 use EBox::Validate;
 
 sub new
@@ -108,6 +110,10 @@ sub _process
     }
 
     $mail->{fetchmail}->modifyExternalAccount($userObject, $oldAccount, \@newAccountHash);
+
+    # Apply fetchmail configuration immediately instead of waiting for cron
+    my $fetchmailUpdate = EBox::Config::share() . 'zentyal-mail/fetchmail-update';
+    EBox::Sudo::root("[ -x $fetchmailUpdate ] && $fetchmailUpdate");
 
     # Create fresh user object to avoid stale LDAP cache after modify
     my $freshUser = new EBox::Samba::User(dn => $userDN);

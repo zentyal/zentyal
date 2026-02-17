@@ -37,7 +37,7 @@ my $mustRun = $mailRo->{fetchmail}->daemonMustRun();
 if ($mailRo->{fetchmail}->running()) {
     # Restart if it should run, stop if it shouldn't
     if ($mustRun) {
-        EBox::Service::manage('zentyal.fetchmail', 'restart');
+        EBox::Service::manage('fetchmail', 'restart');
     } else {
         $mailRo->{fetchmail}->stop();
     }
