@@ -42,6 +42,7 @@ Zentyal.Form.setupAjaxSubmit = function(formSelector, params) {
 Zentyal.Form.submit = function (formSelector, params) {
     var form = $(formSelector);
     var submitButton = $(params.submitButton);
+    submitButton.prop('disabled', true);
     Zentyal.Form.setLoading(submitButton);
     var noteDiv =  $(params.noteDiv);
     noteDiv.hide();
@@ -79,6 +80,7 @@ Zentyal.Form.submit = function (formSelector, params) {
         },
         complete: function() {
             Zentyal.Form.restoreAfterLoading(submitButton);
+            submitButton.prop('disabled', false);
         }
     });
 };

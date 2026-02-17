@@ -175,6 +175,11 @@ $(function() {
           var data = 'user=' + userDN + '&account=' + accountName;
           $('#error_userMailExternalAccount').html('').hide();
           $('#note_userMailExternalAccount').html('').hide();
+          // Disable action buttons and show loading indicator
+          $('#userMailExternalAccountsTable .deleteExternalAccount').prop('disabled', true);
+          $('#userMailExternalAccountsTable .editExternalAccount').prop('disabled', true);
+          var btnOrigHtml = btn.html();
+          btn.html('<img src="/data/images/ajax-loader.gif" alt="loading..." class="tcenter"/>');
           $.ajax({
              url: url,
              data: data,
@@ -189,6 +194,11 @@ $(function() {
                 } else {
                    $('#error_userMailExternalAccount').html(response.error).show();
                 }
+             },
+             complete: function() {
+                btn.html(btnOrigHtml);
+                $('#userMailExternalAccountsTable .deleteExternalAccount').prop('disabled', false);
+                $('#userMailExternalAccountsTable .editExternalAccount').prop('disabled', false);
              }
           });
       });

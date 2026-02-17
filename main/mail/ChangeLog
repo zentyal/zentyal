@@ -1,5 +1,9 @@
 8.1.0
 	+ Set version to 8.1.0
+	+ Apply fetchmail configuration immediately on external account add/edit/delete
+	  instead of waiting for the 10-minute cron job
+	+ Add loading indicator and disable action buttons during external account deletion
+	+ Fix fetchmail-update script using old service name zentyal.fetchmail instead of fetchmail
 	+ Fix duplicate row in external accounts table after modifying an account
 	+ Fix protocol selector default value not being set in external accounts forms
 	+ Fix undefined variable in AddExternalAccount error message
