@@ -7,24 +7,19 @@ DEST="/var/lib/zentyal/latestversion"
 LK_REGEX="^[A-Z0-9]{5}-[A-Z0-9]{5}.[A-Z0-9]{5}-[A-Z0-9]{5}$"
 SHELL_CMD='/usr/share/zentyal/shell'
 
-if ! wget --timeout="$TIMEOUT" -q "$URL" -O "$DEST"  >/dev/null 2>&1; then
-  exit 1
-fi
+# Version check (non-blocking: don't abort if update server is unreachable)
+wget --timeout="$TIMEOUT" -q "$URL" -O "$DEST" >/dev/null 2>&1
 
-# Stop services if any commercial edition expired
-EDITION="$($SHELL_CMD '$global->edition()' 2>/dev/null)"
-if [[ "$EDITION" =~ -expired$ ]]; then
-  zs restart >/dev/null 2>&1
-fi
-
-# Get license key from Redis
+# Check license status against UCP API (updates Redis with fresh data)
 LK="$($SHELL_CMD '$global->getLicenseData("license_key")' 2>/dev/null)"
 if [[ -n "$LK" ]] && echo "$LK" | grep -qE "$LK_REGEX"; then
   /usr/share/zentyal/check_license >/dev/null 2>&1
 fi
 
-if [[ $? -eq 1 ]]; then
-  zs webadmin stop
+# Stop all services if license is expired (reads fresh Redis data from above)
+EDITION="$($SHELL_CMD '$global->edition()' 2>/dev/null)"
+if [[ "$EDITION" =~ -expired$ ]]; then
+  zs restart >/dev/null 2>&1
 fi
 
 exit 0
