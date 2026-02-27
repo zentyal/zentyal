@@ -630,16 +630,14 @@ sub _setEdition
             );
         }
     } elsif ($edition ne 'community') {
-        my $lk = read_file('/var/lib/zentyal/.license');
-        chomp ($lk);
+        # Read license data from Redis instead of files
+        my $global = $self->global();
+        my $licenseData = $global->getLicenseData();
+        my $lk = $licenseData ? ($licenseData->{license_key} // '') : '';
         if (substr($lk, 0, 2) eq 'NS') {
             $version .= '-nss';
         }
-        my $hash;
-        if (-f '/var/lib/zentyal/.server_uuid') {
-            $hash = read_file('/var/lib/zentyal/.server_uuid');
-            chomp ($hash);
-        }
+        my $hash = $licenseData ? ($licenseData->{server_hash} // '') : '';
         push (@cmds,
             "echo 'machine https://packages.zentyal.com login $lk password $hash' > /etc/apt/auth.conf.d/zentyal-commercial.conf",
             'chmod 600 /etc/apt/auth.conf.d/zentyal-commercial.conf',

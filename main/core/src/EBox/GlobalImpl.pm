@@ -1173,38 +1173,41 @@ sub edition
 {
     my ($self, $ro) = @_;
 
-    my $license = '/var/lib/zentyal/.license';
+    # getLicenseData() already handles migration from old files
+    my $licenseData = $self->getLicenseData();
 
-    unless (-f $license) {
+    unless ($licenseData and $licenseData->{license_key}) {
         return 'community';
     }
 
-    my $key = read_file($license);
-    chomp($key);
-
+    my $key = $licenseData->{license_key};
     if ($key eq 'ACTIVATION-REQUIRED') {
         return 'require-activation';
     }
 
-    my ($level, $users, $exp_date) = $self->_decodeLicense($key);
-    my $status;
-    my $file;
+    my $level = $self->_licenseEditionName($licenseData->{license_type});
+    my $date  = $licenseData->{expiration_date} // '';
 
-    if (-e '/var/lib/zentyal/.license_status') {
-        $file = read_file('/var/lib/zentyal/.license_status');
-        $status = decode_json($file);
-    }
-
-    if (not defined ($level) or not defined ($exp_date)) {
+    unless ($level and $date) {
         return 'community';
-    } elsif (localtime > $exp_date) {
-        return "$level-expired";
-    } elsif ($$status{'label'} ne "Active") {
-        return "$level-expired";
-    } else {
-        return $level;
     }
 
+    # Parse expiration date; return community if unparseable
+    my $exp_date;
+    try {
+        $exp_date = Time::Piece->strptime("$date", "%Y-%m-%d");
+    } catch {
+        return 'community';
+    }
+    return 'community' unless defined($exp_date);
+
+    # Expired or inactive license
+    my $statusLabel = $licenseData->{status_label} // '';
+    if (localtime > $exp_date or $statusLabel ne 'Active') {
+        return "$level-expired";
+    }
+
+    return $level;
 }
 
 # Method: communityEdition
@@ -1252,13 +1255,10 @@ sub licenseMaxUsers
         return undef;
     }
 
-    my $usersFile = '/var/lib/zentyal/.license_users';
-    unless (-f $usersFile) {
-        return undef;
-    }
+    my $licenseData = $self->getLicenseData();
+    return undef unless ($licenseData and $licenseData->{users});
 
-    my $users = read_file($usersFile);
-    chomp($users);
+    my $users = $licenseData->{users};
 
     # Empty or "unlimited" means no limit
     if (not $users or $users eq '' or $users eq 'unlimited' or $users == 0) {
@@ -1434,70 +1434,221 @@ sub _assertNotChanges
     }
 }
 
-sub _base24to10
+# Method: saveLicenseData
+#
+#   Save license data to Redis state. Called by enable_license and check_license
+#   scripts via the zentyal shell.
+#
+# Parameters:
+#
+#   data - Hash ref with license data:
+#          license_key, license_type, expiration_date, users,
+#          status_code, status_label, server_hash,
+#          ucp_client_id, ucp_client_secret
+#
+sub saveLicenseData
 {
-    my ($self, $str) = @_;
+    my ($self, $data) = @_;
 
-    my @c = reverse(split(//, $str));
-    my $result = 0;
-    foreach my $i (0..scalar(@c)-1) {
-        $result += (24 ** $i) * (ord($c[$i]) - ord('A'));
+    unless (defined($data) and ref($data) eq 'HASH') {
+        throw EBox::Exceptions::MissingArgument('data');
     }
 
-    return $result;
+    my $state = $self->get_state();
+    $state->{license} = {
+        license_key      => $data->{license_key}      // '',
+        license_type     => $data->{license_type}      // '',
+        expiration_date  => $data->{expiration_date}   // '',
+        users            => $data->{users}             // 0,
+        status_code      => $data->{status_code}       // '',
+        status_label     => $data->{status_label}      // '',
+        server_hash      => $data->{server_hash}       // '',
+        ucp_client_id    => $data->{ucp_client_id}     // '',
+        ucp_client_secret => $data->{ucp_client_secret} // '',
+    };
+    $self->set_state($state);
 }
 
-sub _decodeLicense
+# Method: getLicenseData
+#
+#   Retrieve license data from Redis state.
+#
+# Parameters:
+#
+#   field - Optional. String with specific field name to return.
+#           If not provided, returns the full license hash ref.
+#
+# Returns:
+#
+#   Hash ref with all license data, or scalar value of the requested field,
+#   or undef if no license data exists.
+#
+sub getLicenseData
 {
-    my ($self, $key) = @_;
-    my @parts = split ('-', $key);
+    my ($self, $field) = @_;
 
-    if (@parts != 4) {
-        return (undef, undef, undef);
+    my $state = $self->get_state();
+    my $license = $state->{license};
+
+    # Auto-migrate from old file-based storage if Redis is empty
+    unless (defined($license) and $license->{license_key}) {
+        $license = $self->_migrateLicenseFromFiles();
     }
-    my $level, 
-    my $users;
-    my $date;
 
-    if (-e '/var/lib/zentyal/.license_users' &&
-        -e '/var/lib/zentyal/.license_expiration' &&
-        -e '/var/lib/zentyal/.license_type') {
-        $level = read_file('/var/lib/zentyal/.license_type');
-        chomp($level);
-        $users = read_file('/var/lib/zentyal/.license_users');
+    return undef unless defined($license);
+
+    if (defined($field)) {
+        return $license->{$field};
+    }
+
+    return $license;
+}
+
+# Method: clearLicenseData
+#
+#   Remove all license data from Redis state.
+#
+sub clearLicenseData
+{
+    my ($self) = @_;
+
+    my $state = $self->get_state();
+    delete $state->{license};
+    $self->set_state($state);
+}
+
+# Method: _migrateLicenseFromFiles
+#
+#   Migrate license data from old file-based storage (/var/lib/zentyal/.license_*)
+#   to Redis. This is called automatically by getLicenseData() when Redis is empty
+#   but the old files exist, ensuring backwards compatibility after upgrade.
+#
+# Returns:
+#
+#   Hash ref - the migrated license data, or undef if no files found
+#
+sub _migrateLicenseFromFiles
+{
+    my ($self) = @_;
+
+    my $licFile = '/var/lib/zentyal/.license';
+    return undef unless (-f $licFile);
+
+    my $key = File::Slurp::read_file($licFile);
+    chomp($key);
+
+    # Skip migration for placeholder values
+    return undef if (not $key or $key eq '' or $key eq 'ACTIVATION-REQUIRED');
+
+    EBox::info("Migrating license data from files to Redis...");
+
+    my $licenseType = '';
+    if (-f '/var/lib/zentyal/.license_type') {
+        $licenseType = File::Slurp::read_file('/var/lib/zentyal/.license_type');
+        chomp($licenseType);
+    }
+
+    my $expiration = '';
+    if (-f '/var/lib/zentyal/.license_expiration') {
+        $expiration = File::Slurp::read_file('/var/lib/zentyal/.license_expiration');
+        chomp($expiration);
+    }
+
+    my $users = 0;
+    if (-f '/var/lib/zentyal/.license_users') {
+        $users = File::Slurp::read_file('/var/lib/zentyal/.license_users');
         chomp($users);
-        $date = read_file('/var/lib/zentyal/.license_expiration');
-        chomp($date);
-    } else {
-        return (undef, undef, undef);
-    }
-    
-    if ($level eq'TR') {
-        $level = "trial";
-    } elsif ($level eq 'PF') {
-        $level = "professional";
-    } elsif ($level eq 'BS') {
-        $level = "business";
-    } elsif ($level eq 'PR') {
-        $level = "premium";
-    } elsif ($level eq 'LC') {
-        $level = "commercial";
-    } elsif ($level eq 'NS') {
-        $level = "premium";
-    } elsif ($level = "LC_MC") {
-        $level = "commercial";
-    } elsif ($level = "LC_SM") {
-        $level = "commercial";
-    } elsif ($level = "LC_MD") {
-        $level = "commercial";
-    } elsif ($level = "LC_EN") {
-        $level = "commercial";
     }
 
-    my $exp_date = Time::Piece->strptime("$date", "%Y-%m-%d");
-    my $date_str = $exp_date->strftime("%Y-%m-%d");
+    my $statusCode = '';
+    my $statusLabel = '';
+    if (-f '/var/lib/zentyal/.license_status') {
+        try {
+            my $statusJson = File::Slurp::read_file('/var/lib/zentyal/.license_status');
+            chomp($statusJson);
+            my $status = JSON::XS::decode_json($statusJson);
+            $statusCode  = $status->{code}  // '';
+            $statusLabel = $status->{label} // '';
+        } catch {
+            EBox::warn("Could not parse .license_status during migration");
+        }
+    }
 
-    return ($level, $users, $exp_date);
+    my $serverHash = '';
+    if (-f '/var/lib/zentyal/.server_uuid') {
+        $serverHash = File::Slurp::read_file('/var/lib/zentyal/.server_uuid');
+        chomp($serverHash);
+    }
+
+    my $ucpClientId = '';
+    if (-f '/var/lib/zentyal/.ucp_comm_id') {
+        $ucpClientId = File::Slurp::read_file('/var/lib/zentyal/.ucp_comm_id');
+        chomp($ucpClientId);
+    }
+
+    my $ucpClientSecret = '';
+    if (-f '/var/lib/zentyal/.ucp_comm_secret') {
+        $ucpClientSecret = File::Slurp::read_file('/var/lib/zentyal/.ucp_comm_secret');
+        chomp($ucpClientSecret);
+    }
+
+    my $data = {
+        license_key       => $key,
+        license_type      => $licenseType,
+        expiration_date   => $expiration,
+        users             => $users,
+        status_code       => $statusCode,
+        status_label      => $statusLabel,
+        server_hash       => $serverHash,
+        ucp_client_id     => $ucpClientId,
+        ucp_client_secret => $ucpClientSecret,
+    };
+
+    # Save to Redis
+    $self->saveLicenseData($data);
+
+    EBox::info("License data migrated to Redis successfully (key: $key, type: $licenseType)");
+
+    return $data;
+}
+
+# Method: _licenseEditionName
+#
+#   Map a license type code from the UCP API v2 to
+#   a human-readable edition name.
+#
+# Parameters:
+#
+#   typeCode - String the license_type code (e.g. 'TR', 'SBZBB')
+#
+# Returns:
+#
+#   String - edition name ('trial', 'commercial', etc.) or undef
+#
+sub _licenseEditionName
+{
+    my ($self, $typeCode) = @_;
+
+    return undef unless defined($typeCode) and $typeCode ne '';
+
+    my %typeMap = (
+        'TR'    => 'trial',
+        'PF'    => 'professional',
+        'BS'    => 'business',
+        'PR'    => 'premium',
+        'LC'    => 'commercial',
+        'NS'    => 'premium',
+        'LC_MC' => 'commercial',
+        'LC_SM' => 'commercial',
+        'LC_MD' => 'commercial',
+        'LC_EN' => 'commercial',
+        'SBZBB' => 'commercial',
+        'SBZBS' => 'commercial',
+        'SBZBM' => 'commercial',
+        'SBZBL' => 'commercial',
+    );
+
+    return $typeMap{$typeCode} // 'commercial';
 }
 
 1;

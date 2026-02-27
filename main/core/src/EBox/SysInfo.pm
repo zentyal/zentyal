@@ -426,28 +426,30 @@ sub licenseWidget
         $section->add(new EBox::Dashboard::Value(__('Status'), __('Active'), 'success'));
     }
 
-    # Get license details
-    my $license = '/var/lib/zentyal/.license';
-    if (-f $license) {
-        my $key = read_file($license);
-        chomp($key);
+    # Get license details from Redis
+    my $licenseData = $global->getLicenseData();
+    if ($licenseData and $licenseData->{license_key}) {
+        my $key = $licenseData->{license_key};
 
         unless ($key eq 'ACTIVATION-REQUIRED') {
-            my ($level, $users, $exp_date) = $global->_decodeLicense($key);
-            
-            # Show expiration date
-            if (defined $exp_date) {
-                my $date_str = $exp_date->strftime("%Y-%m-%d");
-                $section->add(new EBox::Dashboard::Value(__('Expiration date'), $date_str));
-                
+            # Show expiration date directly from Redis
+            my $dateStr = $licenseData->{expiration_date} // '';
+            if ($dateStr) {
+                $section->add(new EBox::Dashboard::Value(__('Expiration date'), $dateStr));
+
                 # Calculate days remaining
                 unless ($expired) {
-                    my $now = Time::Piece->new();
-                    my $days_left = int(($exp_date - $now) / 86400);
-                    if ($days_left <= 30) {
-                        $section->add(new EBox::Dashboard::Value(__('Days remaining'), $days_left, 'warning'));
-                    } else {
-                        $section->add(new EBox::Dashboard::Value(__('Days remaining'), $days_left));
+                    try {
+                        my $exp = Time::Piece->strptime("$dateStr", "%Y-%m-%d");
+                        my $now = Time::Piece->new();
+                        my $days_left = int(($exp - $now) / 86400);
+                        if ($days_left <= 30) {
+                            $section->add(new EBox::Dashboard::Value(__('Days remaining'), $days_left, 'warning'));
+                        } else {
+                            $section->add(new EBox::Dashboard::Value(__('Days remaining'), $days_left));
+                        }
+                    } catch {
+                        # Could not parse date
                     }
                 }
             }

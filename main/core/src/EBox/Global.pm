@@ -27,7 +27,7 @@ use Devel::StackTrace;
 my %ro_methods = map { $_ => 1 } qw(modEnabled modChange modInstances modInstancesOfType modInstance modDepends modRevDepends edition licenseMaxUsers);
 
 # Methods of GlobalImpl that cannot be called on read-only instances
-my %rw_only_methods = map { $_ => 1 } qw(modIsChanged modChange modRestarted saveAllModules revokeAllModules modifiedModules);
+my %rw_only_methods = map { $_ => 1 } qw(modIsChanged modChange modRestarted saveAllModules revokeAllModules modifiedModules saveLicenseData clearLicenseData);
 
 sub new
 {

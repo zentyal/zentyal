@@ -1,0 +1,55 @@
+#!/usr/bin/perl
+# Copyright (C) 2025 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Script: save-license-data
+#
+#   Reads JSON license data from stdin and saves it to Redis via
+#   EBox::GlobalImpl::saveLicenseData(). This avoids shell escaping
+#   issues when passing data that contains special characters (like
+#   bcrypt hashes with $ signs).
+#
+#   Usage: echo '{"license_key":"...","license_type":"..."}' | save-license-data
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use JSON::XS;
+
+EBox::init();
+
+my $json_input = do { local $/; <STDIN> };
+chomp($json_input);
+
+unless ($json_input) {
+    print STDERR "Error: No JSON data received on stdin\n";
+    exit 1;
+}
+
+my $data;
+eval {
+    $data = decode_json($json_input);
+};
+if ($@) {
+    print STDERR "Error: Invalid JSON input: $@\n";
+    exit 1;
+}
+
+my $global = EBox::Global->getInstance();
+$global->saveLicenseData($data);
+
+exit 0;

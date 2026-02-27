@@ -1,118 +1,135 @@
 #!/bin/bash
 
-LK_CODE_FILE="/var/lib/zentyal/.license"
-LK_ID_FILE="/var/lib/zentyal/.license_id"
-LK_TYPE_FILE="/var/lib/zentyal/.license_type"
-LK_EXPIRATION_FILE="/var/lib/zentyal/.license_expiration"
-LK_USERS_FILE="/var/lib/zentyal/.license_users"
-LK_STATUS_FILE="/var/lib/zentyal/.license_status"
-SERVER_HASH_FILE="/var/lib/zentyal/.server_uuid"
-UCP_COMM_CLIENT_ID_FILE="/var/lib/zentyal/.ucp_comm_id"
-UCP_COMM_CLIENT_SECRET_FILE="/var/lib/zentyal/.ucp_comm_secret"
+SHELL_CMD='/usr/share/zentyal/shell'
+LK_REGEX="^[A-Z0-9]{5}-[A-Z0-9]{5}.[A-Z0-9]{5}-[A-Z0-9]{5}$"
+
+# Get the license key from Redis
+LK=$($SHELL_CMD '$global->getLicenseData("license_key")' 2>/dev/null)
+
+if [[ -z "$LK" ]] || ! echo "$LK" | grep -qE "$LK_REGEX"; then
+	logger UCP[$$] INFO: No valid license key found in Redis.
+	exit 0
+fi
+
 RESPONSE_DATA_FILE_TMP=$(mktemp /tmp/XXXXXXX)
 
-# Preparing request vars
-LK=$(cat $LK_CODE_FILE)
-RESPONSE_DATA_FILE_TMP=$(mktemp /tmp/XXXXXXX)
-
-# Preparing the data with JSON encoding
+# Preparing the data with JSON encoding for API v2
 JSON_STRING=$( jq -n \
                   --arg lk "$LK" \
                   '{
-                      lk: $lk
+                      license_key: $lk
                     }' 
             )
 
-# Run the request to "check the license status"
-REQUEST=$(/usr/bin/timeout 30 /usr/bin/curl --silent -X POST -H "Content-Type: application/json" -d "$JSON_STRING" https://ucp.zentyal.com/api/lk/status -w "%{http_code}" -o $RESPONSE_DATA_FILE_TMP)
+# Run the request to "check the license status" (API v2)
+HTTP_CODE=$(/usr/bin/timeout 30 /usr/bin/curl --silent -X POST -H "Content-Type: application/json" -d "$JSON_STRING" https://ucp.zentyal.com/api/v2/licenses/status -w "%{http_code}" -o $RESPONSE_DATA_FILE_TMP)
 CURL_EXIT=$?
 
 # Check if timeout occurred
 if [ $CURL_EXIT -eq 124 ]; then
 	logger UCP[$$] ERROR: Connection timeout while checking license status.
-	exit 1;
+	rm -f $RESPONSE_DATA_FILE_TMP
+	exit 0
 fi
 
-if [ $REQUEST -eq "200" ] || [ $REQUEST -eq "201" ]; then
-	# Persisting LK data in a system file
+if [ "$HTTP_CODE" -eq "200" ]; then
+	# Parse v2 status response
+	STATUS_CODE=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".status_code")
 	LK_DATA=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".data")
+	METADATA=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".metadata")
 
-	# Gets the expiration date and persisting the expiration date in a system file
+	LK_CODE=$(echo $LK_DATA | jq -r ".code")
 	LK_EXPIRATION=$(echo $LK_DATA | jq -r ".expiration_date")
-	echo $LK_EXPIRATION > $LK_EXPIRATION_FILE
-
-	# Gets the license type
-	LK_TYPE=$(echo $LK_DATA | jq -r ".license_key_type.code")
-	echo $LK_TYPE > $LK_TYPE_FILE
-
-	# Gets the number of users for this license and persisting in a system file
+	LK_TYPE=$(echo $LK_DATA | jq -r ".license_type.code")
 	LK_USERS=$(echo $LK_DATA | jq -r ".users")
-	echo $LK_USERS > $LK_USERS_FILE
-
-	# Get the license key status id
-	LK_STATUS=$(echo $LK_DATA | jq -r ".status")
 	LK_STATUS_CODE=$(echo $LK_DATA | jq -r ".status.code")
 	LK_STATUS_LABEL=$(echo $LK_DATA | jq -r ".status.label")
-	echo $LK_STATUS > $LK_STATUS_FILE
+	SERVER_HASH=$(echo $LK_DATA | jq -r ".server_hash // empty")
 
-	# Gets the lk hash
-	SERVER_HASH=$(echo $LK_DATA | jq -r ".server_uuid")
-	echo $SERVER_HASH > $SERVER_HASH_FILE
-	
-	# Get the license key ID
-	LK_ID=$(echo $LK_DATA | jq -r ".id")
+	# Get OAuth credentials
+	OAUTH_DATA=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".oauth_client")
+	UCP_CLIENT_ID=$(echo $OAUTH_DATA | jq -r ".id // empty")
+	UCP_CLIENT_SECRET=$(echo $OAUTH_DATA | jq -r ".secret // empty")
 
-	# Get the oauth machine to machine client id
-	UCP_CLIENT_ID=$(echo $LK_DATA | jq -r ".oaut_client.id")
-	echo $UCP_CLIENT_ID > $UCP_COMM_CLIENT_ID_FILE
+	# Save all license data to Redis via helper script (avoids shell escaping issues)
+	jq -n \
+		--arg lk "$LK_CODE" \
+		--arg lt "$LK_TYPE" \
+		--arg exp "$LK_EXPIRATION" \
+		--arg usr "$LK_USERS" \
+		--arg sc "$LK_STATUS_CODE" \
+		--arg sl "$LK_STATUS_LABEL" \
+		--arg sh "$SERVER_HASH" \
+		--arg ci "$UCP_CLIENT_ID" \
+		--arg cs "$UCP_CLIENT_SECRET" \
+		'{
+			license_key: $lk,
+			license_type: $lt,
+			expiration_date: $exp,
+			users: $usr,
+			status_code: $sc,
+			status_label: $sl,
+			server_hash: $sh,
+			ucp_client_id: $ci,
+			ucp_client_secret: $cs
+		}' | /usr/share/zentyal/save-license-data
 
-	# Get the ucp machine to machine secret
-	UCP_CLIENT_SECRET=$(echo $LK_DATA | jq -r ".oaut_client.secret")
-	echo $UCP_CLIENT_SECRET > $UCP_COMM_CLIENT_SECRET_FILE
-
-	# Save the license key code
-	LK_CODE=$(echo $LK_DATA | jq -r ".code")
-	echo $LK_CODE > $LK_CODE_FILE
-
-	# exit codes according to /usr/include/sysexits.h
 	touch /var/lib/zentyal/.commercial-edition
-	
-	if [ $LK_STATUS_CODE == "L_ACTIVE" ]; then
-		logger UCP[$$] INFO: License key $LK_CODE is valid.
-		exit 0;
 
-	elif [ $LK_STATUS_CODE == "L_INACTIVE" ]; then
-		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is valid.
-		exit 0;
+	# exit codes according to v2 status_code
+	case "$STATUS_CODE" in
+		"ACTIVE")
+			logger UCP[$$] INFO: License key $LK_CODE is active and valid.
+			rm -f $RESPONSE_DATA_FILE_TMP
+			exit 0
+			;;
+		"INACTIVE")
+			logger UCP[$$] INFO: License key $LK_CODE is inactive but valid.
+			rm -f $RESPONSE_DATA_FILE_TMP
+			exit 0
+			;;
+		"EXPIRED")
+			if [ "$LK_TYPE" == "TR" ]; then
+				logger UCP[$$] INFO: Trial license $LK_CODE has expired. Stopping webadmin.
+				rm -f $RESPONSE_DATA_FILE_TMP
+				exit 1
+			else
+				logger UCP[$$] INFO: License key $LK_CODE has expired.
+				rm -f $RESPONSE_DATA_FILE_TMP
+				exit 77
+			fi
+			;;
+		"DISABLED")
+			logger UCP[$$] INFO: License key $LK_CODE is disabled.
+			rm -f $RESPONSE_DATA_FILE_TMP
+			exit 77
+			;;
+		"CANCELLED")
+			logger UCP[$$] INFO: License key $LK_CODE is cancelled.
+			rm -f $RESPONSE_DATA_FILE_TMP
+			exit 77
+			;;
+		"DUPLICATED")
+			logger UCP[$$] INFO: License key $LK_CODE is duplicated.
+			rm -f $RESPONSE_DATA_FILE_TMP
+			exit 77
+			;;
+		*)
+			logger UCP[$$] INFO: "License key status is unknown: $STATUS_CODE, nothing to do."
+			rm -f $RESPONSE_DATA_FILE_TMP
+			exit 1
+			;;
+	esac
 
-	elif [ $LK_STATUS_CODE == "L_DUPLICATED" ]; then
-		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
-		exit 77;
-
-	elif [ $LK_STATUS_CODE == "L_DISABLED" ]; then
-		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
-		exit 77;
-
-	elif [ $LK_STATUS_CODE == "L_EXPIRED" ] && [ $LK_TYPE == "TR" ]; then
-		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
-		exit 1;
-
-	elif [ $LK_STATUS_CODE == "L_EXPIRED" ]; then
-		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
-		exit 77;
-
-	elif [ $LK_STATUS_CODE == "L_CANCELLED" ]; then
-		logger UCP[$$] INFO: License key $LK_CODE is $LK_STATUS_LABEL and is invalid.
-		exit 77;
-	else
-		logger UCP[$$] INFO: The license key status is unknow, nothing to do.
-		exit 1;
-	fi
+elif [ "$HTTP_CODE" -eq "404" ]; then
+	ERROR_CODE=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".error_code // empty")
+	RES_MSG=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".message // empty")
+	logger UCP[$$] ERROR: License not found [$ERROR_CODE]: $RES_MSG
+	rm -f $RESPONSE_DATA_FILE_TMP
+	exit 77
 else
-	LK_ERR=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".data.error")
-	RES_MSG=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".message")
-
-	logger UCP[$$] ERROR: $RES_MSG.
-	logger UCP[$$] ERROR: The connection with UCP cannot be established or the service is not available. $LK_ERR.
-	exit 0;
+	RES_MSG=$(cat $RESPONSE_DATA_FILE_TMP | jq -r ".message // empty")
+	logger UCP[$$] ERROR: The connection with UCP cannot be established or the service is not available. $RES_MSG
+	rm -f $RESPONSE_DATA_FILE_TMP
+	exit 0
 fi
