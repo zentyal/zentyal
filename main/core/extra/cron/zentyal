@@ -5,19 +5,21 @@ URL="https://update.zentyal.org/last-8.1.txt"
 TIMEOUT="300"
 DEST="/var/lib/zentyal/latestversion"
 LK_REGEX="^[A-Z0-9]{5}-[A-Z0-9]{5}.[A-Z0-9]{5}-[A-Z0-9]{5}$"
-LK_FILE='/var/lib/zentyal/.license'
+SHELL_CMD='/usr/share/zentyal/shell'
 
 if ! wget --timeout="$TIMEOUT" -q "$URL" -O "$DEST"  >/dev/null 2>&1; then
   exit 1
 fi
 
 # Stop services if any commercial edition expired
-EDITION="$(/usr/share/zentyal/shell '$global->edition()')"
+EDITION="$($SHELL_CMD '$global->edition()' 2>/dev/null)"
 if [[ "$EDITION" =~ -expired$ ]]; then
   zs restart >/dev/null 2>&1
 fi
 
-if [[ -f "$LK_FILE" ]] && grep -qE "$LK_REGEX" "$LK_FILE"; then
+# Get license key from Redis
+LK="$($SHELL_CMD '$global->getLicenseData("license_key")' 2>/dev/null)"
+if [[ -n "$LK" ]] && echo "$LK" | grep -qE "$LK_REGEX"; then
   /usr/share/zentyal/check_license >/dev/null 2>&1
 fi
 

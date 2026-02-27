@@ -82,6 +82,12 @@ function system_check() {
 	if [ -f /var/lib/zentyal/.license ]; then
 		echo -ne "The license key is: "
 		cat /var/lib/zentyal/.license
+	fi
+
+	# Also show license data from Redis
+	LK_FROM_REDIS=$(/usr/share/zentyal/shell '$global->getLicenseData("license_key")' 2>/dev/null)
+	if [ -n "$LK_FROM_REDIS" ]; then
+		echo -ne "License key (Redis): $LK_FROM_REDIS"
 	else
 		echo -e "The server doesn't have a license key."
 	fi
