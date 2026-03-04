@@ -17,8 +17,11 @@ BOOT_SPACE='51200'
 SYSTEM_SPACE='358400'
 OLD_NIC_NAMING=true
 ZEN_VER='8.1'
+ZENTYAL_REPOSITORY_NAME='zentyal.sources'
+BASE_REPO_KEY_DIR='/etc/apt/trusted.gpg.d'
 ZEN_REPO_KEY="https://keys.zentyal.org/zentyal-${ZEN_VER}-packages-org.asc"
-ZEN_REPO_URL="deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-${ZEN_VER}-packages-org.asc] https://packages.zentyal.org/zentyal ${ZEN_VER} main extra"
+ZEN_REPO_URL="deb [signed-by=${BASE_REPO_KEY_DIR}/zentyal-${ZEN_VER}-packages-org.asc] https://packages.zentyal.org/zentyal ${ZEN_VER} main extra"
+
 
 ##
 # Functions
@@ -167,6 +170,88 @@ function check_requirements
 }
 
 
+function set_repository_zentyal() {
+  # This function adds the Zentyal repository
+
+  echo -e "\n${YELLOW} Running function set_repository_zentyal...${NC}"
+
+  if [[ ! -f ${BASE_REPO_KEY_DIR}/zentyal-${ZEN_VER}-packages-org.asc ]]; then
+    rm -f ${BASE_REPO_KEY_DIR}/zentyal-*-packages-org.asc
+  fi
+
+  wget -qO- ${ZEN_REPO_KEY} -O ${BASE_REPO_KEY_DIR}/zentyal-${ZEN_VER}-packages-org.asc
+
+cat > /etc/apt/sources.list.d/${ZENTYAL_REPOSITORY_NAME} <<EOF
+# Zentyal repository
+Types: deb
+URIs: https://packages.zentyal.org/zentyal
+Suites: ${ZEN_VER}
+Components: main extra
+Signed-By: ${BASE_REPO_KEY_DIR}/zentyal-${ZEN_VER}-packages-org.asc
+
+EOF
+
+  echo -e "${GREEN}...OK${NC}";echo
+}
+
+
+function set_repository_firefox() {
+  # This function adds the Firefox repository for the zenbuntu-desktop module
+
+  echo -e "\n${YELLOW} Running function set_repository_firefox...${NC}"
+
+  if [[ -f "${BASE_REPO_KEY_DIR}/packages.mozilla.org.asc" ]]; then
+    rm -f ${BASE_REPO_KEY_DIR}/packages.mozilla.org.asc
+  fi
+
+  wget -qO- https://packages.mozilla.org/apt/repo-signing-key.gpg -O ${BASE_REPO_KEY_DIR}/packages.mozilla.org.asc
+
+
+cat >> /etc/apt/sources.list.d/${ZENTYAL_REPOSITORY_NAME} <<EOF
+# Firefox repository
+Types: deb
+URIs: https://packages.mozilla.org/apt
+Suites: mozilla
+Components: main
+Signed-By: ${BASE_REPO_KEY_DIR}/packages.mozilla.org.asc
+
+EOF
+
+cat > /etc/apt/preferences.d/mozilla <<EOF
+Package: *
+Pin: origin packages.mozilla.org
+Pin-Priority: 1000
+EOF
+
+  echo -e "${GREEN}...OK${NC}";echo
+}
+
+
+function set_repository_docker() {
+  # This function adds the Docker repository for the Docker module
+
+  echo -e "\n${YELLOW} Running function set_repository_docker...${NC}"
+
+  if [[ -f "${BASE_REPO_KEY_DIR}/docker.gpg" ]]; then
+    rm -f ${BASE_REPO_KEY_DIR}/docker.gpg
+  fi
+
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o ${BASE_REPO_KEY_DIR}/docker.gpg
+
+cat >> /etc/apt/sources.list.d/${ZENTYAL_REPOSITORY_NAME} <<EOF
+# Docker repository
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: noble
+Components: stable
+Signed-By: ${BASE_REPO_KEY_DIR}/docker.gpg
+
+EOF
+
+  echo -e "${GREEN}...OK${NC}";echo
+}
+
+
 function add_repositories
 {
   echo -e "${GREEN} - Adding required repositories...${NC}\n"
@@ -181,32 +266,9 @@ function add_repositories
         done
     done
 
-  # Set up Zentyal Development repository
-  wget -T 10 -U "Mozilla/5.0 (X11; Linux i686; rv:134.0) Gecko/20100101 Firefox/134.0" -q ${ZEN_REPO_KEY} -P /etc/apt/trusted.gpg.d/
-  echo ${ZEN_REPO_URL} > /etc/apt/sources.list.d/zentyal.list
-
-  ## Add Docker repository for zentyal-docker module
-  curl --connect-timeout 10 -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
-  chmod 0644 /etc/apt/trusted.gpg.d/docker.gpg
-  echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu noble stable" > /etc/apt/sources.list.d/docker.list
-
-  ## Add Firefox repository for zenbuntu-desktop module
-  wget -T 10 -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- > /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
-  chmod 0644 /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
-  echo "deb [signed-by=/etc/apt/trusted.gpg.d/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" > /etc/apt/sources.list.d/mozilla.list
-cat <<EOF > /etc/apt/preferences.d/mozilla
-Package: *
-Pin: origin packages.mozilla.org
-Pin-Priority: 1000
-EOF
-
-  ## TODO: SOGO
-  wget -O- "https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9" | gpg --dearmor | apt-key add -
-  echo "deb https://packages.sogo.nu/nightly/5/ubuntu/ noble noble" | tee /etc/apt/sources.list.d/SOGo.list
-
-  apt -qq update
-
-  echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
+  set_repository_zentyal
+  set_repository_firefox
+  set_repository_docker
 }
 
 
@@ -221,7 +283,7 @@ function zentyal_gui
     then
       ## For Ubuntu Server
       echo -e "${GREEN}${BOLD}...OK${NC}${NORM}";echo
-      continue
+      return 0
   fi
 
   CUR_GUI=$(cat /etc/X11/default-display-manager | xargs basename)
@@ -251,6 +313,7 @@ function zentyal_gui
 
   echo -e "${GREEN} - Configuring the graphical environment...${NC}\n"
 
+  systemctl stop lxdm
   /usr/share/zenbuntu-desktop/x11-setup >> /var/tmp/zentyal-installer.log 2>&1
   systemctl enable --now zentyal.lxdm
 
@@ -262,6 +325,7 @@ function zentyal_installation
 {
   echo -e "${GREEN} - Installing Zentyal...${NC}\n"
 
+  apt update
   DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends zentyal zenbuntu-core
 
   touch /var/lib/zentyal/.commercial-edition
@@ -278,8 +342,6 @@ function zentyal_installation
   if [[ -n ${ZEN_GUI} ]]
     then
       zentyal_gui
-      sleep 10
-      systemctl restart zentyal.lxdm
   fi
 }
 
