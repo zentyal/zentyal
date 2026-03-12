@@ -1537,8 +1537,17 @@ sub _migrateLicenseFromFiles
     my $key = File::Slurp::read_file($licFile);
     chomp($key);
 
-    # Skip migration for placeholder values
-    return undef if (not $key or $key eq '' or $key eq 'ACTIVATION-REQUIRED');
+    # Skip migration for empty values
+    return undef if (not $key or $key eq '');
+
+    # Handle commercial ISO first install: store the ACTIVATION-REQUIRED
+    # marker in Redis so edition() returns 'require-activation' and the
+    # login flow redirects to the license activation page.
+    if ($key eq 'ACTIVATION-REQUIRED') {
+        my $data = { license_key => 'ACTIVATION-REQUIRED' };
+        $self->saveLicenseData($data);
+        return $data;
+    }
 
     EBox::info("Migrating license data from files to Redis...");
 

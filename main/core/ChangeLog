@@ -1,3 +1,5 @@
+HEAD
+	+ Fix first login on commercial ISO not showing the license activation page
 8.1.0
 	+ Set version to 8.1.0
 	+ Disable submit button during AJAX form submission to prevent duplicate requests
