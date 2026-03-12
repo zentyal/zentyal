@@ -58,6 +58,7 @@ function saveLicenseToRedis
 	local SERVER_HASH="$7"
 	local UCP_CLIENT_ID="$8"
 	local UCP_CLIENT_SECRET="$9"
+	local SRV_UUID="${10}"
 
 	local JSON_DATA=$(jq -n \
 		--arg lk "$LK_CODE" \
@@ -69,6 +70,7 @@ function saveLicenseToRedis
 		--arg sh "$SERVER_HASH" \
 		--arg ci "$UCP_CLIENT_ID" \
 		--arg cs "$UCP_CLIENT_SECRET" \
+		--arg su "$SRV_UUID" \
 		'{
 			license_key: $lk,
 			license_type: $lt,
@@ -78,7 +80,8 @@ function saveLicenseToRedis
 			status_label: $sl,
 			server_hash: $sh,
 			ucp_client_id: $ci,
-			ucp_client_secret: $cs
+			ucp_client_secret: $cs,
+			server_uuid: $su
 		}')
 
 	# Always write JSON to file (for the CGI caller to read)
@@ -133,10 +136,10 @@ function enableLicense
 		# Save all license data to Redis
 		saveLicenseToRedis "$LK_CODE" "$LK_TYPE" "$LK_EXPIRATION" "$LK_USERS" \
 			"$LK_STATUS_CODE" "$LK_STATUS_LABEL" "$SERVER_HASH" \
-			"$UCP_CLIENT_ID" "$UCP_CLIENT_SECRET"
+			"$UCP_CLIENT_ID" "$UCP_CLIENT_SECRET" "$SERVER_UUID"
 
 		# Setup APT authentication for commercial packages
-		echo "machine $URL_REPOSITORY login $LK_CODE password $SERVER_HASH" > $APT_AUTH_CONF
+		echo "machine $URL_REPOSITORY login $LK_CODE password $SERVER_UUID" > $APT_AUTH_CONF
 		chmod 600 $APT_AUTH_CONF
 
 		touch /var/lib/zentyal/.commercial-edition

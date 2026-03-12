@@ -51,6 +51,12 @@ if [ "$HTTP_CODE" -eq "200" ]; then
 	UCP_CLIENT_ID=$(echo $OAUTH_DATA | jq -r ".id // empty")
 	UCP_CLIENT_SECRET=$(echo $OAUTH_DATA | jq -r ".secret // empty")
 
+	# Read server_uuid from the file saved during activation
+	SRV_UUID=''
+	if [ -f /var/lib/zentyal/.product_uuid ]; then
+		SRV_UUID=$(cat /var/lib/zentyal/.product_uuid)
+	fi
+
 	# Save all license data to Redis via helper script (avoids shell escaping issues)
 	jq -n \
 		--arg lk "$LK_CODE" \
@@ -62,6 +68,7 @@ if [ "$HTTP_CODE" -eq "200" ]; then
 		--arg sh "$SERVER_HASH" \
 		--arg ci "$UCP_CLIENT_ID" \
 		--arg cs "$UCP_CLIENT_SECRET" \
+		--arg su "$SRV_UUID" \
 		'{
 			license_key: $lk,
 			license_type: $lt,
@@ -71,7 +78,8 @@ if [ "$HTTP_CODE" -eq "200" ]; then
 			status_label: $sl,
 			server_hash: $sh,
 			ucp_client_id: $ci,
-			ucp_client_secret: $cs
+			ucp_client_secret: $cs,
+			server_uuid: $su
 		}' | /usr/share/zentyal/save-license-data
 
 	touch /var/lib/zentyal/.commercial-edition

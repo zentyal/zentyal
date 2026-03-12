@@ -623,7 +623,7 @@ sub _setEdition
     }
     if ($expired) {
         push (@cmds, "rm -f /etc/apt/auth.conf.d/zentyal-commercial.conf " . REPOSITORY_FILE);
-    } elsif ($edition eq 'community') {
+    } elsif ($edition eq 'community' or $edition eq 'require-activation') {
         if (-f '/etc/apt/auth.conf.d/zentyal-commercial.conf') {
             push (@cmds,
                 'rm -f /etc/apt/auth.conf.d/zentyal-commercial.conf',
@@ -637,9 +637,9 @@ sub _setEdition
         if (substr($lk, 0, 2) eq 'NS') {
             $version .= '-nss';
         }
-        my $hash = $licenseData ? ($licenseData->{server_hash} // '') : '';
+        my $uuid = $licenseData ? ($licenseData->{server_uuid} // '') : '';
         push (@cmds,
-            "echo 'machine https://packages.zentyal.com login $lk password $hash' > /etc/apt/auth.conf.d/zentyal-commercial.conf",
+            "echo 'machine https://packages.zentyal.com login $lk password $uuid' > /etc/apt/auth.conf.d/zentyal-commercial.conf",
             'chmod 600 /etc/apt/auth.conf.d/zentyal-commercial.conf',
         );
     }

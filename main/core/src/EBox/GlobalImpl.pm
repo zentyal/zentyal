@@ -1463,6 +1463,7 @@ sub saveLicenseData
         status_code      => $data->{status_code}       // '',
         status_label     => $data->{status_label}      // '',
         server_hash      => $data->{server_hash}       // '',
+        server_uuid      => $data->{server_uuid}       // '',
         ucp_client_id    => $data->{ucp_client_id}     // '',
         ucp_client_secret => $data->{ucp_client_secret} // '',
     };
