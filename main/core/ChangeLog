@@ -1,4 +1,5 @@
-HEAD
+8.1.1
+	+ Disable ejabberdctl apparmor profile due to a bug in the ejabberd package
 	+ Fix commercial repo authentication using wrong credential after license activation
 	+ Fix first login on commercial ISO not showing the license activation page
 8.1.0

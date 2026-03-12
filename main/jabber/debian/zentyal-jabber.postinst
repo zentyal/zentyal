@@ -9,6 +9,14 @@ case "$1" in
         # initial setup
         /usr/share/zentyal/initial-setup jabber $2
 
+        # Disable ejabberdctl apparmor profile due to a bug in the ejabberd package
+        if [[ ! -s /etc/apparmor.d/disable/usr.sbin.ejabberdctl ]]; then
+	    ln -s /etc/apparmor.d/usr.sbin.ejabberdctl /etc/apparmor.d/disable/
+            if [[ $(systemctl is-failed apparmor) == "failed" ]]; then
+                systemctl restart apparmor
+            fi
+        fi
+
         # restart module
         zs jabber restart || true
 

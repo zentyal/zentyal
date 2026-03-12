@@ -118,6 +118,14 @@ case "$1" in
         # enable auto-start
         systemctl enable zentyal
 
+        # ensure if ejabberd is installed, the apparmor profile is disabled
+        # due to a bug in the ejabberd package
+        if dpkg -l | grep -qo ' zentyal-jabber '; then
+            if [[ ! -s /etc/apparmor.d/disable/usr.sbin.ejabberdctl ]]; then
+                ln -s /etc/apparmor.d/usr.sbin.ejabberdctl /etc/apparmor.d/disable/
+            fi
+        fi
+
         # enable AppArmor
         systemctl enable apparmor
         systemctl start apparmor
