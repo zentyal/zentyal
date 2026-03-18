@@ -194,15 +194,15 @@ sub _periodicMessages
     return [
         {
          name => 'trial',
-         text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 15-day Trial!', 
-         oh => '<a href="http://www.zentyal.com/zentyal-server/trial/">', 
+         text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 15-day Trial!',
+         oh => '<a href="https://www.zentyal.com/free-trial-request/">',
          ch => '</a>'),
          days => 7,
         },
         {
          name => 'community',
-         text => __sx('Are you a happy Zentyal Server user? Do you want to help the project? Get involved in the {oh}Community{ch}!', 
-         oh => '<a href="http://www.zentyal.org">', 
+         text => __sx('Are you a happy Zentyal Server user? Do you want to help the project? Get involved in the {oh}Community{ch}!',
+         oh => '<a href="https://www.zentyal.com/community/">',
          ch => '</a>'),
          days => 30,
         },
@@ -223,23 +223,23 @@ sub _upgradeMessage
     my $newVersion = $self->_getNewVersionFromCloud();
     my ($newMajor, $newMinor) = split('[\.]', $newVersion);
     chomp($newVersion);
-    my $RELEASE_ANNOUNCEMENT_URL = "http://wiki.zentyal.org/wiki/Zentyal_".$newVersion."_Announcement";
+    my $RELEASE_ANNOUNCEMENT_URL = "https://wiki.zentyal.org/wiki/Zentyal_".$newVersion."_Announcement";
     my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal ".$newVersion."')";
     my $msg;
-    
+
     if ($curMajor < $newMajor ||
-        $curMinor < $newMinor && 
+        $curMinor < $newMinor &&
         $curMajor == $newMajor) {
         $msg = { 
-                name => 'upgrade', 
+                name => 'upgrade',
                 text =>__sx("{oh}Zentyal ".$newVersion."{ch} is available! {ob}Upgrade now{cb}",
-                oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", 
+                oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">",
                 ch => '</a>',
-                ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", 
+                ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">",
                 cb => '</button>') };
     } else {
         $msg = undef;
-    } 
+    }
 
     return $msg;
 }
@@ -270,7 +270,8 @@ sub _getNewVersionFromCloud
 
     my $version = EBox::Config::version();
     my $newVersionString;
-    system("timeout 15 wget --timeout 15 --quiet -O /tmp/new-release - http://update.zentyal.org/update-from-'$version'.txt");
+    system("timeout 15 wget --timeout 15 --quiet -O /tmp/new-release - https://update.zentyal.org/update-from-'$version'.txt");
+
     try {
         $newVersionString = $self->_readVersion();
     } catch($ex) {

@@ -1,3 +1,34 @@
 #!/bin/sh
 
-sudo /usr/share/zentyal/release-upgrade > /var/log/zentyal/upgrade.log 2>&1
+UPGRADE_URL='https://raw.githubusercontent.com/zentyal/zentyal/refs/heads/master/extra/zentyal-upgrades/upgrade-8.0-to-8.1.sh'
+UPGRADE_SCRIPT='/usr/share/zentyal/upgrade-8.0-to-8.1.sh'
+LOG_FILE='/var/log/zentyal/upgrade.log'
+
+# Remove existing script if present
+if [ -f "${UPGRADE_SCRIPT}" ]; then
+    sudo rm -f "${UPGRADE_SCRIPT}"
+fi
+
+# Download the upgrade script
+if ! sudo curl -fsSL "${UPGRADE_URL}" -o "${UPGRADE_SCRIPT}"; then
+    echo "Error: Failed to download the upgrade script from ${UPGRADE_URL}." >&2
+    exit 1
+fi
+
+# Verify the download: file must be non-empty and start with a shebang
+if [ ! -s "${UPGRADE_SCRIPT}" ]; then
+    echo "Error: Downloaded file is empty or missing." >&2
+    sudo rm -f "${UPGRADE_SCRIPT}"
+    exit 1
+fi
+
+if ! sudo head -1 "${UPGRADE_SCRIPT}" | grep -q '^#!'; then
+    echo "Error: Downloaded file does not appear to be a valid shell script." >&2
+    sudo rm -f "${UPGRADE_SCRIPT}"
+    exit 1
+fi
+
+sudo chmod +x "${UPGRADE_SCRIPT}"
+
+# Execute the upgrade script
+sudo "${UPGRADE_SCRIPT}" > "${LOG_FILE}" 2>&1
