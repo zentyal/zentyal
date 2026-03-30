@@ -3,11 +3,14 @@
 UPGRADE_URL='https://raw.githubusercontent.com/zentyal/zentyal/refs/heads/master/extra/zentyal-upgrades/upgrade-8.0-to-8.1.sh'
 UPGRADE_SCRIPT='/usr/share/zentyal/upgrade-8.0-to-8.1.sh'
 LOG_FILE='/var/log/zentyal/upgrade.log'
+FINISHED_FILE='/var/lib/zentyal/.upgrade-finished'
 
-# Remove existing script if present
-if [ -f "${UPGRADE_SCRIPT}" ]; then
-    sudo rm -f "${UPGRADE_SCRIPT}"
-fi
+# Reset any stale state from a previous upgrade attempt.
+for file in "${FINISHED_FILE}" "${LOG_FILE}" "${UPGRADE_SCRIPT}"; do
+    if [ -e "${file}" ]; then
+        sudo rm -f "${file}"
+    fi
+done
 
 # Download the upgrade script
 if ! sudo curl -fsSL "${UPGRADE_URL}" -o "${UPGRADE_SCRIPT}"; then

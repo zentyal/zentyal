@@ -25,6 +25,7 @@ use EBox::WebAdmin;
 use EBox::GlobalImpl;
 
 my $LOGFILE = '/var/log/zentyal/upgrade.log';
+my $FINISHED_FILE = '/var/lib/zentyal/.upgrade-finished';
 
 sub new
 {
@@ -42,6 +43,14 @@ sub _process
     my $action = $self->param('action');
 
     if ($action eq 'upgrade') {
+        # Avoid reporting a stale successful upgrade from a previous run.
+        unlink($FINISHED_FILE);
+
+        # Start with a fresh log buffer when possible.
+        if (open(my $logfh, '>', $LOGFILE)) {
+            close($logfh);
+        }
+
         if (fork() == 0) {
             EBox::WebAdmin::cleanupForExec();
             exec ('/usr/share/zentyal/upgrade-wrapper');
@@ -49,7 +58,7 @@ sub _process
     } elsif ($action eq 'output') {
         my $output = `tail -10 $LOGFILE`;
         utf8::decode($output);
-        my $finished = (-f '/var/lib/zentyal/.upgrade-finished');
+        my $finished = (-f $FINISHED_FILE);
         $self->{json} = { output => $output, finished => $finished };
 #    } else {
 #        my @removedModules;
