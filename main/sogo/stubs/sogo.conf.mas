@@ -33,6 +33,7 @@
   SOGoProfileURL = "mysql://<% $dbUser %>:<% $dbPass %>@<% $dbHost %>:<% $dbPort %>/<% $dbName %>/sogo_user_profile";
   OCSFolderInfoURL = "mysql://<% $dbUser %>:<% $dbPass %>@<% $dbHost %>:<% $dbPort %>/<% $dbName %>/sogo_folder_info";
   OCSSessionsFolderURL = "mysql://<% $dbUser %>:<% $dbPass %>@<% $dbHost %>:<% $dbPort %>/<% $dbName %>/sogo_sessions_folder";
+  OCSAdminURL = "mysql://<% $dbUser %>:<% $dbPass %>@<% $dbHost %>:<% $dbPort %>/<% $dbName %>/sogo_admin";
 
   /* Mail */
   SOGoDraftsFolderName = Drafts;          // User can override parameter
