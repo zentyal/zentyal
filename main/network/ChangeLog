@@ -1,3 +1,5 @@
+8.1.1
+	+ Add systemd-resolved as an explicit dependency
 8.1.0
 	+ Set version to 8.1.0
 	+ Add dependency checks in removeVlan for bridge/bond interfaces on top of VLANs
