@@ -179,7 +179,7 @@ function set_repository_zentyal() {
     rm -f ${BASE_REPO_KEY_DIR}/zentyal-*-packages-org.asc
   fi
 
-  wget -qO- ${ZEN_REPO_KEY} -O ${BASE_REPO_KEY_DIR}/zentyal-${ZEN_VER}-packages-org.asc
+  wget -q -O ${BASE_REPO_KEY_DIR}/zentyal-${ZEN_VER}-packages-org.asc ${ZEN_REPO_KEY}
 
 cat > /etc/apt/sources.list.d/${ZENTYAL_REPOSITORY_NAME} <<EOF
 # Zentyal repository
