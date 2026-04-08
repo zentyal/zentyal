@@ -327,8 +327,6 @@ function prepareZentyalRepository
         wget -q ${ZEN_REPO_KEY_URL}/zentyal-${DESTV}-packages-org.asc -P /etc/apt/trusted.gpg.d/
     fi
 
-  apt update
-
   echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
 }
 
@@ -354,6 +352,10 @@ function prepareFirefoxRepository
     wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- > /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
     chmod 0644 /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
     echo "deb [signed-by=/etc/apt/trusted.gpg.d/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" >> /etc/apt/sources.list.d/zentyal.list
+
+    if [[ -f /etc/apt/sources.list.d/mozilla.list ]]; then
+        rm /etc/apt/sources.list.d/mozilla.list
+    fi
 
     if [[ -f '/etc/apt/preferences.d/FIREFOX_REPO_PREFERENCE_NAME' ]]; then
         rm -f /etc/apt/preferences.d/FIREFOX_REPO_PREFERENCE_NAME
@@ -494,12 +496,41 @@ if [ -f /var/lib/zentyal/.desktop-post-upgrade-81 ]; then
     /usr/share/zenbuntu-desktop/x11-setup
     systemctl restart zentyal.lxdm
     rm -f /var/lib/zentyal/.desktop-post-upgrade-81
+    cp /usr/share/zenbuntu-core/rc.local /etc/rc.local
 fi
 
 exit 0
 EOF
 
     sed -i '20d' /etc/rc.local
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
+function setDomainLevel
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Setting current Domain and Forest functional level" | tee -a ${LOG_FILE}
+
+    GET_DOMAIN_LEVEL=$(samba-tool domain level show 2>/dev/null \
+        | grep -m1 '^Domain function level:' \
+        | sed 's/.*(Windows) //; s/ /_/g')
+
+    if [[ -z "$GET_DOMAIN_LEVEL" ]]; then
+        echo "ERROR: Couldn't get the Domain Function Level." >&2
+        exit 1
+    fi
+
+    for KEY in samba/ro/DomainSettings/keys/form samba/conf/DomainSettings/keys/form; do
+        CURRENT_JSON=$(redis-cli get "$KEY")
+
+        if [[ -n "$CURRENT_JSON" ]] && echo "$CURRENT_JSON" | jq -e . >/dev/null 2>&1; then
+            NEW_JSON=$(echo "$CURRENT_JSON" | jq -c --arg lvl "$GET_DOMAIN_LEVEL" '.domainlevel = $lvl')
+        else
+            NEW_JSON=$(jq -cn --arg lvl "$GET_DOMAIN_LEVEL" '{domainlevel: $lvl}')
+        fi
+
+        redis-cli set "$KEY" "$NEW_JSON"
+    done
 
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
 }
@@ -576,6 +607,8 @@ function preZentyalUpgrade
 {
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... Pre configuration before upgrading Zentyal" | tee -a ${LOG_FILE}
 
+    zentyalRepositories
+
     # Proxy configuration
     if dpkg -l | grep -qo 'hi  zentyal-squid '; then
         configurationProxy
@@ -583,9 +616,7 @@ function preZentyalUpgrade
 
     # Domain Controller configuration
     if dpkg -l | grep -qo 'hi  zentyal-samba '; then
-        GET_DOMAIN_LEVEL=$(samba-tool domain level show 2>/dev/null | egrep '^Domain function level' | awk '{print $5}')
-        redis-cli set samba/ro/DomainSettings/keys/form "{\"domainlevel\":\"${GET_DOMAIN_LEVEL}\"}"
-        redis-cli set samba/conf/DomainSettings/keys/form "{\"domainlevel\":\"${GET_DOMAIN_LEVEL}\"}"
+        setDomainLevel
     fi
 
     if dpkg -l | grep -qo 'hi  zentyal-sogo '; then
@@ -598,8 +629,6 @@ function preZentyalUpgrade
             echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Sogo database backup located at '${BACKUP_DB_WEBMAIL}'" | tee -a ${LOG_FILE}
         fi
     fi
-
-    zentyalRepositories
 
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
