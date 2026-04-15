@@ -289,6 +289,8 @@ function lkActivation
         return
     fi
 
+    zs webadmin restart
+
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
 }
 
@@ -321,10 +323,12 @@ function prepareZentyalRepository
         echo "$(date '+%d-%m-%Y %H:%M:%S') ........ Adding Commercial repository..." | tee -a ${LOG_FILE}
         wget -q ${ZEN_REPO_KEY_URL}/zentyal-${DESTV}-packages-com.asc -P /etc/apt/trusted.gpg.d/
         echo "deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-${DESTV}-packages-com.asc] https://packages.zentyal.com/zentyal-qa ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal-qa.list
+        rm -f /etc/apt/sources.list.d/zentyal.list
     else
         echo "$(date '+%d-%m-%Y %H:%M:%S') ........ Adding Development repository..." | tee -a ${LOG_FILE}
-        echo "deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-${DESTV}-packages-org.asc] https://packages.zentyal.org/zentyal ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal.list
         wget -q ${ZEN_REPO_KEY_URL}/zentyal-${DESTV}-packages-org.asc -P /etc/apt/trusted.gpg.d/
+        echo "deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-${DESTV}-packages-org.asc] https://packages.zentyal.org/zentyal ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal.list
+        rm -f /etc/apt/sources.list.d/zentyal-qa.list
     fi
 
   echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
@@ -439,20 +443,38 @@ function configurationMail
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
 }
 
+function workaroundSogo
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Applying workaround for Sogo package" | tee -a ${LOG_FILE}
+
+    mysqldump -u root -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) sogo > ${BACKUP_DB_WEBMAIL}
+    if [[ $(du -s ${BACKUP_DB_WEBMAIL} | awk '{print $1}') -lt 4 ]]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ERROR: Zentyal upgrade FAILED. Could not export Sogo database, full log at ${LOG_FILE} " | tee -a ${LOG_FILE}
+        exit 130
+    else
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ........ Sogo database backup located at '${BACKUP_DB_WEBMAIL}'" | tee -a ${LOG_FILE}
+    fi
+
+    apt-mark unhold zentyal-sogo
+    SOGO_PKGS=$(dpkg -l | egrep '^ii.*(sope|sogo|libwbxml2|zentyal-sogo)' | egrep -v 'zentyal' | awk '{print $2}')
+    apt remove -o DPkg::Options::=--force-confdef -y ${SOGO_PKGS}
+
+    prepareZentyalRepository
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
+}
+
 function configurationSogo
 {
-    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Configuring Sogo module" | tee -a ${LOG_FILE}
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Installing Sogo module" | tee -a ${LOG_FILE}
 
-    systemctl stop sogo
-
-    SOGO_PKGS=$(dpkg -l | egrep '^ii.*(sope|sogo)' | egrep -v 'zentyal' | awk '{print $2}')
-    apt install --reinstall -y ${SOGO_PKGS}
+    apt install -o DPkg::Options::=--force-confdef -y zentyal-sogo
 
     # https://sogo.nu/files/docs/SOGoInstallationGuide.html#_upgrading
     bash /usr/share/doc/sogo/sql-update-5.5.1_to_5.6.0.sh
     bash /usr/share/doc/sogo/sql-update-5.8.4_to_5.9.0.sh
 
-    systemctl start sogo
+    systemctl unmask sogo
 
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
 }
@@ -582,6 +604,11 @@ function upgradeUbuntu
     # Needed to avoid issues during the upgrade
     apt-mark hold ${PKG}
 
+    if dpkg -l | grep -qo 'hi  zentyal-sogo '; then
+        export WEBMAIL=1
+        workaroundSogo
+    fi
+
     upgradePackages
 
     ensureInternet
@@ -619,17 +646,6 @@ function preZentyalUpgrade
         setDomainLevel
     fi
 
-    if dpkg -l | grep -qo 'hi  zentyal-sogo '; then
-        local WEBMAIL=1
-        mysqldump -u root -p$(cat /var/lib/zentyal/conf/zentyal-mysql.passwd) sogo > ${BACKUP_DB_WEBMAIL}
-        if [[ $(du -s ${BACKUP_DB_WEBMAIL} | awk '{print $1}') -lt 4 ]]; then
-            echo "$(date '+%d-%m-%Y %H:%M:%S') ERROR: Zentyal upgrade FAILED. Could not export Sogo database, full log at ${LOG_FILE} " | tee -a ${LOG_FILE}
-            exit 130
-        else
-            echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Sogo database backup located at '${BACKUP_DB_WEBMAIL}'" | tee -a ${LOG_FILE}
-        fi
-    fi
-
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
@@ -642,6 +658,12 @@ function upgradeZentyal
     done
 
     apt-mark unhold ${PKG}
+
+    # Stopping IPS module to prevent avoid connection issues during the upgrade
+    if dpkg -l | grep -qo 'ii  zentyal-ips '; then
+        zs ips stop
+    fi
+
     ensureInternet
     upgradePackages
 
@@ -684,14 +706,28 @@ function postZentyalUpgrade
         configurationAntivirus
     fi
 
+    # Mail configuration
+    if dpkg -l | grep -qo '  zentyal-mail '; then
+        configurationMail
+    fi
+
+    # zenbuntu-desktop configuration
+    if dpkg -l | grep -qo '  zenbuntu-desktop '; then
+        configurationDesktop
+    fi
+
+    if [[ ${COMMERCIAL} -eq 1 ]]; then
+        lkActivation
+    fi
+
     # Domain Controller configuration
     if dpkg -l | grep -qo '  zentyal-samba '; then
         configurationDomainController
     fi
 
-    # Mail configuration
-    if dpkg -l | grep -qo '  zentyal-mail '; then
-        configurationMail
+    # Sogo configuration
+    if [[ ${WEBMAIL} -eq 1 ]]; then
+        configurationSogo
     fi
 
     ensureInternet
@@ -713,20 +749,6 @@ function postZentyalUpgrade
     fi
 
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
-
-    # zenbuntu-desktop configuration
-    if dpkg -l | grep -qo '  zenbuntu-desktop '; then
-        configurationDesktop
-    fi
-
-    if [[ ${COMMERCIAL} -eq 1 ]]; then
-        lkActivation
-    fi
-
-    # Sogo configuration
-    if dpkg -l | grep -qo '  zentyal-sogo '; then
-        configurationSogo
-    fi
 
     sleep 2
     apt clean
