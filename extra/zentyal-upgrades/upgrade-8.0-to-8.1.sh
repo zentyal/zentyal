@@ -44,6 +44,25 @@ function checkZentyalVersion
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
 }
 
+function checkZentyalStatusPackages
+{
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking the status of Zentyal packages" | tee -a ${LOG_FILE}
+
+    local PKG_REGEX='^(zentyal-|language-package-zentyal-|zenbuntu-)'
+    local ZENTYAL_PKGS=""
+    local INVALID_ZENTYAL_PKGS=""
+
+    ZENTYAL_PKGS=$(dpkg -l | awk -v re="${PKG_REGEX}" '$2 ~ re')
+    INVALID_ZENTYAL_PKGS=$(echo "${ZENTYAL_PKGS}" | awk '$1 != "ii" && $1 != "rc"')
+    if [[ -n "${INVALID_ZENTYAL_PKGS}" ]]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: Some Zentyal packages are not correctly installed (status must be \"ii\", \"rc\" is ignored)" | tee -a ${LOG_FILE}
+        echo "${INVALID_ZENTYAL_PKGS}" | tee -a ${LOG_FILE}
+        exit 130
+    fi
+
+    echo "$(date '+%d-%m-%Y %H:%M:%S') ... OK" | tee -a ${LOG_FILE}
+}
+
 function checkUbuntuVersion
 {
     echo "$(date '+%d-%m-%Y %H:%M:%S') ... Checking the version of Ubuntu" | tee -a ${LOG_FILE}
@@ -210,6 +229,7 @@ function cleanPreviousUpgrade
 function prepareUpgrade
 {
     checkZentyalVersion
+    checkZentyalStatusPackages
     checkUbuntuVersion
     checkIfCommercial
     checkDiskSpace
@@ -456,6 +476,17 @@ function workaroundSogo
     fi
 
     apt-mark unhold zentyal-sogo
+    for pkg in zentyal-groupware zentyal-all; do
+        if dpkg-query -W -f='${db:Status-Status}\n' "$pkg" 2>/dev/null | grep -qx installed; then
+            if [[ -z "${ZENTYAL_WEBMAIL_METAPACKAGES}" ]]; then
+                export ZENTYAL_WEBMAIL_METAPACKAGES="${pkg}"
+            else
+                export ZENTYAL_WEBMAIL_METAPACKAGES="${ZENTYAL_WEBMAIL_METAPACKAGES} ${pkg}"
+            fi
+            apt-mark unhold "$pkg"
+        fi
+    done
+
     SOGO_PKGS=$(dpkg -l | egrep '^ii.*(sope|sogo|libwbxml2|zentyal-sogo)' | egrep -v 'zentyal' | awk '{print $2}')
     apt remove -o DPkg::Options::=--force-confdef -y ${SOGO_PKGS}
 
@@ -468,13 +499,14 @@ function configurationSogo
 {
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Installing Sogo module" | tee -a ${LOG_FILE}
 
-    apt install -o DPkg::Options::=--force-confdef -y zentyal-sogo
+    apt install -o DPkg::Options::=--force-confdef -y zentyal-sogo ${ZENTYAL_WEBMAIL_METAPACKAGES}
 
     # https://sogo.nu/files/docs/SOGoInstallationGuide.html#_upgrading
     bash /usr/share/doc/sogo/sql-update-5.5.1_to_5.6.0.sh
     bash /usr/share/doc/sogo/sql-update-5.8.4_to_5.9.0.sh
 
     systemctl unmask sogo
+    zs sogo start
 
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
 }
