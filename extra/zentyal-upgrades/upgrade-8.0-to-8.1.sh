@@ -310,6 +310,7 @@ function lkActivation
     fi
 
     zs webadmin restart
+    apt update
 
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... OK" | tee -a ${LOG_FILE}
 }
