@@ -50,7 +50,9 @@ sub _process
         return;
     }
 
+    # Determine edition and admin preference
     my $qaUpdates = (-f '/etc/apt/sources.list.d/zentyal.sources');
+    my $isCommunity = EBox::Global->communityEdition();
     my $ignore = EBox::Config::boolean('widget_ignore_updates');
 
     my $updatesStr = __('No updates');
@@ -60,11 +62,16 @@ sub _process
         $updatesStr.= ' ' . __('Nevertheless some packages require a reboot to be applied');
         $updatesType = 'warning';
     }
-    if ($qaUpdates) {
-        my $msg = $self->_secureMsg();
+
+    # If admin asked to hide updates, show the message only (wrapped with
+    # an edition-specific tooltip) and skip querying apt-check.
+    if ($ignore) {
+        my $msg = $isCommunity ? $self->_commercialMsg() : $self->_secureMsg();
         $updatesStr = qq{<a title="$msg">$updatesStr</a>};
-    } elsif (not $ignore) {
-        my $msg = $self->_commercialMsg();
+    } else {
+        # Always query apt-check to obtain up-to-date information, regardless
+        # of the repository file. Use edition to choose the tooltip/message.
+        my $msg = $isCommunity ? $self->_commercialMsg() : $self->_secureMsg();
 
         # This fixes wrong information of apt-check
         EBox::Sudo::silentRoot('dpkg --clear-avail');
@@ -101,6 +108,9 @@ sub _process
             if (-e $reboot) {
                 $updatesStr.= ' ' . __('Moreover, some upgraded packages require a reboot to take effect');
             }
+        } else {
+            # No updates — still show as anchor with edition-specific tooltip
+            $updatesStr = qq{<a title="$msg">$updatesStr</a>};
         }
     }
 

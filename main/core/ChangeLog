@@ -1,3 +1,5 @@
+HEAD
+	+ Fix ZS-338: Show available updates in Software dashboard
 8.1.1
 	+ Disable ejabberdctl apparmor profile due to a bug in the ejabberd package
 	+ Fix commercial repo authentication using wrong credential after license activation
