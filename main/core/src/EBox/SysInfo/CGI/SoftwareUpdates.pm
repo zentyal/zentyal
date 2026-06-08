@@ -63,10 +63,13 @@ sub _process
         $updatesType = 'warning';
     }
 
-    # If admin asked to hide updates, show the message only (wrapped with
-    # an edition-specific tooltip) and skip querying apt-check.
+    # If admin asked to hide updates, make it explicit in the widget so a
+    # different sysadmin taking over does not confuse "No updates" with
+    # "checking is disabled". Skip querying apt-check in this case.
     if ($ignore) {
         my $msg = $isCommunity ? $self->_commercialMsg() : $self->_secureMsg();
+        $updatesStr = __('Checking updates disabled by settings');
+        $updatesType = 'warning';
         $updatesStr = qq{<a title="$msg">$updatesStr</a>};
     } else {
         # Always query apt-check to obtain up-to-date information, regardless
