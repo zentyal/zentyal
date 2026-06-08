@@ -34,6 +34,7 @@ use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::Internal;
 use EBox::IPS::LogHelper;
 use EBox::IPS::FirewallHelper;
+use EBox::Config;
 use POSIX;
 
 use constant SURICATA_CONF_FILE    => '/etc/suricata/suricata.yaml';
@@ -221,15 +222,16 @@ sub _setConf
         __('Invalid interfaces data.')
     ) unless ref($ifaces) eq 'ARRAY';
 
-    my $interfaces = $self->ifaceAddressInfo($ifaces);
+    my $homeNet = $self->_homeNet();
 
     $self->writeConfFile(
         SURICATA_CONF_FILE,
         'ips/suricata.yaml.mas',
         [
-            mode   => $mode,
-            rules  => $rules,
-            ifaces => $interfaces,
+            mode    => $mode,
+            rules   => $rules,
+            ifaces  => $ifaces,
+            homeNet => $homeNet,
         ]
     );
 
@@ -252,72 +254,61 @@ sub _setConf
     }
 }
 
-# Method: ifaceAddressInfo
+# Method: _homeNet
 #
-#   Returns address information for a list of interfaces.
+#   Build the list of address ranges that Suricata's HOME_NET variable
+#   should contain.
 #
-# Parameters:
+#   The list follows the same convention used by the rest of Zentyal
+#   (firewall, dns, mail, samba, squid...) where "what is local" is the
+#   set of internal networks declared in the network module. We
+#   additionally include the public IP of every external interface as a
+#   /32 entry, because traffic originated by Zentyal itself (postfix
+#   smart host, apt, dns recursion...) is SNATted out of those addresses
+#   and must be matched as HOME_NET, otherwise Suricata's stream
+#   tracker would treat the response as midstream and drop the flow.
+#   See ZS-2363.
 #
-#   ifaces - array ref - list of interface names
+#   Optionally, if the configkey 'ips_include_rfc1918' is set to a true
+#   value, the full RFC1918 ranges are appended to HOME_NET. This
+#   restores the broader behaviour shipped before 8.1.0 and is useful
+#   for setups with routed LANs / VPN clients that are not directly
+#   attached to a Zentyal interface.
 #
 # Returns:
 #
-#   array ref - Each element is a hash with keys:
-#               'interface', 'ip', 'netmask', 'net'
+#   array ref of strings in CIDR notation, e.g.
+#       ['192.168.1.0/24', '79.160.32.196/32', ...]
 #
-# Exceptions:
-#
-#   Internal - if input data or interface configuration is invalid
-#
-sub ifaceAddressInfo {
-    my ($self, $ifaces) = @_;
-
-    throw EBox::Exceptions::Internal(
-        __('Invalid interfaces data.')
-    ) unless ref($ifaces) eq 'ARRAY';
+sub _homeNet
+{
+    my ($self) = @_;
 
     my $networkMod = EBox::Global->modInstance('network');
-    my @data;
+    my %seen;
+    my @entries;
 
-    foreach my $iface (@$ifaces) {
-
-        throw EBox::Exceptions::Internal(
-            __('Invalid interface name.')
-        ) unless defined $iface;
-
-        my $addrList = $networkMod->ifaceAddresses($iface);
-
-        throw EBox::Exceptions::Internal(
-            __('Interface {iface} has no addresses configured.', iface => $iface)
-        ) unless ref($addrList) eq 'ARRAY' && @$addrList;
-
-        my $ipData = $addrList->[0];
-
-        my $ip      = $ipData->{address};
-        my $netmask = $ipData->{netmask};
-
-        throw EBox::Exceptions::Internal(
-            __('Interface {iface} has invalid IP or netmask.', iface => $iface)
-        ) unless defined $ip && defined $netmask;
-
-        my $net = EBox::NetWrappers::ip_network($ip, $netmask);
-
-        throw EBox::Exceptions::Internal(
-            __('Failed to calculate network for {iface} with IP {ip} and netmask {mask}.',
-              iface => $iface, ip => $ip, mask => $netmask)
-        ) unless defined $net;
-
-        EBox::debug("Interface data: $iface with ip=$ip, netmask=$netmask and net=$net");
-
-        push @data, {
-            interface => $iface,
-            ip        => $ip,
-            netmask   => $netmask,
-            net       => $net,
-        };
+    # Internal networks (already in CIDR form -- "192.168.1.0/24")
+    foreach my $net (@{$networkMod->internalNetworks()}) {
+        push (@entries, $net) unless $seen{$net}++;
     }
 
-    return \@data;
+    # Public IPs of external interfaces -- needed for SNATted egress
+    # flows originated by Zentyal itself (ZS-2363).
+    foreach my $ip (@{$networkMod->externalIpAddresses()}) {
+        my $entry = "$ip/32";
+        push (@entries, $entry) unless $seen{$entry}++;
+    }
+
+    if (EBox::Config::configkey('ips_include_rfc1918')) {
+        foreach my $rfc ('192.168.0.0/16', '10.0.0.0/8', '172.16.0.0/12') {
+            push (@entries, $rfc) unless $seen{$rfc}++;
+        }
+    }
+
+    EBox::debug('IPS HOME_NET entries: ' . join(',', @entries));
+
+    return \@entries;
 }
 
 # Group: Public methods

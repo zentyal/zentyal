@@ -2,16 +2,16 @@
     $mode
     @rules
     @ifaces
+    @homeNet
 </%args>
 <%init>
-my @home_group = map {
-    "$_->{net}/$_->{netmask}"
-} grep {
-    defined $_->{net} && defined $_->{netmask}
-} @ifaces;
-
-# Example result: [192.168.10.0/24,192.168.20.0/16]
-my $home_group = '[' . join(',', @home_group) . ']';
+# HOME_NET is composed in EBox::IPS::_homeNet using the canonical
+# network module APIs (internalNetworks + externalIpAddresses). The
+# stub just renders the resulting CIDR list.
+#
+# Fall back to "any" if the list is empty: Suricata refuses to load a
+# configuration with HOME_NET set to an empty group ("[]").
+my $home_group = @homeNet ? '[' . join(',', @homeNet) . ']' : 'any';
 </%init>
 <%text>
 %YAML 1.1
@@ -632,7 +632,7 @@ logging:
 # Linux high speed capture support
 af-packet:
 % foreach my $iface (@ifaces) {
-  - interface: <% $iface->{interface} %>
+  - interface: <% $iface %>
     # Number of receive threads. "auto" uses the number of cores
     #threads: auto
     # Default clusterid. AF_PACKET will load balance packets based on flow.
@@ -1353,7 +1353,15 @@ legacy:
 # extra option: auto - which means drop-flow or drop-packet (as explained above)
 # in IPS mode, and ignore in IDS mode. Exception policy values are: drop-packet,
 # drop-flow, reject, bypass, pass-packet, pass-flow, ignore (disable).
-exception-policy: auto
+#
+# We force "ignore" here instead of "auto". Zentyal sits in front of an
+# asymmetrically-NATed network (SNAT on egress), which means Suricata may
+# legitimately observe packets it considers midstream or flow_drop. With
+# the upstream default of "auto" (= drop-flow in IPS mode) those flows are
+# silently dropped, which broke outgoing SMTP and apt requests for users
+# upgrading from 8.0 to 8.1 (see ZS-2363). Keeping "ignore" matches the
+# behaviour we shipped in 8.0 and earlier.
+exception-policy: ignore
 
 # IP Reputation
 #reputation-categories-file: /etc/suricata/iprep/categories.txt
@@ -1912,7 +1920,6 @@ nfq:
 #  bypass-mask: 1
 #  route-queue: 2
 #  batchcount: 20
-#  fail-open: yes
 % if ($mode eq 'repeat') {
   mode: repeat
   repeat_mark: 65536
@@ -1920,11 +1927,15 @@ nfq:
 % } else {
   mode: accept
 % }
+  # Let the kernel accept packets whenever Suricata is not able to keep
+  # pace with the queue. Without this, a slow or briefly stalled engine
+  # will silently drop traffic instead of letting it through. Requires
+  # Linux >= 3.6.
+  fail-open: yes
 #  repeat-mark: 1
 #  repeat-mask: 1
 #  route-queue: 2
 #  batchcount: 20
-#  fail-open: yes
 <%text>
 #nflog support
 nflog:

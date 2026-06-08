@@ -1,3 +1,33 @@
+HEAD
+	+ Fix outbound traffic from Zentyal itself (SMTP, apt, ...) being
+	  dropped by Suricata after upgrading from 8.0 (ZS-2363)
+	+ HOME_NET is now built using the canonical network module API
+	  (internalNetworks + externalIpAddresses), matching the convention
+	  used by firewall, dns, mail, samba, squid... It contains the
+	  internal networks declared in Zentyal plus the public IP of every
+	  external interface as a /32 entry. The latter is what fixes
+	  ZS-2363: traffic SNATted out of those addresses is now seen as
+	  HOME_NET instead of EXTERNAL -> EXTERNAL and is no longer dropped
+	  as midstream by the stream tracker
+	+ HOME_NET is emitted in CIDR notation. The previous stub used
+	  dotted netmasks (e.g. /255.255.255.0) which Suricata does not
+	  accept in address-groups
+	+ Optional configkey 'ips_include_rfc1918' (off by default) appends
+	  the full RFC1918 ranges to HOME_NET, restoring the broader 8.0
+	  behaviour for setups with routed LANs / VPN clients not directly
+	  attached to a Zentyal interface
+	+ Force exception-policy: ignore. With the upstream default 'auto'
+	  (= drop-flow in IPS mode), flows seen as midstream because of
+	  asymmetric NAT are silently dropped. 'ignore' matches the 8.0
+	  behaviour
+	+ Enable nfq.fail-open: yes so a slow or stalled engine does not
+	  silently block traffic
+	+ Fall back to HOME_NET: any when no internal network is declared
+	  and no external interface has an IP, instead of emitting an empty
+	  group ([]) which Suricata refuses to load
+	+ Stub simplified: HOME_NET is now built in EBox::IPS::_homeNet
+	  and the stub just renders the resulting CIDR list. The af-packet
+	  section receives the plain interface names again
 8.1.0
 	+ Set version to 8.1.0
 	+ Add dependency
