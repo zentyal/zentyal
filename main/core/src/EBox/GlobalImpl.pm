@@ -1585,8 +1585,8 @@ sub _migrateLicenseFromFiles
     }
 
     my $serverHash = '';
-    if (-f '/var/lib/zentyal/.server_uuid') {
-        $serverHash = File::Slurp::read_file('/var/lib/zentyal/.server_uuid');
+    if (-f '/var/lib/zentyal/.product_uuid') {
+        $serverHash = File::Slurp::read_file('/var/lib/zentyal/.product_uuid');
         chomp($serverHash);
     }
 
