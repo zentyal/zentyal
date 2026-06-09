@@ -23,7 +23,7 @@ use base 'EBox::LogHelper';
 use EBox::Gettext;
 
 use constant FIREWALL_LOGFILE => '/var/log/syslog';
-use constant TS_FORMAT        => '%b %e %H:%M:%S %Y';
+use constant TS_FORMAT        => '%Y-%m-%d %H:%M:%S';
 
 sub new
 {
@@ -63,18 +63,20 @@ sub processLine # (file, line, logger)
 {
     my ($self, $file, $line, $dbengine) = @_;
 
-    unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*: \[.*\] zentyal-firewall (\w+) (.+)/) {
+    unless ($line =~ /^(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d)(?:\.\d+)?(?:Z|[+-]\d\d:\d\d)?\s+\S+\s+\S+:\s+zentyal-firewall\s+(\w+)\s+(.+)/) {
         return;
     }
-    my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
+    my $date = $1;
     my $type = $2;
     my $rule = $3;
+
+    $date =~ s/T/ /;
+    my $timestamp = $self->_convertTimestamp($date, TS_FORMAT);
 
     my @pairs = grep (/=./, split(' ', $rule));
     my %fields = map { split('='); } @pairs;
 
     my %dataToInsert;
-    my $timestamp = $self->_convertTimestamp($date, TS_FORMAT);
     $dataToInsert{timestamp} = $timestamp;
     $dataToInsert{event} = $type;
 
