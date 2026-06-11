@@ -292,6 +292,8 @@ function lkActivation
         destination_version: $v
     }')
 
+    mv /var/lib/zentyal/.server_uuid /var/lib/zentyal/.product_uuid
+
     local REQUEST=$(/usr/bin/timeout 30 /usr/bin/curl -s -X POST -H "Content-Type: application/json" -d "$JSON_STRING" $API_URL -w "%{http_code}" -o $RESPONSE_DATA_FILE_TMP)
 
     if [[ ${REQUEST} -ne 200 ]]; then
