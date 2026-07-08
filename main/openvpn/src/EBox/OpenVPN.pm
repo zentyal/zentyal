@@ -906,7 +906,8 @@ sub availableCertificates
 
     my $ca = EBox::Global->modInstance('ca');
     return [] unless ($ca->isCreated());
-    my $certificates_r = $ca->listCertificates(state => 'V', excludeCA => 1);
+    my $certificates_r = $ca->listCertificates(state => 'V', excludeCA => 1,
+            includeSubjAltNames => 0);
     my @certificatesCN =
       map {$_->{dn}->attribute('commonName');} @{$certificates_r};
 
