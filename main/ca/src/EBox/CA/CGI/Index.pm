@@ -68,7 +68,7 @@ sub masonParameters
             return [error => "$ex"];
         }
 
-        push( @array, 'certs' => $ca->listCertificates() );
+        push( @array, 'certs' => $ca->listCertificates(includeSubjAltNames => 0) );
 
         # Check if a new CA certificate is needed (because of revokation from RevokeCertificate)
         my $currentState;

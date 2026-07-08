@@ -470,7 +470,8 @@ sub revokeCACertificate
     # Revoked only valid ones
     # We ensure not to revoke the CA cert before the others
     my $listCerts = $self->listCertificates( state => 'V',
-            excludeCA => 1);
+            excludeCA => 1,
+            includeSubjAltNames => 0);
     foreach my $element (@{$listCerts}) {
         $self->revokeCertificate(commonName    => $element->{dn}->attribute('commonName'),
                 reason        => "cessationOfOperation",
@@ -606,7 +607,7 @@ sub renewCACertificate
 
     $self->{caKeyPassword} = $args{caKeyPassword};
 
-    my $listCerts = $self->listCertificates();
+    my $listCerts = $self->listCertificates(includeSubjAltNames => 0);
 
     my $renewedCert = $self->renewCertificate( countryName   => $args{countryName},
             stateName     => $args{stateName},
@@ -1034,6 +1035,9 @@ sub generateCRL
 #       excludeCA - boolean indicating whether the valid CA certificate
 #                   should be excluded in the response (Optional)
 #
+#       includeSubjAltNames - boolean indicating whether the subject alternative
+#                             names should be included in the response (Optional)
+#
 #       - Named parameters
 #
 # Returns:
@@ -1067,6 +1071,8 @@ sub listCertificates
     # Getting the arguments
     my $state = $args{'state'};
     my $excludeCA = $args{'excludeCA'};
+    my $includeSubjAltNames = $args{'includeSubjAltNames'};
+    $includeSubjAltNames = 1 unless defined($includeSubjAltNames);
     # Check parameter state is correct (R, V or E)
     if (defined($state) and $state !~ m/[RVE]/ ) {
         throw EBox::Exceptions::Internal("State should be R, V or E");
@@ -1110,7 +1116,9 @@ sub listCertificates
         }
 
         # Setting the subject alternative names
-        $element{'subjAltNames'} = $self->_obtain( $element{'path'}, 'subjAltNames' );
+        if ($includeSubjAltNames) {
+            $element{'subjAltNames'} = $self->_obtain( $element{'path'}, 'subjAltNames' );
+        }
 
         push (@out, \%element);
 
@@ -1184,7 +1192,7 @@ sub getCertificateMetadata
     my $dn = $args{'dn'};
     my $serialNumber = $args{'serialNumber'};
 
-    my $listCertsRef = $self->listCertificates();
+    my $listCertsRef = $self->listCertificates(includeSubjAltNames => 0);
 
     my $retCert = undef;
     if (defined($cn)) {
@@ -1195,6 +1203,10 @@ sub getCertificateMetadata
         ($retCert) = grep { $_->{'dn'}->equals($dn) } @{$listCertsRef};
     } elsif( defined($serialNumber) ) {
         ($retCert) = grep { $_->{'serialNumber'} eq $serialNumber } @{$listCertsRef};
+    }
+
+    if (defined($retCert)) {
+        $retCert->{subjAltNames} = $self->_obtain($retCert->{path}, 'subjAltNames');
     }
 
     return $retCert;
@@ -1221,7 +1233,7 @@ sub getCACertificateMetadata
 {
     my ($self) = @_;
 
-    my $certsRef = $self->listCertificates();
+    my $certsRef = $self->listCertificates(includeSubjAltNames => 0);
 
     # Find the CA certificate in the list
     my ($CACert) = grep { $_->{'isCACert'} } @{$certsRef} ;
@@ -1618,7 +1630,7 @@ sub updateDB
         $self->{caKeyPassword} = $caKeyPassword;
     }
 
-    my @expiredCertsBefore = @{$self->listCertificates(state => 'E')};
+    my @expiredCertsBefore = @{$self->listCertificates(state => 'E', includeSubjAltNames => 0)};
 
     my $cmd = "ca";
     $self->_commonArgs("ca", \$cmd);
@@ -1631,7 +1643,7 @@ sub updateDB
     my ($retVal, $output) = $self->_executeCommand( command => $cmd );
     delete( $ENV{'PASS'} );
 
-    my @expiredCertsAfter = @{$self->listCertificates(state => 'E')};
+    my @expiredCertsAfter = @{$self->listCertificates(state => 'E', includeSubjAltNames => 0)};
     my %seen;
     my @diff;
     foreach my $item (@expiredCertsBefore) {
@@ -2423,7 +2435,7 @@ sub _isCACert # (EBox::CA::DN dn)
 {
     my ($self, $dn) = @_;
 
-    my $caDN = $self->_obtain(CACERT, 'DN');
+    my $caDN = $self->caDN();
 
     return $caDN->equals($dn);
 }
@@ -2627,7 +2639,9 @@ sub _executeCommand # (command, input, hide_output)
 
     my $return = EBox::Sudo::root("openssl $command");
     ## TODO: Find a better way to set the permissions
-    EBox::Sudo::silentRoot("chown -R ebox:ebox " . CATOPDIR);
+    unless ($command =~ m/^x509\s/ and $command =~ m/\s-noout\s/) {
+        EBox::Sudo::silentRoot("chown -R ebox:ebox " . CATOPDIR);
+    }
 
    my $input;
    $input = $params{input} if (exists $params{input});

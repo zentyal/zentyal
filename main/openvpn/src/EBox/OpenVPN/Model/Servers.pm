@@ -410,7 +410,7 @@ sub _configureVPN
     my $ca = EBox::Global->modInstance('ca');
     my $name = $row->valueByName('name');
     my $certName = "vpn-$name";
-    my @certs = @{$ca->listCertificates()};
+    my @certs = @{$ca->listCertificates(includeSubjAltNames => 0)};
     unless (List::Util::first { $_->{dn}->{commonName} eq $certName } @certs ) {
         my $caExpiration = $ca->getCACertificateMetadata()->{expiryDate};
         $ca->issueCertificate(commonName => $certName , endDate => $caExpiration);
