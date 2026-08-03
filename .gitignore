@@ -1,3 +1,15 @@
 debs-ppa
 .DS_Store
-.idea
+.idea/
+.vscode/
+.fleet/
+.cursor/
+.cursorignore
+.clinerules
+.code-workspace
+*.swp
+*.swo
+*~
+.netrwhist
+.kilo/
+AGENTS.md
