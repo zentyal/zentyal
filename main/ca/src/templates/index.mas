@@ -117,12 +117,7 @@ use EBox::CA::DN;
 %      $caCertName = $cert->{'dn'}->attribute('commonName');
        <tr class="highlight">
 %     }
-     <td class="tleft"
-%     if ( defined($cert->{'subjAltNames'}) and @{$cert->{'subjAltNames'}} > 0 ) {
-%            my $subjAltNamesStr = join(', ', map { qq{$_->{type}: $_->{value}} } @{$cert->{'subjAltNames'}});
-             title="<% $subjAltNamesStr %>"
-% }
-         >
+     <td class="tleft">
 %     if ( $cert->{'isCACert'} ) {
         <% $cert->{'dn'}->attribute('commonName') %>
         <% __('from') %>

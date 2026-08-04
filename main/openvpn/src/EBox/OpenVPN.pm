@@ -758,7 +758,9 @@ sub CAIsReady
     }
 
     my $nValidCertificates =
-      grep {$_->{state} eq 'V'} @{  $ca->listCertificates  };
+      grep {$_->{state} eq 'V'} @{
+          $ca->listCertificates(includeSubjAltNames => 0)
+      };
 
     my $ready =
       ($nValidCertificates >= 2); # why 2? bz we need the CA certificate and
