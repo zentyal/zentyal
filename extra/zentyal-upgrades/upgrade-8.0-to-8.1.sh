@@ -345,11 +345,19 @@ function prepareZentyalRepository
     if [[ -n ${COMMERCIAL} ]]; then
         echo "$(date '+%d-%m-%Y %H:%M:%S') ........ Adding Commercial repository..." | tee -a ${LOG_FILE}
         wget -q ${ZEN_REPO_KEY_URL}/zentyal-${DESTV}-packages-com.asc -P /etc/apt/trusted.gpg.d/
+        if [[ $? -ne 0 ]] || [[ ! -s /etc/apt/trusted.gpg.d/zentyal-${DESTV}-packages-com.asc ]]; then
+            echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: Failed to download or the GPG key is empty: zentyal-${DESTV}-packages-com.asc" | tee -a ${LOG_FILE}
+            exit 130
+        fi
         echo "deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-${DESTV}-packages-com.asc] https://packages.zentyal.com/zentyal-qa ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal-qa.list
         rm -f /etc/apt/sources.list.d/zentyal.list
     else
         echo "$(date '+%d-%m-%Y %H:%M:%S') ........ Adding Development repository..." | tee -a ${LOG_FILE}
         wget -q ${ZEN_REPO_KEY_URL}/zentyal-${DESTV}-packages-org.asc -P /etc/apt/trusted.gpg.d/
+        if [[ $? -ne 0 ]] || [[ ! -s /etc/apt/trusted.gpg.d/zentyal-${DESTV}-packages-org.asc ]]; then
+            echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: Failed to download or the GPG key is empty: zentyal-${DESTV}-packages-org.asc" | tee -a ${LOG_FILE}
+            exit 130
+        fi
         echo "deb [signed-by=/etc/apt/trusted.gpg.d/zentyal-${DESTV}-packages-org.asc] https://packages.zentyal.org/zentyal ${DESTV} main extra" > /etc/apt/sources.list.d/zentyal.list
         rm -f /etc/apt/sources.list.d/zentyal-qa.list
     fi
@@ -362,6 +370,10 @@ function prepareDockerRepository
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Adding Docker repository" | tee -a ${LOG_FILE}
 
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    if [[ $? -ne 0 ]] || [[ ! -s /etc/apt/keyrings/docker.asc ]]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: Failed to download or the GPG key is empty: docker.asc" | tee -a ${LOG_FILE}
+        exit 130
+    fi
     chmod 0644 /etc/apt/keyrings/docker.asc
     echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable" >> /etc/apt/sources.list.d/zentyal.list
 
@@ -377,6 +389,10 @@ function prepareFirefoxRepository
     echo "$(date '+%d-%m-%Y %H:%M:%S') ...... Adding Firefox repository" | tee -a ${LOG_FILE}
 
     wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- > /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
+    if [[ $? -ne 0 ]] || [[ ! -s /etc/apt/trusted.gpg.d/packages.mozilla.org.asc ]]; then
+        echo "$(date '+%d-%m-%Y %H:%M:%S') ...... ERROR: Failed to download or the GPG key is empty: packages.mozilla.org.asc" | tee -a ${LOG_FILE}
+        exit 130
+    fi
     chmod 0644 /etc/apt/trusted.gpg.d/packages.mozilla.org.asc
     echo "deb [signed-by=/etc/apt/trusted.gpg.d/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" >> /etc/apt/sources.list.d/zentyal.list
 
