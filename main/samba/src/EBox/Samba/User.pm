@@ -83,7 +83,7 @@ use constant TRUSTED_TO_AUTH_FOR_DELEGATION => 0x01000000;
 use constant PARTIAL_SECRETS_ACCOUNT        => 0x04000000;
 
 # These attributes' changes are notified to LDAP slaves
-use constant CORE_ATTRS => ('samAccountName', 'givenName', 'sn', 'description',
+use constant CORE_ATTRS => ('samAccountName', 'givenName', 'sn', 'description', 'mail',
                             'uidNumber', 'gidNumber', 'unicodePwd', 'supplementalCredentials');
 
 sub new
@@ -501,6 +501,8 @@ sub create
         $displayName = $name;
     }
 
+    my $mail = $args{'mail'};
+
     my $dn = "CN=$name," .  $args{parent}->dn();
 
     # Check DN is unique (duplicated givenName and surname)
@@ -523,6 +525,7 @@ sub create
     push (@attr, sn          => $args{sn}) if ($args{sn});
     push (@attr, displayName => $displayName);
     push (@attr, description => $args{description}) if ($args{description});
+    push (@attr, mail => $mail);
     push (@attr, sAMAccountName => $samAccountName);
     push (@attr, userPrincipalName => "$samAccountName\@$realm");
     # All accounts are, by default Normal and disabled accounts.
