@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: Short description
+title: "[Bug] Short description"
 labels: 'Type: Bug'
 assignees: ''
 
@@ -23,14 +23,25 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Zentyal OS (please complete the following information):**
- - Version: [e.g. 5.0, 5.1, 6.0, 6.1]
- - Version of the module which has the bug [e.g. zentyal-dns-5.0.3]
- - Modules installed [e.g. DNS, DC, Jabber]
+**Zentyal environment (please complete the following information):**
+ - Zentyal version: [e.g. 7.1, 8.1]
+ - Affected module and version: [e.g. zentyal-dns 8.1.0]
+ - Other modules installed: [e.g. CA, DHCP, DNS, Samba]
 
-**Other OS (please complete the following information):**
- - OS: [e.g. Windows 10]
- - Version: [e.g. build 18363]
+**Diagnostic information (please attach as much as applies):**
+ - Output of `sudo zs <module> status`:
+ ```
+(paste here)
+ ```
+ - Relevant lines from `/var/log/zentyal/zentyal.log`:
+ ```
+(paste here)
+ ```
+ - Is the affected module enabled and running? [yes / no / unknown]
+
+**Client OS (if relevant):**
+ - OS: [e.g. Windows 11, Ubuntu 24.04]
+ - Version / build: [e.g. 23H2, 24.04]
 
 **Additional context**
 Add any other context about the problem here.
