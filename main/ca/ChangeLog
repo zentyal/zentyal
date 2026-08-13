@@ -1,4 +1,4 @@
-HEAD
+8.1.1
 	+ Improve certificate listing performance by skipping eager subject alternative names extraction when not needed
 	+ Cache CA distinguished name through caDN() to avoid repeated openssl calls
 	+ Skip recursive chown after read-only x509 metadata commands
