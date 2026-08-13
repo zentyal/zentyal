@@ -93,6 +93,15 @@ sub syncRows
         }
     }
 
+    # Dynamic interfaces (DHCP/PPP) from config, not from runtime state. Unlike
+    # %dynamicGws (which only has ifaces whose gateway is currently in the DHCP
+    # lease state and is wiped by 'netplan apply' during a save), this set is
+    # stable across a save. It is used to distinguish an auto gateway whose
+    # interface is still DHCP/PPP but whose lease is temporarily gone (keep the
+    # row) from one whose interface was changed away from DHCP/PPP (delete).
+    my %dynamicIfaces = map { $_ => 1 } (@{$network->dhcpIfaces()},
+                                         @{$network->pppIfaces()});
+
     my %currentIfaces = map {
         my $rowId = $_;
         my $row = $self->row($rowId);
@@ -153,6 +162,18 @@ sub syncRows
 
         next unless (defined ($row) and $row->valueByName('auto'));
 
+        if (exists $dynamicIfaces{$iface}) {
+            # The interface is still configured as DHCP/PPP but its gateway is
+            # temporarily absent from the runtime state (e.g. during 'netplan
+            # apply' in a save, which resets DHCP leases). Keep the auto row so
+            # the user's enabled/default/weight settings and the row id are
+            # preserved; the gateway IP will be refreshed by the modify path
+            # above when the lease is re-acquired.
+            next;
+        }
+
+        # The interface is no longer configured as DHCP/PPP — genuinely remove
+        # the auto gateway.
         $self->removeRow($id, 1);
 
         $modified = 1;

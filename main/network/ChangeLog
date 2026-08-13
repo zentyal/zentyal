@@ -1,3 +1,6 @@
+HEAD
+	+ Remove DHCP-installed default routes from the main routing table so fwmark policy routing is not short-circuited (multi-WAN DHCP fix)
+	+ Stop deleting auto gateway rows when their interface is still DHCP/PPP but the lease is temporarily gone, so enable/disable and weight/default settings persist across saves
 8.1.0
 	+ Set version to 8.1.0
 	+ Add dependency checks in removeVlan for bridge/bond interfaces on top of VLANs

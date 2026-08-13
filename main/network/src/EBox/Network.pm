@@ -4331,6 +4331,13 @@ sub _enforceServiceState
                     "gateway you specified is reachable.");
         }
     }
+
+    # Remove the default routes that NetworkManager's DHCP installs into the
+    # main routing table: if one stays there, the 'lookup main' rule added by
+    # _multigwRoutes is used before the fwmark rules get a chance, leaving
+    # multi-WAN inert. Only done when there are configured gateways, so a
+    # single DHCP WAN without gateways keeps its default route.
+    $self->_removeMainDefaultRoutes() if @{$self->gateways()};
 }
 
 sub _disableNetworkManagerUnsetIfaces
@@ -5293,6 +5300,10 @@ sub regenGateways
     }
     $self->_multigwRoutes();
 
+    # DHCP renewals re-add a default route to the main routing table; remove
+    # it here too so multi-WAN is not broken between full restarts.
+    $self->_removeMainDefaultRoutes() if @{$self->gateways()};
+
     EBox::Sudo::root('/sbin/ip route flush cache || true');
 
     $global->modRestarted('network');
@@ -5443,6 +5454,27 @@ sub _multipathCommand
         return $fullCmd;
     } else {
         return undef;
+    }
+}
+
+# Method: _removeMainDefaultRoutes
+#
+#   Remove the default routes that NetworkManager's DHCP installs into the main
+#   routing table, one per DHCP interface. In a multi-WAN setup the system
+#   default route lives in the 'default' table (the multipath route installed by
+#   _multipathCommand) and each gateway has its own table consulted via fwmark;
+#   if the main table holds a default route, the 'lookup main' rule matches it
+#   before the fwmark rules, making multi-WAN inert. Deleting per-interface
+#   (rather than every default at once) leaves any non-DHCP default untouched.
+#   Callers must check that gateways are configured first, so a single DHCP WAN
+#   keeps its default route and its connectivity.
+#
+sub _removeMainDefaultRoutes
+{
+    my ($self) = @_;
+
+    foreach my $iface (@{$self->dhcpIfaces()}) {
+        EBox::Sudo::silentRoot("/sbin/ip route del default dev $iface 2>/dev/null");
     }
 }
 
