@@ -3874,6 +3874,28 @@ sub _disableReversePath
     EBox::Sudo::root(@cmds);
 }
 
+# Method: _gatewayIfaceUp
+#
+#   Returns whether a gateway's (real) interface currently exists and is
+#   operationally up. Used to skip gateways whose link is down (e.g. cable
+#   unplugged): under NetworkManager such an interface loses its address and
+#   connected route, so routing through its gateway is rejected by the kernel
+#   ("Nexthop has invalid gateway") and would abort the whole network restart.
+sub _gatewayIfaceUp
+{
+    my ($self, $iface) = @_;
+
+    return 0 unless EBox::NetWrappers::iface_exists($iface);
+
+    my $up = 0;
+    try {
+        $up = EBox::NetWrappers::iface_is_up($iface);
+    } catch {
+        $up = 0;
+    }
+    return $up;
+}
+
 sub _multigwRoutes
 {
     my ($self, $dynIfaces) = @_;
@@ -3939,15 +3961,41 @@ sub _multigwRoutes
             next;
         }
 
+        # Skip gateways whose interface is operationally down (e.g. the cable
+        # is unplugged). Under NetworkManager a link-down interface loses its
+        # address and connected route, so adding a route via its gateway would
+        # fail with "Nexthop has invalid gateway" and, because the whole batch
+        # runs under 'set -e', abort the entire network restart.
+        unless ($self->_gatewayIfaceUp($iface)) {
+            EBox::warn("Interface $iface used by gateway " .
+                            $router->{name} . " is down." .
+                        " Not adding multi-gateway rules for this gateway.");
+            next;
+        }
+
         my $route = "via $ip dev $iface src $address";
         if ($method eq 'ppp') {
             $route = "dev $iface";
             (undef, $ip) = split ('/', $ip);
         }
 
+        # Write mark rules first to avoid local output problems
+        push(@cmds, "/sbin/ip route flush table $table || true");
+        push(@markRules, "/sbin/ip rule add fwmark $mark/0xFF table $table");
+        push(@addrRules, "/sbin/ip rule add from $ip table $table");
+
+        # Add rule by source in multi interface configuration
+        if (scalar keys %interfaces > 1) {
+            push(@addrRules, "/sbin/ip rule add from $address table $table");
+        }
+
+        # '|| true' as a safety net: if the link drops between the check above
+        # and this command, do not abort the whole batch.
+        push(@cmds, "/sbin/ip route add default $route table $table || true");
     }
 
     push(@cmds, @addrRules, @markRules);
+    push(@cmds,'/sbin/ip rule add table main');
 
     # Not in @cmds array because of possible CONNMARK exception
     my @fcmds;
@@ -4256,22 +4304,10 @@ sub _enforceServiceState
     }
     EBox::NetWrappers::clean_ifaces_list_cache();
 
-    my $cmd = $self->_multipathCommand();
-    if ($cmd) {
-        try {
-            EBox::Sudo::root($cmd);
-        } catch (EBox::Exceptions::Internal $e) {
-            throw EBox::Exceptions::External("An error happened ".
-                    "trying to set the default gateway. Make sure the ".
-                    "gateway you specified is reachable.");
-        }
-    }
-
     $self->_disableReversePath();
-    $self->_multigwRoutes($dynIfaces);
-
 
     $self->_applyChangesToSystemNetwork();
+    $self->_multigwRoutes($dynIfaces);
 
     $self->SUPER::_enforceServiceState();
     
@@ -4282,6 +4318,26 @@ sub _enforceServiceState
     
     # Clean up orphaned static route keys
     $self->_removeOrphanedStaticRoutes();
+
+    # Set the multipath default route as the final step: 'netplan apply' above
+    # resets routing, so this must run after _applyChangesToSystemNetwork.
+    my $finalCmd = $self->_multipathCommand();
+    if ($finalCmd) {
+        try {
+            EBox::Sudo::root($finalCmd);
+        } catch (EBox::Exceptions::Internal $e) {
+            throw EBox::Exceptions::External("An error happened ".
+                    "trying to set the default gateway. Make sure the ".
+                    "gateway you specified is reachable.");
+        }
+    }
+
+    # Remove the default routes that NetworkManager's DHCP installs into the
+    # main routing table: if one stays there, the 'lookup main' rule added by
+    # _multigwRoutes is used before the fwmark rules get a chance, leaving
+    # multi-WAN inert. Only done when there are configured gateways, so a
+    # single DHCP WAN without gateways keeps its default route.
+    $self->_removeMainDefaultRoutes() if @{$self->gateways()};
 }
 
 sub _disableNetworkManagerUnsetIfaces
@@ -5223,10 +5279,14 @@ sub regenGateways
 
     $self->saveConfig();
     my @commands;
-    push (@commands, '/sbin/ip route flush table default || true');
     my $cmd = $self->_multipathCommand();
     if ($cmd) {
+        # 'ip route replace' creates or fully replaces the multipath default
+        # in the default table, so no prior flush is needed.
         push (@commands, $cmd);
+    } else {
+        # No gateways: remove any stale default route left in the default table.
+        push (@commands, '/sbin/ip route flush table default || true');
     }
 
     # Silently delete duplicated MTU rules for PPPoE interfaces and
@@ -5239,6 +5299,10 @@ sub regenGateways
         EBox::error('Something bad happened reseting default gateways');
     }
     $self->_multigwRoutes();
+
+    # DHCP renewals re-add a default route to the main routing table; remove
+    # it here too so multi-WAN is not broken between full restarts.
+    $self->_removeMainDefaultRoutes() if @{$self->gateways()};
 
     EBox::Sudo::root('/sbin/ip route flush cache || true');
 
@@ -5351,10 +5415,10 @@ sub _multipathCommand
     }
 
     my $numGWs = 0;
+    my $cmd = 'ip route replace default table default';
+    my @nexthops;
 
-    my $cmd;
     for my $gw (@gateways) {
-
         # Skip gateways with unassigned address
         my $ip = $gw->{'ip'};
         next unless $ip;
@@ -5370,23 +5434,47 @@ sub _multipathCommand
         my $if = Net::Interface->new($iface);
         next unless $if and $if->address;
 
+        # Skip gateways whose interface is down: a single invalid nexthop makes
+        # the whole 'ip route replace ... nexthop ... nexthop ...' fail, which
+        # would leave the default table without a route (no internet even via
+        # the WAN that is still up).
+        next unless $self->_gatewayIfaceUp($iface);
+
         my $route = "via $ip dev $iface";
         if ($method eq 'ppp') {
             $route = "dev $iface";
         }
 
-        my $checkgw = EBox::Sudo::root("ip r s | grep 'default via $route dev $gw' || true");
-        if ($checkgw eq '') {
-            $cmd .= " nexthop $route weight $gw->{'weight'}";
-        }
-
+        push(@nexthops, "nexthop $route weight $gw->{'weight'}");
         $numGWs++;
     }
 
-    if ($numGWs) {
-        return $cmd;
+    if ($numGWs > 0) {
+        my $fullCmd = "$cmd " . join(' ', @nexthops);
+        return $fullCmd;
     } else {
         return undef;
+    }
+}
+
+# Method: _removeMainDefaultRoutes
+#
+#   Remove the default routes that NetworkManager's DHCP installs into the main
+#   routing table, one per DHCP interface. In a multi-WAN setup the system
+#   default route lives in the 'default' table (the multipath route installed by
+#   _multipathCommand) and each gateway has its own table consulted via fwmark;
+#   if the main table holds a default route, the 'lookup main' rule matches it
+#   before the fwmark rules, making multi-WAN inert. Deleting per-interface
+#   (rather than every default at once) leaves any non-DHCP default untouched.
+#   Callers must check that gateways are configured first, so a single DHCP WAN
+#   keeps its default route and its connectivity.
+#
+sub _removeMainDefaultRoutes
+{
+    my ($self) = @_;
+
+    foreach my $iface (@{$self->dhcpIfaces()}) {
+        EBox::Sudo::silentRoot("/sbin/ip route del default dev $iface 2>/dev/null");
     }
 }
 

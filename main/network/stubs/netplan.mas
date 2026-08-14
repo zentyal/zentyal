@@ -90,22 +90,11 @@ network:
 %         }
         addresses: [ <% join ', ', @$dns %> ]
 %       }
-% # Start gateway configuration
-%       my @gatewayInfo = $networkMod->ifaceGateways($iface);
-%       if (@gatewayInfo) {
-      routes:
-%         foreach my $gw (@gatewayInfo) {
-%           if ($gw->{default}) {
-        - to: 'default'
-%           } else {
-        - to: 0.0.0.0/0
-%           }
-          via: <% $gw->{ip} %>
-          metric: <% $gw->{weight} %>
-          on-link: true
-%         }
-%       }
-% # End gateway configuration
+% # Gateway routes are intentionally NOT written to netplan: multi-WAN routing
+% # (per-gateway tables, ip rules and the multipath default) is managed entirely
+% # by EBox::Network::_multigwRoutes / _multipathCommand. Writing default routes
+% # here would install them in the main table and break multi-WAN.
+%       my @gatewayInfo = ();
 % # Start static routes configuration
 %       my @staticRoutes = $networkMod->routesByIface($iface);
 %       if(!@gatewayInfo and @staticRoutes) {
@@ -172,22 +161,11 @@ network:
       dhcp6: no
       addresses:
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
-% # Start gateway configuration
-%     my @gatewayInfo = $networkMod->ifaceGateways($iface);
-%     if (@gatewayInfo) {
-      routes:
-%         foreach my $gw (@gatewayInfo) {
-%           if ($gw->{default}) {
-        - to: 'default'
-%           } else {
-        - to: 0.0.0.0/0
-%           }
-          via: <% $gw->{ip} %>
-          metric: <% $gw->{weight} %>
-          on-link: true
-%         }
-%       }
-% # End gateway configuration
+% # Gateway routes are intentionally NOT written to netplan: multi-WAN routing
+% # (per-gateway tables, ip rules and the multipath default) is managed entirely
+% # by EBox::Network::_multigwRoutes / _multipathCommand. Writing default routes
+% # here would install them in the main table and break multi-WAN.
+%     my @gatewayInfo = ();
 % # Start static routes configuration
 %     my @staticRoutes = $networkMod->routesByIface($iface);
 %     if(!@gatewayInfo and @staticRoutes) {
@@ -223,22 +201,11 @@ network:
       dhcp6: false
       addresses:
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
-% # Start gateway configuration
-%     my @gatewayInfo = $networkMod->ifaceGateways($iface);
-%     if (@gatewayInfo) {
-      routes:
-%         foreach my $gw (@gatewayInfo) {
-%           if ($gw->{default}) {
-        - to: 'default'
-%           } else {
-        - to: 0.0.0.0/0
-%           }
-          via: <% $gw->{ip} %>
-          metric: <% $gw->{weight} %>
-          on-link: true
-%         }
-%       }
-% # End gateway configuration
+% # Gateway routes are intentionally NOT written to netplan: multi-WAN routing
+% # (per-gateway tables, ip rules and the multipath default) is managed entirely
+% # by EBox::Network::_multigwRoutes / _multipathCommand. Writing default routes
+% # here would install them in the main table and break multi-WAN.
+%     my @gatewayInfo = ();
 % # Start static routes configuration
 %     my @staticRoutes = $networkMod->routesByIface($iface);
 %     if(!@gatewayInfo and @staticRoutes) {
@@ -287,22 +254,11 @@ network:
       dhcp6: false
       addresses:
         - <% $networkMod->ifaceAddress($iface) %>/<% EBox::NetWrappers::bits_from_mask($networkMod->ifaceNetmask($iface)) %>
-% # Start gateway configuration
-%     my @gatewayInfo = $networkMod->ifaceGateways($iface);
-%     if (@gatewayInfo) {
-      routes:
-%         foreach my $gw (@gatewayInfo) {
-%           if ($gw->{default}) {
-        - to: 'default'
-%           } else {
-        - to: 0.0.0.0/0
-%           }
-          via: <% $gw->{ip} %>
-          metric: <% $gw->{weight} %>
-          on-link: true
-%         }
-%       }
-% # End gateway configuration
+% # Gateway routes are intentionally NOT written to netplan: multi-WAN routing
+% # (per-gateway tables, ip rules and the multipath default) is managed entirely
+% # by EBox::Network::_multigwRoutes / _multipathCommand. Writing default routes
+% # here would install them in the main table and break multi-WAN.
+%     my @gatewayInfo = ();
 % # Start static routes configuration
 %     my @staticRoutes = $networkMod->routesByIface($iface);
 %     if(!@gatewayInfo and @staticRoutes) {
