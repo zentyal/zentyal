@@ -36,6 +36,7 @@ use EBox::Exceptions::Lock;
 
 use TryCatch;
 use Socket qw(inet_ntoa);
+use Fcntl qw(:flock);
 
 use constant PING_PATTERN => '7a6661696c6f76657274657374';
 use constant PING_PATTERN_TEXT => 'zfailovertest';
@@ -52,6 +53,30 @@ sub new
     bless($self, $class);
 
     return $self;
+}
+
+# Method: _networkLocked
+#
+#   Returns whether the network module lock is held by another process,
+#   without acquiring it and without logging anything. The lock file is the
+#   one used by EBox::Module::Base::_lock() and Network::regenGateways(), so
+#   this tells us whether the network module is being configured.
+#
+#   Implemented here (instead of adding a public helper to EBox::Util::Lock)
+#   so the network package keeps working with the core version it depends on,
+#   without requiring a newer one.
+#
+sub _networkLocked
+{
+    my ($self) = @_;
+
+    my $file = EBox::Util::Lock::_lockFile('network');
+    open(my $fh, '<', $file) or return 0;
+
+    my $locked = not flock($fh, LOCK_EX | LOCK_NB);
+    close($fh);
+
+    return $locked;
 }
 
 # Method: run
@@ -71,7 +96,7 @@ sub run
     # configured (a save, a restart or its boot setup holds its lock): skip
     # the check in that case, the tests would see the routing mid-application
     # and disable gateways that are actually fine.
-    if (EBox::Util::Lock::isLocked('network')) {
+    if ($self->_networkLocked()) {
         EBox::debug('The network module is being configured: skipping the failover check');
         return;
     }
@@ -382,10 +407,20 @@ sub _testRule
         $self->_probeRouteProblem($network->realIface($iface),
                                   $address, $self->{marks}->{$gw}, $host);
     if ($routeProblem) {
-        EBox::debug("Cannot test gateway $gwName: $routeProblem. Failing test.");
-        $self->_markAsFailed($gw, $gwName, $wasEnabled, $routeProblem);
-        # Restore the policy routing so the gateway can be tested again
-        $self->{needRegen} = 1 if $routeMissing;
+        if ($routeMissing) {
+            # The probes cannot be trusted because the multi-WAN routing is
+            # stale or missing (e.g. NetworkManager re-added the DHCP default
+            # route to the main table): regenerate it and keep the gateway
+            # state untouched instead of disabling a gateway that may be
+            # fine. A gateway that is already disabled stays disabled until
+            # its probes can be trusted again.
+            EBox::debug("Cannot test gateway $gwName: $routeProblem. Regenerating the routing.");
+            $self->{failed}->{$gw} = 1 unless $wasEnabled;
+            $self->{needRegen} = 1;
+        } else {
+            EBox::debug("Cannot test gateway $gwName: $routeProblem. Failing test.");
+            $self->_markAsFailed($gw, $gwName, $wasEnabled, $routeProblem);
+        }
         return;
     }
 

@@ -117,26 +117,4 @@ sub _lockFile
     return EBox::Config::tmp() .  $resource . ".lock";
 }
 
-# Method: isLocked
-#
-#   Returns whether the given resource is locked by another process, without
-#   trying to acquire the lock and without logging anything
-#
-# Parameters:
-#
-#   resource - resource name
-#
-sub isLocked
-{
-    my ($resource) = @_;
-
-    my $file = _lockFile($resource);
-    open(my $fh, '<', $file) or return 0;
-
-    my $locked = not flock($fh, LOCK_EX | LOCK_NB);
-    close($fh);
-
-    return $locked;
-}
-
 1;

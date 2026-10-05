@@ -65,9 +65,11 @@ function ebox_renew() {
         $libexec/dhcp-address.pl $interface $new_ip_address $new_subnet_mask
     fi
 
-    if [ "z$new_gateway" != "z$old_gateway" ] ; then
-        $libexec/dhcp-gateway.pl $interface $new_gateway
-    fi
+    ## Always store the gateway and regenerate the routing: NetworkManager
+    ## re-adds the DHCP default route to the main table on every lease event
+    ## (for instance when a bond changes its active slave), and the multi-WAN
+    ## routing must remove it again even when the gateway did not change.
+    $libexec/dhcp-gateway.pl $interface $new_gateway
 
     if [ "$change" = "yes" ] ; then
         if ( [ -x $firewall_script ] ); then

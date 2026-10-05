@@ -3107,7 +3107,16 @@ sub ifaceAddress # (name)
     if ($self->ifaceMethod($name) eq 'static') {
         return $self->get_hash('interfaces')->{$name}->{address};
     } elsif ($self->ifaceMethod($name) eq any('dhcp', 'ppp')) {
-        return $self->DHCPAddress($name);
+        my $address = $self->DHCPAddress($name);
+        unless ($address) {
+            # The DHCP/PPP state may be missing even if the interface still
+            # has its address (e.g. a transient dispatcher event cleared it):
+            # fall back to the address the interface actually has, so the
+            # multi-WAN routing and the failover checks keep working.
+            my @addresses = EBox::NetWrappers::iface_addresses($self->realIface($name));
+            $address = $addresses[0];
+        }
+        return $address;
     } elsif ($self->ifaceMethod($name) eq 'bridged') {
         my $bridge = $self->ifaceBridge($name);
         if ($self->ifaceExists("br$bridge")) {
@@ -4725,12 +4734,38 @@ sub DHCPCleanUp # (interface)
         $self->ifaceExists($iface) or
             throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                                                  value => $iface);
+
+        # NetworkManager may report a transient 'down' event for an interface
+        # which keeps its address (e.g. a bond member changing its active
+        # slave). Do not clear the DHCP state in that case: the multi-WAN
+        # routing and the failover checks use it to install the policy
+        # routing of the interface, and clearing it would drop the interface
+        # from the routing until a new lease event arrives.
+        if (($self->ifaceMethod($iface) eq any('dhcp', 'ppp')) and
+            $self->_ifaceHasAddress($iface)) {
+            return;
+        }
     }
 
     my $state = $self->get_state();
     delete $state->{dhcp}->{$iface};
     delete $state->{interfaces}->{$iface}->{ppp_iface};
     $self->set_state($state);
+}
+
+# Method: _ifaceHasAddress
+#
+#   Returns whether the real interface of the given one currently has an
+#   address in the system. Used to avoid clearing the DHCP state on transient
+#   events while the address is still there.
+#
+sub _ifaceHasAddress
+{
+    my ($self, $iface) = @_;
+
+    my $real = $self->realIface($iface);
+    my @addresses = EBox::NetWrappers::iface_addresses($real);
+    return (scalar(@addresses) > 0);
 }
 
 # Method: BridgedCleanUp
@@ -4998,7 +5033,17 @@ sub DHCPNetmask
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $iface);
 
-    return $self->get_state()->{dhcp}->{$iface}->{mask};
+    my $netmask = $self->get_state()->{dhcp}->{$iface}->{mask};
+    unless ($netmask) {
+        # Same fallback as in ifaceAddress: use the netmask the interface
+        # actually has when the DHCP state lost it
+        my $address = $self->ifaceAddress($iface);
+        if ($address) {
+            my $masks = EBox::NetWrappers::iface_addresses_with_netmask($self->realIface($iface));
+            $netmask = $masks->{$address};
+        }
+    }
+    return $netmask;
 }
 
 # Method: ping
