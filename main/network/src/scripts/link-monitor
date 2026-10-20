@@ -81,26 +81,40 @@ while (1) {
 # Method: _ifaceNeedsRegen
 #
 #   Returns whether a link change in the given interface requires regenerating
-#   the routing. Only controller and virtual interfaces are handled:
+#   the routing. Controller and virtual interfaces are handled:
 #   NetworkManager reports the link events of physical interfaces (its
 #   dispatcher hook regenerates the routing for them), but it does not report
-#   the carrier changes of bonds, bridges and VLANs.
+#   the carrier changes of bonds, bridges and VLANs. The carrier changes of
+#   bond slaves are handled too: they do not change the bond carrier (so
+#   NetworkManager ignores them) but they change the slave the bond sends
+#   through, and with it the path to the gateway.
 #
 sub _ifaceNeedsRegen
 {
     my ($iface) = @_;
 
     my $network = EBox::Global->getInstance(1)->modInstance('network');
+
+    # the bond this interface is a slave of, if any
+    my $bondIface;
+    if ($network->ifaceExists($iface) and
+        ($network->ifaceMethod($iface) eq 'bundled')) {
+        $bondIface = 'bond' . $network->ifaceBond($iface);
+    }
+
     return 0 unless ($network->ifaceIsBond($iface) or
                      $network->ifaceIsBridge($iface) or
-                     $network->vifaceExists($iface));
+                     $network->vifaceExists($iface) or
+                     defined($bondIface));
 
     foreach my $gw (@{$network->model('GatewayTable')->allGateways()}) {
         my $gwIface = $gw->{'interface'};
         next unless $network->ifaceExists($gwIface);
 
-        # the interface itself or a VLAN on top of it
-        return 1 if (($gwIface eq $iface) or ($gwIface =~ /^\Q$iface\E\./));
+        # the interface itself, the bond it is a slave of, or a VLAN on top
+        return 1 if (($gwIface eq $iface) or
+                     (defined($bondIface) and ($gwIface eq $bondIface)) or
+                     ($gwIface =~ /^\Q$iface\E\./));
 
         # the bridge of a bridged gateway
         my $bridge = $network->ifaceBridge($gwIface);
@@ -148,6 +162,12 @@ sub _regenRouting
     # by the failover: without a test rule the regeneration is enough
     return unless _someIfaceHasFailoverRule($ifaces);
 
+    # The neighbor entries learned through the old path are useless now:
+    # with a cached entry the probes could succeed right after the link
+    # change (and fail a moment later, once it expires), so flush them
+    # before probing to always test the path currently in use.
+    _flushNeighbors($ifaces);
+
     try {
         EBox::Sudo::root(CHECKER);
     } catch ($e) {
@@ -155,10 +175,36 @@ sub _regenRouting
     };
 }
 
+# Method: _flushNeighbors
+#
+#   Flushes the ARP/neighbor entries of the interfaces whose path may have
+#   changed: the changed interfaces themselves and, for bond slaves, the bond
+#   they are slaves of
+#
+sub _flushNeighbors
+{
+    my ($ifaces) = @_;
+
+    my $network = EBox::Global->getInstance(1)->modInstance('network');
+    my %flushed;
+    foreach my $iface (@{$ifaces}) {
+        my $target = $iface;
+        if ($network->ifaceExists($iface) and
+            ($network->ifaceMethod($iface) eq 'bundled')) {
+            $target = 'bond' . $network->ifaceBond($iface);
+        }
+        next if $flushed{$target};
+        next unless $network->ifaceExists($target);
+        $flushed{$target} = 1;
+        EBox::Sudo::silentRoot("/sbin/ip neigh flush dev $target");
+    }
+}
+
 # Method: _someIfaceHasFailoverRule
 #
 #   Returns whether any of the given interfaces is used by a gateway with an
-#   enabled WAN failover rule
+#   enabled WAN failover rule, either directly, as the bond it is a slave of,
+#   or as the bridge of a bridged gateway
 #
 sub _someIfaceHasFailoverRule
 {
@@ -172,6 +218,12 @@ sub _someIfaceHasFailoverRule
                                 ->valueByName('interface');
         foreach my $iface (@{$ifaces}) {
             return 1 if ($gwIface eq $iface);
+
+            # the bond a slave of the gateway belongs to
+            if ($network->ifaceExists($iface) and
+                ($network->ifaceMethod($iface) eq 'bundled')) {
+                return 1 if ($gwIface eq ('bond' . $network->ifaceBond($iface)));
+            }
 
             # the bridge of a bridged gateway
             next unless $network->ifaceExists($gwIface);

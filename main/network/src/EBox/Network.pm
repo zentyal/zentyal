@@ -4008,7 +4008,16 @@ sub _multigwRoutes
         # a failure in a single rule (e.g. a duplicated one) must not abort
         # the batch and leave the rest uninstalled: the WAN failover checker
         # verifies the rules and regenerates them if any is missing
-        push(@markRules, "/sbin/ip rule add fwmark $mark/0xFF table $table || true");
+        #
+        # A disabled gateway (by the user or by the WAN failover) keeps its
+        # table and source rules, so the failover checker can still probe it
+        # and re-enable it, but it must not get the fwmark rule: otherwise
+        # the traffic pinned to it by CONNMARK (e.g. established connections)
+        # would keep being sent to the dead gateway instead of falling back
+        # to the multipath default route and failing over to another WAN.
+        if ($router->{'enabled'}) {
+            push(@markRules, "/sbin/ip rule add fwmark $mark/0xFF table $table || true");
+        }
         push(@addrRules, "/sbin/ip rule add from $ip table $table || true");
 
         # Add rule by source in multi interface configuration
@@ -4041,7 +4050,12 @@ sub _multigwRoutes
         # Skip gateways with unassigned address
         next unless $router->{'ip'};
 
-        if ($router->{'default'} and $router->{'enabled'}) {
+        # Disabled gateways must not mark their ingress traffic either (see
+        # the fwmark rule above): the replies of the flows which came through
+        # them fall through to the multipath default route and fail over.
+        next unless ($router->{'enabled'});
+
+        if ($router->{'default'}) {
             $defaultRouterMark = $marks->{$router->{'id'}};
         }
 
@@ -4087,8 +4101,14 @@ sub _multigwRoutes
         push(@fcmds, '/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --save-mark');
 
         foreach my $chain (FAILOVER_CHAIN, CHECKIP_CHAIN) {
-            push(@fcmds, "/sbin/iptables -t mangle -N $chain");
-            push(@fcmds, "/sbin/iptables -t mangle -A OUTPUT -j $chain");
+            # A concurrent WAN failover check may have re-created the chain
+            # after the flush above: the batch runs under 'set -e', so an
+            # existing chain must not abort it (which would leave the OUTPUT
+            # jump uninstalled and the probes of the failover checker
+            # unmarked), and the jump must be installed only when missing.
+            push(@fcmds, "/sbin/iptables -t mangle -N $chain 2>/dev/null || true");
+            push(@fcmds, "/sbin/iptables -t mangle -C OUTPUT -j $chain 2>/dev/null"
+                       . " || /sbin/iptables -t mangle -A OUTPUT -j $chain");
         }
 
         EBox::Sudo::root(@fcmds);
@@ -4357,15 +4377,10 @@ sub _enforceServiceState
 
     # Set the multipath default route as the final step: 'netplan apply' above
     # resets routing, so this must run after _applyChangesToSystemNetwork.
-    my $finalCmd = $self->_multipathCommand();
-    if ($finalCmd) {
-        try {
-            EBox::Sudo::root($finalCmd);
-        } catch (EBox::Exceptions::Internal $e) {
-            throw EBox::Exceptions::External("An error happened ".
-                    "trying to set the default gateway. Make sure the ".
-                    "gateway you specified is reachable.");
-        }
+    if ($self->_installMultipathCommand() < 0) {
+        throw EBox::Exceptions::External("An error happened ".
+                "trying to set the default gateway. Make sure the ".
+                "gateway you specified is reachable.");
     }
 
     # Remove the default routes that NetworkManager's DHCP installs into the
@@ -5445,12 +5460,12 @@ sub regenGateways
 
     $self->saveConfig();
     my @commands;
-    my $cmd = $self->_multipathCommand();
-    if ($cmd) {
-        # 'ip route replace' creates or fully replaces the multipath default
-        # in the default table, so no prior flush is needed.
-        push (@commands, $cmd);
-    } else {
+    # 'ip route replace' creates or fully replaces the multipath default in
+    # the default table, so no prior flush is needed.
+    my $status = $self->_installMultipathCommand();
+    if ($status < 0) {
+        EBox::error('Something bad happened reseting default gateways');
+    } elsif ($status == 0) {
         # No gateways: remove any stale default route left in the default table.
         push (@commands, '/sbin/ip route flush table default || true');
     }
@@ -5588,6 +5603,46 @@ sub _pppoeRules
     return \@add;
 }
 
+# Method: _installMultipathCommand
+#
+#   Installs the multipath default route in the default table. The command is
+#   rebuilt and retried (bounded) when it fails: right after 'netplan apply'
+#   or a link event the interface of a DHCP gateway may be bouncing (link
+#   down but still addressed) and the kernel rejects its nexthop, making the
+#   whole 'ip route replace ... nexthop ...' fail. Rebuilding the command
+#   skips the gateways which are really unusable at that moment; the routing
+#   is completed by their DHCP event once their lease is back.
+#
+# Returns:
+#
+#   1  - the multipath command was installed
+#   0  - there are no usable gateways to build the command with
+#   -1 - the command failed after all the retries
+#
+sub _installMultipathCommand
+{
+    my ($self) = @_;
+
+    my $attempts = 5;
+    my $installed = 0;
+    my $finalCmd;
+    while ((not $installed) and ($attempts > 0)) {
+        $attempts--;
+        $finalCmd = $self->_multipathCommand();
+        # No usable gateways: nothing to install
+        last unless $finalCmd;
+        try {
+            EBox::Sudo::root($finalCmd);
+            $installed = 1;
+        } catch (EBox::Exceptions::Internal $e) {
+            sleep 2;
+        };
+    }
+
+    return 0 unless $finalCmd;
+    return $installed ? 1 : -1;
+}
+
 sub _multipathCommand
 {
     my ($self) = @_;
@@ -5640,11 +5695,17 @@ sub _multipathCommand
         # (e.g. a stale DHCP gateway left in the auto row while the lease has
         # already moved to another network): the kernel rejects such a nexthop
         # and the whole multipath command would fail.
+        #
+        # The check runs against the live addresses of the interface, not the
+        # stored ones: right after 'netplan apply' the DHCP state may still
+        # hold the previous lease address while the interface has already got
+        # a new one, and a gateway accepted here against the stale address
+        # would be rejected by the kernel, failing the whole command.
         unless ($method eq 'ppp') {
-            my $address = $self->ifaceAddress($iface);
             my $netmask = $self->ifaceNetmask($iface);
-            if ($address and $netmask and
-                not isIPInNetwork($address, $netmask, "$ip/32")) {
+            my @addresses = EBox::NetWrappers::iface_addresses($iface);
+            if ($netmask and @addresses and
+                not grep { isIPInNetwork($_, $netmask, "$ip/32") } @addresses) {
                 EBox::warn("Gateway $ip is not in the network of interface " .
                            "$iface. Not adding it to the default route.");
                 next;

@@ -18,6 +18,11 @@ HEAD
 	+ Regenerate the multi-WAN routing on every DHCP lease event even when the address and the gateway did not change, so the default route NetworkManager adds back to the main table is removed again
 	+ Do not clear the DHCP state on transient events while the interface still keeps its address, and use the interface address as a fallback when the state is missing, so bonds do not lose their policy routing after an active slave change
 	+ Check the network module lock from the failover checker itself, so the check does not require a newer zentyal-core than the one the network package depends on
+	+ Do not install the fwmark rule or the ingress marks of a gateway disabled by the WAN failover, so the traffic pinned to it falls back to the multipath default route and fails over to another WAN instead of being sent to the disabled gateway
+	+ React to the carrier changes of the slaves of a bond in the link monitor, so the routing is regenerated and the failover check is run as soon as the active slave changes (NetworkManager does not report those changes)
+	+ Flush the neighbors of the affected interface before running the failover check after a link change, so the probes test the current path instead of succeeding through a cached neighbor and failing a moment later
+	+ Retry the installation of the multipath default route, rebuilding it from the current state, and validate each gateway against the live addresses of its interface, so a save that bounces a DHCP interface does not fail with 'invalid gateway'
+	+ Install the failover and gateway check chains idempotently, so a failover check running concurrently with a routing regeneration cannot leave them unhooked and their probes unmarked
 8.1.0
 	+ Set version to 8.1.0
 	+ Add dependency checks in removeVlan for bridge/bond interfaces on top of VLANs
