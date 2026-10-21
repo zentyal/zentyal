@@ -93,6 +93,15 @@ sub syncRows
         }
     }
 
+    # Dynamic interfaces (DHCP/PPP) from config, not from runtime state. Unlike
+    # %dynamicGws (which only has ifaces whose gateway is currently in the DHCP
+    # lease state and is wiped by 'netplan apply' during a save), this set is
+    # stable across a save. It is used to distinguish an auto gateway whose
+    # interface is still DHCP/PPP but whose lease is temporarily gone (keep the
+    # row) from one whose interface was changed away from DHCP/PPP (delete).
+    my %dynamicIfaces = map { $_ => 1 } (@{$network->dhcpIfaces()},
+                                         @{$network->pppIfaces()});
+
     my %currentIfaces = map {
         my $rowId = $_;
         my $row = $self->row($rowId);
@@ -153,6 +162,18 @@ sub syncRows
 
         next unless (defined ($row) and $row->valueByName('auto'));
 
+        if (exists $dynamicIfaces{$iface}) {
+            # The interface is still configured as DHCP/PPP but its gateway is
+            # temporarily absent from the runtime state (e.g. during 'netplan
+            # apply' in a save, which resets DHCP leases). Keep the auto row so
+            # the user's enabled/default/weight settings and the row id are
+            # preserved; the gateway IP will be refreshed by the modify path
+            # above when the lease is re-acquired.
+            next;
+        }
+
+        # The interface is no longer configured as DHCP/PPP — genuinely remove
+        # the auto gateway.
         $self->removeRow($id, 1);
 
         $modified = 1;
@@ -213,6 +234,13 @@ sub _table
                     'editable' => 1,
                     'HTMLSetter' => '/network/booleanSetterDefaultGW.mas',
                     'HTMLViewer' => '/ajax/viewer/booleanViewer.mas',
+                ),
+        new EBox::Types::Int(
+                    'fieldName' => 'mark',
+                    'printableName' => __('Mark'),
+                    'optional' => 1,
+                    'editable' => 0,
+                    'hidden' => 1,
                 )
      );
 
@@ -445,20 +473,106 @@ sub defaultGateway()
     }
 }
 
+# Method: marksForRouters
+#
+#   Returns the fwmark assigned to every gateway. The marks are stored in the
+#   gateway rows, so they are stable: they do not change when the gateways are
+#   added, removed or reordered and the installed policy routing rules stay
+#   valid until the routing is regenerated.
+#
+# Returns:
+#
+#   hash ref - gateway id => mark
+#
 sub marksForRouters
 {
     my ($self) = @_;
 
     my $ids = $self->ids();
 
-    my $marks;
-    my $i = 1;
-    for my $id (@{$ids}) {
-        $marks->{$id} = $i;
-        $i++;
+    my %storedMarks;
+    foreach my $id (@{$ids}) {
+        my $mark = $self->row($id)->valueByName('mark');
+        $storedMarks{$id} = $mark if (defined($mark) and ($mark ne ''));
+    }
+
+    my $marks = _marksForIds(\%storedMarks, $ids);
+
+    # Store the marks assigned to the gateways that did not have one yet, so
+    # they are committed with the next save. A read-only instance (e.g. the
+    # WAN failover checker) just computes them.
+    unless ($self->{'confmodule'}->isReadOnly()) {
+        foreach my $id (@{$ids}) {
+            next if (exists $storedMarks{$id});
+            my $row = $self->row($id);
+            $row->elementByName('mark')->setValue($marks->{$id});
+            $row->store();
+        }
     }
 
     return $marks;
+}
+
+# Method: _marksForIds
+#
+#   Computes the mark of every gateway: the marks already stored are kept and
+#   the gateways without one get the lowest free mark. The marks are therefore
+#   stable: they do not change when the gateways are added, removed or
+#   reordered, so the policy routing rules installed for them stay valid until
+#   the routing is regenerated.
+#
+# Parameters:
+#
+#   storedMarks - hash ref with the marks already stored (gateway id => mark)
+#   ids - array ref with the gateway ids, in table order
+#
+# Returns:
+#
+#   hash ref - gateway id => mark
+#
+sub _marksForIds
+{
+    my ($storedMarks, $ids) = @_;
+
+    my %used;
+    my @missing;
+    my $marks = {};
+    foreach my $id (@{$ids}) {
+        my $mark = $storedMarks->{$id};
+        # Out of range or duplicated marks (e.g. from a restored or manually
+        # edited configuration) are reassigned
+        if (defined($mark) and ($mark >= 1) and ($mark <= 0xFF)
+            and (not $used{$mark})) {
+            $marks->{$id} = $mark;
+            $used{$mark} = 1;
+        } else {
+            push(@missing, $id);
+        }
+    }
+
+    foreach my $id (@missing) {
+        my $mark = _lowestFreeMark(\%used);
+        $marks->{$id} = $mark;
+        $used{$mark} = 1;
+    }
+
+    return $marks;
+}
+
+# Method: _lowestFreeMark
+#
+#   Returns the lowest free mark. Fwmarks are matched with a 0xFF mask, so
+#   there are 255 available marks.
+#
+sub _lowestFreeMark
+{
+    my ($used) = @_;
+
+    for (my $mark = 1; $mark <= 0xFF; $mark++) {
+        return $mark unless ($used->{$mark});
+    }
+
+    throw EBox::Exceptions::External(__('Too many gateways configured'));
 }
 
 # Returns only enabled gateways

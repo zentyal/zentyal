@@ -27,7 +27,6 @@ write_file("/var/lib/zentyal/conf/${iface}_gw", $router);
 
 use EBox;
 use EBox::Global;
-use EBox::Util::Lock;
 use TryCatch;
 
 EBox::init();
@@ -42,13 +41,9 @@ $router or exit;
 try {
     $network->setDHCPGateway($iface, $router);
 
-    # Do not call regenGateways if we are restarting changes, they
-    # are already going to be regenerated and also this way we
-    # avoid nested lock problems
-    my $ifupLock = EBox::Util::Lock::_lockFile('ifup');
-    unless (-f $ifupLock) {
-        $network->regenGateways();
-    }
+    # Regenerate the routing unless there are pending changes or a save is in
+    # progress.
+    $network->regenGatewaysOnEvent();
 } catch {
 }
 

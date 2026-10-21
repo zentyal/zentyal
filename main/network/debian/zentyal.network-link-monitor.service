@@ -1,0 +1,13 @@
+[Unit]
+Description=Zentyal network link monitor
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/share/zentyal-network/link-monitor
+Restart=on-failure
+RestartSec=5
+KillSignal=15
+
+[Install]
+WantedBy=multi-user.target

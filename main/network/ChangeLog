@@ -1,3 +1,34 @@
+HEAD
+	+ Move the WAN failover check logic into EBox::Network::FailoverChecker, run from the failover-checker script, so it can be unit tested, and make the message shown when the check is skipped for pending changes actionable
+	+ Store the fwmark of each gateway in its own row and assign it only once, so the marks do not change when the gateways are added, removed or reordered and the installed policy routing rules stay valid
+	+ Watch kernel link state changes with a network link monitor service, only run while WAN failover is configured, and regenerate the multi-WAN routing on them, so bonds and bridges (whose carrier changes NetworkManager does not report) recover as soon as their link is back instead of waiting for the next failover check
+	+ Wait for the addresses of the interfaces used by gateways before regenerating the routing after a save, so no gateway is left without its policy table or out of the multipath default route while its DHCP lease is being re-acquired
+	+ Skip gateways that are not inside the network of their interface when installing the multipath default route, so a stale DHCP gateway does not make the whole default route installation fail and leave the system without a default route
+	+ Only enable back the gateways disabled by the failover checker itself, so a gateway disabled by the user stays disabled
+	+ Retry the routing regeneration from the link monitor until the interfaces used by gateways are up, so bonds and bridges recover after their carrier stabilization (e.g. the bridge STP forward delay)
+	+ Tolerate individual failures when installing the multi-WAN policy rules, so a failing rule does not abort the batch after the flush and leave the rest of the routing uninstalled
+	+ Do not run the WAN failover checks while the network module is being configured, so the tests do not see the routing mid-application and disable gateways that are actually fine
+	+ Make the WAN failover checker verify that the marked probes leave through the gateway interface, so a WAN whose link is down or whose policy route is missing is not reported as healthy
+	+ Regenerate the multi-WAN routing from the WAN failover checker when an up interface has no policy route, so a gateway disabled while its link was down is re-enabled without restarting the network module
+	+ Regenerate the multi-WAN routing when a static interface comes back up, so a reconnected static WAN recovers its policy table and the failover checker can re-enable its gateway
+	+ Do not regenerate the gateways from interface events (DHCP lease, PPP or static link up) while there are pending changes, so unsaved edits are not silently committed
+	+ Remove DHCP-installed default routes from the main routing table so fwmark policy routing is not short-circuited (multi-WAN DHCP fix)
+	+ Stop deleting auto gateway rows when their interface is still DHCP/PPP but the lease is temporarily gone, so enable/disable and weight/default settings persist across saves
+	+ Keep the state of a gateway whose failover probes cannot be trusted because the multi-WAN routing is stale, and regenerate the routing instead of disabling a gateway that may be working
+	+ Regenerate the multi-WAN routing on every DHCP lease event even when the address and the gateway did not change, so the default route NetworkManager adds back to the main table is removed again
+	+ Do not clear the DHCP state on transient events while the interface still keeps its address, and use the interface address as a fallback when the state is missing, so bonds do not lose their policy routing after an active slave change
+	+ Check the network module lock from the failover checker itself, so the check does not require a newer zentyal-core than the one the network package depends on
+	+ Do not install the fwmark rule or the ingress marks of a gateway disabled by the WAN failover, so the traffic pinned to it falls back to the multipath default route and fails over to another WAN instead of being sent to the disabled gateway
+	+ React to the carrier changes of the slaves of a bond in the link monitor, so the routing is regenerated and the failover check is run as soon as the active slave changes (NetworkManager does not report those changes)
+	+ Flush the neighbors of the affected interface before running the failover check after a link change, so the probes test the current path instead of succeeding through a cached neighbor and failing a moment later
+	+ Retry the installation of the multipath default route, rebuilding it from the current state, and validate each gateway against the live addresses of its interface, so a save that bounces a DHCP interface does not fail with 'invalid gateway'
+	+ Install the failover and gateway check chains idempotently, so a failover check running concurrently with a routing regeneration cannot leave them unhooked and their probes unmarked
+	+ Skip the rp_filter sysctl for interfaces which do not exist in the system yet (bonds and bridges are created by 'netplan apply'), so creating a bond or bridge with a gateway does not abort the save with 'cannot stat /proc/sys/net/ipv4/conf/<iface>/rp_filter', and set the rp_filter of the interfaces created by 'netplan apply' after applying them
+	+ Drop the cached interface list after 'netplan apply', so the interfaces created by it (bonds, bridges, vlans) are seen by the rest of the save (gateway wait, multi-WAN routing and multipath default route)
+	+ Store a default bonding mode when a bond is created and persist the mode chosen in the interface form through the configuration API, so a bond is never written to netplan without a mode ('unknown bond mode') and the form cannot leave the mode unset
+	+ Fall back to the default bonding mode in the netplan template when a stored configuration has no mode, so bonds saved by older versions do not break the whole netplan file
+	+ Only use the live interface addresses as a fallback when the interface exists in the system, so querying the address of a DHCP interface which is not present (e.g. a bond whose creation failed) returns undef again instead of throwing 'Interface does not exist'
+	+ Wait for the network lock in the routing regeneration instead of retrying the non-blocking lock, so a save, a restart or a boot holding it does not flood the log with meaningless 'Could not get lock for service: network' errors
 8.1.0
 	+ Set version to 8.1.0
 	+ Add dependency checks in removeVlan for bridge/bond interfaces on top of VLANs
