@@ -23,6 +23,12 @@ HEAD
 	+ Flush the neighbors of the affected interface before running the failover check after a link change, so the probes test the current path instead of succeeding through a cached neighbor and failing a moment later
 	+ Retry the installation of the multipath default route, rebuilding it from the current state, and validate each gateway against the live addresses of its interface, so a save that bounces a DHCP interface does not fail with 'invalid gateway'
 	+ Install the failover and gateway check chains idempotently, so a failover check running concurrently with a routing regeneration cannot leave them unhooked and their probes unmarked
+	+ Skip the rp_filter sysctl for interfaces which do not exist in the system yet (bonds and bridges are created by 'netplan apply'), so creating a bond or bridge with a gateway does not abort the save with 'cannot stat /proc/sys/net/ipv4/conf/<iface>/rp_filter', and set the rp_filter of the interfaces created by 'netplan apply' after applying them
+	+ Drop the cached interface list after 'netplan apply', so the interfaces created by it (bonds, bridges, vlans) are seen by the rest of the save (gateway wait, multi-WAN routing and multipath default route)
+	+ Store a default bonding mode when a bond is created and persist the mode chosen in the interface form through the configuration API, so a bond is never written to netplan without a mode ('unknown bond mode') and the form cannot leave the mode unset
+	+ Fall back to the default bonding mode in the netplan template when a stored configuration has no mode, so bonds saved by older versions do not break the whole netplan file
+	+ Only use the live interface addresses as a fallback when the interface exists in the system, so querying the address of a DHCP interface which is not present (e.g. a bond whose creation failed) returns undef again instead of throwing 'Interface does not exist'
+	+ Wait for the network lock in the routing regeneration instead of retrying the non-blocking lock, so a save, a restart or a boot holding it does not flood the log with meaningless 'Could not get lock for service: network' errors
 8.1.0
 	+ Set version to 8.1.0
 	+ Add dependency checks in removeVlan for bridge/bond interfaces on top of VLANs

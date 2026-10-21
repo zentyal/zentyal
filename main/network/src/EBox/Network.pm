@@ -43,6 +43,10 @@ use constant SYSCTL_FILE => '/etc/sysctl.conf';
 use constant RESOLVED_FILE => '/etc/systemd/resolved.conf.d/zentyal.conf';
 use constant FAILOVER_CRON_FILE => '/etc/cron.d/zentyal-network';
 
+# Bonding modes accepted by netplan (and their kernel counterparts)
+use constant DEFAULT_BOND_MODE => 'balance-rr';
+use constant BOND_MODES => [qw(balance-rr 802.3ad balance-alb balance-tlb active-backup broadcast)];
+
 use Net::IP;
 use Net::Interface;
 use Perl6::Junction qw(any);
@@ -2730,6 +2734,17 @@ sub _createBond
     }
 
     $self->setIfaceAlias($bond, $bond);
+
+    # Store the default bonding mode: netplan rejects a bond without a mode,
+    # and the mode is only set explicitly when the bond's own form is
+    # submitted, so a bond created from the form of its slaves would be left
+    # without one.
+    $interfaces = $self->get_hash('interfaces');
+    unless (defined($interfaces->{$bond}->{bond_mode})
+            and ($interfaces->{$bond}->{bond_mode} ne '')) {
+        $interfaces->{$bond}->{bond_mode} = DEFAULT_BOND_MODE;
+        $self->set('interfaces', $interfaces);
+    }
 }
 
 # Method: _removeBond
@@ -3112,9 +3127,15 @@ sub ifaceAddress # (name)
             # The DHCP/PPP state may be missing even if the interface still
             # has its address (e.g. a transient dispatcher event cleared it):
             # fall back to the address the interface actually has, so the
-            # multi-WAN routing and the failover checks keep working.
-            my @addresses = EBox::NetWrappers::iface_addresses($self->realIface($name));
-            $address = $addresses[0];
+            # multi-WAN routing and the failover checks keep working. Only
+            # when the interface exists in the system: for one which does
+            # not (e.g. a bond whose creation failed) the address is unknown
+            # and undef is the documented result.
+            my $real = $self->realIface($name);
+            if (EBox::NetWrappers::iface_exists($real)) {
+                my @addresses = EBox::NetWrappers::iface_addresses($real);
+                $address = $addresses[0];
+            }
         }
         return $address;
     } elsif ($self->ifaceMethod($name) eq 'bridged') {
@@ -3263,6 +3284,38 @@ sub bondMode # (name)
         return $self->get_hash('interfaces')->{$name}->{bond_mode};
     }
     return undef;
+}
+
+# Method: setIfaceBondMode
+#
+#   Sets the bonding mode of a bond interface
+#
+# Parameters:
+#
+#   name - bond interface name
+#   mode - bonding mode
+#
+sub setIfaceBondMode # (name, mode)
+{
+    my ($self, $name, $mode) = @_;
+
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+    $self->ifaceIsBond($name) or
+        throw EBox::Exceptions::InvalidData(data => __('Interface'),
+                             value => $name);
+    (defined($mode) and ($mode ne '') and
+        grep { $_ eq $mode } @{BOND_MODES()}) or
+        throw EBox::Exceptions::InvalidData(data => __('Bonding mode'),
+                             value => $mode);
+
+    # Persist through the configuration API: a direct change of the hash
+    # returned by get_hash is only saved as a side effect of the setters
+    # which run in the same request.
+    my $ifaces = $self->get_hash('interfaces');
+    $ifaces->{$name}->{bond_mode} = $mode;
+    $self->set('interfaces', $ifaces);
 }
 
 # Method: realIface
@@ -3868,11 +3921,11 @@ sub _removeRoutes
 }
 
 # disable reverse path for gateway interfaces
-sub _disableReversePath
+sub _disableReversePath # (routers?)
 {
-    my ($self) = @_;
+    my ($self, $routers) = @_;
 
-    my $routers = $self->gatewaysWithMac();
+    $routers = $self->gatewaysWithMac() unless ($routers);
 
     my @cmds;
     push (@cmds, '/sbin/sysctl -q -w net.ipv4.conf.all.rp_filter=0');
@@ -3890,6 +3943,13 @@ sub _disableReversePath
         # Skipping vlan interfaces as it seems rp_filter key doesn't
         # exist for them
         next if ($iface =~ /^vlan/);
+
+        # The rp_filter key only exists for interfaces already present in
+        # the system: a bond or bridge created by 'netplan apply' has no key
+        # yet, and sysctl would fail and abort the whole save. Those
+        # interfaces are handled by the call to this method which runs after
+        # 'netplan apply'.
+        next unless (iface_exists($iface));
 
         push (@cmds, "/sbin/sysctl -q -w net.ipv4.conf.$iface.rp_filter=0");
     }
@@ -4351,9 +4411,17 @@ sub _enforceServiceState
     }
     EBox::NetWrappers::clean_ifaces_list_cache();
 
-    $self->_disableReversePath();
+    # The gateway list is fetched once and reused after 'netplan apply': the
+    # second call only differs in the interfaces which exist by then
+    my $routers = $self->gatewaysWithMac();
+    $self->_disableReversePath($routers);
 
     $self->_applyChangesToSystemNetwork();
+
+    # 'netplan apply' above creates the virtual interfaces (bonds, bridges)
+    # which did not exist when _disableReversePath ran: disable the reverse
+    # path filtering on them now that their sysctl key exists.
+    $self->_disableReversePath($routers);
 
     $self->SUPER::_enforceServiceState();
     
@@ -4510,6 +4578,10 @@ sub _applyChangesToSystemNetwork()
 
     $self->_disableNetworkManagerUnsetIfaces();
     EBox::Sudo::root(NETPLAN." apply");
+    # The interfaces created by 'netplan apply' (bonds, bridges, vlans) are
+    # not in the cached interface list, which was read before applying: drop
+    # it so the rest of the save sees them.
+    EBox::NetWrappers::clean_ifaces_list_cache();
     # Avoid issues with NetworkManager service (it requires a few seconds)
     sleep 5;
 }
@@ -4779,6 +4851,8 @@ sub _ifaceHasAddress
     my ($self, $iface) = @_;
 
     my $real = $self->realIface($iface);
+    # An interface which does not exist in the system has no address
+    return 0 unless (EBox::NetWrappers::iface_exists($real));
     my @addresses = EBox::NetWrappers::iface_addresses($real);
     return (scalar(@addresses) > 0);
 }
@@ -5051,11 +5125,15 @@ sub DHCPNetmask
     my $netmask = $self->get_state()->{dhcp}->{$iface}->{mask};
     unless ($netmask) {
         # Same fallback as in ifaceAddress: use the netmask the interface
-        # actually has when the DHCP state lost it
-        my $address = $self->ifaceAddress($iface);
-        if ($address) {
-            my $masks = EBox::NetWrappers::iface_addresses_with_netmask($self->realIface($iface));
-            $netmask = $masks->{$address};
+        # actually has when the DHCP state lost it, provided the interface
+        # exists in the system
+        my $real = $self->realIface($iface);
+        if (EBox::NetWrappers::iface_exists($real)) {
+            my $address = $self->ifaceAddress($iface);
+            if ($address) {
+                my $masks = EBox::NetWrappers::iface_addresses_with_netmask($real);
+                $netmask = $masks->{$address};
+            }
         }
     }
     return $netmask;
@@ -5440,21 +5518,14 @@ sub regenGateways
 
     my $global = EBox::Global->getInstance();
 
-    my $timeout = 180;
-    my $locked = 0;
-
-    while ((not $locked) and ($timeout > 0)) {
-        try {
-            EBox::Util::Lock::lock('network');
-            $locked = 1;
-        } catch (EBox::Exceptions::Lock $e) {
-            sleep 5;
-            $timeout -= 5;
-        }
-    }
-
-    unless ($locked) {
-        EBox::error('Network module has been locked for 60 seconds');
+    # Wait for the lock instead of retrying it: a save, a network restart or
+    # a boot are normal holders of it, and every failed non-blocking attempt
+    # creates a Lock exception which is logged as an error, cluttering the
+    # log with meaningless failures.
+    try {
+        EBox::Util::Lock::lock('network', 1, 180);
+    } catch (EBox::Exceptions::Lock $e) {
+        EBox::error('Network module has been locked for 180 seconds');
         return;
     }
 

@@ -57,6 +57,28 @@ sub test_flag_if_up : Test(8)
     is($mod->flagIfUp(), undef, 'Flag has been unset correctly');
 }
 
+sub test_bond_mode : Test(6)
+{
+    my ($self) = @_;
+
+    my $mod = $self->{mod};
+
+    is(EBox::Network::DEFAULT_BOND_MODE(), 'balance-rr',
+       'The default bonding mode is the kernel default');
+
+    # A newly created bond always has a mode, so it can be written to netplan
+    lives_ok { $mod->_createBond(0) } 'Creating a bond lives';
+    is($mod->bondMode('bond0'), 'balance-rr',
+       'A new bond gets the default bonding mode');
+
+    lives_ok { $mod->setIfaceBondMode('bond0', '802.3ad') }
+        'Setting a valid bonding mode lives';
+    is($mod->bondMode('bond0'), '802.3ad', 'The bonding mode has been updated');
+
+    throws_ok { $mod->setIfaceBondMode('bond0', 'not-a-mode') }
+        'EBox::Exceptions::InvalidData', 'An invalid bonding mode is rejected';
+}
+
 sub test_failover_disabled_flag : Test(9)
 {
     my ($self) = @_;

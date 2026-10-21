@@ -191,6 +191,10 @@ network:
 %     my $method = $networkMod->ifaceMethod($iface);
 %     next if $method eq 'notset';
 %     if ($networkMod->ifaceIsBond($iface)) {
+%       my $bondMode = $networkMod->bondMode($iface);
+% # netplan rejects a bond without a mode: fall back to the kernel default
+% # for configurations saved before the mode was stored
+%       $bondMode = EBox::Network::DEFAULT_BOND_MODE unless ($bondMode);
     <% $iface %>:
 %   if($method eq 'dhcp') {
       dhcp4: true
@@ -227,7 +231,7 @@ network:
 %   }
       interfaces: [ <% join ', ', @{$networkMod->bondIfaces($iface)} %> ]
       parameters:
-        mode: <% $networkMod->bondMode($iface) %>
+        mode: <% $bondMode %>
         up-delay: 200
         down-delay: 200
         # fail-over-mac-policy: active TODO

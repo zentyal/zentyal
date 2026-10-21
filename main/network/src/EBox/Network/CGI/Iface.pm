@@ -138,7 +138,7 @@ sub setIface
         if ($net->ifaceIsBond($iface)) {
             $self->_requireParam('bond_mode', __('bonding mode'));
             $bond_mode = $self->param('bond_mode');
-            $net->get_hash('interfaces')->{$iface}->{bond_mode} = $bond_mode;
+            $net->setIfaceBondMode($iface, $bond_mode);
         }
     } catch (EBox::Exceptions::DataInUse $e) {
         $self->{template} = 'network/confirm.mas';
